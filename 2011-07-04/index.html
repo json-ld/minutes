@@ -1,0 +1,1093 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf8" />
+  <title>Linked Data in JSON Telecon: 2011-07-04</title>
+  
+  <style type="text/css">
+body {
+   margin: 10%;
+}
+.name {
+   font-weight: bold;
+}
+
+.information {
+   font-style: italic;
+}  
+  </style>
+</head>
+
+<body>
+  <h1>Linked Data in JSON Telecon</h1>
+
+  <h2>Minutes for 2011-07-04</h2>
+
+  <div class="summary">
+    <dl>
+      <dt>Agenda</dt>
+
+      <dd><a href=
+      "http://lists.w3.org/Archives/Public/public-linked-json/2011Jul/0001.html">
+      http://lists.w3.org/Archives/Public/public-linked-json/2011Jul/0001.html</a></dd>
+
+      <dt>Chair</dt>
+
+      <dd>Manu Sporny</dd>
+
+      <dt>Scribe</dt>
+
+      <dd>Thomas Steiner</dd>
+
+      <dt>Present</dt>
+
+      <dd>Manu Sporny, Gregg Kellogg, Bradley Allen, Thomas Steiner, Michael
+      Johnson, Dave Longley, Niklas Lindström</dd>
+
+      <dt>Audio Log</dt>
+      
+      <dd>
+      <div>
+        <a href="audio.ogg">audio.ogg</a>
+      </div>
+      <div>
+        <audio controls="controls" preload="none"> 
+          <source src="audio.ogg" type="audio/ogg" />
+          Warning: Your browser does not support the HTML5 audio element, 
+          please upgrade.
+      </div>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="information">
+    Note: Thomas Steiner is scribing.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Does anyone have objections to
+    swapping agenda items #3 and #1. So we would do introductions first, then
+    talk about the current state of the spec and implementations, and then go
+    into attempting to define Linked Data more formally?
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1 change agenda
+  </div>
+
+  <h1 id="topic-1"
+      class="topic">Topic: Introductions</h1>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: involved in rdfa standardization,
+    PaySwarm, which was the reason for creating json-ld
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: JSON-LD was influenced by Mark
+    Birbeck's RDFj and Ian Davis of Talis' RDF/JSON work.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: consultant, working in media area
+    (music, video, etc), responsible for most of the RDF parsers in Ruby
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: working on extending APIs for
+    giving our developers access to metadata, our company is one of the largest
+    publishers of scientific data in the world.
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: started from XML underpinning,
+    moving more &amp; more to json
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: Coming from REST corner, went to
+    Semantic Web/Linked data corner - developing RDFa browser extensions.
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: Thought it would be great if we
+    could not only get metadata out of the pages, but also publish data in JSON
+    in a more Webby way
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: Also in the RDF and RDFa Working
+    Groups at W3C. I feel there is a need for serialization... I feel unsure
+    exactly what I want out of this - full glory of JSON, full glory of RDF,
+    something in the middle. Should be something that supports triples at the
+    least.
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: I work at Digital Bazaar on the
+    PaySwarm stuff and the Universal Payment standard initiative
+  </div>
+
+  <div class="information">
+    We need something like JSON-LD for PaySwarm
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: I'm the CTO of Digital Bazaar
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: also interested in getting JSON-LD
+    working for PaySwarm.
+  </div>
+
+  <h1 id="topic-2"
+      class="topic">Topic: State of the Specs and Implementations</h1>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: there are two specs for JSON-LD
+    right now, advanced and basic
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: do we want this separation at all?
+    That's actively being discussed in the community.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: most complete implementation is the
+    one Dave Longley is working on, could you take us through that, Dave?
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: JSON-LD JavaScript: <a href=
+    "https://github.com/digitalbazaar/forge">https://github.com/digitalbazaar/forge</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: JSON-LD C++: <a href=
+    "https://github.com/digitalbazaar/monarch/blob/jsonld/cpp/data/json/JsonLd.cpp">
+    https://github.com/digitalbazaar/monarch/blob/jsonld/cpp/data/json/JsonLd.cpp</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: worked on the JavaScript
+    implementation, which is pretty complete.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: and the c++ implementation
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: implementations include expanding
+    objects (CURIE expansion)
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: implementation included compacting
+    (CURIE compaction and remapping)
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: implemantion also includes
+    normalization &amp; framing
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: corner cases difficult to implement
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: framing feature not yet spec'ed,
+    but used internally to build simple representations of graphs - think
+    simple JSON objects. Kind of like Projections in RDFa. Developers just want
+    to work with simple objects directly, not necessarily graph APIs.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: frame acts as a filter to the graph
+    dataset - just give me what I want to work with. Just give me events, or
+    people, etc.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: We have a set of tests for
+    compaction/expansion/normalization: <a href=
+    "https://github.com/digitalbazaar/forge/tree/master/tests/jsonld">https://github.com/digitalbazaar/forge/tree/master/tests/jsonld</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: allows for working in a more
+    natural way. You can see an example of a frame in the test suite
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: <a href=
+    "https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-in.json">
+    https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-in.json</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: <a href=
+    "https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-frame.json">
+    https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-frame.json</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: <a href=
+    "https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-out.json">
+    https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-out.json</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: that's it for JavaScript, C++ has
+    the same set of features - it's just a port of the JavaScript code.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: A python port in the works, Mike's
+    working on that.
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: I took the JavaScript code and
+    was able to port it over pretty quickly. It took 3 days and the Python
+    version passes all of the tests, except for the evil normalization test.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: :)
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: JSON-LD Python: <a href=
+    "https://github.com/digitalbazaar/payswarm-python">https://github.com/digitalbazaar/payswarm-python</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: we need to update the public
+    implementation, but we'll release the code when we upgrade the PaySwarm
+    Authority reference implementation. The Python JSON-LD code will eventually
+    get it's own repository. I've also been writing a unit test framework for
+    the python implmentaiton
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: I have a complete parser working,
+    the serializer is working except for the normalization stuff.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: <a href=
+    "https://github.com/gkellogg/json-ld">https://github.com/gkellogg/json-ld</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: ballen: Right now I haven't updated
+    my JSON-LD implementation to the latest spec - I've taken elements of the
+    spec and applied it to specific purposes for Linked Data.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: ballen: Using the idiom itself to do
+    encoding - using that w/ MongoDB to be able to build a low complexity query
+    RDF store in that framework.
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: using it together with mongo db to
+    build an RDF store
+  </div>
+
+  <div class="information">
+    some more JSON-LD implementations can be found by googling
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Henri Bergius has a JSON-LD
+    implementation for VIE - part of the IKS semantic wiki project in the EU.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: spec is fairly up-to-date as far as
+    the syntaxes are concerned, barring any major changes to the data model.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: two things going on in parallel
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: We believe that normalization for
+    the non-ridiculous cases can be dealt with easily, the ridiculous cases are
+    NP, but Dave is working on solutions for those.
+  </div>
+
+  <h1 id="topic-3"
+      class="topic">Topic: Formal Definition of Linked Data</h1>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: There are a group of people saying
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: some folks are saying that RDF is
+    too complex, we need to simplify the linked json stuff
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: gregg has put a doc together
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: <a href=
+    "http://json-ld.org/requirements/latest/">http://json-ld.org/requirements/latest/</a>
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: let's go thru Gregg's doc and do a
+    straw poll to see if we have consensus on some of the items.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: seemed like email convos were
+    going round in circles
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: thought might make sense to
+    structure the discussion
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: what is linked data? We should get
+    a good formal definition before we go too far.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: bnodes made it seem too close to
+    RDF
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: thought we could talk about it in
+    the form of graphs
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: if we know what linked data means,
+    what does it imply for JSON?
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: what is the model we're looking
+    at?
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: is it a graph? or is it a
+    json-centric model? or is it something else?
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: "What is Linked Data?" seems to be
+    the crux of the confusion on the mailing list.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: let's go thru each item
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Linked Data is used to express
+    relationships between entities expressed as subject-predicate-object, or
+    entity-attribute-value.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: (was suggesting to go thru points
+    one by one)
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: not everything has to expressed as
+    a set of triples
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: that was gkellogg
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: linked data used to represent
+    directed graphs
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: destination nodes can be called
+    subject/object, vertexes predicates
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Linked Data is used to represent a
+    directed graph, and within the context of Linked Data, the graph can be
+    represented as connections between different nodes, nodes are subjects and
+    objects, links are properties. Nodes may have identifiers that are URIs
+    allowing them to be externally addressed.
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: would be clarifying if we scrub
+    the rdf roots
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: need to be crisp about the
+    terminology
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: what you find over time is the need
+    to use words that define concepts, (over)loaded with decades of usage
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: an example would be blank nodes
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: { "name": "Bradley Allen" }
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: immedeate thing you get out of that
+    example is the requirement for something like a blank node. That JSON
+    object doesn't have an identifier, there is an doiscussion going on if we
+    need identifiers all the time
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: we've been through this
+    simplification game before
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: linked data is imho the concept
+    of providing links where no links used to exist before
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: quoting http
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: not sure if we can create a spec on
+    top of that - the definition is too loose.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: they seem to end up being the same
+    definitions
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: let's strawpoll with what Gregg
+    said.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Linked Data is used to represent a
+    directed graph, and within the context of Linked Data, the graph can be
+    represented as connections between different nodes, nodes are subjects and
+    objects, links are properties. Nodes may have identifiers that are URIs
+    allowing them to be externally addressed.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1 :)
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: This is good! I thought that we may
+    have a fundamental disagreement on the core of Linked Data, but it doesn't
+    seem like we do.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: we still need to make sure those on
+    the list agree, but this is a good start at consensus.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Next item: A subject is a
+    non-terminal node in a directed graph.
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: the language needs cleansing, but
+    the sense is +1able
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: i could see someone misunderstand
+    this with the "non-terminal" part
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: what's really being said here is
+    that a subject with a link degree != 0
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A subject is any node in a directed
+    graph with at least one outgoing link.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A subject may be given a unique
+    identifier represented using a URI.
+  </div>
+
+  <div class="information">
+    shall we combine this with the previous definition?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A subject may be labeled with an
+    IRI.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: what that does is clarify how to
+    treat blank nodes
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: Since I can't dial in, I'm
+    missing a lot, but aren't we just (re-) defining the graph model
+    underpinning RDF here?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: more or less :)
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: but we're doing it w/o talking about
+    RDF at all, which may have some benefits.
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: yep
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1 anyway (my SIP connection is
+    borked somehow; probably the company net)
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: now we're entering into shaky ground
+    with blank nodes, we should skip this and leave it until the end.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: proposed change here
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: ok to use property instead of
+    predicate?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A property describes an edge of the
+    directed graph relating two entities.
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1 to move to property
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A property describes an edge of the
+    directed graph relating two nodes.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A property is an edge of the
+    directed graph relating two nodes.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A property is an edge of the
+    directed graph.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: that takes us to 8, a property may
+    be labeled with an IRI
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A property SHOULD be labeled with an
+    IRI.
+  </div>
+
+  <div class="information">
+    Discussion around SHOULD or MAY language and consistency.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: we should use spec terms, so let's
+    make it SHOULD, as we strongly suggest people identifying properties with
+    IRIs
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: how does this align to JSON usage
+    of property names
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: this is where we start to confuse
+    syntax with Linked Data.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: json-ld must provide a way to do
+    this, but that's why we have context - it's higher up the stack.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: we didn't make this statement for
+    subjects, as oftentimes there are no proper IRIs defined for subjects
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: a property relationship is a best
+    practice
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A property SHOULD be labeled with an
+    IRI almost always, there are very few use cases that make sense where you
+    don't label a property with an IRI. There are more use cases where you
+    don't label a node with an IRI.
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: that's the motivation behind
+    SHOULD for property vs. MAY for subject
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: We're at the top of the hour, is
+    everyone okay to continue on for about 15 more minutes?
+  </div>
+
+  <div class="information">
+    The group decides to extend the call by 15 minutes
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: An object is a node in a directed
+    graph with at least one incoming link.
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: we're mixing "link" and "edge",
+    should we pick one?
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: let's use edge
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1 edge
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1 edge
+  </div>
+
+  <div class="information">
+    link is overloaded
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1 edge
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: An object is a node in a directed
+    graph with at least one incoming edge.
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1 for object
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: What is a link; the use of a
+    URI to label an edge?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: no - link is confusing - we are
+    using the word 'edge' instead.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: link is too overloaded... a graph is
+    'nodes' and 'edges'
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1 for that (but the question
+    is still valid ;) )
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1 for object
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: we could strike 10 and 11
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: i don't think datatyping needs to be
+    part of Linked Data
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: what you can say, though, is that
+    the object can be labeled with an IRI
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: if an object is a scalar value
+    such as a date, can it have a label then?
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: for a given json object you could
+    draw the graph in a serialization-neutral way
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: that would allow us to frame the
+    discussion
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: An object may be labeled with an IRI
+    or a literal?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: An object may be labeled with an IRI
+    or a scalar value?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: could we say "an object may be
+    labeled with an IRI or a literal"?
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: literals are said to denote
+    themselves (I interpret that kind of like "they are their names")
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: we need an abstract definition of
+    an object first
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: we have that in 9
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: an object may be labeled with an
+    IRI
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: An object MUST be labeled with an
+    IRI *or* a literal?
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: An object MAY be labeled with an
+    IRI *or* a literal?
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: An object MAY be labeled with an
+    IRI *or* a literal *or* a 'whatever'?
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: An object MAY be labeled with an
+    IRI *or* a literal *or* be unlabeled?
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: I suggest we base the
+    underlying model on RDF concepts as currently defined. These matters are
+    deep. Cconsider the ongoing debates of literals in subject position, etc.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: An object MAY be labeled with an IRI
+    or a literal. A Node may be unlabeled.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: A Node may be unlabeled.
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Gregg Kellogg</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Dave Longley</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: +1
+  </div>
+
+  <div class="comment">
+    <span class="name">Thomas Steiner</span>: +1 (weak)
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: (+1 for "A node may be unlabeled")
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: +1 for node may be unlabeled
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: An object MAY be labeled with an IRI
+    or a literal.
+  </div>
+
+  <div class="comment">
+    <span class="name">Niklas Lindström</span>: .. or BE a literal?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: We are running out of time for
+    today's call. We've been very productive today, this is good! There is a
+    large group of us that agree on some fundamentals. Thanks everyone for
+    participating in the conversation.
+  </div>
+
+  <div class="comment">
+    <span class="name">Bradley Allen</span>: thanks to Gregg for compiliing
+    this requirements document. Can you put it on github?
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: it's already on github, all of this
+    stuff is
+  </div>
+
+  <div class="comment">
+    <span class="name">Michael Johnson</span>: thanks all!
+  </div>
+
+  <div class="comment">
+    <span class="name">Manu Sporny</span>: Thanks to Tom Steiner for scribing.
+    Have a good week, everyone.
+  </div>
+</body>
+</html>
+

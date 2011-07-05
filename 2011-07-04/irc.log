@@ -1,0 +1,282 @@
+[Mon 09:58]	<manu-db>	scribe: tomayac
+[Mon 09:58]	<voip-ps>	<no name> (IAX2/diamondcard-191) is in the conference.
+[Mon 09:58]	<voip-ps>	<unknown> (IAX2/diamondcard-191) has joined the conference.
+[Mon 09:59]	<voip-ps>	Manu Sporny (SIP/6000-0000006d) has joined the conference.
+[Mon 09:59]	<voip-ps>	Gregg Kellogg (SIP/sip2sip.info-0000006e) has joined the conference.
+[Mon 09:59]	<voip-ps>	Mike Johnson (SIP/6001-0000006f) has joined the conference.
+[Mon 09:59]	<voip-ps>	Dave Longley (SIP/6002-00000070) has joined the conference.
+[Mon 09:59]	<manu-db>	voip: 191 is Brad
+[Mon 09:59]	<voip-ps>	Brad is now associated with IAX2/diamondcard-191.
+[Mon 10:00]	<gkellogg>	voip: 0000006e is Gregg
+[Mon 10:00]	<voip-ps>	Gregg is now associated with SIP/sip2sip.info-0000006e.
+[Mon 10:00]	-->|	ballen (47a58c02@gateway/web/freenode/ip.71.165.140.2) has joined #payswarm
+[Mon 10:00]	<manu-db>	voip: 191 is ballen
+[Mon 10:00]	<voip-ps>	ballen is now associated with IAX2/diamondcard-191.
+[Mon 10:00]	<manu-db>	voip: connections?
+[Mon 10:00]	<voip-ps>	Conference connections: Dave Longley [SIP/6002-00000070], Manu Sporny [SIP/6000-0000006d], Mike Johnson [SIP/6001-0000006f], Gregg Kellogg (Gregg) [SIP/sip2sip.info-0000006e], <no name> (ballen) [IAX2/diamondcard-191]
+[Mon 10:01]	=-=	ballen is now known as ballen
+[Mon 10:01]	<voip-ps>	<unknown> (IAX2/diamondcard-10521) has joined the conference.
+[Mon 10:01]	<manu-db>	q+
+[Mon 10:01]	<voip-ps>	Added manu-db to the speaker queue: manu-db
+[Mon 10:01]	<manu-db>	q-
+[Mon 10:01]	<voip-ps>	Removed manu-db from the speaker queue: (empty)
+[Mon 10:02]	<dlongley-db>	q+ the thing i wanted to talk about
+[Mon 10:02]	<voip-ps>	Added dlongley-db to the speaker queue: dlongley-db
+[Mon 10:02]	<dlongley-db>	q-
+[Mon 10:02]	<voip-ps>	Removed dlongley-db from the speaker queue: (empty)
+[Mon 10:02]	<manu-db>	voip: 521 is Tom
+[Mon 10:02]	<voip-ps>	Tom is now associated with IAX2/diamondcard-10521.
+[Mon 10:02]	<voip-ps>	<unknown> (IAX2/diamondcard-7395) has joined the conference.
+[Mon 10:02]	<manu-db>	voip: 395 is dlehn
+[Mon 10:02]	<voip-ps>	dlehn is now associated with IAX2/diamondcard-7395.
+[Mon 10:02]	<manu-db>	voip: mute dlehn
+[Mon 10:02]	<voip-ps>	dlehn has been muted.
+[Mon 10:03]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Jul/0001.html
+[Mon 10:03]	<manu-db>	Does anyone have objections to swapping agenda items #3 and #1. So we would do introductions first, then talk about the current state of the spec and implementations, and then go into attempting to define Linked Data more formally?
+[Mon 10:04]	<mjohnson>	+1 change agenda
+[Mon 10:06]	<manu-db>	Topic: Introductions
+[Mon 10:07]	<tomayac>	manu-db: involved in rdfa standardization, PaySwarm, which was the reason for creating json-ld
+[Mon 10:07]	<tomayac>	manu-db: wanted a way to express simple Linked Data in JSON that would be easy to use for Web developers, but be expandable out to full RDF if necessary. We pull in web pages in RDFa format and need to store those. We don't want to have to have the full SPARQL/RDF stack - just a simple MongoDB database and Linked Data JSON documents would suffice for our use cases.
+[Mon 10:08]	<tomayac>	manu-db: JSON-LD was influenced by Mark Birbeck's RDFj and Ian Davis of Talis' RDF/JSON work.
+[Mon 10:08]	<tomayac>	gkellogg: consultant, working in media area (music, video, etc), responsible for most of the RDF parsers in Ruby
+[Mon 10:09]	<tomayac>	ballen: working on extending APIs for giving our developers access to metadata, our company is one of the largest publishers of scientific data in the world.
+[Mon 10:10]	<tomayac>	ballen: started from XML underpinning, moving more & more to json
+[Mon 10:10]	<tomayac>	tomayac: Coming from REST corner, went to Semantic Web/Linked data corner - developing RDFa browser extensions.
+[Mon 10:11]	<tomayac>	tomayac: Thought it would be great if we could not only get metadata out of the pages, but also publish data in JSON in a more Webby way
+[Mon 10:12]	<tomayac>	tomayac: Also in the RDF and RDFa Working Groups at W3C. I feel there is a need for serialization... I feel unsure exactly what I want out of this - full glory of JSON, full glory of RDF, something in the middle. Should be something that supports triples at the least.
+[Mon 10:12]	<tomayac>	mjohnson: I work at Digital Bazaar on the PaySwarm stuff and the Universal Payment standard initiative
+[Mon 10:12]	<tomayac>	mjohnsons: We need something like JSON-LD for PaySwarm
+[Mon 10:13]	<tomayac>	dlongley-db: I'm the CTO of Digital Bazaar
+[Mon 10:13]	<tomayac>	dlongley-db: also interested in getting JSON-LD working for PaySwarm.
+[Mon 10:14]	<tomayac>	topic: State of the Specs and Implementations
+[Mon 10:14]	<tomayac>	manu-db: there are two specs for JSON-LD right now, advanced and basic
+[Mon 10:15]	<tomayac>	manu-db: do we want this separation at all? That's actively being discussed in the community.
+[Mon 10:15]	<tomayac>	manu-db: let's step a step back and start with implementations
+[Mon 10:15]	<tomayac>	manu-db: most complete implementation is the one Dave Longley is working on, could you take us through that, Dave?
+[Mon 10:15]	<dlongley-db>	JSON-LD JavaScript: https://github.com/digitalbazaar/forge
+[Mon 10:16]	<dlongley-db>	JSON-LD C++: https://github.com/digitalbazaar/monarch/blob/jsonld/cpp/data/json/JsonLd.cpp
+[Mon 10:16]	<tomayac>	dlongley-db: worked on the JavaScript implementation, which is pretty complete.
+[Mon 10:16]	<tomayac>	dlongley-db: and the c++ implementation
+[Mon 10:16]	<tomayac>	dlongley-db: implementations include expanding objects (CURIE expansion)
+[Mon 10:16]	<tomayac>	dlongley-db: implementation included compacting (CURIE compaction and remapping)
+[Mon 10:16]	<tomayac>	dlongley-db: implemantion also includes normalization & framing
+[Mon 10:16]	<voip-ps>	dlehn (IAX2/diamondcard-7395) has left the conference.
+[Mon 10:17]	<tomayac>	dlongley-db: corner cases difficult to implement
+[Mon 10:17]	<tomayac>	dlongley-db: framing feature not yet spec'ed, but used internally to build simple representations of graphs - think simple JSON objects. Kind of like Projections in RDFa. Developers just want to work with simple objects directly, not necessarily graph APIs.
+[Mon 10:17]	<tomayac>	dlongley-db: frame acts as a filter to the graph dataset - just give me what I want to work with. Just give me events, or people, etc.
+[Mon 10:17]	<dlongley-db>	We have a set of tests for compaction/expansion/normalization: https://github.com/digitalbazaar/forge/tree/master/tests/jsonld
+[Mon 10:17]	<tomayac>	dlongley-db: allows for working in a more natural way. You can see an example of a frame in the test suite:
+[Mon 10:17]	<dlongley-db>	https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-in.json
+[Mon 10:18]	<dlongley-db>	https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-frame.json
+[Mon 10:18]	<dlongley-db>	https://github.com/digitalbazaar/forge/blob/master/tests/jsonld/frame-0001-out.json
+[Mon 10:18]	<tomayac>	dlongley-db: that's it for JavaScript, C++ has the same set of features - it's just a port of the JavaScript code.
+[Mon 10:18]	<tomayac>	dlongley-db: A python port in the works, Mike's working on that.
+[Mon 10:19]	<tomayac>	mjohnson: I took the JavaScript code and was able to port it over pretty quickly. It took 3 days and the Python version passes all of the tests, except for the evil normalization test.
+[Mon 10:19]	* tomayac	thanks for thename pointer
+[Mon 10:19]	<dlongley-db>	:)
+[Mon 10:19]	<mjohnson>	JSON-LD Python: https://github.com/digitalbazaar/payswarm-python
+[Mon 10:20]	<tomayac>	mjohnson: we need to update the public implementation, but we'll release the code when we upgrade the PaySwarm Authority reference implementation. The Python JSON-LD code will eventually get it's own repository. I've also been writing a unit test framework for the python implmentaiton
+[Mon 10:20]	<tomayac>	gkellogg: I have a complete parser working, the serializer is working except for the normalization stuff.
+[Mon 10:21]	<gkellogg>	https://github.com/gkellogg/json-ld
+[Mon 10:21]	* tomayac	audio issues
+[Mon 10:21]	* tomayac	anyone please scribe for a min
+[Mon 10:22]	* tomayac	audio normal again
+[Mon 10:22]	<manu-db>	ballen: Right now I haven't updated my JSON-LD implementation to the latest spec - I've taken elements of the spec and applied it to specific purposes for Linked Data.
+[Mon 10:22]	<manu-db>	ballen: Using the idiom itself to do encoding - using that w/ MongoDB to be able to build a low complexity query RDF store in that framework.
+[Mon 10:23]	<tomayac>	ballen: using it together with mongo db to build an RDF store
+[Mon 10:23]	* tomayac	scribe fine again
+[Mon 10:23]	<tomayac>	some more JSON-LD implementations can be found by googling
+[Mon 10:24]	<tomayac>	manu-db: Henri Bergius has a JSON-LD implementation for VIE - part of the IKS semantic wiki project in the EU.
+[Mon 10:24]	<tomayac>	manu-db: spec is fairly up-to-date as far as the syntaxes are concerned, barring any major changes to the data model.
+[Mon 10:25]	<tomayac>	manu-db: two things going on in parallel: syntax and need/constraints
+[Mon 10:25]	<tomayac>	manu-db: We believe that normalization for the non-ridiculous cases can be dealt with easily, the ridiculous cases are NP, but Dave is working on solutions for those.
+[Mon 10:25]	<tomayac>	Topic: Formal Definition of Linked Data 
+[Mon 10:25]	<tomayac>	manu-db: There are a group of people saying: we don't need RDF at all in this context - just Linked Data. Problem is, nobody has a good definition of what Linked Data is - many people have informal definitions.
+[Mon 10:26]	<tomayac>	manu-db: some folks are saying that RDF is too complex, we need to simplify the linked json stuff
+[Mon 10:26]	<tomayac>	manu-db: gregg has put a doc together
+[Mon 10:27]	<manu-db>	http://json-ld.org/requirements/latest/
+[Mon 10:27]	<tomayac>	manu-db: let's go thru Gregg's doc and do a straw poll to see if we have consensus on some of the items.
+[Mon 10:27]	<tomayac>	gkellogg: seemed like email convos were going round in circles
+[Mon 10:27]	<tomayac>	gkellogg: thought might make sense to structure the discussion
+[Mon 10:28]	<tomayac>	gkellogg: what is linked data? We should get a good formal definition before we go too far.
+[Mon 10:28]	<tomayac>	gkellogg: bnodes made it seem too close to RDF
+[Mon 10:28]	<tomayac>	gkellogg: thought we could talk about it in the form of graphs
+[Mon 10:28]	<tomayac>	gkellogg: if we know what linked data means, what does it imply for JSON?
+[Mon 10:29]	<tomayac>	gkellogg: what is the model we're looking at?
+[Mon 10:29]	<tomayac>	gkellogg: is it a graph? or is it a json-centric model? or is it something else?
+[Mon 10:29]	<tomayac>	gkellogg: "What is Linked Data?" seems to be the crux of the confusion on the mailing list.
+[Mon 10:30]	<tomayac>	manu-db: let's go thru each item
+[Mon 10:30]	<mjohnson>	+1
+[Mon 10:31]	<manu-db>	Linked Data is used to express relationships between entities expressed as subject-predicate-object, or entity-attribute-value.
+[Mon 10:31]	<tomayac>	manu-db: (was suggesting to go thru points one by one)
+[Mon 10:31]	* tomayac	who's speaking?
+[Mon 10:31]	* manu-db	dlongley-db
+[Mon 10:32]	<tomayac>	dlongley-db: not everything has to expressed as a set of triples
+[Mon 10:32]	* tomayac	please, please, state your name before speaking
+[Mon 10:32]	<dlongley-db>	that was gkellogg
+[Mon 10:33]	<tomayac>	gkellogg: linked data used to represent directed graphs
+[Mon 10:33]	<tomayac>	gkellogg: destination nodes can be called subject/object, vertexes predicates
+[Mon 10:33]	<manu-db>	Linked Data is used to represent a directed graph, and within the context of Linked Data, the graph can be represented as connections between different nodes, nodes are subjects and objects, links are properties. Nodes may have identifiers that are URIs allowing them to be externally addressed.
+[Mon 10:34]	<tomayac>	ballen: would be clarifying if we scrub the rdf roots
+[Mon 10:35]	<tomayac>	ballen: need to be crisp about the terminology
+[Mon 10:35]	<tomayac>	manu-db: my concern with this approach is: most RDF-related working groups start like this: we go back to basics only to discover that we just end up re-inventing RDF.
+[Mon 10:36]	<tomayac>	manu-db: what you find over time is the need to use words that define concepts, (over)loaded with decades of usage
+[Mon 10:36]	<tomayac>	manu-db: an example would be blank nodes
+[Mon 10:36]	<manu-db>	{ "name": "Bradley Allen" }
+[Mon 10:37]	<tomayac>	manu-db: immedeate thing you get out of that example is the requirement for something like a blank node. That JSON object doesn't have an identifier, there is an doiscussion going on if we need identifiers all the time
+[Mon 10:37]	<tomayac>	manu-db: not disagreeing with going back to basics, but I believe that we will find that we need RDF concepts the deeper we dig.
+[Mon 10:38]	<tomayac>	manu-db: we've been through this simplification game before
+[Mon 10:38]	<tomayac>	manu-db: but, back to the discussion at hand.
+[Mon 10:39]	<tomayac>	tomayac: linked data is imho the concept of providing links where no links used to exist before
+[Mon 10:41]	<tomayac>	tomayac: quoting http://linkeddata.org/: "Linked Data is about using the Web to connect related data that wasn't previously linked, or using the Web to lower the barriers to linking data currently linked using other methods."
+[Mon 10:41]	<tomayac>	manu-db: not sure if we can create a spec on top of that - the definition is too loose.
+[Mon 10:42]	<tomayac>	dlongley-db: they seem to end up being the same definitions
+[Mon 10:42]	<tomayac>	manu-db: let's strawpoll with what Gregg said.
+[Mon 10:42]	<manu-db>	Linked Data is used to represent a directed graph, and within the context of Linked Data, the graph can be represented as connections between different nodes, nodes are subjects and objects, links are properties. Nodes may have identifiers that are URIs allowing them to be externally addressed.
+[Mon 10:43]	<gkellogg>	+1
+[Mon 10:43]	<manu-db>	+1
+[Mon 10:43]	<mjohnson>	+1
+[Mon 10:43]	<dlongley-db>	+1
+[Mon 10:43]	<tomayac>	+1
+[Mon 10:43]	<ballen>	+1
+[Mon 10:44]	<lindstream>	+1 :)
+[Mon 10:43]	<tomayac>	manu-db: This is good! I thought that we may have a fundamental disagreement on the core of Linked Data, but it doesn't seem like we do.
+[Mon 10:44]	<tomayac>	manu-db: we still need to make sure those on the list agree, but this is a good start at consensus.
+[Mon 10:44]	<manu-db>	Next item: A subject is a non-terminal node in a directed graph.
+[Mon 10:44]	<tomayac>	ballen: the language needs cleansing, but the sense is +1able
+[Mon 10:45]	<tomayac>	manu-db: i could see someone misunderstand this with the "non-terminal" part
+[Mon 10:46]	<tomayac>	ballen: what's really being said here is that a subject with a link degree != 0
+[Mon 10:47]	<manu-db>	A subject is any node in a directed graph with at least one outgoing link.
+[Mon 10:47]	<manu-db>	+1
+[Mon 10:47]	<dlongley-db>	+1
+[Mon 10:47]	<ballen>	+1
+[Mon 10:47]	<tomayac>	+1
+[Mon 10:47]	<gkellogg>	+1
+[Mon 10:47]	<mjohnson>	+1
+[Mon 10:47]	* manu-db	lindstream ?
+[Mon 10:48]	<lindstream>	+1
+[Mon 10:48]	<manu-db>	A subject may be given a unique identifier represented using a URI.
+[Mon 10:48]	<tomayac>	shall we combine this with the previous definition?
+[Mon 10:49]	<manu-db>	A subject may be labeled with an IRI.
+[Mon 10:49]	<gkellogg>	+1
+[Mon 10:49]	<dlongley-db>	+1
+[Mon 10:49]	<manu-db>	+1
+[Mon 10:49]	<tomayac>	ballen: what that does is clarify how to treat blank nodes
+[Mon 10:49]	<tomayac>	+1
+[Mon 10:49]	<ballen>	+1
+[Mon 10:49]	<mjohnson>	+1
+[Mon 10:50]	* manu-db	lindstream - ping
+[Mon 10:50]	<lindstream>	Since I can't dial in, I'm missing a lot, but aren't we just (re-) defining the graph model underpinning RDF here?
+[Mon 10:50]	<manu-db>	more or less :)
+[Mon 10:50]	<manu-db>	but we're doing it w/o talking about RDF at all, which may have some benefits.
+[Mon 10:50]	<ballen>	yep
+[Mon 10:50]	* manu-db	try dialing in again lindstream?
+[Mon 10:50]	<ballen>	+1
+[Mon 10:51]	<lindstream>	+1 anyway (my SIP connection is borked somehow; probably the company net)
+[Mon 10:51]	<tomayac>	manu-db: now we're entering into shaky ground with blank nodes, we should skip this and leave it until the end.
+[Mon 10:51]	<tomayac>	manu-db: proposed change here: We need to stop using the term 'predicate' and use 'property' instead
+[Mon 10:52]	<tomayac>	manu-db: ok to use property instead of predicate?
+[Mon 10:52]	<manu-db>	A property describes an edge of the directed graph relating two entities.
+[Mon 10:52]	<tomayac>	+1 to move to property
+[Mon 10:52]	<manu-db>	A property describes an edge of the directed graph relating two nodes.
+[Mon 10:53]	<manu-db>	A property is an edge of the directed graph relating two nodes.
+[Mon 10:53]	<manu-db>	A property is an edge of the directed graph.
+[Mon 10:53]	<gkellogg>	+1
+[Mon 10:53]	<dlongley-db>	+1
+[Mon 10:53]	<manu-db>	+1
+[Mon 10:53]	<tomayac>	+1
+[Mon 10:53]	<lindstream>	+1
+[Mon 10:53]	<mjohnson>	+1
+[Mon 10:53]	<ballen>	+1
+[Mon 10:54]	<tomayac>	ballen: that takes us to 8, a property may be labeled with an IRI
+[Mon 10:54]	<manu-db>	A property SHOULD be labeled with an IRI.
+[Mon 10:54]	<tomayac>	Discussion around SHOULD or MAY language and consistency.
+[Mon 10:55]	<tomayac>	manu-db: we should use spec terms, so let's make it SHOULD, as we strongly suggest people identifying properties with IRIs
+[Mon 10:56]	<tomayac>	ballen: how does this align to JSON usage of property names
+[Mon 10:56]	<tomayac>	gkellogg: this is where we start to confuse syntax with Linked Data.
+[Mon 10:57]	<tomayac>	gkellogg: json-ld must provide a way to do this, but that's why we have context - it's higher up the stack.
+[Mon 10:58]	<tomayac>	gkellogg: we didn't make this statement for subjects, as oftentimes there are no proper IRIs defined for subjects
+[Mon 10:58]	<tomayac>	gkellogg: a property relationship is a best practice
+[Mon 10:59]	<manu-db>	A property SHOULD be labeled with an IRI almost always, there are very few use cases that make sense where you don't label a property with an IRI. There are more use cases where you don't label a node with an IRI.
+[Mon 10:59]	<tomayac>	gkellogg: that's the motivation behind SHOULD for property vs. MAY for subject
+[Mon 10:59]	<manu-db>	+1
+[Mon 10:59]	<gkellogg>	+1
+[Mon 10:59]	<ballen>	+1
+[Mon 10:59]	-->|	jeffsayre (~jeffsayre@adsl-70-224-32-46.dsl.sbndin.ameritech.net) has joined #payswarm
+[Mon 10:59]	<tomayac>	+1
+[Mon 10:59]	<mjohnson>	+1
+[Mon 10:59]	<dlongley-db>	+1
+[Mon 10:59]	<lindstream>	+1
+[Mon 10:59]	<manu-db>	We're at the top of the hour, is everyone okay to continue on for about 15 more minutes?
+[Mon 11:00]	* tomayac	ok to continue
+[Mon 11:00]	<tomayac>	The group decides to extend the call by 15 minutes
+[Mon 11:01]	<manu-db>	An object is a node in a directed graph with at least one incoming link.
+[Mon 11:01]	<dlongley-db>	we're mixing "link" and "edge", should we pick one?
+[Mon 11:02]	<tomayac>	tomayac: let's use edge
+[Mon 11:02]	<dlongley-db>	+1 edge
+[Mon 11:02]	<mjohnson>	+1 edge
+[Mon 11:02]	<tomayac>	link is overloaded 
+[Mon 11:02]	<manu-db>	+1 edge
+[Mon 11:02]	<ballen>	+1
+[Mon 11:02]	<gkellogg>	+1
+[Mon 11:02]	<manu-db>	An object is a node in a directed graph with at least one incoming edge.
+[Mon 11:02]	<tomayac>	+1
+[Mon 11:02]	<manu-db>	+1
+[Mon 11:02]	<ballen>	+1
+[Mon 11:02]	<dlongley-db>	+1
+[Mon 11:03]	<mjohnson>	+1 for object
+[Mon 11:03]	<gkellogg>	+1
+[Mon 11:03]	<lindstream>	What is a link; the use of a URI to label an edge?
+[Mon 11:03]	<manu-db>	no - link is confusing - we are using the word 'edge' instead.
+[Mon 11:04]	<manu-db>	link is too overloaded... a graph is 'nodes' and 'edges'
+[Mon 11:04]	<lindstream>	+1 for that (but the question is still valid ;) )
+[Mon 11:05]	<lindstream>	+1 for object
+[Mon 11:08]	<tomayac>	manu-db: we could strike 10 and 11
+[Mon 11:08]	<tomayac>	manu-db: i don't think datatyping needs to be part of Linked Data
+[Mon 11:09]	<tomayac>	ballen: what you can say, though, is that the object can be labeled with an IRI
+[Mon 11:09]	<tomayac>	gkellogg: if an object is a scalar value such as a date, can it have a label then?
+[Mon 11:10]	<tomayac>	ballen: for a given json object you could draw the graph in a serialization-neutral way
+[Mon 11:10]	<tomayac>	ballen: that would allow us to frame the discussion
+[Mon 11:11]	<manu-db>	An object may be labeled with an IRI or a literal?
+[Mon 11:11]	<manu-db>	An object may be labeled with an IRI or a scalar value?
+[Mon 11:11]	<tomayac>	manu-db: could we say "an object may be labeled with an IRI or a literal"?
+[Mon 11:11]	<lindstream>	literals are said to denote themselves (I interpret that kind of like "they are their names")
+[Mon 11:12]	<tomayac>	gkellogg: we need an abstract definition of an object first
+[Mon 11:12]	<tomayac>	ballen: we have that in 9
+[Mon 11:13]	<tomayac>	gkellogg: an object may be labeled with an IRI
+[Mon 11:13]	<dlongley-db>	An object MUST be labeled with an IRI *or* a literal?
+[Mon 11:16]	<gkellogg>	An object MAY be labeled with an IRI *or* a literal?
+[Mon 11:17]	* tomayac	scratching his head...
+[Mon 11:19]	<gkellogg>	An object MAY be labeled with an IRI *or* a literal *or* a 'whatever'?
+[Mon 11:20]	<gkellogg>	An object MAY be labeled with an IRI *or* a literal *or* be unlabeled?
+[Mon 11:21]	<lindstream>	I suggest we base the underlying model on RDF concepts as currently defined. These matters are deep. Cconsider the ongoing debates of literals in subject position, etc.
+[Mon 11:22]	<manu-db>	An object MAY be labeled with an IRI or a literal. A Node may be unlabeled.
+[Mon 11:23]	<manu-db>	A Node may be unlabeled.
+[Mon 11:23]	<manu-db>	+1
+[Mon 11:23]	<gkellogg>	+1
+[Mon 11:23]	<dlongley-db>	+1
+[Mon 11:23]	<mjohnson>	+1
+[Mon 11:23]	<ballen>	+1
+[Mon 11:23]	<tomayac>	+1 (weak)
+[Mon 11:23]	<manu-db>	(+1 for "A node may be unlabeled")
+[Mon 11:24]	<lindstream>	+1 for node may be unlabeled
+[Mon 11:24]	<manu-db>	An object MAY be labeled with an IRI or a literal.
+[Mon 11:24]	<lindstream>	.. or BE a literal?
+[Mon 11:24]	<manu-db>	We are running out of time for today's call. We've been very productive today, this is good! There is a large group of us that agree on some fundamentals. Thanks everyone for participating in the conversation.
+[Mon 11:26]	<tomayac>	ballen: thanks to Gregg for compiliing this requirements document. Can you put it on github?
+[Mon 11:26]	<tomayac>	manu-db: it's already on github, all of this stuff is: https://github.com/json-ld/
+[Mon 11:27]	<mjohnson>	thanks all!
+[Mon 11:27]	<tomayac>	manu-db: Thanks to Tom Steiner for scribing. Have a good week, everyone.
+[Mon 11:27]	* tomayac	a pleasure
+[Mon 11:27]	<voip-ps>	Gregg (SIP/sip2sip.info-0000006e) has left the conference.
+[Mon 11:27]	<voip-ps>	ballen (IAX2/diamondcard-191) has left the conference.
+[Mon 11:27]	<voip-ps>	Dave Longley (SIP/6002-00000070) has left the conference.
+[Mon 11:27]	<voip-ps>	Manu Sporny (SIP/6000-0000006d) has left the conference.
+[Mon 11:27]	<voip-ps>	Tom (IAX2/diamondcard-10521) has left the conference.
+[Mon 11:27]	<voip-ps>	Mike Johnson (SIP/6001-0000006f) has left the conference.
+[Mon 11:27]	<--|	ballen has left #payswarm
+[Mon 11:29]	<manu-db>	voip: connections?
+[Mon 11:29]	<voip-ps>	There are currently no conference connections.
+[Mon 11:29]	<manu-db>	voip: self-destruct
+
+
