@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf8" />
+  <title>Linked Data in JSON Telecon: 2011-07-04</title>
+  
+  <style type="text/css">
+body {
+   margin: 10%;
+}
+.name {
+   font-weight: bold;
+}
+
+.information {
+   font-style: italic;
+}  
+  </style>
+</head>
+
+<body>
+<h1>Linked Data in JSON Telecon</h1>
+<h2>Minutes for 2011-7-26</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Jul/0114.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Jul/0114.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Alfonso Martin, Dave Lehn, Manu Sporny, Danny Ayers, Gregg Kellogg, Nathan Rixham, Ted Thibodeau Jr.</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Note: Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Alfonso Martin</span>: Going to lurk for the call today, looking at JSON-LD for dbpedia project I'm working on.</div>
+<h1 id=topic-1 class="topic">Topic: JSON-LD Playground</h1>
+<div class="comment"><span class="name">Dave Lehn</span>: Here is a link to the playground - <a href="http://json-ld.org/playground/">http://json-ld.org/playground/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Something that we put together after the last telco. It's an implementation of a JSON-LD/JSON-SD processor in JavaScript. Playground allows you to type in any JSON-SD compatible markup - examples at top for Person, Place, Event, Library, Recipe, etc. You can click tabs for viewing different forms at bottom of the page.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: ooh, pretty syntax highlighting</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You can view compacted form, which is what most webdevs are going to use, expanded form, which lets you see how the JSON expands to IRIs, normalized form for viewing the canonical form of the data. We believe that the normalization algorithm works for all degenerate cases, as far as we can tell. Framed form tab - pick the library example - framed form allows you to take an arbitrary graph and force it into a certain JSON structure. Working with graphs is hard - framed form allows you to query by example. When clicking on "Library" example and "Framed" tab, graph is on left, frame is on right - output is below. Allows webdevs to just use graphs like they do any other JSON data. Last tab is TURTLE tab - view the data as RDF/TURTLE.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: manu, typical uses for Normalized?</div>
+<div class="comment"><span class="name">Dave Lehn</span>: digital signatures is one use</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Several use cases - graph equality comparison, graph diffing and generate hashes for graphs and generate a digital signature for the graphs.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: oh yeah, of course - thanks manu</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  All source for website and JSON-LD playground is available here</div>
+<h1 id=topic-2 class="topic">Topic: Finalizing definition of Linked Data</h1>
+<div class="comment"><span class="name">Dave Lehn</span>: Here is a link to the latest requirements - <a href="http://json-ld.org/requirements/latest/">http://json-ld.org/requirements/latest/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We pretty much have agreement on section 3.1 - item #4</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we could have agreement on the ISSUE between MAY vs. SHOULD - it should be SHOULD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's go through each item to see what folks think about it. This decision may be made easier based on the discussion we've had on the mailing list.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: what is the difference between Structured and Linked Data?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think for item 4, SHOULD for LD MAY for SD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Basically, there was a disagreement on mailing list on what Linked Data was. Kingsley and Glenn had concerns that we were calling things "Linked Data" when they were not Linked Data. For example, if a graph has a blank node in it, it shouldn't be called Linked Data. However, what some need are Structured Data - folks need blank nodes at times. Linked Data SHOULD use IRIs, and SHOULD NOT use blank nodes. Structured Data MAY use blank nodes. We're trying to come up with a good definition for Linked Data. JSON-SD /can/ do Linked Data - but it can also do Structured Data - which is what most people seem to want.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>:  I find it debatable that Linked Data and Structured Data are different. Structured Data is just data with structure - most types of data. Not going to split hairs over a name I suppose.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We've been splitting hairs for the last 3 weeks. Kingsley and Glenn feel that there has been this big mis-use of Linked Data - it was mistakenly tied to a technology  (RDF and SPARQL) when it should not have been, Linked Data also should not contain blank nodes. I believe that is Kingsley and Glenn's position.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I think that JSON-SD is just JSON. Because of that, I don't really want to go into JSON-SD vs JSON vs. JSON-LD... the distinction is between JSON and JSON-LD. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't follow.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  JSON is, by its nature, structured data. Saying JSON-SD is different from JSON will confuse people.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe we need another term?</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  No, we don't. JSON that is not JSON-LD is just JSON.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: I'm inclined to agree that JSON-SD = JSON</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: I agree with the basic principle of Kinglsey, that Linked Data is data that is linked, and shouldn't be tied to RDF/SPARLQ meme - but "structured data" seems like a misuse and a waste</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Personally, I'd rather stick with the JSON-LD name. Can't please everyone all the time.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: JSON-LD is fine</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: even RDF doesn't have to have links in it.. Linked is th point of why you're using JSON-LD, doesn't mean to say all JSON-LD must be linked - I suggest call it JSON-LD and stick to it</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  JSON is by it's nature, structured data - JSON-SD is redundant</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Right... but we have all of these processing rules that sit between JSON and JSON-LD. What are we calling this thing, then? We can't call it JSON-LD, and it's more narrow than just JSON. That was the issue we started off with - Kingsley and Glenn insist that we can't call something that contains blank nodes - Linked Data.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  What is the distinction between traditional JSON and JSON-SD in your coining?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-SD is JSON plus a context. JSON-SD has processing rules to turn it into Linked Data and/or RDF, regular JSON doesn't.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: manu' suggests JSON-SD = JSON + context + processing rules</div>
+<div class="comment"><span class="name">Danny Ayers</span>: how does a processor know some JSON is JSON-LD? (something like mime type?)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A processor will know that something is JSON-SD/JSON-LD because there will be a @context declared.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: aha</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Yes, but what is the difference between JSON and JSON-SD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-SD has a @context. JSON does not. JSON, in and of itself, cannot be transformed to Linked Data.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  The @context is external?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The @context can be external, or it may be declared in-line. Any time that you see @context as a key - it's no longer plain JSON - it's JSON-SD - there is extra meaning you can extract from that JSON. </div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Is @context new? Has it always been used with JSON?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  @context has nothing to do with JSON. It's just another key - it's never existed in JSON. </div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  In this structuring, there is JSON w/o @context, there is JSON-SD, which adds @context and then there is JSON-LD, which only uses IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes. Unfortunately, the nuance is so small that people are wondering why we are making the distinction. Kingsley and Glenn feel strongly about this.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I feel strongly about it as well. We should not say blank nodes are OK in "Linked Data".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: JSON-SD is JSON-LD + BNodes. Having to call it JSON-LD, because it's not fully linked is like saying you can't have a "functional" language with any non-functional features.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: there is no reason to artifically limit JSON-LD such that people can't mix in basic unlinked-JSON.; if I want only half of my data to be exposed as linked data, and the rest as boring old unlinked data (say debugging info), then that should be fine, surely? - all of this JSON/JSON-SD/JSON-LD is too complicated, JSON-LD should be a layer above JSON to allow Linked Data</div>
+<div class="comment"><span class="name">Nathan Rixham</span>:  I don't see a reason to limit JSON-LD. This is getting complicated - JSON, JSON-SD and JSON-LD. This just adds a layer on top of JSON - we don't need three levels.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: (JSON)+(JSON-LD) is not the same as (JSON-LD)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We're not limiting JSON-LD, we're just talking about definitions - what is Linked Data (JSON-LD)... what is JSON-SD? We're not talking about limiting the spec - it's going to support all of the variations that we're talking about. Kingsley, Ted and Glenn's issue is that we need to be very clear about the definitions before writing the spec. </div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  The big difference between JSON and JSON-LD are IRIs... it is a limit, it is a subset with a lot more application, a lot easier working environment, if you know that everything that matters to you have a IRI - then you don't have to do a great deal of work. JSON-LD docs are going to use IRIs in particular places - that's a win. Regular JSON may use this stuff, but fewer are going to be able to work with it as easily as JSON-LD. Making a subset of JSON, which is what JSON-LD is, makes working with this data easier.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  The big difference between JSON and JSON-LD are IRIs... it is a limit, it is a subset with a lot more application, a lot easier working environment, if you know that everything that matters to you have a IRI - then you don't have to do a great deal of work. JSON-LD docs are going to use IRIs in particular places - that's a win. Regular JSON may use this stuff, but fewer are going to be able to work with it as easily as JSON-LD. Making a subset of JSON, which is what JSON-LD is, makes working with this data easier. You can still use JSON inside JSON-LD, but don't call that document JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Except we need processing rules for intersection of JSON and JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The technical concern is that we need to be able to specify how you handle JSON-LD mixed in with a regular JSON document.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  The issue is with blended documents - that's hard to do. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we're trying to take it that far. I'm certainly not interested in mixing arbitrary JSON w/ JSON-LD. We just want to make sure that unlabeled nodes are supported.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: JSON-LD looks like a SUPERset not a subset to me; also, if it's a specific subset that's only "linked data" then why not just RDF/JSON and forget this all together?</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: I thought the idea was to augment JSON such that people can expose some bits as linked data.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: hmm, JSON-LD is JSON from which at least one IRI-based triple can be extracted from, so the rest of the JSON is MUST IGNORE or ERROR?</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: danja, I'd thought of it slightly differently, take a chunk of JSON, throw it through a JSON-LD parser, and see what triples come out</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  It's when you try to step outside of the bounds of Linked Data that this becomes an issue.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm trying to understand your point. We want Linked Data - but there are cases where it's not a good thing to require an IRI for everything. There are demonstrated use cases where we want Linked Data used for everything.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Like what?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Digital signatures... the list of payees in a financial contract... the name of a person that made something coupled with their home page... We don't want to give an IRI for everything under the sun.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Why not?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: LD is not just IRI, but _dereferencable_ IRI. What do you get when you dereference the signature of a document?</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: define: "unlabeled node"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Nathan effectively - unlabeled node == blank node. We were using unlabeled node to not use RDF terminology (and all of the baggage that brings into the discussion)</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: they're JSON-LD use cases, not linked data use cases, just as you get blank nodes in RDF, or anonymous objects pretty much everywhere</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  A financial system like that should be vetted for proper operation.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I don't think those are Linked Data use cases. If you want to use blank nodes, great. If you use blank nodes, you are not using Linked Data. It's a mixed use case - it's not a Linked Data use case. Since it's a mixed use case, it should be treated as such. You can't do everything with everything. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't understand where you're going with this. I don't understand what changes are going to be made to the spec based on your line of argumentation. I don't know what you're proposing.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I'm proposing that we start with clear-er diagrams of what these things are. This discussion is going in circles, both here and on the mailing list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Wait, no. JSON-LD is a subset of JSON-SD which is a subset of JSON. How does this impact the spec? That's what I'm concerned about.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I don't know. What I see is ongoing confusion about the same issues.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought we had those resolved on the mailing list. What you're saying is different from my read on the mailing list. I thought the group was in agreement on how we should define this and how we should go forward? Your statements are unique and new to me.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Your statements at the beginning were confusing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Have you looked at the requirements document to see if you agree with the Linked Data definition?</div>
+<div class="comment"><span class="name">Danny Ayers</span>: extreme case, can JSON-LD contain parser-ignored comments?</div>
+<div class="comment"><span class="name">Dave Lehn</span>: Here's the URL we're looking at - <a href="http://json-ld.org/requirements/latest/">http://json-ld.org/requirements/latest/</a></div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  The "according to Wikipedia" bit - wikipedia isn't a standards thing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm talking about section 3.1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We agreed to the change to #4</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  The definition of Linked Data in section 3.1 looks good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's good - that means we have a definition of Linked Data that works for everybody. So, what is the addition item that we want to add to that section to make unlabeled nodes work? That's the only item that we need to discuss. What we did on the mailing list is that we called that "Structured Data" and said that the one difference is that Structured Data can specify unlabeled node identifiers.</div>
+<div class="comment"><span class="name">Danny Ayers</span>:  SHOULD in the Linked Data definition still allows for "Structured Data", that may be good enough. It's not it MUST be an IRI, so there is wiggle room.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, but we wanted language that was stronger. To tell people that it is okay to have unlabeled nodes.</div>
+<div class="comment"><span class="name">Danny Ayers</span>:  It's not really a big issue, but it would be nice to say something in the spec.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does the use case that we would like to support an acceptable thing to you? We need to be able to express unlabeled nodes. If we make people create IRIs for everything, we're going to end up with some nasty data out there.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Do we have use cases any place?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  No, not for JSON-LD. We have the PaySwarm use cases, but not JSON-LD use cases.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  We should have the use cases justifying the requirements and features in the spec written down somewhere.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Right.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I personally hate blank nodes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Have you ever needed blank nodes?</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I have never find a use case where blank nodes were required.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We're not saying they're required - we're saying that they'll make implementers' lives easier.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: would personally just ditch the SD notion, it doesn't really seem necessary, but not a big deal either way</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: part of the problem is the _dereferancable_ nature of URIs in LD. BNode use-cases that could be URIs shouldn't be derferencable.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe we should talk about the requirements.</div>
+<h1 id=topic-3 class="topic">Topic: Discuss JSON-SD Requirements</h1>
+<div class="comment"><span class="name">Dave Lehn</span>: The URL for the requirements - section 3.2 - JSON-LD - <a href="http://json-ld.org/requirements/latest/">http://json-ld.org/requirements/latest/</a></div>
+<div class="comment"><span class="name">Danny Ayers</span>: I bet there are still a lot of FOAF people out there that are still bnodes - and I'd prefer not to mint URIs for them</div>
+<div class="information">A JSON-LD document must be able to express a linked data graph.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any objections to that statement?</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: does that quantify to every linked data graph? some of them or?</div>
+<div class="comment"><span class="name">Danny Ayers</span>: That is confusing</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: _must_ in 3.2.1 means that 3.1.4 is MUST, not SHOULD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Then how about "A JSON-SD document MUST be able to express a linked data graph." ? JSON-SD can also express a mixture of Linked Data and Non-Linked Data (aka. Structured Data). Specifically, the ability to express unlabeled nodes (aka. blank nodes). Any disagreement with that statement?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: 3.1.4 A subject MUST be labeled with an IRI.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: manu, so everything that is a valid linked data graph, must be expressible in JSON-*D? "Linked Data" is defined as "should, should, may" - so then "1 1 1" would be valid.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: 3.1.4 is SHOULD, as it may be a literal.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Still digesting the IRI comment from Gregg.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: and must be able to be expressed in JSON-*D</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: No, no subject literals.</div>
+<div class="information">3.1.4 A subject SHOULD be labeled with an IRI?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Are we good with SHOULD?</div>
+<div class="comment"><span class="name">Danny Ayers</span>: could live with MUST for 3.1.4 as long as there was an informative note to say that any bnodes are not considered part of the linked data graph (i.e. they're ok)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, that's interesting. So, would that means that a graph that has references to blank nodes is to remove any reference to a blank node, and what's left behind is a Linked Data graph?</div>
+<div class="comment"><span class="name">Danny Ayers</span>: ok but not in the LD graph</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: or skolemize it *lol*</div>
+<div class="comment"><span class="name">Danny Ayers</span>: right :)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm fine w/ that.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Subjects and properties are always de-referenceable. You can build a graph with bnodes, but that's not Linked Data. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, and to get to Linked Data, one can remove bnode refs, skolemize or do a variety of other things.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Yes, I think that's a good direction. We have three nested circles - JSON (biggest), JSON-SD inside (JSON), JSON-LD inside JSON-SD. We need a diagram - we can say it explicitly.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: That leads to a disjoint graph if you have a bnode linking two IRI-based identifiers.</div>
+<div class="comment"><span class="name">Danny Ayers</span>: - only for definition purposes, in practice you might want to keep the lot in your store</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: at the minute.. this is just RDF in JSON tbh (sorry)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Since we're defining LD, I'm fine with MUST. Perhaps we need a "Structured Data" definition too.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so we're making two changes to the Linked Data part of the spec. Changes to 3.1.4 (MAY-&gt;MUST) and 3.1.6 (SHOULD-&gt;MUST) - that is our definition of Linked Data that we're using for the spec.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: so now "Linked Data" is a ground RDF graph, yeah?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: MacTed, can you provide a picture to include?</div>
+<div class="comment"><span class="name">Danny Ayers</span>: good man</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: Linked Data == Ground RDF Graph, (contains no bnodes) --- Structured Data == RDF Graph (contains bnodes too) --- JSON == well... json... the host serialization langauge</div>
+<div class="comment"><span class="name">Danny Ayers</span>: webr3, that sounds reasonable</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: that's how it's been defined in the call so far</div>
+<div class="comment"><span class="name">Danny Ayers</span>: See the first principle in <a href="http://www.w3.org/DesignIssues/LinkedData.html">http://www.w3.org/DesignIssues/LinkedData.html</a></div>
+<div class="comment"><span class="name">Danny Ayers</span>: is Use URIs as names for things</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we're in more agreement now than in the beginning of the call. I think we're close - we have the definition of Linked Data. We just need a way to talk about the requirements, use cases, etc. Can folks create use cases and post them to the mailing list? One use case per person over the next two weeks? Any volunteers?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: We need to create a Use Cases document.</div>
+<div class="comment"><span class="name">Nathan Rixham</span>: I will send a couple</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: I'll create a couple</div>
+<div class="comment"><span class="name">Danny Ayers</span>: will try and get at least one together</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We'll put 4 use cases together.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Great, this will help ground the discussion even further. That's the call - have a great week!</div>
+</body>
+</html>
+
+
