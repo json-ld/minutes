@@ -15,6 +15,16 @@
          "alias": ["ballen"],
          "homepage": "http://bradleypallen.org/about"
       },
+      "Danny Ayers":
+      {
+         "alias": ["danja"],
+         "homepage": "http://dannyayers.com/"
+      },
+      "Dave Lehn":
+      {
+         "alias": ["taaz"],
+         "homepage": "http://dil.lehn.org/"
+      },
       "Michael Johnson":
       {
          "alias": ["mjohnson"]
@@ -37,15 +47,29 @@
       {
          "alias": ["dlongley", "dlongley-db"]
       },
+      "Alfonso Martin":
+      {
+         "alias": ["amartin"]
+      },
+      "Nathan Rixham":
+      {
+         "alias": ["webr3"],
+         "homepage": "http://webr3.org/"
+      },
       "Manu Sporny":
       {
-         "alias": ["manu-db", "manu1"],
+         "alias": ["manu-db", "manu1", "manu`"],
          "homepage": "http://manu.sporny.org/about"
       },
       "Thomas Steiner":
       {
          "alias": ["tomayac"],
          "homepage": "https://plus.google.com/103733874714446059779/about"
+      },
+      "Ted Thibodeau Jr.":
+      {
+         "alias": ["macted"],
+         "homepage": "http://www.linkedin.com/in/macted"
       }
    };
 
@@ -101,13 +125,13 @@
    scrawl.topic = function(msg, id)
    {
       return "<h1 id=topic-" + id + " class=\"topic\">Topic: " +  
-          scrawl.htmlencode(msg) + "</h1>";
+          scrawl.htmlencode(msg) + "</h1>\n";
    };
    
    scrawl.information = function(msg)
    {
       return "<div class=\"information\">Note: " +  
-          scrawl.htmlencode(msg) + "</div>";
+          scrawl.htmlencode(msg) + "</div>\n";
    };
 
    scrawl.scribe = function(msg, person, assist)
@@ -131,7 +155,7 @@
          rval += "[scribe assist by " + scrawl.htmlencode(assist) + "]";
       }
       
-      rval += "</div>";
+      rval += "</div>\n";
       
       return rval;
    };
@@ -147,7 +171,7 @@
    scrawl.error = function(msg)
    {
       return "<div class=\"error\">Error: " +  
-          scrawl.htmlencode(msg) + "</div>";
+          scrawl.htmlencode(msg) + "</div>\n";
    };
 
    scrawl.processLine = function(context, aliases, line)
@@ -251,23 +275,23 @@
       var scribe = context.scribe;
       var present = Object.keys(context.present);
 
-      rval += "<h1>" + group +" Telecon</h1>";
+      rval += "<h1>" + group +" Telecon</h1>\n";
       rval += "<h2>Minutes for " + time.getFullYear() + "-" + 
-         (time.getMonth() + 1) + "-" + time.getDate() +"</h2>";
-      rval += "<div class=\"summary\"><dl>";
+         (time.getMonth() + 1) + "-" + time.getDate() +"</h2>\n";
+      rval += "<div class=\"summary\">\n<dl>\n";
       rval += "<dt>Agenda</dt><dd><a href=\"" + 
-          agenda + "\">" + agenda + "</a></dd>";
-      rval += "<dt>Chair</dt><dd>" + chair + "</dd>";
-      rval += "<dt>Scribe</dt><dd>" + scribe + "</dd>";
-      rval += "<dt>Present</dt><dd>" + present.join(", ") + "</dd>";
+          agenda + "\">" + agenda + "</a></dd>\n";
+      rval += "<dt>Chair</dt><dd>" + chair + "</dd>\n";
+      rval += "<dt>Scribe</dt><dd>" + scribe + "</dd>\n";
+      rval += "<dt>Present</dt><dd>" + present.join(", ") + "</dd>\n";
       rval += "<dt>Audio Log</dt><dd>" +
-          "<div><a href=\"" + audio + "\">" + audio + "</a></div>" +
-          "<div><audio controls=\"controls\" preload=\"none\">" + 
+          "<div><a href=\"" + audio + "\">" + audio + "</a></div>\n" +
+          "<div><audio controls=\"controls\" preload=\"none\">\n" + 
           "<source src=\"" + audio + "\" type=\"audio/ogg\" />" +
           "Warning: Your browser does not support the HTML5 audio element, " +
-          "please upgrade.</div></dd>";
+          "please upgrade.</div></dd>\n";
 
-      rval += "</dl></div>";
+      rval += "</dl>\n</div>\n";
 
       return rval;
    };
