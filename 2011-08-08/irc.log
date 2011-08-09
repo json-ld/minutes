@@ -1,0 +1,173 @@
+[Tue 11:01] <manu-db> Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0026.html
+[Tue 11:02] <voip-ld> <unknown> (SIP/10.0.0.104-0000000c) has joined the conference.
+[Tue 11:02] <dlongley> I don't have voice on this end today... going to say stuff in IRC.
+[Tue 11:03] <dlongley> I might not be available for the whole call either.
+[Tue 11:03] <manu-db> voip: connections?
+[Tue 11:03] <voip-ld> Conference connections: Markus Lanthaler [SIP/82.48.59.119-0000000b], SIP/10.0.0.104-0000000c, Manu Sporny [SIP/6000-0000000a], Gregg Kellogg [SIP/sip2sip.info-00000009], Ted Thibodeau Jr [SIP/sip2sip.info-00000008]
+[Tue 11:03] <voip-ld> <unknown> (IAX2/diamondcard-14206) has joined the conference.
+[Tue 11:04] <manu-db> voip: 0c is dlongley
+[Tue 11:04] <voip-ld> dlongley is now associated with SIP/10.0.0.104-0000000c.
+[Tue 11:04] <manu-db> voip: 14206 is _terraces
+[Tue 11:04] <voip-ld> _terraces is now associated with IAX2/diamondcard-14206.
+[Tue 11:05] <manu-db> Scribe: gkellogg
+[Tue 11:01] <manu-db> Topic: New Participants
+[Tue 11:05] <gkellogg> Alexandre: Hi, I'm a researcher from DERI, but I'm also the founder of Seevl - we focus on providing semantic context around music - products using structured data and disruptive Web technologies. We are starting to use JSON-LD in our product line.
+[Tue 11:06] <voip-ld> Dave Lehn (SIP/6003-0000000d) has joined the conference.
+[Tue 11:06] <gkellogg> Markus: Hi, my name is Markus Lanthaler - I'm a PhD student at the Graz University of Technology working in the field of RESTful services and Linked Data. I'm interested in JSON-LD because I needed something similar in an approach called SEREDASj - http://bit.ly/seredasj
+[Tue 11:07] <gkellogg> Manu: Ok, so the additions to the Agenda are: talking about the test suite and basic spec language and/or tutorials for people.
+[Tue 11:08] <manu-db> Topic: Updates on implementations
+[Tue 11:08] <manu-db> http://json-ld.org/#impl
+[Tue 11:08] <gkellogg> manu: The list of implementations growing, which is always nice to see
+[Tue 11:08] <gkellogg> … Dave has done the c++, JavaScript, and PHP implementations
+[Tue 11:09] <gkellogg> … we also have implementations for Erlang that are starting as well as Mike's implementation for Python
+[Tue 11:09] <gkellogg> Alexandre: We use standard JSON libraries to write out JSON-LD
+[Tue 11:09] <manu-db> Topic: Test Suite
+[Tue 11:10] <gkellogg> manu: have list of tests along with DB forge implementation
+[Tue 11:10] <manu-db> https://github.com/digitalbazaar/forge/tree/master/tests/jsonld
+[Tue 11:10] <gkellogg> … compaction, expansion, framing tests
+[Tue 11:10] <gkellogg> … input is valid JSON-LD, use algorithms to normalize to allow straight string comparison on output
+[Tue 11:11] <gkellogg> … other things to test: convert JSON to RDF and run SPARQL queries
+[Tue 11:12] <gkellogg> … In RDFa, created web service for testing with a number of input docs defined by the test suite. The test suite does a Web service call to processor service, get results, run SPARQL against the results.
+[Tue 11:12] <gkellogg> … We could modify this environment to use with a JSON-LD test sute.
+[Tue 11:12] <gkellogg> … problem with having an offline test suite is that every developer must write their own test harness
+[Tue 11:12] <gkellogg> … RDFa harness worked pretty well - wouldn't take much to move it over since I wrote it - I know the code pretty well.
+[Tue 11:14] <manu-db> gkellogg: I'd like to see us go towards string comparisons instead of SPARQL.
+[Tue 11:14] <dlongley> definitely string comparisons for non-RDF, if you're handling RDF tests, perhaps SPARQL might be ok, but if we can avoid it, that would be good.
+[Tue 11:14] <manu-db> So, both of you would like us to move to straight string comparisons... sounds good.
+[Tue 11:16] <gkellogg> manu: any JSON-LD which implements normalization should output the same string.
+[Tue 11:16] <gkellogg> … Other possibility, express four different types of calls: compaction, expansion, framing, and normalization.
+[Tue 11:16] <gkellogg> … Make a call to the Web service, add a query parameter to tell type of output format is desired. We may need to add bits like providing context, etc too very query parameters.
+[Tue 11:17] <gkellogg> … It is very useful to test each algorithm on it's own. Otherwise, don't know where implementation bugs may lie if you start off trying to test normalization (which is the most complicated of all of the algorithms).
+[Tue 11:17] <gkellogg> … Modes of operations also relate 1-to-1 against the JavaScript API.
+[Tue 11:17] <gkellogg> … API currently removed, but will go back in the spec eventually, exposing 4 basic functions.
+[Tue 11:18] <gkellogg> … helps with testing, and matches JS API.
+[Tue 11:19] <dlongley> sounds good, but keep in mind that we might have other methods in the JSON-LD API including something that takes in triples and something that exports triples.
+[Tue 11:19] <MarkusLanthaler> I think it would be a good idea to create a Web service to be able to test the different parts independently
+[Tue 11:19] <dlongley> +1 good start
+[Tue 11:19] <gkellogg> gkellogg: Exporting triples useful if BNode IDs are normalized
+[Tue 11:20] <gkellogg> manu: Seems like we have consensus on using regular string compares for JSON-LD test suite.
+[Tue 11:20] <gkellogg> … four different mechanisms for output: compaction, expansion, framing, normalization.
+[Tue 11:21] <gkellogg> … output of Web service calls should be the output of the API calls.
+[Tue 11:21] <gkellogg> … still issues with compaction/expansion, which don't require a specific lexocographical sort order for keys in output. Can't use string comparison for those.
+[Tue 11:21] <dlongley> if we define an order (lexicographically sorted keys, etc) for the outputs that might work.
+[Tue 11:21] <gkellogg> manu: may only be able to do straight string comparison on normalization tests
+[Tue 11:22] <MarkusLanthaler> dlongley: was thinking about the same
+[Tue 11:22] -->| _terraces_ (~alex@wlan-nat.fwgal01.deri.ie) has joined #json-ld
+[Tue 11:22] <gkellogg> manu: probably require ordering of keys and removal of white space to make tests work.
+[Tue 11:23] <MarkusLanthaler> I think that should be a test spec, not in the main spec
+[Tue 11:23] <dlongley> i don't think it needs to be spec'd out, it can just be on the test suite site
+[Tue 11:23] <MarkusLanthaler> or just a test document
+[Tue 11:23] <dlongley> +1 to what markus said.
+[Tue 11:23] <gkellogg> +1 to markus
+[Tue 11:24] <gkellogg> manu: consensus: separate doc to describe test suite interaction.
+[Tue 11:24] |<-- _terraces has left freenode (Ping timeout: 252 seconds)
+[Tue 11:24] =-= _terraces_ is now known as _terraces
+[Tue 11:24] <gkellogg> … test harness assumes lexical ordering of keys and whitespace.
+[Tue 11:25] <gkellogg> … can then test all modes of operations.
+[Tue 11:25] <manu-db> Topic: Basic / Beginners Guide to JSON-LD
+[Tue 11:26] <gkellogg> manu: 3-4 weeks ago Brian, Glenn, Kingsley had issues with JSON-LD spec.
+[Tue 11:26] <gkellogg> … Kingsley was concerned about Linked Data vs. RDF conflation.
+[Tue 11:26] <gkellogg> … Glenn wanted a simple way to express directed graphs.
+[Tue 11:26] <gkellogg> … Brian was concerned about focus of spec. too complicated, need simpler spec.
+[Tue 11:27] <gkellogg> … those three concerns resulted in the Basic JSON-LD specification. Unfortunately, I conflated all of those issues above when they are in fact, separate.
+[Tue 11:27] <gkellogg> … started off as mis-guided attempt to simplify larger spec.
+[Tue 11:27] <gkellogg> … we might want to create an introductory doc: "JSON-LD for Beginners"
+[Tue 11:27] <gkellogg> … We could focus on only talking about the features Brian sent to list.
+[Tue 11:27] <manu-db> http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0037.html specifies these points:
+[Tue 11:27] <manu-db> * All JSON objects are interpreted as resources (subjects/objects)
+[Tue 11:27] <manu-db> * @subject is the IRI for that resource (anonymous if none)
+[Tue 11:27] <manu-db> * Properties are tokens with context mappings (no IRIs and no CURIEs)
+[Tue 11:27] <manu-db> * JSON arrays are used for multiple values for a property
+[Tue 11:28] <gkellogg> manu: The current JSON-LD spec attempts to define such an easy introduction.
+[Tue 11:29] <gkellogg> … Brian's approach is a good one.
+[Tue 11:29] <dlongley> starting with the basics in the spec and then getting advanced works for me.
+[Tue 11:29] <MarkusLanthaler> I really like Symfony's approach of giving a tutorial with a small part taught every day.. See: http://www.symfony-project.org/jobeet/1_4/Doctrine/en/
+[Tue 11:30] <manu-db> gkellogg: I think maybe starting with a basic introduction and moving toward advanced concepts.
+[Tue 11:30] <manu-db> gkellogg: Unnamed nodes in the advanced section
+[Tue 11:31] <gkellogg> manu: some advantage in using separate docs; We could do a tutorial: 1 per day introducing a new JSON-LD concept so that people understand JSON-LD after 5 days of reading about it for 15 minutes a day.
+[Tue 11:31] <gkellogg> … latest re-write attempts to go in this direction - simple to advanced.
+[Tue 11:31] <dlongley> tutorials are good as "companion" documents
+[Tue 11:31] <gkellogg> manu: line is crossed when writing tutorials in the spec which conflates audiences addressed.
+[Tue 11:31] <gkellogg> … A tutorial aimed at Web developers shouldn't go in the specification aimed at JSON-LD implementers.
+[Tue 11:31] <MarkusLanthaler> manu: agree.. spec should remain a spec, tutorials should be a different thing.. we shouldn't conflate them
+[Tue 11:32] <gkellogg> manu: a set of tutorials is better for publishers.
+[Tue 11:32] <gkellogg> … We were heavy on the tutorials in RDFa and people complained that the spec was too verbose - and then went on to say "look how big the spec is - its obviously complicated"; we tried to teach too much in the RDFa spec.
+[Tue 11:32] <gkellogg> … The RDFa Primer doc gives a tutorial, but it looks like a scary spec.
+[Tue 11:33] <gkellogg> … HTML5 and OAuth specs don't try to give tutorial in spec... probably the best direction.
+[Tue 11:33] <gkellogg> … how to implement processor, web browser, User Agent - that's stuff that only developers care about - spec language - not tutorial language.
+[Tue 11:34] <_terraces> we could have a one-page cheat-sheet
+[Tue 11:34] <MarkusLanthaler> agree.. normally devs just read the spec when they don't find a solution in tutorials
+[Tue 11:34] <gkellogg> manu: work to simplify basic and advanced concepts in spec and move prose.
+[Tue 11:35] <gkellogg> … use of spec moved to separate tutorials. 6-part series of small article.
+[Tue 11:35] <gkellogg> macted: We could use a wiki to write the tutorials.
+[Tue 11:35] <gkellogg> manu: hesitant about the use of a Wiki.
+[Tue 11:36] <gkellogg> macted: as non-coder, I don't use GitHub. Starting to have to use it, and it is a pain.
+[Tue 11:36] <gkellogg> … a wiki makes sense.
+[Tue 11:37] <gkellogg> manu: other issue is history is left in database w/ wiki-based approach, and site history is not tracked.
+[Tue 11:37] <gkellogg> … could set up media wiki to run off SQLite.
+[Tue 11:37] <gkellogg> … my experience w/ a wiki is that it's a pain to setup, I'm usually the one that has to do it, preventing spam is difficult, and no-one ends up contributing.
+[Tue 11:38] <gkellogg> … people could write word/google and other push into website.
+[Tue 11:38] <gkellogg> MacTed: There are gate-keeper issues with that approach.
+[Tue 11:38] <gkellogg> … history can get lost with any tool.
+[Tue 11:38] <gkellogg> … Using word-docs, everyone needs to track, version issues.
+[Tue 11:38] <gkellogg> … Google docs looses history.
+[Tue 11:39] <gkellogg> manu: I'm complaining because I'm probably going to have to be the one to do it, but we probably need to implement wiki.
+[Tue 11:39] <gkellogg> … other issue is fighting spam and other management headaches - the work usually falls onto the editors lap.
+[Tue 11:39] <gkellogg> MacTed: why stuff is often done in W3C space, to get admin support.
+[Tue 11:39] <MarkusLanthaler> Are we talking about a wiki for the long term or just while writing the tutorials?
+[Tue 11:39] <gkellogg> manu: turns into editors job.
+[Tue 11:40] <gkellogg> … we'll set up a wiki, and hopefully people will contribute.
+[Tue 11:40] <gkellogg> manu: agreement to set up wiki.
+[Tue 11:41] <gkellogg> … wiki there for the long term, useful for more than tutorials.
+[Tue 11:41] <MarkusLanthaler> then I kind of share your objections manu
+[Tue 11:41] <MarkusLanthaler> I don't think that anyone will contribute after the initial phase of writing the articles.
+[Tue 11:41] <gkellogg> manu: if setting up wiki get's more participation, it's useful in spite of the admin headache.
+[Tue 11:41] <MarkusLanthaler> let's try it
+[Tue 11:42] <gkellogg> … at worst, it is a waste of time.
+[Tue 11:43] <gkellogg> Topic: JSON-LD spec updates
+[Tue 11:43] <manu-db> http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0035.html
+[Tue 11:43] <manu-db> Gregg: Can't really comment on the stuff that Manu and Dave added.
+[Tue 11:44] <manu-db> gkellogg: We removed as much "RDF" out of the doc as possible - updated the keywords - re-arranged lots of text and prose
+[Tue 11:44] <manu-db> gkellogg: added support for RDF Lists via @list
+[Tue 11:45] <manu-db> gkellogg: Added RDF conversion algorithms
+[Tue 11:46] <gkellogg> manu: gone through and implemented various algorithms. Now "unstable" not completely experimental.
+[Tue 11:46] <gkellogg> … requires 2-3 more passes to make sure we're capturing everything in the algorithms.
+[Tue 11:46] <gkellogg> … working on normalization, the most difficult algorithm.
+[Tue 11:47] <gkellogg> manu: the prose goes from from beginning, to intermediate, to advanced, followed by algorithms.
+[Tue 11:47] <gkellogg> … we think that is what processor writers need.
+[Tue 11:48] <gkellogg> … moved other elements to the bottom: microdata, RDFa, Microformats examples in the appendix now
+[Tue 11:48] <gkellogg> … not essential to spec.
+[Tue 11:48] <gkellogg> … removed API section because it completely deviated from the recent changes.
+[Tue 11:48] <gkellogg> … Intend to add back once normalization algorithm complete.
+[Tue 11:49] <gkellogg> … We are currently working on the following: finishing spec-language for the normalization algorithm, adding a reworked API (compact, expand, frame, normalize), may add something about web services to expose API calls.
+[Tue 11:49] <gkellogg> … That should be the first feature-complete cut of the spec.
+[Tue 11:49] <gkellogg> … We'll want people to do full implementations of the spec after that.
+[Tue 11:50] <gkellogg> manu: doc has changed based on input from mailing list, IRC, Twitter, and Google+.
+[Tue 11:51] <gkellogg> … We'll solicit more feedback from mailing list.
+[Tue 11:52] <gkellogg> … and more feedback from telecom, twitter, mailing list, ...
+[Tue 11:52] <manu-db> Topic: JSON-LD Requirements
+[Tue 11:53] <manu-db> http://json-ld.org/requirements/latest/
+[Tue 11:53] <manu-db> gkellogg: Moved the document forward based on comments from the mailing list
+[Tue 11:53] <manu-db> gkellogg: Changed wikipedia quote to TimBL quote
+[Tue 11:53] <manu-db> gkellogg: I think we've finished everything in Linked Data requirements... added a bit about structured data - I think that discussion has run it's course and this may not be necessary
+[Tue 11:54] <manu-db> gkellogg: I outlined JSON-LD requirements based on these tenets.
+[Tue 11:54] <manu-db> gkellogg: A JSON-LD document must be able to express a linked data graph.
+[Tue 11:56] <MarkusLanthaler> good point :-)
+[Tue 11:57] <gkellogg> manu: Should we add: JSON-LD doc must be a valid JSON document.
+[Tue 11:57] <MarkusLanthaler> +1
+[Tue 11:57] <gkellogg> … Insert this at 2.
+[Tue 11:57] <MarkusLanthaler> why not replace 2 with it?
+[Tue 11:57] <MarkusLanthaler> it doesn't fit the rest of the list
+[Tue 11:59] <MarkusLanthaler> what's the advantage of having 2? I don't really get what you are trying to say with that.
+[Tue 11:59] <gkellogg> manu: We have another issue with "other literal name" - for example, we don't define what "null" means. Could say that null is undefined; has value.
+[Tue 11:59] <gkellogg> manu: Markus, the issue is syntax vs. semantics. We want to say that we fully support the JSON syntax. We also want to say that the JSON syntax is used to express Linked Data semantics. So we need two items to say that... does that help?
+[Tue 12:00] <MarkusLanthaler> not really
+[Tue 12:00] <MarkusLanthaler> if you are saying it has to be valid JSON then it implies that you are using JSON's constructs
+[Tue 12:01] <MarkusLanthaler> so are you trying to say you can't use bools e.g.?
+[Tue 12:03] <manu-db> No, you can use bools... just not 'null'
+[Tue 12:03] <manu-db> Let's put this on the mailing list to discuss more
+[Tue 12:03] <MarkusLanthaler> send out the list, not just a ref
+[Tue 12:04] <gkellogg> gkellogg: I will send JSON-LD requirements to the mailing list for further discussion.
+[Tue 12:04] <manu-db> Thanks a bunch to Gregg for scribing today!
+[Tue 12:04] <dlongley> thanks everyone
+[Tue 12:04] <taaz> bye

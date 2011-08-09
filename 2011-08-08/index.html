@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf8" />
+  <title>Linked Data in JSON Telecon: 2011-07-04</title>
+  
+  <style type="text/css">
+body {
+   margin: 10%;
+}
+
+.name {
+   font-weight: bold;
+}
+
+.information {
+   font-style: italic;
+}  
+
+.comment-continuation {
+   margin-left: 2em;
+}
+  </style>
+</head>
+
+<body>
+<h1>JSON for Linking Data Telecon</h1>
+<h2>Minutes for 2011-8-9</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0026.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0026.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Dave Longley, Gregg Kellogg, Alexandre Passant, Markus Lanthaler, Manu Sporny, Ted Thibodeau Jr., Dave Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="comment"><span class="name">Dave Longley</span>: I don't have voice on this end today... going to say stuff in IRC.</div>
+<div class="comment"><span class="name">Dave Longley</span>: I might not be available for the whole call either.</div>
+<div class="information">Note: Gregg Kellogg is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: New Participants</h1>
+<div class="comment"><span class="name">Alexandre Passant</span>:  Hi, I'm a researcher from DERI, but I'm also the founder of Seevl - we focus on providing semantic context around music - products using structured data and disruptive Web technologies. We are starting to use JSON-LD in our product line.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Hi, my name is Markus Lanthaler - I'm a PhD student at the Graz University of Technology working in the field of RESTful services and Linked Data. I'm interested in JSON-LD because I needed something similar in an approach called SEREDASj - <a href="http://bit.ly/seredasj">http://bit.ly/seredasj</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so the additions to the Agenda are: talking about the test suite and basic spec language and/or tutorials for people.</div>
+<h1 id=topic-2 class="topic">Topic: Updates on implementations</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  The list of implementations growing, which is always nice to see</div>
+<div class="comment-continuation">… Dave has done the c++, JavaScript, and PHP implementations</div>
+<div class="comment-continuation">… we also have implementations for Erlang that are starting as well as Mike's implementation for Python</div>
+<div class="comment"><span class="name">Alexandre Passant</span>:  We use standard JSON libraries to write out JSON-LD</div>
+<h1 id=topic-3 class="topic">Topic: Test Suite</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  have list of tests along with DB forge implementation</div>
+<div class="comment-continuation">… compaction, expansion, framing tests</div>
+<div class="comment-continuation">… input is valid JSON-LD, use algorithms to normalize to allow straight string comparison on output</div>
+<div class="comment-continuation">… other things to test: convert JSON to RDF and run SPARQL queries</div>
+<div class="comment-continuation">… In RDFa, created web service for testing with a number of input docs defined by the test suite. The test suite does a Web service call to processor service, get results, run SPARQL against the results.</div>
+<div class="comment-continuation">… We could modify this environment to use with a JSON-LD test sute.</div>
+<div class="comment-continuation">… problem with having an offline test suite is that every developer must write their own test harness</div>
+<div class="comment-continuation">… RDFa harness worked pretty well - wouldn't take much to move it over since I wrote it - I know the code pretty well.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'd like to see us go towards string comparisons instead of SPARQL.[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>: definitely string comparisons for non-RDF, if you're handling RDF tests, perhaps SPARQL might be ok, but if we can avoid it, that would be good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: So, both of you would like us to move to straight string comparisons... sounds good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any JSON-LD which implements normalization should output the same string.</div>
+<div class="comment-continuation">… Other possibility, express four different types of calls: compaction, expansion, framing, and normalization.</div>
+<div class="comment-continuation">… Make a call to the Web service, add a query parameter to tell type of output format is desired. We may need to add bits like providing context, etc too very query parameters.</div>
+<div class="comment-continuation">… It is very useful to test each algorithm on it's own. Otherwise, don't know where implementation bugs may lie if you start off trying to test normalization (which is the most complicated of all of the algorithms).</div>
+<div class="comment-continuation">… Modes of operations also relate 1-to-1 against the JavaScript API.</div>
+<div class="comment-continuation">… helps with testing, and matches JS API.</div>
+<div class="comment"><span class="name">Dave Longley</span>: sounds good, but keep in mind that we might have other methods in the JSON-LD API including something that takes in triples and something that exports triples.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I think it would be a good idea to create a Web service to be able to test the different parts independently</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1 good start</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Exporting triples useful if BNode IDs are normalized</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Seems like we have consensus on using regular string compares for JSON-LD test suite.</div>
+<div class="comment-continuation">… four different mechanisms for output: compaction, expansion, framing, normalization.</div>
+<div class="comment-continuation">… output of Web service calls should be the output of the API calls.</div>
+<div class="comment-continuation">… still issues with compaction/expansion, which don't require a specific lexocographical sort order for keys in output. Can't use string comparison for those.</div>
+<div class="comment"><span class="name">Dave Longley</span>: if we define an order (lexicographically sorted keys, etc) for the outputs that might work.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  may only be able to do straight string comparison on normalization tests</div>
+<div class="comment"><span class="name">Dave Longley</span>:  was thinking about the same[scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  probably require ordering of keys and removal of white space to make tests work.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I think that should be a test spec, not in the main spec</div>
+<div class="comment"><span class="name">Dave Longley</span>: i don't think it needs to be spec'd out, it can just be on the test suite site</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: or just a test document</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1 to what markus said.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1 to markus</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  consensus: separate doc to describe test suite interaction.</div>
+<div class="comment-continuation">… test harness assumes lexical ordering of keys and whitespace.</div>
+<div class="comment-continuation">… can then test all modes of operations.</div>
+<h1 id=topic-4 class="topic">Topic: Basic / Beginners Guide to JSON-LD</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  3-4 weeks ago Brian, Glenn, Kingsley had issues with JSON-LD spec.</div>
+<div class="comment-continuation">… Kingsley was concerned about Linked Data vs. RDF conflation.</div>
+<div class="comment-continuation">… Glenn wanted a simple way to express directed graphs.</div>
+<div class="comment-continuation">… Brian was concerned about focus of spec. too complicated, need simpler spec.</div>
+<div class="comment-continuation">… those three concerns resulted in the Basic JSON-LD specification. Unfortunately, I conflated all of those issues above when they are in fact, separate.</div>
+<div class="comment-continuation">… started off as mis-guided attempt to simplify larger spec.</div>
+<div class="comment-continuation">… we might want to create an introductory doc: "JSON-LD for Beginners"</div>
+<div class="comment-continuation">… We could focus on only talking about the features Brian sent to list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: * All JSON objects are interpreted as resources (subjects/objects)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: * @subject is the IRI for that resource (anonymous if none)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: * Properties are tokens with context mappings (no IRIs and no CURIEs)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: * JSON arrays are used for multiple values for a property</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The current JSON-LD spec attempts to define such an easy introduction.</div>
+<div class="comment-continuation">… Brian's approach is a good one.</div>
+<div class="comment"><span class="name">Dave Longley</span>: starting with the basics in the spec and then getting advanced works for me.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think maybe starting with a basic introduction and moving toward advanced concepts.[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Unnamed nodes in the advanced section[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  some advantage in using separate docs; We could do a tutorial: 1 per day introducing a new JSON-LD concept so that people understand JSON-LD after 5 days of reading about it for 15 minutes a day.</div>
+<div class="comment-continuation">… latest re-write attempts to go in this direction - simple to advanced.</div>
+<div class="comment"><span class="name">Dave Longley</span>: tutorials are good as "companion" documents</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  line is crossed when writing tutorials in the spec which conflates audiences addressed.</div>
+<div class="comment-continuation">… A tutorial aimed at Web developers shouldn't go in the specification aimed at JSON-LD implementers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agree.. spec should remain a spec, tutorials should be a different thing.. we shouldn't conflate them[scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a set of tutorials is better for publishers.</div>
+<div class="comment-continuation">… We were heavy on the tutorials in RDFa and people complained that the spec was too verbose - and then went on to say "look how big the spec is - its obviously complicated"; we tried to teach too much in the RDFa spec.</div>
+<div class="comment-continuation">… The RDFa Primer doc gives a tutorial, but it looks like a scary spec.</div>
+<div class="comment-continuation">… HTML5 and OAuth specs don't try to give tutorial in spec... probably the best direction.</div>
+<div class="comment-continuation">… how to implement processor, web browser, User Agent - that's stuff that only developers care about - spec language - not tutorial language.</div>
+<div class="information">we could have a one-page cheat-sheet</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: agree.. normally devs just read the spec when they don't find a solution in tutorials</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  work to simplify basic and advanced concepts in spec and move prose.</div>
+<div class="comment-continuation">… use of spec moved to separate tutorials. 6-part series of small article.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  We could use a wiki to write the tutorials.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  hesitant about the use of a Wiki.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  as non-coder, I don't use GitHub. Starting to have to use it, and it is a pain.</div>
+<div class="comment-continuation">… a wiki makes sense.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  other issue is history is left in database w/ wiki-based approach, and site history is not tracked.</div>
+<div class="comment-continuation">… could set up media wiki to run off SQLite.</div>
+<div class="comment-continuation">… my experience w/ a wiki is that it's a pain to setup, I'm usually the one that has to do it, preventing spam is difficult, and no-one ends up contributing.</div>
+<div class="comment-continuation">… people could write word/google and other push into website.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  There are gate-keeper issues with that approach.</div>
+<div class="comment-continuation">… history can get lost with any tool.</div>
+<div class="comment-continuation">… Using word-docs, everyone needs to track, version issues.</div>
+<div class="comment-continuation">… Google docs looses history.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm complaining because I'm probably going to have to be the one to do it, but we probably need to implement wiki.</div>
+<div class="comment-continuation">… other issue is fighting spam and other management headaches - the work usually falls onto the editors lap.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  why stuff is often done in W3C space, to get admin support.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Are we talking about a wiki for the long term or just while writing the tutorials?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  turns into editors job.</div>
+<div class="comment-continuation">… we'll set up a wiki, and hopefully people will contribute.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agreement to set up wiki.</div>
+<div class="comment-continuation">… wiki there for the long term, useful for more than tutorials.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: then I kind of share your objections manu</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I don't think that anyone will contribute after the initial phase of writing the articles.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if setting up wiki get's more participation, it's useful in spite of the admin headache.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: let's try it</div>
+<div class="comment-continuation">… at worst, it is a waste of time.</div>
+<h1 id=topic-5 class="topic">Topic: JSON-LD spec updates</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Can't really comment on the stuff that Manu and Dave added.[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We removed as much "RDF" out of the doc as possible - updated the keywords - re-arranged lots of text and prose[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  added support for RDF Lists via @list[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Added RDF conversion algorithms[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  gone through and implemented various algorithms. Now "unstable" not completely experimental.</div>
+<div class="comment-continuation">… requires 2-3 more passes to make sure we're capturing everything in the algorithms.</div>
+<div class="comment-continuation">… working on normalization, the most difficult algorithm.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the prose goes from from beginning, to intermediate, to advanced, followed by algorithms.</div>
+<div class="comment-continuation">… we think that is what processor writers need.</div>
+<div class="comment-continuation">… moved other elements to the bottom: microdata, RDFa, Microformats examples in the appendix now</div>
+<div class="comment-continuation">… not essential to spec.</div>
+<div class="comment-continuation">… removed API section because it completely deviated from the recent changes.</div>
+<div class="comment-continuation">… We are currently working on the following: finishing spec-language for the normalization algorithm, adding a reworked API (compact, expand, frame, normalize), may add something about web services to expose API calls.</div>
+<div class="comment-continuation">… That should be the first feature-complete cut of the spec.</div>
+<div class="comment-continuation">… We'll want people to do full implementations of the spec after that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  doc has changed based on input from mailing list, IRC, Twitter, and Google+.</div>
+<h1 id=topic-6 class="topic">Topic: JSON-LD Requirements</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Moved the document forward based on comments from the mailing list[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Changed wikipedia quote to TimBL quote[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we've finished everything in Linked Data requirements... added a bit about structured data - I think that discussion has run it's course and this may not be necessary[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I outlined JSON-LD requirements based on these tenets.[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  A JSON-LD document must be able to express a linked data graph.[scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Should we add: JSON-LD doc must be a valid JSON document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment-continuation">… Insert this at 2.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: why not replace 2 with it?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: it doesn't fit the rest of the list</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: what's the advantage of having 2? I don't really get what you are trying to say with that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have another issue with "other literal name" - for example, we don't define what "null" means. Could say that null is undefined; has value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, the issue is syntax vs. semantics. We want to say that we fully support the JSON syntax. We also want to say that the JSON syntax is used to express Linked Data semantics. So we need two items to say that... does that help?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: not really</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: if you are saying it has to be valid JSON then it implies that you are using JSON's constructs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: so are you trying to say you can't use bools e.g.?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: No, you can use bools... just not 'null'</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Let's put this on the mailing list to discuss more</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: send out the list, not just a ref</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I will send JSON-LD requirements to the mailing list for further discussion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Thanks a bunch to Gregg for scribing today!</div>
+<div class="comment"><span class="name">Dave Longley</span>: thanks everyone</div>
+<div class="comment"><span class="name">Dave Lehn</span>: bye</div>
+</body>
+</html>
+
+
