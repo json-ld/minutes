@@ -34,6 +34,11 @@
          "alias": "gkellogg",
          "homepage": "http://greggkellogg.net/pages/about"
       },
+      "Markus Lanthaler":
+      {
+         "alias": ["MarkusLanthaler"],
+         "homepage": "https://twitter.com/markuslanthaler"
+      },
       "Niklas Lindström":
       {
          "alias": ["lindstream"]
@@ -50,6 +55,11 @@
       "Alfonso Martin":
       {
          "alias": ["amartin"]
+      },
+      "Alexandre Passant":
+      {
+         "alias": ["terraces"],
+         "homepage": "http://apassant.net/"
       },
       "Nathan Rixham":
       {
@@ -103,10 +113,10 @@
          for(n in names)
          {
             var alias = names[n];
-            alias.toLowerCase();
+            alias = alias.toLowerCase();
             if(alias.length > 2 && !(alias in rval))
             {
-               rval[names[n]] = p;
+               rval[alias] = p;
             }
          }
       }
@@ -160,6 +170,14 @@
       return rval;
    };
 
+   scrawl.scribeContinuation = function(msg)
+   {
+      var rval = "<div class=\"comment-continuation\">" +  
+          scrawl.htmlencode(msg) + "</div>\n";
+
+      return rval;
+   }
+
    scrawl.present = function(context, person)
    {
       if(person != undefined)
@@ -177,7 +195,7 @@
    scrawl.processLine = function(context, aliases, line)
    {
        var rval = "";
-       var match = commentRx.exec(line)
+       var match = commentRx.exec(line);
 
        if(match)
        {
@@ -189,10 +207,13 @@
           if(msg.search(scribeRx) != -1)
           {
              var scribe = msg.split(":")[1].replace(" ", "");
+             scribe = scribe.toLowerCase();
+
              if(scribe in aliases)
              {
                  context.scribenick = scribe;
                  context.scribe = aliases[scribe];
+                 scrawl.present(context, aliases[scribe]);
                  rval = scrawl.information(context.scribe + " is scribing.");
              }
           }
@@ -222,38 +243,66 @@
           {
              if(nick in aliases)
              {
-                rval = scrawl.scribe(msg, aliases[nick])
+                rval = scrawl.scribe(msg, aliases[nick]);
              }
           }
           // the line is by the scribe
           else if(nick == context.scribenick)
           {
-             if(msg.indexOf(":") != -1)
+             if(msg.indexOf("…") == 0 || msg.indexOf("...") == 0)
              {
-                var alias = msg.split(":")[0].replace(" ", "");
-                var msg = msg.split(":")[1]
+                // the line is a scribe continuation
+                rval = scrawl.scribeContinuation(msg);
+             }
+             else if(msg.indexOf(":") != -1)
+             {
+                var alias = msg.split(":", 1)[0].replace(" ", "").toLowerCase();
                 
                 if(alias in aliases)
                 {
-                    scrawl.present(context, aliases[alias])
-                    rval = scrawl.scribe(msg, aliases[alias])
+                    // the line is a comment made by somebody else that was
+                    // scribed
+                    var cleanedMessage = msg.split(":").splice(1).join(":");
+
+                    scrawl.present(context, aliases[alias]);
+                    rval = scrawl.scribe(cleanedMessage, aliases[alias]);
                 }
                 else
                 {
-                    rval = scrawl.scribe(msg)
+                    // The scribe is noting something and there just happens
+                    // to be a colon in it
+                    rval = scrawl.scribe(msg);
                 }
              }
              else
              {
-                rval = scrawl.scribe(msg)
+                // The scribe is noting something
+                rval = scrawl.scribe(msg);
              }
           }
           // the line is a comment by somebody else
           else if(nick != context.scribenick)
           {
-             // the line is a scribe line by somebody else
-             scrawl.present(context, aliases[nick])
-             rval = scrawl.scribe(msg, aliases[nick])
+             if(msg.indexOf(":") != -1)
+             {
+                var alias = msg.split(":", 1)[0].replace(" ", "").toLowerCase();
+                
+                if(alias in aliases)
+                {
+                    // the line is a scribe assist
+                    var cleanedMessage = msg.split(":").splice(1).join(":");
+
+                    scrawl.present(context, aliases[alias]);
+                    rval = scrawl.scribe(cleanedMessage, aliases[alias], 
+                       aliases[nick]);
+                }
+             }
+             else
+             {
+                // the line is a scribe line by somebody else
+                scrawl.present(context, aliases[nick]);
+                rval = scrawl.scribe(msg, aliases[nick]);
+             }
           }
           else
           {
@@ -305,7 +354,7 @@
       var aliases = scrawl.generateAliases();
       var context = 
       { 
-         "group": "Linked Data in JSON", 
+         "group": "JSON for Linking Data", 
          "chair": "Manu Sporny",
          "present": {},
          "topics": []
