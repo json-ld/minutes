@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf8" />
+  <title>Linked Data in JSON Telecon: 2011-08-23</title>
+  
+  <style type="text/css">
+body {
+   margin: 10%;
+}
+
+.name {
+   font-weight: bold;
+}
+
+.information {
+   font-style: italic;
+}  
+
+.comment-continuation {
+   margin-left: 2em;
+}
+  </style>
+</head>
+
+<body>
+<h1>JSON for Linking Data Telecon</h1>
+<h2>Minutes for 2011-08-23</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0063.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0063.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Ted Thibodeau Jr., Manu Sporny, Gregg Kellogg, Markus Lanthaler, Dave Longley, Nicolas Dufour, Dave Lehn, Thomas Steiner</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: looking things over before the call...</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: in IANA Considerations (and possibly elsewhere), "form" and "format" are used inconsistently and somewhat interchangeably. I think this needs careful cleanup.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: related to this -- I think there should be full syntax (possibly EBNF, possibly Unix "commandline usage"-style) and sample string(s) shown here, including the (all?) optional parameter(s),</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  differences between "form" and "format" are inconsistent because we haven't decided exactly what they're going to be yet (still editing that section)... but it'll probably be "form" ... with values being "compacted", "expanded", "framed", "normalized" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: as far as fully syntax - we could do EBNF/etc. Standard practice in IETF is to just list the parameters and possible parameter values.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: I can't imagine that giving more info here would violate anything IETF ... and it doesn't matter to me what goes to IETF; I'm concerned about what goes into *this* doc(set)</div>
+<div class="information">Note: Gregg Kellogg is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: Support 'null' in JSON-LD</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  responded to markus on the mailing list as to why not to support 'null'</div>
+<div class="comment-continuation">… we use null to specify something that has been 'framed' as non-existing.</div>
+<div class="comment-continuation">… a frame specifying output elements that don't exist is serialized using 'null'. e.g., foaf:homepage: "null"</div>
+<div class="comment-continuation">… helps programmers to not put in checks to ensure that a key exists, only need to check for 'null' value.</div>
+<div class="comment-continuation">… kind of strange in RDF too - a property that doesn't exist as null.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ok, but then you don't know if the value was null or if the triple wasn't there</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  could define jsonld:null, or rdf:nil, ...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could use @null [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: we shouldn't introduce a new keyword like @null IMHO</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A bit hesitant to add another keyword. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Thomas Steiner</span>: +1 for not adding yet another stop word</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  suggests "[]" as no value - RDF does something like that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Casting new keywords is something we should consider strongly before doing... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: no, that's not the same</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: NULL != not existent triple</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  what's the use case/</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dlongley - I would say null is just allowed in object position</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  application specific, empty set can be correct, others would say that database NULL is correct, others would use null in yet another different way.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  hesitant to put in support yet due to potential for confusion and multiple different ways of interpreting null.</div>
+<div class="comment-continuation">… let's push the discussion onto the mailing list.</div>
+<div class="comment-continuation">… Right now use null in framing, if we add in another use need to think deeply about how it impacts framing.</div>
+<div class="comment-continuation">… if JSON-LD treats null as rdf:nil, we may have a round-tripping issue.</div>
+<h1 id=topic-2 class="topic">Topic: Arrays as ordered lists or unordered sets</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: yeah.. I think we should bias JSON-LD more towards JSON than towards the underlying data model because that's what people see</div>
+<div class="comment"><span class="name">Thomas Steiner</span>: +1 for doing what JSON does, Markus</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  concern from Richard Cyganiak, he coined a term called "triple tar-pit"</div>
+<div class="comment-continuation">… which is when you have a bunch of triples that model what you are talking about, but are very difficult to work with.</div>
+<div class="comment-continuation">… very little use of lists in RDF.</div>
+<div class="comment-continuation">… Ordering would take any JSON-LD and turn into ordered list.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: yes, but that's a RDF issue not a JSON-LD issue</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It makes the RDF data messy</div>
+<div class="comment-continuation">… requires iterating over lists that aren't expected to be ordered.</div>
+<div class="comment-continuation">… second point, if JSON people want an ordered list, they can continue to use array as being ordered.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: but if we do it that way we again have these round-tripping issues.. you can't expect that array will stay the same across multiple calls to a web service.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If RDF people want to ensure ordering, all they need to do is normalize and compact.</div>
+<div class="comment"><span class="name">Dave Longley</span>: manu, it's not that simple -- you don't know that the sort order will be based on the property/values that you want</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  which use case are we concerned about not addressing?</div>
+<div class="comment"><span class="name">Dave Longley</span>: a possibility is adding a @sort feature to framing</div>
+<div class="comment"><span class="name">Dave Longley</span>: to allow you to specify the property to sort on (and the sort order ascending/descending)</div>
+<div class="comment"><span class="name">Dave Longley</span>: since if you want to work with data coming from RDF/triples you'll likely be framing ...</div>
+<div class="comment"><span class="name">Dave Longley</span>: so, that could/should be done there.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  RDF people know how to order, JSON people don't need to worry about ordering; can be service-specific.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  leads to round-tripping issues.</div>
+<div class="comment-continuation">… JSON-LD converted to RDF, when it comes back, order is not guaranteed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  why is that important?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  because api expects it to be ordered.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so, one use case could be a recipe example output in list order?</div>
+<div class="comment"><span class="name">Dave Longley</span>: which is needed for linked data *anyway* ... since the JSON structure doesn't exist in a triples world.</div>
+<div class="comment"><span class="name">Dave Longley</span>: preserving order *only* via JSON arrays is a round-tripping issue *regardless*... that structure is not transmitted when going to/from triples.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It comes down to what the sweet spot is that we're trying to optimize for - is the expectation that almost everything is ordered? Then lists are good. Are ordering an exception, then unordered sets are good. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would be nice to say if something is ordered based in the @coercion rules. That's the current state. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is a common modeling issue - assuming that ordering is going to be consistent. It is a resonable consideration. JSON-LD provides a simple way of specifing that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we adopt @list keyword and syntax, that would be one-such solution.</div>
+<div class="comment-continuation">… Markus' concern, however, is that we should be doing list ordering by default.</div>
+<div class="comment"><span class="name">Dave Longley</span>: it isn't as though you *can't* specify multiple values in plain JSON either ... the way you do it is still with arrays, essentially order is just ignored.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people will need to add hypothetic @set for most usages, otherwise they're turned into lists.</div>
+<div class="comment-continuation">… this requires much more markup impact.</div>
+<div class="comment-continuation">… true that JSON developers are used to ordering, but if we implement that way, the impact on Linked Data people is much larger.</div>
+<div class="comment"><span class="name">Dave Longley</span>: keep in mind that JSON developers use arrays in ways where they don't care about the order either -- and that might even be the average case there as well</div>
+<div class="comment-continuation">… thinks an ordered list is an exception in LD, but not in JSON.</div>
+<div class="comment-continuation">… doesn't think bias should necessarily carry forward to JSON-LD.</div>
+<div class="comment-continuation">… vast majority of code using arrays doesn't really care about order.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could there be an optional way to override default behavior in the @context?</div>
+<div class="comment"><span class="name">Dave Longley</span>: that's a possibility, to add it in just the context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could add an option to specify that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One common pattern would be where there is a single value that would not be serialized in an array - when there are multiple or no values, we move toward an array-type specification. There is extra work with someone trying to consume that. Either serialize as a list or a single item, depending on size of an array. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The normal way of serializing normal values would be to use array notation when there is anything other than one value. If it is just one value - it's just an attribute/value pair. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought that's what we have today? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you specify that a property takes an array... if there was a key with a single value that is in a single array, reduce it to a single object. Actually, nevermind. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I think that would combine the best of both worlds/approaches.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we can specify the default behavior in the context, would that suffice? I can live with putting that in the spec.</div>
+<div class="comment-continuation">… would rather see current behavior as default.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="information">Something like this for ordered lists as default: @coerce: { @list: [] }</div>
+<div class="information">Something like this for unordered sets as default - if nothing is specified, this is the default: @coerce: { @list: {}}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ok, let's discuss that in detail on the mailing list</div>
+<h1 id=topic-3 class="topic">Topic: Algorithm spec language updates</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  dave and I have spec'd out the algorithms.</div>
+<div class="comment-continuation">… easy ones expand, compact &amp; framing.</div>
+<div class="comment-continuation">… normalization is incredibly involved. very difficult.</div>
+<div class="comment-continuation">… kudos to Dave Longley for figuring it out a normalization algorithm that would work, simplifying it, and cleaning up the language I wrote in the spec on normalization.</div>
+<div class="comment-continuation">… still a bit more work required, but one can see the general idea of the normalization process now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not quite ready for more implementations yet, still need to clean it up a bit.</div>
+<h1 id=topic-4 class="topic">Topic: API return values - null values vs. Exceptions</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  issue with API, what to do when things go wrong?</div>
+<div class="comment-continuation">… if we're not getting our input into the API from the user interface, we should raise an exception.</div>
+<div class="comment-continuation">… only time to return null or "" is when input is given via the UI.</div>
+<div class="comment-continuation">… if designing an API from scratch, best thing to do is raise exceptions for programmatic errors.</div>
+<div class="comment-continuation">… e.g., an invalid frame is provided, raise exception instead of returning null.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 for exceptions</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  API will be updated. It either returns correct data or raises an exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  +1 for exceptions too</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1 exception</div>
+<div class="comment"><span class="name">Dave Longley</span>: well, currently a return value of null from framing...</div>
+<div class="comment"><span class="name">Dave Longley</span>: is a way of saying your frame didn't match your input</div>
+<div class="comment"><span class="name">Dave Longley</span>: rather ... there were no matches</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: -1 for frame mismatch</div>
+<div class="comment"><span class="name">Dave Longley</span>: right now, if you specify a frame with a set of properties</div>
+<div class="comment"><span class="name">Dave Longley</span>: if there is a subject with those properties, it will be returned</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two options, return empty JSON object ( {} ), or return null</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  prefer {} notation.</div>
+<div class="comment"><span class="name">Dave Longley</span>: maybe {} could work.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  null means you don't need to check for empty object</div>
+<div class="comment-continuation">… easier from a programmer's perspective.</div>
+<div class="comment-continuation">… "object === {}" ?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  +1 for {}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 for {}</div>
+<div class="comment"><span class="name">Dave Longley</span>: well, the only issue is possibly with recursion</div>
+<div class="comment"><span class="name">Dave Longley</span>: since null is used to specify that a property doesn't exist</div>
+<div class="comment"><span class="name">Dave Longley</span>: because {} is not a string.</div>
+<div class="comment"><span class="name">Dave Longley</span>: and a property might be a string, etc.</div>
+<div class="comment"><span class="name">Dave Longley</span>: mailing list - let's talk about it there.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley to investigate further.</div>
+<div class="comment"><span class="name">Nicolas Dufour</span>: remember to not make decisions on just javascript implementations ;)</div>
+<div class="comment"><span class="name">Dave Longley</span>: yeah, not just a javascript issue</div>
+<div class="comment"><span class="name">Dave Longley</span>: just a consistency issue</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  depending on issues that surface, hope that that issue can be resolved and we can keep {} at expense of more implementation.</div>
+<div class="comment"><span class="name">Dave Longley</span>: it might work fine to do {}, we'll see.</div>
+<h1 id=topic-5 class="topic">Topic: IANA MIME type registration</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  consensus of WHATWG folks and other IETF folks to use application/ld+json</div>
+<div class="comment-continuation">… other vendor supplied examples of +json as well. application/svg+xml is prior art.</div>
+<div class="comment-continuation">… also discussed optional parameters</div>
+<div class="comment-continuation">… added form= in header.</div>
+<div class="comment-continuation">… can also put in response header</div>
+<div class="comment-continuation">… also talked about form=context, to indicate that it is a context document.</div>
+<div class="comment-continuation">… still up in the air.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: the other question on the mailing list was "frame"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  specifies that getting JSON-LD doc in compacted form. Invokes spec language for "compacted"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  request header would use Accept: not Content-Type:</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  issues - how do we do framed form?</div>
+<div class="comment-continuation">… how do we specify document is context or not.</div>
+<div class="comment-continuation">… input to framing document requires a frame document.</div>
+<div class="comment-continuation">… could be a fairly large JSON object</div>
+<div class="comment-continuation">… if a web service needs to frame, what to send in request header?</div>
+<div class="comment-continuation">… send Accept: application/ld+json;form=framed with post data</div>
+<div class="comment-continuation">… otherwise, URI encode large JSON data in header</div>
+<div class="comment-continuation">… or, provide frame out-of-band, with URI of frame document.</div>
+<div class="information">...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: don't like the idea of passing frame IRI out-of-band.. that could lead to denial of service attacks to a server because it's cheap to force a server to download huge amounts of data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  problem is not everyone can provide frame as URL</div>
+<div class="comment-continuation">… link header problematic, URL encoding problematic because it seems hack-y, but may want to support as an option.</div>
+<div class="comment-continuation">… OAuth allows parameters to be specified in IRI or HTTP headers. Nice, but it complicates implementations.</div>
+<div class="comment-continuation">… maybe want to specify what a WS will take as input when wanting to specify framing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: and then the HTTP mode must be POST</div>
+<div class="comment"><span class="name">Dave Lehn</span>: we want that to work for GET too</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: currently POSTing both docs to the web service seems to be the best option in my opinion - but you can't cache it then</div>
+<div class="comment"><span class="name">Manu Sporny</span>: with a JSON document that is an array with two objects, the JSON-LD input and the JSON-LD frame, so [{}, {}]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You're not always going to be specifying the document to be framed. Most likely you're going to request a resource and you're going to apply a frame locally. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: The question really is need we support this? I see this more as a local API issue than a web services issue?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We haven't discussed what the MIME type of the framed document - why not do a multi-part post? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Lehn</span>: I partly agree with MarkusLanthaler that you could just do the reframing locally.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to discuss this use case a bit further. It's really only a consideration for the test-suite.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1 to further consideration and more clearly defining use cases... "easing test suite implementation" is not the best argument for spec design.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you want to comply with test-sute, need to implement multi-part post, but leave it at that - don't have to spec that for it to work. Alright, end of telecon.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 to remove it from the main spec for the moment</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Thanks for scribing, Gregg!!!</div>
+<h1 id=topic-6 class="topic">Topic: Post-call discussion - RDF/JSON, issue tracking</h1>
+<div class="comment"><span class="name">Thomas Steiner</span>: for those who haven't seen it - I've sent out something about RDF/JSON</div>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2011Aug/0131.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2011Aug/0131.html</a></div>
+<div class="comment"><span class="name">Dave Lehn</span>: reframing locally wouldn't be as efficient i guess. you might just want the framed data. no reason to xfer everything in that case.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Is there a place where we document open issues? The list on GitHub doesn't seem to be very up to date.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We should be documenting open issues on github</div>
+<div class="comment"><span class="name">Manu Sporny</span>: it's not very up to date</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Sure Manu, will do that tomorrow morning, it's already 6pm in Italy</div>
+<div class="comment"><span class="name">Manu Sporny</span>: np, thanks Markus</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ok.. have a nice evening</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  tomayac, finally pointing out the elephant in the room; thanks!</div>
+<div class="comment"><span class="name">Thomas Steiner</span>: gkellogg, controversial elephant..., but thanks for the support!</div>
+<div class="information">"JSON-LD is(**) about objects, simple default assumptions, elegancy, and developers in mind, whereas RDF/JSON seems to be created with the premise to carry all the expressiveness of RDF over to JSON, whatever the cost might be." ... good point</div>
+<div class="comment"><span class="name">Thomas Steiner</span>: thanks, Henri</div>
+<div class="information">"We serve them RDF/JSON (yes, yes, yo, homie), but we will probably fail."</div>
+<div class="comment"><span class="name">Dave Lehn</span>: i haven't been following the rdf/json work but it doesn't seem so terrible to have that as a spec'ed option for rdf data transport. it just looks hard to use from a javascript viewpoint.</div>
+<div class="comment"><span class="name">Dave Lehn</span>:  problem is same with RDFa/Microdata, having two different ways to do essentially the same thing is wrong-headed.</div>
+<div class="comment"><span class="name">Thomas Steiner</span>: i was a bit worried wrt the sloppy language in that paragraph...</div>
+<div class="comment"><span class="name">Thomas Steiner</span>: gkellogg, +1!</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i'm not sure that's the same situation. rdfa and microdata are trying to solve the exact same problem (i think?) but rdf/json and json-ld are taking different approaches and seem to have different goals. [scribe assist by Dave Lehn]</div>
+<div class="comment"><span class="name">Dave Lehn</span>: but hey, if json-ld wins everyones hearts, that's fine with me ;)</div>
+
+</body>
+</html>
+
+

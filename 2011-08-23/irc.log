@@ -1,0 +1,262 @@
+[10:40]	<MacTed>	looking things over before the call...
+[10:40]	<MacTed>	in IANA Considerations (and possibly elsewhere), "form" and "format" are used inconsistently and somewhat interchangeably. I think this needs careful cleanup.
+[10:43]	<MacTed>	related to this -- I think there should be full syntax (possibly EBNF, possibly Unix "commandline usage"-style) and sample string(s) shown here, including the (all?) optional parameter(s),
+[10:47]	|<--	bergie has left freenode (Quit: Leaving)
+[10:48]	-->|	bergie (~bergie@portal.salzburgresearch.at) has joined #json-ld
+[10:49]	-->|	CapNemo (u1995@gateway/web/irccloud.com/x-yrkclfjiezdydxot) has joined #json-ld
+[10:50]	<manu`>	MacTed: differences between "form" and "format" are inconsistent because we haven't decided exactly what they're going to be yet (still editing that section)... but it'll probably be "form" ... with values being "compacted", "expanded", "framed", "normalized"
+[10:50]	|<--	bergie has left freenode (Read error: Connection reset by peer)
+[10:51]	-->|	bergie_ (~bergie@portal.salzburgresearch.at) has joined #json-ld
+[10:51]	<manu`>	as far as fully syntax - we could do EBNF/etc. Standard practice in IETF is to just list the parameters and possible parameter values.
+[10:52]	I'd have to check to make sure that putting EBNF in there wouldn't violate some IETF requirement (although, I can't see why it would)
+[10:53]	-->|	MarkusLanthaler (4f3369b9@gateway/web/freenode/ip.79.51.105.185) has joined #json-ld
+[10:55]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-0000002e) has joined the conference.
+[10:56]	Markus Lanthaler (SIP/82.48.59.119-0000002f) has joined the conference.
+[10:57]	<voip-ld>	Manu Sporny (SIP/6000-00000030) has joined the conference.
+[10:57]	JSON-LD (SIP/digitalbazaar.com-00000031) has joined the conference.
+[10:57]	JSON-LD (SIP/digitalbazaar.com-00000031) has left the conference.
+[10:58]	* _terraces	joins again, wrong SIP config
+[10:59]	<MacTed>	I can't imagine that giving more info here would violate anything IETF ... and it doesn't matter to me what goes to IETF; I'm concerned about what goes into *this* doc(set)
+[11:00]	<voip-ld>	Ted Thibodeau Jr (SIP/sip2sip.info-00000032) has joined the conference.
+[11:02]	<voip-ld>	MacTed is now associated with SIP/sip2sip.info-00000032.
+[11:03]	-->|	tomayac (~tomayac@nat/google/x-hndizpehscjeutcw) has joined #json-ld
+[11:03]	<manu`>	voip: connections
+[11:03]	voip: connections?
+[11:03]	<voip-ld>	Conference connections: Ted Thibodeau Jr (MacTed) [SIP/sip2sip.info-00000032], Gregg Kellogg [SIP/sip2sip.info-0000002e], Markus Lanthaler [SIP/82.48.59.119-0000002f], Manu Sporny [SIP/6000-00000030]
+[11:05]	<manu`>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0063.html
+[11:05]	<manu`>	Scribe: gkellogg
+[11:08]	<manu`>	Topic: Support 'null' in JSON-LD
+[11:08]	<manu`>	http://lists.w3.org/Archives/Public/public-linked-json/2011Aug/0066.html
+[11:08]	<gkellogg>	manu: responded to markus on the mailing list as to why not to support 'null'
+[11:08]	<gkellogg>	… we use null to specify something that has been 'framed' as non-existing.
+[11:09]	<gkellogg>	… a frame specifying output elements that don't exist is serialized using 'null'. e.g., foaf:homepage: "null"
+[11:09]	<gkellogg>	… helps programmers to not put in checks to ensure that a key exists, only need to check for 'null' value.
+[11:10]	<gkellogg>	… kind of strange in RDF too - a property that doesn't exist as null.
+[11:10]	<MarkusLanthaler>	ok, but then you don't know if the value was null or if the triple wasn't there
+[11:10]	<MarkusLanthaler>	json:null would be fine for me as well
+[11:10]	<gkellogg>	manu: could define jsonld:null, or rdf:nil, ...
+[11:11]	q+
+[11:11]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:11]	<manu`>	gkellogg: We could use @null
+[11:11]	<MarkusLanthaler>	I think the value should be set to null and the parser converts that to jsonld:null then
+[11:12]	<MarkusLanthaler>	we shouldn't introduce a new keyword like @null IMHO
+[11:12]	<manu`>	Manu: A bit hesitant to add another keyword.
+[11:12]	<tomayac>	+1 for not adding yet another stop word
+[11:12]	* _terraces	still struggling to call the phone number. bergie_ did it work for you ?
+[11:12]	<bergie_>	_terraces: nope
+[11:12]	* tomayac	_terraces nope
+[11:13]	* manu`	sorry folks - don't know why the dial in number isnt working for you.
+[11:13]	<MarkusLanthaler>	is there really a problem if you set a field to null and if you normalize it you expand it to something like jsonld:null
+[11:13]	<gkellogg>	gkellogg: suggests "[]" as no value - RDF does something like that.
+[11:14]	<manu`>	gkellogg: Casting new keywords is something we should consider strongly before doing...
+[11:14]	<MarkusLanthaler>	no, that's not the same
+[11:14]	<MarkusLanthaler>	NULL != not existent triple
+[11:15]	<dlongley>	a new keyword @null would also occur in the object position like "foo": "@null", which is like a microsyntax ... and it would require escaping to actually use that as a string value
+[11:15]	<manu`>	gkellogg: equivalent would be rdf:nil - empty sequence. Maybe 'null' in JSON -> rdf:nil
+[11:15]	<MarkusLanthaler>	yes, but rdf:nil implies that it is a list
+[11:16]	<gkellogg>	ted: what's the use case/
+[11:16]	<MarkusLanthaler>	dlongley - I would say null is just allowed in object position
+[11:16]	<voip-ld>	<unknown> (SIP/10.0.0.104-00000033) has joined the conference.
+[11:16]	<gkellogg>	manu: application specific, empty set can be correct, others would say that database NULL is correct, others would use null in yet another different way.
+[11:17]	<gkellogg>	manu: hesitant to put in support yet due to potential for confusion and multiple different ways of interpreting null.
+[11:17]	<voip-ld>	Dave Lehn (SIP/6003-00000035) has joined the conference.
+[11:17]	<gkellogg>	… let's push the discussion onto the mailing list.
+[11:18]	<gkellogg>	… Right now use null in framing, if we add in another use need to think deeply about how it impacts framing.
+[11:18]	<gkellogg>	… if JSON-LD treats null as rdf:nil, we may have a round-tripping issue.
+[11:18]	<MarkusLanthaler> ok - I will think a bit more about it. Let's push it back to the mailing list for now
+[11:19]	<manu`>	Topic: Arrays as ordered lists or unordered sets
+[11:19]	<MarkusLanthaler>	yeah.. I think we should bias JSON-LD more towards JSON than towards the underlying data model because that's what people see
+[11:20]	<tomayac>	+1 for doing what JSON does, Markus
+[11:20]	<gkellogg>	manu: concern from Richard Cyganiak, he coined a term called "triple tar-pit"
+[11:20]	<gkellogg>	… which is when you have a bunch of triples that model what you are talking about, but are very difficult to work with.
+[11:21]	<gkellogg>	… very little use of lists in RDF.
+[11:21]	<gkellogg>	… Ordering would take any JSON-LD and turn into ordered list.
+[11:21]	<MarkusLanthaler>	yes, but that's a RDF issue not a JSON-LD issue
+[11:21]	<gkellogg>	manu: It makes the RDF data messy
+[11:22]	<gkellogg>	… requires iterating over lists that aren't expected to be ordered.
+[11:22]	<gkellogg>	… second point, if JSON people want an ordered list, they can continue to use array as being ordered.
+[11:22]	<MarkusLanthaler>	but if we do it that way we again have these round-tripping issues.. you can't expect that array will stay the same across multiple calls to a web service.
+[11:22]	<gkellogg>	manu: If RDF people want to ensure ordering, all they need to do is normalize and compact.
+[11:23]	<dlongley>	manu, it's not that simple -- you don't know that the sort order will be based on the property/values that you want
+[11:23]	<gkellogg>	manu: which use case are we concerned about not addressing?
+[11:23]	<dlongley>	a possibility is adding a @sort feature to framing
+[11:23]	<dlongley>	to allow you to specify the property to sort on (and the sort order ascending/descending)
+[11:24]	<dlongley>	since if you want to work with data coming from RDF/triples you'll likely be framing ...
+[11:24]	<dlongley>	so, that could/should be done there.
+[11:24]	<gkellogg>	manu: RDF people know how to order, JSON people don't need to worry about ordering; can be service-specific.
+[11:24]	<gkellogg>	manu: leads to round-tripping issues.
+[11:25]	<gkellogg>	… JSON-LD converted to RDF, when it comes back, order is not guaranteed.
+[11:25]	<gkellogg>	manu: why is that important?
+[11:25]	<gkellogg>	markus: because api expects it to be ordered.
+[11:26]	q+
+[11:26]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg, gkellogg
+[11:26]	<dlongley>	We already have a use case where we depend on order in PaySwarm: the order of payees for an asset affects how pricing is calculated; we sort based on a property of the payee that specifies the position of the payee
+[11:26]	<gkellogg>	manu: so, one use case could be a recipe example output in list order?
+[11:26]	<manu`>	ack gkellogg
+[11:26]	<voip-ld>	gkellogg has the floor. The next speaker is gkellogg.
+[11:26]	<dlongley>	which is needed for linked data *anyway* ... since the JSON structure doesn't exist in a triples world.
+[11:26]	<manu`>	ack gkellogg
+[11:26]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:27]	<dlongley>	preserving order *only* via JSON arrays is a round-tripping issue *regardless*... that structure is not transmitted when going to/from triples.
+[11:27]	<manu`>	gkellogg: It comes down to what the sweet spot is that we're trying to optimize for - is the expectation that almost everything is ordered? Then lists are good. Are ordering an exception, then unordered sets are good.
+[11:28]	<manu`>	gkellogg: It would be nice to say if something is ordered based in the @coercion rules. That's the current state.
+[11:29]	<manu`>	gkellogg: this is a common modeling issue - assuming that ordering is going to be consistent. It is a resonable consideration. JSON-LD provides a simple way of specifing that.
+[11:29]	<gkellogg>	manu: if we adopt @list keyword and syntax, that would be one-such solution.
+[11:30]	<gkellogg>	… Markus' concern, however, is that we should be doing list ordering by default.
+[11:30]	<dlongley>	it isn't as though you *can't* specify multiple values in plain JSON either ... the way you do it is still with arrays, essentially order is just ignored.
+[11:30]	<gkellogg>	manu: people will need to add hypothetic @set for most usages, otherwise they're turned into lists.
+[11:31]	<gkellogg>	… this requires much more markup impact.
+[11:31]	<gkellogg>	… true that JSON developers are used to ordering, but if we implement that way, the impact on Linked Data people is much larger.
+[11:31]	<dlongley>	keep in mind that JSON developers use arrays in ways where they don't care about the order either -- and that might even be the average case there as well
+[11:31]	<gkellogg>	… thinks an ordered list is an exception in LD, but not in JSON.
+[11:32]	<gkellogg>	… doesn't think bias should necessarily carry forward to JSON-LD.
+[11:32]	<gkellogg>	… vast majority of code using arrays doesn't really care about order.
+[11:33]	<gkellogg>	markus: could there be an optional way to override default behavior in the @context?
+[11:33]	<dlongley>	that's a possibility, to add it in just the context.
+[11:33]	<gkellogg>	manu: we could add an option to specify that.
+[11:33]	q+
+[11:33]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:34]	<manu`>	gkellogg: One common pattern would be where there is a single value that would not be serialized in an array - when there are multiple or no values, we move toward an array-type specification. There is extra work with someone trying to consume that. Either serialize as a list or a single item, depending on size of an array.
+[11:35]	<manu`>	gkellogg: The normal way of serializing normal values would be to use array notation when there is anything other than one value. If it is just one value - it's just an attribute/value pair.
+[11:35]	<manu`>	Manu: I thought that's what we have today?
+[11:36]	<manu`>	gkellogg: If you specify that a property takes an array... if there was a key with a single value that is in a single array, reduce it to a single object. Actually, nevermind.
+[11:37]	<MarkusLanthaler>	I think that would combine the best of both worlds/approaches.
+[11:37]	<gkellogg>	markus: if we can specify the default behavior in the context, would that suffice? I can live with putting that in the spec.
+[11:37]	<gkellogg>	… would rather see current behavior as default.
+[11:37]	<MarkusLanthaler>	+1
+[11:37]	<dlongley>	+1
+[11:37]	<gkellogg>	+1
+[11:37]	<manu`>	+1
+[11:38]	<gkellogg>	Something like this for ordered lists as default: @coerce: { @list: [] }
+[11:38]	<gkellogg>	Something like this for unordered sets as default - if nothing is specified, this is the default: @coerce: { @list: {}}
+[11:38]	<MarkusLanthaler>	ok, let's discuss that in detail on the mailing list
+[11:39]	<manu`>	Topic: Algorithm spec language updates
+[11:39]	<manu`>	http://json-ld.org/spec/latest#algorithms
+[11:39]	<gkellogg>	manu: dave and I have spec'd out the algorithms.
+[11:39]	<gkellogg>	… easy ones expand, compact & framing.
+[11:39]	<gkellogg>	… normalization is incredibly involved. very difficult.
+[11:40]	<gkellogg>	… kudos to Dave Longley for figuring it out a normalization algorithm that would work, simplifying it, and cleaning up the language I wrote in the spec on normalization.
+[11:40]	<gkellogg>	… still a bit more work required, but one can see the general idea of the normalization process now.
+[11:40]	<dlongley>	the source might be easier to follow than the english :)
+[11:40]	<gkellogg>	manu: not quite ready for more implementations yet, still need to clean it up a bit.
+[11:41]	<manu`>	Topic: API return values - null values vs. Exceptions
+[11:41]	<manu`>	http://json-ld.org/spec/ED/20110817#the-application-programming-interface
+[11:42]	<gkellogg>	manu: issue with API, what to do when things go wrong?
+[11:42]	<gkellogg>	… two pieces of feed back from WHATWG/Web Apps folks:
+[11:42]	<gkellogg>	… if we're not getting our input into the API from the user interface, we should raise an exception.
+[11:42]	<gkellogg>	… only time to return null or "" is when input is given via the UI.
+[11:43]	<gkellogg>	… if designing an API from scratch, best thing to do is raise exceptions for programmatic errors.
+[11:43]	<gkellogg>	… e.g., an invalid frame is provided, raise exception instead of returning null.
+[11:43]	<MarkusLanthaler>	+1 for exceptions
+[11:43]	<gkellogg>	manu: API will be updated. It either returns correct data or raises an exception.
+[11:44]	<gkellogg>	gregg: +1 for exceptions too
+[11:44]	<MacTed>	+1 exception
+[11:44]	<dlongley>	well, currently a return value of null from framing...
+[11:44]	<dlongley>	is a way of saying your frame didn't match your input
+[11:44]	<dlongley>	rather ... there were no matches
+[11:44]	<MacTed>	-1 for frame mismatch
+[11:45]	<dlongley>	right now, if you specify a frame with a set of properties
+[11:45]	<dlongley>	if there is a subject with those properties, it will be returned
+[11:45]	<gkellogg>	manu: two options, return empty JSON object ( {} ), or return null
+[11:45]	<gkellogg>	macted: prefer {} notation.
+[11:45]	<dlongley>	maybe {} could work.
+[11:46]	<gkellogg>	manu: null means you don't need to check for empty object
+[11:46]	<gkellogg>	… easier from a programmer's perspective.
+[11:47]	<gkellogg>	… "object === {}" ?
+[11:47]	<gkellogg>	gregg: +1 for {}
+[11:47]	<MarkusLanthaler>	+1 for {}
+[11:48]	<dlongley>	well, the only issue is possibly with recursion
+[11:48]	<dlongley>	since null is used to specify that a property doesn't exist
+[11:48]	<dlongley>	because {} is not a string.
+[11:48]	<dlongley>	and a property might be a string, etc.
+[11:48]	<dlongley>	mailing list - let's talk about it there.
+[11:48]	<gkellogg>	manu: Dave Longley to investigate further.
+[11:49]	<CapNemo>	remember to not make decisions on just javascript implementations ;)
+[11:49]	<dlongley>	yeah, not just a javascript issue
+[11:49]	<dlongley>	just a consistency issue
+[11:49]	<gkellogg>	macted: depending on issues that surface, hope that that issue can be resolved and we can keep {} at expense of more implementation.
+[11:49]	<dlongley>	it might work fine to do {}, we'll see.
+[11:50]	<manu`>	Topic: IANA MIME type registration
+[11:50]	<manu`>	http://json-ld.org/spec/latest/#iana-considerations
+[11:51]	<gkellogg>	manu: consensus of WHATWG folks and other IETF folks to use application/ld+json
+[11:51]	<gkellogg>	… other vendor supplied examples of +json as well. application/svg+xml is prior art.
+[11:52]	<gkellogg>	… also discussed optional parameters
+[11:52]	<gkellogg>	… added form= in header.
+[11:52]	<gkellogg>	… can also put in response header
+[11:52]	<gkellogg>	… also talked about form=context, to indicate that it is a context document.
+[11:53]	<gkellogg>	… still up in the air.
+[11:53]	<MarkusLanthaler>	the other question on the mailing list was "frame"
+[11:54]	<manu`>	An example - REST Web Service for a compacted document... HTTP Request would have: Content-Type: application/ld+json;form=compacted
+[11:54]	<gkellogg>	manu: specifies that getting JSON-LD doc in compacted form. Invokes spec language for "compacted"
+[11:54]	<manu`>	The response from the REST Web Service would be: Content-Type: application/ld+json;form=compacted
+[11:55]	<gkellogg>	q+
+[11:55]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg, gkellogg
+[11:55]	<manu`>	ack gkellogg
+[11:55]	<voip-ld>	gkellogg has the floor. The next speaker is gkellogg.
+[11:55]	<manu`>	ack gkellogg
+[11:55]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:55]	<gkellogg>	manu: request header would use Accept: not Content-Type:
+[11:55]	<manu`>	gkelogg: Wouldn't the Web Service have an Accept header?
+[11:56]	<gkellogg>	manu: issues - how do we do framed form?
+[11:56]	<gkellogg>	… how do we specify document is context or not.
+[11:57]	<gkellogg>	… input to framing document requires a frame document.
+[11:57]	<gkellogg>	… could be a fairly large JSON object
+[11:57]	<gkellogg>	… if a web service needs to frame, what to send in request header?
+[11:58]	<gkellogg>	… send Accept: application/ld+json;form=framed with post data
+[11:58]	<gkellogg>	… otherwise, URI encode large JSON data in header
+[11:58]	<gkellogg>	… or, provide frame out-of-band, with URI of frame document.
+[11:58]	<gkellogg>	… Accept: application/ld+json;form=framed and then Link: <url> ...
+[11:59]	<MarkusLanthaler>	don't like the idea of passing frame IRI out-of-band.. that could lead to denial of service attacks to a server because it's cheap to force a server to download huge amounts of data
+[11:59]	<gkellogg>	manu: problem is not everyone can provide frame as URL
+[12:00]	<gkellogg>	… link header problematic, URL encoding problematic because it seems hack-y, but may want to support as an option.
+[12:00]	<gkellogg>	… OAuth allows parameters to be specified in IRI or HTTP headers. Nice, but it complicates implementations.
+[12:00]	<gkellogg>	… maybe want to specify what a WS will take as input when wanting to specify framing.
+[12:01]	<manu`>	I'm suggesting that a Web Service that provides framing allows an Accept: application/ld+json;form=framed
+[12:01]	<manu`>	and then the HTTP mode must be POST
+[12:02]	<taaz>	we want that to work for GET too
+[12:02]	<MarkusLanthaler>	currently POSTing both docs to the web service seems to be the best option in my opinion - but you can't cache it then
+[12:02]	<manu`>	with a JSON document that is an array with two objects, the JSON-LD input and the JSON-LD frame, so [{}, {}]
+[12:02]	<gkellogg>	q+
+[12:02]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[12:03]	<manu`>	ack gkellogg
+[12:03]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[12:03]	<manu`>	gkellogg: You're not always going to be specifying the document to be framed. Most likely you're going to request a resource and you're going to apply a frame locally.
+[12:03]	<MarkusLanthaler>	The question really is need we support this? I see this more as a local API issue than a web services issue?
+[12:04]	<manu`>	gkellogg: We haven't discussed what the MIME type of the framed document - why not do a multi-part post?
+[12:04]	<taaz>	I partly agree with MarkusLanthaler that you could just do the reframing locally.
+[12:04]	|<--	_terraces has left freenode (Read error: Connection reset by peer)
+[12:04]	<gkellogg>	manu: we need to discuss this use case a bit further. It's really only a consideration for the test-suite.
+[12:04]	<MacTed>	+1 to further consideration and more clearly defining use cases... "easing test suite implementation" is not the best argument for spec design.
+[12:04]	-->|	_terraces (~alex@mtl01-1-88-161-187-15.fbx.proxad.net) has joined #json-ld
+[12:05]	<gkellogg>	manu: if you want to comply with test-sute, need to implement multi-part post, but leave it at that - don't have to spec that for it to work. Alright, end of telecon.
+[12:05]	<MarkusLanthaler>	+1 to remove it from the main spec for the moment
+[12:05]	Manu Sporny (SIP/6000-00000030) has left the conference.
+[12:05]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-0000002e) has left the conference.
+[12:05]	Dave Lehn (SIP/6003-00000035) has left the conference.
+[12:05]	Markus Lanthaler (SIP/82.48.59.119-0000002f) has left the conference.
+[12:05]	<manu`>	Thanks for scribing, Gregg!!!
+[12:07]	<manu`>	Topic: Post-call discussion - RDF/JSON, issue tracking
+[12:07]	<tomayac> for those who haven't seen it - I've sent out something about RDF/JSON
+[12:07]	<gkellogg> http://lists.w3.org/Archives/Public/public-rdf-wg/2011Aug/0131.html
+[12:07]	<taaz>	reframing locally wouldn't be as efficient i guess. you might just want the framed data. no reason to xfer everything in that case.
+[12:08]	<MarkusLanthaler>	Is there a place where we document open issues? The list on GitHub doesn't seem to be very up to date.
+[12:08]	<manu`>	We should be documenting open issues on github
+[12:08]	<manu`>	it's not very up to date
+[12:08]	<manu`>	mostly due to lack of time on my part - Markus, would you mind updating the list of issues?
+[12:09]	<MarkusLanthaler> Sure Manu, will do that tomorrow morning, it's already 6pm in Italy
+[12:09]	<manu`>	np, thanks Markus
+[12:09]	<MarkusLanthaler> ok.. have a nice evening
+[12:10]	<gkellogg>	gregg: tomayac, finally pointing out the elephant in the room; thanks!
+[12:11]	<tomayac>	gkellogg, controversial elephant..., but thanks for the support!
+[12:12]	<bergie>	"JSON-LD is(**) about objects, simple default assumptions, elegancy, and developers in mind, whereas RDF/JSON seems to be created with the premise to carry all the expressiveness of RDF over to JSON, whatever the cost might be." ... good point
+[12:12]	<manu`>	Notice that the Internet-based solution worked a bit better under a failure scenario, while the traditional PBX system failed :) - this is why Software is Eating the World: http://online.wsj.com/article/SB10001424053111903480904576512250915629460.html
+[12:13]	<tomayac>	thanks, Henri
+[12:14]	<gkellogg>	"We serve them RDF/JSON (yes, yes, yo, homie), but we will probably fail."
+[12:15]	<manu`>	That was probably one of my favorite sentences in the entire e-mail :)
+[12:15]	<taaz>	i haven't been following the rdf/json work but it doesn't seem so terrible to have that as a spec'ed option for rdf data transport. it just looks hard to use from a javascript viewpoint.
+[12:15]	<gkellogg>	taaz: problem is same with RDFa/Microdata, having two different ways to do essentially the same thing is wrong-headed.
+[12:15]	<tomayac>	i was a bit worried wrt the sloppy language in that paragraph...
+[12:16]	<tomayac>	gkellogg, +1!
+[12:17]	<taaz>	gkellogg: i'm not sure that's the same situation. rdfa and microdata are trying to solve the exact same problem (i think?) but rdf/json and json-ld are taking different approaches and seem to have different goals.
+[12:18]	<taaz>	but hey, if json-ld wins everyones hearts, that's fine with me ;)
+
