@@ -15,6 +15,11 @@
          "alias": ["ballen"],
          "homepage": "http://bradleypallen.org/about"
       },
+      "Nicolas Dufour":
+      {
+         "alias": ["capnemo"],
+         "homepage": "http://www.nemoworld.info/"
+      },
       "Danny Ayers":
       {
          "alias": ["danja"],
@@ -162,7 +167,7 @@
       
       if(assist != undefined)
       {
-         rval += "[scribe assist by " + scrawl.htmlencode(assist) + "]";
+         rval += " [scribe assist by " + scrawl.htmlencode(assist) + "]";
       }
       
       rval += "</div>\n";
