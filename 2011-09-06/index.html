@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf8" />
+  <title>Linked Data in JSON Telecon: 2011-09-06</title>
+  
+  <style type="text/css">
+body {
+   margin: 10%;
+}
+
+.name {
+   font-weight: bold;
+}
+
+.information {
+   font-style: italic;
+}  
+
+.comment-continuation {
+   margin-left: 2em;
+}
+  </style>
+</head>
+
+<body>
+  <h1>JSON for Linking Data Telecon</h1>
+  <h2>Minutes for 2011-09-06</h2>
+  <div class="summary">
+  <dl>
+  <dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Sep/0059.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Sep/0059.html</a></dd>
+  <dt>Chair</dt><dd>Gregg Kellogg</dd>
+  <dt>Scribe</dt><dd>Dave Lehn</dd>
+  <dt>Present</dt><dd>Dave Longley, Gregg Kellogg, Dave Lehn, Ted Thibodeau Jr., Thomas Steiner</dd>
+  </dl>
+  </div>
+  <h1 id=topic-1 class="topic">Topic: ISSUE-28: Markus' spec-split proposal</h1>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  most people will want to use existing tools and don't need all the processing details [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  might help for wider adoption of spec [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: i think it's a good idea to move the complexity of the algorithms for the APIs to another document.</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  danger in separating spec.  can diverge.  people might not see both. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: a good point, but i think we can mitigate that a bit by splitting according to a "separation of concerns" like Markus said.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: another point is that we can explain certain parts of how JSON-LD works ...</div>
+  <div class="comment"><span class="name">Dave Longley</span>: compaction, expansion, etc.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: in the syntax document.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: and the actual algorithms to work with those ideas can be written however people want ... the API/algorithm document only explains one way</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: (sorry, missed last speaker.  who was that?  had some volume issues here)</div>
+  <div class="comment"><span class="name">Ted Thibodeau Jr.</span>: voip-ld, who's here?</div>
+  <div class="comment"><span class="name">Ted Thibodeau Jr.</span>: voip-ld, 00048 is dlongley</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+  <div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: +1</div>
+  <div class="comment"><span class="name">Dave Longley</span>: +1</div>
+  <h1 id=topic-2 class="topic">Topic: ISSUE-27: Normalization in an external document</h1>
+  <div class="comment"><span class="name">Ted Thibodeau Jr.</span>: voip-ld, 3428 is _terraces</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  normalization is sufficiently general that it should be taken out of spec. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: my understanding is that we could keep the normalization API</div>
+  <div class="comment"><span class="name">Dave Longley</span>: for JSON-LD but move the algorithm to another document</div>
+  <div class="comment"><span class="name">Dave Longley</span>: since normalization might have multiple algorithmsi n the future anyway.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: there should be a way to normalize JSON-LD ...</div>
+  <div class="comment"><span class="name">Dave Longley</span>: especially if we want to have a way to say there is "one way" to represent a particular graph</div>
+  <div class="comment"><span class="name">Dave Longley</span>: helps with comparing graphs.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: i think both myself and manu would be ok with moving the algorithm itself into  a generalized document</div>
+  <div class="comment"><span class="name">Dave Longley</span>: but keeping normalize() as an API call.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: yes.</div>
+  <div class="comment"><span class="name">Thomas Steiner</span>: +1</div>
+  <div class="comment"><span class="name">Dave Longley</span>: +1</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+  <div class="comment"><span class="name">Thomas Steiner</span>:  you might try json-ld@voip.digitalbazaar.com?  it's supposed to work either way. [scribe assist by Dave Lehn]</div>
+  <h1 id=topic-3 class="topic">Topic: ISSUE-26: Merging @base and @vocab</h1>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  having seen strong opposition to moving normalization out [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  concern is having two mechanisms that do same thing and it is confusing [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  want a single way to provide functionality [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Thomas Steiner</span>:  sorry, might be firewall issues blocking SIP on your end? [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: maybe just make the difference and necessity more clear in the spec?</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  base used as aritmatic adding paths, vocab more .... [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+  <div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  yes, should be in spec if not. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: +1 (but make clearer in spec necessity and difference)</div>
+  <div class="information">(only objects)</div>
+  <h1 id=topic-4 class="topic">Topic: ISSUE-8: Optimizing Compact form</h1>
+  <div class="comment"><span class="name">Dave Longley</span>: this has to do with adding options to the compact API so that IRIs are automatically coerced</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  [discusses issue text] [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: i think it's mostly an API change ...</div>
+  <div class="comment"><span class="name">Dave Longley</span>: the only "syntax" change would be if we created a new name for this form</div>
+  <div class="comment"><span class="name">Dave Longley</span>: i think this should be about options to the compact call.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: that may or may not be the default options.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: -1 to regex on IRIs ... it has been suggested before when talking about various Linked Data formats and there seems to be too much ambiguity</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  suggestion to use regex to recognize IRIs.  wouldn't need @iri keyword.  problem if you wanted literal IRI would need to mark it up as such. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: for ease of use.</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  eliminate keywords outside of context.  avoid longer forms. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  date/time forms might make sense for direct conversion. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: i think regex and magic stuff should be discussed a bit more on the mailing list</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  don't want too many options in processing.  suggest to adopt standard way for conformant processors to behave without additional options. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: i think this needs to be discussed more on the mailing list</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>: -0</div>
+  <div class="comment"><span class="name">Dave Longley</span>: +1</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: i think this needs to be worked out some more</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: maybe someone needs to try it and see how well it works</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: maybe it's too hard or results are a mess</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  suggest to defer and discuss on mailing list [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Lehn</span>: -1 (i guess i have some comments too)</div>
+  <div class="comment"><span class="name">Dave Longley</span>: premature</div>
+  <div class="comment"><span class="name">Dave Longley</span>: -1</div>
+  <div class="comment"><span class="name">Dave Lehn</span>:  we started with such microsyntaxes, such as using &lt;&gt;, but that created more problems. [scribe assist by Gregg Kellogg]</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>: … This may get to similar problems we found before, but we do have an @iri escape route.</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>: … Magic behavior may be hard to understand.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: things get hairy when we go "above and beyond" what syntax JSON itself supports.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: this was a mess with microsyntaxes ... and adding "magic" is going to be very similar to this and difficult to get right.</div>
+  <div class="comment"><span class="name">Dave Longley</span>: having the compact API do this for people ...</div>
+  <div class="comment"><span class="name">Dave Longley</span>: is an option.</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  needs more discussion and may come to same conclusion as before that it's more trouble than it's worth [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: more options that gregg doesn't like </div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  might adopt keywords for more datatypes without using xsd types [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: well, coerce already will make anything a "string"</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  typically have datetime as value without having to import datetime xsd space into spec [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: but, yes, we could use something like @datetime</div>
+  <div class="comment"><span class="name">Gregg Kellogg</span>:  not yet discussed. considered something similar with context block of string literals.  either want to set language for entire document or fine detail of different languages for each property.  similar to lang property for literals we have now. [scribe assist by Dave Lehn]</div>
+  <div class="comment"><span class="name">Dave Longley</span>: thanks </div>
+</body>
+</html>
+
+
