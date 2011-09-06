@@ -7,13 +7,10 @@
 [3:03pm]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-0000004c) has joined the conference.
 [3:04pm]	<voip-ld>	<unknown> (IAX2/diamondcard-3428) has joined the conference.
 [3:04pm] • terraces joined
-[3:05pm]	<gkellogg>	scribenick: taaz
-[3:05pm]	<gkellogg>	Scribe: Dave Lehn
-[3:07pm]	<dlongley>	fine with me.
-[3:07pm]	<gkellogg>	topic: ISSUE-28: Markus' spec-split proposal
-[3:07pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/28
+[3:05pm]	<gkellogg>	scribe: taaz
+[3:07pm]	<gkellogg>	topic: ISSUE-28: Markus' spec-split proposal: https://github.com/json-ld/json-ld.org/issues/28
 [3:08pm]	<taaz>	gkellogg: most people will want to use existing tools and don't need all the processing details
-[3:08pm]	<taaz>	gkellogg: might help for wider adoption of spec
+[3:08pm]	<taaz>	... might help for wider adoption of spec
 [3:08pm]	<lindstream>	q+
 [3:08pm]	<dlongley>	i think it's a good idea to move the complexity of the algorithms for the APIs to another document.
 [3:08pm]	<voip-ld>	Added lindstream to the speaker queue: lindstream
@@ -22,7 +19,7 @@
 [3:09pm]	<taaz>	gkellogg: danger in separating spec.  can diverge.  people might not see both.
 [3:09pm]	<dlongley>	a good point, but i think we can mitigate that a bit by splitting according to a "separation of concerns" like Markus said.
 [3:11pm]	<taaz>	lindstream: agree. framing orthogonal to syntax.  in favor of split.
-[3:11pm]	<dlongley>	another point is that we can explain certain parts of how JSON-LD works ...
+[3:11pm]	<dlongley>	another point is that we can explain certain parts of how JSON-LD works
 [3:11pm]	<dlongley>	compaction, expansion, etc.
 [3:11pm]	<dlongley>	in the syntax document.
 [3:11pm]	<dlongley>	and the actual algorithms to work with those ideas can be written however people want ... the API/algorithm document only explains one way
@@ -32,10 +29,8 @@
 [3:12pm]	<voip-ld>	Added lindstream to the speaker queue: lindstream
 [3:12pm]	<gkellogg>	ack lindstream
 [3:13pm]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
-[3:13pm]	<MacTed>	voip-ld, who's here?
 [3:13pm]	<voip-ld>	Conference connections: Dave Lehn [SIP/6003-00000049], Gregg Kellogg [SIP/sip2sip.info-00000047], SIP/10.0.0.104-00000048, IAX2/diamondcard-3428, Niklas Lindström [SIP/sip2sip.info-0000004c], Ted Thibodeau Jr [SIP/sip2sip.info-0000004b]
 [3:13pm]	<taaz>	lindstream: keep spec together for now with sections for various parts until we need to split into separate documents.
-[3:13pm]	<MacTed>	voip-ld, 00048 is dlongley
 [3:14pm]	<gkellogg>	PROPOSAL: keep spec together for now with sections for various parts until we need to split into separate documents.
 [3:14pm]	<gkellogg>	+1
 [3:14pm]	<MacTed>	+1
@@ -43,8 +38,7 @@
 [3:14pm]	<taaz>	+1
 [3:14pm]	<dlongley>	+1
 [3:14pm]	<gkellogg>	RESOLVED: keep spec together for now with sections for various parts until we need to split into separate documents.
-[3:14pm]	<gkellogg>	Topic: ISSUE-27: Normalization in an external document
-[3:14pm]	<gkellogg>	 https://github.com/json-ld/json-ld.org/issues/27
+[3:14pm]	<gkellogg>	Topic: ISSUE-27: Normalization in an external document https://github.com/json-ld/json-ld.org/issues/27
 [3:14pm]	<MacTed>	voip-ld, 3428 is terraces
 [3:15pm]	<taaz>	gkellogg: normalization is sufficiently general that it should be taken out of spec.
 [3:15pm]	<dlongley>	my understanding is that we could keep the normalization API
@@ -62,7 +56,6 @@
 [3:17pm]	<voip-ld>	Conference connections: Dave Lehn [SIP/6003-00000049], Gregg Kellogg [SIP/sip2sip.info-00000047], <unknown> (dlongley) [SIP/10.0.0.104-00000048], <unknown> (terraces) [IAX2/diamondcard-3428], Niklas Lindström [SIP/sip2sip.info-0000004c], Ted Thibodeau Jr [SIP/sip2sip.info-0000004b]
 [3:17pm]	<dlongley>	i think both myself and manu would be ok with moving the algorithm itself into  a generalized document
 [3:17pm]	<dlongley>	but keeping normalize() as an API call.
-[3:18pm]	<dlongley>	yes.
 [3:18pm]	<voip-ld>	taaz is now associated with SIP/6003-00000049.
 [3:18pm]	<gkellogg>	PROPOSAL: move normalization to a separate spec.
 [3:18pm]	<tomayac>	+1
@@ -78,7 +71,7 @@
 [3:19pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/26
 [3:19pm]	<taaz>	gkellogg: having seen strong opposition to moving normalization out
 [3:19pm] • tomayac taaz, thanks, but no luck  i'm connected to sipgate.de, their test call works (but it's a number, not an email address)
-[3:20pm]	<taaz>	gkellogg: concern is having two mechanisms that do same thing and it is confusing
+[3:20pm]	<taaz>	... concern is having two mechanisms that do same thing and it is confusing
 [3:20pm]	<lindstream>	q+
 [3:20pm]	<voip-ld>	Added lindstream to the speaker queue: lindstream
 [3:20pm]	<gkellogg>	ack lindstream
@@ -89,7 +82,7 @@
 [3:21pm]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
 [3:21pm]	<taaz>	lindstream: not sure of exact way @vocab and @base work in JSON-LD, think it's similar to RDFa and Turtle, and they have different uses
 [3:21pm]	<MacTed>	tomayac - try  sip:json-ld@digitalbazaar.com  including the "sip:" prefix
-[3:21pm]	<taaz>	lindstream: common to use same domain for subjects as having common vocab
+[3:21pm]	<taaz>	... common to use same domain for subjects as having common vocab
 [3:22pm]	<gkellogg>	ack gkellogg
 [3:22pm]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
 [3:22pm] • tomayac no luck still
@@ -98,8 +91,8 @@
 [3:23pm] • tomayac no idea, as i said, the sipgate.de test call worked...
 [3:23pm] • tomayac never mind, i'll try to follow on irc
 [3:24pm]	<dlongley>	maybe just make the difference and necessity more clear in the spec?
-[3:24pm]	<taaz>	gkellogg: base used as aritmatic adding paths, vocab more ....
-[3:25pm]	<taaz>	gkellogg: keep base and vocab.  in turtle fall back on default prefix.  not as desirable in JSON-LD due to need for ':'.  use of vocab allows bare names.
+[3:24pm]	<taaz>	gkellogg: base used as aritmatic adding paths, vocab more
+[3:25pm]	<taaz>	... keep base and vocab.  in turtle fall back on default prefix.  not as desirable in JSON-LD due to need for ':'.  use of vocab allows bare names.
 [3:25pm]	<gkellogg>	PROPOSAL: keep @base and @vocab as separate concepts within JSON-LD
 [3:25pm]	<taaz>	lindstream: issue mentions base not used for relative URIs.  maybe a spec bug.
 [3:25pm]	<gkellogg>	+1
@@ -125,7 +118,7 @@
 [3:29pm]	<taaz>	gkellogg: suggestion to use regex to recognize IRIs.  wouldn't need @iri keyword.  problem if you wanted literal IRI would need to mark it up as such.
 [3:29pm]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
 [3:30pm]	<taaz>	lindstream: sounds like options to have 'native' JSON form
-[3:30pm]	<taaz>	lindstream: options to have no JSON-LD concepts in output
+[3:30pm]	<taaz>	... options to have no JSON-LD concepts in output
 [3:31pm]	<dlongley>	for ease of use.
 [3:31pm]	<taaz>	gkellogg: eliminate keywords outside of context.  avoid longer forms.
 [3:31pm]	<taaz>	lindstream: worth investigating.  some amount of magic coercion might be good for IRIs as well as dates.
@@ -140,8 +133,8 @@
 [3:34pm]	<gkellogg>	-0
 [3:34pm]	<dlongley>	+1
 [3:35pm]	<taaz>	i think this needs to be worked out some more
-[3:35pm]	<taaz>	maybe someone needs to try it and see how well it works
-[3:35pm]	<taaz>	maybe it's too hard or results are a mess
+[3:35pm]	<taaz>	... maybe someone needs to try it and see how well it works
+[3:35pm]	<taaz>	... maybe it's too hard or results are a mess
 [3:35pm]	<taaz>	gkellogg: suggest to defer and discuss on mailing list
 [3:35pm]	<gkellogg>	PROPOSAL: use regexp to recognize IRIs and avoid use of @iri
 [3:36pm]	<lindstream>	q+
@@ -153,8 +146,8 @@
 [3:36pm]	<dlongley>	-1
 [3:36pm]	<taaz>	lindstream: vote yes, but want to control in the context.  +1 with controls.
 [3:37pm]	<gkellogg>	taaz: we started with such microsyntaxes, such as using <>, but that created more problems.
-[3:37pm]	<gkellogg>	… This may get to similar problems we found before, but we do have an @iri escape route.
-[3:37pm]	<gkellogg>	… Magic behavior may be hard to understand.
+[3:37pm]	<gkellogg>	... This may get to similar problems we found before, but we do have an @iri escape route.
+[3:37pm]	<gkellogg>	... Magic behavior may be hard to understand.
 [3:37pm]	<lindstream>	"@coerce": { "@iri": "@magic" }
 [3:38pm]	<lindstream>	q+
 [3:38pm]	<voip-ld>	Added lindstream to the speaker queue: lindstream
@@ -163,14 +156,14 @@
 [3:39pm]	<dlongley>	things get hairy when we go "above and beyond" what syntax JSON itself supports.
 [3:39pm]	<taaz>	lindstream: seen data with IRIs that should be plain strings.  never seen data with datetime string that wasn't intended to be a datetime
 [3:39pm]	<dlongley>	this was a mess with microsyntaxes ... and adding "magic" is going to be very similar to this and difficult to get right.
-[3:40pm]	<taaz>	lindstream: problematic without controllable options
+[3:40pm]	<taaz>	... problematic without controllable options
 [3:40pm]	<dlongley>	having the compact API do this for people ...
 [3:40pm]	<dlongley>	is an option.
 [3:40pm]	<taaz>	gkellogg: needs more discussion and may come to same conclusion as before that it's more trouble than it's worth
 [3:41pm]	<dlongley>	more options that gregg doesn't like 
-[3:41pm]	<taaz>	gkellogg: might adopt keywords for more datatypes without using xsd types
+[3:41pm]	<taaz>	... might adopt keywords for more datatypes without using xsd types
 [3:41pm]	<dlongley>	well, coerce already will make anything a "string"
-[3:41pm]	<taaz>	gkellogg: typically have datetime as value without having to import datetime xsd space into spec
+[3:41pm]	<taaz>	... typically have datetime as value without having to import datetime xsd space into spec
 [3:41pm]	<dlongley>	but, yes, we could use something like @datetime
 [3:42pm]	<lindstream>	q+
 [3:42pm]	<voip-ld>	Added lindstream to the speaker queue: lindstream
@@ -179,4 +172,3 @@
 [3:42pm]	<taaz>	lindstream: wondering value of top level language directive
 [3:43pm]	<taaz>	gkellogg: not yet discussed. considered something similar with context block of string literals.  either want to set language for entire document or fine detail of different languages for each property.  similar to lang property for literals we have now.
 [3:44pm]	<taaz>	lindstream: anywhere as in XML may be too much.  top level may be good.  or use in coercion.
-[3:45pm]	<dlongley>	thanks 
