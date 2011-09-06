@@ -46,7 +46,7 @@
       },
       "Niklas Lindström":
       {
-         "alias": ["lindstream"]
+         "alias": ["lindstream", "niklasl"]
       },
       "David I. Lehn":
       {
