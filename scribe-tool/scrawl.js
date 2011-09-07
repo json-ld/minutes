@@ -25,14 +25,9 @@
          "alias": ["danja"],
          "homepage": "http://dannyayers.com/"
       },
-      "Dave Lehn":
-      {
-         "alias": ["taaz"],
-         "homepage": "http://dil.lehn.org/"
-      },
       "Michael Johnson":
       {
-         "alias": ["mjohnson"]
+         "alias": ["mjohnson", "mjohnson_db"]
       },
       "Gregg Kellogg":
       {
@@ -50,7 +45,7 @@
       },
       "David I. Lehn":
       {
-         "alias": ["dil", "dlehn"],
+         "alias": ["dil", "dlehn", "taaz"],
          "homepage": "http://dil.lehn.org/"
       },
       "Dave Longley":
@@ -94,7 +89,7 @@
    var topicRx = /^topic:\s*(.*)$/i;
    var voipRx = /^voip.*$/i;
    var toVoipRx = /^voip.{0,4}:.*$/i;
-   var queueRx = /^q[+-]\s.*|q[+-].*|ack\s+.*|ack$/i;
+   var queueRx = /^q[+-]\s.*|^q[+-].*|^ack\s+.*|^ack$/i;
    var voteRx = /^[+-][01]\s.*|[+-][01]$/i;
    var agendaRx = /^agenda:\s*(http:.*)$/i;
 	var urlRx = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)/;
@@ -301,6 +296,18 @@
                     rval = scrawl.scribe(cleanedMessage, aliases[alias], 
                        aliases[nick]);
                 }
+                else if(alias.indexOf("http") == 0)
+                {
+                   rval = scrawl.scribe(msg, aliases[nick]);
+                }
+                else if(aliases.hasOwnProperty(nick))
+                {
+                   rval = scrawl.scribe(msg, aliases[nick]);
+                }
+                else
+                {
+                   rval = scrawl.error("(IRC nickname not recognized)" + line);
+                }
              }
              else
              {
@@ -311,7 +318,7 @@
           }
           else
           {
-             rval = scrawl.error(line);
+             rval = scrawl.error("(Strange line format)" + line);
           }
        }
        
