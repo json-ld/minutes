@@ -8,7 +8,8 @@
 [3:04pm]	<voip-ld>	<unknown> (IAX2/diamondcard-3428) has joined the conference.
 [3:04pm] • terraces joined
 [3:05pm]	<gkellogg>	scribe: taaz
-[3:07pm]	<gkellogg>	topic: ISSUE-28: Markus' spec-split proposal: https://github.com/json-ld/json-ld.org/issues/28
+[3:07pm]	<gkellogg>	topic: ISSUE-28: Markus' spec-split proposal
+[3:07pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/28
 [3:08pm]	<taaz>	gkellogg: most people will want to use existing tools and don't need all the processing details
 [3:08pm]	<taaz>	... might help for wider adoption of spec
 [3:08pm]	<lindstream>	q+
@@ -31,14 +32,15 @@
 [3:13pm]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
 [3:13pm]	<voip-ld>	Conference connections: Dave Lehn [SIP/6003-00000049], Gregg Kellogg [SIP/sip2sip.info-00000047], SIP/10.0.0.104-00000048, IAX2/diamondcard-3428, Niklas Lindström [SIP/sip2sip.info-0000004c], Ted Thibodeau Jr [SIP/sip2sip.info-0000004b]
 [3:13pm]	<taaz>	lindstream: keep spec together for now with sections for various parts until we need to split into separate documents.
-[3:14pm]	<gkellogg>	PROPOSAL: keep spec together for now with sections for various parts until we need to split into separate documents.
+[3:14pm]	<gkellogg>	PROPOSAL: Keep spec together for now with sections for various parts until we need to split into separate documents.
 [3:14pm]	<gkellogg>	+1
 [3:14pm]	<MacTed>	+1
 [3:14pm]	<lindstream>	+1
 [3:14pm]	<taaz>	+1
 [3:14pm]	<dlongley>	+1
-[3:14pm]	<gkellogg>	RESOLVED: keep spec together for now with sections for various parts until we need to split into separate documents.
-[3:14pm]	<gkellogg>	Topic: ISSUE-27: Normalization in an external document https://github.com/json-ld/json-ld.org/issues/27
+[3:14pm]	<gkellogg>	RESOLVED: Keep spec together for now with sections for various parts until we need to split into separate documents.
+[3:14pm]	<gkellogg>	Topic: ISSUE-27: Normalization in an external document
+[3:14pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/27
 [3:14pm]	<MacTed>	voip-ld, 3428 is terraces
 [3:15pm]	<taaz>	gkellogg: normalization is sufficiently general that it should be taken out of spec.
 [3:15pm]	<dlongley>	my understanding is that we could keep the normalization API
@@ -57,7 +59,7 @@
 [3:17pm]	<dlongley>	i think both myself and manu would be ok with moving the algorithm itself into  a generalized document
 [3:17pm]	<dlongley>	but keeping normalize() as an API call.
 [3:18pm]	<voip-ld>	taaz is now associated with SIP/6003-00000049.
-[3:18pm]	<gkellogg>	PROPOSAL: move normalization to a separate spec.
+[3:18pm]	<gkellogg>	PROPOSAL: Move normalization to a separate spec.
 [3:18pm]	<tomayac>	+1
 [3:18pm]	<dlongley>	+1
 [3:18pm]	<gkellogg>	+1
@@ -65,7 +67,7 @@
 [3:18pm]	<taaz>	tomayac: you might try json-ld@voip.digitalbazaar.com?  it's supposed to work either way.
 [3:18pm]	<lindstream>	+0 (no opinion)
 [3:19pm]	<voip-ld>	MacTed is now associated with SIP/sip2sip.info-0000004b.
-[3:19pm]	<gkellogg>	RESOLVED: move normalization to a separate spec.
+[3:19pm]	<gkellogg>	RESOLVED: Move normalization to a separate spec.
 [3:19pm]	<voip-ld>	lindstream is now associated with SIP/sip2sip.info-0000004c.
 [3:19pm]	<gkellogg>	Topic: ISSUE-26: Merging @base and @vocab
 [3:19pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/26
@@ -93,14 +95,14 @@
 [3:24pm]	<dlongley>	maybe just make the difference and necessity more clear in the spec?
 [3:24pm]	<taaz>	gkellogg: base used as aritmatic adding paths, vocab more
 [3:25pm]	<taaz>	... keep base and vocab.  in turtle fall back on default prefix.  not as desirable in JSON-LD due to need for ':'.  use of vocab allows bare names.
-[3:25pm]	<gkellogg>	PROPOSAL: keep @base and @vocab as separate concepts within JSON-LD
+[3:25pm]	<gkellogg>	PROPOSAL: Keep @base and @vocab as separate concepts within JSON-LD
 [3:25pm]	<taaz>	lindstream: issue mentions base not used for relative URIs.  maybe a spec bug.
 [3:25pm]	<gkellogg>	+1
 [3:25pm]	<MacTed>	+1
 [3:25pm]	<lindstream>	+1
 [3:25pm]	<taaz>	gkellogg: yes, should be in spec if not.
 [3:26pm]	<dlongley>	+1 (but make clearer in spec necessity and difference)
-[3:26pm]	<gkellogg>	RESOLVED: keep @base and @vocab as separate concepts within JSON-LD
+[3:26pm]	<gkellogg>	RESOLVED: Keep @base and @vocab as separate concepts within JSON-LD
 [3:26pm]	<lindstream>	.. clarification: base not used for resolving subjects
 [3:26pm]	<lindstream>	(only objects)
 [3:26pm]	<gkellogg>	Topic: ISSUE-8: Optimizing Compact form
@@ -136,7 +138,7 @@
 [3:35pm]	<taaz>	... maybe someone needs to try it and see how well it works
 [3:35pm]	<taaz>	... maybe it's too hard or results are a mess
 [3:35pm]	<taaz>	gkellogg: suggest to defer and discuss on mailing list
-[3:35pm]	<gkellogg>	PROPOSAL: use regexp to recognize IRIs and avoid use of @iri
+[3:35pm]	<gkellogg>	PROPOSAL: Use regexp to recognize IRIs and avoid use of @iri
 [3:36pm]	<lindstream>	q+
 [3:36pm]	<voip-ld>	Added lindstream to the speaker queue: lindstream
 [3:36pm]	<taaz>	-1 (i guess i have some comments too)
