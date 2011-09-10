@@ -8,84 +8,12 @@
    window.scrawl = window.scrawl || {};
    var scrawl = window.scrawl;
 
-   var people = 
-   {
-      "Bradley Allen":
-      {
-         "alias": ["ballen"],
-         "homepage": "http://bradleypallen.org/about"
-      },
-      "Nicolas Dufour":
-      {
-         "alias": ["capnemo"],
-         "homepage": "http://www.nemoworld.info/"
-      },
-      "Danny Ayers":
-      {
-         "alias": ["danja"],
-         "homepage": "http://dannyayers.com/"
-      },
-      "Michael Johnson":
-      {
-         "alias": ["mjohnson", "mjohnson_db"]
-      },
-      "Gregg Kellogg":
-      {
-         "alias": "gkellogg",
-         "homepage": "http://greggkellogg.net/pages/about"
-      },
-      "Markus Lanthaler":
-      {
-         "alias": ["MarkusLanthaler"],
-         "homepage": "https://twitter.com/markuslanthaler"
-      },
-      "Niklas Lindström":
-      {
-         "alias": ["lindstream", "niklasl"]
-      },
-      "David I. Lehn":
-      {
-         "alias": ["dil", "dlehn", "taaz"],
-         "homepage": "http://dil.lehn.org/"
-      },
-      "Dave Longley":
-      {
-         "alias": ["dlongley", "dlongley-db"]
-      },
-      "Alfonso Martin":
-      {
-         "alias": ["amartin"]
-      },
-      "Alexandre Passant":
-      {
-         "alias": ["terraces"],
-         "homepage": "http://apassant.net/"
-      },
-      "Nathan Rixham":
-      {
-         "alias": ["webr3"],
-         "homepage": "http://webr3.org/"
-      },
-      "Manu Sporny":
-      {
-         "alias": ["manu-db", "manu1", "manu`"],
-         "homepage": "http://manu.sporny.org/about"
-      },
-      "Thomas Steiner":
-      {
-         "alias": ["tomayac"],
-         "homepage": "https://plus.google.com/103733874714446059779/about"
-      },
-      "Ted Thibodeau Jr.":
-      {
-         "alias": ["macted"],
-         "homepage": "http://www.linkedin.com/in/macted"
-      }
-   };
-
    /* Standard regular expressions to use when matching lines */
    var commentRx = /^\[(.*)\]\s+\<(.*)\>\s+(.*)$/;
    var scribeRx = /^scribe:.*$/i;
+   var chairRx = /^chair:.*$/i;
+   var proposalRx = /^(proposal|proposed):.*$/i;
+   var resolutionRx = /^(resolution|resolved):.*$/i;
    var topicRx = /^topic:\s*(.*)$/i;
    var voipRx = /^voip.*$/i;
    var toVoipRx = /^voip.{0,4}:.*$/i;
@@ -98,9 +26,9 @@
    {
       var rval = {};
 
-      for(p in people)
+      for(p in scrawl.people)
       {
-         var person = people[p];
+         var person = scrawl.people[p];
          var names = p.split(" ")
 
          // append any aliases to the list of known names
@@ -140,7 +68,19 @@
    
    scrawl.information = function(msg)
    {
-      return "<div class=\"information\">Note: " +  
+      return "<div class=\"information\">" +  
+          scrawl.htmlencode(msg) + "</div>\n";
+   };
+
+   scrawl.proposal = function(msg)
+   {
+      return "<div class=\"proposal\"><strong>PROPOSAL:</strong> " +
+          scrawl.htmlencode(msg) + "</div>\n";
+   };
+
+   scrawl.resolution = function(msg)
+   {
+      return "<div class=\"resolution\"><strong>RESOLUTION:</strong> " +
           scrawl.htmlencode(msg) + "</div>\n";
    };
 
@@ -217,6 +157,17 @@
                  rval = scrawl.information(context.scribe + " is scribing.");
              }
           }
+          else if(msg.search(chairRx) != -1)
+          {
+             var chair = msg.split(":")[1].replace(" ", "").split(" ")[0];
+             chair = chair.toLowerCase();
+
+             if(chair in aliases)
+             {
+                 context.chair = aliases[chair];
+                 scrawl.present(context, aliases[chair]);
+             }
+          }
           // check for topic line
           else if(msg.search(topicRx) != -1)
           {
@@ -229,6 +180,18 @@
           {
              var agenda = msg.match(agendaRx)[1];
              context.agenda = agenda;
+          }
+          // check for proposal line
+          else if(msg.search(proposalRx) != -1)
+          {
+             var proposal = msg.split(":")[1];
+             rval = scrawl.proposal(proposal);
+          }
+          // check for resolution line
+          else if(msg.search(resolutionRx) != -1)
+          {
+             var resolution = msg.split(":")[1];
+             rval = scrawl.resolution(resolution);
           }
           else if(nick.search(voipRx) != -1 || msg.search(toVoipRx) != -1)
           {
