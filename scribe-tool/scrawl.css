@@ -1,3 +1,7 @@
+body {
+   margin: 0px;
+}
+
 label {
    float: left;
    text-align: right;
@@ -5,15 +9,45 @@ label {
    width: 100px;
 }
 
-textarea:focus, input:focus {
-   border: 2px solid #900;
+#toolbar {
+   background: #ddd;
+   border-top: solid 1px #666;
+   bottom: 0;
+   position: fixed;
+   width: 100%;
+   z-index: 1000;
 }
 
-textarea {
-   width:800px !important;
-   min-width:400px !important;
-   height:400px !important;
-   min-height:400px !important;
+.content {
+   margin-left:20%;
+   margin-right:20%;
+}
+
+.left-column {
+   width: 80%;
+   float: left;
+}
+
+.right-column {
+   float: right;
+}
+
+.button {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 0.2em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 0.2em;
+}
+
+.toolbar-padding {
+   padding: 10px;
+}
+
+.toolbar-height {
+   width:95%;
+   height:200px !important;
+   min-height:200px !important;
 }
 
 .name {

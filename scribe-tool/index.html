@@ -6,33 +6,33 @@
   <meta name="description" content="The Scrawl scribing tool is used to translate IRC logs into meeting minutes." />
   <link rel="stylesheet" media="screen" href="scrawl.css" />
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="scrawl-config.js"></script>
   <script type="text/javascript" src="scrawl.js"></script>
-  <script type="text/javascript" src="people.js"></script>
 </head>
 <body>
 
-<form>
-  <div>
-    <label for="meeting-audio">Audio Log</label>
-    <input type="url" id="meeting-audio" name="meeting-audio" placeholder="Link to audio recording of meeting" size="64">
-  </div>
-  <div>
-    <label for="meeting-irc-log">IRC Log</label>
-    <textarea id="meeting-irc-log" name="meeting-irc-log" placeholder="Paste and edit the IRC log here"></textarea>
-  </div>
-  <div>
-    <label for="meeting-minutes-generate" >&nbsp;</label>
-    <input name="meeting-minutes-generate" type="button" value="Generate" onclick="javascript:scrawl.generateMinutes()">
-  </div>
-</form>
-
-<div id="summary">
+<div class="content">
+   <div id="html-output"></div>
 </div>
 
-<div id="output">
-</div>
+<!--textarea id="html-output" width="80" height="20"></textarea>
 
-<textarea id="code" width="80" height="20"></textarea>
+<textarea id="text-output" width="80" height="20"></textarea -->
+
+<div class="toolbar-height toolbar-padding"></div>
+
+<div id="toolbar">
+   <span class="left-column">
+      <textarea id="irc-log" class="toolbar-height" name="meeting-irc-log" placeholder="Paste and edit the IRC log here" onkeyup="javascript:scrawl.updateMinutes()"></textarea>
+      <textarea id="html-markup" style="display: none;" class="toolbar-height"></textarea>
+      <textarea id="text-markup" style="display: none;" class="toolbar-height"></textarea>
+   </span>
+   <span class="right-column">
+      <div class="button" onclick="javascript:scrawl.showMarkup('raw')">Show Raw Log</div>
+      <div class="button" onclick="javascript:scrawl.showMarkup('html')">Show HTML</div>
+      <div class="button" onclick="javascript:scrawl.showMarkup('text')">Show Text</div>
+   </span>
+</div>
 
 </body>
 </html>

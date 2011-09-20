@@ -8,6 +8,12 @@
    window.scrawl = window.scrawl || {};
    var scrawl = window.scrawl;
 
+   /* The update counter and the timeout is used to delay the update of the
+      HTML output by a few seconds so that reformatting the page doesn't
+      overload the CPU. */
+   scrawl.updateCounter = 1;
+   scrawl.updateCounterTimeout = null;
+
    /* Standard regular expressions to use when matching lines */
    var commentRx = /^\[(.*)\]\s+\<(.*)\>\s+(.*)$/;
    var scribeRx = /^scribe:.*$/i;
@@ -21,6 +27,20 @@
    var voteRx = /^[+-][01]\s.*|[+-][01]$/i;
    var agendaRx = /^agenda:\s*(http:.*)$/i;
 	var urlRx = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)/;
+
+   scrawl.wordwrap = function(str, width, brk, cut ) 
+   {
+      brk = brk || '\n';
+      width = width || 65;
+      cut = cut || false;
+
+      if (!str) { return str; }
+
+      var regex = '.{1,' + width + '}(\\s|$)' + 
+         (cut ? '|.{' +width+ '}|.+$' : '|\\S+?(\\s|$)');
+
+      return str.match(RegExp(regex, 'g')).join(brk);
+   };
 
    scrawl.generateAliases = function()
    {
@@ -60,60 +80,133 @@
       return modified;
    };
 
-   scrawl.topic = function(msg, id)
+   scrawl.topic = function(msg, id, textMode)
    {
-      return "<h1 id=topic-" + id + " class=\"topic\">Topic: " +  
-          scrawl.htmlencode(msg) + "</h1>\n";
-   };
-   
-   scrawl.information = function(msg)
-   {
-      return "<div class=\"information\">" +  
-          scrawl.htmlencode(msg) + "</div>\n";
-   };
-
-   scrawl.proposal = function(msg)
-   {
-      return "<div class=\"proposal\"><strong>PROPOSAL:</strong> " +
-          scrawl.htmlencode(msg) + "</div>\n";
-   };
-
-   scrawl.resolution = function(msg)
-   {
-      return "<div class=\"resolution\"><strong>RESOLUTION:</strong> " +
-          scrawl.htmlencode(msg) + "</div>\n";
-   };
-
-   scrawl.scribe = function(msg, person, assist)
-   {
-      var rval = "<div ";
-   
-      if(person != undefined)
+      var rval = "";
+      
+      if(textMode == "html")
       {
-         rval += "class=\"comment\"><span class=\"name\">" + 
-            scrawl.htmlencode(person) + "</span>: ";
+         rval = "<h1 id=topic-" + id + " class=\"topic\">Topic: " +  
+          scrawl.htmlencode(msg) + "</h1>\n";
       }
       else
       {
-         rval += "class=\"information\">";
+         rval = "\nTopic: " + msg + "\n\n";
       }
       
-      rval += scrawl.htmlencode(msg);
+      return rval;
+   };
+   
+   scrawl.information = function(msg, textMode)
+   {
+      var rval = "";
       
-      if(assist != undefined)
+      if(textMode == "html")
       {
-         rval += " [scribe assist by " + scrawl.htmlencode(assist) + "]";
+         rval = "<div class=\"information\">" +  
+          scrawl.htmlencode(msg) + "</div>\n";
       }
-      
-      rval += "</div>\n";
+      else
+      {
+         rval = scrawl.wordwrap(msg, 65, "\n   ") + "\n";
+      }
       
       return rval;
    };
 
-   scrawl.scribeContinuation = function(msg)
+   scrawl.proposal = function(msg, textMode)
    {
-      var rval = "<div class=\"comment-continuation\">" +  
+      var rval = "";
+      
+      if(textMode == "html")
+      {
+         rval = "<div class=\"proposal\"><strong>PROPOSAL:</strong> " +
           scrawl.htmlencode(msg) + "</div>\n";
+      }
+      else
+      {
+         rval = scrawl.wordwrap("\nPROPOSAL: " + msg, 65, "\n   ") + "\n\n";
+      }
+      
+      return rval;
+   };
+
+   scrawl.resolution = function(msg, textMode)
+   {
+      var rval = "";
+      
+      if(textMode == "html")
+      {
+         rval = "<div class=\"resolution\"><strong>RESOLUTION:</strong> " +
+          scrawl.htmlencode(msg) + "</div>\n";
+      }
+      else
+      {
+         rval = scrawl.wordwrap("\nRESOLUTION: " + msg, 65, "\n   ") + "\n\n";
+      }
+      
+      return rval;
+   };
+
+   scrawl.scribe = function(msg, textMode, person, assist)
+   {
+      var rval = "";
+      
+      if(textMode == "html")
+      {
+         rval = "<div ";
+      
+         if(person != undefined)
+         {
+            rval += "class=\"comment\"><span class=\"name\">" + 
+               scrawl.htmlencode(person) + "</span>: ";
+         }
+         else
+         {
+            rval += "class=\"information\">";
+         }
+         
+         rval += scrawl.htmlencode(msg);
+         
+         if(assist != undefined)
+         {
+            rval += " [scribe assist by " + scrawl.htmlencode(assist) + "]";
+         }
+         
+         rval += "</div>\n";
+      }
+      else
+      {
+         scribeline = "";
+         if(person != undefined)
+         {
+            scribeline = person + ": ";
+         }
+         scribeline += msg;
+         if(assist != undefined)
+         {
+            scribeline += " [scribe assist by "+ assist + "]";
+         }
+      
+         rval = scrawl.wordwrap(scribeline, 65, "\n   ") + "\n";
+      }
+      
+      return rval;
+   };
+
+   scrawl.scribeContinuation = function(msg, textMode)
+   {
+      var rval = "";
+      
+      if(textMode == "html")
+      {
+         rval = "<div class=\"comment-continuation\">" +  
+          scrawl.htmlencode(msg) + "</div>\n";
+      }
+      else
+      {
+         rval = scrawl.wordwrap("   " + msg, 65, "\n   ") + "\n";
+      }
 
       return rval;
    }
@@ -126,13 +219,24 @@
       }
    };
 
-   scrawl.error = function(msg)
+   scrawl.error = function(msg, textMode)
    {
-      return "<div class=\"error\">Error: " +  
-          scrawl.htmlencode(msg) + "</div>\n";
+      var rval = "";
+      
+      if(textMode == "html")
+      {
+         rval = "<div class=\"error\">Error: " +  
+            scrawl.htmlencode(msg) + "</div>\n";
+      }
+      else
+      {
+         rval = scrawl.wordwrap("\nError: " + msg, 65, "\n   ") + "\n";
+      }
+      
+      return rval;
    };
 
-   scrawl.processLine = function(context, aliases, line)
+   scrawl.processLine = function(context, aliases, line, textMode)
    {
        var rval = "";
        var match = commentRx.exec(line);
@@ -154,7 +258,8 @@
                  context.scribenick = scribe;
                  context.scribe = aliases[scribe];
                  scrawl.present(context, aliases[scribe]);
-                 rval = scrawl.information(context.scribe + " is scribing.");
+                 rval = scrawl.information(
+                    context.scribe + " is scribing.", textMode);
              }
           }
           else if(msg.search(chairRx) != -1)
@@ -173,7 +278,7 @@
           {
              var topic = msg.match(topicRx)[1];
              context.topics = context.topics.concat(topic);
-             rval = scrawl.topic(topic, context.topics.length);
+             rval = scrawl.topic(topic, context.topics.length, textMode);
           }
           // check for Agenda line
           else if(msg.search(agendaRx) != -1)
@@ -185,13 +290,13 @@
           else if(msg.search(proposalRx) != -1)
           {
              var proposal = msg.split(":")[1];
-             rval = scrawl.proposal(proposal);
+             rval = scrawl.proposal(proposal, textMode);
           }
           // check for resolution line
           else if(msg.search(resolutionRx) != -1)
           {
              var resolution = msg.split(":")[1];
-             rval = scrawl.resolution(resolution);
+             rval = scrawl.resolution(resolution, textMode);
           }
           else if(nick.search(voipRx) != -1 || msg.search(toVoipRx) != -1)
           {
@@ -206,7 +311,7 @@
           {
              if(nick in aliases)
              {
-                rval = scrawl.scribe(msg, aliases[nick]);
+                rval = scrawl.scribe(msg, textMode, aliases[nick]);
              }
           }
           // the line is by the scribe
@@ -215,7 +320,7 @@
              if(msg.indexOf("…") == 0 || msg.indexOf("...") == 0)
              {
                 // the line is a scribe continuation
-                rval = scrawl.scribeContinuation(msg);
+                rval = scrawl.scribeContinuation(msg, textMode);
              }
              else if(msg.indexOf(":") != -1)
              {
@@ -228,19 +333,20 @@
                     var cleanedMessage = msg.split(":").splice(1).join(":");
 
                     scrawl.present(context, aliases[alias]);
-                    rval = scrawl.scribe(cleanedMessage, aliases[alias]);
+                    rval = scrawl.scribe(
+                       cleanedMessage, textMode, aliases[alias]);
                 }
                 else
                 {
                     // The scribe is noting something and there just happens
                     // to be a colon in it
-                    rval = scrawl.scribe(msg);
+                    rval = scrawl.scribe(msg, textMode);
                 }
              }
              else
              {
                 // The scribe is noting something
-                rval = scrawl.scribe(msg);
+                rval = scrawl.scribe(msg, textMode);
              }
           }
           // the line is a comment by somebody else
@@ -256,98 +362,193 @@
                     var cleanedMessage = msg.split(":").splice(1).join(":");
 
                     scrawl.present(context, aliases[alias]);
-                    rval = scrawl.scribe(cleanedMessage, aliases[alias], 
-                       aliases[nick]);
+                    rval = scrawl.scribe(cleanedMessage, textMode, 
+                       aliases[alias], aliases[nick]);
                 }
                 else if(alias.indexOf("http") == 0)
                 {
-                   rval = scrawl.scribe(msg, aliases[nick]);
+                   rval = scrawl.scribe(msg, textMode, aliases[nick]);
                 }
                 else if(aliases.hasOwnProperty(nick))
                 {
-                   rval = scrawl.scribe(msg, aliases[nick]);
+                   rval = scrawl.scribe(msg, textMode, aliases[nick]);
                 }
                 else
                 {
-                   rval = scrawl.error("(IRC nickname not recognized)" + line);
+                   rval = scrawl.error(
+                      "(IRC nickname not recognized)" + line, textMode);
                 }
              }
              else
              {
                 // the line is a scribe line by somebody else
                 scrawl.present(context, aliases[nick]);
-                rval = scrawl.scribe(msg, aliases[nick]);
+                rval = scrawl.scribe(msg, textMode, aliases[nick]);
              }
           }
           else
           {
-             rval = scrawl.error("(Strange line format)" + line);
+             rval = scrawl.error("(Strange line format)" + line, textMode);
           }
        }
        
        return rval;
    };
 
-   scrawl.generateSummary = function(context)
+   scrawl.generateSummary = function(context, textMode)
    {
       var rval = "";
       var time = new Date();
+      var month = "" + (time.getMonth() + 1)
+      var day = "" + time.getDate()
       var group = context.group;
       var agenda = context.agenda;
-      var audio = $("#meeting-audio").val();
+      var audio = "audio.ogg";
       var chair = context.chair;
       var scribe = context.scribe;
       var present = Object.keys(context.present);
 
-      rval += "<h1>" + group +" Telecon</h1>\n";
-      rval += "<h2>Minutes for " + time.getFullYear() + "-" + 
-         (time.getMonth() + 1) + "-" + time.getDate() +"</h2>\n";
-      rval += "<div class=\"summary\">\n<dl>\n";
-      rval += "<dt>Agenda</dt><dd><a href=\"" + 
-          agenda + "\">" + agenda + "</a></dd>\n";
-      rval += "<dt>Chair</dt><dd>" + chair + "</dd>\n";
-      rval += "<dt>Scribe</dt><dd>" + scribe + "</dd>\n";
-      rval += "<dt>Present</dt><dd>" + present.join(", ") + "</dd>\n";
-      rval += "<dt>Audio Log</dt><dd>" +
-          "<div><a href=\"" + audio + "\">" + audio + "</a></div>\n" +
-          "<div><audio controls=\"controls\" preload=\"none\">\n" + 
-          "<source src=\"" + audio + "\" type=\"audio/ogg\" />" +
-          "Warning: Your browser does not support the HTML5 audio element, " +
-          "please upgrade.</div></dd>\n";
+      // zero-pad the month and day if necessary
+      if(month.length == 1)
+      {
+         month = "0" + month;
+      }
+      
+      if(day.length == 1)
+      {
+         day = "0" + day;
+      }
 
-      rval += "</dl>\n</div>\n";
+      // generate the summary text
+      if(textMode == "html")
+      {
+         rval += "<h1>" + group +" Telecon</h1>\n";
+         rval += "<h2>Minutes for " + time.getFullYear() + "-" + 
+             month + "-" + day +"</h2>\n";
+         rval += "<div class=\"summary\">\n<dl>\n";
+         rval += "<dt>Agenda</dt><dd><a href=\"" + 
+             agenda + "\">" + agenda + "</a></dd>\n";
+         rval += "<dt>Chair</dt><dd>" + chair + "</dd>\n";
+         rval += "<dt>Scribe</dt><dd>" + scribe + "</dd>\n";
+         rval += "<dt>Present</dt><dd>" + present.join(", ") + "</dd>\n";
+         rval += "<dt>Audio Log</dt><dd>" +
+             "<div><a href=\"" + audio + "\">" + audio + "</a></div>\n" +
+             "<div><audio controls=\"controls\" preload=\"none\">\n" + 
+             "<source src=\"" + audio + "\" type=\"audio/ogg\" />" +
+             "Warning: Your browser does not support the HTML5 audio element, " +
+             "please upgrade.</div></dd>\n";
+         rval += "</dl>\n</div>\n";
+      }
+      else
+      {
+         rval += group + " Telecon\n";
+         rval += "Minutes for " + time.getFullYear() + "-" + 
+             month + "-" + day + "\n";
+         rval += "Agenda:\n   " + agenda + "\n";
+         rval += "Chair:\n   " + chair + "\n";
+         rval += "Scribe:\n   " + scribe + "\n";
+         rval += "Present:\n   " + 
+            scrawl.wordwrap(present.join(", "), 65, "\n   ") + "\n\n";
+      }
 
       return rval;
    };
 
-   scrawl.generateMinutes = function()
+   scrawl.displayMinutes = function()
    {
+      minutes = scrawl.generateMinutes("html");
+
+      $("#html-output").html(minutes);
+   };
+
+   scrawl.generateMinutes = function(textMode)
+   {
+      var rval = "";
       var minutes = "";
       var summary = "";
-      var header = "";
-      var ircLines = $("#meeting-irc-log").val().split("\n");
+      var ircLines = $("#irc-log").val().split("\n");
       var aliases = scrawl.generateAliases();
+      
+      // initialize the IRC log scanning context
       var context = 
       { 
-         "group": "JSON for Linking Data", 
+         "group": scrawl.group, 
          "chair": "Manu Sporny",
          "present": {},
          "topics": []
       };
 
+      // process each IRC log line
       for(var i = 0; i < ircLines.length; i++)
       {
          var line = ircLines[i];
 
-         minutes += scrawl.processLine(context, aliases, line);
+         minutes += scrawl.processLine(context, aliases, line, textMode);
       }
-      summary = scrawl.generateSummary(context);
       
-      $("#summary").html(summary);
-      $("#output").html(minutes);
+      // generate the meeting summary
+      summary = scrawl.generateSummary(context, textMode);
+
+      // create the final log output
+      rval = summary + minutes;
       
-      $("#code").html($('<div/>').text("" + summary).html());
-      $("#code").append($('<div/>').text("" + minutes).html());
+      return rval;
+   }
+
+   scrawl.updateMinutes = function(event)
+   {
+      if(event)
+      {
+         scrawl.updateCounter = 1;
+      }
+      else
+      {
+         scrawl.updateCounter--;
+      }
+      
+      if(scrawl.updateCounter <= 0)
+      {
+         scrawl.displayMinutes();
+      }
+      else
+      {
+         if(scrawl.updateCounterTimeout)
+         {
+            clearTimeout(scrawl.updateCounterTimeout);
+         }
+         scrawl.updateCounterTimeout = 
+            setTimeout(scrawl.updateMinutes, 1000);
+      }
    };
 
+   scrawl.showMarkup = function(type)
+   {
+      // Display the appropriate markup text area based on the 'type'
+      if(type == "html")
+      {
+         var html = scrawl.htmlHeader + scrawl.generateMinutes("html") + 
+            scrawl.htmlFooter;
+
+         $("#irc-log").hide();
+         $("#text-markup").hide();
+         $("#html-markup").val(html);
+         $("#html-markup").show();
+      }
+      else if(type == "text")
+      {
+         var text = scrawl.generateMinutes(type)
+
+         $("#html-markup").hide();
+         $("#irc-log").hide();
+         $("#text-markup").val(text);
+         $("#text-markup").show();
+      }
+      else
+      {
+         $("#text-markup").hide();
+         $("#html-markup").hide();
+         $("#irc-log").show();
+      }
+   }
+  
 })(jQuery);

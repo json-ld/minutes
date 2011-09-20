@@ -78,6 +78,58 @@
       }
    };
 
+   var htmlHeader = 
+'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n' +
+'    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> \n' +
+' \n' +
+'<html xmlns="http://www.w3.org/1999/xhtml"> \n' +
+'<head> \n' +
+'  <meta charset="utf8" /> \n' +
+'  <title>Linked Data in JSON Telecon</title> \n' +
+'  \n' +
+'  <style type="text/css"> \n' +
+'body {\n' +
+'   margin: 10%;\n' +
+'}\n' +
+' \n' +
+'.name {\n' +
+'   font-weight: bold;\n' +
+'}\n' +
+' \n' +
+'.information {\n' +
+'   font-style: italic;\n' +
+'}\n' +
+' \n' +
+'.comment-continuation {\n' +
+'   margin-left: 2em;\n' +
+'}\n' +
+' \n' +
+'.proposal {\n' +
+'   background: #eee;\n' +
+'   border: 0.2em solid #c4c8cc;\n' +
+'   margin: 1em;\n' +
+'   border-radius: 1em 1em 1em 1em;\n' +
+'   padding: 1em 1em 1em 1em;\n' +
+'}\n' +
+' \n' +
+'.resolution {\n' +
+'   background: #beb;\n' +
+'   border: 0.2em solid #c4c8cc;\n' +
+'   margin: 1em;\n' +
+'   border-radius: 1em 1em 1em 1em;\n' +
+'   padding: 1em 1em 1em 1em;\n' +
+'}\n' +
+'  </style> \n' +
+'</head> \n' +
+' \n' +
+'<body> \n';
+
+   var htmlFooter = '</body>\n' +
+'</html>';
+
+   scrawl.group = "JSON-LD Community Group";
+   scrawl.htmlHeader = htmlHeader;
+   scrawl.htmlFooter = htmlFooter;
    scrawl.people = people;
 
 })(jQuery);
