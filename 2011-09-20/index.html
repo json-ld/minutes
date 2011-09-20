@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-09-20</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Sep/0097.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Sep/0097.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Niklas Lindström, Alexandre Passant, Ted Thibodeau Jr., David I. Lehn, Dave Longley</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, do you have a specific use case for @language in @context? Is it something that you absolutely need?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Not really, no. I see it as a feature that makes sense, but if we just put it into the @context, that would be enough for almost every use case. If you have different languages, the current approach is fine - don't want it to get too complex.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I can see the usefulness of the feature, but I'm concerned that we're adding too many new features to JSON-LD. When we complete the specs, it'll go through a WG, when that happens, we may get even more features. Don't want to have JSON-LD become too complicated. It's the same trap that RDFa fell into. Always more difficult to remove features than add them. Just want to make sure there is an absolute need for the feature before adding it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  More often, JSON documents are in one language.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Most JSON data doesn't have a language associated with it, but I agree.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I need this feature - one language per view in JSON.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe we support it in @context only for version JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Let's discuss ordered lists last - Thomas Steiner suggested to postpone discussion/decision on this because of the discussion in the RDFa group.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok - we'll move that to the end of the Agenda - but we do need to make a decision on it to move this spec forward.</div>
+<h1 id=topic-1 class="topic">Topic: ISSUE-11: Add support for NULL</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/11">https://github.com/json-ld/json-ld.org/issues/11</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I suggest that we not support 'null' right now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people can use rdf:nil for now</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  rdf:nil means empty list, so not really the same</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: We could use owl:Nothing.</div>
+<div class="comment-continuation">...perhaps owl:Nothing would describe JSON's null better?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  For some use cases it may be important to support null [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  One thing we could do is to define a JSON vocabulary and have a json:null [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That vocabulary is something someone could have for the round-tripping issues for numbers, currently. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could just say 'null' is not specified currently. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  from an application perspective null means I have no data about it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  from graph model it might is the same as not specifying the attribute</div>
+<div class="comment"><span class="name">Alexandre Passant</span>:  I have no preference</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Leave support for 'null' keyword in JSON-LD as unspecified.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so what happens if we link a context doc to an existing JSON doc which uses null?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if a value has null it's ignored entirely when converting to RDF or normalizing. Perhaps we should be more specific in the proposal?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Leave support for 'null' keyword in JSON-LD as unspecified. If a 'null' value is included in a JSON-LD document, it is ignored when converting to the RDF model.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. { "subject": "/niklas#me", "...foaf.../name": null } as RDF = empty graph</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  if it's unspecified it's unspecified, we can't say then that it's ignored when converting</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  unspecified is completely different from ignored</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  should we just leave it completely unspecified, then?</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Yes</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Leave support for 'null' keyword in JSON-LD as unspecified.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What about having json:null?</div>
+<div class="comment-continuation">...This would resolve our round-tripping issues and have a clear mapping to RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you wouldn't have to show null in normalized documents</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://www.w3.org/TR/rdb-direct-mapping/">http://www.w3.org/TR/rdb-direct-mapping/</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  problem with rdf:nil is that it's implies that the value is an empty *list*</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: From the RDB spec: "Additionally, the direct mapping does not generate triples for NULL values; note however that it is not known how to relate the behaviour of the obtained RDF graph with the standard SQL semantics of the NULL values of the source RDB. For a detailed discussion of this issue, see a forthcoming working group note."</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  it's an ongoing discussion, no resolution yet.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  consider the case where you create data where name = null and then use SPARQL to look for persons where we have no name</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  what if we want to look for people with no name? What do we query for?</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  null is a very specific "value" which is environment-specific</div>
+<div class="comment"><span class="name">David I. Lehn</span>: could you use {"@literal":null, "@datatype": "whatever"} to explicitly specify what a null means?</div>
+<div class="comment"><span class="name">David I. Lehn</span>: not sure if that makes sense at all :)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Who is for supporting something like json:null?</div>
+<div class="comment"><span class="name">David I. Lehn</span>: the issue does mention using "prop": [] to specify no value.. which seems to make sense for some cases</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would prefer to leave null as unspecified?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://dbpedia.org/resource/Pointer_%28computing%29%23Null_pointer">http://dbpedia.org/resource/Pointer_%28computing%29%23Null_pointer</a></div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  A quick Google search shows that a lot of people are talking about json:null</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Create a JSON vocabulary and define json</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1 (no compelling use case)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: -1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: -1</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: +0 - I think that will overcomplicate things for newbies</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Leave support for 'null' keyword in JSON-LD as unspecified.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0.5 :-)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: We could add "@null" in the future if the feature is really needed.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1 i think</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Leave support for 'null' keyword in JSON-LD as unspecified.</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-16: Linking instance documents and context documents</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/16">https://github.com/json-ld/json-ld.org/issues/16</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what we are trying to do here is to be able to allow people to just continue to publish plain JSON and just add a header to link it to a context</div>
+<div class="comment-continuation">... it would allow to move the context out of the JSON-LD document and into the HTTP response.</div>
+<div class="comment-continuation">... would be an advantage as it would mean people could leave JSON as it is</div>
+<div class="comment-continuation">... however, the downside is that not all people can access HTTP headers</div>
+<div class="comment-continuation">... and there are different places to put a context now.. difficult to know where to look</div>
+<div class="comment-continuation">... question 1 is how are we going to support it?</div>
+<div class="comment-continuation">... it could also just be put in to the API doc but that would prevent machines from discovering it</div>
+<div class="comment-continuation">... I fear that we are putting in too many features, which complicates implementations.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree with Manu's reasoning</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  don't think that anything new will be enabled</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  should be deferred till a real need comes up</div>
+<div class="comment"><span class="name">Manu Sporny</span>: If we are forced to do it, I am partial to this: Content-Type: application/ld+json; data=<a href="http://www.example.com/context.json">http://www.example.com/context.json</a></div>
+<div class="comment"><span class="name">Alexandre Passant</span>: actually, I'd need the Link header for seevl :)</div>
+<div class="comment"><span class="name">Alexandre Passant</span>:  I would prefer to have my JSON to look like plain JSON</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is the reason to not confuse developers? Has anyone raised this as a concern?</div>
+<div class="comment"><span class="name">Alexandre Passant</span>:  Yes. No one raised the issue yet. Would just like to keep it as simple as possible</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  concern is that a JSON-LD parser might not always has access to link header, which would make the data useless unless you saved the HTTP header along with the JSON-LD document... or modified the JSON-LD document to add the @context.</div>
+<div class="comment"><span class="name">Alexandre Passant</span>:  other reason is compliance with JSON schema</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: <a href="http://json-schema.org/draft-hyperschema.txt">http://json-schema.org/draft-hyperschema.txt</a></div>
+<div class="comment"><span class="name">Alexandre Passant</span>: (1.4. Associating instances with schemas.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There is an issue with client-side JavaScript implementations... that they can't always get access to the Link header - for example, if the document is loaded via a SCRIPT tag or via JSON-P. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  But that may change in the future. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>: I'm not convinced either way</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  There are issues with Link headers, so we need it in the data</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  but I'm not against as having it as optional</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  but you must have a @context in the document</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  to support JavaScript implementations</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: yes - the goal is to have "normal" JSON</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I would be okay with - MUST have it in the JSON-LD document, MAY in Link header</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: I'd rather "MUST have EITHER in the document or Link header"</div>
+<div class="comment"><span class="name">Dave Longley</span>: JSON-LD expanded and normalized forms do not have @context at all</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: when @context exists... pointer MUST (or SHOULD?) be in document; MAY additionally be provided in Link header</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  should we push this back to the mailing list?</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: ok for me</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  sure, let's discuss it there</div>
+</body>
+</html>

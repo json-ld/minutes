@@ -1,0 +1,136 @@
+[Tue 11:07]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Sep/0097.html
+[Tue 11:08]	<MarkusLanthaler>	Scribe: MarkusLanthaler
+[Tue 11:02]	<MarkusLanthaler>	Manu: Markus, do you have a specific use case for @language in @context? Is it something that you absolutely need?
+[Tue 11:03]	<MarkusLanthaler>	Markus: Not really, no. I see it as a feature that makes sense, but if we just put it into the @context, that would be enough for almost every use case. If you have different languages, the current approach is fine - don't want it to get too complex.
+[Tue 11:04]	<MarkusLanthaler>	Manu: I can see the usefulness of the feature, but I'm concerned that we're adding too many new features to JSON-LD. When we complete the specs, it'll go through a WG, when that happens, we may get even more features. Don't want to have JSON-LD become too complicated. It's the same trap that RDFa fell into. Always more difficult to remove features than add them. Just want to make sure there is an absolute need for the feature before adding it.
+[Tue 11:05]	<MarkusLanthaler>	Markus: More often, JSON documents are in one language.
+[Tue 11:05]	<MarkusLanthaler>	Manu: Most JSON data doesn't have a language associated with it, but I agree.
+[Tue 11:05]	<MarkusLanthaler>	Niklas: I need this feature - one language per view in JSON.
+[Tue 11:05]	<MarkusLanthaler>	Markus: Maybe we support it in @context only for version JSON-LD 1.0.
+[Tue 11:08]	<MarkusLanthaler>	Niklas: Let's discuss ordered lists last - Thomas Steiner suggested to postpone discussion/decision on this because of the discussion in the RDFa group.
+[Tue 11:08]	<MarkusLanthaler>	Manu: Ok - we'll move that to the end of the Agenda - but we do need to make a decision on it to move this spec forward.
+[Tue 11:08]	<manu-db>	Topic: ISSUE-11: Add support for NULL
+[Tue 11:08]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/11
+[Tue 11:09]	<lindstream>	q+
+[Tue 11:09]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:10]	<MarkusLanthaler>	Manu: I suggest that we not support 'null' right now.
+[Tue 11:10]	<MarkusLanthaler>	Manu: people can use rdf:nil for now
+[Tue 11:10]	<manu-db>	ack lindstream
+[Tue 11:10]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:10]	<MarkusLanthaler>	Niklas: rdf:nil means empty list, so not really the same
+[Tue 11:10]	<lindstream>	We could use owl:Nothing.
+[Tue 11:11]	<MarkusLanthaler>	...perhaps owl:Nothing would describe JSON's null better?
+[Tue 11:12]	<manu-db>	Markus: For some use cases it may be important to support null
+[Tue 11:12]	<manu-db>	Markus: One thing we could do is to define a JSON vocabulary and have a json:null
+[Tue 11:12]	<voip-ld>	Dave Lehn (SIP/6003-0000005c) has joined the conference.
+[Tue 11:12]	<manu-db>	Markus: That vocabulary is something someone could have for the round-tripping issues for numbers, currently.
+[Tue 11:12]	<manu-db>	Markus: We could just say 'null' is not specified currently.
+[Tue 11:13]	<lindstream>	q+
+[Tue 11:13]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:13]	<manu-db>	ack lindstream
+[Tue 11:13]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:13]	<MarkusLanthaler>	Niklas: from an application perspective null means I have no data about it
+[Tue 11:14]	<MarkusLanthaler>	Niklas: from graph model it might is the same as not specifying the attribute
+[Tue 11:14]	<MarkusLanthaler>	Alexandre: I have no preference
+[Tue 11:14]	<voip-ld>	Ted Thibodeau Jr (SIP/sip2sip.info-0000005d) has joined the conference.
+[Tue 11:15]	* manu-db	use a colon, Ted :)
+[Tue 11:15]	<MacTed>	voip-ld: 0005d is me
+[Tue 11:15]	<voip-ld>	MacTed is now associated with SIP/sip2sip.info-0000005d.
+[Tue 11:15]	<manu-db>	PROPOSAL: Leave support for 'null' keyword in JSON-LD as unspecified.
+[Tue 11:16]	<MarkusLanthaler>	Markus: so what happens if we link a context doc to an existing JSON doc which uses null?
+[Tue 11:16]	<MarkusLanthaler>	Manu: if a value has null it's ignored entirely when converting to RDF or normalizing. Perhaps we should be more specific in the proposal?
+[Tue 11:16]	|<--	_terraces has left freenode (Read error: Connection reset by peer)
+[Tue 11:17]	<manu-db>	PROPOSAL: Leave support for 'null' keyword in JSON-LD as unspecified. If a 'null' value is included in a JSON-LD document, it is ignored when converting to the RDF model.
+[Tue 11:17]	-->|	_terraces (~alex@wlan-nat.fwgal01.deri.ie) has joined #json-ld
+[Tue 11:17]	<manu-db>	+1
+[Tue 11:17]	<lindstream>	+1
+[Tue 11:17]	<MarkusLanthaler>	+1
+[Tue 11:19]	<lindstream>	.. { "subject": "/niklas#me", "...foaf.../name": null } as RDF = empty graph
+[Tue 11:19]	<MarkusLanthaler>	Ted: if it's unspecified it's unspecified, we can't say then that it's ignored when converting
+[Tue 11:19]	<MarkusLanthaler>	Ted: unspecified is completely different from ignored
+[Tue 11:19]	<MarkusLanthaler>	Manu: should we just leave it completely unspecified, then?
+[Tue 11:20]	<MarkusLanthaler>	Ted: Yes
+[Tue 11:20]	<manu-db>	PROPOSAL: Leave support for 'null' keyword in JSON-LD as unspecified.
+[Tue 11:20]	-->|	taaz2 (~dlehn@digitalbazaar.com) has joined #json-ld
+[Tue 11:20]	<MarkusLanthaler>	Markus: What about having json:null?
+[Tue 11:21]	<MarkusLanthaler>	...This would resolve our round-tripping issues and have a clear mapping to RDF
+[Tue 11:22]	|<--	dlehn has left freenode (Ping timeout: 260 seconds)
+[Tue 11:22]	<MarkusLanthaler>	Manu: you wouldn't have to show null in normalized documents
+[Tue 11:22]	|<--	_terraces has left freenode (Read error: Connection reset by peer)
+[Tue 11:23]	-->|	_terraces (~alex@wlan-nat.fwgal01.deri.ie) has joined #json-ld
+[Tue 11:24]	<lindstream>	http://www.w3.org/TR/rdb-direct-mapping/
+[Tue 11:25]	<MarkusLanthaler>	Niklas: problem with rdf:nil is that it's implies that the value is an empty *list*
+[Tue 11:25]	[ERROR]	Internal error dispatching command “goto-url-external”.
+[Tue 11:25]	[ERROR]	NS_ERROR_FILE_NOT_FOUND: Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [nsIExternalProtocolService.loadUrl] @ <chrome://chatzilla/content/commands.js> 2249
+[Tue 11:25]	<MacTed>	From the RDB spec: "Additionally, the direct mapping does not generate triples for NULL values; note however that it is not known how to relate the behaviour of the obtained RDF graph with the standard SQL semantics of the NULL values of the source RDB. For a detailed discussion of this issue, see a forthcoming working group note."
+[Tue 11:25]	<MarkusLanthaler>	Ted: it's an ongoing discussion, no resolution yet.
+[Tue 11:27]	<MarkusLanthaler>	Niklas: consider the case where you create data where name = null and then use SPARQL to look for persons where we have no name
+[Tue 11:27]	<MarkusLanthaler>	Niklas: what if we want to look for people with no name? What do we query for?
+[Tue 11:28]	<MarkusLanthaler>	Ted: null is a very specific "value" which is environment-specific
+[Tue 11:31]	=-=	taaz2 is now known as taaz
+[Tue 11:31]	<taaz>	could you use {"@literal":null, "@datatype": "whatever"} to explicitly specify what a null means?
+[Tue 11:32]	<taaz>	not sure if that makes sense at all :)
+[Tue 11:33]	<MarkusLanthaler>	Manu: Who is for supporting something like json:null?
+[Tue 11:33]	<taaz>	the issue does mention using "prop": [] to specify no value.. which seems to make sense for some cases
+[Tue 11:33]	<MarkusLanthaler>	Manu: would prefer to leave null as unspecified?
+[Tue 11:34]	<lindstream>	http://dbpedia.org/resource/Pointer_%28computing%29%23Null_pointer
+[Tue 11:35]	<MarkusLanthaler>	Ted: A quick Google search shows that a lot of people are talking about json:null
+[Tue 11:35]	<manu-db>	PROPOSAL: Create a JSON vocabulary and define json:null
+[Tue 11:35]	<manu-db>	-1 (no compelling use case)
+[Tue 11:35]	<lindstream>	-1
+[Tue 11:35]	<MarkusLanthaler>	+1
+[Tue 11:35]	* taaz	not sure... +0?
+[Tue 11:36]	<MacTed>	-1
+[Tue 11:36]	<terraces>	+0 - I think that will overcomplicate things for newbies
+[Tue 11:36]	<manu-db>	PROPOSAL: Leave support for 'null' keyword in JSON-LD as unspecified.
+[Tue 11:36]	<manu-db>	+1
+[Tue 11:36]	<lindstream>	+1
+[Tue 11:36]	<MarkusLanthaler>	Markus: +0.5 :-)
+[Tue 11:37]	<lindstream>	We could add "@null" in the future if the feature is really needed.
+[Tue 11:37]	<MacTed>	+1
+[Tue 11:37]	<terraces>	+1
+[Tue 11:38]	<taaz>	+1 i think
+[Tue 11:38]	<manu-db>	RESOLVED: Leave support for 'null' keyword in JSON-LD as unspecified.
+[Tue 11:38]	<manu-db>	Topic: ISSUE-16: Linking instance documents and context documents
+[Tue 11:38]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/16
+[Tue 11:39]	<MarkusLanthaler>	Manu: what we are trying to do here is to be able to allow people to just continue to publish plain JSON and just add a header to link it to a context
+[Tue 11:39]	<MarkusLanthaler>	... it would allow to move the context out of the JSON-LD document and into the HTTP response.
+[Tue 11:40]	<MarkusLanthaler>	... would be an advantage as it would mean people could leave JSON as it is
+[Tue 11:40]	<MarkusLanthaler>	... however, the downside is that not all people can access HTTP headers
+[Tue 11:40]	<MarkusLanthaler>	... and there are different places to put a context now.. difficult to know where to look
+[Tue 11:41]	<MarkusLanthaler>	... question 1 is how are we going to support it?
+[Tue 11:41]	<MarkusLanthaler>	... it could also just be put in to the API doc but that would prevent machines from discovering it
+[Tue 11:43]	<MarkusLanthaler>	... I fear that we are putting in too many features, which complicates implementations.
+[Tue 11:44]	<lindstream>	q+
+[Tue 11:44]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:44]	<manu-db>	ack lindstream
+[Tue 11:44]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:44]	<MarkusLanthaler>	Niklas: I agree with Manu's reasoning
+[Tue 11:45]	<MarkusLanthaler>	Niklas: don't think that anything new will be enabled
+[Tue 11:45]	<MarkusLanthaler>	Niklas: should be deferred till a real need comes up
+[Tue 11:46]	<manu-db>	If we are forced to do it, I am partial to this: Content-Type: application/ld+json; data=http://www.example.com/context.json
+[Tue 11:46]	<terraces>	actually, I'd need the Link header for seevl :)
+[Tue 11:47]	<MarkusLanthaler>	Alexandre: I would prefer to have my JSON to look like plain JSON
+[Tue 11:48]	<MarkusLanthaler>	Manu: is the reason to not confuse developers? Has anyone raised this as a concern?
+[Tue 11:48]	<MarkusLanthaler>	Alexandre: Yes. No one raised the issue yet. Would just like to keep it as simple as possible
+[Tue 11:49]	<MarkusLanthaler>	Manu: concern is that a JSON-LD parser might not always has access to link header, which would make the data useless unless you saved the HTTP header along with the JSON-LD document... or modified the JSON-LD document to add the @context.
+[Tue 11:50]	<MarkusLanthaler>	Alexandre: other reason is compliance with JSON schema
+[Tue 11:50]	<terraces>	http://json-schema.org/draft-hyperschema.txt
+[Tue 11:50]	<terraces>	(1.4. Associating instances with schemas.)
+[Tue 11:52]	<manu-db>	Markus: There is an issue with client-side JavaScript implementations... that they can't always get access to the Link header - for example, if the document is loaded via a SCRIPT tag or via JSON-P.
+[Tue 11:52]	<lindstream>	q+
+[Tue 11:52]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:52]	<manu-db>	Markus: But that may change in the future.
+[Tue 11:54]	<taaz>	I'm not convinced either way
+[Tue 11:55]	<MarkusLanthaler>	Ted: There are issues with Link headers, so we need it in the data
+[Tue 11:55]	<MarkusLanthaler>	Ted: but I'm not against as having it as optional
+[Tue 11:56]	<MarkusLanthaler>	Ted: but you must have a @context in the document
+[Tue 11:56]	<MarkusLanthaler>	Ted: to support JavaScript implementations
+[Tue 11:59]	<terraces>	yes - the goal is to have "normal" JSON
+[Tue 11:59]	<MarkusLanthaler>	Manu: I would be okay with - MUST have it in the JSON-LD document, MAY in Link header
+[Tue 11:59]	<terraces>	I'd rather "MUST have EITHER in the document or Link header"
+[Tue 12:01]	<dlongley>	JSON-LD expanded and normalized forms do not have @context at all
+[Tue 12:03]	<MacTed>	when @context exists... pointer MUST (or SHOULD?) be in document; MAY additionally be provided in Link header
+[Tue 12:04]	<MarkusLanthaler>	Manu: should we push this back to the mailing list?
+[Tue 12:04]	<terraces>	ok for me
+[Tue 12:04]	<MarkusLanthaler>	Markus: sure, let's discuss it there
