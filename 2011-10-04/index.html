@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-10-04</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0010.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0010.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Henri Bergius</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Henri Bergius, Gregg Kellogg, Ted Thibodeau Jr., Alexandre Passant, Markus Lanthaler, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we want to do Agendum #3 and then #2 because of the dependency? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, let's swap those two. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Henri Bergius</span>:  Talked with Web Intents people at JSConf - had some ideas that it would be interesting to pass JSON-LD through Web Intents. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Can you do a quick introduction to the topic on the mailing list first, Henri? Then we could add it as an issue and discuss in more detail on the call? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Henri Bergius</span>:  Ok, I'll do that. [scribe assist by Manu Sporny]</div>
+<div class="information">Henri Bergius is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: ISSUE-12: Arrays as ordered lists or unordered sets</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/12">https://github.com/json-ld/json-ld.org/issues/12</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This issue concerns how JSON-LD expresses ordered lists, at the moment we only have unordered sets</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ordering is useful for playlists, payments etc</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  proposed @list keyword with array, expressing that the array ought to be ordered.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 for supporting ordered lists, I think we can do it in a nice, clean way in JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 to support it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  coming around to supporting ordering lists, traditionally didn't like it in RDFa but now there is a new syntax that is nice to use.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Microdata has ordered lists, so if we want to express Microdata cleanly in JSON-LD, we need ordered lists</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I like the format proposed by Gregg</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Lists should be explicitly added. How could a reference always be treated as a list? I need to solve this issue. Example:</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://service.demo.lagrummet.se/json-ld/context.json">http://service.demo.lagrummet.se/json-ld/context.json</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  framing could possibly be used for addressing the use case of always treating something as a list or a set. I don't think we need to solve it via @coerce.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  both coercion and expanded forms for lists are needed, otherwise lists can't be normalized. Should we consider ordered lists are the default since this is what it means in JSON?</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: ordered by default? that seems problematic.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  considering JSON-LD arrays to be ordered would make RDF mapping very complicated.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: -1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: -1</div>
+<div class="comment"><span class="name">Henri Bergius</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: -1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: -1</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: 0</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anybody having problems with the @list keyword in both document body and coercion rules?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I have no problem with it</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support @list keyword in @coerce as well as in expanded form in the body of JSON-LD documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Henri Bergius</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0 i guess. i haven't really used it enough to vote.</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Support @list keyword in @coerce as well as in expanded form in the body of JSON-LD documents.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Shall we introduce a mechanism to change the default (i.e. how arrays are interpreted) as well?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  making list handling changeable would make processing modal and complicated</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Not really at this point</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in current framing you can tell an item to always be an array, for instance</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  also finding more cases where framing is needed</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support the @set keyword to specify that a property is a set and not an ordered list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: -1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: -1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1 if we consider arrays as unordered by default there's no need for a set keyword</div>
+<div class="comment"><span class="name">Henri Bergius</span>: -1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: -1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: -1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have now arrays and ordered lists, @list can be used both in body and coercion. Anything else to discuss on lists before we move on?</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-30: Distinguishing @context documents</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/30">https://github.com/json-ld/json-ld.org/issues/30</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are three different ways to distinguish context documents that have been proposed: MIME type (considered overkill), MIME type param (form=context, hard for web server to determine without file extension), including @context in pure context docs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you specify an external context in your @context, the JSON-LD processor would fetch that external document and look for @context there</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  would an embedded context also have @context string?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "@context": ["<a href="http://example.com/mycontext.jsonld",">http://example.com/mycontext.jsonld",</a> {"foo": "http://foo.org/foo#"}]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-LD processor should load external context document first, then overlay local context items into that in order of when they are specified in the @context array (if it is an array)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: This is the regular JSON-LD document: "@context": ["<a href="http://example.com/mycontext.jsonld",">http://example.com/mycontext.jsonld",</a> {"foo": "http://foo.org/foo#"}]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: This is the context JSON-LD document ("<a href="http://example.com/mycontext.jsonld"):">http://example.com/mycontext.jsonld"):</a> "@context": ["http://thiswouldnotload.example.com/othercontext.jsonld", {"bar": "http://bar.org/bar#"}]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The final context would be: {"bar": "<a href="http://bar.org/bar#",">http://bar.org/bar#",</a> "foo": "http://foo.org/foo#"} because the remote document in the context document would fail to be loaded.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {"@context": {"@context": "<a href="http://example.org/mycontext.jsonld",">http://example.org/mycontext.jsonld",</a> "@language": "sv"}, ... }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you can't embed a remote context inside a context, but the example above would load mycontext.jsonld and then overlay @language "sv" on top of that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {"@context": ["<a href="http://example.org/mycontext.jsonld",">http://example.org/mycontext.jsonld",</a> {"@language": "sv"}], ... }</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  context inside a context is a problem for processing and would need extra code. It's easier to just ignore that value.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I agree with Gregg. I wouldn't like to have that "don't follow links in context documents" rule in the spec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  using @context in a context document would still make it look like an instance document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there is no difference between a context doc and an instance doc</div>
+<div class="comment"><span class="name">David I. Lehn</span>: There is probably some overlap in functionality between external @context issues and a generic @import syntax. probably want to pick some syntax that would work for a future @import extension. That may imply using the @context inside the context doc</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: yes, me</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: is there really a recursion issue?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  proposal: rule to prevent fetching same URL twice to protect against loops</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  recursion could also stop at a given recursion level</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  DDOS could be possible by referencing lots of documents in @context, or you could just refer to one context document, which refers to 2 documents, which refers to 3 documents, etc. There are lots of DDOS issues when loading external documents.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it might be useful to include some base context in external contexts</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  DDOS and other attacks come up when discussing browser technologies etc. It's important to talk about these attacks.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there have been proposals to have hardcoded prefixes etc to prevent fetching of external resources for RDFa Profiles (when that feature existed in RDFa 1.1).</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  possibly processors should be limited to X lookups per JSON-LD @context?</div>
+<div class="comment"><span class="name">David I. Lehn</span>: so many complex issues come up for such a simple feature!</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: exactly, we should warn about the potential misuse in the spec and that's it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 to document recursion/DDOS risks in the spec (and perhaps SHOULD on limits)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: something like "a processor MAY stop at depth 4 or when it has loaded more than 10 contexts"...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  when dereferencing an external context, the JSON-LD processor expects a @context keyword to be available on toplevel</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Could JSON-LD processor ignore everything else than context when referring to external context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes. Keep in mind that external @context documents could be self-expressing - they could have creation date, author information, etc. This information MUST NOT be imported into the default graph of a JSON-LD processor.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  there is benefit in self-describing information, but we should limit it to prevent copy-pasting</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  context documents will be downloaded many many times, so they probably should be lean - but we shouldn't be heavy-handed about what can go inside of a @context document if it's just another JSON-LD document.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not differentiate between JSON-LD Context documents and JSON-LD instance documents - there are just JSON-LD documents.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we retrieve a JSON-LD document when processing @context, we discard all data that is not in the context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to figure out a way to explain this in the spec, to say whether to ignore triples from context, or to put them into the processor graph</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Merging data from external JSON-LD documents is ... iffy</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there is definitely a difference between JSON-LD documents and context documents. Syntax is same, but contents are treated differently</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not differentiate between JSON-LD Context documents and JSON-LD instance documents. If @context is specified and a remote document is listed, the remote document SHOULD have a @context key in the top level JSON object.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Henri Bergius</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +0</div>
+<div class="comment"><span class="name">Alexandre Passant</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  why does a document that has been referenced as a @context needs a @context?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this way authors only have a single set of rules for authoring JSON-LD documents. Previously, the way you authored JSON-LD Context documents was different from JSON-LD Instance documents. Now, the authoring rules are the same for both types of documents.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  there is no reason for the remote context document to have a context. If it has one, then the processor could follow an external link in that context as well.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: I think there is something odd about this too. Not quite sure how to explain it right now though.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the question is whether to look at top-level properties of the external context document, or to look at properties inside the @context key of the external context document. Most of the people on the call seem to have decided to do the latter.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  proposal - can we wrap it up now as there are many +1s. The issue can be reopened later if it seems as if there is a problem with it.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: What happens if the remote doc doesn't have @context in it?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Then the @context isn't modified and processing continues. It effectively ignores the remote document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: It says import the @context element in the remote JSON-LD in the current document and merge it with the local context</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Given: data = json.parse(urlopen("<a href="http://example.org/mycontext.jsonld"))">http://example.org/mycontext.jsonld"))</a> -- Before this change: context = data -- After: context = data['@context']</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Exactly, you don't have to distinguish between them because there will just be JSON-LD documents... as a consequence we do not need different MIME types</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: q</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: If a @context value is a string, treat it as a URL, dereference and import any context defined there</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We're out of time for today, we should move this back to mailing list and get a more solid proposal done there... and discuss again on the next telco.</div>
+</body>
+</html>

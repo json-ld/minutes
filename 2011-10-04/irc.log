@@ -1,0 +1,196 @@
+[Tue 11:03]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0010.html
+[Tue 11:03]	<lindstream>	q+
+[Tue 11:03]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:03]	<bergie>	q+
+[Tue 11:03]	<voip-ld>	Added bergie to the speaker queue: lindstream, bergie
+[Tue 11:03]	<manu-db>	ack lindstream
+[Tue 11:03]	<voip-ld>	lindstream has the floor. The next speaker is bergie.
+[Tue 11:04]	<manu-db>	Niklas: Maybe we want to do Agendum #3 and then #2 because of the dependency?
+[Tue 11:04]	<manu-db>	Manu: Yes, let's swap those two.
+[Tue 11:04]	<manu-db>	ack henri
+[Tue 11:04]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:04]	<manu-db>	Henri: Talked with Web Intents people at JSConf - had some ideas that it would be interesting to pass JSON-LD through Web Intents.
+[Tue 11:06]	<manu-db>	Manu: Can you do a quick introduction to the topic on the mailing list first, Henri? Then we could add it as an issue and discuss in more detail on the call?
+[Tue 11:06]	<manu-db>	Henri: Ok, I'll do that.
+[Tue 11:06]	<manu-db>	Scribe: bergie
+[Tue 11:06]	<manu-db>	Topic: ISSUE-12: Arrays as ordered lists or unordered sets
+[Tue 11:06]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/12
+[Tue 11:07]	<bergie>	Manu: This issue concerns how JSON-LD expresses ordered lists, at the moment we only have unordered sets
+[Tue 11:07]	<bergie>	Manu: ordering is useful for playlists, payments etc
+[Tue 11:07]	<gkellogg>	q+
+[Tue 11:07]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:07]	<manu-db>	ack gkellogg
+[Tue 11:07]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:08]	<bergie>	Gregg: proposed @list keyword with array, expressing that the array ought to be ordered.
+[Tue 11:09]	<manu-db>	+1 for supporting ordered lists, I think we can do it in a nice, clean way in JSON-LD.
+[Tue 11:09]	<manu-db>	q+
+[Tue 11:09]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:09]	<lindstream>	q+
+[Tue 11:09]	<manu-db>	ack manu-db
+[Tue 11:09]	<voip-ld>	Added lindstream to the speaker queue: manu-db, lindstream
+[Tue 11:09]	<voip-ld>	manu-db has the floor. The next speaker is lindstream.
+[Tue 11:09]	<MarkusLanthaler>	+1 to support it
+[Tue 11:09]	<bergie>	Manu: coming around to supporting ordering lists, traditionally didn't like it in RDFa but now there is a new syntax that is nice to use.
+[Tue 11:09]	<voip-ld>	Dave Lehn (SIP/6003-00000082) has joined the conference.
+[Tue 11:10]	<bergie>	Manu: Microdata has ordered lists, so if we want to express Microdata cleanly in JSON-LD, we need ordered lists
+[Tue 11:10]	<manu-db>	ack lindstream
+[Tue 11:10]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 11:10]	<manu-db>	q+ to talk about normalization for @list
+[Tue 11:10]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:11]	<bergie>	Niklas: I like the format proposed by Gregg
+[Tue 11:11]	<bergie>	Niklas: Lists should be explicitly added. How could a reference always be treated as a list? I need to solve this issue. Example:
+[Tue 11:12]	<lindstream>	http://service.demo.lagrummet.se/json-ld/context.json
+[Tue 11:13]	<bergie>	Manu: framing could possibly be used for addressing the use case of always treating something as a list or a set. I don't think we need to solve it via @coerce.
+[Tue 11:15]	<manu-db>	ack manu-db
+[Tue 11:15]	<voip-ld>	manu-db has the floor (to talk about normalization for @list). The speaker queue is empty.
+[Tue 11:15]	<bergie>	Manu: both coercion and expanded forms for lists are needed, otherwise lists can't be normalized. Should we consider ordered lists are the default since this is what it means in JSON?
+[Tue 11:16]	<MacTed>	ordered by default? that seems problematic.
+[Tue 11:16]	<bergie>	Manu: considering JSON-LD arrays to be ordered would make RDF mapping very complicated.
+[Tue 11:16]	<MarkusLanthaler>	-1
+[Tue 11:16]	<manu-db>	-1
+[Tue 11:16]	<taaz>	-1
+[Tue 11:16]	<lindstream>	-1
+[Tue 11:17]	<bergie>	-1
+[Tue 11:17]	<gkellogg>	-1
+[Tue 11:17]	<MacTed>	-1
+[Tue 11:17]	<terraces>	0
+[Tue 11:18]	<bergie>	Manu: anybody having problems with the @list keyword in both document body and coercion rules?
+[Tue 11:18]	|<--	terraces has left freenode (Quit: terraces)
+[Tue 11:19]	-->|	terraces (~test@wlan-nat.fwgal01.deri.ie) has joined #json-ld
+[Tue 11:19]	<MarkusLanthaler>	I have no problem with it
+[Tue 11:19]	<manu-db>	PROPOSAL: Support @list keyword in @coerce as well as in expanded form in the body of JSON-LD documents.
+[Tue 11:19]	<manu-db>	+1
+[Tue 11:19]	<lindstream>	+1
+[Tue 11:19]	<gkellogg>	+1
+[Tue 11:19]	<bergie>	+1
+[Tue 11:19]	<MarkusLanthaler>	+1
+[Tue 11:19]	<MacTed>	+1
+[Tue 11:20]	<terraces>	+1
+[Tue 11:20]	<taaz>	+0 i guess. i haven't really used it enough to vote.
+[Tue 11:19]	<manu-db>	RESOLVED: Support @list keyword in @coerce as well as in expanded form in the body of JSON-LD documents.
+[Tue 11:20]	<MarkusLanthaler>	Shall we introduce a mechanism to change the default (i.e. how arrays are interpreted) as well?
+[Tue 11:21]	<gkellogg>	q+
+[Tue 11:21]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:21]	<manu-db>	ack gkellogg
+[Tue 11:21]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:21]	<bergie>	Gregg: making list handling changeable would make processing modal and complicated
+[Tue 11:22]	<MarkusLanthaler>	Not really at this point
+[Tue 11:22]	<lindstream>	q+
+[Tue 11:22]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:22]	<manu-db>	ack lindstream
+[Tue 11:22]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:22]	<bergie>	Manu: in current framing you can tell an item to always be an array, for instance
+[Tue 11:23]	<bergie>	Niklas: also finding more cases where framing is needed
+[Tue 11:24]	<manu-db>	PROPOSAL: Support the @set keyword to specify that a property is a set and not an ordered list.
+[Tue 11:24]	<manu-db>	-1
+[Tue 11:24]	<gkellogg>	-1
+[Tue 11:24]	<lindstream>	-1
+[Tue 11:24]	<MarkusLanthaler>	-1 if we consider arrays as unordered by default there's no need for a set keyword
+[Tue 11:24]	<bergie>	-1
+[Tue 11:24]	<taaz>	-1
+[Tue 11:24]	<MacTed>	-1
+[Tue 11:25]	<bergie>	Manu: we have now arrays and ordered lists, @list can be used both in body and coercion. Anything else to discuss on lists before we move on?
+[Tue 11:26]	<manu-db>	Topic: ISSUE-30: Distinguishing @context documents
+[Tue 11:26]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/30
+[Tue 11:28]	<bergie>	Manu: There are three different ways to distinguish context documents that have been proposed: MIME type (considered overkill), MIME type param (form=context, hard for web server to determine without file extension), including @context in pure context docs
+[Tue 11:28]	<bergie>	Manu: if you specify an external context in your @context, the JSON-LD processor would fetch that external document and look for @context there
+[Tue 11:28]	<lindstream>	q+
+[Tue 11:28]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:28]	<manu-db>	ack lindstream
+[Tue 11:28]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:29]	<bergie>	Niklas: would an embedded context also have @context string?
+[Tue 11:29]	<manu-db>	"@context": ["http://example.com/mycontext.jsonld", {"foo": "http://foo.org/foo#"}]
+[Tue 11:30]	<bergie>	Manu: JSON-LD processor should load external context document first, then overlay local context items into that in order of when they are specified in the @context array (if it is an array)
+[Tue 11:31]	<gkellogg>	q+
+[Tue 11:31]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:31]	<manu-db>	This is the regular JSON-LD document: "@context": ["http://example.com/mycontext.jsonld", {"foo": "http://foo.org/foo#"}]
+[Tue 11:32]	<manu-db>	This is the context JSON-LD document ("http://example.com/mycontext.jsonld"): "@context": ["http://thiswouldnotload.example.com/othercontext.jsonld", {"bar": "http://bar.org/bar#"}]
+[Tue 11:32]	<manu-db>	The final context would be: {"bar": "http://bar.org/bar#", "foo": "http://foo.org/foo#"} because the remote document in the context document would fail to be loaded.
+[Tue 11:33]	<lindstream>	{"@context": {"@context": "http://example.org/mycontext.jsonld", "@language": "sv"}, ... }
+[Tue 11:34]	<bergie>	Manu: you can't embed a remote context inside a context, but the example above would load mycontext.jsonld and then overlay @language "sv" on top of that.
+[Tue 11:35]	<lindstream>	{"@context": ["http://example.org/mycontext.jsonld", {"@language": "sv"}], ... }
+[Tue 11:35]	<manu-db>	ack gkellogg
+[Tue 11:35]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:36]	<bergie>	Gregg: context inside a context is a problem for processing and would need extra code. It's easier to just ignore that value.
+[Tue 11:36]	<lindstream>	q+
+[Tue 11:36]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:38]	<manu-db>	ack lindstream
+[Tue 11:38]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:38]	<MarkusLanthaler>	I agree with Gregg. I wouldn't like to have that "don't follow links in context documents" rule in the spec.
+[Tue 11:38]	<bergie>	Niklas: using @context in a context document would still make it look like an instance document
+[Tue 11:38]	<bergie>	Manu: there is no difference between a context doc and an instance doc
+[Tue 11:39]	<taaz>	There is probably some overlap in functionality between external @context issues and a generic @import syntax. probably want to pick some syntax that would work for a future @import extension. That may imply using the @context inside the context doc
+[Tue 11:39]	<MarkusLanthaler>	yes, me
+[Tue 11:39]	<MarkusLanthaler>	is there really a recursion issue?
+[Tue 11:40]	<bergie>	Niklas: proposal: rule to prevent fetching same URL twice to protect against loops
+[Tue 11:41]	<bergie>	Manu: recursion could also stop at a given recursion level
+[Tue 11:41]	<MarkusLanthaler>	q+
+[Tue 11:41]	<voip-ld>	Added MarkusLanthaler to the speaker queue: MarkusLanthaler
+[Tue 11:42]	<manu-db>	ack MarkusLanthaler
+[Tue 11:42]	<voip-ld>	MarkusLanthaler has the floor. The speaker queue is empty.
+[Tue 11:42]	<bergie>	Manu: DDOS could be possible by referencing lots of documents in @context, or you could just refer to one context document, which refers to 2 documents, which refers to 3 documents, etc. There are lots of DDOS issues when loading external documents.
+[Tue 11:42]	<lindstream>	q+
+[Tue 11:42]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 11:43]	<manu-db>	ack lindstream
+[Tue 11:43]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 11:43]	<bergie>	Niklas: it might be useful to include some base context in external contexts
+[Tue 11:44]	<bergie>	Manu: DDOS and other attacks come up when discussing browser technologies etc. It's important to talk about these attacks.
+[Tue 11:44]	<bergie>	Manu: there have been proposals to have hardcoded prefixes etc to prevent fetching of external resources for RDFa Profiles (when that feature existed in RDFa 1.1).
+[Tue 11:45]	<bergie>	Manu: possibly processors should be limited to X lookups per JSON-LD @context?
+[Tue 11:45]	<taaz>	so many complex issues come up for such a simple feature!
+[Tue 11:45]	<MarkusLanthaler>	exactly, we should warn about the potential misuse in the spec and that's it
+[Tue 11:45]	<lindstream>	+1 to document recursion/DDOS risks in the spec (and perhaps SHOULD on limits)
+[Tue 11:46]	<gkellogg>	q+
+[Tue 11:46]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:46]	<lindstream>	something like "a processor MAY stop at depth 4 or when it has loaded more than 10 contexts"...
+[Tue 11:46]	<bergie>	Manu: when dereferencing an external context, the JSON-LD processor expects a @context keyword to be available on toplevel
+[Tue 11:47]	<lindstream>	q+
+[Tue 11:47]	<voip-ld>	Added lindstream to the speaker queue: gkellogg, lindstream
+[Tue 11:47]	<bergie>	Gregg: Could JSON-LD processor ignore everything else than context when referring to external context
+[Tue 11:47]	<bergie>	Manu: Yes. Keep in mind that external @context documents could be self-expressing - they could have creation date, author information, etc. This information MUST NOT be imported into the default graph of a JSON-LD processor.
+[Tue 11:47]	<manu-db>	ack lindstream
+[Tue 11:47]	<voip-ld>	gkellogg has the floor. The next speaker is lindstream.
+[Tue 11:48]	<bergie>	Niklas: there is benefit in self-describing information, but we should limit it to prevent copy-pasting
+[Tue 11:49]	<bergie>	Manu: context documents will be downloaded many many times, so they probably should be lean - but we shouldn't be heavy-handed about what can go inside of a @context document if it's just another JSON-LD document.
+[Tue 11:49]	<manu-db>	PROPOSAL: Do not differentiate between JSON-LD Context documents and JSON-LD instance documents - there are just JSON-LD documents.
+[Tue 11:49]	<MarkusLanthaler>	q+
+[Tue 11:49]	<voip-ld>	Added MarkusLanthaler to the speaker queue: gkellogg, MarkusLanthaler
+[Tue 11:50]	<gkellogg>	ack gkellogg
+[Tue 11:50]	<voip-ld>	gkellogg has the floor. The next speaker is MarkusLanthaler.
+[Tue 11:50]	<gkellogg>	ack Markuslanthaler
+[Tue 11:50]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:51]	<bergie>	Markus: if we retrieve a JSON-LD document when processing @context, we discard all data that is not in the context.
+[Tue 11:53]	<bergie>	Manu: we need to figure out a way to explain this in the spec, to say whether to ignore triples from context, or to put them into the processor graph
+[Tue 11:55]	<bergie>	Manu: Merging data from external JSON-LD documents is ... iffy
+[Tue 11:58]	<bergie>	Manu: there is definitely a difference between JSON-LD documents and context documents. Syntax is same, but contents are treated differently
+[Tue 12:00]	<manu-db>	PROPOSAL: Do not differentiate between JSON-LD Context documents and JSON-LD instance documents. If @context is specified and a remote document is listed, the remote document SHOULD have a @context key in the top level JSON object.
+[Tue 12:00]	<lindstream>	q+
+[Tue 12:00]	<voip-ld>	Added lindstream to the speaker queue: lindstream
+[Tue 12:00]	<manu-db>	ack lindstream
+[Tue 12:00]	<voip-ld>	lindstream has the floor. The speaker queue is empty.
+[Tue 12:01]	<MarkusLanthaler>	+1
+[Tue 12:01]	<manu-db>	+1
+[Tue 12:01]	<gkellogg>	+1
+[Tue 12:01]	<bergie>	+1
+[Tue 12:01]	<lindstream>	+1
+[Tue 12:01]	<MacTed>	+0
+[Tue 12:02]	<terraces>	+1
+[Tue 12:02]	<bergie>	Ted: why does a document that has been referenced as a @context needs a @context?
+[Tue 12:02]	<bergie>	Manu: this way authors only have a single set of rules for authoring JSON-LD documents. Previously, the way you authored JSON-LD Context documents was different from JSON-LD Instance documents. Now, the authoring rules are the same for both types of documents.
+[Tue 12:05]	<bergie>	Ted: there is no reason for the remote context document to have a context. If it has one, then the processor could follow an external link in that context as well.
+[Tue 12:06]	<taaz>	I think there is something odd about this too. Not quite sure how to explain it right now though.
+[Tue 12:08]	<bergie>	Manu: the question is whether to look at top-level properties of the external context document, or to look at properties inside the @context key of the external context document. Most of the people on the call seem to have decided to do the latter.
+[Tue 12:08]	<bergie>	Manu: proposal - can we wrap it up now as there are many +1s. The issue can be reopened later if it seems as if there is a problem with it.
+[Tue 12:09]	<taaz>	What happens if the remote doc doesn't have @context in it?
+[Tue 12:09]	<manu`>	Then the @context isn't modified and processing continues. It effectively ignores the remote document.
+[Tue 12:11]	<MarkusLanthaler>	It says import the @context element in the remote JSON-LD in the current document and merge it with the local context
+[Tue 12:12]	<lindstream>	Given: data = json.parse(urlopen("http://example.org/mycontext.jsonld")) -- Before this change: context = data -- After: context = data['@context']
+[Tue 12:13]	<MarkusLanthaler>	Exactly, you don't have to distinguish between them because there will just be JSON-LD documents... as a consequence we do not need different MIME types
+[Tue 12:13]	<gkellogg>	q
+[Tue 12:13]	<gkellogg>	q+
+[Tue 12:13]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 12:14]	<manu-db>	ack gkellogg
+[Tue 12:14]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 12:15]	<lindstream>	If a @context value is a string, treat it as a URL, dereference and import any context defined there
+[Tue 12:15]	<bergie>	Manu: We're out of time for today, we should move this back to mailing list and get a more solid proposal done there... and discuss again on the next telco.
+

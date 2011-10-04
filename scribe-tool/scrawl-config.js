@@ -10,15 +10,20 @@
          "alias": ["ballen"],
          "homepage": "http://bradleypallen.org/about"
       },
-      "Nicolas Dufour":
-      {
-         "alias": ["capnemo"],
-         "homepage": "http://www.nemoworld.info/"
-      },
       "Danny Ayers":
       {
          "alias": ["danja"],
          "homepage": "http://dannyayers.com/"
+      },
+      "Henri Bergius":
+      {
+         "alias": ["bergie"],
+         "homepage": "http://bergie.iki.fi/about/"
+      },
+      "Nicolas Dufour":
+      {
+         "alias": ["capnemo"],
+         "homepage": "http://www.nemoworld.info/"
       },
       "Michael Johnson":
       {
