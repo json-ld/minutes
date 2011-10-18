@@ -1,0 +1,183 @@
+[11:06]	<manu`>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0067.html
+[11:06]	* taaz	hears manus fans when he talks
+[11:06]	<gkellogg>	scribe: gkellogg
+[11:07]	<voip-ld>	Manu Sporny (SIP/6000-000000a8) has left the conference.
+[11:07]	<voip-ld>	Manu Sporny (SIP/6000-000000a9) has joined the conference.
+[11:08]	<manu`>	Topic: Approval/Disapproval of the Spec Split
+[11:08]	<gkellogg>	manu: I created a proposal for the spec split over the weekend - it's on a separate branch in the code repository... published it here:
+[11:08]	<manu`>	http://manu.sporny.org/tmp/json-ld.org/spec/
+[11:08]	<gkellogg>	… for quite a while people had been asking to split between language description and complicated API and processing rules
+[11:09]	<gkellogg>	… wanted an easy intro for people to learn JSON-LD syntax with details in a different spec
+[11:09]	<gkellogg>	… had asked to wait for things to settle down, which it seems to have now.
+[11:09]	<gkellogg>	… split into three docs:
+[11:09]	<gkellogg>	… 1 JSON-LD syntax, describes keywords how IRIs and datatypes are expressed.
+[11:10]	<gkellogg>	… 2: API spec, describes 5 method calls to transform JSON-LD between different representations
+[11:10]	<gkellogg>	… 3: Normalization algorithm, it is generalizable and could be used for different RDF languages.
+[11:11]	<gkellogg>	… API spec depends on normalization
+[11:11]	<gkellogg>	… syntax doc doesn't depend upon, but refers to the other two.
+[11:11]	<gkellogg>	… The responses on the list and personal e-mail seem to indicate a general feeling that it is a good idea.
+[11:12]	<manu`>	gkellogg: I think it's something we agreed to do some time ago, so it's good that it's done.
+[11:12]	<manu`>	niklasl: Yes, this is good.
+[11:12]	<gkellogg>	dlehn: there are some spec bugs. List stuff missing?
+[11:12]	<gkellogg>	manu: lists shouldn't have been deleted.
+[11:13]	<gkellogg>	… experimental concepts weren't moved over, they'll need to go back.
+[11:14]	<gkellogg>	… suggestion is that all experimental concepts turn into advanced concepts.
+[11:14]	<manu`>	Looking at http://json-ld.org/spec/latest/ seems to indicate that disjoint graphs and lists were accidentally deleted.
+[11:14]	<gkellogg>	manu: need disjoint graphs and lists, those were the only two.
+[11:15]	<gkellogg>	… the latest spec requires an update to merge those two back in.
+[11:15]	<gkellogg>	… gkellogg to update the main processing algorithm for lists
+[11:16]	<gkellogg>	… general agreement to merge the branch into the main spec?
+[11:16]	<gkellogg>	dlehn: question on how they will all link together.
+[11:17]	<gkellogg>	manu: RDF normalization doc is stand-alone and doesn't refer to the other docs.
+[11:17]	<gkellogg>	… The API spec refers to the Syntax spec and the normalization spec.
+[11:17]	<gkellogg>	… The Syntax spec refers non-normatively to the API spec and the normalization spec.
+[11:18]	<gkellogg>	… All three must be rec-track documents.
+[11:18]	<gkellogg>	… general agreement, but can't take a vote with only 4 people on the call. I'll merge the spec split into the main line and see if anybody complains at that point, but most seem to want this change.
+[11:18]	<manu`>	Topic: ISSUE-31: Merge @type and @datatype
+[11:19]	<manu`>	https://github.com/json-ld/json-ld.org/issues/31
+[11:19]	<gkellogg>	manu: Markus had raised this on the list.
+[11:19]	<gkellogg>	… type is used in two different ways, for literals and for objects
+[11:19]	<gkellogg>	… generally, authors don't know (or care) about the difference.
+[11:20]	<gkellogg>	… RDF people will understand the difference.
+[11:20]	<gkellogg>	… idea to merge @type and @datatype into a single keyword
+[11:20]	<gkellogg>	… PROs: simplicity and easing the burden on authors.
+[11:20]	<gkellogg>	… CONs: may confuse people coming from RDF world.
+[11:21]	<niklasl>	q+
+[11:21]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:21]	<gkellogg>	… all other keywords need to be paired. Thoughts?
+[11:21]	<manu`>	ack niklasl
+[11:21]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:21]	<gkellogg>	… niklasl: is an RDF-head, but has a problem with this merger
+[11:21]	<gkellogg>	… @type is a short-hand for a property
+[11:22]	<taaz>	did Dave Longley have comments on this based on all his implementation work?
+[11:22]	<gkellogg>	… other people might have problems initially. the conceptal difference is huge
+[11:22]	<gkellogg>	manu: Dave Longley hasn't had any strong feelings on it on the mailing list or privately.
+[11:22]	<gkellogg>	… from the syntax, it's clear what to do, it's really a stylistic thing.
+[11:23]	<manu`>	gkellogg: In general, I'm in favor of reducing the number of keywords that are needed. The danger is that someone uses a class type when they mean a datatype or vice-versa.
+[11:23]	<niklasl>	q+
+[11:23]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:23]	<manu`>	gkellogg: There are many other ways to generate data which is wrong... I'm neutral to +1 on this issue.
+[11:24]	<gkellogg>	niklasl: might be problematic, you would never coerce something so that it would be typed, but you would coerce a datatype
+[11:24]	<gkellogg>	… also, we have keyword aliases and prefers to use an alias anyway. Would never use @datatype directly. There are a number of places where the differences are important.
+[11:24]	<gkellogg>	q+
+[11:24]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[11:24]	<manu`>	ack niklasl
+[11:24]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[11:24]	<manu`>	ack gkellogg
+[11:24]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:26]	<niklasl>	q+
+[11:26]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:26]	<manu`>	gkellogg: is there a problem w/ potentially coercing multiple types to the same thing... we're a bit heavy with keywords, I see advantage of limiting it... best we can do is put thoughts out there and see if we can get further input from the list.
+[11:26]	<manu`>	ack niklasl
+[11:26]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:26]	<gkellogg>	niklasl: @type as it is used now might not be necessary, as you can always do this with aliases.
+[11:27]	<manu`>	q+ to say that you could always alias to get this feature.
+[11:27]	<voip-ld>	Added manu` to the speaker queue: manu`
+[11:27]	<gkellogg>	… It allows a symbol to be used, and identifies the value as an IRI
+[11:27]	<gkellogg>	… if understand correctly, couldn't really discard the concept.
+[11:27]	<gkellogg>	q+
+[11:27]	<voip-ld>	Added gkellogg to the speaker queue: manu`, gkellogg
+[11:27]	<manu`>	ack manu`
+[11:27]	<voip-ld>	manu` has the floor (to say that you could always alias to get this feature.). The next speaker is gkellogg.
+[11:28]	<gkellogg>	manu: could always get the behavior by aliasing @datatype to @type.
+[11:28]	<gkellogg>	… introduces an ambiguity that we should be careful of.
+[11:28]	<manu`>	ack gkellogg
+[11:28]	<voip-ld>	manu` has the floor. The speaker queue is empty.
+[11:29]	<manu`>	gkellogg: Removing @datatype and aliasing to @type doesn't allow the same thing...
+[11:31]	<gkellogg>	manu: would still be able to do this, because of RDF processing rules.
+[11:31]	<gkellogg>	… RDF checks if @literal is used, and then looks for @datatype. If it was aliased, it would just look for @type at the same literal.
+[11:33]	<manu`>	gkellogg: My point was that we can't get rid of @type completely, because the processing rules need /something/ to generate the rdf:type triple.
+[11:34]	<manu`>	gkellogg: We need a way to define both @types and @datatypes... we should keep them as separate concepts.
+[11:34]	<gkellogg>	manu: general agreement to not merge the two
+[11:35]	<taaz>	I think you all covered issues I had
+[11:34]	<manu`>	Topic: ISSUE-34: Type Coercion is confusing
+[11:35]	<manu`>	https://github.com/json-ld/json-ld.org/issues/34
+[11:36]	<gkellogg>	manu: people are confused, as they expect that property should map to datatype, not the other way around.
+[11:36]	<gkellogg>	… right now, it's flipped. This is because we wanted to keep the coercion rules relatively short. This had historically been an issue, as we didn't have a way to specify an external concept.
+[11:37]	<gkellogg>	… Now that we have an external context, we should revisit, as it is more natural and size isn't as important now as it had been in the past.
+[11:37]	<gkellogg>	… people will typically use external files for their contexts, so it's fairly DRY and you can depend on caching.
+[11:38]	<niklasl>	q+
+[11:38]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:38]	<gkellogg>	… proposal is to switch the order of type coercion to be property mapping to datatype
+[11:38]	<manu`>	ack niklasl
+[11:38]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:38]	<gkellogg>	niklasl: change doesn't affect me; may be cleaner.
+[11:39]	<gkellogg>	… if you have a list of strings, both as an RDF list of URIs.
+[11:39]	<niklasl>	.. {"@coerce": "@list": ["authorList"], "@iri": ["authorList"]}
+[11:40]	<gkellogg>	q+
+[11:40]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:40]	<manu`>	ack gkellogg
+[11:40]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:41]	<manu`>	gkellogg: This came up in the Microdata conversion work... the current algorithm converts to a list... this is a violation of range restrictions. The only real way to know that you're referencing a list is to refer to the rdfs:range.
+[11:41]	<manu`>	gkellogg: So, there is no way to say what the contents of a list should be a particular type.
+[11:42]	<niklasl>	.. "@coerce": {"authorList": ["@list", "@iri"]}
+[11:43]	<manu`>	niklasl: We're not sure if the example I wrote up there is even legal... how do you specify that a list contains IRIs?
+[11:43]	<gkellogg>	manu: can create a list of IRIs with both markup mechanisms, so this is parallel to what we're discussing.
+[11:43]	<gkellogg>	… Might not want to allow, but if we do it's straightforward with either approach.
+[11:44]	<gkellogg>	… I think we should do the swap - property maps to datatype.
+[11:44]	<gkellogg>	… Another reason is that the data structure you end up creating in the JSON-LD processor is exactly this... it will simplify implementations.
+[11:44]	<niklasl>	q+
+[11:44]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:44]	<gkellogg>	… A processor writer has to do this anyway.
+[11:45]	<gkellogg>	… doing this would be a plus for both authors and implementations.
+[11:45]	<manu`>	ack niklasl
+[11:45]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:45]	<niklasl>	.. "updated": {"@iri": "http://purl.org/dc/terms/updated", "@coerce": "xsd:date"}
+[11:45]	<gkellogg>	niklasl: I'm probably 2-steps ahead, but if we do this, we might be on a path to bring to extend something like updated.
+[11:47]	<gkellogg>	manu: very sophisticated, and may cause confusion.
+[11:47]	<gkellogg>	q+
+[11:47]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:47]	<manu`>	gkellogg: I can see the advantage of that - but I think it may make the @context documents less readable... keeping @coerce separate will allow people to read the document as two separate parts.
+[11:48]	<gkellogg>	manu: people would continue to scan, and if they wanted to find xsd:dates, but not a very strong argument.
+[11:48]	<gkellogg>	… nice to be able to look in different sections to find different things, the separation may be good for beginner authors.
+[11:49]	<gkellogg>	… if combined, it is mixed in on the page and more difficult to parse out for authors... requires you to run the processing rules in your head at some level, which is bad.
+[11:49]	<gkellogg>	… for the time being, prefer to keep as key/value sections.
+[11:49]	<manu`>	gkellogg: We want to not fall into the trap of too many ways to do the same thing.
+[11:49]	<niklasl>	q+
+[11:49]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[11:49]	<manu`>	ack gkellogg
+[11:50]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[11:50]	<manu`>	ack niklasl
+[11:50]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:50]	<niklasl>	.. "dc": "http://purl.org/dc/terms/", "updated": {"@vocab": "dc", "@coerce": "xsd:date"}
+[11:50]	<gkellogg>	niklasl: if we were to allow, I would recommend removing the other way
+[11:50]	<gkellogg>	… this example also goes even further.
+[11:50]	<gkellogg>	… this is close to what _gluon_ did. This JSON-LD approach is cleaner, though.
+[11:51]	<gkellogg>	… I think this mechanism is more compact, and can see everything about a property in a single place.
+[11:52]	<manu`>	gkellogg: I can see the benefit here... we probably need to float it out on the list... pretty big change.
+[11:52]	<taaz>	I think that could look nice. We might want to run some bigger example cases through such a conversion to see how it turns out.
+[11:52]	<gkellogg>	manu: I agree that it does make it cleaner and more compact from a design standpoint, but it smells like feature creep.
+[11:53]	<gkellogg>	… this might make it more difficult for people to understand what's going on, and we certainly didn't intend for JSON-LD to be something with complex processing rules.
+[11:53]	<gkellogg>	… If we do make this change, we're moving further away from the "simple" nature of JSON-LD.
+[11:54]	<gkellogg>	… requires you to have the processing rules in your head to understand what's going on.
+[11:54]	<gkellogg>	… this overcomplicates the language under the guise of "good design"
+[11:54]	<gkellogg>	… if we continue to add features, we make it cognitively far more difficult for people to wrap their heads around.
+[11:55]	<gkellogg>	… I see the design benefit, if the goal was to create a very rich complex language, but don't feel that's the goal of JSON-LD.
+[11:56]	<gkellogg>	niklasl: I understand your arguments, and was always trying to be as complete as Turtle.
+[11:56]	<gkellogg>	… I think the compactness and directness motivates the complexity.
+[11:57]	<gkellogg>	… As it stand, we have @vocab and @coerce, don't know how much more complex this makes it, if we didn't have @coerce in the top-level context.
+[11:57]	<gkellogg>	manu: if we don't have @coerce in top level, this really isn't more complex.
+[11:58]	<gkellogg>	manu: Niklas, can you type something up and send it to the mailing list?
+[11:59]	<gkellogg>	manu: feel we're okay having the property maps to datatype change.
+[11:59]	<taaz>	also might want to check how the @list proposal fits into these changes
+[12:00]	<manu`>	gkellogg: We do need @list, but maybe we can use @list as a datatype... if we wanted to specify multiple things, we could use an array-type form.
+[12:01]	<niklasl>	.. "@coerce": {"authorList": ["@list", "@iri"]}
+[12:02]	<niklasl>	.. "@coerce": "@list": ["authorList"], "@iri": ["authorList"] (right now)
+[12:04]	<gkellogg>	manu: assumes people want to coerce the items in a list
+[12:04]	<gkellogg>	… this is pretty advanced, and don't know of a use-case.
+[12:05]	<gkellogg>	memberList: ["http://foo.com/", "http://bar.com/"]
+[12:05]	<manu`>	"memberList": ["@list", "@iri"]
+[12:06]	<gkellogg>	memberList: [@list, xsd:anyURI]
+[12:09]	<taaz>	for conflicts, just leave behavior undefined
+[12:09]	<gkellogg>	niklasl: We like the the ability to do property/value, may as well go with new form.
+[12:10]	<gkellogg>	manu: We can't leave behavior undefined, as it leads to confusion.
+[12:10]	<gkellogg>	… end up not interoperating because of conflicts. This is why HTML5 goes into excruciating detail on what to do when a tag isn't closed. HTML4 didn't specify it and neither did XHTML, and so the browser vendors ended up implementing incompatible rules to interpret what was going on.
+[12:11]	<gkellogg>	… need to specify conflict behavior in spec. API indicates this is an error condition.
+[12:11]	<gkellogg>	manu: general idea is to adopt the proposal.
+[12:11]	<gkellogg>	… property/datatype
+[12:11]	<taaz>	i think we also want to look a bit closer at Niklas' proposal too
+[12:24]	<niklasl>	I'll write down my proposal to the list along with some example contexts.
+[12:20]	<voip-ld>	Manu Sporny (SIP/6000-000000a9) has left the conference.
+[12:20]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-000000a7) has left the conference.
+[12:20]	<voip-ld>	Dave Lehn (SIP/6003-000000a4) has left the conference.
+[12:20]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-000000a5) has left the conference.

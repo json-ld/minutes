@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-10-18</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0067.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0067.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Manu Sporny, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: Approval/Disapproval of the Spec Split</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I created a proposal for the spec split over the weekend - it's on a separate branch in the code repository... published it here:</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://manu.sporny.org/tmp/json-ld.org/spec/">http://manu.sporny.org/tmp/json-ld.org/spec/</a></div>
+<div class="comment-continuation">… for quite a while people had been asking to split between language description and complicated API and processing rules</div>
+<div class="comment-continuation">… wanted an easy intro for people to learn JSON-LD syntax with details in a different spec</div>
+<div class="comment-continuation">… had asked to wait for things to settle down, which it seems to have now.</div>
+<div class="comment-continuation">… split into three docs:</div>
+<div class="comment-continuation">… 1 JSON-LD syntax, describes keywords how IRIs and datatypes are expressed.</div>
+<div class="comment-continuation">… 2: API spec, describes 5 method calls to transform JSON-LD between different representations</div>
+<div class="comment-continuation">… 3: Normalization algorithm, it is generalizable and could be used for different RDF languages.</div>
+<div class="comment-continuation">… API spec depends on normalization</div>
+<div class="comment-continuation">… syntax doc doesn't depend upon, but refers to the other two.</div>
+<div class="comment-continuation">… The responses on the list and personal e-mail seem to indicate a general feeling that it is a good idea.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's something we agreed to do some time ago, so it's good that it's done. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, this is good. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  there are some spec bugs. List stuff missing?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  lists shouldn't have been deleted.</div>
+<div class="comment-continuation">… experimental concepts weren't moved over, they'll need to go back.</div>
+<div class="comment-continuation">… suggestion is that all experimental concepts turn into advanced concepts.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Looking at <a href="http://json-ld.org/spec/latest/">http://json-ld.org/spec/latest/</a> seems to indicate that disjoint graphs and lists were accidentally deleted.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  need disjoint graphs and lists, those were the only two.</div>
+<div class="comment-continuation">… the latest spec requires an update to merge those two back in.</div>
+<div class="comment-continuation">… gkellogg to update the main processing algorithm for lists</div>
+<div class="comment-continuation">… general agreement to merge the branch into the main spec?</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  question on how they will all link together.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  RDF normalization doc is stand-alone and doesn't refer to the other docs.</div>
+<div class="comment-continuation">… The API spec refers to the Syntax spec and the normalization spec.</div>
+<div class="comment-continuation">… The Syntax spec refers non-normatively to the API spec and the normalization spec.</div>
+<div class="comment-continuation">… All three must be rec-track documents.</div>
+<div class="comment-continuation">… general agreement, but can't take a vote with only 4 people on the call. I'll merge the spec split into the main line and see if anybody complains at that point, but most seem to want this change.</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-31: Merge @type and @datatype</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/31">https://github.com/json-ld/json-ld.org/issues/31</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus had raised this on the list.</div>
+<div class="comment-continuation">… type is used in two different ways, for literals and for objects</div>
+<div class="comment-continuation">… generally, authors don't know (or care) about the difference.</div>
+<div class="comment-continuation">… RDF people will understand the difference.</div>
+<div class="comment-continuation">… idea to merge @type and @datatype into a single keyword</div>
+<div class="comment-continuation">… PROs: simplicity and easing the burden on authors.</div>
+<div class="comment-continuation">… CONs: may confuse people coming from RDF world.</div>
+<div class="comment-continuation">… all other keywords need to be paired. Thoughts?</div>
+<div class="comment-continuation">… niklasl: is an RDF-head, but has a problem with this merger</div>
+<div class="comment-continuation">… @type is a short-hand for a property</div>
+<div class="comment"><span class="name">David I. Lehn</span>: did Dave Longley have comments on this based on all his implementation work?</div>
+<div class="comment-continuation">… other people might have problems initially. the conceptal difference is huge</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley hasn't had any strong feelings on it on the mailing list or privately.</div>
+<div class="comment-continuation">… from the syntax, it's clear what to do, it's really a stylistic thing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In general, I'm in favor of reducing the number of keywords that are needed. The danger is that someone uses a class type when they mean a datatype or vice-versa. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are many other ways to generate data which is wrong... I'm neutral to +1 on this issue. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  might be problematic, you would never coerce something so that it would be typed, but you would coerce a datatype</div>
+<div class="comment-continuation">… also, we have keyword aliases and prefers to use an alias anyway. Would never use @datatype directly. There are a number of places where the differences are important.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  is there a problem w/ potentially coercing multiple types to the same thing... we're a bit heavy with keywords, I see advantage of limiting it... best we can do is put thoughts out there and see if we can get further input from the list. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  @type as it is used now might not be necessary, as you can always do this with aliases.</div>
+<div class="comment-continuation">… It allows a symbol to be used, and identifies the value as an IRI</div>
+<div class="comment-continuation">… if understand correctly, couldn't really discard the concept.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  could always get the behavior by aliasing @datatype to @type.</div>
+<div class="comment-continuation">… introduces an ambiguity that we should be careful of.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Removing @datatype and aliasing to @type doesn't allow the same thing... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would still be able to do this, because of RDF processing rules.</div>
+<div class="comment-continuation">… RDF checks if @literal is used, and then looks for @datatype. If it was aliased, it would just look for @type at the same literal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My point was that we can't get rid of @type completely, because the processing rules need /something/ to generate the rdf:type triple. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need a way to define both @types and @datatypes... we should keep them as separate concepts. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  general agreement to not merge the two</div>
+<div class="comment"><span class="name">David I. Lehn</span>: I think you all covered issues I had</div>
+<h1 id=topic-3 class="topic">Topic: ISSUE-34: Type Coercion is confusing</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/34">https://github.com/json-ld/json-ld.org/issues/34</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people are confused, as they expect that property should map to datatype, not the other way around.</div>
+<div class="comment-continuation">… right now, it's flipped. This is because we wanted to keep the coercion rules relatively short. This had historically been an issue, as we didn't have a way to specify an external concept.</div>
+<div class="comment-continuation">… Now that we have an external context, we should revisit, as it is more natural and size isn't as important now as it had been in the past.</div>
+<div class="comment-continuation">… people will typically use external files for their contexts, so it's fairly DRY and you can depend on caching.</div>
+<div class="comment-continuation">… proposal is to switch the order of type coercion to be property mapping to datatype</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  change doesn't affect me; may be cleaner.</div>
+<div class="comment-continuation">… if you have a list of strings, both as an RDF list of URIs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. {"@coerce": "@list": ["authorList"], "@iri": ["authorList"]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This came up in the Microdata conversion work... the current algorithm converts to a list... this is a violation of range restrictions. The only real way to know that you're referencing a list is to refer to the rdfs:range. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So, there is no way to say what the contents of a list should be a particular type. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "@coerce": {"authorList": ["@list", "@iri"]}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We're not sure if the example I wrote up there is even legal... how do you specify that a list contains IRIs? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can create a list of IRIs with both markup mechanisms, so this is parallel to what we're discussing.</div>
+<div class="comment-continuation">… Might not want to allow, but if we do it's straightforward with either approach.</div>
+<div class="comment-continuation">… I think we should do the swap - property maps to datatype.</div>
+<div class="comment-continuation">… Another reason is that the data structure you end up creating in the JSON-LD processor is exactly this... it will simplify implementations.</div>
+<div class="comment-continuation">… A processor writer has to do this anyway.</div>
+<div class="comment-continuation">… doing this would be a plus for both authors and implementations.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "updated": {"@iri": "<a href="http://purl.org/dc/terms/updated",">http://purl.org/dc/terms/updated",</a> "@coerce": "xsd:date"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm probably 2-steps ahead, but if we do this, we might be on a path to bring to extend something like updated.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  very sophisticated, and may cause confusion.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can see the advantage of that - but I think it may make the @context documents less readable... keeping @coerce separate will allow people to read the document as two separate parts. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people would continue to scan, and if they wanted to find xsd:dates, but not a very strong argument.</div>
+<div class="comment-continuation">… nice to be able to look in different sections to find different things, the separation may be good for beginner authors.</div>
+<div class="comment-continuation">… if combined, it is mixed in on the page and more difficult to parse out for authors... requires you to run the processing rules in your head at some level, which is bad.</div>
+<div class="comment-continuation">… for the time being, prefer to keep as key/value sections.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We want to not fall into the trap of too many ways to do the same thing. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "dc": "<a href="http://purl.org/dc/terms/",">http://purl.org/dc/terms/",</a> "updated": {"@vocab": "dc", "@coerce": "xsd:date"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if we were to allow, I would recommend removing the other way</div>
+<div class="comment-continuation">… this example also goes even further.</div>
+<div class="comment-continuation">… this is close to what _gluon_ did. This JSON-LD approach is cleaner, though.</div>
+<div class="comment-continuation">… I think this mechanism is more compact, and can see everything about a property in a single place.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can see the benefit here... we probably need to float it out on the list... pretty big change. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>: I think that could look nice. We might want to run some bigger example cases through such a conversion to see how it turns out.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree that it does make it cleaner and more compact from a design standpoint, but it smells like feature creep.</div>
+<div class="comment-continuation">… this might make it more difficult for people to understand what's going on, and we certainly didn't intend for JSON-LD to be something with complex processing rules.</div>
+<div class="comment-continuation">… If we do make this change, we're moving further away from the "simple" nature of JSON-LD.</div>
+<div class="comment-continuation">… requires you to have the processing rules in your head to understand what's going on.</div>
+<div class="comment-continuation">… this overcomplicates the language under the guise of "good design"</div>
+<div class="comment-continuation">… if we continue to add features, we make it cognitively far more difficult for people to wrap their heads around.</div>
+<div class="comment-continuation">… I see the design benefit, if the goal was to create a very rich complex language, but don't feel that's the goal of JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I understand your arguments, and was always trying to be as complete as Turtle.</div>
+<div class="comment-continuation">… I think the compactness and directness motivates the complexity.</div>
+<div class="comment-continuation">… As it stand, we have @vocab and @coerce, don't know how much more complex this makes it, if we didn't have @coerce in the top-level context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we don't have @coerce in top level, this really isn't more complex.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas, can you type something up and send it to the mailing list?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  feel we're okay having the property maps to datatype change.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: also might want to check how the @list proposal fits into these changes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do need @list, but maybe we can use @list as a datatype... if we wanted to specify multiple things, we could use an array-type form. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "@coerce": {"authorList": ["@list", "@iri"]}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "@coerce": "@list": ["authorList"], "@iri": ["authorList"] (right now)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  assumes people want to coerce the items in a list</div>
+<div class="comment-continuation">… this is pretty advanced, and don't know of a use-case.</div>
+<div class="information">memberList: ["<a href="http://foo.com/",">http://foo.com/",</a> "http://bar.com/"]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "memberList": ["@list", "@iri"]</div>
+<div class="information">memberList: [@list, xsd:anyURI]</div>
+<div class="comment"><span class="name">David I. Lehn</span>: for conflicts, just leave behavior undefined</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We like the the ability to do property/value, may as well go with new form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can't leave behavior undefined, as it leads to confusion.</div>
+<div class="comment-continuation">… end up not interoperating because of conflicts. This is why HTML5 goes into excruciating detail on what to do when a tag isn't closed. HTML4 didn't specify it and neither did XHTML, and so the browser vendors ended up implementing incompatible rules to interpret what was going on.</div>
+<div class="comment-continuation">… need to specify conflict behavior in spec. API indicates this is an error condition.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  general idea is to adopt the proposal.</div>
+<div class="comment-continuation">… property/datatype</div>
+<div class="comment"><span class="name">David I. Lehn</span>: i think we also want to look a bit closer at Niklas' proposal too</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I'll write down my proposal to the list along with some example contexts.</div>
+</body>
+</html>
