@@ -1,0 +1,191 @@
+[11:03]	<manu`>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0096.html
+[11:03]	<voip-ld>	Dave Lehn (SIP/6003-000000cb) has joined the conference.
+[11:05]	<tomayac>	Scribe: tomayac
+[11:06]	<manu`>	Topic: ISSUE-37: Clarify prefix expansion
+[11:06]	<manu`>	https://github.com/json-ld/json-ld.org/issues/37
+[11:06]	<tomayac>	manu: This was been mostly discussed via e-mail
+[11:06]	<tomayac>	manu: You split on a colon and attempt to expand the first item returned based on entries in the @context.
+[11:07]	<tomayac>	markus: nothing else needs to be added to the spec?
+[11:08]	<tomayac>	manu: only thing we need to do: make sure we add some text to the spec and detail the spec
+[11:08]	<tomayac>	gregg: I'll take that action
+[11:08]	<tomayac>	ACTION: Gregg to add language to the JSON-LD spec, clarifying prefix expansion.
+[11:09]	<tomayac>	manu: Anything else we need to clarify?
+[11:09]	<manu`>	Topic: ISSUE-38: Prefix location clarification
+[11:09]	<manu`>	https://github.com/json-ld/json-ld.org/issues/38
+[11:09]	<tomayac>	markuslanthaler: most of this has been addressed, but needs to be in the syntax doc
+[11:09]	<tomayac>	manu: slight bit of miscommunication on the list
+[11:10]	<tomayac>	manu: not clear in the current spec where prefixes are allowed
+[11:10]	<tomayac>	manu: answer is: anywhere there is an IRI
+[11:10]	<tomayac>	markus: except for in the top-level of the @context
+[11:10]	<tomayac>	manu: correct
+[11:10]	<tomayac>	manu: not allowed in the top level of the @context
+[11:10]	<gkellogg>	Having CURIEs in the @context is the topic of current discussion
+[11:11]	<tomayac>	manu: Gregg, are you ok with that?
+[11:11]	<tomayac>	gkellogg: we use curies in the @coerce section
+[11:12]	<tomayac>	gkellogg: in the prefixes, IRIs must be spelled out
+[11:12]	<tomayac>	gkellogg: Niklas might have different ideas
+[11:12]	<tomayac>	niklasl: no, I agree
+[11:12]	<tomayac>	niklasl: I would be open to allow curies everywhere in @context
+[11:13]	<tomayac>	manu: the only objection would be that we don't want too many ways for people to hang themselves
+[11:13]	<tomayac>	manu: we don't want to assume that someone loads the entire doc and processes it. we rather expect people to treat it as a stream in some cases.
+[11:14]	<tomayac>	manu: prefixes everywhere make it more complicated w/o adding great benefits
+[11:14]	<tomayac>	niklasl: I understand, although, w/ coerce I feel it might not be possible to "stream-parse" it
+[11:14]	<tomayac>	niklasl: I feel it's too complex to parse at once
+[11:15]	<tomayac>	manu: the processors would end up storing the key value pairs
+[11:15]	<tomayac>	manu: in the worst case you'd have to process the entire doc
+[11:15]	<tomayac>	manu: we don't want to lose that simplicity right now
+[11:15]	<tomayac>	niklasl: will people use the context to create full RDF?
+[11:15]	<tomayac>	manu: we don't know - good question
+[11:16]	<tomayac>	manu: maybe not full RDF, but they will process it in some way that is stream based
+[11:16]	<tomayac>	manu: maybe they are extracting some data that requires IRIs
+[11:16]	<tomayac>	niklasl: I can see that, we need to weigh that vs. the option to use IRIs on the right hand side
+[11:17]	<tomayac>	niklasl: it's quite difficult in certain implemetations
+[11:17]	<tomayac>	manu: you could still stream it if you had control over the publishing-side
+[11:17]	<tomayac>	niklasl: you could put the unresolvable things in a queue... wouldn't know if things are unresolveable unless you have some heuristics
+[11:18]	<tomayac>	niklasl: if you put the definitions of the prefixes first, implying you have control over the order, then people resolving over already resolved prefixes, wouldn't be a problem
+[11:18]	<tomayac>	manu: is it useful to have CURIEs on the right hand side then?
+[11:18]	<tomayac>	manu: typically prefix definitions use completely different URIs
+[11:18]	<tomayac>	manu: same for schema.org
+[11:19]	<gkellogg>	If we do "prefix": {"@iri": "…", "@coerce": "xsd:date"}
+[11:19]	<tomayac>	niklasl: I use like four or five different vocabs in my use case
+[11:19]	<tomayac>	niklasl: I would like to make use of more compact prefixes
+[11:20]	<tomayac>	manu: is that a very strong need?
+[11:20]	<tomayac>	niklasl: I could do without it
+[11:20]	<tomayac>	niklasl: one thing: showed context to a colleague w/ little RDF knowledge
+[11:20]	<tomayac>	niklasl: used the json view plugin
+[11:21]	<tomayac>	niklasl: made content navigation very nice
+[11:21]	<tomayac>	manu: would that be a counter argument?
+[11:21]	<tomayac>	niklasl: the real counter argument is that it's less complex
+[11:21]	<tomayac>	niklasl: I would like to discuss it further
+[11:21]	<tomayac>	niklasl: it would make things for me very much more compact
+[11:22]	<tomayac>	manu: let's put back to the mailing list for now
+[11:22]	<tomayac>	manu: I could live w/ either
+[11:22]	<tomayac>	manu: pro: makes readibility better
+[11:22]	<tomayac>	manu: con: doesn't enable any new technical use cases
+[11:22]	<tomayac>	manu: that's a semi weak counter argument, but that's the most convincing one for me.
+[11:22]	<tomayac>	gkellogg: I can see the usefulness
+[11:23]	<tomayac>	gkellogg: an alternative way to do it would be to allow the absence of an IRI and have the prefix to be inferred
+[11:24]	<tomayac>	gkellogg: given we can have multiple contexts, we could have the IRIs be inferred
+[11:24]	<tomayac>	niklasl: hey, that's really interesting
+[11:24]	<tomayac>	niklasl: using vocab for that is quite useful
+[11:25]	<tomayac>	manu: general consensus is: it's interesting - don't put it in yet, discuss further on mailing list.
+[11:25]	<tomayac>	manu: we can always leave it out in the first version, and add it later - it's a forwards-compatible change
+[11:25]	<tomayac>	manu: no time pressure to decide on this
+[11:25]	<tomayac>	manu: we can just let people do implementations, and wait
+[11:25]	<tomayac>	niklasl: I agree
+[11:25]	<tomayac>	manu: let's move on, then
+[11:26]	<tomayac>	niklasl: we might have to rediscuss were CURIEs are allowed
+[11:27]	<tomayac>	manu: looking back at the issue-38
+[11:27]	<tomayac>	manu: people have to be careful not to expand common prefixes like ftp:, or http:
+[11:27]	<gkellogg>	If a prefix is defined and the key/value is expanded, it is also determined to be an IRI
+[11:28]	<tomayac>	manu: if there is a term specified, we check it in the prefix map
+[11:28]	<tomayac>	manu: doing anything more than that complicates the rules I think
+[11:28]	<tomayac>	manu: any feelings?
+[11:29]	<tomayac>	niklasl: I used to have troubles, but I think now it is a good way to go
+[11:29]	<tomayac>	niklasl: one question regarding terms vs. prefixes
+[11:29]	<tomayac>	manu: they are the same thing
+[11:29]	<tomayac>	manu: if there is a colon, you take the bit before the colon and expand
+[11:29]	<MarkusLanthaler>	http://json-ld.org/spec/latest/json-ld-api/#iri-expansion is now clear when terms/prefixes are expanded
+[11:30]	<tomayac>	manu: you have to say how you expand
+[11:30]	<niklasl>	TermOrCURIEorIRI
+[11:30]	<gkellogg>	q+
+[11:30]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:30]	<manu`>	ack gkellogg
+[11:30]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:31]	<tomayac>	gkellogg: I think in my recent revision I defined prefixes and terms as just "terms"
+[11:31]	<tomayac>	gkellogg: when you always divide on colon, and take the first part of that - you just try expanding that and that's all you have to do.
+[11:31]	<tomayac>	manu: ok, that makes perfect sense
+[11:31]	<tomayac>	manu: anything that simplifies is great
+[11:32]	* tomayac	cut off the call
+[11:33]	<manu`>	voip: connections?
+[11:33]	<voip-ld>	Conference connections: <unknown> (tomayac) [IAX2/diamondcard-7769], Markus Lanthaler (MarkusLanthaler) [SIP/sip.linphone.org-000000c9], Gregg Kellogg [SIP/10.0.1.24-000000ca], Niklas Lindström (niklasl) [SIP/sip2sip.info-000000c8], Manu Sporny [SIP/6000-000000c7], Dave Lehn [SIP/6003-000000cb]
+[11:33]	<voip-ld>	<unknown> (IAX2/diamondcard-3935) has joined the conference.
+[11:33]	<manu`>	voip: disconnect tomayac
+[11:33]	<voip-ld>	tomayac (IAX2/diamondcard-7769) has left the conference.
+[11:33]	<manu`>	voip: 7769 is tomayac
+[11:33]	<voip-ld>	Failed to associate tomayac with an audio channel ending in '7769'
+[11:34]	* tomayac	and back
+[11:34]	<manu`>	voip: 3935 is tomayac
+[11:34]	<voip-ld>	tomayac is now associated with IAX2/diamondcard-3935.
+[11:41]	<niklasl>	does this TermOrCURIEorIRI rule also implied for @coerce: @iri? I believe it is - yes it is.
+[11:34]	<tomayac>	manu: Niklas wanted to allow prefixes in @coerce
+[11:35]	<tomayac>	markuslanthaler: by the data section I meant the main content of the document
+[11:35]	<tomayac>	manu: whenever the property is supposed to be an IRI, you do term processing
+[11:35]	<tomayac>	markuslanthaler: do we say somewhere say that terms can't contain colons
+[11:35]	<tomayac>	gkellogg: I think we say that they are NCNAMEs
+[11:36]	<tomayac>	manu: not sure
+[11:36]	<tomayac>	manu: thats a corner case
+[11:36]	* tomayac	thanks, niklas
+[11:37]	<tomayac>	niklasl: the way this works has to be aligned with how people should use @base
+[11:37]	<niklasl>	'./whatever' instead of 'whatever' - otherwise, you could accidentally expand what was meant to be an relative IRI as a term.
+[11:37]	<gkellogg>	ACTION: Gregg to define term (and other 'terms') more formally within syntax spec.
+[11:37]	<tomayac>	manu: I don't know how I feel about that. if you're using base, you can shoot yourself in the foot
+[11:38]	<niklasl>	or something "./curie:like"
+[11:38]	<tomayac>	manu: wondering if @base should be expanded first, no, that doesn't work... you have to do term processing first
+[11:39]	<tomayac>	niklasl: colons are allowed in segments of IRIs
+[11:39]	<tomayac>	niklasl: if you use @base, you have to know what you're doing
+[11:39]	<tomayac>	manu: might be a best practice to use dot slash
+[11:39]	<gkellogg>	ACTION: Gregg to add as best practice, relative IRIs should begin with "./" or "#" or "/"
+[11:40]	<manu`>	Topic: ISSUE-35: JSON Vocabulary / Data Round-tripping
+[11:40]	* tomayac	thanks, greg for the scribe assist :-)
+[11:40]	<manu`>	https://github.com/json-ld/json-ld.org/issues/35
+[11:41]	<tomayac>	manu: Markus suggested that we create a JSON-LD vocabulary
+[11:41]	<tomayac>	manu: the reason presented would be that we could do roundtripping
+[11:42]	<tomayac>	manu: we do this so that the data roundtrips well from serializing to deserializing
+[11:42]	<tomayac>	manu: for converting to native types
+[11:42]	<tomayac>	manu: doubles will almost always be lossy because of the way JSON parsers are implemented
+[11:42]	<tomayac>	manu: the double that you publish will be different than the double in C/C++
+[11:42]	<tomayac>	manu: has to do with what happens with the number when you process the JSON doc
+[11:43]	<tomayac>	niklasl: I think I follow
+[11:43]	<tomayac>	niklasl: if you use coerce rules, than the context should ensure that
+[11:44]	<tomayac>	manu: the translation is not guaranteed to happen safely
+[11:44]	<tomayac>	manu: even if we create a JSON vocab, it doesn't address the issue of data round-tripping
+[11:45]	<tomayac>	Markus: but it moves it to the implementations - away from the spec
+[11:45]	<tomayac>	Markus: a boolean could be 1, and 0
+[11:45]	<tomayac>	markus: I don't expect JSON developers to look at the xml XSD schema
+[11:45]	* tomayac	thanks, markus
+[11:46]	<tomayac>	manu: let's assume we publish jsonld:number, no one else besides us is gonna use it
+[11:46]	<tomayac>	manu: we would create a parallel data space to xsd:integer and xsd:double and xsd:decimal
+[11:47]	<tomayac>	manu: that the range of a type is bigger, does not mean we can't use it
+[11:48]	<tomayac>	manu: everything that JSON can express fits in XSD value space
+[11:48]	<tomayac>	manu: Markus, do any of these arguments convince you?
+[11:48]	<tomayac>	markuslanthaler: two double values might be different when compared in a triple store
+[11:49]	<niklasl>	q+
+[11:49]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:49]	<tomayac>	Markus: if you retrieve a JSON-LD doc from somewhere, then store it, then retrieve another one, the reretrieve the previously saved one, then the values might not be equal
+[11:49]	<manu`>	ack niklasl
+[11:49]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:49]	<tomayac>	manu: I disagree
+[11:50]	<tomayac>	niklasl: when we convert to JSON, we try to use the most convenient JSON view
+[11:50]	<tomayac>	niklasl: is that the problem?
+[11:50]	<tomayac>	manu: correct
+[11:50]	<tomayac>	manu: there are 2 parallel issues: one is losing the lexical space, the other is native language data representation for doubles
+[11:51]	<taaz>	handling of native doubles in JSON is just going to be potentially lossy due to JSON implementation details. not much we can do about that. handling strings coerced asxsd:double would be an alternative if you require more strict behavior.
+[11:52]	<tomayac>	manu: ISO specifies how to convert doubles, I believe
+[11:52]	<taaz>	i can't remember why we picked %1.6e. I think I might have picked that for no particular reason. I forget though. :)
+[11:52]	<tomayac>	manu: none of the other data types are lossy, except for doubles
+[11:53]	<tomayac>	manu: if we follow the native ISO spec, then we are fine because it specifies string representation for a double value - I think.
+[11:53]	<niklasl>	q+
+[11:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:54]	<manu`>	ack niklasl
+[11:54]	<tomayac>	manu: If ISO doesn't specify it, we could use the native JSON represenation and add a warning to the spec that the conversion may be lossy
+[11:54]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:54]	<tomayac>	niklasl: wanted to agree that this is excellent handling of the problem
+[11:55]	<tomayac>	niklasl: if they want exactness, they can use the string represenation w/ @datatype
+[11:55]	<taaz>	people are going to get bitten by this so documentation is our only hope. I see people doing things like using native doubles and signing a serialized stream and it fails between implementations.
+[11:56]	<tomayac>	markus: when someone creates a json-ld doc, the double doesn't have to be in ISO format
+[11:56]	<tomayac>	manu: they can use whatever native json way
+[11:57]	<tomayac>	markuslanthaler: if I want to compare, I have to normalize first
+[11:58]	<niklasl>	.. So, something like this? .. real json numbers are passed into and out of json accompanied by @datatype (or @coerce) *and* expressed lexically according to the JSON-LD datatype lexical canonicalization
+[11:58]	<tomayac>	manu: that's correct
+[11:58]	<tomayac>	manu: also, you should never do double equality comparsions - recipe for disaster
+[11:58]	<tomayac>	manu: if you want to be on the safe side, use strings w/ @datatype
+[11:59]	<tomayac>	manu: in the spec, does it say decimal or double?
+[11:59]	<tomayac>	MarkusLanthaler: it says "number"
+[11:59]	<MarkusLanthaler>	http://www.ietf.org/rfc/rfc4627
+[12:01]	<tomayac>	manu: xsd:double is the only thing we can do automatic typing on
+[12:03]	<tomayac>	manu: the machine-level representation will almost always be a double
+[12:04]	<tomayac>	manu: anything that has a dot or an 'e' (exponent) in it, will be a double in json-ld when you normalize
+[12:04]	<niklasl>	http://www.w3.org/TR/turtle/#abbrev
+[12:09]	<niklasl>	to sum up my last bit: 1) ensure we know what xsd datatype (different) json numbers are automatically represented as, 2) define a canonical lexical representation for each xsd number type
+[12:10]	<niklasl>	#2 will be used both for automatically interpreted json numbers, and for once explicitly cast by either @datatype or @coerce

@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-11-01</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0096.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Oct/0096.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Thomas Steiner</dd>
+<dt>Present</dt><dd>Thomas Steiner, Manu Sporny, Markus Lanthaler, Gregg Kellogg, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Thomas Steiner is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: ISSUE-37: Clarify prefix expansion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/37">https://github.com/json-ld/json-ld.org/issues/37</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This was been mostly discussed via e-mail</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You split on a colon and attempt to expand the first item returned based on entries in the @context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  nothing else needs to be added to the spec?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  only thing we need to do: make sure we add some text to the spec and detail the spec</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'll take that action</div>
+<div id=action-1 class="action">ACTION: Gregg to add language to the JSON-LD spec, clarifying prefix expansion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything else we need to clarify?</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-38: Prefix location clarification</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/38">https://github.com/json-ld/json-ld.org/issues/38</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  most of this has been addressed, but needs to be in the syntax doc</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  slight bit of miscommunication on the list</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not clear in the current spec where prefixes are allowed</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  answer is: anywhere there is an IRI</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  except for in the top-level of the @context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  correct</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not allowed in the top level of the @context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Having CURIEs in the @context is the topic of current discussion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg, are you ok with that?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we use curies in the @coerce section</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in the prefixes, IRIs must be spelled out</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Niklas might have different ideas</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  no, I agree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would be open to allow curies everywhere in @context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the only objection would be that we don't want too many ways for people to hang themselves</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't want to assume that someone loads the entire doc and processes it. we rather expect people to treat it as a stream in some cases.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  prefixes everywhere make it more complicated w/o adding great benefits</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I understand, although, w/ coerce I feel it might not be possible to "stream-parse" it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I feel it's too complex to parse at once</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the processors would end up storing the key value pairs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in the worst case you'd have to process the entire doc</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't want to lose that simplicity right now</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  will people use the context to create full RDF?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't know - good question</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  maybe not full RDF, but they will process it in some way that is stream based</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  maybe they are extracting some data that requires IRIs</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can see that, we need to weigh that vs. the option to use IRIs on the right hand side</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it's quite difficult in certain implemetations</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you could still stream it if you had control over the publishing-side</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you could put the unresolvable things in a queue... wouldn't know if things are unresolveable unless you have some heuristics</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if you put the definitions of the prefixes first, implying you have control over the order, then people resolving over already resolved prefixes, wouldn't be a problem</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is it useful to have CURIEs on the right hand side then?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  typically prefix definitions use completely different URIs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  same for schema.org</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: If we do "prefix": {"@iri": "…", "@coerce": "xsd:date"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I use like four or five different vocabs in my use case</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would like to make use of more compact prefixes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is that a very strong need?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I could do without it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  one thing: showed context to a colleague w/ little RDF knowledge</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  used the json view plugin</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  made content navigation very nice</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would that be a counter argument?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the real counter argument is that it's less complex</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would like to discuss it further</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it would make things for me very much more compact</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's put back to the mailing list for now</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I could live w/ either</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  pro: makes readibility better</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  con: doesn't enable any new technical use cases</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's a semi weak counter argument, but that's the most convincing one for me.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can see the usefulness</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an alternative way to do it would be to allow the absence of an IRI and have the prefix to be inferred</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  given we can have multiple contexts, we could have the IRIs be inferred</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  hey, that's really interesting</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  using vocab for that is quite useful</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  general consensus is: it's interesting - don't put it in yet, discuss further on mailing list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can always leave it out in the first version, and add it later - it's a forwards-compatible change</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no time pressure to decide on this</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can just let people do implementations, and wait</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's move on, then</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we might have to rediscuss were CURIEs are allowed</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  looking back at the issue-38</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people have to be careful not to expand common prefixes like ftp:, or http:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: If a prefix is defined and the key/value is expanded, it is also determined to be an IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if there is a term specified, we check it in the prefix map</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  doing anything more than that complicates the rules I think</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any feelings?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I used to have troubles, but I think now it is a good way to go</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  one question regarding terms vs. prefixes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they are the same thing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if there is a colon, you take the bit before the colon and expand</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#iri-expansion">http://json-ld.org/spec/latest/json-ld-api/#iri-expansion</a> is now clear when terms/prefixes are expanded</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you have to say how you expand</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: TermOrCURIEorIRI</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think in my recent revision I defined prefixes and terms as just "terms"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when you always divide on colon, and take the first part of that - you just try expanding that and that's all you have to do.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, that makes perfect sense</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anything that simplifies is great</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: does this TermOrCURIEorIRI rule also implied for @coerce: @iri? I believe it is - yes it is.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas wanted to allow prefixes in @coerce</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  by the data section I meant the main content of the document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  whenever the property is supposed to be an IRI, you do term processing</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we say somewhere say that terms can't contain colons</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we say that they are NCNAMEs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not sure</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  thats a corner case</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the way this works has to be aligned with how people should use @base</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: './whatever' instead of 'whatever' - otherwise, you could accidentally expand what was meant to be an relative IRI as a term.</div>
+<div id=action-2 class="action">ACTION: Gregg to define term (and other 'terms') more formally within syntax spec.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't know how I feel about that. if you're using base, you can shoot yourself in the foot</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: or something "./curie:like"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  wondering if @base should be expanded first, no, that doesn't work... you have to do term processing first</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  colons are allowed in segments of IRIs</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if you use @base, you have to know what you're doing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  might be a best practice to use dot slash</div>
+<div id=action-3 class="action">ACTION: Gregg to add as best practice, relative IRIs should begin with "./" or "#" or "/"</div>
+<h1 id=topic-3 class="topic">Topic: ISSUE-35: JSON Vocabulary / Data Round-tripping</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/35">https://github.com/json-ld/json-ld.org/issues/35</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus suggested that we create a JSON-LD vocabulary</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the reason presented would be that we could do roundtripping</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we do this so that the data roundtrips well from serializing to deserializing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  for converting to native types</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  doubles will almost always be lossy because of the way JSON parsers are implemented</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the double that you publish will be different than the double in C/C++</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  has to do with what happens with the number when you process the JSON doc</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think I follow</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if you use coerce rules, than the context should ensure that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the translation is not guaranteed to happen safely</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  even if we create a JSON vocab, it doesn't address the issue of data round-tripping</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but it moves it to the implementations - away from the spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  a boolean could be 1, and 0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't expect JSON developers to look at the xml XSD schema</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's assume we publish jsonld:number, no one else besides us is gonna use it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we would create a parallel data space to xsd:integer and xsd:double and xsd:decimal</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that the range of a type is bigger, does not mean we can't use it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  everything that JSON can express fits in XSD value space</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, do any of these arguments convince you?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  two double values might be different when compared in a triple store</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you retrieve a JSON-LD doc from somewhere, then store it, then retrieve another one, the reretrieve the previously saved one, then the values might not be equal</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I disagree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  when we convert to JSON, we try to use the most convenient JSON view</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  is that the problem?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  correct</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are 2 parallel issues: one is losing the lexical space, the other is native language data representation for doubles</div>
+<div class="comment"><span class="name">David I. Lehn</span>: handling of native doubles in JSON is just going to be potentially lossy due to JSON implementation details. not much we can do about that. handling strings coerced asxsd:double would be an alternative if you require more strict behavior.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ISO specifies how to convert doubles, I believe</div>
+<div class="comment"><span class="name">David I. Lehn</span>: i can't remember why we picked %1.6e. I think I might have picked that for no particular reason. I forget though. :)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  none of the other data types are lossy, except for doubles</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we follow the native ISO spec, then we are fine because it specifies string representation for a double value - I think.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If ISO doesn't specify it, we could use the native JSON represenation and add a warning to the spec that the conversion may be lossy</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  wanted to agree that this is excellent handling of the problem</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if they want exactness, they can use the string represenation w/ @datatype</div>
+<div class="comment"><span class="name">David I. Lehn</span>: people are going to get bitten by this so documentation is our only hope. I see people doing things like using native doubles and signing a serialized stream and it fails between implementations.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  when someone creates a json-ld doc, the double doesn't have to be in ISO format</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they can use whatever native json way</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if I want to compare, I have to normalize first</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. So, something like this? .. real json numbers are passed into and out of json accompanied by @datatype (or @coerce) *and* expressed lexically according to the JSON-LD datatype lexical canonicalization</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's correct</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  also, you should never do double equality comparsions - recipe for disaster</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you want to be on the safe side, use strings w/ @datatype</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in the spec, does it say decimal or double?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it says "number"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.ietf.org/rfc/rfc4627">http://www.ietf.org/rfc/rfc4627</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  xsd:double is the only thing we can do automatic typing on</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the machine-level representation will almost always be a double</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anything that has a dot or an 'e' (exponent) in it, will be a double in json-ld when you normalize</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://www.w3.org/TR/turtle/#abbrev">http://www.w3.org/TR/turtle/#abbrev</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: to sum up my last bit: 1) ensure we know what xsd datatype (different) json numbers are automatically represented as, 2) define a canonical lexical representation for each xsd number type</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: #2 will be used both for automatically interpreted json numbers, and for once explicitly cast by either @datatype or @coerce</div>
+</body>
+</html>

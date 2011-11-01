@@ -124,6 +124,14 @@
 '   border-radius: 1em 1em 1em 1em;\n' +
 '   padding: 1em 1em 1em 1em;\n' +
 '}\n' +
+' \n' +
+'.action {\n' +
+'   background: #bbe;\n' +
+'   border: 0.2em solid #c4c8cc;\n' +
+'   margin: 1em;\n' +
+'   border-radius: 1em 1em 1em 1em;\n' +
+'   padding: 1em 1em 1em 1em;\n' +
+'}\n' +
 '  </style> \n' +
 '</head> \n' +
 ' \n' +
