@@ -21,6 +21,7 @@
    var proposalRx = /^(proposal|proposed):.*$/i;
    var resolutionRx = /^(resolution|resolved):.*$/i;
    var topicRx = /^topic:\s*(.*)$/i;
+   var actionRx = /^action:\s*(.*)$/i;
    var voipRx = /^voip.*$/i;
    var toVoipRx = /^voip.{0,4}:.*$/i;
    var queueRx = /^q[+-]\s.*|^q[+-].*|^ack\s+.*|^ack$/i;
@@ -92,6 +93,23 @@
       else
       {
          rval = "\nTopic: " + msg + "\n\n";
+      }
+      
+      return rval;
+   };
+   
+   scrawl.action = function(msg, id, textMode)
+   {
+      var rval = "";
+      
+      if(textMode == "html")
+      {
+         rval = "<div id=action-" + id + " class=\"action\">ACTION: " +  
+          scrawl.htmlencode(msg) + "</div>\n";
+      }
+      else
+      {
+         rval = "\nACTION: " + msg + "\n\n";
       }
       
       return rval;
@@ -279,6 +297,13 @@
              var topic = msg.match(topicRx)[1];
              context.topics = context.topics.concat(topic);
              rval = scrawl.topic(topic, context.topics.length, textMode);
+          }
+          // check for action line
+          else if(msg.search(actionRx) != -1)
+          {
+             var action = msg.match(actionRx)[1];
+             context.actions = context.actions.concat(action);
+             rval = scrawl.action(action, context.actions.length, textMode);
           }
           // check for Agenda line
           else if(msg.search(agendaRx) != -1)
@@ -475,7 +500,8 @@
          "group": scrawl.group, 
          "chair": "Manu Sporny",
          "present": {},
-         "topics": []
+         "topics": [],
+         "actions": []
       };
 
       // process each IRC log line
