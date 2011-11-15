@@ -1,0 +1,129 @@
+[3:59pm]	voip-ld: Gregg Kellogg (SIP/sip2sip.info-00000003) is in the conference.
+[3:59pm]	voip-ld: Gregg Kellogg (SIP/sip2sip.info-00000003) has joined the conference.
+[4:00pm]	voip-ld: Markus Lanthaler (SIP/sip.linphone.org-00000004) has joined the conference.
+[4:01pm]	niklasl joined the chat room.
+[4:01pm]	voip-ld: Niklas Lindström (SIP/sip2sip.info-00000005) has joined the conference.
+[4:01pm]	voip-ld: David I. Lehn (SIP/71.171.20.178-00000006) has joined the conference.
+[4:02pm]	<gkellogg>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0022.html
+[4:02pm]	<gkellogg>	chair: gkellogg
+[4:04pm]	<gkellogg>	scribe: MarkusLanthaler
+[4:04pm]	<gkellogg>	topic: ISSUE-35: JSON Vocabulary / Data Round-tripping
+[4:04pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/35
+[4:04pm]	<MarkusLanthaler>	MarkusLanthaler: http://www.w3.org/TR/turtle/#abbrev
+[4:05pm]	<MarkusLanthaler>	... Decimal floating point double/fixed precision numbers may be written directly and correspond to the XML Schema Datatype xsd:double in both syntax and datatype IRI.
+[4:05pm]	<MarkusLanthaler>	... Decimal floating point arbitrary precision numbers may be written directly and correspond to the XML Schema Datatype xsd:decimal. in both syntax and datatype IRI.
+[4:07pm]	<MarkusLanthaler>	gregg: I think there were some JavaScript issues motivating this conversation
+[4:07pm]	<MarkusLanthaler>	Niklas: If you wanna keep precision you should explicitely coerce to type
+[4:09pm]	<niklasl>	"age": "xsd:double"
+[4:09pm]	<niklasl>	"age": 33
+[4:09pm]	<gkellogg>	33.0e1
+[4:09pm]	<niklasl>	"33.0"^^xsd:double
+[4:09pm]	<gkellogg>	3.3e1
+[4:10pm]	<gkellogg>	{"foo": "3."}
+[4:11pm]	<niklasl>	"3"^^xsd:integer
+[4:11pm]	<MarkusLanthaler>	Gregg: The problem is JSON could be ambigous
+[4:11pm]	<MarkusLanthaler>	Gregg: Depends on parser
+[4:12pm]	<niklasl>	"foo": {"@literal": "3.", "@datatype": "xsd:decimal"}
+[4:12pm]	<niklasl>	:foo 3
+[4:12pm]	<MarkusLanthaler>	Niklas: If you would like have a explicit RDF output you would have to use the above form
+[4:12pm]	<niklasl>	foo: 3
+[4:12pm]	<niklasl>	foo: 3.0
+[4:14pm]	<MarkusLanthaler>	According to http://jsonlint.com/ that's translated to foo: 3
+[4:16pm]	<MarkusLanthaler>	Markus: I think if we would make JSON-LD work as Turtle in automatic typing I think it would solve our problems
+[4:18pm]	<MarkusLanthaler>	http://json-ld.org/spec/latest/json-ld-syntax/#automatic-typing
+[4:19pm]	<MarkusLanthaler>	Markus: We currently automatically type to integer, double or boolean
+[4:19pm]	<MarkusLanthaler>	... Why don't we distinguish between double and decimal
+[4:22pm]	<niklasl>	denormalized JSON | normalized JSON or Turtle short form | explicitly typed Turtle
+[4:22pm]	<niklasl>	3.3e10 | 3.3e1 | "3.3e1"^^xsd:double
+[4:22pm]	<niklasl>	1.10 | 1.1 | "1.1"^^xsd:decimal
+[4:22pm]	<niklasl>	1.0 | 1 | "1"^^xsd:integer
+[4:24pm]	<niklasl>	3.30e1 | 3.3e1 | "3.3e1"^^xsd:double
+[4:24pm]	<MarkusLanthaler>	Markus: 3.3e10 | 3.3e1 | "3.3e1"^^xsd:double
+[4:24pm]	<MarkusLanthaler>	... 3.31e1 | 3.31e1 | "3.31e1"^^xsd:double
+[4:25pm]	<gkellogg>	3.3e20
+[4:25pm]	<gkellogg>	3.3e-20
+[4:26pm]	<taaz>	i'm not sure what we're discussing here!  the differences in json parsers and serializers are going to cause pain anyway you look at it unless you use explicit typing.
+[4:27pm]	<niklasl>	taaz: yes, we're looking into if there is any "baseline" in JSON or if we have to specify it all
+[4:31pm]	<gkellogg>	PROPOSAL: no change to spec
+[4:31pm]	<niklasl>	+1
+[4:31pm]	<gkellogg>	+1
+[4:31pm]	<taaz>	+1
+[4:31pm]	<MarkusLanthaler>	+1
+[4:31pm]	<gkellogg>	RESOLVED: no change to spec
+[4:32pm]	<gkellogg>	topic: ISSUE-40: Merge @coerce with @context https://github.com/json-ld/json-ld.org/issues/40
+[4:32pm]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/40
+[4:32pm]	<MarkusLanthaler>	Gregg: We had agreed to change @coerce
+[4:33pm]	<gkellogg>	"@context": {
+[4:33pm]	<gkellogg>	  "title": "http://purl.org/dc/terms/title",
+[4:33pm]	<gkellogg>	  "description": "http://purl.org/dc/terms/description",
+[4:33pm]	<gkellogg>	  "identifier": {"http://purl.org/dc/terms/identifier": "xsd:string"},
+[4:33pm]	<gkellogg>	  "publisher": {"http://purl.org/dc/terms/publisher": "@iri"},
+[4:33pm]	<gkellogg>	  "created": {"http://purl.org/dc/terms/created": "xsd:dateTime"},
+[4:33pm]	<gkellogg>	  "authorList": {"http://purl.org/ontology/bibo/authorList": ["@list", "@iri"]}
+[4:33pm]	<gkellogg>	}
+[4:33pm]	<MarkusLanthaler>	Gregg: The key is the IRI and the value is the type
+[4:33pm]	<gkellogg>	 "authorList": {"http://purl.org/ontology/bibo/authorList": { "@list": "@iri" }}
+[4:34pm]	<gkellogg>	"created": { "@iri" : "http://purl.org/dc/terms/created", "@coerce": "xsd:dateTime"}
+[4:34pm]	<MarkusLanthaler>	Gregg: Alternative: value is object, this says @list entries are of type @iri
+[4:35pm]	<MarkusLanthaler>	Niklas: Really prefer first form
+[4:35pm]	<niklasl>	https://raw.github.com/rinfo/rdl/1c8c6d2/packages/java/rinfo-service/src/main/resources/json-ld/context.json
+[4:35pm]	<niklasl>	https://raw.github.com/gist/1340408/context-vocab-array-combined-iri-coerce.json
+[4:37pm]	<MarkusLanthaler>	Gregg: @vocab would have to specified prior to be used in the context (in a outer context)
+[4:38pm]	<MarkusLanthaler>	Gregg: Point is when is the active context modified. I think it should be modified before the currently processed context has been fully processed
+[4:39pm]	<MarkusLanthaler>	Niklas: Regardless if we merge coerce and prefix definitions or not it can't be processed in one pass
+[4:41pm]	<MarkusLanthaler>	Niklas: We should discuss: 1) if we merge @coerce into term def. 2) if @list is in array orf object form
+[4:41pm]	<gkellogg>	PROPOSAL: move @coerce into term definitions
+[4:41pm]	<niklasl>	+1
+[4:41pm]	<gkellogg>	+1
+[4:41pm]	<taaz>	(i'm afraid i haven't put enough thought into this to vote)
+[4:41pm]	<MarkusLanthaler>	+1
+[4:42pm]	<gkellogg>	RESOLVED: move @coerce into term definitions
+[4:42pm]	<MarkusLanthaler>	Niklas: 3) using @vocab to resolve right-hand value expansion
+[4:45pm]	<MarkusLanthaler>	Gregg: @vocab would have to come before it's used for stream-based parsers
+[4:45pm]	<MarkusLanthaler>	Niklas: that's also applies to expansion in coerce
+[4:46pm]	<MarkusLanthaler>	Niklas: I found it useful to have many contexts.. especially for using groups of terms
+[4:46pm]	<MarkusLanthaler>	Niklas: also useful for keeping memory usage low
+[4:47pm]	<MarkusLanthaler>	Gregg: Looking at your list of contexts in the example
+[4:48pm]	<MarkusLanthaler>	Gregg: All the stuff in the first context like terms and @vocab can be used in the second context
+[4:49pm]	<MarkusLanthaler>	Niklas: I implemented it so that first @vocab is taken to expand values, then term definitions are parsed
+[4:50pm]	<MarkusLanthaler>	Gregg: That would mean processing a context would be a multi-pass operation
+[4:54pm]	<niklasl>	https://github.com/rinfo/rdl/blob/develop/packages/java/rinfo-base/src/main/groovy/se/lagrummet/rinfo/base/rdf/jsonld/JSONLDContext.groovy
+[4:55pm]	<gkellogg>	PROPOSAL: parsing @context is multi-pass. first to get term mappings, and then to resolve @datatypes
+[4:55pm]	<gkellogg>	+1
+[4:55pm]	<niklasl>	+1
+[4:55pm]	<taaz>	+1
+[4:56pm]	<MarkusLanthaler>	+1
+[4:56pm]	<niklasl>	{ "foaf": "foaf:foo}
+[4:57pm]	<MarkusLanthaler>	{ "a" : "b:c", "b" : "a:c" }
+[4:59pm]	<gkellogg>	RESOLVED: parsing @context is multi-pass. first to get term mappings, and then to resolve @datatypes [rescinded later -- gk]
+[4:59pm]	<gkellogg>	ACTION: discuss that prefixes can't be used for expanding uris within the same context, unless they're part of @datatype portion.
+[5:01pm]	<gkellogg>	PROPOSAL: @vocab is resolved prior to term URI expansion
+[5:02pm]	<niklasl>	+1
+[5:02pm]	<gkellogg>	+1
+[5:02pm]	<MarkusLanthaler>	-1
+[5:02pm]	<taaz>	+0
+[5:05pm]	<niklasl>	@context: [{foaf: …, dc: …}, {"title: "dc:title", "homepage": "foaf:homepage"}]
+[5:05pm]	<gkellogg>	ACTION: define prefixes required for expansion in context definitions prior to use.
+[5:06pm]	<MarkusLanthaler>	Gregg: If we are doing it that way we could also go back to single-pass processing (for datatype expansion)
+[5:06pm]	<gkellogg>	this removes the need to do 2-pass @context processing.
+[5:07pm]	<gkellogg>	ACTION: rescind previous resolution: parsing @context is multi-pass. first to get term mappings, and then to resolve @datatypes
+[5:08pm]	<gkellogg>	"created": { "@iri" : "http://purl.org/dc/terms/created", "@coerce": "xsd:dateTime"}
+[5:08pm]	<MarkusLanthaler>	"created": { "@iri" : "http://purl.org/dc/terms/created", "@type": "xsd:dateTime"}
+[5:09pm]	<gkellogg>	"created": {"@iri": "dc:created", "@datatype": "xsd:dateTime"}
+[5:10pm]	<MarkusLanthaler>	"created": [ "http://purl.org/dc/terms/created", { "@type": "xsd:dateTime"} ]
+[5:10pm]	<MarkusLanthaler>	"created": [ "http://purl.org/dc/terms/created", { "@coerce": "xsd:dateTime"} ]
+[5:12pm]	<gkellogg>	"created": {"dc:created": "xsd:dateTime"}
+[5:12pm]	<MarkusLanthaler>	"created": {"http://purl.org/dc/terms/created": "http://www.w3.org/2001/XMLSchema#dateTime"},
+[5:14pm]	<MarkusLanthaler>	Markus: Could we push this back to the mailing list
+[5:14pm]	<niklasl>	"created": {"@iri": "dc:created", "@datatype": "xsd:dateTime", "@array": "@list"}
+[5:15pm]	<niklasl>	"created": {"@iri": "dc:created", "@datatype": "xsd:dateTime", "@list": true}
+[5:15pm]	<niklasl>	"created": {"@iri": "dc:created", "@datatype": "xsd:dateTime", "@rev": true, "@set": true}
+[5:18pm]	voip-ld: Gregg Kellogg (SIP/sip2sip.info-00000003) has left the conference.
+[5:18pm]	voip-ld: Niklas Lindström (SIP/sip2sip.info-00000005) has left the conference.
+[5:18pm]	voip-ld: Markus Lanthaler (SIP/sip.linphone.org-00000004) has left the conference.
+[5:18pm]	voip-ld: David I. Lehn (SIP/71.171.20.178-00000006) has left the conference.
+[5:18pm]	<taaz>	voip-ld: connections?
+[5:18pm]	voip-ld: There are currently no conference connections.
+[5:19pm]	<taaz>	voip-ld: self-destruct
+[5:19pm]	voip-ld left the chat room. (Quit: Auuugh! *booooom*)
+[5:19pm]	MarkusLanthaler left the chat room.
