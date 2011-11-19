@@ -57,7 +57,7 @@ body {
 <dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0022.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0022.html</a></dd>
 <dt>Chair</dt><dd>Gregg Kellogg</dd>
 <dt>Scribe</dt><dd>Markus Lanthaler</dd>
-<dt>Present</dt><dd>Gregg Kellogg, Markus Lanthaler, Niklas Lindström, David I. Lehn</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Markus Lanthaler, David I. Lehn, Niklas Lindström</dd>
 <dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
 <div><audio controls="controls" preload="none">
 <source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
@@ -65,51 +65,62 @@ body {
 </div>
 <div class="information">Markus Lanthaler is scribing.</div>
 <h1 id=topic-1 class="topic">Topic: ISSUE-35: JSON Vocabulary / Data Round-tripping</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Issues with data representation in JavaScript - issues with representing numbers.</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/35">https://github.com/json-ld/json-ld.org/issues/35</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The problem was with the lexical representation of types, maybe we should resolve on something reasonably based on TURTLE syntax?</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>:  <a href="http://www.w3.org/TR/turtle/#abbrev">http://www.w3.org/TR/turtle/#abbrev</a></div>
 <div class="comment-continuation">... Decimal floating point double/fixed precision numbers may be written directly and correspond to the XML Schema Datatype xsd:double in both syntax and datatype IRI.</div>
 <div class="comment-continuation">... Decimal floating point arbitrary precision numbers may be written directly and correspond to the XML Schema Datatype xsd:decimal. in both syntax and datatype IRI.</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  I think there were some JavaScript issues motivating this conversation</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  If you wanna keep precision you should explicitely coerce to type</div>
-<div class="comment"><span class="name">Niklas Lindström</span>: "age": "xsd:double"</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  Isn't the problem here that your implementation may serialize as "1" instead of "1.0"?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you wanna keep precision you should explicitly coerce to type</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: for example, coercing like this - "age": "xsd:double" - but how would you do these?</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "age": 33</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: 33.0e1</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "33.0"^^xsd:double</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: 3.3e1</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>: {"foo": "3."}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"foo": 3.}</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "3"^^xsd:integer</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  The problem is JSON could be ambigous</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  Depends on parser</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The problem is JSON could be ambiguous, the problem is with round-tripping. If we have any coercion in place that trumps the format, in the absence of coercion, if you have a document that expresses a number, how do you round trip it? Like how would "3." be interpreted above?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Depends on parser...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you want to preserve the exact lexical representation, you have to do this (which is fine):</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "foo": {"@literal": "3.", "@datatype": "xsd:decimal"}</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: :foo 3</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  If you would like have a explicit RDF output you would have to use the above form</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: foo: 3</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: foo: 3.0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Most JSON parsers would give you just the integer, but it would depend on the programming language. We could have some rule in place that says that everything should be normalized.</div>
 <div class="information">According to <a href="http://jsonlint.com/">http://jsonlint.com/</a> that's translated to foo: 3</div>
-<div class="comment"><span class="name">Markus Lanthaler</span>:  I think if we would make JSON-LD work as Turtle in automatic typing I think it would solve our problems</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think if we would make JSON-LD work as Turtle in automatic typing I think it would solve our problems. Right now, we always coerce to a double.</div>
 <div class="information"><a href="http://json-ld.org/spec/latest/json-ld-syntax/#automatic-typing">http://json-ld.org/spec/latest/json-ld-syntax/#automatic-typing</a></div>
-<div class="comment"><span class="name">Markus Lanthaler</span>:  We currently automatically type to integer, double or boolean</div>
-<div class="comment-continuation">... Why don't we distinguish between double and decimal</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Do you think this can be done unambiguously? Do you think that we can unambiguously decide between xsd:double and xsd:decimal?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We currently automatically type to integer, double or boolean.</div>
+<div class="comment-continuation">... Why don't we distinguish between double and decimal?</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: denormalized JSON | normalized JSON or Turtle short form | explicitly typed Turtle</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: 3.3e10 | 3.3e1 | "3.3e1"^^xsd:double</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: 1.10 | 1.1 | "1.1"^^xsd:decimal</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: 1.0 | 1 | "1"^^xsd:integer</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: 3.30e1 | 3.3e1 | "3.3e1"^^xsd:double</div>
-<div class="comment"><span class="name">Markus Lanthaler</span>:  3.3e10 | 3.3e1 | "3.3e1"^^xsd:double</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  3.3e10 | 3.3e10 | "3.3e10"^^xsd:double</div>
 <div class="comment-continuation">... 3.31e1 | 3.31e1 | "3.31e1"^^xsd:double</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>: 3.3e20</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>: 3.3e-20</div>
-<div class="comment"><span class="name">David I. Lehn</span>: i'm not sure what we're discussing here!  the differences in json parsers and serializers are going to cause pain anyway you look at it unless you use explicit typing.</div>
-<div class="comment"><span class="name">David I. Lehn</span>:  yes, we're looking into if there is any "baseline" in JSON or if we have to specify it all [scribe assist by Niklas Lindström]</div>
-<div class="proposal"><strong>PROPOSAL:</strong>  no change to spec</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I suggest that we say how to coerce into integer, double and boolean - and include a warning that if round-tripping is expected, that an explicit coercion rule is included.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: I'm not sure what we're discussing here! The differences in JSON parsers and serializers are going to cause pain anyway you look at it unless you use explicit typing. You are not going to know what the intended value is going to be - you can only support this if you are going to explicitly type things.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Two reasons for having automatic typing - one for normalization, two for conversion to RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This needs to be in the syntax spec, because that's what authors are going to use. To have a fixed lexical representation, you should have an object with a literal and a datatype.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Is decimal a subset of the value space of double?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, it is.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  Yes.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we do normalization on the value, and it doesn't have a decimal point, it's always a "double". If it doesn't have a decimal point, then it's an integer. If you are fine with this, then you can use explicit JSON values... if not, you should specify a datatype like xsd:decimal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is what the spec already says. Can we leave it as is for now and re-open the issue if we need to in the future?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Yes, we're looking into if there is any "baseline" in JSON or if we have to specify it all.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  No change to specification, current language on auto-coercion is fine</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
 <div class="comment"><span class="name">David I. Lehn</span>: +1</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
-<div class="resolution"><strong>RESOLUTION:</strong>  no change to spec</div>
-<h1 id=topic-2 class="topic">Topic: ISSUE-40: Merge @coerce with @context <a href="https://github.com/json-ld/json-ld.org/issues/40">https://github.com/json-ld/json-ld.org/issues/40</a></h1>
+<div class="resolution"><strong>RESOLUTION:</strong>  No change to specification, current language on auto-coercion is fine</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-40: Merge @coerce with @context</h1>
 <div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/40">https://github.com/json-ld/json-ld.org/issues/40</a></div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  We had agreed to change @coerce</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We had agreed to change @coerce, for example, change to this:</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "@context": {</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "title": "<a href="http://purl.org/dc/terms/title",">http://purl.org/dc/terms/title",</a></div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "description": "<a href="http://purl.org/dc/terms/description",">http://purl.org/dc/terms/description",</a></div>
@@ -118,62 +129,74 @@ body {
 <div class="comment"><span class="name">Gregg Kellogg</span>: "created": {"<a href="http://purl.org/dc/terms/created":">http://purl.org/dc/terms/created":</a> "xsd:dateTime"},</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "authorList": {"<a href="http://purl.org/ontology/bibo/authorList":">http://purl.org/ontology/bibo/authorList":</a> ["@list", "@iri"]}</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: }</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  The key is the IRI and the value is the type</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The key is the IRI and the value is the type, an alternative is:</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "authorList": {"<a href="http://purl.org/ontology/bibo/authorList":">http://purl.org/ontology/bibo/authorList":</a> { "@list": "@iri" }}</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "created": { "@iri" : "<a href="http://purl.org/dc/terms/created",">http://purl.org/dc/terms/created",</a> "@coerce": "xsd:dateTime"}</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  Alternative: value is object, this says @list entries are of type @iri</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  Really prefer first form</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Alternative: value is object, this says @list entries are of type @iri, I like Markus' form because it's more consistent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Really prefer the form where you use "@iri" as the key - it's concise.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://raw.github.com/rinfo/rdl/1c8c6d2/packages/java/rinfo-service/src/main/resources/json-ld/context.json">https://raw.github.com/rinfo/rdl/1c8c6d2/packages/java/rinfo-service/src/main/resources/json-ld/context.json</a></div>
 <div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://raw.github.com/gist/1340408/context-vocab-array-combined-iri-coerce.json">https://raw.github.com/gist/1340408/context-vocab-array-combined-iri-coerce.json</a></div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  @vocab would have to specified prior to be used in the context (in a outer context)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @vocab would have to specified prior to be used in the context (in a outer context). That is, if we use terms in the @context, the active context must be used to expand the terms.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You have to look up the keys in the active context while you're parsing @context.</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  Point is when is the active context modified. I think it should be modified before the currently processed context has been fully processed</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  Regardless if we merge coerce and prefix definitions or not it can't be processed in one pass</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  We should discuss: 1) if we merge @coerce into term def. 2) if @list is in array orf object form</div>
-<div class="proposal"><strong>PROPOSAL:</strong>  move @coerce into term definitions</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We should discuss: 1) if we merge @coerce into term definitions 2) if @list is in array or object form? 3) How do you parse a list of contexts, how is @vocab handled when in a list?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Move coercion rules into the term definitions section of @context</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
-<div class="comment"><span class="name">David I. Lehn</span>: (i'm afraid i haven't put enough thought into this to vote)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: (I'm afraid i haven't put enough thought into this to vote)</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
-<div class="resolution"><strong>RESOLUTION:</strong>  move @coerce into term definitions</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  3) using @vocab to resolve right-hand value expansion</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  @vocab would have to come before it's used for stream-based parsers</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  that's also applies to expansion in coerce</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  I found it useful to have many contexts.. especially for using groups of terms</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  also useful for keeping memory usage low</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  Looking at your list of contexts in the example</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  All the stuff in the first context like terms and @vocab can be used in the second context</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Move coercion rules into the term definitions section of @context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @vocab would have to come before it's used for stream-based parsers - it wouldn't be used to expand keys in @context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  that's also applies to expansion in coerce - SAX-based processors are going to have issues in any case - it's always two-pass.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Current processing requires us to know the entire @context before processing it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I found it useful to have many contexts... especially for using groups of terms.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  also useful for keeping memory usage low - by processing in chunks. Any given chunk needs to be processed in its entirety.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Looking at your list of contexts in the example - an array of contexts. At parse time, there is an active context, parsing the first item in the array would update the active context. All terms @vocabs/@base would the first part would take effect after each array item is processed.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  I implemented it so that first @vocab is taken to expand values, then term definitions are parsed</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>:  That would mean processing a context would be a multi-pass operation</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That would mean processing a context would be a multi-pass operation. The first step is to extract any @vocab definition, the second step is to process all prefix to URI definitions using the active context, the third step is to process coercion/datatype mapping.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/rinfo/rdl/blob/develop/packages/java/rinfo-base/src/main/groovy/se/lagrummet/rinfo/base/rdf/jsonld/JSONLDContext.groovy">https://github.com/rinfo/rdl/blob/develop/packages/java/rinfo-base/src/main/groovy/se/lagrummet/rinfo/base/rdf/jsonld/JSONLDContext.groovy</a></div>
-<div class="proposal"><strong>PROPOSAL:</strong>  parsing @context is multi-pass. first to get term mappings, and then to resolve @datatypes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't like the use of @vocab/@base in expanding values in @context</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Parsing @context is a multi-pass process. First pass sets the term mappings, second pass resolves the @datatypes.</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
 <div class="comment"><span class="name">David I. Lehn</span>: +1</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
-<div class="comment"><span class="name">Niklas Lindström</span>: { "foaf": "foaf:foo}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: What about? { "foaf": "foaf:foo"}</div>
 <div class="information">{ "a" : "b:c", "b" : "a:c" }</div>
-<div class="resolution"><strong>RESOLUTION:</strong>  parsing @context is multi-pass. first to get term mappings, and then to resolve @datatypes [rescinded later -- gk]</div>
-<div id=action-1 class="action">ACTION: discuss that prefixes can't be used for expanding uris within the same context, unless they're part of @datatype portion.</div>
-<div class="proposal"><strong>PROPOSAL:</strong>  @vocab is resolved prior to term URI expansion</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There is still a problem, see above - we don't need to process @vocab in @context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  First pass, unless "a" and "b" are already defined - they are IRIs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Datatypes are not an issue, but if we remove @vocab and wanted a shortened form - we would have to define something to look in the key position. It would be fairly complicated...</div>
+<div id=action-1 class="action">ACTION: Discuss that prefixes can't be used for expanding URIs within the same context, unless they're part of @datatype portion.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  @vocab is useful tool for context writers - everything that is not defined as a term is resolved against @vocab. We could have @vocab work within the context - you could declare lots of terms more easily.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  @vocab is resolved prior to term URI expansion within a @context.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: -1</div>
 <div class="comment"><span class="name">David I. Lehn</span>: +0</div>
-<div class="comment"><span class="name">Niklas Lindström</span>: @context: [{foaf: …, dc: …}, {"title: "dc:title", "homepage": "foaf:homepage"}]</div>
-<div id=action-2 class="action">ACTION: define prefixes required for expansion in context definitions prior to use.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: This is a possibility, right? @context: [{foaf: …, dc: …}, {"title: "dc:title", "homepage": "foaf:homepage"}]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We shouldn't split "prefix" and "term" - let's not over-complicate anything.</div>
+<div id=action-2 class="action">ACTION: Define prefixes required for expansion in context definitions prior to use.</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  If we are doing it that way we could also go back to single-pass processing (for datatype expansion)</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: this removes the need to do 2-pass @context processing.</div>
-<div id=action-3 class="action">ACTION: rescind previous resolution: parsing @context is multi-pass. first to get term mappings, and then to resolve @datatypes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Ok, so something like this:</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: "created": { "@iri" : "<a href="http://purl.org/dc/terms/created",">http://purl.org/dc/terms/created",</a> "@coerce": "xsd:dateTime"}</div>
-<div class="information">"created": { "@iri" : "<a href="http://purl.org/dc/terms/created",">http://purl.org/dc/terms/created",</a> "@type": "xsd:dateTime"}</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>: "created": {"@iri": "dc:created", "@datatype": "xsd:dateTime"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Other options:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "created": { "@iri" : "<a href="http://purl.org/dc/terms/created",">http://purl.org/dc/terms/created",</a> "@type": "xsd:dateTime"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "created": { "@iri": "dc:created", "@datatype": "xsd:dateTime"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: I think "@iri" makes sense - it's consistent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I favor the compact form - I spend most of my time writing contexts. If you're not using prefixes, it's completely unreadable because they're gigantic. </div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What about if we do this?</div>
 <div class="information">"created": [ "<a href="http://purl.org/dc/terms/created",">http://purl.org/dc/terms/created",</a> { "@type": "xsd:dateTime"} ]</div>
 <div class="information">"created": [ "<a href="http://purl.org/dc/terms/created",">http://purl.org/dc/terms/created",</a> { "@coerce": "xsd:dateTime"} ]</div>
-<div class="comment"><span class="name">Gregg Kellogg</span>: "created": {"dc:created": "xsd:dateTime"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: This makes it more readable, right? "created": {"dc:created": "xsd:dateTime"}</div>
 <div class="information">"created": {"<a href="http://purl.org/dc/terms/created":">http://purl.org/dc/terms/created":</a> "http://www.w3.org/2001/XMLSchema#dateTime"},</div>
-<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we push this back to the mailing list</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we push this back to the mailing list? This isn't something I'd loose that much sleep over - but would like to think about this for a while. I'm also concerned about markup like this:</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "created": {"@iri": "dc:created", "@datatype": "xsd:dateTime", "@array": "@list"}</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "created": {"@iri": "dc:created", "@datatype": "xsd:dateTime", "@list": true}</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: "created": {"@iri": "dc:created", "@datatype": "xsd:dateTime", "@rev": true, "@set": true}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The @set might be more interesting - seeing some usability issues w/ my developers. </div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'll try these changes in my implementation. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We'll keep working on ISSUE-40 via the mailing list.</div>
 </body>
 </html>
