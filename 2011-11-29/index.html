@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-11-29</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0042.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0042.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas Lindström, Markus Lanthaler</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes or updates to the Agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Might be worth talking about Mark Nottingham's post.</div>
+<h1 id=topic-1 class="topic">Topic: Mark Nottingham's post</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.mnot.net/blog/2011/11/25/linking_in_json">http://www.mnot.net/blog/2011/11/25/linking_in_json</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Mark is looking for a good linked data format - his analysis of JSON-LD is a bit off.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah, he's a bit off - everything he wants to do in _meta can be done with JSON-LD context. We definitely don't need another way of expressing exactly what JSON-LD already does. He did also get wrapped up in the concept that JSON-LD is about RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  maybe we need to do a blog post to explain why what he's proposing is basically JSON-LD?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Bring TimBL into the discussion?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I get the sense that we're going to see something akin to Microdata all over again - if people dismiss JSON-LD outright without really looking at it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've seen your reply as well - Mark hasn't responded to it, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yeah, no response yet.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that we may want to bring TimBL into the discussion - because this seems like another Microdata/RDFa thing... and nobody wants that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 re. timbl</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, I'll send an e-mail to TimBL about it... to make sure that he knows about the overlap.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe the best thing would be to work through all of the issues and to get this into a WG at W3C.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, I agree.</div>
+<h1 id=topic-2 class="topic">Topic: Change of telco time</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does one hour earlier work for everyone?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What about Tom Steiner? Can he make it?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's change the time to 1 hour earlier. It seemed to work for the meeting today. Let's ask on the mailing list to see if it's okay for everyone?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to do this every week or every other week.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should go to every week... until we eat through all of the issues.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, perhaps that would be best.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's difficult to meet - a call every week would be okay. Generally, I'd like to do more on the mailing list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have a hard time doing more on the mailing list.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the telco's are very complimentary - we need these discussions.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need these telcos to decide things - important to get stability in the spec.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Teleconferences every week until we get through the issue list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Teleconferences every week until we get through the issue list.</div>
+<h1 id=topic-3 class="topic">Topic: ISSUE-40: Merge @coerce with @context</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Here are the various proposals: <a href="https://github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565">https://github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0053.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0053.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'd prefer #3 - <a href="https://github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565">https://github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'd be fine with #3 as well... if we use @datatype instead of @coerce... we may want to consider something like this:</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "foo": {"@iri": "<a href="http://uri.foo",">http://uri.foo",</a> "@datatype": "@iri"} or</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "foo": {"@iri": "<a href="http://uri.foo",">http://uri.foo",</a> "@iri": true} or</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "foo": {"@iri": "<a href="http://uri.foo",">http://uri.foo",</a> "@coerce": "@iri", "@list": true}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm sympathetic to the point that @datatype looks a little odd. The more keywords we have, the more complicated it's going to be for people... we're twisting @datatype a little bit, but we should focus on keeping things simple.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "foo": {"@iri": "<a href="http://uri.foo",">http://uri.foo",</a> "@iri": true} that won't work! You use the same key twice</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a different issue on @datatype and @type... I could go with either #2 or #3.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: markus, right</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: There is an alternate approach -</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: 6) "foo": {"@iri": "<a href="http://uri.foo",">http://uri.foo",</a> "@datatype": [ "@list", "xsd:date" ] }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: 6) "foo": {"@iri": "<a href="http://uri.foo",">http://uri.foo",</a> "@datatype": [ "@list", "@iri" ] }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't like #6 - multiple arrays and nesting is starting to make the context look really complicated. Worried that authors are going to have a hard time with it. Any strong arguments between #2 and #3?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  #6 is just like #1, right? Just with another example for @iri?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Being able to specify multiple datatypes allows you to pattern match across multiple datatypes... I don't think multiple types are good for JSON-LD... wary of introducing an array in this case.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree, let's not use arrays.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm against #6 because of the cognitive load it adds to authors.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Adopt #3 (from https;//github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565 ) as the mechanism to express coercion rules in JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: + 0.5</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Adopt #3 (from https;//github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565 ) as the mechanism to express coercion rules in JSON-LD.</div>
+<h1 id=topic-4 class="topic">Topic: Compact Serialization from RDFa to JSON-LD</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are some related issue that would be good to get out of the way... how do we specify that a particular CURIE should have a certain datatype?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "dc:date": { "@datatype": "xsd:date"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When coming from RDF, this is important in order to generate something readable in JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you want some of the URIs to be coerced, you have to use @iri as a key in the context... if you use URIs, you impose much more on the consumer of the data anyhow... using coercion to alleviate any of the pain doesn't warrant this, really.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You should be able to handle explicit literals in the data as well.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is really an issue when serializing - we don't want to sacrifice the compactness in being able to use the datatypes in @context... if we don't have a way to do this, we'd have to create arbitrary prefixes that are not used in order to get the datatype specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not following.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we take an RDFa document and express it in JSON-LD... we have no way to define terms in RDFa - the only way to accomplish that is to manufacture terms... or make a literal with the datatypes expressed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we look at JSON-LD vs. Microdata JSON - one advantage when expressing schema-like things, we do a better job at expressing datatype ranges.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but that requires manufacturing terms for every schema property - we don't want to impose that burden on a JSON-LD author.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can see a certain merit in being able to do this - if we have defined a default vocab, I'd expect that we'd want to write something akin to this:</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "date": {"@datatype": "xsd:date"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "dc:date": { "@datatype": "xsd:date"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "dc:date": { "@datatype": "xsd:date", "@iri": ...}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In the case of using a URI, we could add a rule stating that if the term in the context is a URI, you're not allowed to use an IRI to define what the term is defined to.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if it's not an NCName</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This would prevent people from re-defining URIs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The disadvantage of supporting that is that - it's a term with a colon in it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that this will hurt more than it helps... it's going to look very complicated to authors.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  JSON-LD "lite" is everything that's in basic concepts... so, we can add a few advanced concepts.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if the mandate is for JSON-LD to deal with RDF serialization, then it becomes an important feature.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "foaf:homepage": { "@datatype": "@iri" }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "foaf:homepage": { "@datatype": "@iri" }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The reason to have this is to ensure that serializers could compact the data more easily... but at the cost of added complexity for authors attempting to understand how a context works.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't like that I'd have to create a separate term for homepage just to say it's an IRI.</div>
+<div class="information">JSON-LD serialization. This is a case against supporting it for the general case for RDF serialization.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  One reason we may want to support URIs in the key position in @context is to support namespaces, but that's pretty awful in JSON.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that this use case may be better served by JSON-LD compaction and framing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think automatically creating a context that allows terse expression is difficult without this feature... we could do this before with @coerce, but we can't now that we've combined everything together.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I can go for supporting "dc:date": { "@datatype": "xsd:date"} where the @iri key is disallowed, albeit it is rather advanced</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What about expanding context out... full IRI in the key position?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "<a href="http://purl.org/dc/terms/date":">http://purl.org/dc/terms/date":</a> {"@datatype": "xsd:date"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't really like that approach.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We do this for Web Payments - we compact and reframe data coming in via RDFa - so, we haven't had the need for this feature.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When serializing from RDF to JSON-LD - you want to be able to coerce without having someone pre-create terms. A CURIE makes it unambiguous and still makes it a fairly terse representation.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can see that supporting it - making it an advanced concept.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg, could you create an ISSUE for this and re-raise it on the mailing list? We need some more time to think about it.</div>
+<div id=action-1 class="action">ACTION: Gregg to create issue on use of CURIEs and/or IRIs in context.</div>
+<h1 id=topic-5 class="topic">Topic: ISSUE-36: Define if data in context documents is ignored</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/36">https://github.com/json-ld/json-ld.org/issues/36</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm pretty sure that we already resolved this, right? We decided that we would not import the data?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm for not importing the data.</div>
+<div class="information">General agreement that we don't pull data in from context documents into the local document that is referencing the external context document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should make it clear that the Compact API call can take both a JSON object as the context to use to compact, as well as an external IRI.</div>
+</body>
+</html>

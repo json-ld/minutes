@@ -1,0 +1,152 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0042.html
+[10:03]	* gkellogg	niklasl, maybe try dialing back in?
+[10:03]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000022) has left the conference.
+[10:04]	<manu1>	scribe: manu1
+[10:04]	<manu1>	manu1: Any changes or updates to the Agenda?
+[10:04]	<manu1>	gkellogg: Might be worth talking about Mark Nottingham's post.
+[10:04]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000023) has joined the conference.
+[10:04]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000023) has left the conference.
+[10:04]	<manu1>	Topic: Mark Nottingham's post
+[10:05]	<MarkusLanthaler>	http://www.mnot.net/blog/2011/11/25/linking_in_json
+[10:07]	<manu1>	manu1: Mark is looking for a good linked data format - his analysis of JSON-LD is a bit off.
+[10:07]	-->|	niklasl_ (~neuron@2.68.236.32.mobile.tre.se) has joined #json-ld
+[10:07]	<manu1>	gkellogg: yeah, he's a bit off - everything he wants to do in _meta can be done with JSON-LD context. We definitely don't need another way of expressing exactly what JSON-LD already does. He did also get wrapped up in the concept that JSON-LD is about RDF.
+[10:08]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000025) has joined the conference.
+[10:10]	<manu1>	manu1: maybe we need to do a blog post to explain why what he's proposing is basically JSON-LD?
+[10:10]	<manu1>	gkellogg: Bring TimBL into the discussion?
+[10:10]	|<--	niklasl has left freenode (Ping timeout: 244 seconds)
+[10:10]	=-=	niklasl_ is now known as niklasl
+[10:10]	<niklasl>	q+
+[10:10]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:11]	<manu1>	ack niklasl
+[10:11]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:11]	<manu1>	niklasl: I get the sense that we're going to see something akin to Microdata all over again - if people dismiss JSON-LD outright without really looking at it.
+[10:13]	<manu1>	niklasl: I've seen your reply as well - Mark hasn't responded to it, right?
+[10:13]	<manu1>	manu1: Yeah, no response yet.
+[10:13]	<manu1>	gkellogg: I think that we may want to bring TimBL into the discussion - because this seems like another Microdata/RDFa thing... and nobody wants that.
+[10:14]	<niklasl>	+1 re. timbl
+[10:14]	<manu1>	manu1: Ok, I'll send an e-mail to TimBL about it... to make sure that he knows about the overlap.
+[10:15]	<manu1>	gkellogg: Maybe the best thing would be to work through all of the issues and to get this into a WG at W3C.
+[10:15]	<manu1>	manu1: Yes, I agree.
+[10:15]	<manu1>	Topic: Change of telco time
+[10:16]	<manu1>	manu1: Does one hour earlier work for everyone?
+[10:16]	<manu1>	gkellogg: What about Tom Steiner? Can he make it?
+[10:16]	<manu1>	manu1: Let's change the time to 1 hour earlier. It seemed to work for the meeting today. Let's ask on the mailing list to see if it's okay for everyone?
+[10:17]	<manu1>	markus: Do we want to do this every week or every other week.
+[10:17]	<manu1>	gkellogg: I think we should go to every week... until we eat through all of the issues.
+[10:18]	<manu1>	manu1: Yes, perhaps that would be best.
+[10:19]	<manu1>	Markus: It's difficult to meet - a call every week would be okay. Generally, I'd like to do more on the mailing list.
+[10:19]	<manu1>	manu1: I have a hard time doing more on the mailing list.
+[10:20]	<manu1>	Niklas: I think the telco's are very complimentary - we need these discussions.
+[10:20]	<manu1>	gkellogg: We need these telcos to decide things - important to get stability in the spec.
+[10:20]	<manu1>	PROPOSAL: Teleconferences every week until we get through the issue list.
+[10:21]	<manu1>	+1
+[10:21]	<gkellogg>	+1
+[10:21]	<niklasl>	+1
+[10:21]	<MarkusLanthaler>	+1
+[10:21]	<taaz>	+0
+[10:21]	<manu1>	RESOLVED: Teleconferences every week until we get through the issue list.
+[10:21]	<manu1>	Topic: ISSUE-40: Merge @coerce with @context
+[10:21]	<gkellogg>	Here are the various proposals: https://github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565
+[10:22]	<MarkusLanthaler>	http://lists.w3.org/Archives/Public/public-linked-json/2011Nov/0053.html
+[10:22]	<niklasl>	q+
+[10:22]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:23]	<manu1>	manu1: I'd prefer #3 - https://github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565
+[10:24]	<manu1>	niklasl: I'd be fine with #3 as well... if we use @datatype instead of @coerce... we may want to consider something like this:
+[10:24]	<niklasl>	"foo": {"@iri": "http://uri.foo", "@datatype": "@iri"} or
+[10:24]	<niklasl>	"foo": {"@iri": "http://uri.foo", "@iri": true} or
+[10:25]	<gkellogg>	q+
+[10:25]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:25]	<niklasl>	"foo": {"@iri": "http://uri.foo", "@coerce": "@iri", "@list": true}
+[10:25]	|<--	niklasl has left freenode (Read error: Connection reset by peer)
+[10:25]	<manu1>	ack gkellogg
+[10:25]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:26]	<manu1>	gkellogg: I'm sympathetic to the point that @datatype looks a little odd. The more keywords we have, the more complicated it's going to be for people... we're twisting @datatype a little bit, but we should focus on keeping things simple.
+[10:26]	-->|	niklasl (~neuron@2.68.236.32.mobile.tre.se) has joined #json-ld
+[10:26]	<MarkusLanthaler>	"foo": {"@iri": "http://uri.foo", "@iri": true} that won't work! You use the same key twice
+[10:26]	<manu1>	gkellogg: There is a different issue on @datatype and @type... I could go with either #2 or #3.
+[10:26]	<niklasl>	markus, right
+[10:28]	<manu1>	ack niklasl
+[10:28]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:28]	<MarkusLanthaler>	There is an alternate approach -
+[10:28]	<MarkusLanthaler>	6) "foo": {"@iri": "http://uri.foo", "@datatype": [ "@list", "xsd:date" ] }
+[10:28]	<MarkusLanthaler>	6) "foo": {"@iri": "http://uri.foo", "@datatype": [ "@list", "@iri" ] }
+[10:28]	<manu1>	manu1: I don't like #6 - multiple arrays and nesting is starting to make the context look really complicated. Worried that authors are going to have a hard time with it. Any strong arguments between #2 and #3?
+[10:29]	<manu1>	niklasl: #6 is just like #1, right? Just with another example for @iri?
+[10:30]	<manu1>	gkellogg: Being able to specify multiple datatypes allows you to pattern match across multiple datatypes... I don't think multiple types are good for JSON-LD... wary of introducing an array in this case.
+[10:30]	<manu1>	niklas: I agree, let's not use arrays.
+[10:32]	<manu1>	manu1: I'm against #6 because of the cognitive load it adds to authors.
+[10:34]	<manu1>	PROPOSAL: Adopt #3 (from https;//github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565 ) as the mechanism to express coercion rules in JSON-LD.
+[10:34]	<manu1>	+1
+[10:34]	<gkellogg>	+1
+[10:34]	<niklasl>	+ 0.5
+[10:34]	<MarkusLanthaler>	+1
+[10:34]	<taaz>	+0
+[10:34]	<manu1>	RESOLVED: Adopt #3 (from https;//github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565 ) as the mechanism to express coercion rules in JSON-LD.
+[10:35]	<manu1>	Topic: Compact Serialization from RDFa to JSON-LD
+[10:35]	<manu1>	gkellogg: There are some related issue that would be good to get out of the way... how do we specify that a particular CURIE should have a certain datatype?
+[10:35]	<gkellogg>	"dc:date": { "@datatype": "xsd:date"}
+[10:36]	<niklasl>	q+
+[10:36]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:36]	<manu1>	gkellogg: When coming from RDF, this is important in order to generate something readable in JSON-LD.
+[10:36]	<manu1>	ack niklasl
+[10:36]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:37]	<manu1>	niklas: If you want some of the URIs to be coerced, you have to use @iri as a key in the context... if you use URIs, you impose much more on the consumer of the data anyhow... using coercion to alleviate any of the pain doesn't warrant this, really.
+[10:37]	<manu1>	niklas: You should be able to handle explicit literals in the data as well.
+[10:38]	<manu1>	gkellogg: This is really an issue when serializing - we don't want to sacrifice the compactness in being able to use the datatypes in @context... if we don't have a way to do this, we'd have to create arbitrary prefixes that are not used in order to get the datatype specification.
+[10:38]	<niklasl>	q+
+[10:38]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:38]	<manu1>	manu1: I'm not following.
+[10:39]	<manu1>	gkellogg: If we take an RDFa document and express it in JSON-LD... we have no way to define terms in RDFa - the only way to accomplish that is to manufacture terms... or make a literal with the datatypes expressed.
+[10:40]	<manu1>	gkellogg: If we look at JSON-LD vs. Microdata JSON - one advantage when expressing schema-like things, we do a better job at expressing datatype ranges.
+[10:41]	<manu1>	gkellogg: but that requires manufacturing terms for every schema property - we don't want to impose that burden on a JSON-LD author.
+[10:41]	<manu1>	ack niklasl
+[10:41]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:41]	<manu1>	niklas: I can see a certain merit in being able to do this - if we have defined a default vocab, I'd expect that we'd want to write something akin to this:
+[10:41]	<MarkusLanthaler>	q+
+[10:41]	<voip-ld>	Added MarkusLanthaler to the speaker queue: MarkusLanthaler
+[10:41]	<niklasl>	"date": {"@datatype": "xsd:date"}
+[10:41]	<niklasl>	"dc:date": { "@datatype": "xsd:date"}
+[10:42]	<niklasl>	"dc:date": { "@datatype": "xsd:date", "@iri": ...}
+[10:42]	<manu1>	niklas: In the case of using a URI, we could add a rule stating that if the term in the context is a URI, you're not allowed to use an IRI to define what the term is defined to.
+[10:42]	<manu1>	gkellogg: if it's not an NCName
+[10:42]	<manu1>	niklas: This would prevent people from re-defining URIs.
+[10:42]	<manu1>	ack MarkusLanthaler
+[10:42]	<voip-ld>	MarkusLanthaler has the floor. The speaker queue is empty.
+[10:43]	<manu1>	Markus: The disadvantage of supporting that is that - it's a term with a colon in it.
+[10:44]	<manu1>	manu1: I'm concerned that this will hurt more than it helps... it's going to look very complicated to authors.
+[10:45]	<manu1>	gkellogg: JSON-LD "lite" is everything that's in basic concepts... so, we can add a few advanced concepts.
+[10:45]	<manu1>	gkellogg: if the mandate is for JSON-LD to deal with RDF serialization, then it becomes an important feature.
+[10:45]	<MarkusLanthaler>	"foaf:homepage": { "@datatype": "@iri" }
+[10:46]	<MarkusLanthaler>	q+
+[10:46]	<voip-ld>	Added MarkusLanthaler to the speaker queue: MarkusLanthaler
+[10:46]	<MarkusLanthaler>	"foaf:homepage": { "@datatype": "@iri" }
+[10:46]	<manu1>	manu1: The reason to have this is to ensure that serializers could compact the data more easily... but at the cost of added complexity for authors attempting to understand how a context works.
+[10:46]	<manu1>	ack MarkusLanthaler
+[10:46]	<voip-ld>	MarkusLanthaler has the floor. The speaker queue is empty.
+[10:47]	<niklasl>	q+
+[10:47]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:47]	<manu1>	Markus: I don't like that I'd have to create a separate term for homepage just to say it's an IRI.
+[10:47]	<manu1>	ack niklasl
+[10:47]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:48]	<manu1>	niklasl: I think we're dealing with a lot of hypotheticals... RDF can be very dirty - lots of different types for a property - it may be that this feature doesn't actually end up helping RDF -> JSON-LD serialization. This is a case against supporting it for the general case for RDF serialization.
+[10:49]	<manu1>	niklasl: One reason we may want to support URIs in the key position in @context is to support namespaces, but that's pretty awful in JSON.
+[10:50]	<manu1>	manu1: I think that this use case may be better served by JSON-LD compaction and framing.
+[10:52]	<manu1>	gkellogg: I think automatically creating a context that allows terse expression is difficult without this feature... we could do this before with @coerce, but we can't now that we've combined everything together.
+[10:53]	<niklasl>	.. I can go for supporting "dc:date": { "@datatype": "xsd:date"} where the @iri key is disallowed, albeit it is rather advanced
+[10:54]	<manu1>	manu1: What about expanding context out... full IRI in the key position?
+[10:54]	<gkellogg>	"http://purl.org/dc/terms/date": {"@datatype": "xsd:date"}
+[10:55]	<manu1>	markus: I don't really like that approach.
+[10:56]	<niklasl>	q+
+[10:56]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:57]	<manu1>	manu1: We do this for Web Payments - we compact and reframe data coming in via RDFa - so, we haven't had the need for this feature.
+[10:58]	<manu1>	gkellogg: When serializing from RDF to JSON-LD - you want to be able to coerce without having someone pre-create terms. A CURIE makes it unambiguous and still makes it a fairly terse representation.
+[10:59]	<manu1>	niklas: I can see that supporting it - making it an advanced concept.
+[10:59]	<manu1>	manu1: Gregg, could you create an ISSUE for this and re-raise it on the mailing list? We need some more time to think about it.
+[11:00]	<gkellogg>	ACTION: Gregg to create issue on use of CURIEs and/or IRIs in context.
+[10:59]	<manu1>	Topic: ISSUE-36: Define if data in context documents is ignored
+[11:00]	<manu1>	https://github.com/json-ld/json-ld.org/issues/36
+[11:02]	<manu1>	manu1: I'm pretty sure that we already resolved this, right? We decided that we would not import the data?
+[11:02]	<manu1>	niklas: I'm for not importing the data.
+[11:02]	<manu1>	General agreement that we don't pull data in from context documents into the local document that is referencing the external context document.
+[11:04]	<manu1>	gkellogg: We should make it clear that the Compact API call can take both a JSON object as the context to use to compact, as well as an external IRI.
