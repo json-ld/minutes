@@ -1,0 +1,187 @@
+[10:03]	<manu1>	Scribe: niklasl
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0026.html
+[10:04]	<manu1>	Topic: ISSUE-8: Optimizing Compact Form
+[10:04]	<manu1>	https://github.com/json-ld/json-ld.org/issues/8
+[10:05]	<niklasl>	manu: different people believe that compact form means different things
+[10:05]	<niklasl>	manu: flags to the API allows for different ways of compacting
+[10:06]	<niklasl>	... can use context in doc or explicitly passed context to compact as much as possible
+[10:06]	<niklasl>	… people (e.g. joe presby) want something else
+[10:07]	<niklasl>	... to modify the context based on content (adding @iri coercion etc.) to get the most compact repr. possible
+[10:07]	<niklasl>	markus: that would mean that context would be modified?
+[10:07]	<gkellogg>	q+
+[10:07]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:07]	<manu1>	ack gkellogg
+[10:07]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:07]	<niklasl>	manu: yes, modified/optimized
+[10:08]	<niklasl>	gregg: do this in my impl.
+[10:08]	<niklasl>	… using prefixes… It is useful to intuit patterns which can be used in the context
+[10:09]	<niklasl>	... to detect useful patterns that can help compact the expression of the document.
+[10:09]	<niklasl>	q+
+[10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:09]	<manu1>	q+ to ask whether all compactions need to be exactly the same.
+[10:09]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:10]	<manu1>	niklasl: Haven't spent a whole lot of time looking at it, but one thought is that automatic compaction in the spec might give the impression that the various kinds of data forms are more volatile than they often are.
+[10:10]	<lanthaler>	from the current spec: Compaction is the process of taking a JSON-LD document and applying a context such that the most compact form of the document is generated. [http://json-ld.org/spec/latest/json-ld-api/#compaction]
+[10:10]	<manu1>	niklasl: I define a context and process data to intuit a good context - that's a good thing, but once I have my context, that defines the shape of my data. I will never change it once I stabilize my API.
+[10:11]	<manu1>	niklasl: Not a criticism, but not sure where in the order of importance it should be placed. There may be other things that are more important to nail down and specify than this.
+[10:11]	|<--	bergie has left freenode (Ping timeout: 240 seconds)
+[10:11]	<manu1>	niklasl: For example, the API
+[10:11]	<manu1>	ack
+[10:11]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:12]	<niklasl>	manu: agree that some things might be more important; but we're at a point where the issues have to be cleared out
+[10:12]	<niklasl>	… compaction is a fairly simple concept
+[10:12]	<niklasl>	… this is about taking that and adding some flags to control it
+[10:13]	<niklasl>	… one question is: do all processors have to do compaction in the same way?
+[10:14]	<niklasl>	… one arg: as long as triples are the same, everything's ok; counter: consumers using different processors might lead to issues
+[10:14]	<gkellogg>	q+
+[10:14]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:14]	<manu1>	ack gkellogg
+[10:14]	<voip-ld>	niklasl has the floor (to ask whether all compactions need to be exactly the same.). The next speaker is gkellogg.
+[10:14]	<manu1>	ack niklasl
+[10:14]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:14]	<manu1>	ack
+[10:14]	<niklasl>	gregg: compaction is something of a special case
+[10:15]	<niklasl>	… if you need to use JSON-LD properly, you need something like frames
+[10:15]	<niklasl>	… compaction use cases are a little more fuzzy
+[10:15]	<niklasl>	… useful to provide a representation as terse as possible
+[10:15]	<niklasl>	… variations between processors not as important
+[10:16]	<niklasl>	… good comparisons should use triples or normalized forms
+[10:16]	<taaz>	would compaction produce different structure depending on the data itself? i'm trying to think of cases where it might. that would be weird from a user standpoint.
+[10:16]	<niklasl>	manu: so you're argument is that not all processors need to compact in the same way, as long as they take the same args/flags
+[10:16]	<niklasl>	... and I agree with that approach.
+[10:17]	<niklasl>	q+
+[10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:18]	<manu1>	niklasl: Yes, I agree as well. I think that something like framing, or anchoring the data w/ a particular subject, for all but the most circular edge cases, it plays out pretty simply
+[10:18]	<manu1>	niklasl: That shape could be specified by frames or by example in documentation, it may be enough to get good use out of JSON-LD. This is why I'm less concerned about compaction in the specs.
+[10:19]	<manu1>	niklasl: I understand parts of it... what the spec includes vs. what the spec.
+[10:20]	<manu1>	manu-db: Compaction is just an API thing...
+[10:20]	<manu1>	niklasl: I only need the Syntax document... only really interested in that at that time. Could we focus on that first?
+[10:20]	<niklasl>	gregg: I don't think that we can do one without the other
+[10:21]	<niklasl>	manu: changes in the API might affect the syntax
+[10:21]	<niklasl>	… we may need to put a hint of how compaction happens
+[10:23]	<gkellogg>	q+
+[10:23]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:23]	<manu1>	ack gkellogg
+[10:23]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:23]	<manu1>	q+
+[10:23]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:23]	<niklasl>	manu: that's might be a valid way to look at it
+[10:23]	<niklasl>	gregg: JSON-LD is different; the API is part of it. Compare also framing with SPARQL..
+[10:23]	<niklasl>	… there's a danger if we separate the two
+[10:24]	<niklasl>	… changing the syntax would make the API out of date
+[10:24]	<manu1>	ack manu1
+[10:24]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:24]	<niklasl>	manu: one approach is to take a hybrid approach
+[10:25]	<niklasl>	… if the API needs a syntax change, what to do..
+[10:25]	<niklasl>	… goal: syntax really stable and API fairly stable
+[10:25]	<niklasl>	… but we should not hold up the syntax based on the normalization algorithm
+[10:25]	<niklasl>	… but when it comes to compaction, we need to go through that first
+[10:26]	<niklasl>	q+
+[10:26]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:26]	<lanthaler>	but you could still do it even if there's no specified API
+[10:26]	<niklasl>	gregg: a syntax doc that doesn't describe how to get RDF out of it would be a waste of time
+[10:26]	<manu1>	q+ to discuss that all specs should be published via the same group.
+[10:26]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:28]	<manu1>	niklasl: Worried about having RDF conversion algorithm in the API document. Rather see that one in the syntax document. Syntax is about representation of data. RDF conversion articulates that. API document uses interface definitions on how to do programmatic representation. That is going too far, I think. Lots of people like to implement JSON-LD without looking at the interface definitions....
+[10:28]	<manu1>	...Syntax document isn't enough to implement RDF conversion, you need to see the normative algorithm to do so.
+[10:28]	<manu1>	ack manu1
+[10:28]	<voip-ld>	niklasl has the floor (to discuss that all specs should be published via the same group.). The speaker queue is empty.
+[10:28]	<niklasl>	manu: the API outlines all the algorithms that you have to use
+[10:28]	<niklasl>	... defines how to process the data
+[10:29]	<niklasl>	… whichever group takes this aboard need to have these three documents
+[10:29]	<niklasl>	… it's fine to have the syntax doc a good 6 months ahead of the API
+[10:30]	<niklasl>	… it's not as this stuff hasn't been implemented
+[10:30]	<niklasl>	… we should just focus on the issues, not where they belong
+[10:31]	<gkellogg>	q+
+[10:31]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:31]	<manu1>	niklasl: We should go through the issues and discuss on the list if we need to change the order of this stuff.
+[10:32]	<niklasl>	gregg: the RDF conversion is a little different than the rest of the API things
+[10:32]	<manu1>	ack gkellogg
+[10:32]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:32]	<niklasl>	… the algorithm is separate from the API
+[10:32]	<niklasl>	... a processor not using the API should still be able to extract RDF
+[10:32]	<niklasl>	... back and forth
+[10:33]	<lanthaler>	q+
+[10:33]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:33]	<niklasl>	... we could extract that algorithm
+[10:33]	<niklasl>	niklas: I agree
+[10:33]	<manu1>	ack lanthaler
+[10:33]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:33]	<niklasl>	markus: isn't the syntax document clear on how to view JSON-LD as RDF?
+[10:34]	<niklasl>	manu: that's true, except that it's not spelled out (which is required for this to become e.g. a W3C spec)
+[10:34]	<niklasl>	gregg: no, the paragraphs in the syntax doc isn't enough
+[10:34]	<niklasl>	markus: we removed the heavy RDF-specific stuff from the syntax; it's not a good idea to add that back
+[10:35]	<niklasl>	gregg: we do have some examples using turtle. without putting the algorithm in there, we might need some informal exposition of how to though
+[10:35]	<niklasl>	manu: agree with Markus, that we did lots of work to remove the deep RDF specifics
+[10:36]	<niklasl>	... from the syntax doc
+[10:36]	<niklasl>	… back to issue 8
+[10:37]	<niklasl>	… we have fair consensus to allow processors to do compaction any way they see fit
+[10:37]	<lanthaler>	q+
+[10:37]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:37]	<niklasl>	… some common, specified flags are enough (a bunch of optimization parameters to an API call)
+[10:38]	<manu1>	ack lanthaler
+[10:38]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:38]	<niklasl>	… as far as how to to it, we leave it up to the APIs
+[10:38]	<niklasl>	markus: we shouldn't think too much about the parameters: one would be enough ('optimize')
+[10:38]	<niklasl>	manu: joe have asked us to specify how to tweak the optimization
+[10:38]	<niklasl>	… people might want to pick and choose
+[10:39]	<niklasl>	markus: it might prevent people to do more optimizations than we specifiy
+[10:39]	<niklasl>	manu: maybe go back to joe presby and ask if an optimize flag would be enough
+[10:39]	<niklasl>	… or we can have a set of optimizations and say that processors can have other options as well
+[10:40]	<niklasl>	markus: if we specify, it means we expect output from parameter settings
+[10:42]	<niklasl>	gregg: the point for the proposal is that automatic is not defined, but compaction must be done using the provided @context
+[10:43]	<manu1>	PROPOSAL: JSON-LD processors MUST implement the compaction API. The algorithm for compaction optimization is not defined. There is an 'optimize' flag that can be set to true or false to enable compaction optimization.
+[10:43]	<gkellogg>	+1
+[10:43]	<manu1>	+1
+[10:43]	<lanthaler>	+1
+[10:43]	<taaz>	+0
+[10:44]	<niklasl>	+1
+[10:47]	<niklasl>	david: if optimization is undefined, people won't know that output data to expect when optimizing
+[10:48]	<niklasl>	manu: order of json keys exemplifies lehn's concern
+[10:48]	<manu1>	RESOLVED: JSON-LD processors MUST implement the compaction API. The algorithm for compaction optimization is not defined. There is an 'optimize' flag that can be set to true or false to enable compaction optimization.
+[10:49]	<manu1>	Topic: ISSUE-14: Remove MIME type parameter option "form=framed" from spec
+[10:49]	<manu1>	https://github.com/json-ld/json-ld.org/issues/14
+[10:50]	<niklasl>	manu: it has been proposed to specify that a document is 'framed'
+[10:50]	<niklasl>	… this is different from saying that the doc is a frame; it says that the document is output from using a frame
+[10:50]	<niklasl>	… we only needed it for testing
+[10:50]	<niklasl>	markus: completely agree. it doesn't tell us anything about the document
+[10:51]	<manu1>	PROPOSAL: Remove the MIME type parameter for form="framed" from the spec.
+[10:51]	<lanthaler>	+1
+[10:51]	<niklasl>	+1
+[10:51]	<gkellogg>	+1
+[10:51]	<manu1>	+1
+[10:51]	<taaz>	+1
+[10:51]	<manu1>	RESOLVED: Remove the MIME type parameter for form="framed" from the spec.
+[10:52]	<manu1>	Topic: Are @subject and @iri redundant?
+[10:52]	<manu1>	https://github.com/json-ld/json-ld.org/issues/15
+[10:52]	* niklasl	lost sound...
+[10:53]	* gkellogg	me too
+[10:53]	* niklasl	hung up; redialing in
+[10:53]	<lanthaler>	q+
+[10:53]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:54]	* gkellogg	not able to dial back in. VOIP problems.
+[10:54]	* niklasl	gets "the server has encountered an internal server error" upon redialing
+[10:55]	<manu1>	voip: connections?
+[10:55]	<voip-ld>	Conference connections: Manu Sporny [SIP/6000-00000032], Niklas Lindström [SIP/sip2sip.info-00000031], Markus Lanthaler [SIP/sip.linphone.org-00000036], Gregg Kellogg [SIP/sip2sip.info-00000035], David I. Lehn [SIP/96.240.173.63-00000033]
+[10:55]	<manu1>	voip: disconnect 35
+[10:55]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000035) has left the conference.
+[10:55]	<manu1>	voip: disconnect 31
+[10:55]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000031) has left the conference.
+[10:55]	* gkellogg	I hung up, and can't get back in.
+[10:55]	* manu1	hmm, try again?
+[10:55]	<niklasl>	gregg: "@subject" as syntactic sugar can be accomplished by "@subject": "@iri" in the context...
+[10:55]	<manu1>	voip: connections?
+[10:55]	* gkellogg	Proxy Authentication Required?
+[10:55]	<voip-ld>	Conference connections: Manu Sporny [SIP/6000-00000032], Markus Lanthaler [SIP/sip.linphone.org-00000036], David I. Lehn [SIP/96.240.173.63-00000033]
+[10:55]	<niklasl>	niklas: I agree
+[10:55]	<niklasl>	niklas: I agree
+[10:56]	* manu1	weird... I don't know what's going on.
+[10:56]	<manu1>	Markus: @iri is not just to specify an IRI, we use it as a datatype. @iri is a special case. I don't know if it is really that clear for an author.
+[10:57]	* gkellogg	Sorry, maybe your server needs a reboot.
+[10:58]	* niklasl	same "internal server error" voice here
+[10:58]	<gkellogg>	Using @subject as semantic-sugar for @iri allows for the clarity of use, but may simplify processing.
+[10:55]	<niklasl>	Gregg and Niklas are accidentally disconnected by their VoIP provider with 5 minutes left in the telecon... the call ends. Next telecon in one week.

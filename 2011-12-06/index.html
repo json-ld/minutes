@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-12-06</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0026.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0026.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Markus Lanthaler, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: ISSUE-8: Optimizing Compact Form</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/8">https://github.com/json-ld/json-ld.org/issues/8</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  different people believe that compact form means different things</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  flags to the API allows for different ways of compacting</div>
+<div class="comment-continuation">... can use context in doc or explicitly passed context to compact as much as possible</div>
+<div class="comment-continuation">… people (e.g. joe presby) want something else</div>
+<div class="comment-continuation">... to modify the context based on content (adding @iri coercion etc.) to get the most compact repr. possible</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that would mean that context would be modified?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, modified/optimized</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  do this in my impl.</div>
+<div class="comment-continuation">… using prefixes… It is useful to intuit patterns which can be used in the context</div>
+<div class="comment-continuation">... to detect useful patterns that can help compact the expression of the document.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Haven't spent a whole lot of time looking at it, but one thought is that automatic compaction in the spec might give the impression that the various kinds of data forms are more volatile than they often are. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: from the current spec: Compaction is the process of taking a JSON-LD document and applying a context such that the most compact form of the document is generated. [<a href="http://json-ld.org/spec/latest/json-ld-api/#compaction]">http://json-ld.org/spec/latest/json-ld-api/#compaction]</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I define a context and process data to intuit a good context - that's a good thing, but once I have my context, that defines the shape of my data. I will never change it once I stabilize my API. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Not a criticism, but not sure where in the order of importance it should be placed. There may be other things that are more important to nail down and specify than this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  For example, the API [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agree that some things might be more important; but we're at a point where the issues have to be cleared out</div>
+<div class="comment-continuation">… compaction is a fairly simple concept</div>
+<div class="comment-continuation">… this is about taking that and adding some flags to control it</div>
+<div class="comment-continuation">… one question is: do all processors have to do compaction in the same way?</div>
+<div class="comment-continuation">… one arg: as long as triples are the same, everything's ok; counter: consumers using different processors might lead to issues</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  compaction is something of a special case</div>
+<div class="comment-continuation">… if you need to use JSON-LD properly, you need something like frames</div>
+<div class="comment-continuation">… compaction use cases are a little more fuzzy</div>
+<div class="comment-continuation">… useful to provide a representation as terse as possible</div>
+<div class="comment-continuation">… variations between processors not as important</div>
+<div class="comment-continuation">… good comparisons should use triples or normalized forms</div>
+<div class="comment"><span class="name">David I. Lehn</span>: would compaction produce different structure depending on the data itself? i'm trying to think of cases where it might. that would be weird from a user standpoint.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so you're argument is that not all processors need to compact in the same way, as long as they take the same args/flags</div>
+<div class="comment-continuation">... and I agree with that approach.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, I agree as well. I think that something like framing, or anchoring the data w/ a particular subject, for all but the most circular edge cases, it plays out pretty simply [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That shape could be specified by frames or by example in documentation, it may be enough to get good use out of JSON-LD. This is why I'm less concerned about compaction in the specs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I understand parts of it... what the spec includes vs. what the spec. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Compaction is just an API thing... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I only need the Syntax document... only really interested in that at that time. Could we focus on that first? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think that we can do one without the other</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  changes in the API might affect the syntax</div>
+<div class="comment-continuation">… we may need to put a hint of how compaction happens</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's might be a valid way to look at it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  JSON-LD is different; the API is part of it. Compare also framing with SPARQL..</div>
+<div class="comment-continuation">… there's a danger if we separate the two</div>
+<div class="comment-continuation">… changing the syntax would make the API out of date</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one approach is to take a hybrid approach</div>
+<div class="comment-continuation">… if the API needs a syntax change, what to do..</div>
+<div class="comment-continuation">… goal: syntax really stable and API fairly stable</div>
+<div class="comment-continuation">… but we should not hold up the syntax based on the normalization algorithm</div>
+<div class="comment-continuation">… but when it comes to compaction, we need to go through that first</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: but you could still do it even if there's no specified API</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a syntax doc that doesn't describe how to get RDF out of it would be a waste of time</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Worried about having RDF conversion algorithm in the API document. Rather see that one in the syntax document. Syntax is about representation of data. RDF conversion articulates that. API document uses interface definitions on how to do programmatic representation. That is going too far, I think. Lots of people like to implement JSON-LD without looking at the interface definitions.... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...Syntax document isn't enough to implement RDF conversion, you need to see the normative algorithm to do so.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the API outlines all the algorithms that you have to use</div>
+<div class="comment-continuation">... defines how to process the data</div>
+<div class="comment-continuation">… whichever group takes this aboard need to have these three documents</div>
+<div class="comment-continuation">… it's fine to have the syntax doc a good 6 months ahead of the API</div>
+<div class="comment-continuation">… it's not as this stuff hasn't been implemented</div>
+<div class="comment-continuation">… we should just focus on the issues, not where they belong</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We should go through the issues and discuss on the list if we need to change the order of this stuff. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the RDF conversion is a little different than the rest of the API things</div>
+<div class="comment-continuation">… the algorithm is separate from the API</div>
+<div class="comment-continuation">... a processor not using the API should still be able to extract RDF</div>
+<div class="comment-continuation">... back and forth</div>
+<div class="comment-continuation">... we could extract that algorithm</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  isn't the syntax document clear on how to view JSON-LD as RDF?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's true, except that it's not spelled out (which is required for this to become e.g. a W3C spec)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  no, the paragraphs in the syntax doc isn't enough</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we removed the heavy RDF-specific stuff from the syntax; it's not a good idea to add that back</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we do have some examples using turtle. without putting the algorithm in there, we might need some informal exposition of how to though</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agree with Markus, that we did lots of work to remove the deep RDF specifics</div>
+<div class="comment-continuation">... from the syntax doc</div>
+<div class="comment-continuation">… back to issue 8</div>
+<div class="comment-continuation">… we have fair consensus to allow processors to do compaction any way they see fit</div>
+<div class="comment-continuation">… some common, specified flags are enough (a bunch of optimization parameters to an API call)</div>
+<div class="comment-continuation">… as far as how to to it, we leave it up to the APIs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we shouldn't think too much about the parameters: one would be enough ('optimize')</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  joe have asked us to specify how to tweak the optimization</div>
+<div class="comment-continuation">… people might want to pick and choose</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it might prevent people to do more optimizations than we specifiy</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  maybe go back to joe presby and ask if an optimize flag would be enough</div>
+<div class="comment-continuation">… or we can have a set of optimizations and say that processors can have other options as well</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we specify, it means we expect output from parameter settings</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the point for the proposal is that automatic is not defined, but compaction must be done using the provided @context</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  JSON-LD processors MUST implement the compaction API. The algorithm for compaction optimization is not defined. There is an 'optimize' flag that can be set to true or false to enable compaction optimization.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  if optimization is undefined, people won't know that output data to expect when optimizing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  order of json keys exemplifies lehn's concern</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  JSON-LD processors MUST implement the compaction API. The algorithm for compaction optimization is not defined. There is an 'optimize' flag that can be set to true or false to enable compaction optimization.</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-14: Remove MIME type parameter option "form=framed" from spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/14">https://github.com/json-ld/json-ld.org/issues/14</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it has been proposed to specify that a document is 'framed'</div>
+<div class="comment-continuation">… this is different from saying that the doc is a frame; it says that the document is output from using a frame</div>
+<div class="comment-continuation">… we only needed it for testing</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  completely agree. it doesn't tell us anything about the document</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Remove the MIME type parameter for form="framed" from the spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Remove the MIME type parameter for form="framed" from the spec.</div>
+<h1 id=topic-3 class="topic">Topic: Are @subject and @iri redundant?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/15">https://github.com/json-ld/json-ld.org/issues/15</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  "@subject" as syntactic sugar can be accomplished by "@subject": "@iri" in the context...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @iri is not just to specify an IRI, we use it as a datatype. @iri is a special case. I don't know if it is really that clear for an author. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Using @subject as semantic-sugar for @iri allows for the clarity of use, but may simplify processing.</div>
+<div class="information">Gregg and Niklas are accidentally disconnected by their VoIP provider with 5 minutes left in the telecon... the call ends. Next telecon in one week.</div>
+</body>
+</html>
