@@ -1,0 +1,241 @@
+[10:01]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000043) is in the conference.
+[10:01]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000043) has joined the conference.
+[10:01]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000044) has joined the conference.
+[10:01]	<voip-ld>	Manu Sporny (SIP/6000-00000045) has joined the conference.
+[10:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000046) has joined the conference.
+[10:02]	<voip-ld>	David I. Lehn (SIP/74.107.160.46-00000047) has joined the conference.
+[10:03]	<manu1>	Scribe: lanthaler
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0034.html
+[10:05]	<manu1>	Topic: Reducing the number of keywords in JSON-LD
+[10:05]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0037.html
+[10:05]	<lanthaler>	manu: let's take a little time to talk about this email
+[10:06]	<manu1>	Markus: Basically, I went through the entire spec and looked at all of the keywords that we currently define. Without considering framing, we have 10 keywords, some of them are redundant and others don't necessarily provide functionality that are required.
+[10:07]	<manu1>	Markus: For example, @subject and @iri are redundant - @iri is kind of a special case, we use it as a datatype in the @context.
+[10:07]	<manu1>	Markus: We use @iri to specify a datatype for coercion.
+[10:07]	<manu1>	Markus: The same applies to @list
+[10:08]	<manu1>	Markus: They're a bit different from all of the other keywords in JSON-LD...
+[10:09]	<manu1>	Markus: @datatype and @type are subtly different in JSON-LD (for an average developer). In RDF, it matters... that may be why people with more RDF background don't want to merge them together. Others like @language and @literal usage is very clear...
+[10:10]	<manu1>	Markus: @base and @vocab don't have very clear use cases - that is, they make reading the JSON-LD more difficult because they have to keep 3 base URIs in their head. Base URI of the document, @base, and @vocab... hard to keep all of those in your head, maybe it would be better to be more explicit.
+[10:10]	<manu1>	Markus: Gets worse when you include external contexts... makes debugging more complex.
+[10:10]	<manu1>	Markus: There is a proposal to drop @base and @vocab... you could use prefixes if you need those types of things. I tried to remove keywords w/o losing any functionality. In the end we could go from 10 keywords to just 6.
+[10:11]	<manu1>	Markus: Even with 6 keywords, we don't lose any functionality.
+[10:11]	<manu1>	Markus: In some cases, it makes it even easier. Some people may be confused with having two concepts @datatype vs. @type - if they don't have an RDF background, they don't understand the difference. People w/o a RDF background will be using JSON-LD - they probably don't care about RDF.
+[10:12]	<gkellogg>	q+
+[10:12]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:12]	<niklasl>	q+
+[10:12]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:12]	<lanthaler>	gregg: I'm not sure if we can drop @base
+[10:13]	<lanthaler>	gregg: it might be necessary to describe something without needing to care where the document came from
+[10:13]	<lanthaler>	gregg: @vocab could be eliminated and we could use an empty prefix instead
+[10:14]	<lanthaler>	gregg: looking at the rest.. I could see merging @type and @datatype
+[10:14]	<lanthaler>	gregg: I would eliminate @datatype instead of @type
+[10:14]	<manu1>	ack gkellogg
+[10:14]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:14]	<manu1>	ack niklasl
+[10:14]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:14]	<lanthaler>	niklas: I'm simpathetic to the ideal that Markus proposed
+[10:15]	<lanthaler>	niklas: but in reality it's difficult to find a simple form
+[10:15]	<lanthaler>	niklas: I agree that @base is important for cases where you wanna use relative IRIs independent of where the document is stored
+[10:16]	<lanthaler>	niklas: if we allow relative IRIs I believe we should allow @base as well
+[10:16]	<lanthaler>	niklas: alternative would be to have absolute IRIs everywhere
+[10:17]	<lanthaler>	niklas: to @datype and @type.. I'm trying to support it but the biggest problem I have with it is that in practice they don't have the same value space
+[10:17]	<lanthaler>	niklas: so they are distinct concepts
+[10:18]	<lanthaler>	niklas: if we where to merge them we couldn't extract statistics e.g. which types/datatypes are used
+[10:18]	<lanthaler>	niklas: it's not impossible to work around it but it's a potential problem
+[10:18]	<manu1>	q+
+[10:18]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:19]	<manu1>	ack manu1
+[10:19]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:19]	<lanthaler>	manu: I was actually against of changing alot
+[10:20]	<lanthaler>	manu: but I think the part of Markus' argumentation that convinced me was trying to simplify JSON-LD especially for people without RDF background
+[10:20]	<lanthaler>	manu: I don't see using absolute IRIs or prefixes everywhere as being a bad thing
+[10:21]	<lanthaler>	manu: Alexandre posted an example with @base but it took me about 15 seconds to figure out what was meant
+[10:21]	<lanthaler>	manu: that makes it much more difficult for people with less involvement in JSON-LD
+[10:22]	<lanthaler>	manu: in XML it was a necessary evil
+[10:22]	<lanthaler>	manu: because a lot of editing was done manually
+[10:22]	<lanthaler>	manu: JSON-LD is different since large parts are machine-generated
+[10:23]	<lanthaler>	manu: what convinced me most was Markus' argument that we should make it as simple as possible without losing functionality
+[10:23]	<lanthaler>	manu: this doesn't have to be a final decision though
+[10:23]	<lanthaler>	manu: we can always add in @vocab, e.g., at a later point in time
+[10:24]	<niklasl>	q+
+[10:24]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:24]	<manu1>	ack niklasl
+[10:24]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:24]	<lanthaler>	niklas: I think that's a good point.. let's try to reduce it
+[10:24]	<manu1>	Topic: ISSUE-15: Are @subject and @iri redundant?
+[10:24]	<manu1>	https://github.com/json-ld/json-ld.org/issues/15
+[10:25]	<lanthaler>	manu: is there anyone who thinks it's a bad idea to merge them?
+[10:25]	<gkellogg>	q+
+[10:25]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:26]	<manu1>	ack gkellogg
+[10:26]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:26]	<lanthaler>	manu: my only concern is that people might get confused whether something is just a IRI or the subject
+[10:26]	<lanthaler>	gregg: the only thing is that IRI is very specific
+[10:27]	<lanthaler>	gregg: so it might be better to choose a better term
+[10:27]	<lanthaler>	gregg: e.g. @id
+[10:28]	<niklasl>	… @itemid? (ducks and covers) ;D
+[10:28]	* manu1	grins at niklasl.
+[10:29]	<lanthaler>	markus: so you would coerce a foaf:homepage to @id?
+[10:29]	<lanthaler>	gregg: yes
+[10:29]	<taaz>	we could get rid of naming issues and just move back to "@" which we started with :)
+[10:29]	<niklasl>	q+
+[10:29]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:29]	<lanthaler>	manu: the other reason for this is that a lot of people don't know what an IRI is
+[10:30]	<manu1>	ack niklasl
+[10:30]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:30]	<lanthaler>	niklas: I'm almost in favour of @id
+[10:30]	<lanthaler>	niklas: maybe also something longer such as @resourceid
+[10:31]	<manu1>	PROPOSAL: Use the same keyword for the concepts of @subject and @iri.
+[10:31]	<manu1>	+1
+[10:31]	<gkellogg>	+1
+[10:31]	<lanthaler>	+1
+[10:31]	<niklasl>	+1
+[10:32]	<taaz>	+1
+[10:32]	<manu1>	RESOLVED: Use the same keyword for the concepts of @subject and @iri.
+[10:32]	<taaz>	fwiw, i think dlongley really should be voting on this stuff too since he knows alot about the implementation issues
+[10:32]	<manu1>	PROPOSAL: Use the keyword '@id' for the combined concept of @subject and @iri.
+[10:32]	<gkellogg>	+1
+[10:33]	<manu1>	+1
+[10:33]	<taaz>	+1
+[10:34]	<lanthaler>	+1
+[10:34]	<niklasl>	+0.5
+[10:34]	<lanthaler>	Markus: the only thing I don't really like is that we are using @id in coercion then...
+[10:34]	<manu1>	RESOLVED: Use the keyword '@id' for the combined concept of @subject and @iri.
+[10:36]	<manu1>	Topic: ISSUE-26: Drop @base and @vocab
+[10:36]	<manu1>	https://github.com/json-ld/json-ld.org/issues/26
+[10:36]	<lanthaler>	manu: I would be in favour of doing but dropping @vocab makes me nervous because of schema.org
+[10:36]	<niklasl>	q+
+[10:37]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:37]	<manu1>	ack niklasl
+[10:37]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:37]	<lanthaler>	niklas: I believe I'm in the same position as you
+[10:37]	<lanthaler>	niklas: we can use absolute IRIs everywhere or a "base" prefix as Markus suggested
+[10:40]	<manu1>	q+ to distinguish the difference between @base and @vocab.
+[10:40]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:40]	<manu1>	ack manu1
+[10:40]	<voip-ld>	manu1 has the floor (to distinguish the difference between @base and @vocab.). The speaker queue is empty.
+[10:40]	<gkellogg>	q+
+[10:40]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:42]	<lanthaler>	manu: that is exactly the problem since it is very difficult to understand how an IRI is expanded.. what's the precencende if there's @vocab and a defined term
+[10:43]	<lanthaler>	manu: my concern about @vocab was always "what if someone would like to use schema.org"
+[10:43]	<manu1>	ack gkellogg
+[10:43]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:43]	<niklasl>	q+
+[10:43]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:43]	<lanthaler>	gregg: would propose to drop both and specify that IRIs are absolute
+[10:44]	<lanthaler>	gregg: regarding the use of empty prefixes: it's not a promoted use case but if relax how terms are specified we could allow empty terms e.g.
+[10:45]	<manu1>	ack niklasl
+[10:45]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:45]	<lanthaler>	niklas: I could try to discard @vocab as well
+[10:45]	<lanthaler>	niklas: my favourite use was to reduce the size of the context
+[10:46]	<lanthaler>	q+
+[10:46]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:46]	<lanthaler>	niklas: my context would grow quite a bit if we drop it
+[10:46]	<manu1>	ack lanthaler
+[10:46]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:47]	<manu1>	Markus: Why should the context grow if we use @vocab? You could just use a prefix, right?
+[10:47]	<manu1>	Markus: You have to add the prefix to your whole JSON-LD document, so that might grow a bit.
+[10:47]	<manu1>	Niklas: Yes, you could do that...
+[10:48]	<gkellogg>	Q+
+[10:49]	<lanthaler>	gregg: we might need to have a better definition of what a term is
+[10:49]	<lanthaler>	manu: do we need this for this issue
+[10:49]	<lanthaler>	gregg: we might need it to get a similarly terse representation if we drop @base and @vocab
+[10:50]	<gkellogg>	ACTION: gkellogg to create issue to expand on the lexical range of term identifiers
+[10:50]	<manu1>	PROPOSAL: Drop support for @base.
+[10:50]	<manu1>	+1
+[10:50]	<taaz>	+0
+[10:50]	<lanthaler>	+1
+[10:50]	<gkellogg>	+1
+[10:50]	<niklasl>	+0.5
+[10:51]	<manu1>	RESOLVED: Drop support for @base.
+[10:51]	<manu1>	PROPOSAL: Drop support for @vocab.
+[10:51]	<manu1>	+1
+[10:51]	<gkellogg>	+1
+[10:51]	<niklasl>	+0.5
+[10:51]	<lanthaler>	+1
+[10:51]	<taaz>	+0
+[10:51]	<manu1>	RESOLVED: Drop support for @vocab.
+[10:51]	<niklasl>	q+
+[10:51]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:52]	<manu1>	ack niklasl
+[10:52]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:53]	<lanthaler>	niklas: should we add a note on the spec that they existed and they might come back
+[10:53]	<lanthaler>	niklas: or that prefixes are they way to replace them
+[10:53]	<lanthaler>	manu: I agree
+[10:53]	<manu1>	Topic: ISSUE-31: Merge @type and @datatype
+[10:53]	<niklasl>	q+
+[10:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:53]	<lanthaler>	manu: are there any arguments against doing this?
+[10:53]	<manu1>	ack niklasl
+[10:53]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:54]	<lanthaler>	niklas: the value spaces are different
+[10:54]	<manu1>	q+ to discuss value spaces.
+[10:54]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:54]	<lanthaler>	niklas: this is my real problem
+[10:55]	<gkellogg>	q+
+[10:55]	<voip-ld>	Added gkellogg to the speaker queue: manu1, gkellogg
+[10:55]	<lanthaler>	niklas: or just drop @type because you could also do it yourself with RDF
+[10:55]	<manu1>	ack manu1
+[10:55]	<voip-ld>	manu1 has the floor (to discuss value spaces.). The next speaker is gkellogg.
+[10:55]	<lanthaler>	manu: I agree there are different value spaces
+[10:56]	<lanthaler>	manu: but there are not many developers knowing or caring about thi
+[10:57]	<lanthaler>	manu: I think we think that @type is more important than it is actually in practice
+[10:57]	<niklasl>	.. example of facets from json-ld in our system: http://service.demo.lagrummet.se/-/publ;stats
+[10:57]	<manu1>	ack gkellogg
+[10:57]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:57]	<lanthaler>	manu: I think we don't need to make a distinction at the language level
+[10:57]	<lanthaler>	gregg: there's the danger that people conflate these two
+[10:58]	<lanthaler>	gregg: even though @type is not necessary (in RDF) it makes it much easier to understand
+[10:59]	<lanthaler>	q+
+[10:59]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:59]	<manu1>	ack lanthaler
+[10:59]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[11:00]	<manu1>	Markus: Even if we keep them different, people need to know that they're different. The names are so similar that JSON developers probably will not understand the difference. You define the type of a variable the same way.
+[11:00]	<niklasl>	q+
+[11:00]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:00]	<manu1>	Markus: I don't think we can argue that we reduce the amount of invalid data that is created by having two different keywords. I'd argue that we increase the problem because people might put @datatype in the wrong place vs. @type.
+[11:01]	<manu1>	gkellogg: That is a persuasive argument.
+[11:01]	<manu1>	ack niklasl
+[11:01]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:03]	<manu1>	q+ to discuss the mental model of RDF vs. JSON-LD.
+[11:03]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[11:03]	<manu1>	ack manu1
+[11:03]	<voip-ld>	manu1 has the floor (to discuss the mental model of RDF vs. JSON-LD.). The speaker queue is empty.
+[11:04]	<lanthaler>	manu: I see that difference is because of the way RDF is modeled
+[11:05]	<lanthaler>	manu: if you think of a graph and a literal being a node in that graph there's not really a difference there
+[11:05]	<lanthaler>	manu: Niklas, I buy the argument in an RDF model but I don't buy the argument in an general graph model
+[11:06]	<lanthaler>	manu: I don't think JSON developers will have much issues regarding the value space
+[11:06]	<gkellogg>	"2011-12-13"^^xsd;date => [ rdf;value "2011-12-13"; a xsd:date ]
+[11:07]	<lanthaler>	niklas: the thing that makes me nervous is that we have an extraction of types (link posted before) and I can't work around it
+[11:08]	<lanthaler>	q+
+[11:08]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[11:08]	<gkellogg>	q+
+[11:08]	<voip-ld>	Added gkellogg to the speaker queue: lanthaler, gkellogg
+[11:08]	<manu1>	ack lanthaler
+[11:08]	<voip-ld>	lanthaler has the floor. The next speaker is gkellogg.
+[11:09]	<lanthaler>	{ "@literal": ...", "@datatype": "..." }
+[11:11]	<manu1>	ack gkellogg
+[11:11]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[11:12]	<manu1>	Markus: Looking at your example Niklas, is there a solution if we merge @type and @datatype?
+[11:12]	<lanthaler>	gregg: I think that's more a problem in RDF because you can't add a type to a literal
+[11:12]	<manu1>	Niklas: Yes, I think so... although, it's not as clean as it would be if we had @type and @datatype
+[11:12]	<niklasl>	q+
+[11:12]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:14]	<manu1>	ack niklasl
+[11:14]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:14]	<manu1>	PROPOSAL: Merge @datatype keyword with @type - @type will be used to specify both rdf:type for nodes and literal datatypes.
+[11:14]	<manu1>	+1
+[11:14]	<lanthaler>	+1
+[11:14]	<gkellogg>	+1
+[11:14]	<taaz>	+1
+[11:14]	<niklasl>	+0.5
+[11:14]	<manu1>	RESOLVED: Merge @datatype keyword with @type - @type will be used to specify both rdf:type for nodes and literal datatypes.
+[11:15]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000043) has left the conference.
+[11:15]	<voip-ld>	Manu Sporny (SIP/6000-00000045) has left the conference.
+[11:15]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000046) has left the conference.
+[11:15]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000044) has left the conference.
+[11:15]	<voip-ld>	David I. Lehn (SIP/74.107.160.46-00000047) has left the conference.
+[11:15]	<manu1>	voip: connections?
+[11:15]	<voip-ld>	There are currently no conference connections.
+[11:15]	<manu1>	voip: self-destruct
+[11:15]	|<--	voip-ld has left freenode (Quit: Auuugh! *booooom*)

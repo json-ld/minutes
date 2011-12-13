@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-12-13</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0034.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0034.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: Reducing the number of keywords in JSON-LD</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0037.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0037.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's take a little time to talk about this email</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Basically, I went through the entire spec and looked at all of the keywords that we currently define. Without considering framing, we have 10 keywords, some of them are redundant and others don't necessarily provide functionality that are required. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  For example, @subject and @iri are redundant - @iri is kind of a special case, we use it as a datatype in the @context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We use @iri to specify a datatype for coercion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The same applies to @list [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  They're a bit different from all of the other keywords in JSON-LD... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @datatype and @type are subtly different in JSON-LD (for an average developer). In RDF, it matters... that may be why people with more RDF background don't want to merge them together. Others like @language and @literal usage is very clear... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @base and @vocab don't have very clear use cases - that is, they make reading the JSON-LD more difficult because they have to keep 3 base URIs in their head. Base URI of the document, @base, and @vocab... hard to keep all of those in your head, maybe it would be better to be more explicit. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gets worse when you include external contexts... makes debugging more complex. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There is a proposal to drop @base and @vocab... you could use prefixes if you need those types of things. I tried to remove keywords w/o losing any functionality. In the end we could go from 10 keywords to just 6. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Even with 6 keywords, we don't lose any functionality. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In some cases, it makes it even easier. Some people may be confused with having two concepts @datatype vs. @type - if they don't have an RDF background, they don't understand the difference. People w/o a RDF background will be using JSON-LD - they probably don't care about RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm not sure if we can drop @base</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it might be necessary to describe something without needing to care where the document came from</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @vocab could be eliminated and we could use an empty prefix instead</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  looking at the rest.. I could see merging @type and @datatype</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I would eliminate @datatype instead of @type</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm simpathetic to the ideal that Markus proposed</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  but in reality it's difficult to find a simple form</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree that @base is important for cases where you wanna use relative IRIs independent of where the document is stored</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if we allow relative IRIs I believe we should allow @base as well</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  alternative would be to have absolute IRIs everywhere</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  to @datype and @type.. I'm trying to support it but the biggest problem I have with it is that in practice they don't have the same value space</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  so they are distinct concepts</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if we where to merge them we couldn't extract statistics e.g. which types/datatypes are used</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it's not impossible to work around it but it's a potential problem</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I was actually against of changing alot</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but I think the part of Markus' argumentation that convinced me was trying to simplify JSON-LD especially for people without RDF background</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't see using absolute IRIs or prefixes everywhere as being a bad thing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Alexandre posted an example with @base but it took me about 15 seconds to figure out what was meant</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that makes it much more difficult for people with less involvement in JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in XML it was a necessary evil</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  because a lot of editing was done manually</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-LD is different since large parts are machine-generated</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what convinced me most was Markus' argument that we should make it as simple as possible without losing functionality</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this doesn't have to be a final decision though</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can always add in @vocab, e.g., at a later point in time</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that's a good point.. let's try to reduce it</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-15: Are @subject and @iri redundant?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/15">https://github.com/json-ld/json-ld.org/issues/15</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is there anyone who thinks it's a bad idea to merge them?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  my only concern is that people might get confused whether something is just a IRI or the subject</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the only thing is that IRI is very specific</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so it might be better to choose a better term</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  e.g. @id</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … @itemid? (ducks and covers) ;D</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so you would coerce a foaf:homepage to @id?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes</div>
+<div class="comment"><span class="name">David I. Lehn</span>: we could get rid of naming issues and just move back to "@" which we started with :)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other reason for this is that a lot of people don't know what an IRI is</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm almost in favour of @id</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  maybe also something longer such as @resourceid</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Use the same keyword for the concepts of @subject and @iri.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Use the same keyword for the concepts of @subject and @iri.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: fwiw, i think dlongley really should be voting on this stuff too since he knows alot about the implementation issues</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Use the keyword '@id' for the combined concept of @subject and @iri.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the only thing I don't really like is that we are using @id in coercion then...</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Use the keyword '@id' for the combined concept of @subject and @iri.</div>
+<h1 id=topic-3 class="topic">Topic: ISSUE-26: Drop @base and @vocab</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/26">https://github.com/json-ld/json-ld.org/issues/26</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I would be in favour of doing but dropping @vocab makes me nervous because of schema.org</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I believe I'm in the same position as you</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we can use absolute IRIs everywhere or a "base" prefix as Markus suggested</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that is exactly the problem since it is very difficult to understand how an IRI is expanded.. what's the precencende if there's @vocab and a defined term</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  my concern about @vocab was always "what if someone would like to use schema.org"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  would propose to drop both and specify that IRIs are absolute</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  regarding the use of empty prefixes: it's not a promoted use case but if relax how terms are specified we could allow empty terms e.g.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I could try to discard @vocab as well</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  my favourite use was to reduce the size of the context</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  my context would grow quite a bit if we drop it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why should the context grow if we use @vocab? You could just use a prefix, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You have to add the prefix to your whole JSON-LD document, so that might grow a bit. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, you could do that... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we might need to have a better definition of what a term is</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we need this for this issue</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we might need it to get a similarly terse representation if we drop @base and @vocab</div>
+<div id=action-1 class="action">ACTION: gkellogg to create issue to expand on the lexical range of term identifiers</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Drop support for @base.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Drop support for @base.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Drop support for @vocab.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Drop support for @vocab.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  should we add a note on the spec that they existed and they might come back</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  or that prefixes are they way to replace them</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree</div>
+<h1 id=topic-4 class="topic">Topic: ISSUE-31: Merge @type and @datatype</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  are there any arguments against doing this?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the value spaces are different</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this is my real problem</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  or just drop @type because you could also do it yourself with RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree there are different value spaces</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but there are not many developers knowing or caring about thi</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we think that @type is more important than it is actually in practice</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. example of facets from json-ld in our system: <a href="http://service.demo.lagrummet.se/-/publ;stats">http://service.demo.lagrummet.se/-/publ;stats</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we don't need to make a distinction at the language level</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's the danger that people conflate these two</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  even though @type is not necessary (in RDF) it makes it much easier to understand</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Even if we keep them different, people need to know that they're different. The names are so similar that JSON developers probably will not understand the difference. You define the type of a variable the same way. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think we can argue that we reduce the amount of invalid data that is created by having two different keywords. I'd argue that we increase the problem because people might put @datatype in the wrong place vs. @type. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That is a persuasive argument. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I see that difference is because of the way RDF is modeled</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you think of a graph and a literal being a node in that graph there's not really a difference there</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas, I buy the argument in an RDF model but I don't buy the argument in an general graph model</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think JSON developers will have much issues regarding the value space</div>
+<div class="error">Error: (IRC nickname not recognized)[11:06]	&lt;gkellogg&gt;	"2011-12-13"^^xsd;date =&gt; [ rdf;value "2011-12-13"; a xsd:date ]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the thing that makes me nervous is that we have an extraction of types (link posted before) and I can't work around it</div>
+<div class="information">{ "@literal": ...", "@datatype": "..." }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Looking at your example Niklas, is there a solution if we merge @type and @datatype? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that's more a problem in RDF because you can't add a type to a literal</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, I think so... although, it's not as clean as it would be if we had @type and @datatype [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Merge @datatype keyword with @type - @type will be used to specify both rdf</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Merge @datatype keyword with @type - @type will be used to specify both rdf</div>
+</body>
+</html>
