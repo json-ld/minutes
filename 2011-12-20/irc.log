@@ -1,0 +1,280 @@
+[10:03]	<manu1>	scribe: taaz
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0043.html
+[10:05]	<taaz>	manu1: add to agenda disucssion of recent updates
+[10:05]	<manu1>	Topic: Updates to JSON-LD implementations
+[10:05]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0055.html
+[10:05]	<taaz>	manu1: add case sensitivity issue
+[10:06]	<manu1>	http://json-ld.org/playground/
+[10:06]	<taaz>	manu1: Dave Longley updated all the implementations based on recent decisions. playground updated.
+[10:06]	<taaz>	manu1: has context modifications for @id, @type, coerce rules
+[10:07]	<niklasl>	q+
+[10:07]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:07]	<taaz>	manu1: dave said due to less keywords need to do more work to figure out what you are dealing with. but it worked out.
+[10:10]	<taaz>	niklasl: removing vocob had some issues. added 30% size to context.
+[10:10]	<manu1>	s/niklasl/markus/
+[10:10]	<taaz>	(oops, sorry)
+[10:11]	<lanthaler>	no, it wasn't me.. niklas was talking
+[10:11]	<taaz>	heh
+[10:11]	<manu1>	ack niklasl
+[10:11]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:12]	<manu1>	Topic: Case sensitivity in JSON-LD
+[10:12]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/45
+[10:13]	<taaz>	lanthaler: issue is various keywords (type, id, etc) as case sensitive or not. feedback on mailing list was for case sensitive. everyone seems to agree now.
+[10:14]	<manu1>	PROPOSAL: JSON-LD is case-sensitive.
+[10:14]	<taaz>	+1
+[10:14]	<manu1>	+1
+[10:14]	<niklasl>	+1
+[10:14]	<lanthaler>	+1
+[10:14]	<manu1>	RESOLVED: JSON-LD is case-sensitive.
+[10:14]	<manu1>	Topic: ISSUE-16: Linking Instance Documents and Context Documents
+[10:14]	<manu1>	https://github.com/json-ld/json-ld.org/issues/16
+[10:15]	<taaz>	lanthaler: http has header parms for link headers and mime type params. could use this for data or context documents.
+[10:15]	<taaz>	lanthaler: currently not supported, not clear if it is needed
+[10:16]	<taaz>	lanthaler: may want to link to context document for plain json documents
+[10:16]	<niklasl>	q+
+[10:16]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:16]	<taaz>	lanthaler: issue with breaking json clients due to mime type changes to ld+json
+[10:16]	<manu1>	q+
+[10:16]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:17]	<manu1>	ack manu1
+[10:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:17]	<taaz>	manu1: against out-of-band data. helpful, but may not use it.
+[10:17]	<taaz>	manu1: more comfortable with link header than changing mime type with content type
+[10:18]	<taaz>	manu1: not sure if content type is required. may want to make that a SHOULD vs MUST to deal with client handling issue.
+[10:18]	<niklasl>	q+
+[10:18]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:19]	<taaz>	manu1: where should this processing happen? should it be at application layer? application can look at header and perform context retrieval and insertion into document.
+[10:19]	<taaz>	niklasl: should look at traditional json documents and json-ld docs
+[10:20]	<niklasl>	s/niklasl/markus/
+[10:20]	<niklasl>	;)
+[10:20]	<taaz>	(heh, sorry!)
+[10:20]	<taaz>	lanthaler: might not know how to handle docs without mimetype hints
+[10:21]	<taaz>	manu1: think should leave at application level more likely to have access to http headers
+[10:22]	<taaz>	lanthaler: shouldn't require json-ld processors to look at headers.
+[10:23]	<taaz>	manu1: another issue is if rel="describedby" is the proper value
+[10:23]	<lanthaler>	http://www.iana.org/assignments/link-relations/link-relations.xml
+[10:23]	<lanthaler>	describedby: "Refers to a resource providing information about the link's context."
+[10:24]	<taaz>	niklasl: could be put in a "publishing json-ld" section. give optional advice to users.
+[10:24]	<taaz>	niklasl: still want to use json mime type but may want to add semantic context via http headers
+[10:25]	<taaz>	manu1: described by looks like proper relation
+[10:26]	<manu1>	PROPOSAL: Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.
+[10:26]	<manu1>	+1
+[10:26]	<niklasl>	+1
+[10:26]	<lanthaler>	+1
+[10:26]	<taaz>	+1
+[10:26]	<manu1>	RESOLVED: Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.
+[10:28]	<taaz>	taaz: does describedby conflict with other uses?
+[10:28]	<lanthaler>	Link: <http://www.example.com/context.jsonld>; rel="describedby"; type="application/ld+json";
+[10:28]	<taaz>	due to mimetype uses it should be ok
+[10:28]	<lanthaler>	no
+[10:28]	<manu1>	PROPOSAL: The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".
+[10:28]	<niklasl>	+1
+[10:28]	<manu1>	+1
+[10:28]	<lanthaler>	+1
+[10:28]	<taaz>	+1
+[10:28]	<manu1>	RESOLVED: The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".
+[10:28]	<niklasl>	.. regarding describedby and json schema, look at section for of: http://tools.ietf.org/html/draft-zyp-json-schema-03
+[10:29]	<niklasl>	.. they recommend one of two approaches: "A MIME type parameter named "profile" or a relation of "describedby" (which could be defined by a Link header)"
+[10:31]	<taaz>	what happens if you have context in document and a header link?
+[10:34]	<manu1>	PROPOSAL: A JSON-LD document MUST NOT be published with a Link header using the "describedby" publishing pattern.
+[10:34]	<manu1>	PROPOSAL: A JSON-LD document SHOULD NOT be published with a Link header using the "describedby" publishing pattern.
+[10:35]	<manu1>	PROPOSAL: A JSON-LD document MUST have all context information required for processing within the body of the document.
+[10:35]	<manu1>	+1
+[10:35]	<lanthaler>	+1
+[10:35]	<niklasl>	+1
+[10:36]	<taaz>	+1
+[10:36]	<manu1>	RESOLVED: A JSON-LD document MUST have all context information required for processing within the body of the document.
+[10:37]	<taaz>	taaz: how to resolve multiple contexts issue?
+[10:38]	<manu1>	Topic: ISSUE-41: IRI expansion within @context
+[10:38]	<taaz>	manu1: if json-ld then use context in doc
+[10:38]	<manu1>	https://github.com/json-ld/json-ld.org/issues/41
+[10:38]	<taaz>	manu1: if json, then use header info if available
+[10:38]	<lanthaler>	Greggs email to this issue: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0049.html
+[10:39]	<niklasl>	q+
+[10:39]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:40]	<taaz>	manu1: previously didn't want a multi-pass algorithm. moving towards multi-pass
+[10:41]	<taaz>	manu1: will allow definition of, say, xsd in the context to describe other keys in the same context
+[10:42]	<manu1>	ack niklasl
+[10:42]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[10:42]	<taaz>	manu1: latest implementations support prefixes used everywhere. issue making sure not to define http
+[10:42]	<manu1>	ack niklasl
+[10:42]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:43]	<taaz>	niklasl: looks supported already. may have issues with recursion.
+[10:43]	<lanthaler>	s/niklasl/markus
+[10:43]	<lanthaler>	:-P
+[10:44]	<taaz>	(i give up)
+[10:45]	<manu1>	PROPOSAL: IRI expansion should work in @context for prefixes used on the right-hand side of prefix declarations, including @type and @id.
+[10:48]	<lanthaler>	playground also supports terms on the right-hand side: http://bit.ly/suonUG
+[10:48]	<lanthaler>	look at dateTime
+[10:48]	<niklasl>	.. we should support: {"title": "dc:title", "dc": "http://purl.org/dc/terms/"} but not: {"title": "dc:title", "dc": "base:terms/", "base": "http://purl.org/dc/"}
+[10:48]	<taaz>	... discusion on proposal .. multi pass to handle terms and prefixes
+[10:50]	<taaz>	niklasl: this example could require recusrive algorithm
+[10:51]	<taaz>	manu1: current js code in playground only does one level, not recursive
+[10:51]	<lanthaler>	dirty PHP code supporting the recursive expansion: https://github.com/lanthaler/JSON-LD-experiments/blob/master/context-coerce-merge.php
+[10:53]	<niklasl>	.. as long as I can use: {"created": {"@iri": "dc:created", "@type": "xsd:date"}, "dc": "http://purl.org/dc/terms/", "xsd:" "http://...#"} I'm happy.
+[10:58]	<taaz>	.. back and forth discussion on recursion issues and resolving prefixes
+[10:59]	<manu1>	PROPOSAL: IRI expansion should work in @context for prefixes used on the right-hand side of prefix declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.
+[10:59]	<niklasl>	+1
+[10:59]	<manu1>	+1
+[10:59]	<taaz>	+1
+[10:59]	<lanthaler>	+1
+[10:59]	<taaz>	(i'd like more input from dave and/or gregg on this)
+[11:00]	<lanthaler>	In JSON-LD, a context is used to map terms, i.e., keys and values in an JSON document, to IRIs. A term is a short word that may be expanded to an IRI.
+[11:00]	<lanthaler>	...
+[11:01]	<niklasl>	… {"created": {"@iri": "dc:created", "@type": "date"}, "dc": "http://purl.org/dc/terms/", "date": "xsd:date", "xsd:" "http://...#"} ?
+[11:02]	<taaz>	s/@iri/@id/! :)
+[11:03]	<manu1>	RESOLVED: IRI expansion should work in @context for prefixes and terms used on the right-hand side of prefix/term declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.
+[11:03]	<lanthaler>	+1
+[11:03]	<niklasl>	+1
+[11:03]	<manu1>	Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys
+[11:04]	<manu1>	https://github.com/json-ld/json-ld.org/issues/43
+[11:05]	<manu1>	PROPOSAL: Allow IRI expansion to operate in @context for prefixes on the left-hand side of prefix declarations. The IRI expansion mechanism SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.
+[11:05]	<manu1>	+1
+[11:05]	<niklasl>	+1
+[11:07]	<niklasl>	… {"foaf:birthday": {"@coerce": "xsd:date"}} sort of becomes {"foaf:birthday": {@id: "foaf:birthday", @coerce": "xsd:date"}}
+[11:08]	<niklasl>	… (provided that foaf is already defined)
+[11:10]	<taaz>	(gregg had a comment on this too)
+[11:10]	<taaz>	postpone ISSUE-43 to mailing list and later discussion
+[11:11]	<taaz>	next telecon Jan 10, 2012[10:03]	<manu1>	scribe: taaz
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0043.html
+[10:05]	<taaz>	manu1: add to agenda disucssion of recent updates
+[10:05]	<manu1>	Topic: Updates to JSON-LD implementations
+[10:05]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0055.html
+[10:05]	<taaz>	manu1: add case sensitivity issue
+[10:06]	<manu1>	http://json-ld.org/playground/
+[10:06]	<taaz>	manu1: Dave Longley updated all the implementations based on recent decisions. playground updated.
+[10:06]	<taaz>	manu1: has context modifications for @id, @type, coerce rules
+[10:07]	<niklasl>	q+
+[10:07]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:07]	<taaz>	manu1: dave said due to less keywords need to do more work to figure out what you are dealing with. but it worked out.
+[10:10]	<taaz>	niklasl: removing vocob had some issues. added 30% size to context.
+[10:10]	<manu1>	s/niklasl/markus/
+[10:10]	<taaz>	(oops, sorry)
+[10:11]	<lanthaler>	no, it wasn't me.. niklas was talking
+[10:11]	<taaz>	heh
+[10:11]	<manu1>	ack niklasl
+[10:11]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:12]	<manu1>	Topic: Case sensitivity in JSON-LD
+[10:12]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/45
+[10:13]	<taaz>	lanthaler: issue is various keywords (type, id, etc) as case sensitive or not. feedback on mailing list was for case sensitive. everyone seems to agree now.
+[10:14]	<manu1>	PROPOSAL: JSON-LD is case-sensitive.
+[10:14]	<taaz>	+1
+[10:14]	<manu1>	+1
+[10:14]	<niklasl>	+1
+[10:14]	<lanthaler>	+1
+[10:14]	<manu1>	RESOLVED: JSON-LD is case-sensitive.
+[10:14]	<manu1>	Topic: ISSUE-16: Linking Instance Documents and Context Documents
+[10:14]	<manu1>	https://github.com/json-ld/json-ld.org/issues/16
+[10:15]	<taaz>	lanthaler: http has header parms for link headers and mime type params. could use this for data or context documents.
+[10:15]	<taaz>	lanthaler: currently not supported, not clear if it is needed
+[10:16]	<taaz>	lanthaler: may want to link to context document for plain json documents
+[10:16]	<niklasl>	q+
+[10:16]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:16]	<taaz>	lanthaler: issue with breaking json clients due to mime type changes to ld+json
+[10:16]	<manu1>	q+
+[10:16]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:17]	<manu1>	ack manu1
+[10:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:17]	<taaz>	manu1: against out-of-band data. helpful, but may not use it.
+[10:17]	<taaz>	manu1: more comfortable with link header than changing mime type with content type
+[10:18]	<taaz>	manu1: not sure if content type is required. may want to make that a SHOULD vs MUST to deal with client handling issue.
+[10:18]	<niklasl>	q+
+[10:18]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:19]	<taaz>	manu1: where should this processing happen? should it be at application layer? application can look at header and perform context retrieval and insertion into document.
+[10:19]	<taaz>	niklasl: should look at traditional json documents and json-ld docs
+[10:20]	<niklasl>	s/niklasl/markus/
+[10:20]	<niklasl>	;)
+[10:20]	<taaz>	(heh, sorry!)
+[10:20]	<taaz>	lanthaler: might not know how to handle docs without mimetype hints
+[10:21]	<taaz>	manu1: think should leave at application level more likely to have access to http headers
+[10:22]	<taaz>	lanthaler: shouldn't require json-ld processors to look at headers.
+[10:23]	<taaz>	manu1: another issue is if rel="describedby" is the proper value
+[10:23]	<lanthaler>	http://www.iana.org/assignments/link-relations/link-relations.xml
+[10:23]	<lanthaler>	describedby: "Refers to a resource providing information about the link's context."
+[10:24]	<taaz>	niklasl: could be put in a "publishing json-ld" section. give optional advice to users.
+[10:24]	<taaz>	niklasl: still want to use json mime type but may want to add semantic context via http headers
+[10:25]	<taaz>	manu1: described by looks like proper relation
+[10:26]	<manu1>	PROPOSAL: Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.
+[10:26]	<manu1>	+1
+[10:26]	<niklasl>	+1
+[10:26]	<lanthaler>	+1
+[10:26]	<taaz>	+1
+[10:26]	<manu1>	RESOLVED: Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.
+[10:28]	<taaz>	taaz: does describedby conflict with other uses?
+[10:28]	<lanthaler>	Link: <http://www.example.com/context.jsonld>; rel="describedby"; type="application/ld+json";
+[10:28]	<taaz>	due to mimetype uses it should be ok
+[10:28]	<lanthaler>	no
+[10:28]	<manu1>	PROPOSAL: The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".
+[10:28]	<niklasl>	+1
+[10:28]	<manu1>	+1
+[10:28]	<lanthaler>	+1
+[10:28]	<taaz>	+1
+[10:28]	<manu1>	RESOLVED: The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".
+[10:28]	<niklasl>	.. regarding describedby and json schema, look at section for of: http://tools.ietf.org/html/draft-zyp-json-schema-03
+[10:29]	<niklasl>	.. they recommend one of two approaches: "A MIME type parameter named "profile" or a relation of "describedby" (which could be defined by a Link header)"
+[10:31]	<taaz>	what happens if you have context in document and a header link?
+[10:34]	<manu1>	PROPOSAL: A JSON-LD document MUST NOT be published with a Link header using the "describedby" publishing pattern.
+[10:34]	<manu1>	PROPOSAL: A JSON-LD document SHOULD NOT be published with a Link header using the "describedby" publishing pattern.
+[10:35]	<manu1>	PROPOSAL: A JSON-LD document MUST have all context information required for processing within the body of the document.
+[10:35]	<manu1>	+1
+[10:35]	<lanthaler>	+1
+[10:35]	<niklasl>	+1
+[10:36]	<taaz>	+1
+[10:36]	<manu1>	RESOLVED: A JSON-LD document MUST have all context information required for processing within the body of the document.
+[10:37]	<taaz>	taaz: how to resolve multiple contexts issue?
+[10:38]	<manu1>	Topic: ISSUE-41: IRI expansion within @context
+[10:38]	<taaz>	manu1: if json-ld then use context in doc
+[10:38]	<manu1>	https://github.com/json-ld/json-ld.org/issues/41
+[10:38]	<taaz>	manu1: if json, then use header info if available
+[10:38]	<lanthaler>	Greggs email to this issue: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0049.html
+[10:39]	<niklasl>	q+
+[10:39]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:40]	<taaz>	manu1: previously didn't want a multi-pass algorithm. moving towards multi-pass
+[10:41]	<taaz>	manu1: will allow definition of, say, xsd in the context to describe other keys in the same context
+[10:42]	<manu1>	ack niklasl
+[10:42]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[10:42]	<taaz>	manu1: latest implementations support prefixes used everywhere. issue making sure not to define http
+[10:42]	<manu1>	ack niklasl
+[10:42]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:43]	<taaz>	niklasl: looks supported already. may have issues with recursion.
+[10:43]	<lanthaler>	s/niklasl/markus
+[10:43]	<lanthaler>	:-P
+[10:44]	<taaz>	(i give up)
+[10:45]	<manu1>	PROPOSAL: IRI expansion should work in @context for prefixes used on the right-hand side of prefix declarations, including @type and @id.
+[10:48]	<lanthaler>	playground also supports terms on the right-hand side: http://bit.ly/suonUG
+[10:48]	<lanthaler>	look at dateTime
+[10:48]	<niklasl>	.. we should support: {"title": "dc:title", "dc": "http://purl.org/dc/terms/"} but not: {"title": "dc:title", "dc": "base:terms/", "base": "http://purl.org/dc/"}
+[10:48]	<taaz>	... discusion on proposal .. multi pass to handle terms and prefixes
+[10:50]	<taaz>	niklasl: this example could require recusrive algorithm
+[10:51]	<taaz>	manu1: current js code in playground only does one level, not recursive
+[10:51]	<lanthaler>	dirty PHP code supporting the recursive expansion: https://github.com/lanthaler/JSON-LD-experiments/blob/master/context-coerce-merge.php
+[10:53]	<niklasl>	.. as long as I can use: {"created": {"@iri": "dc:created", "@type": "xsd:date"}, "dc": "http://purl.org/dc/terms/", "xsd:" "http://...#"} I'm happy.
+[10:58]	<taaz>	.. back and forth discussion on recursion issues and resolving prefixes
+[10:59]	<manu1>	PROPOSAL: IRI expansion should work in @context for prefixes used on the right-hand side of prefix declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.
+[10:59]	<niklasl>	+1
+[10:59]	<manu1>	+1
+[10:59]	<taaz>	+1
+[10:59]	<lanthaler>	+1
+[10:59]	<taaz>	(i'd like more input from dave and/or gregg on this)
+[11:00]	<lanthaler>	In JSON-LD, a context is used to map terms, i.e., keys and values in an JSON document, to IRIs. A term is a short word that may be expanded to an IRI.
+[11:00]	<lanthaler>	...
+[11:01]	<niklasl>	… {"created": {"@iri": "dc:created", "@type": "date"}, "dc": "http://purl.org/dc/terms/", "date": "xsd:date", "xsd:" "http://...#"} ?
+[11:02]	<taaz>	s/@iri/@id/! :)
+[11:03]	<manu1>	RESOLVED: IRI expansion should work in @context for prefixes and terms used on the right-hand side of prefix/term declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.
+[11:03]	<lanthaler>	+1
+[11:03]	<niklasl>	+1
+[11:03]	<manu1>	Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys
+[11:04]	<manu1>	https://github.com/json-ld/json-ld.org/issues/43
+[11:05]	<manu1>	PROPOSAL: Allow IRI expansion to operate in @context for prefixes on the left-hand side of prefix declarations. The IRI expansion mechanism SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.
+[11:05]	<manu1>	+1
+[11:05]	<niklasl>	+1
+[11:07]	<niklasl>	… {"foaf:birthday": {"@coerce": "xsd:date"}} sort of becomes {"foaf:birthday": {@id: "foaf:birthday", @coerce": "xsd:date"}}
+[11:08]	<niklasl>	… (provided that foaf is already defined)
+[11:10]	<taaz>	(gregg had a comment on this too)
+[11:10]	<taaz>	postpone ISSUE-43 to mailing list and later discussion
+[11:11]	<taaz>	next telecon Jan 10, 2012
+
