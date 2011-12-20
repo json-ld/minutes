@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2011-12-20</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0043.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0043.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>David I. Lehn</dd>
+<dt>Present</dt><dd>David I. Lehn, Manu Sporny, Niklas Lindström, Markus Lanthaler</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">David I. Lehn is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  add to agenda discussion of recent updates</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  add case sensitivity issue</div>
+<h1 id=topic-1 class="topic">Topic: Updates to JSON-LD implementations</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0055.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0055.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/playground/">http://json-ld.org/playground/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley updated all the implementations based on recent decisions. playground updated.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  has context modifications for @id, @type, coerce rules</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  dave said due to less keywords need to do more work to figure out what you are dealing with. but it worked out in a deterministic way.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  removing vocob had some issues. added 30% size to context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  vocab removed, needed to generate context from schema with many terms. added heuristics for conversion. used experimental features to get data to be datatype coerced or multiple object properties.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  getting rid of vocab didn't have a negative effect?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes. Might want to revisit introducing vocab in the future. Might be able to remove @id from terms. Ivan did JSON-LD output from RDFa 1.1 extractor. Everything there could be represented with this changes apart from vocab.</div>
+<h1 id=topic-2 class="topic">Topic: Case sensitivity in JSON-LD</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/45">https://github.com/json-ld/json-ld.org/issues/45</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  issue is various keywords (type, id, etc) as case sensitive or not. feedback on mailing list was for case sensitive. everyone seems to agree now.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  JSON-LD is case-sensitive.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  JSON-LD is case-sensitive.</div>
+<h1 id=topic-3 class="topic">Topic: ISSUE-16: Linking Instance Documents and Context Documents</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/16">https://github.com/json-ld/json-ld.org/issues/16</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  http has header parms for link headers and mime type params. could use this for data or context documents.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  currently not supported, not clear if it is needed</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  may want to link to context document for plain json documents</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  issue with breaking json clients due to mime type changes to ld+json</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  against out-of-band data. helpful, but may not use it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  more comfortable with link header than changing mime type with content type</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not sure if content type is required. may want to make that a SHOULD vs MUST to deal with client handling issue.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  where should this processing happen? should it be at application layer? application can look at header and perform context retrieval and insertion into document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  should look at traditional json documents and json-ld docs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  might not know how to handle docs without mimetype hints</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  think should leave at application level more likely to have access to http headers</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  shouldn't require json-ld processors to look at headers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  another issue is if rel="describedby" is the proper value</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.iana.org/assignments/link-relations/link-relations.xml">http://www.iana.org/assignments/link-relations/link-relations.xml</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: describedby: "Refers to a resource providing information about the link's context."</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  could be put in a "publishing json-ld" section. give optional mechanism and advice to users.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  still want to use json mime type but may want to add semantic context via http headers</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  described by looks like proper relation</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  does describedby conflict with other uses?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Link: &lt;<a href="http://www.example.com/context.jsonld&gt;;">http://www.example.com/context.jsonld&gt;;</a> rel="describedby"; type="application/ld+json";</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  due to mimetype uses it should be ok</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: no</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. regarding describedby and json schema, look at section for of: <a href="http://tools.ietf.org/html/draft-zyp-json-schema-03">http://tools.ietf.org/html/draft-zyp-json-schema-03</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. they recommend one of two approaches: "A MIME type parameter named "profile" or a relation of "describedby" (which could be defined by a Link header)"</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  what happens if you have context in document and a header link?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  A JSON-LD document MUST NOT be published with a Link header using the "describedby" publishing pattern.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  A JSON-LD document SHOULD NOT be published with a Link header using the "describedby" publishing pattern.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  A JSON-LD document MUST have all context information required for processing within the body of the document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  A JSON-LD document MUST have all context information required for processing within the body of the document.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  how to resolve multiple contexts issue?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if json-ld then use context in doc, ignore header.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if json, then use context in doc if found else use header info</div>
+<h1 id=topic-4 class="topic">Topic: ISSUE-41: IRI expansion within @context</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/41">https://github.com/json-ld/json-ld.org/issues/41</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Greggs email to this issue: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0049.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0049.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  previously didn't want a multi-pass algorithm. moving towards multi-pass</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  will allow definition of, say, xsd in the context to describe other keys in the same context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  latest implementations support prefixes used everywhere. issue making sure not to define http</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  looks supported already. may have issues with recursion.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  IRI expansion should work in @context for prefixes used on the right-hand side of prefix declarations, including @type and @id.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: playground also supports terms on the right-hand side: <a href="http://bit.ly/suonUG">http://bit.ly/suonUG</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: look at dateTime</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. we should support: {"title": "dc:title", "dc": "<a href="http://purl.org/dc/terms/"}">http://purl.org/dc/terms/"}</a> but not: {"title": "dc:title", "dc": "base:terms/", "base": "http://purl.org/dc/"}</div>
+<div class="comment-continuation">... discusion on proposal .. multi pass to handle terms and prefixes</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this example could require recusrive algorithm</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  current js code in playground only does one level, not recursive</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dirty PHP code supporting the recursive expansion: <a href="https://github.com/lanthaler/JSON-LD-experiments/blob/master/context-coerce-merge.php">https://github.com/lanthaler/JSON-LD-experiments/blob/master/context-coerce-merge.php</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. as long as I can use: {"created": {"@iri": "dc:created", "@type": "xsd:date"}, "dc": "<a href="http://purl.org/dc/terms/",">http://purl.org/dc/terms/",</a> "xsd:" "http://...#"} I'm happy.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  may be denial of service attack due to recursion</div>
+<div class="information">can be solved with limits</div>
+<div class="information">back and forth discussion on recursion issues and resolving prefixes.  recursive algorithm may be more flexible and easier to teach.  issues with complexity and may require cycle limits.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  IRI expansion should work in @context for prefixes used on the right-hand side of prefix declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  (i'd like more input from dave and/or gregg on this)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: In JSON-LD, a context is used to map terms, i.e., keys and values in an JSON document, to IRIs. A term is a short word that may be expanded to an IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … {"created": {"@iri": "dc:created", "@type": "date"}, "dc": "<a href="http://purl.org/dc/terms/",">http://purl.org/dc/terms/",</a> "date": "xsd:date", "xsd:" "http://...#"} ?</div>
+<div class="information">s/@iri/@id/! :)</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  IRI expansion should work in @context for prefixes and terms used on the right-hand side of prefix/term declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<h1 id=topic-5 class="topic">Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/43">https://github.com/json-ld/json-ld.org/issues/43</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Allow IRI expansion to operate in @context for prefixes on the left-hand side of prefix declarations. The IRI expansion mechanism SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … {"foaf:birthday": {"@coerce": "xsd:date"}} sort of becomes {"foaf:birthday": {@id: "foaf:birthday", @coerce": "xsd:date"}}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … (provided that foaf is already defined)</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  (gregg had a comment on this issue too)</div>
+<div class="information">discussion on tricky details of the issue.</div>
+<div class="information">postpone ISSUE-43 to mailing list and later discussion</div>
+<div class="information">next telecon Jan 10, 2012</div>
+</body>
+</html>
