@@ -1,0 +1,238 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0001.html
+[10:02]	<gkellogg>	q+
+[10:02]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:02]	<niklasl>	q+
+[10:02]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:03]	<manu1>	ack gkellogg
+[10:03]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:03]	<manu1>	scribe: manu1
+[10:03]	<manu1>	Topic: Specs and Test Suite Update
+[10:03]	<manu1>	Gregg: In terms of Editors Drafts - we should push out another version of the specs.
+[10:03]	<manu1>	Gregg: I think we're close to stability w/ the syntax - main thing on the board is changing @literal to @value.
+[10:03]	<manu1>	Gregg: Other than that, we may be converging on the syntax.
+[10:04]	<manu1>	Niklas: I finally got around to adding support for JSON-LD in RDFExtras... complementary lib to RDFLIB in Python... doesn't bring any news issues today, but am getting a feel for the details of the spec.
+[10:04]	<niklasl>	http://code.google.com/p/rdfextras/source/browse/?name=jsonld#hg%2Frdfextras
+[10:04]	<manu1>	Niklas: I did notice that the tests are a bit strange, changed SPARQL to TURTLE examples... I do back-and-forth conversion - may want to look into that.
+[10:05]	<manu1>	Gregg: Is this in the source repository?
+[10:05]	<manu1>	Niklas: Not yet.
+[10:06]	<manu1>	Manu: Test suite looks great... we will probably keep using that... you have to implement a test runner for it?
+[10:06]	<niklasl>	q+
+[10:06]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:07]	<manu1>	Gregg: Yes, one caveat is that you need SPARQL to do some comparisons... we could turn it into normalized JSON and just compare that.
+[10:07]	<manu1>	ack niklasl
+[10:07]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:07]	<manu1>	ack
+[10:07]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:08]	<manu1>	Gregg: SPARQL is only used for RDF conversion tests...
+[10:09]	<manu1>	Gregg: You could go from JSON-LD - RDF - JSON-LD - normalize and compare that, but that's a bit complicated.
+[10:09]	<niklasl>	q+
+[10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:09]	<manu1>	Manu: Do you know if the JavaScript SPARQL implementations are fairly complete?
+[10:09]	<manu1>	ack
+[10:09]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:09]	<manu1>	Gregg: Haven't had the time to look in depth.
+[10:10]	<manu1>	Niklas: Parsing JSON-LD then serializing to normalized JSON structure is complex... you don't really know where in that chain those things fail. SPARQL implementations are quite complex as well... perhaps we should look into RDF triple set comparison. There is a fairly understandable implemention of it in RDF lib.
+[10:11]	<manu1>	Gregg: I have one of those in Ruby as well... doing Jeremy Carroll's algorithm is not simple. It's important to have - triple comparison is simple to do... understandable why you can't do that for RDFa... but for JSON-LD, that may be possible.
+[10:11]	<manu1>	Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys
+[10:12]	<manu1>	https://github.com/json-ld/json-ld.org/issues/43
+[10:12]	<manu1>	Gregg: The issue is that if you are serializing from RDF into JSON-LD, where you have namespaces, but you don't have terms, you can easily create CURIEs, but you'd also like to have the full coercion expressivity.
+[10:13]	<manu1>	Gregg: For example, you want to be able to say that a property is a certain datatype...
+[10:14]	<manu1>	Gregg: In my implementation, anything that can be an IRI in the key position in the context can be a CURIE or an IRI... that allows you to do useful things, where terms can have coercion properties.
+[10:15]	<lanthaler>	q+
+[10:15]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:15]	<manu1>	Manu: Spoke with Dave Longley about it, he's for it. So am I, seems like a useful feature.
+[10:15]	<manu1>	Markus: You could have several definitions for the same term... you could have 3 different URIs for the same term and 3 different datatypes - we'd have to specify how to merge those different definitions together.
+[10:16]	<manu1>	Gregg: my table is defined w/ IRIs as keys, so this can't happen.
+[10:16]	<manu1>	Gregg: I think that if you end up setting a term to a different IRI, the algorithms won't invoke that mapping.
+[10:17]	<niklasl>	q+
+[10:17]	<voip-ld>	Added niklasl to the speaker queue: lanthaler, niklasl
+[10:17]	<manu1>	Gregg: If we split the key on a colon, you look up the prefix... you get the IRI... if it is an IRI or CURIE, you just get the term part of it.
+[10:17]	<manu1>	ack
+[10:17]	<voip-ld>	lanthaler has the floor. The next speaker is niklasl.
+[10:17]	<manu1>	ack
+[10:17]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:18]	<manu1>	Markus: Nevertheless, if you have two URIs defined, you have to figure out how to set them.
+[10:18]	<manu1>	q+
+[10:18]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:18]	<niklasl>	q+
+[10:18]	<voip-ld>	Added niklasl to the speaker queue: manu1, niklasl
+[10:18]	<manu1>	Gregg: I don't know if we want to specify the behavior...
+[10:19]	<manu1>	Niklas: I think there might be a problem here, one thing that strikes me is that we probably should that there is a precedence rule... there should probably be the possibility to define two different terms for the same IRI, but with different coercions.
+[10:20]	<manu1>	ack niklasl
+[10:20]	<voip-ld>	manu1 has the floor. The next speaker is niklasl.
+[10:20]	<manu1>	ack
+[10:20]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:20]	<manu1>	q+
+[10:20]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:22]	<lanthaler>	q+
+[10:22]	<voip-ld>	Added lanthaler to the speaker queue: manu1, lanthaler
+[10:22]	<manu1>	ack manu1
+[10:22]	<voip-ld>	manu1 has the floor. The next speaker is lanthaler.
+[10:23]	<manu1>	Manu: I think we should kick out an error if somebody tries to set an IRI w/ the CURIE mechanism.
+[10:23]	<niklasl>	q+
+[10:23]	<voip-ld>	Added niklasl to the speaker queue: manu1, niklasl
+[10:23]	<manu1>	ack
+[10:23]	<voip-ld>	manu1 has the floor. The next speaker is niklasl.
+[10:23]	<gkellogg>	q+
+[10:23]	<voip-ld>	Added gkellogg to the speaker queue: manu1, gkellogg
+[10:24]	<manu1>	Niklas: I think that's fine.
+[10:24]	<manu1>	ack
+[10:24]	<voip-ld>	manu1 has the floor. The next speaker is gkellogg.
+[10:24]	<lanthaler>	q+
+[10:24]	<voip-ld>	Added lanthaler to the speaker queue: manu1, lanthaler
+[10:25]	<manu1>	Niklas: I think that we should expand CURIEs in context quickly.
+[10:25]	<manu1>	Gregg: I agree that the only time an @id should be set is when it's used as a term.
+[10:26]	<manu1>	Gregg: We should say that coercions map to the expanded version of the terms... that is what is used when we do coercion.
+[10:26]	<manu1>	ack
+[10:26]	<manu1>	ack
+[10:26]	<voip-ld>	manu1 has the floor. The next speaker is lanthaler.
+[10:26]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:26]	<manu1>	Markus: If you do that on an expanded IRI, it would prevent the use of two different terms with two different datatypes.
+[10:28]	<manu1>	Markus: This is mainly for when you generate JSON-LD from RDF... when you automatically serialize RDF, you don't know if every property will use the same datatype.
+[10:29]	<lanthaler>	q+
+[10:29]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:29]	<manu1>	q+
+[10:29]	<voip-ld>	Added manu1 to the speaker queue: lanthaler, manu1
+[10:30]	<manu1>	Discussion about how the @context is built when processing terms and CURIEs
+[10:31]	<manu1>	ack lanthaler
+[10:31]	<voip-ld>	lanthaler has the floor. The next speaker is manu1.
+[10:31]	<manu1>	ack
+[10:31]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:31]	<niklasl>	q+
+[10:31]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:31]	<manu1>	Markus: The only good use case for this is when you convert from RDF to JSON-LD... it's arguable if you need this type of optimization. Do we need this feature, not that trivial to implement this feature?
+[10:32]	<manu1>	ack niklasl
+[10:32]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:32]	<gkellogg>	q+
+[10:32]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:32]	<manu1>	Niklas: I kind of agree with Markus - I think that when you're automatically serializing RDF and you use prefixes for one... coercing the values for one feels half-baked to me.
+[10:33]	<manu1>	Niklas: I'm a bit wary of it... in RDF, you can have all kinds of values for a certain property - you could have one value which is a language-tagged value, something else that is an xsd:string, something else that is a dateTime.
+[10:33]	<manu1>	Niklas: I prefer to defer this, but would like to hear Gregg's use cases on this.
+[10:34]	<manu1>	Gregg: There are a number of cases where this may be useful - it avoids a great deal of work where you're describing things in a context. Cases for doing coercion of CURIEs are focused on converting RDF to JSON-LD - my processor creates conversion rules when they lead to a net reduction in size.
+[10:35]	<manu1>	Gregg: For example, if all dc:created are dates, then I can compress the document.
+[10:36]	<manu1>	Markus: The context is about defining terms and prefixes.
+[10:37]	<manu1>	Gregg: I think that it's natural that people will try this - author's will do this, no good reason not to support the use case.
+[10:37]	<manu1>	PROPOSAL: Allow CURIEs as @context keys.
+[10:37]	<manu1>	+0.5
+[10:37]	<gkellogg>	+1
+[10:37]	<niklasl>	+0.1
+[10:37]	<lanthaler>	-0.5
+[10:38]	<taaz>	+0.5
+[10:38]	<niklasl>	q+
+[10:38]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:38]	<manu1>	ack
+[10:38]	<manu1>	ack
+[10:38]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:38]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:38]	<manu1>	Manu: Let's kick this back to the mailing list... Gregg, could you do a concrete proposal on this?
+[10:39]	<manu1>	Niklas: I remember seeing an experiment in JSON with using prefixes, not from this community, but they were using something like CURIEs.
+[10:39]	<manu1>	Niklas: So, it might be useful...
+[10:40]	<manu1>	Topic: ISSUE-48: Rename @literal to @value
+[10:40]	<manu1>	https://github.com/json-ld/json-ld.org/issues/48
+[10:41]	<manu1>	Markus: Fairly trivial change - rename @literal to @value... @literal is coming from an RDF background and most developers are more familiar with the term 'value' than they are with 'literal' - because a 'literal' could also be numbers.
+[10:41]	<gkellogg>	q+
+[10:41]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:41]	<manu1>	Markus: @value would be better for developers - it would make it easier to understand for developers.
+[10:42]	<niklasl>	q+
+[10:42]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:42]	<manu1>	Gregg: I think that literals are a common term in most programming environments... they mean something different from value - values have both simple and complex data structures... literals imply something that is not a structured element itself. integers, strings, dates - scalar might be a better term?
+[10:42]	<manu1>	Niklas: The thing is that you have the value and the datatype... literal is the result of that thing.
+[10:42]	<manu1>	Markus: Yes, literal is the combination of the datatype and the thing that we need to name... value could work.
+[10:43]	<manu1>	Markus: Lexical representation... lexical, string, may work.
+[10:43]	<manu1>	Markus: @value is just a token anyway...
+[10:44]	<gkellogg>	q+
+[10:44]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg, niklasl, gkellogg
+[10:44]	<manu1>	ack
+[10:44]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:44]	<manu1>	ack
+[10:44]	<voip-ld>	gkellogg has the floor. The next speaker is gkellogg.
+[10:44]	<manu1>	ack
+[10:44]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:45]	<manu1>	Manu: Dave Longley is in favor of @value, so am I. It resonates more with Web developers than @literal.
+[10:45]	<manu1>	Gregg: I think RDF people might like @value more... @value might work on a number of different communities.
+[10:45]	<manu1>	PROPOSAL: Rename the @literal keyword to @value.
+[10:46]	<manu1>	+1
+[10:46]	<niklasl>	+1
+[10:46]	<gkellogg>	+1
+[10:46]	<lanthaler>	+1
+[10:46]	<taaz>	+1
+[10:46]	<manu1>	RESOLVED: Rename the @literal keyword to @value.
+[10:46]	<manu1>	Topic: ISSUE-42: Distinguishing a JSON-LD frame from a JSON-LD document
+[10:46]	<manu1>	https://github.com/json-ld/json-ld.org/issues/42
+[10:48]	<niklasl>	q+
+[10:48]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:49]	<gkellogg>	q+
+[10:49]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:50]	<manu1>	Manu: JSON-LD frames are not JSON-LD documents... we may want to just make them regular JSON objects.
+[10:50]	<manu1>	Niklas: Has anybody thought about using the @frame keyword in a JSON-LD document?
+[10:51]	<manu1>	Niklas: I may want to publish frames... they would constitute documentation for me... in those scenarios, I think that @frame would be helpful in those scenarios.
+[10:51]	<manu1>	ack
+[10:51]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:51]	<manu1>	Niklas: If we're worried that people look at frames and confuse them with instance documents, we may want to add @frame.
+[10:51]	<manu1>	ack
+[10:51]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:52]	<manu1>	Gregg: I think we went through the same discussion with @context... so we decided that @context documents start with a @context key.
+[10:52]	<manu1>	Gregg: if we are going to have a data structure that has a frame, we're inevitably going to need to get that data from an IRI.
+[10:53]	<manu1>	Gregg: I don't have a way to express a frame inline, very effectively. The fact that the document is part of JSON-LD does argue that they should have something that has a JSON-LD MIMEType...
+[10:53]	<lanthaler>	q+
+[10:53]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:53]	<manu1>	Gregg: This is very symmetric with the way we deal with @context.
+[10:54]	<manu1>	Markus: I don't think that frames are the same as @context... they are quite different in my opinion. You include the @context directly in a JSON-LD document, you'd never do that with a frame. The Frame is a distinct concept, separate from the document.
+[10:54]	<manu1>	Markus: The cleanest solution would be to create a new MIMEType for JSON-LD frames.
+[10:56]	<lanthaler>	Frames are kind of a query language for JSON-LD
+[10:56]	<niklasl>	q+
+[10:56]	<voip-ld>	Added niklasl to the speaker queue: lanthaler, niklasl
+[10:56]	<manu1>	ack lanthaler
+[10:56]	<voip-ld>	lanthaler has the floor. The next speaker is niklasl.
+[10:57]	<manu1>	Niklas: I'm a bit wary about MIMEType proliferation... people screw it up in usage... people are more prone to look at a document and think it looks like JSON-LD, than look at the MIMEType.
+[10:58]	<manu1>	Niklas: We may want to specify @frame to make it explicit.. @frame should not be in the JSON-LD spec... it should be in the API spec.
+[11:02]	<niklasl>	q+
+[11:02]	<voip-ld>	Added niklasl to the speaker queue: lanthaler, niklasl
+[11:02]	<lanthaler>	q+
+[11:02]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler, niklasl, lanthaler
+[11:02]	<manu1>	ack
+[11:02]	<voip-ld>	lanthaler has the floor. The next speaker is niklasl.
+[11:02]	<manu1>	Manu: There are two issues here - follow-your-nose and helping newbies recognize the difference between a JSON-LD document and a JSON-LD frame. The first problem is addressed by creating a MIMEType for frames. We don't know if adding @frame will address the second problem. In the worse case, we add frame and newbies still think it's a JSON-LD document and not a JSON-LD frame. We may not even want a new MIMEType because nobody looks at those, like Niklas said. JSON-LD frames don't look like JSON-LD documents, really.
+[11:03]	<gkellogg>	q+
+[11:03]	<voip-ld>	Added gkellogg to the speaker queue: lanthaler, lanthaler, gkellogg
+[11:03]	<manu1>	Markus: Yes, but not having a MIMEType prevents people from doing things like having different icons, using different editor's for frames, etc.
+[11:03]	<manu1>	ack
+[11:03]	<manu1>	ack
+[11:04]	<voip-ld>	lanthaler has the floor. The next speaker is lanthaler.
+[11:04]	<voip-ld>	lanthaler has the floor. The next speaker is gkellogg.
+[11:04]	<manu1>	Niklas: I still think that JSON-LD frames look very much like JSON-LD documents.
+[11:04]	<lanthaler>	q+
+[11:04]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler, lanthaler
+[11:04]	<manu1>	Gregg: I think that just using a plain JSON document fails the follow-your-nose test... it needs to be a JSON-LD frame MIMETYPE or a subtype of JSON-LD document
+[11:04]	<manu1>	ack
+[11:04]	<voip-ld>	lanthaler has the floor. The next speaker is lanthaler.
+[11:05]	<manu1>	Gregg: There is some danger of making it too much like a JSON-LD document, but the contents are explained in the spec. You can clearly find out the meaning of that by looking at the specification.
+[11:09]	<niklasl>	q+
+[11:09]	<voip-ld>	Added niklasl to the speaker queue: lanthaler, niklasl
+[11:10]	<manu1>	ack
+[11:10]	<voip-ld>	lanthaler has the floor. The next speaker is niklasl.
+[11:10]	<manu1>	Long discussion about whether or not @frame would solve the problem of confused developers - fair arguments that it would and wouldn't.
+[11:11]	<niklasl>	Look at the library example - the frame looks exactly like a JSON-LD document: http://json-ld.org/playground/playground-examples.js
+[11:11]	<lanthaler>	q+
+[11:11]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler, lanthaler
+[11:11]	<manu1>	ack
+[11:11]	<manu1>	ack
+[11:11]	<voip-ld>	lanthaler has the floor. The next speaker is lanthaler.
+[11:11]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[11:13]	<lanthaler>	We could put the @frame beside the @context? (a) { "@frame": { "@context": "....", "query": "..." } vs. (b) { "@context": "....", "@frame": "query..." }
+[11:14]	<manu1>	ack
+[11:14]	<manu1>	ack
+[11:15]	<manu1>	Manu: Let's straw-poll to see if we want to support a MIMEType for JSON-LD frames...
+[11:15]	<manu1>	PROPOSAL: JSON-LD frames should have a MIMEType, which is distinct from JSON-LD documents.
+[11:15]	<manu1>	+1
+[11:15]	<gkellogg>	+1
+[11:15]	<niklasl>	+1
+[11:16]	<lanthaler>	+1
+[11:16]	<taaz>	+0
+[11:16]	<niklasl>	.. like "application/jsonldframe+json"
+[11:16]	<taaz>	I can see people just wanting to use regular json mimetype for all these docs
+[11:16]	<niklasl>	David Lehn, I believe so too
+[11:15]	<manu1>	RESOLVED: JSON-LD frames should have a MIMEType, which is distinct from JSON-LD documents.
+[11:16]	<gkellogg>	application/frame[+-]ld+json
+[11:17]	<gkellogg>	The syntax document is almost done, we should figure out what our plan is for the next couple of months... send something to the mailing list, Manu.
+
