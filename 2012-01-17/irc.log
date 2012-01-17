@@ -1,0 +1,100 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0016.html
+[10:03]	<manu1>	scribe: lanthaler
+[10:04]	<manu1>	Topic: Plan to finish documents
+[10:04]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0020.html
+[10:05]	<lanthaler>	manu: what we try to achieve is to finish all docs by May and start a WG afterwards
+[10:05]	<manu1>	Markus: Other concern was that most people just read syntax spec w/o looking at API spec... there is not enough information in syntax spec to understand how this stuff works w/o reading the API spec.
+[10:06]	<manu1>	Markus: We should modularize more - make syntax independent of API spec.
+[10:06]	<manu1>	q+
+[10:06]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:06]	<manu1>	ack manu1
+[10:06]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:06]	<lanthaler>	manu: I agree with you in principle
+[10:06]	<lanthaler>	manu: what do we need to bring over to the syntax spec?
+[10:07]	<manu1>	Markus: There are details that are just described in API spec, must move those details over.
+[10:07]	<lanthaler>	manu: So, stuff like the expansion and compaction algorithms...
+[10:09]	<niklasl>	q+
+[10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:10]	<manu1>	ack niklasl
+[10:10]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:10]	<manu1>	Manu: I don't know if not having algorithms in syntax spec is enough.
+[10:10]	<lanthaler>	Niklas: Let's look at some other specs, like the XML spec, to see how they do it
+[10:11]	<lanthaler>	manu: We could also look at the JSON spec and separately the JSON.parse() API spec
+[10:12]	<lanthaler>	Niklas: the compacted and expanded forms could, as Markus said, probably be described in an algorithm-free way
+[10:12]	<lanthaler>	Niklas: at least the expanded form is possible to describe such as canonical XML
+[10:13]	<lanthaler>	Manu: so the approach would be to describe that in an algorithm-free way if we can, but specifying the algorithm for expanding values in a JSON-LD document given a @context wouldn't be terrible either.
+[10:14]	<manu1>	PROPOSAL: Decouple the JSON-LD Syntax specification from the JSON-LD API specification.
+[10:14]	<manu1>	+1
+[10:14]	<lanthaler>	+1
+[10:14]	<niklasl>	+1
+[10:14]	<taaz>	+1
+[10:14]	<manu1>	RESOLVED: Decouple the JSON-LD Syntax specification from the JSON-LD API specification.
+[10:17]	<lanthaler>	Markus: Manu, what are you thoughts on which W3C group should take that to REC?
+[10:17]	<niklasl>	q+
+[10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:18]	<manu1>	ack niklasl
+[10:18]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:18]	<lanthaler>	Manu: The RDF working group still has the JSON serialization work on their charter, but we might end up creating a completely new JSON-LD WG... we don't know yet, we need to have that discussion with W3C.
+[10:19]	<manu1>	Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys
+[10:19]	<manu1>	https://github.com/json-ld/json-ld.org/issues/43
+[10:21]	<manu1>	Markus: We have a technical issue that is of concern where an @id specified in a CURIE contained in the context, like "foaf:name": {"@id": "http://myotherfoaf.com/name" would override the IRI for FOAF.
+[10:21]	<manu1>	Manu: We could make it so that overriding is okay... 
+[10:21]	<manu1>	Markus: We could make it such that a direct comparison is done first... so check for "foaf:name" in @context first... and if that exists, use the @id from that value. If no such value exists, look for "foaf" and perform normal CURIE expansion.
+[10:24]	<manu1>	PROPOSAL: When expanding JSON-LD keys outside of the @context, perform a direct comparison on the @context keys first, then run the CURIE expansion algorithm using the @context keys.
+[10:25]	<manu1>	+1
+[10:25]	<lanthaler>	+1
+[10:25]	<niklasl>	+1
+[10:26]	<taaz>	+1
+[10:26]	<manu1>	RESOLVED: When expanding JSON-LD keys outside of the @context, perform a direct comparison on the @context keys first, then run the CURIE expansion algorithm using the @context keys.
+[10:27]	<lanthaler>	Manu: What happens when an @id does not exist in the CURIE in the @context? We could just fall back to regular CURIE expansion.
+[10:28]	<niklasl>	Why should we allow this? "foaf:name": {"@id": "not-foaf-name"}
+[10:30]	<lanthaler>	Markus: I see it more as *not disallow* it than *allow it*
+[10:31]	<lanthaler>	Niklas: ok.. we should add a note to not encourage this
+[10:31]	<lanthaler>	Manu: Yes, this is a corner case and you should only use this type of feature if it's absolutely necessary.
+[10:31]	<lanthaler>	Niklas: It would make the JSON-LD document very difficult to read.
+[10:34]	<manu1>	PROPOSAL: If a CURIE as a key in the @context is not bound to an @id, the @id is determined by expanding the key as a CURIE.
+[10:34]	<manu1>	+1
+[10:34]	<niklasl>	+1
+[10:34]	<lanthaler>	+1
+[10:35]	<taaz>	+0
+[10:35]	<lanthaler>	taaz: Don't we need a set of test cases before resolving something like this?
+[10:35]	<lanthaler>	taaz: No, typically we design first and then create a test suite once we're sure that the design is sound. A good test suite will catch any technical issues, but I don't think we have any with this approach. Typically, people catch issues like this before a test suite would.
+[10:35]	<manu1>	RESOLVED: If a CURIE as a key in the @context is not bound to an @id, the @id is determined by expanding the key as a CURIE.
+[10:37]	<manu1>	Markus: How does @type coercion work?
+[10:40]	<manu1>	Markus: In the context you have "foaf" and "foaf:name" (both specify a @type), and in the document you use the full IRI "http://xmlns.com/foaf/0.1/name" - which @type do you use?
+[10:42]	<manu1>	Manu: If you want type coercion to work w/ a full IRI in the data, you must use the full IRI in the @context to specify the @type
+[10:42]	<lanthaler>	Niklas: Gregg and Ivan needed that for RDF->JSON-LD conversion
+[10:44]	<manu1>	PROPOSAL: The type coercion algorithm only checks for equality in the @context keys when attempting to find a type coercion rule.
+[10:44]	<lanthaler>	+1
+[10:44]	<manu1>	+1
+[10:44]	<niklasl>	+1
+[10:44]	<taaz>	+0
+[10:44]	<manu1>	RESOLVED: The type coercion algorithm only checks for equality in the context when attempting to find a type coercion rule.
+[10:45]	<manu1>	Topic: ISSUE-44: Allow frames to say: "predicate p always points to a set"
+[10:45]	<manu1>	https://github.com/json-ld/json-ld.org/issues/44
+[10:46]	<lanthaler>	Manu: the problem with this proposal is that there is a conflict with what framing does
+[10:47]	<niklasl>	More discussion on this: http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0005.html
+[10:47]	<lanthaler>	Manu: what we might want to do is to introduce a new keyword such as @structure or @container (as Niklas proposed)
+[10:48]	<lanthaler>	Niklas: My use case is regardless of framing
+[10:48]	<lanthaler>	Niklas: In my particular application I don't need framing
+[10:49]	<lanthaler>	Niklas: I always know the root
+[10:49]	<lanthaler>	Niklas: That's why I also proposed @rev, but that's another discussion
+[10:50]	<lanthaler>	Niklas: I need something specifying that something is always an array even if there's just one value
+[10:50]	<lanthaler>	Manu: why do you need a keyword for that? You could just generate it and tell the people that use your data that the value will always be an array?
+[10:51]	<lanthaler>	Niklas: I use the context to "specify" this, the @context is a contract of what the data should look like
+[10:52]	<lanthaler>	Manu: you propose to add a @container that could have to values: @set and @list
+[10:53]	<lanthaler>	Manu: What we're proposing here are basically document conformance rules. If you use @set or @list, the data MUST always be enclosed in a JSON array structure.
+[10:53]	<lanthaler>	Manu: the issue I have is that it is a very strange document conformance rule, one that if people don't follow, there isn't really any issue... we could throw an exception if something is marked as a @set or @list, but isn't in a JSON array.
+[10:54]	<lanthaler>	Manu: If we don't, people could just ignore the rule - the only way to catch that would be to have a JSON-LD document validator or have the processor blow up when it hits something that is supposed to be in a JSON array that isn't.
+[10:54]	<lanthaler>	Niklas: I see what you mean
+[10:57]	<lanthaler>	Niklas: if we are going to create a validator we might also wanna have container: object for single values
+[10:57]	<manu1>	PROPOSAL: Add the @container keyword to JSON-LD and allow it's value to be '@list' to specify that values MUST be interpreted as a RDF List.
+[10:57]	<niklasl>	+1
+[10:58]	<manu1>	+1
+[11:04]	<lanthaler>	Markus: Would that imply that every property has to be an array even if there's just a simple value
+[11:04]	<lanthaler>	Niklas: Yes, but that's what @list does as well at the moment, right?
+[11:04]	<lanthaler>	Markus: no.. @list just says that if it is an array, the order has to be preserved
+[11:05]	<niklasl>	only every property with @container defined in the context (or currently @list)
+[11:06]	<lanthaler>	Markus: That's what I meant :-)
+[11:06]	<niklasl>	Good. :) I figured it was, just wanted to make sure.
+[11:06]	<lanthaler>	Manu: Ok, well - let's kick this discussion back to the mailing list. I prefer that we use '@container': '@list' instead of '@list': 'true' because that allows us to add '@set' in the future in a clean way. Good call, we'll chat next week.

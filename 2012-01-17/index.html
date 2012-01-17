@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   margin: 10%;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-01-17</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0016.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0016.html</a></dd>
+<dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+</dl>
+</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id=topic-1 class="topic">Topic: Plan to finish documents</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0020.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0020.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what we try to achieve is to finish all docs by May and start a WG afterwards</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Other concern was that most people just read syntax spec w/o looking at API spec... there is not enough information in syntax spec to understand how this stuff works w/o reading the API spec. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We should modularize more - make syntax independent of API spec. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree with you in principle</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what do we need to bring over to the syntax spec?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There are details that are just described in API spec, must move those details over. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, stuff like the expansion and compaction algorithms...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't know if not having algorithms in syntax spec is enough. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Let's look at some other specs, like the XML spec, to see how they do it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could also look at the JSON spec and separately the JSON.parse() API spec</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the compacted and expanded forms could, as Markus said, probably be described in an algorithm-free way</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  at least the expanded form is possible to describe such as canonical XML</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so the approach would be to describe that in an algorithm-free way if we can, but specifying the algorithm for expanding values in a JSON-LD document given a @context wouldn't be terrible either.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Decouple the JSON-LD Syntax specification from the JSON-LD API specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  Decouple the JSON-LD Syntax specification from the JSON-LD API specification.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Manu, what are you thoughts on which W3C group should take that to REC?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The RDF working group still has the JSON serialization work on their charter, but we might end up creating a completely new JSON-LD WG... we don't know yet, we need to have that discussion with W3C.</div>
+<h1 id=topic-2 class="topic">Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/43">https://github.com/json-ld/json-ld.org/issues/43</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We have a technical issue that is of concern where an @id specified in a CURIE contained in the context, like "foaf:name": {"@id": "<a href="http://myotherfoaf.com/name"">http://myotherfoaf.com/name"</a> would override the IRI for FOAF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could make it so that overriding is okay...  [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could make it such that a direct comparison is done first... so check for "foaf:name" in @context first... and if that exists, use the @id from that value. If no such value exists, look for "foaf" and perform normal CURIE expansion. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When expanding JSON-LD keys outside of the @context, perform a direct comparison on the @context keys first, then run the CURIE expansion algorithm using the @context keys.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  When expanding JSON-LD keys outside of the @context, perform a direct comparison on the @context keys first, then run the CURIE expansion algorithm using the @context keys.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What happens when an @id does not exist in the CURIE in the @context? We could just fall back to regular CURIE expansion.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Why should we allow this? "foaf:name": {"@id": "not-foaf-name"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I see it more as *not disallow* it than *allow it*</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  ok.. we should add a note to not encourage this</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, this is a corner case and you should only use this type of feature if it's absolutely necessary.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It would make the JSON-LD document very difficult to read.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If a CURIE as a key in the @context is not bound to an @id, the @id is determined by expanding the key as a CURIE.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  Don't we need a set of test cases before resolving something like this?</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  No, typically we design first and then create a test suite once we're sure that the design is sound. A good test suite will catch any technical issues, but I don't think we have any with this approach. Typically, people catch issues like this before a test suite would.</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  If a CURIE as a key in the @context is not bound to an @id, the @id is determined by expanding the key as a CURIE.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  How does @type coercion work? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In the context you have "foaf" and "foaf:name" (both specify a @type), and in the document you use the full IRI "<a href="http://xmlns.com/foaf/0.1/name"">http://xmlns.com/foaf/0.1/name"</a> - which @type do you use? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If you want type coercion to work w/ a full IRI in the data, you must use the full IRI in the @context to specify the @type [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Gregg and Ivan needed that for RDF-&gt;JSON-LD conversion</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The type coercion algorithm only checks for equality in the @context keys when attempting to find a type coercion rule.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="resolution"><strong>RESOLUTION:</strong>  The type coercion algorithm only checks for equality in the context when attempting to find a type coercion rule.</div>
+<h1 id=topic-3 class="topic">Topic: ISSUE-44: Allow frames to say: "predicate p always points to a set"</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/44">https://github.com/json-ld/json-ld.org/issues/44</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the problem with this proposal is that there is a conflict with what framing does</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: More discussion on this: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2011Dec/0005.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what we might want to do is to introduce a new keyword such as @structure or @container (as Niklas proposed)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  My use case is regardless of framing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In my particular application I don't need framing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I always know the root</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That's why I also proposed @rev, but that's another discussion</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I need something specifying that something is always an array even if there's just one value</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  why do you need a keyword for that? You could just generate it and tell the people that use your data that the value will always be an array?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I use the context to "specify" this, the @context is a contract of what the data should look like</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you propose to add a @container that could have to values: @set and @list</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What we're proposing here are basically document conformance rules. If you use @set or @list, the data MUST always be enclosed in a JSON array structure.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the issue I have is that it is a very strange document conformance rule, one that if people don't follow, there isn't really any issue... we could throw an exception if something is marked as a @set or @list, but isn't in a JSON array.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If we don't, people could just ignore the rule - the only way to catch that would be to have a JSON-LD document validator or have the processor blow up when it hits something that is supposed to be in a JSON array that isn't.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I see what you mean</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if we are going to create a validator we might also wanna have container: object for single values</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add the @container keyword to JSON-LD and allow it's value to be '@list' to specify that values MUST be interpreted as a RDF List.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Would that imply that every property has to be an array even if there's just a simple value</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, but that's what @list does as well at the moment, right?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  no.. @list just says that if it is an array, the order has to be preserved</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: only every property with @container defined in the context (or currently @list)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That's what I meant :-)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Good. :) I figured it was, just wanted to make sure.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, well - let's kick this discussion back to the mailing list. I prefer that we use '@container': '@list' instead of '@list': 'true' because that allows us to add '@set' in the future in a clean way. Good call, we'll chat next week.</div>
+</body>
+</html>
