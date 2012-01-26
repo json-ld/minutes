@@ -1,0 +1,179 @@
+[10:07]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0095.html
+[10:07]	=-=	MacTed has changed the topic to “Linked Data for JSON: http://json-ld.org/ -- 2012-01-24 Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0095.html”
+[10:08]	<gkellogg>	scribe: gkellogg
+[10:09]	<gkellogg>	manu: Any changes to the agenda?
+[10:09]	<gkellogg>	Markus: We should discuss disjoint graphs
+[10:09]	<gkellogg>	manu: yes, the use of @id with list of objects, each having an @id is a strange
+[10:10]	<gkellogg>	… way of representing disjoint graphs which is not ideal... although it's the best solution we have besides re-introducing something like @graph.
+[10:10]	<lanthaler>	The issue is being tracked here: https://github.com/json-ld/json-ld.org/issues/68
+[10:10]	<gkellogg>	… Also related to keys that don't map to an IRI, which could also be used to define disjoint graphs.
+[10:11]	<gkellogg>	manu: We have all related issues in the tracker... should be covered with existing issues.
+[10:12]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000092) has left the conference.
+[10:12]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000091) has left the conference.
+[10:12]	* gkellogg	I was just droped, BRB
+[10:12]	* manu1	Niklas and Gregg - sip2sip issue... join w/o going through their proxy
+[10:12]	* manu1	that is - join directly. :)
+[10:12]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000097) has joined the conference.
+[10:12]	<voip-ld>	Niklas Lindström (SIP/10.10.73.111-00000098) has joined the conference.
+[10:13]	<manu1>	Topic: ISSUE-49: Relative IRIs may clash with terms
+[10:13]	<manu1>	https://github.com/json-ld/json-ld.org/issues/49
+[10:14]	<voip-ld>	Ted Thibodeau Jr (SIP/sip2sip.info-00000095) has left the conference.
+[10:14]	<gkellogg>	manu: We had decided to use the same algorithm for IRI expansion on left-hand side and right-hand side.
+[10:14]	<gkellogg>	… Gregg had wanted to try to make this consistent; the downside is that relative IRIs may be used on the left-hand side, which can conflict with keys.
+[10:14]	<voip-ld>	Ted Thibodeau Jr (SIP/192.168.11.227-0000009a) has joined the conference.
+[10:15]	<gkellogg>	… We wanted to have the JSON subtree completely ignored if keys are not mapped via @context.
+[10:15]	* MacTed	switches BlinkLite from sip2sip to bonjour after a drop...
+[10:15]	<gkellogg>	… but, using a standard IRI expansion creates this undesirable side-effect, so maybe we should limit the left-hand side to terms, prefixed-values or absolute IRIs?
+[10:15]	<niklasl>	Like TermOrCURIEorAbsIRI in RDFa...
+[10:16]	<gkellogg>	manu: We could keep it is, or adopt two different kinds of IRI expansion rules (key must be term, CURIE, or absolute IRI)
+[10:16]	<gkellogg>	… the right-hand side may have those plus relative IRIs.
+[10:16]	<niklasl>	q+
+[10:16]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:16]	<manu1>	ack niklasl
+[10:16]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:16]	<gkellogg>	niklasl: It would be sound to use restricted left-hand side, but that only solves part of the problem.
+[10:17]	<manu1>	q+ to say that the algorithm we have is deterministic.
+[10:17]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:17]	<manu1>	ack manu1
+[10:17]	<voip-ld>	manu1 has the floor (to say that the algorithm we have is deterministic.). The speaker queue is empty.
+[10:17]	<gkellogg>	… core of the problem exists on LHS or RHS: not clear if term is a relative IRI or a term.
+[10:18]	<gkellogg>	manu: We should probably split these issues.
+[10:18]	<gkellogg>	… on the right-hand side, we know if a relative IRI is an active IRI or a term. The right-hand side uses a deterministic algorithm.
+[10:19]	<lanthaler>	q+
+[10:19]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:19]	<gkellogg>	q+
+[10:19]	<voip-ld>	Added gkellogg to the speaker queue: lanthaler, gkellogg
+[10:19]	<gkellogg>	manu: We could tell authors that they should use "./" or "/" notation for relative IRIs as a best practice, but not require it.
+[10:19]	<niklasl>	q+
+[10:19]	<voip-ld>	Added niklasl to the speaker queue: lanthaler, gkellogg, niklasl
+[10:19]	<manu1>	ack lanthaler
+[10:19]	<voip-ld>	lanthaler has the floor. The next speaker is gkellogg.
+[10:20]	<gkellogg>	lanthaler: If we distinguish between left-hand side and right-hand side, it would not work within @context.
+[10:20]	<gkellogg>	… This would mean that we can't use relative IRIs in @context.
+[10:20]	<gkellogg>	manu: Processing @context is a bit different than processing the body of the document.
+[10:21]	<gkellogg>	lanthaler: If we have a way to distinguish between relative IRIs and terms, this would solve both issues. This also helps clarify the intent of the author.
+[10:21]	<manu1>	ack gkellogg
+[10:21]	<voip-ld>	lanthaler has the floor. The next speaker is niklasl.
+[10:21]	<manu1>	Gregg: I would support restricting the range of the left hand side to be TermsorAbsURIorCURIEs.
+[10:22]	<manu1>	Gregg: I'm not in favor of requiring that relative IRIs begin with ./ or / or anything else that would require that all IRIs be normalized to remove that.
+[10:22]	<manu1>	Gregg: You wouldn't be able to specify an IRI that doesn't contain a ./ or / - some schemes don't support that.
+[10:22]	<lanthaler>	q+
+[10:22]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler, lanthaler
+[10:22]	<manu1>	Gregg: What we have now is a deterministic algorithm...
+[10:22]	<manu1>	ack lanthaler
+[10:22]	<manu1>	ack lanthaler
+[10:22]	<voip-ld>	lanthaler has the floor. The next speaker is lanthaler.
+[10:22]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:23]	<niklasl>	q+
+[10:23]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:23]	<gkellogg>	lanthaler: if we allow relative IRIs regardless of form, we have to do normalization, anyway.
+[10:23]	<manu1>	Gregg: I don't think we require normalization now... if we added ./, we'd require normalization.
+[10:24]	<manu1>	Gregg: Normalization is not a part of any RDF grammar.
+[10:25]	<manu1>	Markus: So, would we disallow "./" ?
+[10:26]	<manu1>	Gregg: No, we'd still allow it... maybe we include it as a best practice... but we shouldn't require "./" for relative IRIs.
+[10:26]	<manu1>	+1 to what Gregg said.
+[10:26]	<gkellogg>	manu: Requiring ./ would require that authors do something they don't need to do in any other language.
+[10:27]	<gkellogg>	… This is pretty much the same as RDFa... you could use 'describedby' or 'next' in @resource in XHTML+RDFa and end up expanding out to xhv:next instead of something that is relative to BASE.
+[10:27]	<niklasl>	q+
+[10:27]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:28]	<gkellogg>	niklasl: It is exactly the case that we're in the same situation as RDFa.
+[10:28]	<gkellogg>	… We have places where we use IRIs, CURIEs or terms. The value space for property (same as LHS) is always TermOrCurieOrAbsoluteIRI.
+[10:29]	<gkellogg>	… For @resource, for example, it has the same confusion.
+[10:30]	<gkellogg>	niklasl: Third option is to differ between @id or something different, such as @term, or something similar. This would allow a different value space on the LHS.
+[10:31]	<gkellogg>	… This could allow a coercion similar to that used with @type.
+[10:31]	<manu1>	q+ to suggest not putting this feature in until somebody has an issue with it.
+[10:31]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:31]	<gkellogg>	manu: Suggestion is to add a different keyword with a different value space.
+[10:31]	<gkellogg>	q+
+[10:31]	<voip-ld>	Added gkellogg to the speaker queue: manu1, gkellogg
+[10:32]	<gkellogg>	manu: Niklas' suggestion could be used, but this might not be an issue in practice.
+[10:32]	<gkellogg>	… we can always introduce the feature later if we find that people are mixing up relative IRIs with terms.
+[10:32]	<manu1>	ack manu1
+[10:32]	<voip-ld>	manu1 has the floor (to suggest not putting this feature in until somebody has an issue with it.). The next speaker is gkellogg.
+[10:32]	<manu1>	ack gkellogg
+[10:32]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:33]	<manu1>	Gregg: I don't think there is a case where we have a keyword where the range is different... it's really the left-hand side issue where there is no keyword involved.
+[10:33]	<manu1>	Gregg: I think we should keep things as is with respect to the algorithm, other than restricting the range of the left-hand side.
+[10:35]	<gkellogg>	manu: Discussion is about allowable range of LHS and RHS.
+[10:35]	<gkellogg>	… ISSUE-56 is related, but different.
+[10:36]	<manu1>	PROPOSAL: Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs.
+[10:36]	<gkellogg>	+1
+[10:36]	<niklasl>	+1
+[10:36]	<manu1>	+1
+[10:36]	<lanthaler>	+1
+[10:36]	<taaz>	+1, sounds good
+[10:36]	<manu1>	RESOLVED: Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs.
+[10:38]	<manu1>	PROPOSAL: Allow terms, or prefixed-values, or absolute IRIs or relative IRIs on the right-hand side of JSON-LD key-value statements.
+[10:38]	<niklasl>	+1
+[10:38]	<gkellogg>	+1
+[10:38]	<manu1>	+1
+[10:38]	<lanthaler>	+1
+[10:38]	<taaz>	+1
+[10:38]	<manu1>	RESOLVED: Allow terms, or prefixed-values, or absolute IRIs or relative IRIs on the right-hand side of JSON-LD key-value statements.
+[10:40]	<manu1>	Topic: Lexical Space for Terms in the Document
+[10:41]	<manu1>	PROPOSAL: If the right-hand side of a JSON-LD key-value statement is a relative IRI, and if a mapping exists in the @context for that value, the value expands to the value in the mapping in the @context.
+[10:41]	<manu1>	Gregg: Could "a/b" be in the key position of a context?
+[10:42]	<lanthaler>	we just decided the following: "Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs."
+[10:43]	<gkellogg>	manu: right now, we always try to resolve and either ignore (RHS) or use as relative IRI.
+[10:43]	<niklasl>	q+
+[10:43]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:44]	<manu1>	Ted: This proposal sounds redundant... doesn't this all just boil down to order of operations?
+[10:44]	<manu1>	Manu: Yes, it is redundant, but we don't have an agreement on the record of this is how we do this stuff.
+[10:44]	<gkellogg>	niklasl: there is confusion about if "a/b" can be interpreted as a term. Most people's instinct is probably no, but it is similar to something that cropped up in RDFa.
+[10:44]	<niklasl>	knows/friend
+[10:44]	<gkellogg>	… schema.org uses "/" to describe sub-properties.
+[10:45]	<manu1>	ack niklasl
+[10:45]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:45]	<gkellogg>	… also Facebook's open graph, which has multiple ":" characters, making it a bit more complicated.
+[10:45]	<gkellogg>	… issue is, can terms contain '/' or ':'.
+[10:45]	<gkellogg>	lanthaler: terms are NCNAME or blank, so no, they can't contain those characters.
+[10:47]	<gkellogg>	MacTed: if we're going to make a general statement and create many special cases, the document becomes unusable.
+[10:47]	<gkellogg>	… We should define order of rule application; this covers random special cases.
+[10:47]	<manu1>	q+ to explain current set of expansion rules.
+[10:47]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:47]	<gkellogg>	… We could describe in a note that something may be confusing.
+[10:48]	<gkellogg>	niklasl: the core issue is that relative IRIs and terms are very close to each other, and we don't know how people will want to use them.
+[10:49]	<gkellogg>	manu: rule as written now is not ambiguous; you look up the exact value and perform expansion if it exists, otherwise split on ":" and expand a prefix if mapped, otherwise it's an IRI.
+[10:50]	<manu1>	ack manu1
+[10:50]	<voip-ld>	manu1 has the floor (to explain current set of expansion rules.). The speaker queue is empty.
+[10:51]	<gkellogg>	lanthaler: that could lead to prefixes which contain ':'.
+[10:53]	<gkellogg>	manu: we should not mandate that relative IRIs start with (e.g.) "./"
+[10:53]	<gkellogg>	q+
+[10:53]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:55]	<manu1>	ack gkellogg
+[10:55]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:55]	<manu1>	Gregg: I think one of the use cases of JSON-LD is to provide meaning to existing documents... they may not conform to our ideas of what is in the key position... it might contain something that looks like a relative IRI.
+[10:55]	<niklasl>	q+
+[10:55]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:55]	<manu1>	Gregg: We should be inclusive... so, we may want to allow something that looks like relative IRIs on the left-hand side.
+[10:56]	<manu1>	Gregg: if you did that, you could create a context that applies to somebody else's JSON, which provides a mapping for that.
+[10:56]	<manu1>	ack niklasl
+[10:56]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:57]	<gkellogg>	niklasl: including arbitrary JSON is problematic, as we might not be doing enough: the meaning of the key something different. In RDF/JSON, the key can be the subject.
+[10:57]	<gkellogg>	… we'll shoot ourselves in the foot if we're too inclusive.
+[10:57]	<niklasl>	q+
+[10:57]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:57]	<gkellogg>	manu: better to start of being too restrictive, and add support if the use cases support it.
+[10:57]	<manu1>	ack niklasl
+[10:57]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:58]	<gkellogg>	niklasl: perhaps "@container" could be a powerful construct, to allow e.g. @languagemap or @irimap, enabling more complex things predictibly.
+[11:01]	<manu1>	PROPOSAL: The lexical space for keys in JSON-LD key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.
+[11:01]	<gkellogg>	+1
+[11:01]	<manu1>	+1
+[11:01]	<lanthaler>	+1
+[11:02]	<taaz>	+0
+[11:02]	<niklasl>	+0.5
+[11:02]	<MacTed>	+0
+[11:03]	<manu1>	RESOLVED: The lexical space for keys in JSON-LD key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.
+[11:03]	<manu1>	Topic: Lexical Space for Keys in @context
+[11:03]	<manu1>	PROPOSAL: The lexical space for keys in JSON-LD Context key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.
+[11:03]	<gkellogg>	+1
+[11:04]	<lanthaler>	+1
+[11:05]	<niklasl>	+1
+[11:06]	<taaz>	+0
+[11:06]	<MacTed>	+1
+[11:06]	<manu1>	RESOLVED: The lexical space for keys in JSON-LD Context key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.

@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta charset="utf8" /> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-01-25</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0095.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0095.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-49: Relative IRIs may clash with terms</a><li><a href="#topic-2">Lexical Space for Terms in the Document</a><li><a href="#topic-3">Lexical Space for Keys in @context</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs.</a><li><a href="#resolution-2">Allow terms, or prefixed-values, or absolute IRIs or relative IRIs on the right-hand side of JSON-LD key-value statements.</a><li><a href="#resolution-3">The lexical space for keys in JSON-LD key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</a><li><a href="#resolution-4">The lexical space for keys in JSON-LD Context key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Manu Sporny, Markus Lanthaler, Niklas Lindström, David I. Lehn, Ted Thibodeau Jr.</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to the agenda?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We should discuss disjoint graphs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, the use of @id with list of objects, each having an @id is a strange</div>
+<div class="comment-continuation">… way of representing disjoint graphs which is not ideal... although it's the best solution we have besides re-introducing something like @graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: The issue is being tracked here: <a href="https://github.com/json-ld/json-ld.org/issues/68">https://github.com/json-ld/json-ld.org/issues/68</a></div>
+<div class="comment-continuation">… Also related to keys that don't map to an IRI, which could also be used to define disjoint graphs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have all related issues in the tracker... should be covered with existing issues.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-49: Relative IRIs may clash with terms</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/49">https://github.com/json-ld/json-ld.org/issues/49</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We had decided to use the same algorithm for IRI expansion on left-hand side and right-hand side.</div>
+<div class="comment-continuation">… Gregg had wanted to try to make this consistent; the downside is that relative IRIs may be used on the left-hand side, which can conflict with keys.</div>
+<div class="comment-continuation">… We wanted to have the JSON subtree completely ignored if keys are not mapped via @context.</div>
+<div class="comment-continuation">… but, using a standard IRI expansion creates this undesirable side-effect, so maybe we should limit the left-hand side to terms, prefixed-values or absolute IRIs?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Like TermOrCURIEorAbsIRI in RDFa...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could keep it is, or adopt two different kinds of IRI expansion rules (key must be term, CURIE, or absolute IRI)</div>
+<div class="comment-continuation">… the right-hand side may have those plus relative IRIs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It would be sound to use restricted left-hand side, but that only solves part of the problem.</div>
+<div class="comment-continuation">… core of the problem exists on LHS or RHS: not clear if term is a relative IRI or a term.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should probably split these issues.</div>
+<div class="comment-continuation">… on the right-hand side, we know if a relative IRI is an active IRI or a term. The right-hand side uses a deterministic algorithm.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could tell authors that they should use "./" or "/" notation for relative IRIs as a best practice, but not require it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we distinguish between left-hand side and right-hand side, it would not work within @context.</div>
+<div class="comment-continuation">… This would mean that we can't use relative IRIs in @context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Processing @context is a bit different than processing the body of the document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we have a way to distinguish between relative IRIs and terms, this would solve both issues. This also helps clarify the intent of the author.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I would support restricting the range of the left hand side to be TermsorAbsURIorCURIEs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm not in favor of requiring that relative IRIs begin with ./ or / or anything else that would require that all IRIs be normalized to remove that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You wouldn't be able to specify an IRI that doesn't contain a ./ or / - some schemes don't support that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What we have now is a deterministic algorithm... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we allow relative IRIs regardless of form, we have to do normalization, anyway.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think we require normalization now... if we added ./, we'd require normalization. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Normalization is not a part of any RDF grammar. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, would we disallow "./" ? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No, we'd still allow it... maybe we include it as a best practice... but we shouldn't require "./" for relative IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 to what Gregg said.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Requiring ./ would require that authors do something they don't need to do in any other language.</div>
+<div class="comment-continuation">… This is pretty much the same as RDFa... you could use 'describedby' or 'next' in @resource in XHTML+RDFa and end up expanding out to xhv:next instead of something that is relative to BASE.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It is exactly the case that we're in the same situation as RDFa.</div>
+<div class="comment-continuation">… We have places where we use IRIs, CURIEs or terms. The value space for property (same as LHS) is always TermOrCurieOrAbsoluteIRI.</div>
+<div class="comment-continuation">… For @resource, for example, it has the same confusion.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Third option is to differ between @id or something different, such as @term, or something similar. This would allow a different value space on the LHS.</div>
+<div class="comment-continuation">… This could allow a coercion similar to that used with @type.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Suggestion is to add a different keyword with a different value space.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas' suggestion could be used, but this might not be an issue in practice.</div>
+<div class="comment-continuation">… we can always introduce the feature later if we find that people are mixing up relative IRIs with terms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think there is a case where we have a keyword where the range is different... it's really the left-hand side issue where there is no keyword involved. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should keep things as is with respect to the algorithm, other than restricting the range of the left-hand side. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Discussion is about allowable range of LHS and RHS.</div>
+<div class="comment-continuation">… ISSUE-56 is related, but different.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1, sounds good</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Allow terms, or prefixed-values, or absolute IRIs or relative IRIs on the right-hand side of JSON-LD key-value statements.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Allow terms, or prefixed-values, or absolute IRIs or relative IRIs on the right-hand side of JSON-LD key-value statements.</div>
+<h1 id="topic-2" class="topic">Topic: Lexical Space for Terms in the Document</h1>
+<div class="proposal"><strong>PROPOSAL:</strong>  If the right-hand side of a JSON-LD key-value statement is a relative IRI, and if a mapping exists in the @context for that value, the value expands to the value in the mapping in the @context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Could "a/b" be in the key position of a context? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: we just decided the following: "Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  right now, we always try to resolve and either ignore (RHS) or use as relative IRI.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  This proposal sounds redundant... doesn't this all just boil down to order of operations? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, it is redundant, but we don't have an agreement on the record of this is how we do this stuff. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  there is confusion about if "a/b" can be interpreted as a term. Most people's instinct is probably no, but it is similar to something that cropped up in RDFa.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: knows/friend</div>
+<div class="comment-continuation">… schema.org uses "/" to describe sub-properties.</div>
+<div class="comment-continuation">… also Facebook's open graph, which has multiple ":" characters, making it a bit more complicated.</div>
+<div class="comment-continuation">… issue is, can terms contain '/' or ':'.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  terms are NCNAME or blank, so no, they can't contain those characters.</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>:  if we're going to make a general statement and create many special cases, the document becomes unusable.</div>
+<div class="comment-continuation">… We should define order of rule application; this covers random special cases.</div>
+<div class="comment-continuation">… We could describe in a note that something may be confusing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the core issue is that relative IRIs and terms are very close to each other, and we don't know how people will want to use them.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  rule as written now is not ambiguous; you look up the exact value and perform expansion if it exists, otherwise split on ":" and expand a prefix if mapped, otherwise it's an IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that could lead to prefixes which contain ':'.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should not mandate that relative IRIs start with (e.g.) "./"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think one of the use cases of JSON-LD is to provide meaning to existing documents... they may not conform to our ideas of what is in the key position... it might contain something that looks like a relative IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should be inclusive... so, we may want to allow something that looks like relative IRIs on the left-hand side. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you did that, you could create a context that applies to somebody else's JSON, which provides a mapping for that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  including arbitrary JSON is problematic, as we might not be doing enough: the meaning of the key something different. In RDF/JSON, the key can be the subject.</div>
+<div class="comment-continuation">… we'll shoot ourselves in the foot if we're too inclusive.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  better to start of being too restrictive, and add support if the use cases support it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  perhaps "@container" could be a powerful construct, to allow e.g. @languagemap or @irimap, enabling more complex things predictibly.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The lexical space for keys in JSON-LD key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> The lexical space for keys in JSON-LD key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</div>
+<h1 id="topic-3" class="topic">Topic: Lexical Space for Keys in @context</h1>
+<div class="proposal"><strong>PROPOSAL:</strong>  The lexical space for keys in JSON-LD Context key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> The lexical space for keys in JSON-LD Context key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</div>
+</body>
+</html>
