@@ -19,7 +19,7 @@
    var scribeRx = /^scribe:.*$/i;
    var chairRx = /^chair:.*$/i;
    var proposalRx = /^(proposal|proposed):.*$/i;
-   var resolutionRx = /^(resolution|resolved):.*$/i;
+   var resolutionRx = /^(resolution|resolved): ?(.*)$/i;
    var topicRx = /^topic:\s*(.*)$/i;
    var actionRx = /^action:\s*(.*)$/i;
    var voipRx = /^voip.*$/i;
@@ -87,7 +87,7 @@
       
       if(textMode == "html")
       {
-         rval = "<h1 id=topic-" + id + " class=\"topic\">Topic: " +  
+         rval = "<h1 id=\"topic-" + id + "\" class=\"topic\">Topic: " +  
           scrawl.htmlencode(msg) + "</h1>\n";
       }
       else
@@ -104,7 +104,7 @@
       
       if(textMode == "html")
       {
-         rval = "<div id=action-" + id + " class=\"action\">ACTION: " +  
+         rval = "<div id=\"action-" + id + "\" class=\"action\">ACTION: " +  
           scrawl.htmlencode(msg) + "</div>\n";
       }
       else
@@ -143,24 +143,27 @@
       }
       else
       {
-         rval = scrawl.wordwrap("\nPROPOSAL: " + msg, 65, "\n   ") + "\n\n";
+         rval = 
+            "\n" + scrawl.wordwrap("PROPOSAL: " + msg, 65, "\n   ") + "\n\n";
       }
       
       return rval;
    };
 
-   scrawl.resolution = function(msg, textMode)
+   scrawl.resolution = function(msg, id, textMode)
    {
       var rval = "";
       
       if(textMode == "html")
       {
-         rval = "<div class=\"resolution\"><strong>RESOLUTION:</strong> " +
-          scrawl.htmlencode(msg) + "</div>\n";
+         rval = "<div id=\"resolution-" + id + "\" class=\"resolution\">" +
+            "<strong>RESOLUTION:</strong> " +
+            scrawl.htmlencode(msg) + "</div>\n";
       }
       else
       {
-         rval = scrawl.wordwrap("\nRESOLUTION: " + msg, 65, "\n   ") + "\n\n";
+         rval = 
+            "\n" + scrawl.wordwrap("RESOLUTION: " + msg, 65, "\n   ") + "\n\n";
       }
       
       return rval;
@@ -320,8 +323,10 @@
           // check for resolution line
           else if(msg.search(resolutionRx) != -1)
           {
-             var resolution = msg.split(":")[1];
-             rval = scrawl.resolution(resolution, textMode);
+             var resolution = msg.match(resolutionRx)[2];
+             context.resolutions = context.resolutions.concat(resolution);
+             rval = scrawl.resolution(
+                resolution, context.resolutions.length, textMode);
           }
           else if(nick.search(voipRx) != -1 || msg.search(toVoipRx) != -1)
           {
@@ -431,6 +436,8 @@
       var audio = "audio.ogg";
       var chair = context.chair;
       var scribe = context.scribe;
+      var topics = context.topics;
+      var resolutions = context.resolutions;
       var present = Object.keys(context.present);
 
       // zero-pad the month and day if necessary
@@ -453,6 +460,31 @@
          rval += "<div class=\"summary\">\n<dl>\n";
          rval += "<dt>Agenda</dt><dd><a href=\"" + 
              agenda + "\">" + agenda + "</a></dd>\n";
+
+         if(topics.length > 0)
+         {
+            rval += "<dt>Topics</dt><dd><ol>";
+            for(i in topics)
+            {
+               var topicNumber = parseInt(i) + 1;
+               rval += "<li><a href=\"#topic-" + topicNumber + "\">" + 
+                  topics[i] + "</a>";
+            }
+            rval += "</ol></dd>";
+         }
+         
+         if(resolutions.length > 0)
+         {
+            rval += "<dt>Resolutions</dt><dd><ol>";
+            for(i in resolutions)
+            {
+               var resolutionNumber = parseInt(i) + 1;
+               rval += "<li><a href=\"#resolution-" + resolutionNumber + "\">" + 
+                  resolutions[i] + "</a>";
+            }
+            rval += "</ol></dd>";
+         }
+
          rval += "<dt>Chair</dt><dd>" + chair + "</dd>\n";
          rval += "<dt>Scribe</dt><dd>" + scribe + "</dd>\n";
          rval += "<dt>Present</dt><dd>" + present.join(", ") + "</dd>\n";
@@ -462,14 +494,38 @@
              "<source src=\"" + audio + "\" type=\"audio/ogg\" />" +
              "Warning: Your browser does not support the HTML5 audio element, " +
              "please upgrade.</div></dd>\n";
-         rval += "</dl>\n</div>\n";
       }
       else
       {
-         rval += group + " Telecon\n";
+         rval += group + " Telecon ";
          rval += "Minutes for " + time.getFullYear() + "-" + 
-             month + "-" + day + "\n";
+             month + "-" + day + "\n\n";
          rval += "Agenda:\n   " + agenda + "\n";
+
+         if(topics.length > 0)
+         {
+            rval += "Topics:\n";
+            for(i in topics)
+            {
+               var topicNumber = parseInt(i) + 1;
+               rval += scrawl.wordwrap(
+                  "   " + topicNumber + ". " + topics[i], 65, 
+                  "\n      ") + "\n";
+            }
+         }
+         
+         if(resolutions.length > 0)
+         {
+            rval += "Resolutions:\n";
+            for(i in resolutions)
+            {
+               var resolutionNumber = parseInt(i) + 1;
+               rval += scrawl.wordwrap(
+                  "   " + resolutionNumber + ". " + resolutions[i], 65, 
+                  "\n      ") + "\n";
+            }
+         }
+         
          rval += "Chair:\n   " + chair + "\n";
          rval += "Scribe:\n   " + scribe + "\n";
          rval += "Present:\n   " + 
@@ -501,6 +557,7 @@
          "chair": "Manu Sporny",
          "present": {},
          "topics": [],
+         "resolutions": [],
          "actions": []
       };
 

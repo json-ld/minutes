@@ -94,7 +94,26 @@
 '  \n' +
 '  <style type="text/css"> \n' +
 'body {\n' +
-'   margin: 10%;\n' +
+'   max-width: 50em;\n' +
+'   margin: auto;\n' +
+'   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;\n' +
+'   font-weight: 300;\n' +
+'}\n' +
+'\n' +
+'label {\n' +
+'   float: left;\n' +
+'   text-align: right;\n' +
+'   margin-right: 15px;\n' +
+'   width: 100px;\n' +
+'}\n' +
+'\n' +
+'a {\n' +
+'   color: #4183c4;\n' +
+'}\n' +
+'\n' +
+'ol {\n' +
+'   padding-left: 1.2em;\n' +
+'   margin: 0em;\n' +
 '}\n' +
 ' \n' +
 '.name {\n' +
