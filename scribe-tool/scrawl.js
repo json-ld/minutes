@@ -438,6 +438,7 @@
       var scribe = context.scribe;
       var topics = context.topics;
       var resolutions = context.resolutions;
+      var actions = context.actions;
       var present = Object.keys(context.present);
 
       // zero-pad the month and day if necessary
@@ -485,6 +486,18 @@
             rval += "</ol></dd>";
          }
 
+         if(actions.length > 0)
+         {
+            rval += "<dt>Action Items</dt><dd><ol>";
+            for(i in actions)
+            {
+               var actionNumber = parseInt(i) + 1;
+               rval += "<li><a href=\"#action-" + actionNumber + "\">" + 
+                  actions[i] + "</a>";
+            }
+            rval += "</ol></dd>";
+         }
+
          rval += "<dt>Chair</dt><dd>" + chair + "</dd>\n";
          rval += "<dt>Scribe</dt><dd>" + scribe + "</dd>\n";
          rval += "<dt>Present</dt><dd>" + present.join(", ") + "</dd>\n";
@@ -522,6 +535,18 @@
                var resolutionNumber = parseInt(i) + 1;
                rval += scrawl.wordwrap(
                   "   " + resolutionNumber + ". " + resolutions[i], 65, 
+                  "\n      ") + "\n";
+            }
+         }
+         
+         if(actions.length > 0)
+         {
+            rval += "Action Items:\n";
+            for(i in actions)
+            {
+               var actionNumber = parseInt(i) + 1;
+               rval += scrawl.wordwrap(
+                  "   " + actionNumber + ". " + actions[i], 65, 
                   "\n      ") + "\n";
             }
          }
