@@ -84,12 +84,11 @@
    };
 
    var htmlHeader = 
-'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n' +
-'    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> \n' +
+'<!DOCTYPE html> \n' +
 ' \n' +
-'<html xmlns="http://www.w3.org/1999/xhtml"> \n' +
+'<html> \n' +
 '<head> \n' +
-'  <meta charset="utf8" /> \n' +
+'  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> \n' +
 '  <title>Linked Data in JSON Telecon</title> \n' +
 '  \n' +
 '  <style type="text/css"> \n' +
