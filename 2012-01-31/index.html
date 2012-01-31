@@ -73,7 +73,7 @@ ol {
 <div class="summary">
 <dl>
 <dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0102.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0102.html</a></dd>
-<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-43: Use of IRIs and CURIEs as @context keys</a><li><a href="#topic-2">ISSUE-56: JSON keys that are not terms</a><li><a href="#topic-3">ISSUE-52: Should we support lists of lists?</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</a><li><a href="#resolution-2">Mapping a key to _null_ removes a mapping for that key active context</a><li><a href="#resolution-3">A term can only be redefined, never partially reconfigured</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-43: Use of IRIs and CURIEs as @context keys</a><li><a href="#topic-2">ISSUE-56: JSON keys that are not terms</a><li><a href="#topic-3">ISSUE-52: Should we support lists of lists?</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</a><li><a href="#resolution-2">Mapping a key to _null_ removes a mapping for that key in the active context</a><li><a href="#resolution-3">A term can only be redefined, never partially reconfigured</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
 <dt>Scribe</dt><dd>Niklas Lindström</dd>
 <dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Gregg Kellogg, Markus Lanthaler, David I. Lehn</dd>
 <dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
@@ -174,14 +174,14 @@ ol {
 <div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
 <div class="comment"><span class="name">David I. Lehn</span>: +0</div>
 <div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</div>
-<div class="proposal"><strong>PROPOSAL:</strong>  Mapping a key to _null_ removes a mapping for that key active context</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Mapping a key to _null_ removes a mapping for that key in the active context</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: +1 (i.e. JSON null)</div>
 <div class="comment"><span class="name">Manu Sporny</span>: +1</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: "name": { "@type": null }</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
 <div class="comment"><span class="name">David I. Lehn</span>: +0</div>
-<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Mapping a key to _null_ removes a mapping for that key active context</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Mapping a key to _null_ removes a mapping for that key in the active context</div>
 <div class="proposal"><strong>PROPOSAL:</strong>  A term can only be redefined, never partially reconfigured</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
