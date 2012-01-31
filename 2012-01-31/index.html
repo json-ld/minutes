@@ -1,0 +1,218 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-01-31</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0102.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0102.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-43: Use of IRIs and CURIEs as @context keys</a><li><a href="#topic-2">ISSUE-56: JSON keys that are not terms</a><li><a href="#topic-3">ISSUE-52: Should we support lists of lists?</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</a><li><a href="#resolution-2">Mapping a key to _null_ removes a mapping for that key active context</a><li><a href="#resolution-3">A term can only be redefined, never partially reconfigured</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Gregg Kellogg, Markus Lanthaler, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Niklas Lindström is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any updates to the agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: ISSUE-43 and ISSUE-53 - <a href="https://github.com/json-ld/json-ld.org/issues/43">https://github.com/json-ld/json-ld.org/issues/43</a> </div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/53">https://github.com/json-ld/json-ld.org/issues/53</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to discuss issue 43 and 53</div>
+<div class="comment-continuation">… 43 we resolved it last week, but we came into problems with compaction</div>
+<div class="comment-continuation">… with so many different options, choosing the compaction is tricky; e.g. some value sets might have to be split into two, with different keys based on coercion</div>
+<div class="information">Issue 53 is normalization and the consequences of splitting it off into a different spec - based on RDF specifics</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's focus on the syntax spec first; api spec needs more work</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/43">https://github.com/json-ld/json-ld.org/issues/43</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the consequences of having multiple mappings to a single [property] iri</div>
+<div class="comment-continuation">… with different coercion rules, you use different terms with the same IRI depending on object value</div>
+<div class="comment-continuation">… upon expansion, these two value lists are merged</div>
+<div class="comment-continuation">… if you've got a date and an integer value, you need to compact into two different keys or ...</div>
+<div class="comment-continuation">… this is beyond what we intend to do</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so the way we've defined the context is more complex; before the mapping was simple (iri - definition (term, opt coercion)</div>
+<div class="comment-continuation">… now, the mapping is from term to iri and coercion combined; and we do a string check for term (lexical first)</div>
+<div class="comment-continuation">… there's no ambiguity though; only more complex?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  before, when you process the context, you used the expanded IRI, not the lexical value of the "term"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think it was really that clear before</div>
+<div class="comment-continuation">… that issue didn't come up now, it was there before</div>
+<div class="comment-continuation">... but from a syntactic level, we can't handle it; we can only specify rules to prevent ambiguity</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm not sure if I'm following - clarification - the problem here is not that there can be different terms for different coercion values w/ the same IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The problem comes when you apply that to expansion and compaction algorithms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you specify two mappings that both map to the same IRI, it's ambiguous which one you pick. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm willing to defend this complexity - it is complex when you have very diverse data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When you have different objects for the same property - when you want to express JSON - you want to shield people from the details of the object values, which is why we have coercion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When these two goals collide, there will be a complex situation, regardless. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think this is defendable - the value gained by the ability to have different terms for the combination of a different property/datatype is greater than not being able to handle potentially varied object data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you have that situation, your data is very complex. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think this in and of itself creates any ambiguity - you won't find any specific term for the value type... you have to use the full IRI or generate a CURIE for the prefix defined. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I see what gregg is getting at</div>
+<div class="comment-continuation">… if you have a compacted form with terms foo1 and foo2</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/43">https://github.com/json-ld/json-ld.org/issues/43</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "@context":</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "a": {"@id": "<a href="http://example.com/foo",">http://example.com/foo",</a> "@type": "xsd:integer"},</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "b": {"@id": "<a href="http://example.com/foo"}">http://example.com/foo"}</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: },</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "a": "1",</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "b": "1"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the ambiguity is which term to pick</div>
+<div class="comment-continuation">… if you have two terms pointing to the same @id</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  always pick the lexically smaller value</div>
+<div class="comment-continuation">… I agree with both of you; gregg: this is definitely a complexity; niklas: this is manageable and we're trying to show that JSON-LD can handle really complex RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the alternative, to strip this functionality out, or saying that it's undefined is hard; we have use cases for this, and undefined is bad</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should turn how conflicts are resolved into a separate issue</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it does impact the syntax, so we need to discuss it soon</div>
+<div class="information">Manu creates the issue...</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/74">https://github.com/json-ld/json-ld.org/issues/74</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  with some more syntax spec changes we can close issue 43</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-56: JSON keys that are not terms</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/56">https://github.com/json-ld/json-ld.org/issues/56</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I think this is closely related to <a href="https://github.com/json-ld/json-ld.org/issues/68">https://github.com/json-ld/json-ld.org/issues/68</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I believe this issue conflates different things - it talks about disjoint graphs, drop the subtree during processing, and how we handle @ids with lists of IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  These are three separate issues, yes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in the beginning of JSON-LD, lists of iris in @id was a syntax "macro" to say same things to different subjects</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't see how lists of IRIs in @id and disjoint graphs are related. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are three different issues. we make issue 56 to only be about unknown terms. to allow for "raw" json in json-ld</div>
+<div class="comment-continuation">… the initial thought was to drop the entire subtree</div>
+<div class="comment-continuation">… we wanted to support richer stuff; but to dive in and deep process data might be very complex</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: IMO, ignore sub-tree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is where the conflation may have begun. When I discussed this, I did it from my use cases' perspective - I have @rev to represent reverse relations... it's a magic key, the value is a JSON object which has what looks like normal terms pointing to resources. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  They demonstrate the inverse - if we drop the entire subtree, then I can put this data in and the data in the subtree looks like JSON-LD, but nobody has to care about that. It's tempting to me to say that I want to keep the subtree, but I realize that if want @rev, then we have this problem where we have keys that mean nothing... we have a two step path down, and that's too complex... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...to handle.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree</div>
+<div class="comment-continuation">… the other thing that marcus said is that the spec currently states that terms without mappings are relative iris</div>
+<div class="comment-continuation">… this was never our intent</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the spec's been updated to fix that</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Ivan suggested that instead of allowing "@id" : [{}, {}, {}] - we should use "@data": [{}, {}, {}] to represent a disjoint graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if we allow processors to deep-dive into unknown terms, we don't have to define @data... deep dive processors would just find the data... as we just discussed, this is too complicated. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Can you explain why this is complicated? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to be able to ignore contexts</div>
+<div class="comment-continuation">… if we want to allow deep diving; we should create semantics to do that</div>
+<div class="comment-continuation">… we should ignore unknowns and their values</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If I do something like rev.partOf, it creates an issue - I don't want that to be processed. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we allow deep dives; when you compact the data; the result will look very different</div>
+<div class="comment-continuation">… completely different when rebuilt; will confuse people</div>
+<div class="comment-continuation">… therefore, we should not support deep-diving</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it makes sense.</div>
+<div class="comment-continuation">… just to make it clear: what happens on compaction/expansion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it is dropped entirely</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  agreed</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it needs to be clear to say when a key is definitively unmapped</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Mapping a key to _null_ removes a mapping for that key active context</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (i.e. JSON null)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "name": { "@type": null }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Mapping a key to _null_ removes a mapping for that key active context</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  A term can only be redefined, never partially reconfigured</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> A term can only be redefined, never partially reconfigured</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-52: Should we support lists of lists?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/52">https://github.com/json-ld/json-ld.org/issues/52</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we have no real use cases for it, do we?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  can you give a list an iri?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you can have a list as the value of an @id</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@id": "xxxx", "@type": "@list", "@value": [ list values ] }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You can use RDF terms to create an RDF list with an ID and then for that value, rdf:rest the rest... it would look terrible, but you could do it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is not specified currently... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What about {@list: []} in a list?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Like this: {@list: [ {@list: [1, 2]}, {@lisr: [3, 4] ]} is "a list of lists". But the issue is should [[1,2], [3,4]] *mean* that</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we supported this syntax, we could support lists of lists. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I have a use case (another issue) where a list has an IRI and can be referenced</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  <a href="http://example.com/list-with-id">http://example.com/list-with-id</a> a rdf:List, rdf:first 1, rdf:rest (2) .</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there is a way to do it in RDF, round-trips are of concern</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, the round-trip is of great concern</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree, we are discussing something very complex. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you need to do it, you can do it - any sort of syntactic short-hand is an issue. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Serializers for RDF which have a short-hand for lists stop using the short-hand if the list is described with other properties or the list is not a list of bnodes. The short-hand breaks down. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We can use the gruesome and verbose list mechanism without any changes - we shouldn't try to create separate support for this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What about - [ [ … ] ]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That is not supported, to clarify. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Niklas did mention this: {@list: [ {@list: [1, 2]}, {@list: [3, 4] ]}</div>
+<div class="comment-continuation">… in turtle: ( (1 2) (3 4) )</div>
+<div class="information">General agreement that we should not support this type of very advanced list functionality - even if there is a use case here and there, it may overly complicated JSON-LD.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: Good call.</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+[10:06]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jan/0102.html
+[10:07]	<niklasl>	scribe: niklasl
+[10:07]	<niklasl>	manu: any updates to the agenda?
+[10:06]	<gkellogg>	ISSUE-43 and ISSUE-53 - https://github.com/json-ld/json-ld.org/issues/43 
+[10:07]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/53
+[10:07]	<niklasl>	gregg: we need to discuss issue 43 and 53
+[10:07]	<niklasl>	… 43 we resolved it last week, but we came into problems with compaction
+[10:08]	<niklasl>	… with so many different options, choosing the compaction is tricky; e.g. some value sets might have to be split into two, with different keys based on coercion
+[10:08]	<niklasl>	q+
+[10:08]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:08]	<niklasl>	q-
+[10:08]	<voip-ld>	Removed niklasl from the speaker queue: (empty)
+[10:09]	<niklasl>	Issue 53 is normalization and the consequences of splitting it off into a different spec - based on RDF specifics
+[10:09]	<voip-ld>	David I. Lehn (SIP/71.171.29.201-000000ab) has joined the conference.
+[10:09]	<niklasl>	manu: Let's focus on the syntax spec first; api spec needs more work
+[10:09]	<manu1>	Topic: ISSUE-43: Use of IRIs and CURIEs as @context keys
+[10:10]	<manu1>	https://github.com/json-ld/json-ld.org/issues/43
+[10:10]	<niklasl>	gregg: the consequences of having multiple mappings to a single [property] iri
+[10:11]	<niklasl>	… with different coercion rules, you use different terms with the same IRI depending on object value
+[10:11]	<niklasl>	… upon expansion, these two value lists are merged
+[10:12]	<niklasl>	… if you've got a date and an integer value, you need to compact into two different keys or ...
+[10:12]	<lanthaler>	q+
+[10:12]	<niklasl>	… this is beyond what we intend to do
+[10:12]	<niklasl>	q+
+[10:12]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:12]	<voip-ld>	Added niklasl to the speaker queue: lanthaler, niklasl
+[10:13]	<niklasl>	manu: so the way we've defined the context is more complex; before the mapping was simple (iri - definition (term, opt coercion)
+[10:14]	<niklasl>	… now, the mapping is from term to iri and coercion combined; and we do a string check for term (lexical first)
+[10:14]	<niklasl>	… there's no ambiguity though; only more complex?
+[10:15]	<niklasl>	gregg: before, when you process the context, you used the expanded IRI, not the lexical value of the "term"
+[10:16]	<manu1>	ack lanthaler
+[10:16]	<voip-ld>	lanthaler has the floor. The next speaker is niklasl.
+[10:16]	<niklasl>	lanthaler: I don't think it was really that clear before
+[10:16]	<niklasl>	… that issue didn't come up now, it was there before
+[10:17]	<niklasl>	... but from a syntactic level, we can't handle it; we can only specify rules to prevent ambiguity
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:17]	<manu1>	niklasl: I'm not sure if I'm following - clarification - the problem here is not that there can be different terms for different coercion values w/ the same IRI.
+[10:18]	<manu1>	gkellogg: The problem comes when you apply that to expansion and compaction algorithms.
+[10:18]	<manu1>	q+ to speak to expansion and compaction.
+[10:18]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:19]	<manu1>	gkellogg: if you specify two mappings that both map to the same IRI, it's ambiguous which one you pick.
+[10:20]	<manu1>	niklasl: I'm willing to defend this complexity - it is complex when you have very diverse data.
+[10:20]	<manu1>	niklasl: When you have different objects for the same property - when you want to express JSON - you want to shield people from the details of the object values, which is why we have coercion.
+[10:21]	<manu1>	niklasl: When these two goals collide, there will be a complex situation, regardless.
+[10:21]	<manu1>	niklasl: I think this is defendable - the value gained by the ability to have different terms for the combination of a different property/datatype is greater than not being able to handle potentially varied object data.
+[10:21]	<manu1>	niklasl: If you have that situation, your data is very complex.
+[10:22]	<manu1>	niklasl: I don't think this in and of itself creates any ambiguity - you won't find any specific term for the value type... you have to use the full IRI or generate a CURIE for the prefix defined.
+[10:22]	<manu1>	ack niklasl
+[10:22]	<voip-ld>	manu1 has the floor (to speak to expansion and compaction.). The speaker queue is empty.
+[10:23]	<niklasl>	manu: I see what gregg is getting at
+[10:23]	<niklasl>	… if you have a compacted form with terms foo1 and foo2
+[10:23]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/43
+[10:23]	<gkellogg>	{
+[10:23]	<gkellogg>	"@context":
+[10:23]	<gkellogg>	{
+[10:23]	<gkellogg>	"a": {"@id": "http://example.com/foo", "@type": "xsd:integer"},
+[10:23]	<gkellogg>	"b": {"@id": "http://example.com/foo"}
+[10:23]	<gkellogg>	},
+[10:23]	<gkellogg>	"a": "1",
+[10:23]	<gkellogg>	"b": "1"
+[10:23]	<gkellogg>	}
+[10:24]	<niklasl>	manu: the ambiguity is which term to pick
+[10:25]	<niklasl>	… if you have two terms pointing to the same @id
+[10:25]	<niklasl>	manu: always pick the lexically smaller value
+[10:26]	<niklasl>	… I agree with both of you; gregg: this is definitely a complexity; niklas: this is manageable and we're trying to show that JSON-LD can handle really complex RDF
+[10:27]	<niklasl>	manu: the alternative, to strip this functionality out, or saying that it's undefined is hard; we have use cases for this, and undefined is bad
+[10:27]	<niklasl>	q+
+[10:27]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:28]	<niklasl>	manu: we should turn how conflicts are resolved into a separate issue
+[10:29]	<niklasl>	manu: it does impact the syntax, so we need to discuss it soon
+[10:29]	<niklasl>	Manu creates the issue...
+[10:29]	<manu>	        https://github.com/json-ld/json-ld.org/issues/74
+[10:30]	<niklasl>	gregg: with some more syntax spec changes we can close issue 43
+[10:31]	<manu1>	Topic: ISSUE-56: JSON keys that are not terms
+[10:32]	<manu1>	https://github.com/json-ld/json-ld.org/issues/56
+[10:32]	<niklasl>	q+
+[10:32]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:32]	<manu1>	ack niklasl
+[10:32]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:32]	<lanthaler>	I think this is closely related to https://github.com/json-ld/json-ld.org/issues/68
+[10:33]	<manu1>	niklasl: I believe this issue conflates different things - it talks about disjoint graphs, drop the subtree during processing, and how we handle @ids with lists of IRIs.
+[10:34]	<niklasl>	q+
+[10:34]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:35]	<manu1>	ack niklasl
+[10:35]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:36]	<manu1>	manu: These are three separate issues, yes.
+[10:36]	<niklasl>	manu: in the beginning of JSON-LD, lists of iris in @id was a syntax "macro" to say same things to different subjects
+[10:36]	<manu1>	Markus: I don't see how lists of IRIs in @id and disjoint graphs are related.
+[10:38]	<niklasl>	manu: there are three different issues. we make issue 56 to only be about unknown terms. to allow for "raw" json in json-ld
+[10:38]	<niklasl>	… the initial thought was to drop the entire subtree
+[10:38]	<niklasl>	q+
+[10:38]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:39]	<niklasl>	… we wanted to support richer stuff; but to dive in and deep process data might be very complex
+[10:39]	<manu1>	ack niklasl
+[10:39]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:39]	<gkellogg>	IMO, ignore sub-tree
+[10:40]	<manu1>	niklasl: This is where the conflation may have begun. When I discussed this, I did it from my use cases' perspective - I have @rev to represent reverse relations... it's a magic key, the value is a JSON object which has what looks like normal terms pointing to resources.
+[10:41]	<manu1>	niklasl: They demonstrate the inverse - if we drop the entire subtree, then I can put this data in and the data in the subtree looks like JSON-LD, but nobody has to care about that. It's tempting to me to say that I want to keep the subtree, but I realize that if want @rev, then we have this problem where we have keys that mean nothing... we have a two step path down, and that's too complex...
+[10:41]	<manu1>	...to handle.
+[10:42]	<niklasl>	q+
+[10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:42]	<niklasl>	manu: I agree
+[10:42]	<niklasl>	… the other thing that marcus said is that the spec currently states that terms without mappings are relative iris
+[10:42]	<lanthaler>	q+
+[10:42]	<voip-ld>	Added lanthaler to the speaker queue: niklasl, lanthaler
+[10:42]	<niklasl>	… this was never our intent
+[10:43]	<manu1>	ack niklasl
+[10:43]	<voip-ld>	niklasl has the floor. The next speaker is lanthaler.
+[10:43]	<niklasl>	gregg: the spec's been updated to fix that
+[10:44]	<manu1>	niklasl: Ivan suggested that instead of allowing "@id" : [{}, {}, {}] - we should use "@data": [{}, {}, {}] to represent a disjoint graph.
+[10:45]	<manu1>	niklasl: if we allow processors to deep-dive into unknown terms, we don't have to define @data... deep dive processors would just find the data... as we just discussed, this is too complicated.
+[10:45]	<manu1>	Markus: Can you explain why this is complicated?
+[10:45]	<gkellogg>	q+
+[10:45]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:45]	<manu1>	ack niklasl
+[10:45]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:45]	<manu1>	ack gkellogg
+[10:45]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:46]	<niklasl>	gregg: we need to be able to ignore contexts
+[10:46]	<niklasl>	… if we want to allow deep diving; we should create semantics to do that
+[10:46]	<niklasl>	q+
+[10:46]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:46]	<manu1>	q+ to explain the complication when deep diving.
+[10:46]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:46]	<niklasl>	… we should ignore unknowns and their values
+[10:47]	<manu1>	ack niklasl
+[10:47]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:48]	<manu>	niklasl: If I do something like rev.partOf, it creates an issue - I don't want that to be processed.
+[10:48]	<manu1>	ack manu1
+[10:48]	<voip-ld>	niklasl has the floor (to explain the complication when deep diving.). The speaker queue is empty.
+[10:48]	<niklasl>	manu: if we allow deep dives; when you compact the data; the result will look very different
+[10:49]	<niklasl>	… completely different when rebuilt; will confuse people
+[10:50]	<niklasl>	… therefore, we should not support deep-diving
+[10:50]	<niklasl>	markus: it makes sense.
+[10:51]	<niklasl>	… just to make it clear: what happens on compaction/expansion
+[10:51]	<niklasl>	manu: it is dropped entirely
+[10:51]	<niklasl>	gregg: agreed
+[10:51]	<niklasl>	markus: ok
+[10:52]	<niklasl>	gregg: it needs to be clear to say when a key is definitively unmapped
+[10:52]	<manu1>	PROPOSAL: When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.
+[10:52]	<manu1>	+1
+[10:52]	<niklasl>	+1
+[10:52]	<gkellogg>	+1
+[10:52]	<lanthaler>	+1
+[10:52]	<taaz>	+0
+[10:52]	<manu1>	RESOLVED: When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.
+[10:52]	<gkellogg>	PROPOSAL: Mapping a key to _null_ removes a mapping for that key active context
+[10:53]	<niklasl>	+1 (i.e. JSON null)
+[10:53]	<manu1>	+1
+[10:53]	<gkellogg>	+1
+[10:54]	<lanthaler>	"name": { "@type": null }
+[10:55]	<lanthaler>	+1
+[10:55]	<taaz>	+0
+[10:56]	<manu1>	RESOLVED: Mapping a key to _null_ removes a mapping for that key active context
+[10:55]	<niklasl>	PROPOSAL: A term can only be redefined, never partially reconfigured
+[10:56]	<lanthaler>	+1
+[10:56]	<niklasl>	+1
+[10:56]	<manu1>	+1
+[10:56]	<taaz>	+0
+[10:56]	<gkellogg>	+1
+[10:56]	<niklasl>	RESOLVED: A term can only be redefined, never partially reconfigured
+[10:57]	<manu1>	Topic: ISSUE-52: Should we support lists of lists?
+[10:57]	<manu1>	https://github.com/json-ld/json-ld.org/issues/52
+[10:57]	<lanthaler>	q+
+[10:57]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:57]	<niklasl>	gregg: we have no real use cases for it, do we?
+[10:58]	<manu1>	ack lanthaler
+[10:58]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:58]	<niklasl>	markus: can you give a list an iri?
+[10:58]	<niklasl>	q+
+[10:58]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:58]	<niklasl>	gregg: you can have a list as the value of an @id
+[10:59]	<lanthaler>	{ "@id": "xxxx", "@type": "@list", "@value": [ list values ] }
+[10:59]	<manu1>	ack niklasl
+[10:59]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:00]	<manu1>	niklasl: You can use RDF terms to create an RDF list with an ID and then for that value, rdf:rest the rest... it would look terrible, but you could do it.
+[11:01]	<manu1>	niklasl: This is not specified currently...
+[11:01]	<niklasl>	niklasl: What about {@list: []} in a list?
+[11:02]	<niklasl>	niklasl: Like this: {@list: [ {@list: [1, 2]}, {@lisr: [3, 4] ]} is "a list of lists". But the issue is should [[1,2], [3,4]] *mean* that
+[11:03]	<manu1>	niklasl: If we supported this syntax, we could support lists of lists.
+[11:04]	<niklasl>	markus: I have a use case (another issue) where a list has an IRI and can be referenced
+[11:05]	<niklasl>	niklasl: http://example.com/list-with-id a rdf:List, rdf:first 1, rdf:rest (2) .
+[11:06]	<niklasl>	gregg: there is a way to do it in RDF, round-trips are of concern
+[11:06]	<niklasl>	manu: yes, the round-trip is of great concern
+[11:06]	<niklasl>	q+
+[11:06]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:08]	<manu1>	ack niklasl
+[11:08]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:08]	<manu1>	niklasl: I agree, we are discussing something very complex.
+[11:08]	<manu1>	niklasl: If you need to do it, you can do it - any sort of syntactic short-hand is an issue.
+[11:09]	<manu1>	niklasl: Serializers for RDF which have a short-hand for lists stop using the short-hand if the list is described with other properties or the list is not a list of bnodes. The short-hand breaks down.
+[11:09]	<manu1>	niklasl: We can use the gruesome and verbose list mechanism without any changes - we shouldn't try to create separate support for this.
+[11:09]	<niklasl>	niklasl: What about - [ [ … ] ]
+[11:09]	<manu1>	niklasl: That is not supported, to clarify.
+[11:10]	<manu1>	Niklas did mention this: {@list: [ {@list: [1, 2]}, {@list: [3, 4] ]}
+[11:10]	<niklasl>	… in turtle: ( (1 2) (3 4) )
+[11:10]	<niklasl> General agreement that we should not support this type of very advanced list functionality - even if there is a use case here and there, it may overly complicated JSON-LD.
+[11:10]	<taaz> Good call.
