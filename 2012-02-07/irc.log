@@ -1,0 +1,85 @@
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0002.html
+[10:05]	<manu1>	Scribe: taaz
+[10:07]	<taaz>	manu1: I read through every issue this weekend and put proposal on as many as possible.
+[10:07]	<taaz>	manu1: [discussion of super sesssion next week]
+[10:08]	<manu1>	Topic: ISSUE-46: Absolute IRI detection
+[10:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/46
+[10:08]	<taaz>	gkellogg: Paper accept at conference.
+[10:08]	-->|	advatar (~advatar@ua-83-227-134-140.cust.bredbandsbolaget.se) has joined #json-ld
+[10:09]	<gkellogg>	SemTechBiz in San Francisco this June
+[10:09]	<niklasl>	q+
+[10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:09]	<manu1>	ack niklasl
+[10:09]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:15]	|<--	taaz has left freenode (Ping timeout: 240 seconds)
+[10:17]	<manu1>	PROPOSAL: If a key in a JSON-LD document contains a colon, it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI. The only exception to this rule is if "//" follows the first colon, and in that case, the value is an AbsoluteIRI.
+[10:17]	<manu1>	+1
+[10:17]	<gkellogg>	+1
+[10:17]	<niklasl>	+1
+[10:18]	<niklasl>	If a key in a JSON-LD document contains a colon and the first colon is not followed by "//"...
+[10:21]	<manu1>	RESOLVED: If a key in a JSON-LD document contains a colon, it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI. The only exception to this rule is if "//" follows the first colon, and in that case, the value is an AbsoluteIRI.
+[10:21]	<manu1>	Clarification - you always split on the first colon. The rule only applies to the first colon detected in a CURIE, all subsequent colons are allowed.
+[10:22]	-->|	taaz (~dlehn@pool-96-240-177-106.ronkva.east.verizon.net) has joined #json-ld
+[10:23]	<manu1>	PROPOSAL: If a key in a JSON-LD document contains a colon and the first colon is not followed by "//", it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI.
+[10:23]	<manu1>	+1
+[10:23]	<gkellogg>	+1
+[10:23]	<niklasl>	+1
+[10:23]	|<--	taaz has left freenode (Client Quit)
+[10:23]	<manu1>	RESOLVED: If a key in a JSON-LD document contains a colon and the first colon is not followed by "//", it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI.
+[10:24]	<manu1>	Topic: @list - type coercion
+[10:24]	<manu1>	https://github.com/json-ld/json-ld.org/issues/60
+[10:25]	<gkellogg>	q_
+[10:25]	<gkellogg>	q+
+[10:25]	<niklasl>	q+
+[10:25]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:25]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:25]	<manu1>	ack gkellogg
+[10:25]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:27]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/44
+[10:27]	-->|	taaz (~dlehn@pool-96-240-177-106.ronkva.east.verizon.net) has joined #json-ld
+[10:27]	<voip-ld>	David I. Lehn (SIP/96.240.177.123-000000b6) has left the conference.
+[10:27]	<voip-ld>	David I. Lehn (SIP/96.240.177.106-000000b7) has joined the conference.
+[10:28]	<taaz>	(sorry, my net connection went away for 20 mins there)
+[10:28]	<gkellogg>	We discussed this in issue 40: https://github.com/json-ld/json-ld.org/issues/40
+[10:30]	<taaz>	manu1: Do we want to be that accurate/pedantic about this. @type used in coersion, set in rdf type, and to set type of a value.
+[10:31]	<taaz>	manu1: Is using set in list going to far?
+[10:31]	<niklasl>	.. "@type": {"@list": "xsd:date"}
+[10:31]	<gkellogg>	1) "foo": {"@iri": "http://uri.foo", "@coerce": ["xsd:date", "@list"] }
+[10:31]	<gkellogg>	2) "foo": {"@iri": "http://uri.foo", "@coerce": "xsd:date", "@list": true}
+[10:31]	<gkellogg>	3) "foo": {"@iri": "http://uri.foo", "@datatype": "xsd:date", "@list": true}
+[10:31]	<gkellogg>	4) "foo": {"@iri": "http://uri.foo", "@list": { "@datatype": "xsd:date" } }
+[10:31]	<gkellogg>	5) "foo": { "http://uri.foo": { "@list": "xsd:date" } }
+[10:38]	<manu1>	PROPOSAL: Adopt "@container": "@list" syntax to specify container coercion to an ordered list when specified via the @context.
+[10:38]	<niklasl>	+1
+[10:38]	<gkellogg>	+1
+[10:38]	<manu1>	+1
+[10:39]	<taaz>	+0
+[10:39]	<manu1>	RESOLVED: Adopt "@container": "@list" syntax to specify container coercion to an ordered list when specified via the @context.
+[10:39]	<manu1>	PROPOSAL: Do not support "@container": "@set" at present, but ensure that it's use isn't prevented in the future.
+[10:40]	<niklasl>	-1 for the first part, +1 for the second...
+[10:41]	<manu1>	Topic: ISSUE-54: Arrays of IRIs
+[10:41]	<manu1>	https://github.com/json-ld/json-ld.org/issues/54
+[10:42]	<manu1>	{"@id": ["a", "b"]}
+[10:43]	<gkellogg>	q+ to suggest that this might imply list coercion.
+[10:43]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:43]	<manu1>	ack gkellogg
+[10:43]	<voip-ld>	gkellogg has the floor (to suggest that this might imply list coercion.). The speaker queue is empty.
+[10:45]	<gkellogg>	("a" "b") a rdf:LIst
+[10:45]	<gkellogg>	{"@id": ["a", "b"], "@type": "rdf:List"}
+[10:46]	<niklasl>	q+
+[10:46]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:48]	<manu1>	ack niklasl
+[10:48]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:48]	<niklasl>	.. referencing lists: https://github.com/json-ld/json-ld.org/issues/75
+[10:51]	|<--	advatar has left freenode (Quit: advatar)
+[10:53]	<niklasl>	q+
+[10:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:55]	<manu1>	ack niklasl
+[10:55]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:58]	<niklasl>	q+
+[10:58]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:59]	=-=	MacTed has changed the topic to "Linked Data for JSON: http://json-ld.org/ -- 2012-02-07 Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0002.html"
+[11:00]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/68
+
