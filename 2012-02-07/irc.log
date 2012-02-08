@@ -1,23 +1,60 @@
 [10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0002.html
 [10:05]	<manu1>	Scribe: taaz
-[10:07]	<taaz>	manu1: I read through every issue this weekend and put proposal on as many as possible.
-[10:07]	<taaz>	manu1: [discussion of super sesssion next week]
+[10:06]	<taaz>	manu1: Any additions to the agenda?
+[10:07]	<taaz>	manu1: I read through every issue this weekend and tried to understand where issue logger was coming from and come up with solution that might get consensus. Some proposals worked out and some did not. We'll handle those as we go.
+[10:07]	<taaz>	manu1: Would anyone have time next week for a 2 hour super session?
+[10:07]	<taaz>	gkellogg: yes
+[10:07]	<taaz>	niklasl: maybe
+[10:07]	<taaz>	manu1: Alternative is to go through issues and say which proposals you agree with. Can ask Markus to do the same and make some headway.
+[10:07]	<taaz>	manu1: Maybe we can get people to put comments on the mailing list.
+[10:08]	<taaz>	gkellogg: My talk was accepted at SemTechBiz in San Francisco in June.
+[10:08]	<taaz>	manu1: Awesome! Very cool. Great, the first mention of JSON-LD at a conference.
+[10:08]	<taaz>	gkellogg: Should be timeline, hopefully we get through more issues by then!
+[10:08]	<taaz>	manu1: Hopefully we get through them and no one raise any more!
 [10:08]	<manu1>	Topic: ISSUE-46: Absolute IRI detection
 [10:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/46
-[10:08]	<taaz>	gkellogg: Paper accept at conference.
+[10:08]	<taaz>	manu1: Issue related to how you figure out what a relative IRI is and what an absolute IRI is. The proposal is if key contains a colon then it's a compact IRI if the prefix is in the active context, otherwise it's an absolute IRI. Basically saying there are no relative IRIs on the left hand side. Hopefully that's in line with discussion from last week. Anyone opposed to that proposal?
 [10:08]	-->|	advatar (~advatar@ua-83-227-134-140.cust.bredbandsbolaget.se) has joined #json-ld
 [10:09]	<gkellogg>	SemTechBiz in San Francisco this June
 [10:09]	<niklasl>	q+
 [10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
 [10:09]	<manu1>	ack niklasl
 [10:09]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:10]	<taaz>	niklasl: Did you say anything about keys defined?
+[10:10]	<taaz>	manu1: Yeah. If the key has a colon in it then you split on the colon and look up the prefix in the context. If that's there then you expand it, or rather you say it's an CURIE and the prefix is defined in the context. If the prefix is not defined in the context then it is an absolute IRI. mailto: would be a good example of that.
+[10:10]	<taaz>	niklasl: I'd really like that safety mechanism that we did in RDFa as well, the double slash.
+[10:10]	<taaz>	manu1: I'm wondering if we need that safety mechanism is JSON-LD. The reason I don't think we need it is I don't think someone is going accidentally put in http:// and need it to be anything other than an absolute IRI in JSON-LD in the key position.
+[10:11]	<taaz>	niklasl: But that's an argument for because not meaning it to be an absolute that's the intent of preventing the expansion of anything that begins with double slash. Most of this is theoretical but there the case where you create JSON-LD from RDFa and that RDFa would be careless about using old http prefix. Same thing goes for any other protocol. It's the same reasoning as in RDFa. My argument here was that we don't know how the JSON-LD is going to be created so if you use external definitions for prefixes and also since we don't differ between prefixes and terms we will have a lot more definitions which might accidentally collide with some scheme. The risk might be greater than with RDFa.
+[10:12]	<taaz>	manu1: I could go either way on it. I think it's a valid argument but I don't know how high the risk is. I'm concerned with putting in features that prevent things that are not a high risk. Anyone have input on this?
+[10:12]	<taaz>	gkellogg: If you were to take an RDFa document and transform it to JSON-LD where there was confusion in the RDFa document that prevented the thing from being interpreted as a CURIE would it now look like a CURIE because of the environmental prefixes. Would you end up with a different interpretation? I'm not sure if that would happen or not.
+[10:13]	<taaz>	manu1: The RDFa processor would probably convert it to JSON-LD from the triples not from the raw text. In RDFa you would emit an IRI not a text string.
+[10:14]	<taaz>	gkellogg: You would tend to pull over your same prefixes so you can output a document that looks good. So if you pull over your prefixes and use them to define CURIES you might have an issues. We probably need a concrete use case to see how that would work. It seems at this point is the lifecycle of JSON-LD it would add some more complication which might make it more difficult to get people to adopt it. The advantage of your proposal is that it is very simple.
+[10:14]	<taaz>	manu1: There is an argument here that I can see this happening during Last Call just like it did for RDFa.
+[10:14]	<taaz>	niklasl: The thing is that it will go unnoticed until it appears and then there is no way to stop it. I've been scared of this potential risk since last summer because it looks so innocent until it really corrupts your data. And Shane also discovered the widget URI scheme, which is called "widget", and it's not inconceivable for someone to define at least a term called widget. Given that we have those intermingled, there is no different between terms and prefixes. It feels uncomfortable to me.
+[10:15]	<taaz>	manu1: The proposal would change that says that any key that contains "://", where two slashes are after the first colon, would be an absolute IRI. Any issues with that?
 [10:15]	|<--	taaz has left freenode (Ping timeout: 240 seconds)
+[10:16]	<taaz>	gkellogg: I'm fine with it.
 [10:17]	<manu1>	PROPOSAL: If a key in a JSON-LD document contains a colon, it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI. The only exception to this rule is if "//" follows the first colon, and in that case, the value is an AbsoluteIRI.
 [10:17]	<manu1>	+1
 [10:17]	<gkellogg>	+1
 [10:17]	<niklasl>	+1
+[10:17]	<taaz>	niklasl: We should change the contains a colon in either case because it could contain more than one colon.
 [10:18]	<niklasl>	If a key in a JSON-LD document contains a colon and the first colon is not followed by "//"...
+[10:18]	<taaz>	manu1: I was going to say we could just edit the document and put the right thing in and people will complain if it's not right.
+[10:18]	<taaz>	gkellogg: Do we have wording from RDFa?
+[10:18]	<taaz>	manu1: We do.
+[10:18]	<taaz>	gkellogg: Is it worse?
+[10:18]	<taaz>	manu1: How about this, I can resolve the proposal and then we can clarify.
+[10:18]	<taaz>	gkellogg: Maybe we can define a regex for it.
+[10:18]	<taaz>	manu1: Yeah we need ABNF or something.
+[10:19]	<taaz>	niklasl: We're going to get that for RDFa so we can piggyback on that.
+[10:19]	<taaz>	manu1: I don't know if JSON-LD is more forgiving than RDFa. The intent was for it to be but we might not need to do that. And we might as well get two languages that have CURIES aligned.
+[10:19]	<taaz>	gkellogg: I wonder if would could reference RDFa? We've avoided doing that by not even calling it a CURIE but in the API document maybe it isn't so bad to have it more closely aligned. This is a place I imagine Markus not entirely agreeing with the reasoning here.
+[10:20]	<taaz>	manu1: Let's go ahead and resolve this issue and if Markus thinks there's an issue we can open or discuss it again. There's still consensus and unless he's a -1 we'll still end up doing it. I'll go ahead and resolve this and then we can clarify it.
 [10:21]	<manu1>	RESOLVED: If a key in a JSON-LD document contains a colon, it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI. The only exception to this rule is if "//" follows the first colon, and in that case, the value is an AbsoluteIRI.
+[10:21]	<taaz>	niklasl: Did you see my potential folding in of the not followed by double slash note?
+[10:21]	<taaz>	manu1: Is that for the beginning of the resolution?
+[10:21]	<taaz>	niklasl: Exactly, because instead of having to deal with the exception in the second sentence we could have that.
 [10:21]	<manu1>	Clarification - you always split on the first colon. The rule only applies to the first colon detected in a CURIE, all subsequent colons are allowed.
 [10:22]	-->|	taaz (~dlehn@pool-96-240-177-106.ronkva.east.verizon.net) has joined #json-ld
 [10:23]	<manu1>	PROPOSAL: If a key in a JSON-LD document contains a colon and the first colon is not followed by "//", it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI.
@@ -28,58 +65,111 @@
 [10:23]	<manu1>	RESOLVED: If a key in a JSON-LD document contains a colon and the first colon is not followed by "//", it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI.
 [10:24]	<manu1>	Topic: @list - type coercion
 [10:24]	<manu1>	https://github.com/json-ld/json-ld.org/issues/60
-[10:25]	<gkellogg>	q_
 [10:25]	<gkellogg>	q+
 [10:25]	<niklasl>	q+
 [10:25]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
 [10:25]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:25]	<taaz>	manu1: This particular issue has to do with changing the list syntax from "@list":true to something else. What was suggested "@container":"@list". The proposal is specify that @list type coercion occurs when in the @context, "@container":"@list" is specified for a particular for a compact or absolute IRI. Markus raised something that was pretty interesting. He suggested lets not have an @container keyword and use @type with @list.
 [10:25]	<manu1>	ack gkellogg
 [10:25]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:26]	<taaz>	gkellogg: This was actually one of the things we considered back when we went to @list. There were a number of different options and one was to include it in the @type. At the time we decided to not do that. We'd have to go back in the minutes and see where that discussion occurred. My thinking was the reason we didn't do that was that @list isn't a type. @type really relates to coercion of plain strings and @list relates to coercion of arrays. They are different things and this is an example of revisiting something we already determined.
+[10:26]	<taaz>	manu1: Good point.
 [10:27]	<manu1>	ack niklasl
 [10:27]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
 [10:27]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/44
 [10:27]	-->|	taaz (~dlehn@pool-96-240-177-106.ronkva.east.verizon.net) has joined #json-ld
 [10:27]	<voip-ld>	David I. Lehn (SIP/96.240.177.123-000000b6) has left the conference.
 [10:27]	<voip-ld>	David I. Lehn (SIP/96.240.177.106-000000b7) has joined the conference.
-[10:28]	<taaz>	(sorry, my net connection went away for 20 mins there)
+[10:28]	<taaz>	niklasl: This is also discussed in ISSUE-44 which is specifically about sets. We intended this to supported by the same syntax or at least in the future be allowed to use the same syntax. Markus raise the same point as well. My three last comments there go into details. There is a question if this property for a term definition should also be a part of the identity of a term. That is, if you have multiple terms how do you select one of them. For instance, you could have one term called creator and one called creators. If you have multiple creators you use one term otherwise use creator. But that is specifically for sets because in lists that wouldn't apply. I noticed that if we used @type for lists instead of @container it would follow the fact that type is considered when we determine which term to use.
 [10:28]	<gkellogg>	We discussed this in issue 40: https://github.com/json-ld/json-ld.org/issues/40
-[10:30]	<taaz>	manu1: Do we want to be that accurate/pedantic about this. @type used in coersion, set in rdf type, and to set type of a value.
-[10:31]	<taaz>	manu1: Is using set in list going to far?
+[10:31]	<taaz>	manu1: I think what Gregg mentioned resonates with me. Do we want to be that accurate/pedantic or will we allow a bit of leeway. Right now we're already doing that with @type and are a bit fuzzy. It's used to set the coercion type, the RDF type, and the data type of a value.
+[10:31]	<taaz>	manu1: Where's the fuzzy gray line? Is using list in set going to far?
+[10:31]	<taaz>	niklasl: If you want to use coerced values you either would use Markus example with the value of a type being a list, with the values being @list and the coercion type. If we go that way, I this notation would be clearer.
 [10:31]	<niklasl>	.. "@type": {"@list": "xsd:date"}
+[10:31]	<taaz>	manu1: The array notation?
+[10:31]	<taaz>	niklasl: No the object notation.
 [10:31]	<gkellogg>	1) "foo": {"@iri": "http://uri.foo", "@coerce": ["xsd:date", "@list"] }
 [10:31]	<gkellogg>	2) "foo": {"@iri": "http://uri.foo", "@coerce": "xsd:date", "@list": true}
 [10:31]	<gkellogg>	3) "foo": {"@iri": "http://uri.foo", "@datatype": "xsd:date", "@list": true}
 [10:31]	<gkellogg>	4) "foo": {"@iri": "http://uri.foo", "@list": { "@datatype": "xsd:date" } }
 [10:31]	<gkellogg>	5) "foo": { "http://uri.foo": { "@list": "xsd:date" } }
+[10:33]	<taaz>	gkellogg: Those are Markus variations he specified in ISSUE-40. You'll have a lot of different types of syntaxes depending upon the combinations of things that you might do. What if list is specified for one term for another term and both terms map to the same IRI. Then you've got more complications when you do expansion vs compaction. You expand and merge two things. When you compact, which term you select is going to determine if there is list compaction or not. Yet another reason why that should be done on the expanded IRI rather than the original term. In any case there's a lot of different semantic variations that you could go through. So when you are parsing you look for type is list, type is date, type is an array of list and date, or type is an object of list and date. I think we're just making some real potential problems in implementing the algorithms when we increase these variations.
+[10:33]	<taaz>	manu1: The one fear I have here is that we're heading down the same path that RDFa went down which is that all these things seems simple on the surface but when you get to the final processing rules it's incredibly difficult to figure what's going on. You can't keep it in your head and have to run it against a processor to see what pops out. I'm concerned were getting close to that. You need something that you can just look at and tell what's going on.
+[10:34]	<taaz>	niklasl: The syntax variations is only on the surface. If you use @container or a complex value for @type they mean semantically the same. Therefore I reasonable favor @container over a structured @type value since you have to do a lot of checking to parse it and it's not as immediate as looking at something and seeing @container.
+[10:35]	<taaz>	gkellogg: I think the @container syntax makes sense when you've got something other than @list that you might want to use. So "@container":"@list" allows for more options when we go forward. So if we were to add set we possibly could piggyback on that for a mechanism that indicates that things are always in an array notation.
+[10:35]	<taaz>	niklasl: I need some way to do that, and if I don't have support for sets I have to do it in the API documentation and the consumers won't readily be able to see it from the context.
+[10:36]	<taaz>	gkellogg: If we were to combine that with @type, then it might be something like @type would be @set and date, and the combination of list and set would be illegal if we were to combine these together.
+[10:36]	<taaz>	manu1: What do you mean by combine?
+[10:36]	<taaz>	gkellogg: Use the array notation that was originally suggested on this issue.
+[10:36]	<taaz>	niklasl: The array or object notation would have to restrict what you are allowed to write in a non obvious way. I think @container is better. It's clearer and flatter.
+[10:36]	<taaz>	manu1: Sounds like we have consensus around that. At least I agree. It sounds like you all agree it would be better to use @container at this point?
+[10:36]	<taaz>	[all: yes]
+[10:37]	<taaz>	manu1: So there would be two proposals.
+[10:37]	<taaz>	niklasl: That's for ISSUE-44 right?
+[10:37]	<taaz>	manu1: Yeah. The key thing here is that we're not saying that we won't support @set, we just haven't made a decision on that. We may not make a decision on that for JSON-LD 1.0 even once we revisit ISSUE-44. In that case we still don't want to prevent its use in the future. It could be we have something in the future like "@container":"@graph". But that's far in the future.
 [10:38]	<manu1>	PROPOSAL: Adopt "@container": "@list" syntax to specify container coercion to an ordered list when specified via the @context.
 [10:38]	<niklasl>	+1
 [10:38]	<gkellogg>	+1
 [10:38]	<manu1>	+1
 [10:39]	<taaz>	+0
+[10:39]	<taaz>	niklasl: That solves ISSUE-60 right?
+[10:39]	<taaz>	manu1: I've got two proposals that addresses ISSUE-60, this is the other one.
+[10:39]	<taaz>	niklasl: ISSUE-60 is only about list coercion. ISSUE-44 mentions sets.
 [10:39]	<manu1>	RESOLVED: Adopt "@container": "@list" syntax to specify container coercion to an ordered list when specified via the @context.
 [10:39]	<manu1>	PROPOSAL: Do not support "@container": "@set" at present, but ensure that it's use isn't prevented in the future.
+[10:39]	<taaz>	manu1: The other proposal that comes along with this is that we're not going to support "@container":"@set" at preset. Niklas, you think that we should save that proposal until we discuss ISSUE-44?
 [10:40]	<niklasl>	-1 for the first part, +1 for the second...
+[10:40]	<taaz>	niklasl: My vote for this proposal looks like that. I'm against not supporting "@container":"@set" at present because I want to support it. That implies that I don't want to prevent it in the future.
+[10:41]	<taaz>	manu1: I confused myself while looking at ISSUE-44 and copy & pasted the proposal. That resolves ISSUE-60 as well. ISSUE-60 is off the table and we'll talk about ISSUE-44 at some point in the future.
 [10:41]	<manu1>	Topic: ISSUE-54: Arrays of IRIs
 [10:41]	<manu1>	https://github.com/json-ld/json-ld.org/issues/54
 [10:42]	<manu1>	{"@id": ["a", "b"]}
+[10:43]	<taaz>	manu1: Markus has said what do we do when you have an @id and an array of text strings that are basically IRIs? What do you output? We had interesting suggestions on what kind of triples we could output. Markus and Gregg got into a long discussion about what we could do. I think in the end I have a concern that we may be shooting ourselves in the foot allowing this syntax. We had considered this syntax, but the way we considered it was that you would be allowed to set properties for multiple IRIs. Let's say you had a huge document database and wanted set the copyright for all documents, you would use @id and list all the IRIs in an array and the next item would be the property like license or copyright. But we've since backed away from that and don't support it in JSON-LD now. But we do allow an array of multiple objects, which is how we do disjoint graphs.
 [10:43]	<gkellogg>	q+ to suggest that this might imply list coercion.
 [10:43]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
 [10:43]	<manu1>	ack gkellogg
 [10:43]	<voip-ld>	gkellogg has the floor (to suggest that this might imply list coercion.). The speaker queue is empty.
+[10:44]	<taaz>	gkellogg: There were a couple of proposals put out there. When I was going through and looking at lists originally, we were looking at the double array paradigm. A double array in this circumstance would make it clear you were making a list. We could also say that list coercion is implied on @id so that the use of that in and @id would create a list of these subjects. So in the case where this is part of a block which is an object with properties, it would be defining the subject as a list and properties on that list. In the case where there were no properties you would basically be defining a list. Which is pretty much equivalent to how you would do those things in turtle.
+[10:44]	<taaz>	manu1: I'm having a hard time following.
 [10:45]	<gkellogg>	("a" "b") a rdf:LIst
+[10:45]	<taaz>	gkellogg: I think you can do that in turtle. You can do it in N3, but it's possible it's been restricted since then. That would be equivalent to saying
 [10:45]	<gkellogg>	{"@id": ["a", "b"], "@type": "rdf:List"}
+[10:45]	<taaz>	gkellogg: If list coercion was implied, that's what this statement would be. Of course saying it's an RDF list is redundant, but there's other things like provenance information you might use in there too. It reconciles the use of an array in this term in a way we already deal with.
+[10:46]	<taaz>	manu1: There are multiple ways we could interpret that and it's not clear to me what the best way of interpretation is. I don't think we necessarily have a use case for the example you mentioned. I don't think we have a use case from what Markus is suggestion. I think we should just try and do something that is somewhat future proof. So we throw an exception if somebody puts a string value in an @id array. If that array doesn't consist entirely of objects we either pick the first string in the @id array or we throw an exception and say not to use this syntax yet. I think it would be easy to add some sort of feature but it is premature because we don't have anyone screaming for the feature and it adds complexity to the processing rules.
 [10:46]	<niklasl>	q+
 [10:46]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:48]	<taaz>	gkellogg: This does sort of relate to Markus thought about having a document that implements a list that you can then reference. By doing it with this form you can have an @id with a list of elements and it can have a URL that can be refereed from another document.
 [10:48]	<manu1>	ack niklasl
 [10:48]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
 [10:48]	<niklasl>	.. referencing lists: https://github.com/json-ld/json-ld.org/issues/75
+[10:49]	<taaz>	niklasl: That was related to what I was thinking about and tried to shake out in a turtle document. I'm not sure if that's possible in turtle and may only be in N3. I thought it wasn't because RDF lists are special creatures. I comment on ISSUE-75 about provenance and lists at the top level. It's an edge case. The entire list is a special structure and annotating it itself is saying something about an expression which is itself abstract and technical and low level.
+[10:50]	<taaz>	gkellogg: You can say this in turtle because the production is a blank node, a blank node property list, or a collection. And the subject can be an IRI or blank. The difference between turtle and N3, in N3 you can declare a list without having a predicate on it. In turtle there must be a predicate if it's in the subject position.
+[10:51]	<taaz>	manu1: I feel we're getting into esoteric territory here. My concern is this adds some amount of complexity. There's also complexity that they have to understand this new mechanism. I'd argue this is different than the disjoint graph mechanism. Gregg you're proposing if they have an array of items with @id, then a list is implied. But if we have and @id with an array with objects in it then the implied type is that it's a disjoint graph. Now I'm wondering what if you add an property to that? Is it a property off of the list and property off of the disjoint graph or something else?
 [10:51]	|<--	advatar has left freenode (Quit: advatar)
+[10:53]	<taaz>	gkellogg: My proposal is that if you have an @id that references an array then you are defining a list. So we have the current usage where you have an @id defining an array of objects that define ids that is used only for disjoint graphs. There has been some other discussion that the use of @id in that circumstance is confusing and perhaps we should consider replacing it with something such as @data. That would reconcile this thing. It's nice to be able to have a way to take legal JSON and provide a way it's interpreted in JSON-LD without restricting that form. There are cases where I disagree with that, for instance a literal who's value is an array but being able to make some sense of an @id that has an array does make the language more consistent. Just saying @id has an implied list coercion on it somewhat addresses that. That would allow you to override that to say a set by coercion of @id to "@collection":"@set" in a context, if that's something we choose to do.
 [10:53]	<niklasl>	q+
 [10:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:55]	<taaz>	manu1: I still see a lot of complexity being added here. If we do remove the @id multiple object array syntax then we are simplifying the language which is positive. If we are making such that we allow that and do the simplification and have this extra complication and have "@id":["a","b"] and making that automatically coerce to a list, I do think that it makes the language more uniform but I don't know if adding that complexity is going to help the vast majority of people offering documents. I don't think I've ever seen any turtle that does what we're talking about. It may be in examples but I can't see anyone actually using it.
 [10:55]	<manu1>	ack niklasl
 [10:55]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:55]	<taaz>	niklasl: A reflection on what Gregg said, if the value for @id was allowed to be a list and by default it would be a RDF list, but if you coerced it to a set, it would be a set. I think that would imply that the original @id [...] regarding using multiple subjects for the same statement. In general I agree we should defer this and note it's a possibility somewhere so we don't forget this perspective. Is it a list as subject or a macro for creating multiple statements. I agree we should defer it at the moment since it's quite complicated.
+[10:56]	<taaz>	manu1: Markus agrees in the issue tracker without hearing Gregg's argument. What's he's suggesting we throw an exception if we detect an @id and it has list and any item in the list is a string.
+[10:57]	<taaz>  gkellogg: Is it constrained to just about items being stings? I've been interpreting this issue as any use of an array with @id. Presuming we address the top level issue of considering something like @data. Seems the issue is if it's a sting or not.
+[10:57]	<taaz>	niklasl: What happens if it is an object or a boolean?
+[10:58]	<taaz>  gkellogg: If it's objects its still the same problem. What is it you are declaring? I think the proposals were pick the first, pick the last, raise an exception. I'd be fine with raising an exception if we have a way to deal with this at the top level issue of a bush with a context.
+[10:58]	<taaz>	manu1: Yeah, the disjoint graph solution.
+[10:59]	<taaz>	gkellogg: It doesn't have to be a disjoint graph, it could be a tree. It's not represented as a tree but RDF generated could form a tree. Disjoint graph sounds to me like multiple graphs like trig. It's a use case I think we've agreed to defer until the RDF working group has made up their mind on that.
 [10:58]	<niklasl>	q+
 [10:58]	<voip-ld>	Added niklasl to the speaker queue: niklasl
 [10:59]	=-=	MacTed has changed the topic to "Linked Data for JSON: http://json-ld.org/ -- 2012-02-07 Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0002.html"
+[10:59]	<taaz>	manu1: I don't think we have enough to resolve this issue right now. Gregg, throwing an exception is fine for you as long as we figure out this top level bush mechanism. You would not want to resolve this issue until we resolve that other issue?
+[10:59]	<taaz>	gkellogg: If we don't resolve the other issue than we are in a no man's land. They have to be considered together. Maybe would should consider the bush declaration first otherwise we could be in a situation where we could not do some forms of compaction perhaps.
+[11:00]	<taaz>	manu1: Ok, I'll shift the agenda around so that we talk about graphs, provenance in JSON-LD, and how to express a graph and so on.
 [11:00]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/68
-
+[11:00]	<taaz>	manu1: Thanks for the discussion. Next week we'll try a super session and try to keep doing that until we clear out more issues. We started ball rolling on getting JSON-LD into a working group and people are ready but now we have many issues.
+[11:01]	<taaz>	niklasl: When a working group starts on it they might change it?
+[11:01]	<taaz>	manu1: Yeah, we have a much more solid proposal than most, and we'll pull people working on this into the working group so they can explain the decisions we've made. We're hoping for not that much change when going to a working group.
+[11:01]	<taaz>	niklasl: Perhaps additions but not changes?
+[11:01]	<taaz>	manu1: You never know what might get thrown in the sausage factory during the process.
+[11:02]	<taaz>	niklasl: I think we're fairly aligned.
+[11:02]	<taaz>	manu1: I think so.
