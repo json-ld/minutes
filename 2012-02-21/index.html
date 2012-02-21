@@ -1,0 +1,308 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-02-21</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0014.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0014.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-54: Arrays of IRIs</a><li><a href="#topic-2">ISSUE-63: Provenance in JSON-LD</a><li><a href="#topic-3">ISSUE-64: Make clear how type and language coercions work</a><li><a href="#topic-4">ISSUE-76: Use of null in JSON-LD</a><li><a href="#topic-5">ISSUE-65: Handling of data that doesn't contain triples.</a><li><a href="#topic-6">ISSUE-69: Remove media type parameter option "form=compacted"</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">If a string is found in an array that is the value of the "@id" key, a JSON-LD Processor MUST throw an exception.</a><li><a href="#resolution-2">Put the discussion of Provenance on hold until the RDF WG produces a proposal for provenance.</a><li><a href="#resolution-3">When expanded form is used, no coercion rules apply to the value expressed in the expanded form.</a><li><a href="#resolution-4">Setting @language to null in the @context clears any coercion rules for language for the JSON subtree.</a><li><a href="#resolution-5">When "@context": null is specified, it clears the active context.</a><li><a href="#resolution-6">If "@language": null is specified in a local context, language coercion is removed from the active context.</a><li><a href="#resolution-7">If '{}' is used as a value in a JSON-LD document, then a blank node identifier MUST be generated for the object during normalization.</a><li><a href="#resolution-8">Remove "form=compacted" from the MIMEType for JSON-LD.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Markus Lanthaler, David I. Lehn, Niklas Lindström</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any additions to Agenda?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Everything we have today is for the Syntax document</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-54: Arrays of IRIs</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/54">https://github.com/json-ld/json-ld.org/issues/54</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What do we do when @id has multiple strings in an array?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have four options...</div>
+<div class="information">Only use the first value in the @id array.</div>
+<div class="information">Only use the last value in the @id array.</div>
+<div class="information">Effectively do #1 or #2 by modifying the @id value to only contain the first/last value.</div>
+<div class="information">Throw an exception/error.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any other options?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could also say that it's implicitly a list - but if we add @set, that decision would be arbitrary...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Then what would the output be?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The value would be the value of the first item in the list - the first bnode. You can have a list be in the subject position.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That is tying our hands, though.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I say, probably not do that. If we want to adopt this syntax for something else, then we should probably throw an exception so we don't get b/c issues. I think it's pretty unlikely that we want to go this way. We probably will use another keyword to make it more explicit.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the best option is throw an exception, buys us time... least dangerous option.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If the value of @id is null... it should be as if there was no value there at all.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If a string is found in an array that is the value of the "@id" key, a JSON-LD Processor MUST throw an exception.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: does it complicate processors to detect this vs just leaving the behavior undefined?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. also expecting that we're moving away from arrays in @id for multiple subjects as well (when we come to that issue)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should be very specific in what processors should do, otherwise, there might be interoperability issues.</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> If a string is found in an array that is the value of the "@id" key, a JSON-LD Processor MUST throw an exception.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-63: Provenance in JSON-LD</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/63">https://github.com/json-ld/json-ld.org/issues/63</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This has to do with how we represent graphs in JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think we've confused two issues... 63 and 68. We may be confusing "multiple graphs" with "multiple subjects in one graph". I think we can close this issue with a reference to issue 68</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  For this issue to work, we would have to have literal graphs... how do you use a literal graph as a subject?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you have graphs, you have IDs for graphs and then you could use them for subjects.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the syntax for multiple graphs is probably pretty well set... I don't think the RDF WG making any big changes to TRiG... quads aren't going to change... so RDF WG is working on /semantics/ behind multiple graphs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would be one more syntax in a growing set...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: agree to put on hold for now</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is about provenance - an application of multiple graphs - we can hold off discussion on the provenance issue. We should hold until there is some consensus around expressing provenance on multiple graph syntaxes.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could provide support for multiple graphs, but may want to discuss a syntax for multiple graphs. Provenance goes further than a particular serialization.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree w/ what Gregg said, I also comment on that in the issue - what the issue speaks of can be done w/o named graphs at all.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you use triples talking about provenance, you don't need named graphs... you can do that today. Provenance can be done w/o named graphs. When you start to describe a graph, you create another graph describing that graph.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. provenance information can be given for information resources (e.g. an rdf document); *if* you want to describe graphs themselves, that requires graph literals, which is in #68</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Put the discussion of Provenance on hold until the RDF WG produces a proposal for provenance.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Put the discussion of Provenance on hold until the RDF WG produces a proposal for provenance.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-64: Make clear how type and language coercions work</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/64">https://github.com/json-ld/json-ld.org/issues/64</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The question is - does expanded form override coercion rules?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, if you do "foo": {"@value": "bar"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Then no coercion rules apply to the value of "bar"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If I had a list with an array of strings, the strings in that list would be subject to coercion?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@id": "foo"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"foo": {"@id": "bar"}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Since I'm expressing it explicitly, coercion isn't applied to @id, even if "foo" has a coercion rule for @language or @type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... Compact: {"@context": {"@language": "en", "name": {"@type": "xsd:string"}, "name": "value with no lang", "title": "Mr."}; Expanded: {"name": "value with no lang", "title": {"@value": "Mr.", "@language": "en"}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Do we have a more generic way to express how 'null' is treated in JSON-LD?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When expanded form is used, no type coercion rules apply to the value expressed in the expanded form.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> When expanded form is used, no coercion rules apply to the value expressed in the expanded form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Next proposal is what happens when you set @language to null</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Setting @language to null in the @context clears any coercion rules for language for the JSON subtree.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Setting @language to null in the @context clears any coercion rules for language for the JSON subtree.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. a value of null outside of the context has the same effect as if there is no key/value present at all.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Should we add an issue for that, or resolve it now?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, resolve it now.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-76: Use of null in JSON-LD</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/76">https://github.com/json-ld/json-ld.org/issues/76</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  How is null interpreted?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should keep things a bit open on how we specify this...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Unless otherwise specified, the use of null as a value MUST be treated as if the value was never specified; i.e., it has no effect.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Unless otherwise specified, the use of null as a key is treated as if the key/value was never specified, and values of that key are not processed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is null allowed as a key?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Not in JSON...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, confirmed, it changes it to "null" when you serialize, we don't need the second statement.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What if you do "@context": null ?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  "@context": null should clear the current context, useful when used in an array</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What does that mean? If you clear the context?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When "@context": null is specified, it clears the active context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#appendix-b">http://json-ld.org/spec/latest/json-ld-api/#appendix-b</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What about an initial context?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That may be useful</div>
+<div class="information">"@id"}}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What happens when you use "@context": null in a subtree?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It nukes the subtree, effectively - nukes the terms, but leaves full IRIs behind.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: @context: [null, "<a href="http://my-new-context]">http://my-new-context]</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is there confusion to what happens? Are we okay with what happens w/ "@context": null?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  No confusion on my part, okay with what happens.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When "@context"; null is specified, it clears the active context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> When "@context": null is specified, it clears the active context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Created <a href="https://github.com/json-ld/json-ld.org/issues/78">https://github.com/json-ld/json-ld.org/issues/78</a> for it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What about: The use of null as a value in the @context MUST clear the associated term or CURIE from the active context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Use of 'null' could mean 'it's not there' ... or it could mean 'it clears the coercion rules for that definition'</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are multiple uses for 'null' here...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "isReferencedBy": {"@id": null, "@container": "@set"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You could set @id to null, you could set @language to null, you could set term to null, you could set @type to null...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That example - if that key doesn't mean anything, you should still look at the thing in the @container. We don't have time to think of this right now, but putting it out there as something that could give meaning to "@id": null</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Let's put this discussion on the mailing list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You're saying, let's be specific about 'null'</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If "@language"; null is specified in a local context, language coercion is removed from the active context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> If "@language": null is specified in a local context, language coercion is removed from the active context.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-65: Handling of data that doesn't contain triples.</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/65">https://github.com/json-ld/json-ld.org/issues/65</a></div>
+<div class="error">Error: (IRC nickname not recognized)[11:05]	&lt;gkellogg&gt;	Turtle: &lt;gregg&gt; foaf:knows [] .</div>
+<div class="comment"><span class="name">David I. Lehn</span>: about the second proposal, a top level [] is still valid and needs to be supported since it's representing no data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This has to do with existential information - do we want to support statements like: {} and [] ?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {"key": {}} vs. {"key": null}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are two proposals - If an author wants to express existential information and have it survive the compaction and expansion processes, then they MUST assign an identifier to it... and All empty JSON arrays and JSON objects MUST be optimized out of the output during compaction or expansion.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There is a difference here - JSON supports {} and []</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we support empty object, that's natural...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  To say it's not supported, would generate a special case... that's inconsistent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In the general case, an empty list doesn't mean anything from the JSON-LD perspective... if it is a @list, it should be the empty list.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think in both cases, we should remove it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If it's coerced to a list or not, we should remove it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If it is coerced to a list, the value is an empty list... we can't just remove it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  An empty set is also an empty set... why do we remove that?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: owl:Nothing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Something coerced to a list as an empty list has meaning... we would be destroying data if we didn't add that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ()</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: turtle: (), expanded JSON-LD: {"@list": []}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So the counter-proposals are this: If we have {}, we generate a bnode identifier for it... if we have [] (and it isn't coerced as a list), then it's left as-is... if we have [] (and it is coerced to a list), then it isrdf:nil.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Part of the compaction algorithm is to normalize, normalization goes to RDF, the result of normalizing doesn't generate a triple... so data is removed during normalization to create the empty set.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When you generate RDF, no triples are generated for [], thus round-trip would fail.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we become inconsistent with RDF, we're in dangerous territory.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think empty lists w/o coercion means - remove it from the data, that's what RDF does. I think empty lists w/ coercion to list meansrdf:nil - that's what RDF does... we should do that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Agreed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  But if we destroy empty sets, we're not being consistent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think we have to be practical about this...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This may be generated automatically, compaction should eliminate the redundancies.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If I use "@container": "@set" - I have lots of terms that have to be multiple if they are present. Lots of terms for different types of objects.</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If '[]' is specified as a value for a key in a JSON-LD document, and no "@container"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're pushing "@container": "@set" off for now.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  [] is implicitly a @set</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  conceptual trickiness is that @set does not imply a value, but a representation.</div>
+<div class="comment-continuation">… difference is between "raw" JSON and JSON-LD</div>
+<div class="comment-continuation">… if we had interpreted arrays as list by default, it would have the @list meaning. Since we don't, removing it is consistent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  multiple values in RDF can be interpreted in different ways (more "soft")</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we put in support for @container: @set, what does [] mean in RDF?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it does not have an RDF representation; as if it wasn't there.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment-continuation">… if we don't explain, some people would be confused about @set with [].</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  concerned that we would lose the assertion that there is an empty set.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  postpone for now, but personally leaning toward's niklas' interpretation.</div>
+<div class="comment-continuation">… See that JSON developers might be confused, but the fact that you're now in compacted JSON-LD land creates a consistent nuanced interpretation.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  was going to mention that there is a small semantic interpretation.</div>
+<div class="comment-continuation">… syntactically, JSON imposes an order, but there is no way to specify the semantics in JSON.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  an empty object should generate a BNode identifier.</div>
+<div class="information">POSTPONED: If '[]' is specified as a value for a key in a JSON-LD document, and no "@container": "@list" is specified for the associated key, then the value MUST be removed from compacted output.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We need to have more reflection and discussion on this... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  But we can discuss the {} issue.... [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If '{}' is used as a value in a JSON-LD document, then a blank node identifier MUST be generated for the object during normalization.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> If '{}' is used as a value in a JSON-LD document, then a blank node identifier MUST be generated for the object during normalization.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Let's skip the named graphs stuff for now...</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-69: Remove media type parameter option "form=compacted"</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/69">https://github.com/json-ld/json-ld.org/issues/69</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus raised the issue: does form=compacted actually mean anything?</div>
+<div class="comment-continuation">… different contexts create a different compacted form.</div>
+<div class="comment-continuation">… since it doesn't express anything specific, we should remove form=compacted.</div>
+<div class="comment-continuation">… counter argument, is that it is used in payswarm specifications, so that developers can be sure they're getting back something that can be directly operated upon.</div>
+<div class="comment-continuation">… we can say registration service at a given url, login at another, and is very flat.</div>
+<div class="comment-continuation">… If we didn't have form=compacted, there would be no way for the developer to know that they were getting back something that was already compacted.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  compaction works by supplying a context, but payswarm uses 6 different contexts.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  form=compacted might need to also pass the IRI of the context used for compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  for payswarm, we can say that if you make a call to a service, you must compact with a specific context, otherwise it must be made explicit.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … application/rdf+jsonld;context=<a href="http://purl.org/web-key/v1">http://purl.org/web-key/v1</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  saying it's compacted doesn't convey enough information.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … or application/rdf+jsonld;custom=web-key</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … or another vendor media-type altogether: application/vnd.payswarm.webkey+jsonld</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we start specifying too much.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  don't want to tie the syntax spec to the api spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  puts too much burden on other implementations.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the common case is that you define a vendor media type, that can define what it means, and documents that it is represented by JSON-LD.</div>
+<div class="comment-continuation">… if you want to negotiate on an explicit form, the use of a different media type enables this.</div>
+<div class="comment-continuation">… the client can be very explicit about what data it wants, and it's up to the service to provide it or not</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in payswarm, we want people to be able to add other contexts, allowing them to layer other things on top of it, as long as there is no conflict.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … application/rdf+jsonld;context=<a href="http://purl.org/web-key/v1">http://purl.org/web-key/v1</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … application/rdf+jsonld</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … application/rdf+jsonld;context=<a href="http://purl.org/web-key/v2">http://purl.org/web-key/v2</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this allows an arbitrary level of precision to be specified in the request.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the context is specified in the returned document, so this could be redundant.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  asking for form=compacted isn't specific enough.</div>
+<div class="comment-continuation">… a vendor media type might be more appropriate.</div>
+<div class="comment-continuation">… otherwise, some advisory header might be useful.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  trying to make it so that there is a way to say what the client expected, but now convinced that it doesn't go far enough.</div>
+<div class="comment-continuation">… Don't want it to pull back into the payswarm spec, as it complicates things too much.</div>
+<div class="comment-continuation">… clients can always use the API to do their own compaction.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Remove "form=compacted" from the MIMEType for JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> Remove "form=compacted" from the MIMEType for JSON-LD.</div>
+</body>
+</html>

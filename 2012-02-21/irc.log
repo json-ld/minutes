@@ -1,0 +1,272 @@
+[10:05]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0014.html
+[10:06]	<manu1>	Scribe: manu1
+[10:06]	<manu1>	manu1: Any additions to Agenda?
+[10:07]	<manu1>	manu1: Everything we have today is for the Syntax document
+[10:07]	<manu1>	Topic: ISSUE-54: Arrays of IRIs
+[10:07]	<manu1>	https://github.com/json-ld/json-ld.org/issues/54
+[10:07]	<manu1>	manu1: What do we do when @id has multiple strings in an array?
+[10:08]	<manu1>	manu1: We have four options...
+[10:08]	<manu1>	Only use the first value in the @id array.
+[10:08]	<manu1>	Only use the last value in the @id array.
+[10:08]	<manu1>	Effectively do #1 or #2 by modifying the @id value to only contain the first/last value.
+[10:08]	<manu1>	Throw an exception/error.
+[10:08]	<manu1>	manu1: Any other options?
+[10:09]	<manu1>	gkellogg: We could also say that it's implicitly a list - but if we add @set, that decision would be arbitrary...
+[10:09]	<manu1>	markus: Then what would the output be?
+[10:09]	<manu1>	gkellogg: The value would be the value of the first item in the list - the first bnode. You can have a list be in the subject position.
+[10:09]	<manu1>	gkellogg: That is tying our hands, though.
+[10:10]	<manu1>	gkellogg: I say, probably not do that. If we want to adopt this syntax for something else, then we should probably throw an exception so we don't get b/c issues. I think it's pretty unlikely that we want to go this way. We probably will use another keyword to make it more explicit.
+[10:11]	<manu1>	manu1: I think the best option is throw an exception, buys us time... least dangerous option.
+[10:11]	<manu1>	gkellogg: If the value of @id is null... it should be as if there was no value there at all.
+[10:13]	<manu1>	PROPOSAL: If a string is found in an array that is the value of the "@id" key, a JSON-LD Processor MUST throw an exception.
+[10:13]	<taaz>	does it complicate processors to detect this vs just leaving the behavior undefined?
+[10:13]	<niklasl>	+1
+[10:14]	<gkellogg>	+1
+[10:14]	<lanthaler>	+1
+[10:14]	<manu1>	+1
+[10:14]	<taaz>	+1
+[10:14]	<niklasl>	.. also expecting that we're moving away from arrays in @id for multiple subjects as well (when we come to that issue)
+[10:14]	<manu1>	manu1: We should be very specific in what processors should do, otherwise, there might be interoperability issues.
+[10:14]	<manu1>	RESOLVED: If a string is found in an array that is the value of the "@id" key, a JSON-LD Processor MUST throw an exception.
+[10:15]	<manu1>	Topic: ISSUE-63: Provenance in JSON-LD
+[10:15]	<manu1>	https://github.com/json-ld/json-ld.org/issues/63
+[10:16]	<niklasl>	q+
+[10:16]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:16]	<manu1>	manu1: This has to do with how we represent graphs in JSON-LD.
+[10:16]	<manu1>	niklas: I think we've confused two issues... 63 and 68. We may be confusing "multiple graphs" with "multiple subjects in one graph". I think we can close this issue with a reference to issue 68
+[10:17]	<gkellogg>	q+
+[10:17]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:18]	<manu1>	niklas: For this issue to work, we would have to have literal graphs... how do you use a literal graph as a subject?
+[10:18]	<manu1>	niklas: If you have graphs, you have IDs for graphs and then you could use them for subjects.
+[10:18]	<manu1>	gkellogg: I think the syntax for multiple graphs is probably pretty well set... I don't think the RDF WG making any big changes to TRiG... quads aren't going to change... so RDF WG is working on /semantics/ behind multiple graphs.
+[10:19]	<manu1>	gkellogg: It would be one more syntax in a growing set...
+[10:19]	<niklasl>	q+
+[10:19]	<voip-ld>	Added niklasl to the speaker queue: niklasl, gkellogg, niklasl
+[10:19]	<manu1>	ack niklasl
+[10:19]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:19]	<manu1>	ack gkellogg
+[10:19]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[10:19]	<lanthaler>	agree to put on hold for now
+[10:19]	<manu1>	gkellogg: This is about provenance - an application of multiple graphs - we can hold off discussion on the provenance issue. We should hold until there is some consensus around expressing provenance on multiple graph syntaxes.
+[10:20]	<manu1>	gkellogg: We could provide support for multiple graphs, but may want to discuss a syntax for multiple graphs. Provenance goes further than a particular serialization.
+[10:20]	<manu1>	ack niklasl
+[10:20]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:21]	<manu1>	niklas: I agree w/ what Gregg said, I also comment on that in the issue - what the issue speaks of can be done w/o named graphs at all.
+[10:22]	<manu1>	niklas: If you use triples talking about provenance, you don't need named graphs... you can do that today. Provenance can be done w/o named graphs. When you start to describe a graph, you create another graph describing that graph.
+[10:23]	<niklasl>	.. provenance information can be given for information resources (e.g. an rdf document); *if* you want to describe graphs themselves, that requires graph literals, which is in #68
+[10:24]	<manu1>	PROPOSAL: Put the discussion of Provenance on hold until the RDF WG produces a proposal for provenance.
+[10:24]	<gkellogg>	+1
+[10:24]	<manu1>	+1
+[10:24]	<taaz>	+1
+[10:24]	<niklasl>	+1
+[10:24]	<lanthaler>	+1
+[10:24]	<manu1>	RESOLVED: Put the discussion of Provenance on hold until the RDF WG produces a proposal for provenance.
+[10:25]	<manu1>	Topic: ISSUE-64: Make clear how type and language coercions work
+[10:25]	<manu1>	https://github.com/json-ld/json-ld.org/issues/64
+[10:27]	<manu1>	manu1: The question is - does expanded form override coercion rules?
+[10:28]	<manu1>	manu1: So, if you do "foo": {"@value": "bar"}
+[10:28]	<manu1>	manu1: Then no coercion rules apply to the value of "bar"
+[10:28]	<manu1>	gkellogg: If I had a list with an array of strings, the strings in that list would be subject to coercion?
+[10:28]	<manu1>	manu1: Yes.
+[10:29]	<gkellogg>	{"@id": "foo"}
+[10:29]	<gkellogg>	{"foo": {"@id": "bar"}}
+[10:30]	<manu1>	gkellogg: Since I'm expressing it explicitly, coercion isn't applied to @id, even if "foo" has a coercion rule for @language or @type.
+[10:30]	<niklasl>	... Compact: {"@context": {"@language": "en", "name": {"@type": "xsd:string"}, "name": "value with no lang", "title": "Mr."}; Expanded: {"name": "value with no lang", "title": {"@value": "Mr.", "@language": "en"}}
+[10:31]	<manu1>	gkellogg: Do we have a more generic way to express how 'null' is treated in JSON-LD?
+[10:35]	<manu1>	PROPOSAL: When expanded form is used, no type coercion rules apply to the value expressed in the expanded form.
+[10:35]	<niklasl>	+1
+[10:35]	<manu1>	+1
+[10:35]	<gkellogg>	+1
+[10:35]	<lanthaler>	+1
+[10:35]	<taaz>	+1
+[10:35]	<manu1>	RESOLVED: When expanded form is used, no coercion rules apply to the value expressed in the expanded form.
+[10:36]	<manu1>	manu1: Next proposal is what happens when you set @language to null
+[10:36]	<manu1>	PROPOSAL: Setting @language to null in the @context clears any coercion rules for language for the JSON subtree.
+[10:36]	<niklasl>	+1
+[10:36]	<manu1>	+1
+[10:36]	<lanthaler>	+1
+[10:36]	<taaz>	+1
+[10:36]	<gkellogg>	+1
+[10:36]	<manu1>	RESOLVED: Setting @language to null in the @context clears any coercion rules for language for the JSON subtree.
+[10:37]	<niklasl>	q+
+[10:37]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:37]	<manu1>	ack niklasl
+[10:37]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:37]	<niklasl>	.. a value of null outside of the context has the same effect as if there is no key/value present at all.
+[10:37]	<manu1>	niklas: Should we add an issue for that, or resolve it now?
+[10:38]	<manu1>	manu1: yes, resolve it now.
+[10:38]	<manu1>	Topic: ISSUE-76: Use of null in JSON-LD
+[10:38]	<manu1>	https://github.com/json-ld/json-ld.org/issues/76
+[10:42]	<manu1>	manu: How is null interpreted?
+[10:43]	<manu1>	gkellogg: We should keep things a bit open on how we specify this...
+[10:43]	<manu1>	gkellogg: Unless otherwise specified, the use of null as a value MUST be treated as if the value was never specified; i.e., it has no effect.
+[10:43]	<manu1>	gkellogg: Unless otherwise specified, the use of null as a key is treated as if the key/value was never specified, and values of that key are not processed.
+[10:44]	<manu1>	manu1: Is null allowed as a key?
+[10:44]	<manu1>	niklas: Not in JSON...
+[10:44]	<manu1>	manu1: Yes, confirmed, it changes it to "null" when you serialize, we don't need the second statement.
+[10:44]	<manu1>	markus: What if you do "@context": null ?
+[10:45]	<manu1>	gkellogg: "@context": null should clear the current context, useful when used in an array
+[10:45]	<niklasl>	q+
+[10:45]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:46]	<manu1>	ack niklasl
+[10:46]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:46]	<manu1>	niklas: What does that mean? If you clear the context?
+[10:46]	<manu1>	gkellogg: When "@context": null is specified, it clears the active context.
+[10:47]	<lanthaler>	http://json-ld.org/spec/latest/json-ld-api/#appendix-b
+[10:48]	<manu1>	gkellogg: What about an initial context?
+[10:48]	<manu1>	gkellogg: That may be useful
+[10:48]	<gkellogg>	@context: {"rdf:type": { "@type" => "@id"}}
+[10:50]	<manu1>	niklas: What happens when you use "@context": null in a subtree?
+[10:50]	<manu1>	manu1: It nukes the subtree, effectively - nukes the terms, but leaves full IRIs behind.
+[10:50]	<gkellogg>	@context: [null, "http://my-new-context]
+[10:51]	<manu1>	manu1: Is there confusion to what happens? Are we okay with what happens w/ "@context": null?
+[10:51]	<manu1>	manu1: No confusion on my part, okay with what happens.
+[10:52]	<manu1>	PROPOSAL: When "@context"; null is specified, it clears the active context.
+[10:52]	<niklasl>	+1
+[10:52]	<manu1>	+1
+[10:52]	<gkellogg>	+1
+[10:52]	<lanthaler>	+1
+[10:52]	<taaz>	+1
+[10:52]	<manu1>	RESOLVED: When "@context": null is specified, it clears the active context.
+[10:52]	<lanthaler>	Created https://github.com/json-ld/json-ld.org/issues/78 for it
+[10:54]	<manu1>	manu1: What about: The use of null as a value in the @context MUST clear the associated term or CURIE from the active context.
+[10:55]	<manu1>	gkellogg: Use of 'null' could mean 'it's not there' ... or it could mean 'it clears the coercion rules for that definition'
+[10:55]	<niklasl>	q+
+[10:55]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:55]	<manu1>	gkellogg: There are multiple uses for 'null' here...
+[10:56]	<niklasl>	.. "isReferencedBy": {"@id": null, "@container": "@set"}
+[10:56]	<manu1>	gkellogg: You could set @id to null, you could set @language to null, you could set term to null, you could set @type to null...
+[10:57]	<manu1>	niklas: That example - if that key doesn't mean anything, you should still look at the thing in the @container. We don't have time to think of this right now, but putting it out there as something that could give meaning to "@id": null
+[10:58]	<manu1>	niklas: Let's put this discussion on the mailing list.
+[10:58]	<manu1>	manu1: You're saying, let's be specific about 'null'
+[11:01]	<manu1>	PROPOSAL: If "@language"; null is specified in a local context, language coercion is removed from the active context.
+[11:01]	<manu1>	+1
+[11:01]	<gkellogg>	+1
+[11:01]	<niklasl>	+1
+[11:01]	<taaz>	+1
+[11:01]	<lanthaler>	+1
+[11:01]	<manu1>	RESOLVED: If "@language": null is specified in a local context, language coercion is removed from the active context.
+[11:03]	<manu1>	Topic: ISSUE-65: Handling of data that doesn't contain triples.
+[11:03]	<manu1>	https://github.com/json-ld/json-ld.org/issues/65
+[11:05]	<gkellogg>	Turtle: <gregg> foaf:knows [] .
+[11:06]	<taaz>	about the second proposal, a top level [] is still valid and needs to be supported since it's representing no data
+[11:06]	<niklasl>	q+
+[11:06]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[11:06]	<manu1>	ack niklasl
+[11:06]	<manu1>	ack niklasl
+[11:06]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[11:06]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:06]	<manu1>	manu1: This has to do with existential information - do we want to support statements like: {} and [] ?
+[11:07]	<niklasl>	{"key": {}} vs. {"key": null}
+[11:07]	<manu1>	manu1: There are two proposals - If an author wants to express existential information and have it survive the compaction and expansion processes, then they MUST assign an identifier to it... and All empty JSON arrays and JSON objects MUST be optimized out of the output during compaction or expansion.
+[11:07]	<manu1>	niklasl: There is a difference here - JSON supports {} and []
+[11:07]	<manu1>	niklasl: If we support empty object, that's natural...
+[11:08]	<manu1>	gkellogg: To say it's not supported, would generate a special case... that's inconsistent.
+[11:08]	<manu1>	niklasl: In the general case, an empty list doesn't mean anything from the JSON-LD perspective... if it is a @list, it should be the empty list.
+[11:08]	<manu1>	markus: I think in both cases, we should remove it.
+[11:08]	<manu1>	markus: If it's coerced to a list or not, we should remove it.
+[11:09]	<manu1>	niklasl: If it is coerced to a list, the value is an empty list... we can't just remove it.
+[11:09]	<manu1>	markus: An empty set is also an empty set... why do we remove that?
+[11:09]	<niklasl>	owl:Nothing
+[11:10]	<manu1>	niklasl: Something coerced to a list as an empty list has meaning... we would be destroying data if we didn't add that.
+[11:10]	<niklasl>	()
+[11:11]	<niklasl>	turtle: (), expanded JSON-LD: {"@list": []}
+[11:11]	<manu1>	manu1: So the counter-proposals are this: If we have {}, we generate a bnode identifier for it... if we have [] (and it isn't coerced as a list), then it's left as-is... if we have [] (and it is coerced to a list), then it isrdf:nil.
+[11:12]	<manu1>	gkellogg: Part of the compaction algorithm is to normalize, normalization goes to RDF, the result of normalizing doesn't generate a triple... so data is removed during normalization to create the empty set.
+[11:13]	<manu1>	gkellogg: When you generate RDF, no triples are generated for [], thus round-trip would fail.
+[11:13]	<niklasl>	q+
+[11:13]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:15]	<manu1>	gkellogg: If we become inconsistent with RDF, we're in dangerous territory.
+[11:15]	<manu1>	ack niklasl
+[11:15]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:16]	<manu1>	gkellogg: I think empty lists w/o coercion means - remove it from the data, that's what RDF does. I think empty lists w/ coercion to list meansrdf:nil - that's what RDF does... we should do that.
+[11:16]	<manu1>	niklasl: Agreed.
+[11:17]	<manu1>	Markus: But if we destroy empty sets, we're not being consistent.
+[11:17]	<manu1>	Niklas: I think we have to be practical about this...
+[11:17]	<manu1>	Gregg: This may be generated automatically, compaction should eliminate the redundancies.
+[11:18]	<manu1>	niklas: If I use "@container": "@set" - I have lots of terms that have to be multiple if they are present. Lots of terms for different types of objects.
+[11:18]	* gkellogg	manu1: I can take over scribing, if you like.
+[11:18]	<gkellogg>	scribe: gkellogg
+[11:21]	<manu1>	PROPOSAL: If '[]' is specified as a value for a key in a JSON-LD document, and no "@container": "@list" is specified for the associated key, then the value MUST be removed from compacted output.
+[11:21]	<gkellogg>	+1
+[11:21]	<niklasl>	+1
+[11:21]	<gkellogg>	manu: we're pushing "@container": "@set" off for now.
+[11:22]	<gkellogg>	lanthaler: [] is implicitly a @set
+[11:23]	<gkellogg>	niklasl: conceptual trickiness is that @set does not imply a value, but a representation.
+[11:23]	<gkellogg>	… difference is between "raw" JSON and JSON-LD
+[11:24]	<gkellogg>	… if we had interpreted arrays as list by default, it would have the @list meaning. Since we don't, removing it is consistent.
+[11:25]	<gkellogg>	niklasl: multiple values in RDF can be interpreted in different ways (more "soft")
+[11:25]	<gkellogg>	manu: if we put in support for @container: @set, what does [] mean in RDF?
+[11:26]	<gkellogg>	niklasl: it does not have an RDF representation; as if it wasn't there.
+[11:26]	<manu1>	+1
+[11:26]	<gkellogg>	… if we don't explain, some people would be confused about @set with [].
+[11:27]	<gkellogg>	lanthaler: concerned that we would lose the assertion that there is an empty set.
+[11:28]	<gkellogg>	manu: postpone for now, but personally leaning toward's niklas' interpretation.
+[11:28]	<niklasl>	q+
+[11:28]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:29]	<manu1>	ack niklasl
+[11:29]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:29]	<gkellogg>	… See that JSON developers might be confused, but the fact that you're now in compacted JSON-LD land creates a consistent nuanced interpretation.
+[11:29]	<gkellogg>	niklasl: was going to mention that there is a small semantic interpretation.
+[11:30]	<gkellogg>	… syntactically, JSON imposes an order, but there is no way to specify the semantics in JSON.
+[11:30]	<gkellogg>	manu: an empty object should generate a BNode identifier.
+[11:31]	<gkellogg>	POSTPONED: If '[]' is specified as a value for a key in a JSON-LD document, and no "@container": "@list" is specified for the associated key, then the value MUST be removed from compacted output.
+[11:32]	<manu1>	manu: We need to have more reflection and discussion on this...
+[11:32]	<manu1>	manu: But we can discuss the {} issue....
+[11:34]	<manu1>	PROPOSAL: If '{}' is used as a value in a JSON-LD document, then a blank node identifier MUST be generated for the object during normalization.
+[11:34]	<gkellogg>	+1
+[11:34]	<manu1>	+1
+[11:34]	<niklasl>	+1
+[11:35]	<taaz>	+1
+[11:35]	<lanthaler>	+1
+[11:35]	<manu1>	RESOLVED: If '{}' is used as a value in a JSON-LD document, then a blank node identifier MUST be generated for the object during normalization.
+[11:37]	<manu1>	Let's skip the named graphs stuff for now...
+[11:37]	<manu1>	Topic: ISSUE-69: Remove media type parameter option "form=compacted"
+[11:37]	<manu1>	https://github.com/json-ld/json-ld.org/issues/69
+[11:37]	<gkellogg>	manu: Markus raised the issue: does form=compacted actually mean anything?
+[11:38]	<gkellogg>	… different contexts create a different compacted form.
+[11:38]	<gkellogg>	… since it doesn't express anything specific, we should remove form=compacted.
+[11:39]	<gkellogg>	… counter argument, is that it is used in payswarm specifications, so that developers can be sure they're getting back something that can be directly operated upon.
+[11:39]	<gkellogg>	… we can say registration service at a given url, login at another, and is very flat.
+[11:40]	<gkellogg>	… If we didn't have form=compacted, there would be no way for the developer to know that they were getting back something that was already compacted.
+[11:40]	<gkellogg>	lanthaler: compaction works by supplying a context, but payswarm uses 6 different contexts.
+[11:41]	<niklasl>	q+
+[11:41]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:41]	<gkellogg>	manu: form=compacted might need to also pass the IRI of the context used for compaction.
+[11:42]	<gkellogg>	manu: for payswarm, we can say that if you make a call to a service, you must compact with a specific context, otherwise it must be made explicit.
+[11:43]	<niklasl>	… application/rdf+jsonld;context=http://purl.org/web-key/v1
+[11:43]	<gkellogg>	lanthaler: saying it's compacted doesn't convey enough information.
+[11:43]	<niklasl>	… or application/rdf+jsonld;custom=web-key
+[11:44]	<niklasl>	… or another vendor media-type altogether: application/vnd.payswarm.webkey+jsonld
+[11:44]	<gkellogg>	lanthaler: we start specifying too much.
+[11:44]	<gkellogg>	manu: don't want to tie the syntax spec to the api spec.
+[11:44]	<niklasl>	q+
+[11:44]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[11:45]	<gkellogg>	lanthaler: puts too much burden on other implementations.
+[11:45]	<manu1>	ack niklasl
+[11:45]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[11:45]	<manu1>	ack niklasl
+[11:45]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:46]	<gkellogg>	niklas: the common case is that you define a vendor media type, that can define what it means, and documents that it is represented by JSON-LD.
+[11:47]	<gkellogg>	… if you want to negotiate on an explicit form, the use of a different media type enables this.
+[11:48]	<gkellogg>	… the client can be very explicit about what data it wants, and it's up to the service to provide it or not
+[11:48]	<gkellogg>	manu: in payswarm, we want people to be able to add other contexts, allowing them to layer other things on top of it, as long as there is no conflict.
+[11:49]	<niklasl>	… application/rdf+jsonld;context=http://purl.org/web-key/v1
+[11:50]	<niklasl>	… application/rdf+jsonld
+[11:50]	<niklasl>	… application/rdf+jsonld;context=http://purl.org/web-key/v2
+[11:50]	<gkellogg>	niklasl: this allows an arbitrary level of precision to be specified in the request.
+[11:50]	<gkellogg>	manu: the context is specified in the returned document, so this could be redundant.
+[11:51]	<gkellogg>	niklasl: asking for form=compacted isn't specific enough.
+[11:51]	<gkellogg>	… a vendor media type might be more appropriate.
+[11:52]	<gkellogg>	… otherwise, some advisory header might be useful.
+[11:53]	<gkellogg>	manu: trying to make it so that there is a way to say what the client expected, but now convinced that it doesn't go far enough.
+[11:53]	<gkellogg>	… Don't want it to pull back into the payswarm spec, as it complicates things too much.
+[11:54]	<gkellogg>	… clients can always use the API to do their own compaction.
+[11:54]	<manu1>	PROPOSAL: Remove "form=compacted" from the MIMEType for JSON-LD.
+[11:54]	<manu1>	+1
+[11:54]	<gkellogg>	+1
+[11:54]	<taaz>	+0
+[11:54]	<niklasl>	+1
+[11:54]	<lanthaler>	+1
+[11:54]	<manu1>	RESOLVED: Remove "form=compacted" from the MIMEType for JSON-LD.
+
