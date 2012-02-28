@@ -1,0 +1,99 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0017.html
+[10:03]	<manu1>	scribe: lanthaler
+[10:03]	<lanthaler>	Niklas: Have we ever discussed if we allow arbitrary data in the term definitions in the context?
+[10:04]	<lanthaler>	Manu: What we do now is to just ignore it.. We should create an issue for that... created: https://github.com/json-ld/json-ld.org/issues/82
+[10:07]	<lanthaler>	Niklas: Will aliasing also apply to subsequent contexts?
+[10:08]	<lanthaler>	Niklas: We should just allow the use of aliased terms in the body and not in the context
+[10:08]	<niklasl>	… {"@id": …, "@type": … }
+[10:09]	<lanthaler>	Niklas: If you look at something like this in the document it means somethings different than when it is in the context
+[10:09]	<lanthaler>	Gregg: So?
+[10:10]	<lanthaler>	Niklas: Term def. are already special.. So we could handle it differently
+[10:11]	<lanthaler>	Manu: I think we should keep the number of special cases for these rules to a minimum, thus, I don't think we should handle this differently.
+[10:11]	<lanthaler>	Manu: Niklas, could you please create a separate issue for this?
+[10:11]	<voip-ld>	David I. Lehn (SIP/96.240.172.213-00000004) has joined the conference.
+[10:11]	<manu1>	Topic: ISSUE-82: How are non-JSON-LD values in @context processed?
+[10:11]	<manu1>	https://github.com/json-ld/json-ld.org/issues/82
+[10:12]	<gkellogg>	As per the existing processor rules, they are ignored.
+[10:12]	<lanthaler>	Manu: They are removed when compacting and normalizing but remain intact when extending
+[10:12]	|<--	bergie has left freenode (Read error: Operation timed out)
+[10:13]	<manu1>	PROPOSAL: For non-JSON-LD values in @context, in general, they are ignored by JSON-LD processors. When compacting, the non-JSON-LD values can be removed. When expanding, the entire @context is removed and thus the non-JSON-LD values are removed.
+[10:13]	<manu1>	Clarification: ... where non-JSON-LD is anything not recognized by a JSON-LD processor)
+[10:13]	<gkellogg>	+1
+[10:13]	<manu1>	+1
+[10:13]	<niklasl>	+1
+[10:13]	<lanthaler>	+1
+[10:14]	<taaz>	+1
+[10:15]	<manu1>	RESOLVED: For non-JSON-LD values in @context, in general, they are ignored by JSON-LD processors. When compacting, the non-JSON-LD values can be removed. When expanding, the entire @context is removed and thus the non-JSON-LD values are removed.
+[10:15]	<lanthaler>	Markus: Well actually they are also removed in expansion as the whole context is removed.
+[10:18]	<lanthaler>	Markus: What about the decision we made to remove unknown keys from expansion? https://github.com/json-ld/json-ld.org/issues/56
+[10:20]	<niklasl>	q+
+[10:20]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:20]	<manu1>	ack niklasl
+[10:20]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:22]	<lanthaler>	Gregg: I don't think we need normalization for compaction or framing.
+[10:23]	<lanthaler>	Manu: I agree in the case of compaction, I don't think that is possible for framing... we'll have to chat with Dave Longley to figure out why he required normalization for both compaction and framing.
+[10:26]	<lanthaler>	. . . discussion about whether compaction should depend on normalization or not . . .
+[10:30]	<manu1>	PROPOSAL: Override part of the decision made in ISSUE-56 - When performing expansion, non-JSON-LD values are not dropped from the document, but are ignored.
+[10:30]	<manu1>	+1
+[10:30]	<gkellogg>	+1
+[10:30]	<lanthaler>	+1
+[10:30]	<niklasl>	+1
+[10:31]	<taaz>	+1
+[10:31]	<manu1>	RESOLVED: Override part of the decision made in ISSUE-56 - When performing expansion, non-JSON-LD values are not dropped from the document, but are ignored.
+[10:31]	<manu1>	Topic: ISSUE-68: Multiple graphs syntax
+[10:31]	<manu1>	https://github.com/json-ld/json-ld.org/issues/68
+[10:32]	<lanthaler>	Manu: This is really a discussion about whether we want to have an array-form for @id or if we want to be more specific about how we express graphs that are not fully connected.
+[10:32]	<niklasl>	q+
+[10:32]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:32]	<lanthaler>	Gregg: Are we talking about named graphs or bushes?
+[10:32]	<lanthaler>	Manu: Bushs, but this solution should also work for named graphs... what we're really talking about are hedges... :P
+[10:32]	<manu1>	If we have a graph that is a bush - we do this: "@graph": [{},{},{}] instead of this: "@id": [{},{},{}]
+[10:33]	<manu1>	If we want to make that graph a named graph, we do this: { "@id": "_:graph_name", "@graph": [{},{},{}] } ... you can also assign properties to that named graph and support graph literals with that construct.
+[10:34]	<manu1>	ack niklasl
+[10:34]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:34]	<lanthaler>	Manu: I don't think we should go down the named graphs rathole yet... let's wait for the RDF WG to figure out what they want to do about it.
+[10:36]	<gkellogg>	This is a good example of why we need "@graph": http://rdfainfo.digitalbazaar.com/test-suite/manifest.json
+[10:37]	<niklasl>	q+
+[10:37]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:38]	<manu1>	ack niklasl
+[10:38]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:38]	<lanthaler>	Niklas: Our intent at the moment is not to support named graphs but to ensure that the syntax of bushes supports named graphs in the future
+[10:39]	<lanthaler>	Niklas: using @set instead of @graph has some appeal as discussed in the issue - it requires less theoretical background
+[10:39]	<niklasl>	… {"dc:creator": {"@set": […]}}
+[10:41]	<niklasl>	.. a set of objects vs. a quoted graph
+[10:42]	<niklasl>	"@many"
+[10:42]	<niklasl>	I don't think a @set is the same thing as a @graph, we shouldn't conflate the two concepts in an attempt to be clever.
+[10:42]	<manu1>	@set is really an alias for [], right?
+[10:44]	<lanthaler>	Gregg: Yes, except for when you use it for @type coercion.
+[10:44]	<lanthaler>	q+
+[10:44]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:45]	<manu1>	ack lanthaler
+[10:45]	<voip-ld>	lanthaler has the floor. The speaker queue is empty.
+[10:45]	<manu1>	Markus: Why is a @graph in this context different from having a set with an @id applied to it?
+[10:45]	<manu1>	Niklas: Depends on what you mean by "set"
+[10:45]	<lanthaler>	taaz: does rdf:Bag terminology help here?
+[10:45]	<lanthaler>	Manu: I don't think it does - at least, not in a way that would be friendly to newcomers.
+[10:47]	<niklasl>	<a> dc:creator <b> . <a> dc:creator <c>. # compare to: <a> dc:creator { <a> dc:creator <b> . <a> dc:creator <c> . } .
+[10:47]	<lanthaler>	http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-list-elements
+[10:47]	<manu1>	Markus: If we add an @id to @set, is that a named graph?
+[10:49]	<manu1>	Manu: That's not clear - it's not clear that @id applied to @set is the same as @id applied to @list is the same as @id applied to @graph.
+[10:50]	<niklasl>	A similar issue arises if we allow e.g. {"@id": …, "@value": ...}
+[10:59]	<manu1>	Right now container could be one of these - "@container": @set | @list | @graph
+[10:59]	<manu1>	When and how we use @set is really orthogonal to this issue. I think it's clear that a @set with an @id is not the same thing as a graph with an @id - I don't know what a @set with an @id is... but I am sure that it's not the same thing as a @graph with an @id. There is a separate issue here of whether we should be using @ordered/@unordered vs. @list/@set - but let's discuss that as a separate issue.
+[11:00]	|<--	advatar has left freenode (Read error: Connection reset by peer)
+[11:07]	<manu1>	PROPOSAL: The @graph keyword is used to express a collection of one or more JSON objects (to express a graph which may or may not be fully connected)
+[11:07]	<niklasl>	+1
+[11:07]	<manu1>	+1
+[11:07]	<gkellogg>	+1
+[11:07]	<lanthaler>	+1
+[11:08]	<taaz>	+1
+[11:08]	<manu1>	RESOLVED: The @graph keyword is used to express a collection of one or more JSON objects (to express a graph which may or may not be fully connected)
+[11:08]	<manu1>	Clarification: This does not mean that we have a named graph solution, but we do believe that it is forward-compatible with such a solution.
+[11:09]	<manu1>	One could do something like this: {"@id": "_:graph0", "@graph": [{},{},{}] }
+[11:09]	<lanthaler>	Gregg: Can we do something like this:
+[11:09]	<gkellogg>	{"foo": {"@graph": {{}}} - basically, a graph literal?
+[11:09]	<lanthaler>	Manu: In the future, probably. We've just opened a Pandora's box of discussion about this... it affects normalization in a big way. We should be careful to restrict discussion about this for JSON-LD 1.0. We /may/ have a JSON-LD 1.1, but for 1.0, we may only allow @graph at the top-level.
+[11:11]	<manu1>	q+ to end the call
+[11:11]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[11:13]	<manu1>	ack manu1
+[11:13]	<voip-ld>	manu1 has the floor (to end the call). The speaker queue is empty.

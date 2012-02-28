@@ -1,0 +1,158 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-02-28</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0017.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Feb/0017.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-82: How are non-JSON-LD values in @context processed?</a><li><a href="#topic-2">ISSUE-68: Multiple graphs syntax</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">For non-JSON-LD values in @context, in general, they are ignored by JSON-LD processors. When compacting, the non-JSON-LD values can be removed. When expanding, the entire @context is removed and thus the non-JSON-LD values are removed.</a><li><a href="#resolution-2">Override part of the decision made in ISSUE-56 - When performing expansion, non-JSON-LD values are not dropped from the document, but are ignored.</a><li><a href="#resolution-3">The @graph keyword is used to express a collection of one or more JSON objects (to express a graph which may or may not be fully connected)</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Niklas Lindström, Manu Sporny, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Have we ever discussed if we allow arbitrary data in the term definitions in the context?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What we do now is to just ignore it.. We should create an issue for that... created: <a href="https://github.com/json-ld/json-ld.org/issues/82">https://github.com/json-ld/json-ld.org/issues/82</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Will aliasing also apply to subsequent contexts?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We should just allow the use of aliased terms in the body and not in the context</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … {"@id": …, "@type": … }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you look at something like this in the document it means somethings different than when it is in the context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Term def. are already special.. So we could handle it differently</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we should keep the number of special cases for these rules to a minimum, thus, I don't think we should handle this differently.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas, could you please create a separate issue for this?</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-82: How are non-JSON-LD values in @context processed?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/82">https://github.com/json-ld/json-ld.org/issues/82</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: As per the existing processor rules, they are ignored.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  They are removed when compacting and normalizing but remain intact when extending</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  For non-JSON-LD values in @context, in general, they are ignored by JSON-LD processors. When compacting, the non-JSON-LD values can be removed. When expanding, the entire @context is removed and thus the non-JSON-LD values are removed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Clarification: ... where non-JSON-LD is anything not recognized by a JSON-LD processor)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> For non-JSON-LD values in @context, in general, they are ignored by JSON-LD processors. When compacting, the non-JSON-LD values can be removed. When expanding, the entire @context is removed and thus the non-JSON-LD values are removed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Well actually they are also removed in expansion as the whole context is removed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What about the decision we made to remove unknown keys from expansion? <a href="https://github.com/json-ld/json-ld.org/issues/56">https://github.com/json-ld/json-ld.org/issues/56</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think we need normalization for compaction or framing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree in the case of compaction, I don't think that is possible for framing... we'll have to chat with Dave Longley to figure out why he required normalization for both compaction and framing.</div>
+<div class="information">. . . discussion about whether compaction should depend on normalization or not . . .</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Override part of the decision made in ISSUE-56 - When performing expansion, non-JSON-LD values are not dropped from the document, but are ignored.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Override part of the decision made in ISSUE-56 - When performing expansion, non-JSON-LD values are not dropped from the document, but are ignored.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-68: Multiple graphs syntax</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/68">https://github.com/json-ld/json-ld.org/issues/68</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is really a discussion about whether we want to have an array-form for @id or if we want to be more specific about how we express graphs that are not fully connected.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Are we talking about named graphs or bushes?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Bushs, but this solution should also work for named graphs... what we're really talking about are hedges... :P</div>
+<div class="comment"><span class="name">Manu Sporny</span>: If we have a graph that is a bush - we do this: "@graph": [{},{},{}] instead of this: "@id": [{},{},{}]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: If we want to make that graph a named graph, we do this: { "@id": "_:graph_name", "@graph": [{},{},{}] } ... you can also assign properties to that named graph and support graph literals with that construct.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we should go down the named graphs rathole yet... let's wait for the RDF WG to figure out what they want to do about it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: This is a good example of why we need "@graph": <a href="http://rdfainfo.digitalbazaar.com/test-suite/manifest.json">http://rdfainfo.digitalbazaar.com/test-suite/manifest.json</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Our intent at the moment is not to support named graphs but to ensure that the syntax of bushes supports named graphs in the future</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  using @set instead of @graph has some appeal as discussed in the issue - it requires less theoretical background</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … {"dc:creator": {"@set": […]}}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. a set of objects vs. a quoted graph</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "@many"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I don't think a @set is the same thing as a @graph, we shouldn't conflate the two concepts in an attempt to be clever.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: @set is really an alias for [], right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, except for when you use it for @type coercion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why is a @graph in this context different from having a set with an @id applied to it? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Depends on what you mean by "set" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  does rdf:Bag terminology help here?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think it does - at least, not in a way that would be friendly to newcomers.</div>
+<div class="information">. } .</div>
+<div class="information"><a href="http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-list-elements">http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-list-elements</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we add an @id to @set, is that a named graph? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's not clear - it's not clear that @id applied to @set is the same as @id applied to @list is the same as @id applied to @graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: A similar issue arises if we allow e.g. {"@id": …, "@value": ...}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Right now container could be one of these - "@container": @set | @list | @graph</div>
+<div class="comment"><span class="name">Manu Sporny</span>: When and how we use @set is really orthogonal to this issue. I think it's clear that a @set with an @id is not the same thing as a graph with an @id - I don't know what a @set with an @id is... but I am sure that it's not the same thing as a @graph with an @id. There is a separate issue here of whether we should be using @ordered/@unordered vs. @list/@set - but let's discuss that as a separate issue.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The @graph keyword is used to express a collection of one or more JSON objects (to express a graph which may or may not be fully connected)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> The @graph keyword is used to express a collection of one or more JSON objects (to express a graph which may or may not be fully connected)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Clarification: This does not mean that we have a named graph solution, but we do believe that it is forward-compatible with such a solution.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: One could do something like this: {"@id": "_:graph0", "@graph": [{},{},{}] }</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Can we do something like this:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"foo": {"@graph": {{}}} - basically, a graph literal?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  In the future, probably. We've just opened a Pandora's box of discussion about this... it affects normalization in a big way. We should be careful to restrict discussion about this for JSON-LD 1.0. We /may/ have a JSON-LD 1.1, but for 1.0, we may only allow @graph at the top-level.</div>
+</body>
+</html>
