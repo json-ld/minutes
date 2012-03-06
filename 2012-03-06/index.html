@@ -1,0 +1,201 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-03-06</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0002.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0002.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-44: Support for @set coercion</a><li><a href="#topic-2">ISSUE-52: Lists of lists</a><li><a href="#topic-3">ISSUE-74: IRI compaction/expansion conflicts</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Adopt the "@container": "@set" syntax when used in a JSON-LD context to specify that a term is associated with a set of values.</a><li><a href="#resolution-2">When the "@container": "@set" syntax is used in a JSON-LD context for a term definition within the framing algorithm, the resulting term will be associated with a JSON array.</a><li><a href="#resolution-3">Lists of lists are not allowed for JSON-LD 1.0. If a list of lists is detected, the JSON-LD processor MUST throw an exception.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Markus Lanthaler, Gregg Kellogg, Ted Thibodeau Jr., David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Niklas Lindström is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Issues for today are 44, 52, 74, 76 - any updates or changes to the agenda?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Issue 76 now references <a href="https://github.com/json-ld/json-ld.org/issues/84">https://github.com/json-ld/json-ld.org/issues/84</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Covers support for controlled probing of unlinked objects</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In short, this is a way to parse values of things referenced by null terms (terms that are not bound to anything in the context) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is more to allow terms to be null, but still allow their contents to be parsed. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We'll keep this in mind today but might not have time to discuss it (84)</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-44: Support for @set coercion</h1>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: <a href="https://github.com/json-ld/json-ld.org/issues/44">https://github.com/json-ld/json-ld.org/issues/44</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this has been having out the for quite a while</div>
+<div class="comment-continuation">... josh wanted to process data structures and have a consistent way of parsing each item</div>
+<div class="comment-continuation">... for instance, if you encounter a telephone number, you always want to know the value is a list</div>
+<div class="comment-continuation">... we already have @container: @list, we can add @container: @set as well</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think he initially wanted this in framing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  he found this to be wider than only for framing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm not sure if he widened it to more than framing, but I think this is related to general context definitions. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think it originated in framing, that's where he takes a graph and creates JSON from it - in his case, he applies a frame. In my case, I don't apply a frame, I just apply a context to my graph data. I have this same need. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The need I have is to define a context that ensures that I have a predictable shape for the data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  My primary data view is part of my construct - I have a predefinied view of a resource - I know how many nodes down there is. I have a limited graph. I apply the JSON-LD context to that limited graph. Then I know what the data looks like. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could make it possible if we say that a list or a set always has to be an array. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ack: lanthaler</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think that the thing you're using @context for something they're not really used for. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">... discussion about how predictable json you can get from graphs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think you're translating RDF data to JSON using the @context - that's usually used to transform JSON to RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't need frames for this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  How do you tell your customers what the shape of the data is? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  How do you tell your customers what the structure of the JSON-LD document is? Are they really using JSON-LD or are they just using the JSON part of JSON-LD? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  They're just using the JSON I give them. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, there is external documentation? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There isn't - the customers just look at the service and use the record - if properties are missing, there is no problem - if they see a list, they know it's a list. If they see one value, they see one value. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you don't specify that in JSON-LD, but you generate the JSON-LD in a particular way, then it would be compliant to the spec, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes. However, it would be nice to just generate this from the JSON-LD processor. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You could just use a JSON-LD frame for this, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Going from a simple context to JSON-LD frames would require me to write some 20-odd frames.... It would be more complexity for me to handle. We could just use @container: @set and be done with it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I do see value in "@container": "@set" in JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not clear where other than in framing @container: @set would be applied</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if @container: @set is specified in the context, key values in the document that match that term much be given in an array</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not clear to me where the proposal is - we could look at expansion/compaction - the only place we could really apply this is framing. My RDF to JSON-LD translator could frame the data with that algorithm - where do we want this? [scribe assist by Manu Sporny]</div>
+<div class="information">Manu makes a proposal... introduce @set, it only has an effect during compaction. If used in compaction in the context, the result is an array.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you use @container: @set - you should use an array to encapsulate the data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I see no harm in parsing it anyway... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Would it be possible to say @container: @set maps to empty frames? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You mean that @container: @set would only be meaningful in frames? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that solves it for me. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that would mean that any algorithm should through an exception if single values for container-set terms are encountered?</div>
+<div class="comment-continuation">... we don't want to put unnecessary restrictions on regular JSON-LD with @set</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: I agree, we should keep constraints on @container: @set to Framing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other option would be to add a new API call, e.g. "jsonld.listify()", which would turn every value in a document into a list</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Just want to make sure that if you have this - "references": {"@container" :"@set"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Then this - "references": "iri-1"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Will be turned into this - "references": ["iri-1"]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it seems we have consensus on adopting @set in this manner. The other question is if we like this syntax proposed by Markus:</div>
+<div class="information">"@context": {</div>
+<div class="information">"property1": { "@id": "something1", "@type": "@list" },</div>
+<div class="information">"property2": { "@id": "something2", "@type": [ "@list", "xsd:date" ] }</div>
+<div class="information">}</div>
+<div class="comment-continuation">... this context only applies when we frame the data</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we have discussed this before, and came to the conclusion that @container was more consistent with the rest of json-ld</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so @type cannot take arrays in contexts?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, remember that @type means something different</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  @type in the context is used to set the datatype of the property</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: perhaps put them onscreen?</div>
+<div class="comment-continuation">… discussion on if framing has to go normalization</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Adopt the "@container"; "@set" syntax when used in a JSON-LD context to specify that a term is associated with a set of values.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Adopt the "@container": "@set" syntax when used in a JSON-LD context to specify that a term is associated with a set of values.</div>
+<div class="information">Clarification that at this point this is merely annotational - i.e. introduces the @set keyword</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When the "@container"; "@set" syntax is used in a JSON-LD context for a term definition within the framing algorithm, the resulting term will be associated with a JSON array.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> When the "@container": "@set" syntax is used in a JSON-LD context for a term definition within the framing algorithm, the resulting term will be associated with a JSON array.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-52: Lists of lists</h1>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: <a href="https://github.com/json-ld/json-ld.org/issues/52">https://github.com/json-ld/json-ld.org/issues/52</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley's suggestion is to disallow lists in lists for the time being (throw exception), and revisit this in the future if needed</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anyone in need of lists of lists?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  no, I'm fine without it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we haven't found any good use cases, and it would add a lot of complexity</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Lists of lists are not allowed for JSON-LD 1.0. If a list of lists is detected, the JSON-LD processor MUST throw an exception.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Lists of lists are not allowed for JSON-LD 1.0. If a list of lists is detected, the JSON-LD processor MUST throw an exception.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-74: IRI compaction/expansion conflicts</h1>
+<div class="comment"><span class="name">Ted Thibodeau Jr.</span>: <a href="https://github.com/json-ld/json-ld.org/issues/74">https://github.com/json-ld/json-ld.org/issues/74</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the issue is if you have to terms which map to the same IRI, when you expand, you know have one key where there used to be two; when you compact, it is unclear what to do</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the problem can also occur since you can use full IRIs as keys in documents even if there is a term for it in the context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  on compaction, values with different datatypes should be divided between two terms with different coercion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can't do "last key" wins (json keys aren't ordered)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could use the more specific rule</div>
+<div class="comment-continuation">... the problem is when we have e.g. one xsd:integer and one xsd:decimal</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there is no problem with e.g. xsd types; we already have specific types for values at this time</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we currently have a non-determinism</div>
+<div class="comment-continuation">... we can make the decision based on specificity</div>
+<div class="comment"><span class="name">David I. Lehn</span>: agenda did say 120 mins :)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The intent for how IRI conflicts are resolved when compacting/expanding: any conflicts between terms that use the same IRI will use the most specific solution when compacting (for example, when compacting "foo": "5" and having to pick between a term that specifies "xsd:integer" as the type and one that doesn't, the one that specifies "xsd:integer" is selected)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: If there is no solution that is more specific than the other, then a lexicographical comparison is made between the terms in the @context and the lexicographically least term and it's associated @type and other information is used to expand the data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: When expanding multiple keys that resolve to the same IRI, the expanded value will have all of the values associated with the IRI merged into a single JSON array.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: (the order of the values in the resulting JSON array is undefined)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 on the intent ;)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1 on the intent too</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 on the intent</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  Good call, bye.</div>
+<div class="information">(we should also take @container into account regarding specificity)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1 to @container as part of selection</div>
+</body>
+</html>

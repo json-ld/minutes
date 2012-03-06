@@ -1,0 +1,157 @@
+[10:03]	<manu1>	scribe: niklasl
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0002.html
+[10:04]	<niklasl>	Manu: Issues for today are 44, 52, 74, 76 - any updates or changes to the agenda?
+[10:04]	<voip-ld>	Ted Thibodeau Jr (SIP/192.168.11.227-0000000c) has joined the conference.
+[10:04]	<niklasl>	niklas:Issue 76 now references https://github.com/json-ld/json-ld.org/issues/84
+[10:04]	<niklasl>	niklas: Covers support for controlled probing of unlinked objects
+[10:06]	<manu1>	niklas: In short, this is a way to parse values of things referenced by null terms (terms that are not bound to anything in the context)
+[10:06]	-->|	gkellogg (~gregg@ip-66-232-71-163.syringanetworks.net) has joined #json-ld
+[10:07]	<manu1>	niklas: This is more to allow terms to be null, but still allow their contents to be parsed.
+[10:08]	<niklasl>	manu: We'll keep this in mind today but might not have time to discuss it (84)
+[10:08]	<manu1>	Topic: ISSUE-44: Support for @set coercion
+[10:08]	<MacTed>	https://github.com/json-ld/json-ld.org/issues/44
+[10:08]	<niklasl>	manu: this has been having out the for quite a while
+[10:09]	<niklasl>	... josh wanted to process data structures and have a consistent way of parsing each item
+[10:09]	<niklasl>	... for instance, if you encounter a telephone number, you always want to know the value is a list
+[10:09]	<niklasl>	... we already have @container: @list, we can add @container: @set as well
+[10:10]	<niklasl>	markus: I think he initially wanted this in framing
+[10:10]	<niklasl>	manu: he found this to be wider than only for framing
+[10:10]	<niklasl>	q+
+[10:10]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:11]	<manu1>	ack niklasl
+[10:11]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:11]	<manu1>	niklasl: I'm not sure if he widened it to more than framing, but I think this is related to general context definitions.
+[10:12]	<manu1>	niklasl: I think it originated in framing, that's where he takes a graph and creates JSON from it - in his case, he applies a frame. In my case, I don't apply a frame, I just apply a context to my graph data. I have this same need.
+[10:13]	<manu1>	niklas: The need I have is to define a context that ensures that I have a predictable shape for the data.
+[10:14]	<mlnt>	q+
+[10:14]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:14]	=-=	mlnt is now known as lanthaler
+[10:15]	<manu1>	niklas: My primary data view is part of my construct - I have a predefinied view of a resource - I know how many nodes down there is. I have a limited graph. I apply the JSON-LD context to that limited graph. Then I know what the data looks like.
+[10:16]	<manu1>	lanthaler: We could make it possible if we say that a list or a set always has to be an array.
+[10:20]	<voip-ld>	<unknown> (IAX2/diamondcard-16143) has left the conference.
+[10:21]	<lanthaler>	q+
+[10:21]	<voip-ld>	Added lanthaler to the speaker queue: mlnt, lanthaler
+[10:21]	<manu1>	ack mlnt
+[10:21]	<voip-ld>	mlnt has the floor. The next speaker is lanthaler.
+[10:21]	<voip-ld>	<unknown> (IAX2/diamondcard-6538) has joined the conference.
+[10:21]	<manu1>	ack: lanthaler
+[10:22]	<manu1>	lanthaler: I think that the thing you're using @context for something they're not really used for.
+[10:22]	<niklasl>	... discussion about how predictable json you can get from graphs
+[10:22]	<manu1>	lanthaler: I think you're translating RDF data to JSON using the @context - that's usually used to transform JSON to RDF.
+[10:22]	<manu1>	niklas: I don't need frames for this.
+[10:22]	<manu1>	lanthaler: How do you tell your customers what the shape of the data is?
+[10:23]	<manu1>	lanthaler: How do you tell your customers what the structure of the JSON-LD document is? Are they really using JSON-LD or are they just using the JSON part of JSON-LD?
+[10:23]	<manu1>	niklas: They're just using the JSON I give them.
+[10:23]	<manu1>	lanthaler: So, there is external documentation?
+[10:24]	<manu1>	niklas: There isn't - the customers just look at the service and use the record - if properties are missing, there is no problem - if they see a list, they know it's a list. If they see one value, they see one value.
+[10:25]	<manu1>	lanthaler: If you don't specify that in JSON-LD, but you generate the JSON-LD in a particular way, then it would be compliant to the spec, right?
+[10:25]	<manu1>	niklas: Yes. However, it would be nice to just generate this from the JSON-LD processor.
+[10:25]	<gkellogg>	q+
+[10:25]	<voip-ld>	Added gkellogg to the speaker queue: mlnt, gkellogg
+[10:25]	<manu1>	manu: You could just use a JSON-LD frame for this, right?
+[10:26]	<manu1>	niklas: Going from a simple context to JSON-LD frames would require me to write some 20-odd frames.... It would be more complexity for me to handle. We could just use @container: @set and be done with it.
+[10:26]	<manu1>	ack gkellogg
+[10:26]	<voip-ld>	mlnt has the floor. The next speaker is gkellogg.
+[10:26]	<manu1>	ack gkellogg
+[10:26]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:27]	<manu1>	gkellogg: I do see value in "@container": "@set" in JSON-LD.
+[10:28]	<niklasl>	gregg: It's not clear where other than in framing @container: @set would be applied
+[10:28]	<niklasl>	manu: if @container: @set is specified in the context, key values in the document that match that term much be given in an array
+[10:29]	<manu1>	gkellogg: It's not clear to me where the proposal is - we could look at expansion/compaction - the only place we could really apply this is framing. My RDF to JSON-LD translator could frame the data with that algorithm - where do we want this?
+[10:29]	<niklasl>	Manu makes a proposal... introduce @set, it only has an effect during compaction. If used in compaction in the context, the result is an array.
+[10:29]	<lanthaler>	q+
+[10:29]	<voip-ld>	Added lanthaler to the speaker queue: lanthaler
+[10:30]	<manu1>	niklasl: If you use @container: @set - you should use an array to encapsulate the data.
+[10:30]	<manu1>	niklasl: I see no harm in parsing it anyway...
+[10:30]	<manu1>	markus: Would it be possible to say @container: @set maps to empty frames?
+[10:31]	<manu1>	niklasl: You mean that @container: @set would only be meaningful in frames?
+[10:31]	<manu1>	markus: Yes...
+[10:31]	<manu1>	niklasl: I think that solves it for me.
+[10:32]	<niklasl>	manu: that would mean that any algorithm should through an exception if single values for container-set terms are encountered?
+[10:33]	<niklasl>	... we don't want to put unnecessary restrictions on regular JSON-LD with @set
+[10:34]	<gkellogg>	I agree, we should keep constraints on @container: @set to Framing.
+[10:34]	<niklasl>	manu: the other option would be to add a new API call, e.g. "jsonld.listify()", which would turn every value in a document into a list
+[10:37]	<niklasl>	niklas: Just want to make sure that if you have this - "references": {"@container" :"@set"}
+[10:37]	<niklasl>	niklas: Then this - "references": "iri-1"
+[10:37]	<niklasl>	niklas: Will be turned into this - "references": ["iri-1"]
+[10:38]	<niklasl>	manu: it seems we have consensus on adopting @set in this manner. The other question is if we like this syntax proposed by Markus:
+[10:38]	<niklasl>	"@context": {
+[10:38]	<niklasl>	"property1": { "@id": "something1", "@type": "@list" },
+[10:38]	<niklasl>	"property2": { "@id": "something2", "@type": [ "@list", "xsd:date" ] }
+[10:38]	<niklasl>	}
+[10:38]	<niklasl>	... this context only applies when we frame the data
+[10:40]	<niklasl>	gregg: we have discussed this before, and came to the conclusion that @container was more consistent with the rest of json-ld
+[10:40]	<niklasl>	markus: so @type cannot take arrays in contexts?
+[10:40]	<niklasl>	manu: yes, remember that @type means something different
+[10:41]	<niklasl>	manu: @type in the context is used to set the datatype of the property
+[10:41]	<MacTed>	perhaps put them onscreen?
+[10:42]	* manu1	will, MacTed - just making sure no disagreements, first :)
+[10:45]	<niklasl>	… discussion on if framing has to go normalization
+[10:46]	* niklasl	is sorry for the sketchy scribing today (I was more exhausted than I expected)
+[10:46]	<manu1>	PROPOSAL: Adopt the "@container"; "@set" syntax when used in a JSON-LD context to specify that a term is associated with a set of values.
+[10:46]	<niklasl>	+1
+[10:47]	<lanthaler>	+1
+[10:47]	<manu1>	+1
+[10:47]	<taaz>	+1
+[10:47]	<MacTed>	+1
+[10:47]	|<--	gkellogg has left freenode (Remote host closed the connection)
+[10:47]	<gkellogg>	+1
+[10:47]	-->|	gkellogg (~gregg@ip68-105-210-124.sv.om.cox.net) has joined #json-ld
+[10:47]	<manu1>	RESOLVED: Adopt the "@container": "@set" syntax when used in a JSON-LD context to specify that a term is associated with a set of values.
+[10:48]	<niklasl>	Clarification that at this point this is merely annotational - i.e. introduces the @set keyword
+[10:48]	<manu1>	PROPOSAL: When the "@container"; "@set" syntax is used in a JSON-LD context for a term definition within the framing algorithm, the resulting term will be associated with a JSON array.
+[10:49]	<niklasl>	+1
+[10:49]	<MacTed>	+1
+[10:49]	<manu1>	+1
+[10:49]	<lanthaler>	+1
+[10:49]	<taaz>	+1
+[10:49]	<gkellogg>	+1
+[10:49]	<manu1>	RESOLVED: When the "@container": "@set" syntax is used in a JSON-LD context for a term definition within the framing algorithm, the resulting term will be associated with a JSON array.
+[10:50]	* gkellogg	Now I have hardwired internet!
+[10:50]	<manu1>	Topic: ISSUE-52: Lists of lists
+[10:50]	<MacTed>	https://github.com/json-ld/json-ld.org/issues/52
+[10:52]	<niklasl>	manu: Dave Longley's suggestion is to disallow lists in lists for the time being (throw exception), and revisit this in the future if needed
+[10:52]	<niklasl>	manu: anyone in need of lists of lists?
+[10:52]	<niklasl>	markus: no, I'm fine without it
+[10:53]	<niklasl>	gregg: we haven't found any good use cases, and it would add a lot of complexity
+[10:53]	<manu1>	PROPOSAL: Lists of lists are not allowed for JSON-LD 1.0. If a list of lists is detected, the JSON-LD processor MUST throw an exception.
+[10:53]	<lanthaler>	+1
+[10:53]	<niklasl>	+1
+[10:53]	<MacTed>	+1
+[10:53]	<gkellogg>	+1
+[10:53]	<manu1>	+1
+[10:53]	<taaz>	+1
+[10:53]	<manu1>	RESOLVED: Lists of lists are not allowed for JSON-LD 1.0. If a list of lists is detected, the JSON-LD processor MUST throw an exception.
+[10:54]	<manu1>	Topic: ISSUE-74: IRI compaction/expansion conflicts
+[10:54]	<MacTed>	https://github.com/json-ld/json-ld.org/issues/74
+[10:55]	<niklasl>	gregg: the issue is if you have to terms which map to the same IRI, when you expand, you know have one key where there used to be two; when you compact, it is unclear what to do
+[10:57]	<niklasl>	markus: the problem can also occur since you can use full IRIs as keys in documents even if there is a term for it in the context
+[10:58]	-->|	gkellogg_ (~gregg@ip68-105-210-124.sv.om.cox.net) has joined #json-ld
+[10:59]	<niklasl>	markus: on compaction, values with different datatypes should be divided between two terms with different coercion
+[11:01]	<niklasl>	manu: we can't do "last key" wins (json keys aren't ordered)
+[11:01]	<niklasl>	manu: we could use the more specific rule
+[11:02]	<niklasl>	... the problem is when we have e.g. one xsd:integer and one xsd:decimal
+[11:02]	|<--	gkellogg has left freenode (Ping timeout: 255 seconds)
+[11:02]	=-=	gkellogg_ is now known as gkellogg
+[11:04]	<niklasl>	gregg: there is no problem with e.g. xsd types; we already have specific types for values at this time
+[11:04]	<niklasl>	manu: we currently have a non-determinism
+[11:05]	<niklasl>	... we can make the decision based on specificity
+[11:09]	<taaz>	agenda did say 120 mins :)
+[11:12]	<manu1>	The intent for how IRI conflicts are resolved when compacting/expanding: any conflicts between terms that use the same IRI will use the most specific solution when compacting (for example, when compacting "foo": "5" and having to pick between a term that specifies "xsd:integer" as the type and one that doesn't, the one that specifies "xsd:integer" is selected)
+[11:13]	<manu1>	If there is no solution that is more specific than the other, then a lexicographical comparison is made between the terms in the @context and the lexicographically least term and it's associated @type and other information is used to expand the data.
+[11:13]	<manu1>	When expanding multiple keys that resolve to the same IRI, the expanded value will have all of the values associated with the IRI merged into a single JSON array.
+[11:14]	<manu1>	(the order of the values in the resulting JSON array is undefined)
+[11:19]	<niklasl>	+1 on the intent ;)
+[11:19]	<gkellogg>	+1 on the intent too
+[11:19]	<lanthaler>	+1
+[11:19]	<manu1>	+1 on the intent
+[11:19]	<niklasl>	taaz: Good call, bye.
+[11:19]	<voip-ld>	<unknown> (IAX2/diamondcard-6538) has left the conference.
+[11:19]	<voip-ld>	Manu Sporny (SIP/6000-00000009) has left the conference.
+[11:19]	<voip-ld>	Ted Thibodeau Jr (SIP/192.168.11.227-0000000c) has left the conference.
+[11:19]	<voip-ld>	David I. Lehn (SIP/96.240.163.152-0000000b) has left the conference.
+[11:19]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000000a) has left the conference.
+[11:19]	<niklasl>	(we should also take @container into account regarding specificity)
+[11:19]	<voip-ld>	Niklas Lindström (SIP/192.168.0.200-00000008) has left the conference.
+[11:19]	<voip-ld>	There are currently no conference connections.
+[11:19]	<gkellogg>	+1 to @container as part of selection
