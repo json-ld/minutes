@@ -1,0 +1,163 @@
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0006.html
+[10:04]	<manu1>	scribe: manu1
+[10:05]	<manu1>	manu1: Any changes to the Agenda?
+[10:05]	<manu1>	niklasl: I got a question over e-mail... regarding ISSUE-44
+[10:05]	<voip-ld>	unknown (SIP/71.171.28.98-00000014) has joined the conference.
+[10:06]	<manu1>	niklasl: Using "@container": "@set" in framing - Josh Mandel asked me if the consequence is if this didn't have any effect in compaction.
+[10:06]	<manu1>	manu1: I think we said that the only place it matters is in framing.
+[10:06]	<manu1>	lanthaler: I think that's the last issue we're discussing today.
+[10:07]	<manu1>	niklasl: I asked Josh to comment, if he doesn't - I'll put something in that issue. It might be useful to support the list via @list and @set construct in compaction.
+[10:07]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/84
+[10:09]	<manu1>	manu1: We've had reviews by Oracle and W3C staff, they have some minor comments but are happy with the documents overall. We need to change the feedback into issues and discuss them - nothing major, mostly minor questions on JSON-LD usage.
+[10:09]	<manu1>	Topic: ISSUE-76: Use of null in JSON-LD
+[10:09]	<manu1>	https://github.com/json-ld/json-ld.org/issues/76
+[10:10]	<manu1>	manu: There are two ways null can be used in JSON-LD... in the @context and in the body of the document. I think we found consensus last time by stating that if 'null' is used in the value position in the body of the document, then a processor must ignore the key-value pair. If null is used in the @context, it has a number of different effects:
+[10:11]	<manu1>	manu: Clear the active context: "@context": null and "@context:" [null, ...]
+[10:11]	<manu1>	manu: Clear a term/prefix declaration: "term": null,
+[10:11]	<manu1>	manu: Clear the datatype associated with a term: "term": {"@id": "http://example.org/term", "@type": null}
+[10:11]	<manu1>	manu: Clear the language associated with a term: "term": {"@id": "http://example.org/term", "@language": null}
+[10:11]	<manu1>	manu: Clear the container type associated with a term: "term": {"@id": "http://example.org/term", "@container": null}
+[10:11]	<niklasl>	q+
+[10:11]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:11]	<manu1>	ack niklasl
+[10:11]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:12]	<manu1>	niklasl: I believe that the last 3 mean the same thing is if you define a term w/o a @type/@language/or @container.
+[10:12]	<manu1>	gkellogg: Yes, I think so.
+[10:13]	<niklasl>	People might want to use @language to do "title_en" and "title_sv"
+[10:13]	<manu1>	niklasl: Should language mean something there? We've never used it in a @term definition before, right?
+[10:13]	<manu1>	gkellogg: Why don't we create an issue for this and discuss it later.
+[10:14]	<manu1>	markus: "@id": null: clear the whole term declaration. What if that it's in the body? (see also #84)
+[10:14]	<manu1>	markus: Perhaps we should also define what happens if something like { "@value": null, "@language": "de" } is in the document.. I assume we just discard the wholetyped/language-tagge d literal.
+[10:15]	<manu1>	markus: The same for lists? Or should "@list": null" result in an empty list? (this is probably related to #79)
+[10:15]	<manu1>	gkellogg: @set is not used in the body, only the @context.
+[10:15]	<manu1>	markus: Maybe we should discuss that as well - another issue.
+[10:16]	<manu1>	gkellogg: my opinion - @id: null causes the object to be ignored - in @context should be equivalent to term null.
+[10:16]	<manu1>	gkellogg: Within the body, if you use @id: null - then the object has no definition.
+[10:17]	<niklasl>	q+
+[10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:17]	<manu1>	manu1: I think @id: null should mean "no id", not "no object" - it should generate a bnode.
+[10:17]	<manu1>	niklasl: If you use @id: null for a term, we have an open question on whether or not that term should be possible to use in ISSUE-84.
+[10:18]	<manu1>	manu1: I think we should discard the whole object for { "@value": null, "@language": "de" }
+[10:18]	<manu1>	markus: yes
+[10:19]	<manu1>	markus: @list: null should discard everything as well.
+[10:23]	<manu1>	PROPOSAL: Unless otherwise specified, when 'null' is used in the @context, it removes any definition associated with the key.
+[10:23]	<gkellogg>	+1
+[10:23]	<manu1>	+1
+[10:23]	<niklasl>	+1
+[10:23]	<lanthaler>	+1
+[10:23]	<taaz>	+1
+[10:23]	<manu1>	RESOLVED: Unless otherwise specified, when 'null' is used in the @context, it removes any definition associated with the key.
+[10:25]	<niklasl>	(.. I've created https://github.com/json-ld/json-ld.org/issues/85 about using @language in term definitions.)
+[10:25]	<manu1>	Discussion about how this applies to @context
+[10:25]	-->|	bergie_ (~bergie@p5DDC5A93.dip.t-dialin.net) has joined #json-ld
+[10:26]	<manu1>	Discussion about initial context - what should we have in there?
+[10:27]	<manu1>	markus: Can you override those values in the initial context?
+[10:27]	<manu1>	gregg: yes.
+[10:27]	<niklasl>	q+
+[10:27]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:27]	* manu1	sorry niklasl - will call on you, accidentally cleared you from the queue.
+[10:28]	* niklasl	no problem :)
+[10:28]	<manu1>	gregg: I think the key is to treat this uniformly... I think @type taking and @id.
+[10:29]	<manu1>	markus: Well @id and @type are special cases, we don't need them in the initial context.
+[10:29]	<manu1>	gregg: My processor would pay attention to this.
+[10:29]	|<--	bergie has left freenode (Ping timeout: 272 seconds)
+[10:30]	<manu1>	niklasl: I think that @id has an intricate meaning, @type when it's used as datatype is fine... but @type as it is used as rdf:type could be in the initial context. It is an alias for rdf:type. We may want to raise an issue about @type - I think Josh Mandel asked that now we have @container: @set - if you could define @type to always be of type @container: @set.
+[10:31]	<manu1>	niklasl: Another case - if you don't want rdf:type to have @coerce @id on them, which we have now, you may want to have a plain object w/ a URI for the type... or label for the type. There are certain use cases that warrant this. You might want to define a term for @type. It might be good to clear the default definition by setting "@type": null in initial context.
+[10:31]	<manu1>	markus: That would change JSON-LD completely.
+[10:32]	<manu1>	niklasl: If we don't go in this direction we can't support all of RDF.
+[10:32]	<manu1>	manu: A bit confused...
+[10:33]	<niklasl>	{ "@type": null, "type": {"@id": "rdf:type", "@container": "@set"} }
+[10:33]	<manu1>	niklas: That is in the context definition - if you want to redefine @type.
+[10:33]	<niklasl>	{ "@type": {"@id": "rdf:type", "@type": "@id"} }
+[10:34]	<manu1>	niklas: That is the initial context definition.
+[10:34]	<manu1>	markus: You wouldn't need to reset @type.
+[10:34]	<manu1>	niklasl: If you don't reset @type, then we don't know what compaction would do.
+[10:34]	<manu1>	manu: Let's tackle this initial context issue later, we already have an issue for it...
+[10:36]	<manu1>	PROPOSAL: If @context is set to 'null', then the active context is cleared or set to the initial context (depending on the resolution to ISSUE-80)
+[10:36]	<manu1>	+1
+[10:36]	<gkellogg>	+1
+[10:36]	<lanthaler>	+1
+[10:36]	<taaz>	+1
+[10:36]	<niklasl>	+0.5
+[10:37]	<niklasl>	+1
+[10:37]	<manu1>	RESOLVED: If @context is set to 'null', then the active context is cleared or set to the initial context (depending on the resolution to ISSUE-80)
+[10:38]	<manu1>	PROPOSAL: If 'null' is associated with a key in the body of a JSON-LD document, then the JSON-LD processor MUST act as if the key-value pair was never declared. If @value or @list is set to null in expanded form, then the entire JSON object is ignored.
+[10:39]	<manu1>	+1
+[10:39]	<lanthaler>	+1
+[10:39]	<gkellogg>	+1
+[10:39]	<niklasl>	+1
+[10:39]	<taaz>	+1
+[10:41]	<manu1>	RESOLVED: Unless otherwise specified, if 'null' is associated with a key in the body of a JSON-LD document, then the JSON-LD processor MUST act as if the key-value pair was never declared. If @value or @list is set to null in expanded form, then the entire JSON object is ignored.
+[10:39]	<manu1>	Topic: ISSUE-79: Define how empty arrays are handled
+[10:40]	<manu1>	https://github.com/json-ld/json-ld.org/issues/79
+[10:42]	<manu1>	gregg: Last time I spoke about this, I mis-spoke - empty arrays should be removed from normalization if they are not a @set or @list.
+[10:42]	<manu1>	gregg: How do we preserve it if we're a set.
+[10:45]	<manu1>	PROPOSAL: If an empty array ([]) used as a value is not subject to @list coercion, then the value MUST be removed from normalized output. The empty array MUST be preserved in compacted and expanded output.
+[10:45]	<gkellogg>	+1
+[10:45]	<manu1>	+1
+[10:45]	<niklasl>	+1
+[10:45]	<taaz>	+1
+[10:45]	<lanthaler>	+1
+[10:45]	<manu1>	RESOLVED: If an empty array ([]) used as a value is not subject to @list coercion, then the value MUST be removed from normalized output. The empty array MUST be preserved in compacted and expanded output.
+[10:49]	<manu1>	Discussion around whether we should support the preservation of [] for @set.
+[10:50]	<manu1>	gregg: I don't see a compelling reason here - it's incompatible with RDF, we'd have to invent something new to preserve it. If we create something new, then we'd have an issue when we went down to triples.
+[10:50]	<manu1>	markus: Is an empty set different from an empty list? From a developers point of view?
+[10:51]	<manu1>	manu: I think developers that know RDF will see a difference between empty set and empty list, those that don't - won't.
+[10:51]	<manu1>	gregg: I think framing is what they use this stuff for.
+[10:51]	<manu1>	markus: All of this applies to lists as well - why should they be any different.
+[10:52]	<manu1>	niklas: An empty set of triples is nothing.
+[10:52]	<niklasl>	s/is/says/ really. :)
+[10:52]	<manu1>	gregg: We have a graph model - that is one of the limitations of graphs - they can't represent the absence of information.
+[10:53]	<manu1>	gregg: The only way to do this would be to construct some meta-node... a vertex that had meaning outside of RDF.
+[10:53]	<niklasl>	.. NOT EXISTS { ?s ex:term ?o }
+[10:54]	-->|	MacTed (~Thud@63.119.36.36) has joined #json-ld
+[10:55]	<manu1>	manu: Is there an argument here for preserving @set [] in compaction?
+[10:55]	<manu1>	niklas: I think so
+[10:55]	<manu1>	gregg: I'm supportive of that.
+[10:56]	<manu1>	manu: Would we mess w/ the document structure?
+[10:57]	<manu1>	gregg: let's say we have a @container: @set - do we change to array form when compacting
+[10:57]	<manu1>	manu: So in expansion do we keep @set?
+[10:57]	<manu1>	niklasl: I don't think so... I think @set is removed when expanding.
+[10:58]	<manu1>	gregg: The idea would be that general expansion algorithm, when expanding values not in array form, would put them into array form. When compacting, you can always count on the fact that values are in array form.
+[11:00]	<manu1>	gregg: In expanded form, all values are in an array. In compacted form, we compact down to whatever is the simplest.
+[11:00]	<manu1>	markus: You lose the empty @set when doing normalization.
+[11:03]	<manu1>	PROPOSAL: When normalizing, anything that is not coerced to a @list container type that has an empty array for its value is removed from the normalized output.
+[11:03]	<manu1>	+1
+[11:03]	<niklasl>	+1
+[11:03]	<gkellogg>	+1
+[11:03]	<lanthaler>	+1
+[11:03]	<taaz>	+1
+[11:03]	<manu1>	RESOLVED: When normalizing, anything that is not coerced to a @list container type that has an empty array for its value is removed from the normalized output.
+[11:03]	<manu1>	PROPOSAL: When compacting and expanding, anything that is coerced to a @set or a @list container type that has an empty array for its value is preserved in the compacted and expanded output.
+[11:04]	<niklasl>	+1
+[11:04]	<gkellogg>	+1
+[11:04]	<manu1>	+1
+[11:04]	<lanthaler>	+1
+[11:04]	<taaz>	+1
+[11:04]	<manu1>	RESOLVED: When compacting and expanding, anything that is coerced to a @set or a @list container type that has an empty array for its value is preserved in the compacted and expanded output.
+[11:08]	<niklasl>	.. values for syntactic keys: @value, @language, @id, and @type *when used for a datatype*..
+[11:10]	<manu1>	PROPOSAL: Unless otherwise specified, when performing the expansion algorithm all values must be contained in a JSON array structure. This does not apply to values for syntactic keys such as @value, @language, @id, and @type when used to specify a datatype.
+[11:10]	<niklasl>	+1
+[11:10]	<manu1>	+1
+[11:10]	<gkellogg>	+1
+[11:10]	<lanthaler>	+1
+[11:10]	<taaz>	+1
+[11:10]	<manu1>	RESOLVED: Unless otherwise specified, when performing the expansion algorithm all values must be contained in a JSON array structure. This does not apply to values for syntactic keys such as @value, @language, @id, and @type when used to specify a datatype.
+[11:11]	<niklasl>	.. should we propose:" When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value."?
+[11:12]	<manu1>	PROPOSAL: When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value.
+[11:12]	<gkellogg>	+1
+[11:12]	<niklasl>	+1
+[11:12]	<lanthaler>	+1
+[11:12]	<manu1>	+1
+[11:13]	<taaz>	+1
+[11:13]	<manu1>	RESOLVED: When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value.
+[11:13]	<manu1>	manu: I think we may want to move this to W3C...
+[11:14]	<manu1>	manu: Maybe in a month.
+[11:14]	<manu1>	gregg: Lots of spec updates to make, but we should be in good shape.
+[11:14]	<manu1>	Super-session planned for next Tuesday.
+[11:15]	<niklasl>	This is interesting: http://www.infoq.com/news/2011/12/mongograph-qa 
+[11:15]	<taaz>	See all of you next week.

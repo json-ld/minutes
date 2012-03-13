@@ -1,0 +1,227 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-03-13</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0006.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0006.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-76: Use of null in JSON-LD</a><li><a href="#topic-2">ISSUE-79: Define how empty arrays are handled</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Unless otherwise specified, when 'null' is used in the @context, it removes any definition associated with the key.</a><li><a href="#resolution-2">If @context is set to 'null', then the active context is cleared or set to the initial context (depending on the resolution to ISSUE-80)</a><li><a href="#resolution-3">Unless otherwise specified, if 'null' is associated with a key in the body of a JSON-LD document, then the JSON-LD processor MUST act as if the key-value pair was never declared. If @value or @list is set to null in expanded form, then the entire JSON object is ignored.</a><li><a href="#resolution-4">If an empty array ([]) used as a value is not subject to @list coercion, then the value MUST be removed from normalized output. The empty array MUST be preserved in compacted and expanded output.</a><li><a href="#resolution-5">When normalizing, anything that is not coerced to a @list container type that has an empty array for its value is removed from the normalized output.</a><li><a href="#resolution-6">When compacting and expanding, anything that is coerced to a @set or a @list container type that has an empty array for its value is preserved in the compacted and expanded output.</a><li><a href="#resolution-7">Unless otherwise specified, when performing the expansion algorithm all values must be contained in a JSON array structure. This does not apply to values for syntactic keys such as @value, @language, @id, and @type when used to specify a datatype.</a><li><a href="#resolution-8">When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Markus Lanthaler, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to the Agenda?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I got a question over e-mail... regarding ISSUE-44</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Using "@container": "@set" in framing - Josh Mandel asked me if the consequence is if this didn't have any effect in compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we said that the only place it matters is in framing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think that's the last issue we're discussing today.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I asked Josh to comment, if he doesn't - I'll put something in that issue. It might be useful to support the list via @list and @set construct in compaction.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/84">https://github.com/json-ld/json-ld.org/issues/84</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We've had reviews by Oracle and W3C staff, they have some minor comments but are happy with the documents overall. We need to change the feedback into issues and discuss them - nothing major, mostly minor questions on JSON-LD usage.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-76: Use of null in JSON-LD</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/76">https://github.com/json-ld/json-ld.org/issues/76</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are two ways null can be used in JSON-LD... in the @context and in the body of the document. I think we found consensus last time by stating that if 'null' is used in the value position in the body of the document, then a processor must ignore the key-value pair. If null is used in the @context, it has a number of different effects:</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Clear the active context: "@context": null and "@context:" [null, ...]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Clear a term/prefix declaration: "term": null,</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Clear the datatype associated with a term: "term": {"@id": "<a href="http://example.org/term",">http://example.org/term",</a> "@type": null}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Clear the language associated with a term: "term": {"@id": "<a href="http://example.org/term",">http://example.org/term",</a> "@language": null}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Clear the container type associated with a term: "term": {"@id": "<a href="http://example.org/term",">http://example.org/term",</a> "@container": null}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I believe that the last 3 mean the same thing is if you define a term w/o a @type/@language/or @container.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, I think so.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: People might want to use @language to do "title_en" and "title_sv"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Should language mean something there? We've never used it in a @term definition before, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Why don't we create an issue for this and discuss it later.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  "@id": null: clear the whole term declaration. What if that it's in the body? (see also #84)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Perhaps we should also define what happens if something like { "@value": null, "@language": "de" } is in the document.. I assume we just discard the wholetyped/language-tagge d literal.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The same for lists? Or should "@list": null" result in an empty list? (this is probably related to #79)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @set is not used in the body, only the @context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe we should discuss that as well - another issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my opinion - @id: null causes the object to be ignored - in @context should be equivalent to term null.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Within the body, if you use @id: null - then the object has no definition.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think @id: null should mean "no id", not "no object" - it should generate a bnode.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you use @id: null for a term, we have an open question on whether or not that term should be possible to use in ISSUE-84.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we should discard the whole object for { "@value": null, "@language": "de" }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @list: null should discard everything as well.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Unless otherwise specified, when 'null' is used in the @context, it removes any definition associated with the key.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Unless otherwise specified, when 'null' is used in the @context, it removes any definition associated with the key.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: (.. I've created <a href="https://github.com/json-ld/json-ld.org/issues/85">https://github.com/json-ld/json-ld.org/issues/85</a> about using @language in term definitions.)</div>
+<div class="information">Discussion about how this applies to @context</div>
+<div class="information">Discussion about initial context - what should we have in there?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Can you override those values in the initial context?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the key is to treat this uniformly... I think @type taking and @id.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Well @id and @type are special cases, we don't need them in the initial context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My processor would pay attention to this.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that @id has an intricate meaning, @type when it's used as datatype is fine... but @type as it is used as rdf:type could be in the initial context. It is an alias for rdf:type. We may want to raise an issue about @type - I think Josh Mandel asked that now we have @container: @set - if you could define @type to always be of type @container: @set.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Another case - if you don't want rdf:type to have @coerce @id on them, which we have now, you may want to have a plain object w/ a URI for the type... or label for the type. There are certain use cases that warrant this. You might want to define a term for @type. It might be good to clear the default definition by setting "@type": null in initial context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That would change JSON-LD completely.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we don't go in this direction we can't support all of RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A bit confused...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: { "@type": null, "type": {"@id": "rdf:type", "@container": "@set"} }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That is in the context definition - if you want to redefine @type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: { "@type": {"@id": "rdf:type", "@type": "@id"} }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That is the initial context definition.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You wouldn't need to reset @type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you don't reset @type, then we don't know what compaction would do.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's tackle this initial context issue later, we already have an issue for it...</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If @context is set to 'null', then the active context is cleared or set to the initial context (depending on the resolution to ISSUE-80)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> If @context is set to 'null', then the active context is cleared or set to the initial context (depending on the resolution to ISSUE-80)</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If 'null' is associated with a key in the body of a JSON-LD document, then the JSON-LD processor MUST act as if the key-value pair was never declared. If @value or @list is set to null in expanded form, then the entire JSON object is ignored.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Unless otherwise specified, if 'null' is associated with a key in the body of a JSON-LD document, then the JSON-LD processor MUST act as if the key-value pair was never declared. If @value or @list is set to null in expanded form, then the entire JSON object is ignored.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-79: Define how empty arrays are handled</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/79">https://github.com/json-ld/json-ld.org/issues/79</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Last time I spoke about this, I mis-spoke - empty arrays should be removed from normalization if they are not a @set or @list.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  How do we preserve it if we're a set.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If an empty array ([]) used as a value is not subject to @list coercion, then the value MUST be removed from normalized output. The empty array MUST be preserved in compacted and expanded output.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> If an empty array ([]) used as a value is not subject to @list coercion, then the value MUST be removed from normalized output. The empty array MUST be preserved in compacted and expanded output.</div>
+<div class="information">Discussion around whether we should support the preservation of [] for @set.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't see a compelling reason here - it's incompatible with RDF, we'd have to invent something new to preserve it. If we create something new, then we'd have an issue when we went down to triples.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Is an empty set different from an empty list? From a developers point of view?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think developers that know RDF will see a difference between empty set and empty list, those that don't - won't.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think framing is what they use this stuff for.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  All of this applies to lists as well - why should they be any different.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  An empty set of triples is nothing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: s/is/says/ really. :)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have a graph model - that is one of the limitations of graphs - they can't represent the absence of information.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The only way to do this would be to construct some meta-node... a vertex that had meaning outside of RDF.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. NOT EXISTS { ?s ex:term ?o }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is there an argument here for preserving @set [] in compaction?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think so</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm supportive of that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Would we mess w/ the document structure?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  let's say we have a @container: @set - do we change to array form when compacting</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So in expansion do we keep @set?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think so... I think @set is removed when expanding.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The idea would be that general expansion algorithm, when expanding values not in array form, would put them into array form. When compacting, you can always count on the fact that values are in array form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In expanded form, all values are in an array. In compacted form, we compact down to whatever is the simplest.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You lose the empty @set when doing normalization.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When normalizing, anything that is not coerced to a @list container type that has an empty array for its value is removed from the normalized output.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> When normalizing, anything that is not coerced to a @list container type that has an empty array for its value is removed from the normalized output.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When compacting and expanding, anything that is coerced to a @set or a @list container type that has an empty array for its value is preserved in the compacted and expanded output.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> When compacting and expanding, anything that is coerced to a @set or a @list container type that has an empty array for its value is preserved in the compacted and expanded output.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. values for syntactic keys: @value, @language, @id, and @type *when used for a datatype*..</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Unless otherwise specified, when performing the expansion algorithm all values must be contained in a JSON array structure. This does not apply to values for syntactic keys such as @value, @language, @id, and @type when used to specify a datatype.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> Unless otherwise specified, when performing the expansion algorithm all values must be contained in a JSON array structure. This does not apply to values for syntactic keys such as @value, @language, @id, and @type when used to specify a datatype.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. should we propose:" When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value."?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we may want to move this to W3C...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe in a month.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Lots of spec updates to make, but we should be in good shape.</div>
+<div class="information">Super-session planned for next Tuesday.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: This is interesting: <a href="http://www.infoq.com/news/2011/12/mongograph-qa">http://www.infoq.com/news/2011/12/mongograph-qa</a> </div>
+<div class="comment"><span class="name">David I. Lehn</span>: See all of you next week.</div>
+</body>
+</html>
