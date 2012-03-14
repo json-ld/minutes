@@ -89,8 +89,6 @@ if(!file_exists($mscfilename) or ((time() - $mtime) > 3600))
                $resolution += 1;
             }
          }
-         fclose($irclog);
-
          fwrite($mcache, "      </ol></li>");
       }
    }
