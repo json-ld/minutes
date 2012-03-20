@@ -1,0 +1,323 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0011.html
+[10:03]	<gkellogg>	scribe: gkellogg
+[10:03]	<voip-ld>	unknown (SIP/96.240.173.58-00000034) has joined the conference.
+[10:06]	<lanthaler>	http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0010.html
+[10:06]	<manu1>	Topic: Clarification of @set and expansion
+[10:06]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0013.html
+[10:06]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0010.html
+[10:07]	<gkellogg>	markus: there is how @set is supposed to work, and if we allow the shorthand syntax
+[10:07]	<manu1>	"test": { "@set": [ ... ] }
+[10:07]	<manu1>	The discussion is whether or not to allow the above
+[10:08]	<manu1>	gkellogg: If we want to add more types of containers, we have to add more behavior to understanding the keywords in the body
+[10:09]	<manu1>	gkellogg: We might want to just use "@container" in the @context... I'm not a fan of using @container: in the body. If we had 4 different types of containers, we'd have 4 different keywords - bigger impact on processor.
+[10:09]	<manu1>	manu: So, you're concerned about processor complexity.
+[10:10]	<manu1>	gkellogg: We need to add things in keyword position - adding in key position might be adding more complexity - we should just consider it.
+[10:10]	<manu1>	markus: Does this mean we remove "@list": [] in body?
+[10:10]	<manu1>	gkellogg: Yes, for consistency's sake, I think we would.
+[10:12]	<gkellogg>	niklasl: Basically, agree with gregg, however, by implication this would argue for @value [], @container: @list.
+[10:12]	<gkellogg>	… during expansion, you would never use @set explicitly, as it's implied.
+[10:12]	<gkellogg>	markus: probably, we shouldn't have a special case for @set.
+[10:13]	<gkellogg>	manu: processor complexity should be the last concern, but it might be a sign that the language is getting too complex.
+[10:13]	<gkellogg>	… one of the decisions was to be as explicit as possible when using a new construct.
+[10:14]	<gkellogg>	… what is going to be easier on authors.
+[10:14]	<gkellogg>	… leaning towards @list: [], or @set: [].
+[10:14]	<gkellogg>	q+
+[10:14]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:14]	<taaz>	both are awkward
+[10:14]	<gkellogg>	manu: not clear what authors would prefer.
+[10:15]	<manu1>	ack gkellog
+[10:15]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:16]	<gkellogg>	manu: expanded form is getting less and less useful because of the flourishes we're adding.
+[10:16]	<manu1>	voip: 34 is taaz
+[10:16]	<voip-ld>	taaz is now associated with SIP/96.240.173.58-00000034.
+[10:17]	<niklasl>	q+
+[10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:17]	<gkellogg>	niklas: agreed, we've probably going too far.
+[10:17]	<gkellogg>	… what are the other kind of containers, how would they appear?
+[10:18]	<taaz>	raw triple container? @triples: [[s,p,o],[s,p,o],...]?
+[10:18]	<manu1>	gkellogg: Well, there are other types we could add - people are unhappy with RDF List...
+[10:19]	<taaz>	not sure if that makes sense or not
+[10:19]	<gkellogg>	manu: also raw, or @graph containers.
+[10:19]	<gkellogg>	manu: at this point, okay with having a different keyword (e.g. @set) for each new type of container.
+[10:19]	<niklasl>	q+
+[10:19]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:20]	<gkellogg>	… okay to optimize away @set when expanding, as that is the default collection type.
+[10:20]	<lanthaler>	q+
+[10:20]	<voip-ld>	Added lanthaler to the speaker queue: niklasl, lanthaler
+[10:20]	<gkellogg>	… at this point, leaning towards using the keyword and then allowing an array, and keeping @value really simple.
+[10:20]	<gkellogg>	… if you have more than a signal value, use @set, @list or other nomenclatures.
+[10:20]	<manu1>	ack niklasl
+[10:20]	<voip-ld>	niklasl has the floor. The next speaker is lanthaler.
+[10:21]	<gkellogg>	niklas: agreed. @set is expanded away, devolves on expansion.
+[10:21]	<gkellogg>	… if we introduced, e.g., @langmap, they would also go away on expansion.
+[10:21]	<gkellogg>	… only @list (or @orderedlist) would need to remain.
+[10:22]	<gkellogg>	… @set should be allowed to be used explicitly, in certain situations.
+[10:22]	<gkellogg>	… for instance, when it's coerced to a @list, but used in some circumstances when it is a @set.
+[10:22]	<manu1>	q?
+[10:22]	<voip-ld>	Speaker queue: niklasl
+[10:22]	<manu1>	ack niklasl
+[10:22]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:23]	<gkellogg>	markus: you're saying we allow @set, but optimize away in expansion.
+[10:23]	<gkellogg>	… don't allow @container: @set construct.
+[10:23]	<gkellogg>	q?
+[10:23]	<voip-ld>	There are no speakers in the queue.
+[10:26]	<manu1>	PROPOSAL: In an expanded JSON-LD object, authors can use "@list" and "@set".
+[10:28]	<manu1>	PROPOSAL: Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.
+[10:28]	<lanthaler>	+1
+[10:28]	<gkellogg>	+1
+[10:28]	<manu1>	+1
+[10:28]	<niklasl>	+1
+[10:28]	<taaz>	+1
+[10:28]	<manu1>	RESOLVED: Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.
+[10:29]	|<--	bergie has left freenode (Ping timeout: 246 seconds)
+[10:31]	<manu1>	PROPOSAL: During compaction "@set" expressed in expanded form MUST be optimized away if it is not coerced to a "@list". During expansion "@set" MUST be optimized away.
+[10:31]	<manu1>	+1
+[10:31]	<gkellogg>	+1
+[10:31]	<niklasl>	+1
+[10:31]	<taaz>	+1
+[10:31]	<lanthaler>	+1
+[10:31]	<manu1>	RESOLVED: During compaction "@set" expressed in expanded form MUST be optimized away if it is not coerced to a "@list". During expansion "@set" MUST be optimized away.
+[10:32]	<manu1>	PROPOSAL: The use of "@container" is ignored in the body of a JSON-LD document.
+[10:32]	<gkellogg>	+1
+[10:32]	<manu1>	+1
+[10:32]	<lanthaler>	+1
+[10:33]	<taaz>	+1
+[10:33]	<niklasl>	+1
+[10:33]	<manu1>	RESOLVED: The use of "@container" is ignored in the body of a JSON-LD document.
+[10:35]	<manu1>	Topic: Expansion of strings and numbers
+[10:35]	<manu1>	The question is, what does this expand to: "term1": "v1",
+[10:35]	<manu1>	and what does this expand to: "term2": 5
+[10:36]	<lanthaler>	Created ISSUE-87 (https://github.com/json-ld/json-ld.org/issues/87) for this mail
+[10:36]	<gkellogg>	topic: value exapnsion
+[10:36]	<manu1>	{ "@value": "5", "@type": "xsd:integer" }
+[10:37]	<gkellogg>	manu: we're not being consistent, we would expand v1 into {"@value": "v1", "@type": "xsd:string"}
+[10:37]	<gkellogg>	manu: however, this doesn't really buy us anything.
+[10:37]	<gkellogg>	q+
+[10:37]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:38]	<gkellogg>	manu: my thought is that we not expand "fundamental" values. Leave it to normalization algorithm.
+[10:38]	<gkellogg>	… strings aren't expanded into xsd:string, numbers not into xsd:integer
+[10:38]	<manu1>	ack gkellogg
+[10:38]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:38]	<manu1>	gkellogg: I think the principle that we should stick to, with expansion, is do minimum necessary to represent the data w/o the @context.
+[10:38]	<manu1>	gkellogg: My original thought was that integers should not be expanded because they don't need to.
+[10:39]	<manu1>	gkellogg: xsd:integer binds us more tightly to RDF, not necessary for JSON-LD.
+[10:39]	<manu1>	gkellogg: The primitive forms that can be expressed in JSON should remain in that form during expansion and compaction.
+[10:39]	<manu1>	Markus: I agree.
+[10:39]	<gkellogg>	niklas: I agree
+[10:39]	<manu1>	Niklas: I think I agree as well.
+[10:39]	<gkellogg>	taaz: No opinion.
+[10:40]	* gkellogg	mint: you're welcome to have a voice. BTW, can you enter your name into the record?
+[10:41]	<lanthaler>	gkellog: lanthaler is me Markus LaNThaler :-)
+[10:42]	-->|	bergie (~bergie@p5DDC53D1.dip.t-dialin.net) has joined #json-ld
+[10:42]	* gkellogg	ahh, changed from lantheler
+[10:43]	<manu1>	PROPOSAL: The valid range of @value is a JSON string that represents the lexical form of the literal.
+[10:43]	<gkellogg>	+1
+[10:43]	<niklasl>	+1
+[10:43]	<manu1>	+1
+[10:44]	<lanthaler>	-1
+[10:45]	<gkellogg>	niklas: see no reason to restrict on input.
+[10:45]	<gkellogg>	manu: we can say that @value is always coerced to a string through altorighms.
+[10:45]	<taaz>	+0
+[10:46]	<manu1>	PROPOSAL: The value of the @value key is always transformed to a string by the JSON-LD processor.
+[10:46]	<gkellogg>	+1
+[10:46]	<niklasl>	+1
+[10:46]	<manu1>	+1
+[10:46]	<taaz>	+1
+[10:46]	<lanthaler>	+1
+[10:46]	<manu1>	RESOLVED: The value of the @value key is always transformed to a string by the JSON-LD processor.
+[10:48]	<gkellogg>	niklasl: that includes the edgcase of 5.0 that is a double.
+[10:49]	<manu1>	PROPOSAL: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[10:49]	<gkellogg>	+1
+[10:51]	<lanthaler>	{ "@context": { "term" : { "@type": "xsd:integer" } } , "term": 5 }
+[10:52]	<lanthaler>	expanded: { "term" : { "@value": "5", "@type": "xsd:integer" } }
+[10:52]	<lanthaler>	or { "term" : 5 } ??
+[10:52]	<gkellogg>	the later
+[10:53]	<gkellogg>	nikalsl: double must have a non-zero fractional value.
+[10:54]	<gkellogg>	manu: if they specify a datatype in the context, we should stay true to their intent.
+[10:54]	<gkellogg>	… however, this may mean that some unexpected transformation is happening.
+[10:55]	<manu1>	gkellogg: I think we need to stick to "expansion is the /minimum/ representation of the graph without a context" - which means, use native JSON types.
+[10:57]	<gkellogg>	niklasl: you can always predict the how a number is transformed. a number with no fractions is always an integer. with a fraction, it's a double; otherwise, you must be explicit.
+[10:58]	<gkellogg>	manu: either be consistent with context, meaning always expand to string form.
+[10:58]	<gkellogg>	… otherwise, always use minimum necessary to express without a context.
+[10:58]	<gkellogg>	mint: do we have automatic typing or not?
+[10:58]	<gkellogg>	manu: we do support automatic typing now.
+[11:00]	<gkellogg>	manu: least surprising thing is to do minimum necessary representation.
+[11:00]	<gkellogg>	… less of a surprise to the author.
+[11:02]	<gkellogg>	markus: if we have a normalized document, it's intended to work for other RDF serializations.
+[11:02]	<gkellogg>	manu: correct, it end up creating an N-Triples document with deterministic BNode naming.
+[11:02]	<gkellogg>	Then sort and transform back to JSON-LD.
+[11:05]	<gkellogg>	manu: 5 can't be represented as 5.0, as it wouldn't survive round-tripping.
+[11:05]	<gkellogg>	5, 5., and 5.0 are all the same number.
+[11:06]	<gkellogg>	… it can't be translated into a native datatype
+[11:07]	<niklasl>	{"@context": {"term": {"@type": "xsd:integer"}}, "term": 5} => {"term": 5}
+[11:07]	<niklasl>	{"@context": {"term": {"@type": "xsd:double"}}, "term": 5} => {"term: {"@value": "5", "@type": "xsd:double"}
+[11:08]	<niklasl>	{"term": 5.0} => {"term": 5}
+[11:09]	<niklasl>	(5.0).toString()
+[11:09]	<niklasl>	"5"'
+[11:09]	<gkellogg>	markus: the fact that 4.9 and 5.0 are different types is a difficult thing for users to understand.
+[11:11]	<gkellogg>	manu: only way to be consistent is to always expand to full value form, and not rely on native representations.
+[11:11]	<taaz>	i think some of these issues are hard and we probably need more real world usage data to make better decisions on what is most practical.
+[11:14]	<manu1>	PROPOSAL: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[11:14]	<manu1>	+1
+[11:14]	<lanthaler>	+1
+[11:14]	<gkellogg>	+1
+[11:14]	<niklasl>	+1
+[11:14]	<taaz>	+0
+[11:14]	<manu1>	RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[11:16]	<gkellogg>	scribe: taaz
+[11:16]	<manu1>	Topic: ISSUE-85: Support @language in term definitions
+[11:16]	<manu1>	https://github.com/json-ld/json-ld.org/issues/85
+[11:18]	<manu1>	niklasl: The basic proposal is to allow @language in the term definitions - so you can have multiple terms that allow you to express the same thing in different languages.
+[11:20]	<gkellogg>	niklas: @language does not apply if @type is specified in the context for a term.
+[11:21]	<gkellogg>	… either a global language declaration, or a per-term declaration.
+[11:21]	<gkellogg>	manu: we have a minor inconsistency about how @langauge is specified.
+[11:23]	<manu1>	PROPOSAL: Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.
+[11:23]	<niklasl>	+1
+[11:23]	<manu1>	+1
+[11:23]	<lanthaler>	+1
+[11:23]	<gkellogg>	+1
+[11:24]	<taaz>	+1
+[11:24]	<manu1>	RESOLVED: Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.
+[11:24]	<manu1>	Topic: How @language applied in JSON-LD
+[11:25]	<gkellogg>	manu: if @language is supplied at the top level of the @context it applies to all strings in the JSON-LD document (not subject to coercion).
+[11:25]	<gkellogg>	… use @language: null in term definition to remove this coercion, or a @datatype coerecion.
+[11:26]	<manu1>	PROPOSAL: If @language is specified at the top-level of a @context, then it applies to all native strings in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.
+[11:27]	<manu1>	PROPOSAL: If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.
+[11:27]	<gkellogg>	+1
+[11:27]	<manu1>	+1
+[11:27]	<niklasl>	+1
+[11:27]	<lanthaler>	+1
+[11:28]	<taaz>	+1
+[11:28]	<manu1>	RESOLVED: If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.
+[11:29]	<manu1>	Topic: ISSUE-75: References to lists
+[11:29]	<manu1>	https://github.com/json-ld/json-ld.org/issues/75
+[11:29]	* manu1	gkellogg - I'll scribe.
+[11:29]	<manu1>	scribe: manu1
+[11:29]	* gkellogg	thanks.
+[11:30]	<manu1>	markus: You normally represent lists or sets ... only way to do that in JSON-LD is by using a linked list...
+[11:30]	<manu1>	markus: One proposal is to use @value for that - the use case is referencing @list or @set which are stored in a different resource in REST terminology.
+[11:30]	<lanthaler>	http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-list-elements
+[11:31]	<manu1>	markus: I think this is more or less the same.
+[11:31]	<manu1>	gregg: This has been deprecated in RDF 1.1
+[11:32]	<manu1>	gregg: There is an RDF translation, but no native syntactic sugar other than RDF/XML
+[11:32]	<niklasl>	… http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection
+[11:32]	<manu1>	niklas: rdf:_1, rdf:_2 is what you end up seeing w/ lists.
+[11:32]	<niklasl>	… rdf:parseType="Collection"
+[11:32]	<manu1>	markus: That list has an IRI, no?
+[11:33]	<manu1>	Niklas: No, the list is anonymous in the example...
+[11:33]	|<--	advatar has left freenode (Quit: advatar)
+[11:33]	<manu1>	markus: What's the IRI for the bag? Does it not exist? Is it like a blank node?
+[11:33]	<manu1>	niklas: The value of hasFruit is the blank node that has two properties... the first property is rdf:first, then the link to the banana, then rdf:rest, which is another bnode...
+[11:34]	<manu1>	niklas: This is the RDF List construct.
+[11:34]	<manu1>	gregg: The subject is http://example.org/basket, which contains a reference to the list (which is a bnode)
+[11:35]	<manu1>	Explanation of what http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection means
+[11:35]	<niklasl>	</basket> ex:hasFruit ( </banana> </apple> </pear> ) .
+[11:35]	<niklasl>	</basket> ex:hasFruit [ rdf:first </banana>; rdf:rest [ rdf:first </apple>; rdf:rest [ rdf:first </pear>; rdf:rest rdf:nil ] ) .
+[11:36]	<niklasl>	</basket> ex:hasFruit [ rdf:first </banana>; rdf:rest [ rdf:first </apple>; rdf:rest [ rdf:first </pear>; rdf:rest rdf:nil ] . # removed trailing ")"
+[11:36]	<manu1>	manu: Lists are very difficult in pure RDF... which is unfortunate.
+[11:36]	<manu1>	gregg: They're becoming more mainstream now... with SPARQL list values... RDFa, TURTLE, etc. have good ways of expressing lsits.
+[11:37]	<manu1>	manu: I don't think we should name lists - nobody else does that, really.
+[11:38]	<manu1>	gregg: N3 kinda allows you to assing an IRI to the first bnode, but it's done through reasoning rather than through sytnax.
+[11:38]	<manu1>	gregg: perhaps JSON-LD could go toward it in the future. You may want to link to the representation of the linked list... may be premature to do that now.
+[11:38]	<manu1>	niklasl: If you want to represent RDF lists, you should stick to how they are intended to be used.
+[11:39]	<manu1>	niklasl: If you want to link to a resource that carries a list, you can always use rdf:value to connect to a list... MusicOntology may have added ordered list.
+[11:39]	<manu1>	gregg: yes, it was MO.
+[11:41]	<manu1>	PROPOSAL: Do not support the direct naming of lists using IRIs in this revision of JSON-LD.
+[11:41]	<manu1>	+1
+[11:41]	<niklasl>	+1
+[11:41]	<lanthaler>	+1
+[11:42]	<taaz>	+0
+[11:42]	<gkellogg>	+1
+[11:42]	<manu1>	RESOLVED: Do not support the direct naming of lists using IRIs in this revision of JSON-LD.
+[11:43]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/81
+[11:43]	<manu1>	Topic: ISSUE-81: Round tripping issues due to lack of precious
+[11:43]	<manu1>	https://github.com/json-ld/json-ld.org/issues/81
+[11:44]	<manu1>	gkellogg: the most precious maintained by NTriples tests is the second one... "2.2340000000000005" => "2.2340000000000005",
+[11:46]	<manu1>	manu: The issue is this doesn't capture a full 64-bit double precision float... 4.9406564584124654 x 10−324
+[11:46]	<lanthaler>	Wikipedia on 64 bit doubles: This gives from 15 - 17 significant decimal digits precision (if a decimal string with at most 15 significant decimal is converted to IEEE 754 double precision and then converted back to the same number of significant decimal, then the final string should match the original; and if an IEEE 754 double precision is converted to a decimal string with at least 17 significant decimal and then converted back to
+[11:46]	<manu1>	gkellogg: I think we just have to be focused on xsd:double.
+[11:47]	<manu1>	gkellogg: I think we should be consistent with other RDF test suites... 16 decimal places.
+[11:47]	<manu1>	manu: 16 is fine with me...
+[11:50]	<manu1>	PROPOSAL: Convert all values coerced to xsd:double to strings using the C-syntax formula of "%1.16e".
+[11:50]	<gkellogg>	+1
+[11:50]	<manu1>	+1
+[11:50]	<niklasl>	+1
+[11:50]	<lanthaler>	+1
+[11:50]	<taaz>	+0
+[11:51]	<manu1>	RESOLVED: Convert all values coerced to xsd:double to strings using the C-syntax formula of "%1.16e".
+[11:53]	<manu1>	Topic: ISSUE-86: IRI normalization
+[11:53]	<manu1>	https://github.com/json-ld/json-ld.org/issues/86
+[11:53]	<manu1>	manu: The question is should the JSON-LD library need to do any form of IRI normalization?
+[11:54]	<manu1>	gregg: I don't think TURTLE does IRI normalization...
+[11:54]	<manu1>	Markus: Well, TURTLE doesn't have any sort of API, does it?
+[11:54]	<manu1>	gregg: My triple store does not do IRI normalization.
+[11:55]	<manu1>	manu: It may be the applications job to do IRI normalization.
+[11:55]	<manu1>	gregg: If you did, you'd lose fidelity when going through representations.
+[11:55]	<manu1>	gregg: if we say that IRIs might be normalized, we'd lose fidelity.
+[11:56]	<manu1>	niklasl: You always have to have full IRIs in RDF.
+[11:56]	<manu1>	gregg: Yes, but not normalized.
+[11:56]	<manu1>	gregg: If you say http://example.com/. and http://example.com/ - those are different IRIs... they normalize to the same IRI, but they're different.
+[11:57]	<manu1>	niklas: Yes, but you resolve things like "../" against base, right?
+[11:57]	<manu1>	gregg: Yes... /resolved/ but not /normalized/.
+[11:57]	<lanthaler>	base: http://example.com/test/ + ../hello === http://example.com/hello ??
+[11:57]	<manu1>	gregg: My proposal is to say that we resolve the issue by looking at the behavior of other RDF processors - my processor does not normalize.
+[11:58]	<manu1>	markus: It's a bit different in those circumstances... we rely on the full IRI - we could get IRI collisions in some places. We could get two different values for one thing?
+[11:58]	<manu1>	gregg: This is no different from RDFa - if you have a term defined, it expands as a term... if you wanted it to be relative, you would use ./ - and the resulting IRI would contain ./ in it.
+[11:59]	<voip-ld>	Niklas Lindström (SIP/192.168.0.200-00000030) has left the conference.
+[11:59]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000031) has left the conference.
+[11:59]	<niklasl>	I guess the 2 hours are up.. :)
+[11:59]	* manu1	call back in - we're going to be dropped :)
+[11:59]	* gkellogg	hit 2 hour limit, coming back.
+[11:59]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000035) has joined the conference.
+[11:59]	* niklasl	yup
+[12:00]	<voip-ld>	Niklas Lindström (SIP/192.168.0.200-00000036) has joined the conference.
+[12:01]	* niklasl	considering the RDFa test case: http://rdfa.info/test-suite/test-cases/rdfa1.1/xhtml5/0114.xhtml
+[12:01]	<voip-ld>	Manu Sporny (SIP/6000-00000032) has left the conference.
+[12:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000033) has left the conference.
+[12:02]	* manu1	grins....
+[12:02]	<lanthaler>	sorry.. back in a sec
+[12:02]	<voip-ld>	Manu Sporny (SIP/6000-00000037) has joined the conference.
+[12:02]	<gkellogg>	So, http://example.com/foo/../ is normalized to http://example.com
+[12:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000038) has joined the conference.
+[12:03]	<manu1>	markus: is http://example.com/foo/../ a valid IRI
+[12:03]	<taaz>	the full rfc normalization rules are pretty complex
+[12:03]	<voip-ld>	taaz (SIP/96.240.173.58-00000034) has left the conference.
+[12:03]	<manu1>	gregg: yes, it's valid.
+[12:04]	<voip-ld>	unknown (SIP/96.240.173.58-00000039) has joined the conference.
+[12:04]	<manu1>	gregg: We haven't talked about escapes... expanding UTF-8 escape sequences... rather not go there, but that is done in TURTLE.
+[12:04]	<manu1>	gregg: percent-escape sequences which are not expanded.
+[12:05]	<niklasl>	In Turtle and RDFa, I think with @base: <http://example.org/foo0x1c>, given </bar> *or* <../bar> you get <<http://example.org/bar>.
+[12:05]	<manu1>	manu: I don't think we should do anything fancy - just copy what the author gave us.
+[12:05]	<manu1>	gregg: Yeah, let's not go here.
+[12:05]	<niklasl>	q+
+[12:05]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[12:06]	<lanthaler>	http://tools.ietf.org/html/rfc3986#section-5.2.4
+[12:06]	<niklasl>	.. but there is no normalization within full IRIs (so <http://example.org/foo/../bar>)
+[12:06]	<manu1>	ack niklasl
+[12:06]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[12:07]	<niklasl>	http://rdfa.info/test-suite/test-cases/rdfa1.1/xhtml5/0114.xhtml
+[12:08]	<manu1>	niklas: We should not resolve full IRIs, they are opaque.
+[12:08]	<niklasl>	"//"
+[12:08]	<manu1>	niklas: The question on whether or not to resolve relative IRIs is still open, imo.
+[12:09]	<manu1>	niklas: Relative IRI resolution is common in RDF... everything is limited to that.
+[12:09]	<manu1>	gregg: It could be that this is the behavior of the common libraries...
+[12:10]	<manu1>	Markus: Well, if you didn't resolve relative references... you would end up with something that is not a valid IRI
+[12:10]	<manu1>	gregg: It is a valid IRI, it's just not normalized.
+[12:10]	<manu1>	markus: Maybe normalization is the wrong name... it's really just resolving relative IRIs.
+[12:11]	<niklasl>	URI resolution in java: new URI("http://example.org/foo/../").resolve("http://example.org/bar") becomes http://example.org/bar
+[12:11]	<manu1>	gregg: I think the behavior that we're seeing in RDFa, appending a relative IRI to a base IRI, comes directly out of some RFC.
+[12:11]	<manu1>	gregg: JSON-LD may need to resolve relative IRIs against base... we should look into this a bit more.
+[12:11]	<lanthaler>	Reference resolution: http://tools.ietf.org/html/rfc3986#section-5
+[12:12]	<niklasl>	.. and for comparison: new URI("http://example.org/foo/../").resolve("htTP://example..org//bar") become "htTP://example..org//bar"
+[12:14]	<lanthaler>	Section 5: This section defines the process of resolving a URI reference within a context that allows relative references so that the result is a string matching the <URI> syntax rule of Section 3.
+[12:16]	<manu1>	PROPOSAL: Conform to the requirements of RFC3986, Section 5 (Reference Resolution), when processing IRIs.
+[12:16]	<manu1>	+1
+[12:16]	<niklasl>	+1
+[12:16]	<gkellogg>	+1
+[12:16]	<lanthaler>	+1
+[12:16]	<taaz>	+0
+[12:16]	<manu1>	RESOLVED: Conform to the requirements of RFC3986, Section 5 (Reference Resolution), when processing IRIs.
+[12:17]	<lanthaler>	Might be interesting: http://www.w3.org/wiki/UriTesting
+
