@@ -1,9 +1,7 @@
 [10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0011.html
 [10:03]	<gkellogg>	scribe: gkellogg
 [10:03]	<voip-ld>	unknown (SIP/96.240.173.58-00000034) has joined the conference.
-[10:06]	<lanthaler>	http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0010.html
 [10:06]	<manu1>	Topic: Clarification of @set and expansion
-[10:06]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0013.html
 [10:06]	<manu1>	http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0010.html
 [10:07]	<gkellogg>	markus: there is how @set is supposed to work, and if we allow the shorthand syntax
 [10:07]	<manu1>	"test": { "@set": [ ... ] }
@@ -55,15 +53,12 @@
 [10:21]	<gkellogg>	… only @list (or @orderedlist) would need to remain.
 [10:22]	<gkellogg>	… @set should be allowed to be used explicitly, in certain situations.
 [10:22]	<gkellogg>	… for instance, when it's coerced to a @list, but used in some circumstances when it is a @set.
-[10:22]	<manu1>	q?
 [10:22]	<voip-ld>	Speaker queue: niklasl
 [10:22]	<manu1>	ack niklasl
 [10:22]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
 [10:23]	<gkellogg>	markus: you're saying we allow @set, but optimize away in expansion.
 [10:23]	<gkellogg>	… don't allow @container: @set construct.
-[10:23]	<gkellogg>	q?
 [10:23]	<voip-ld>	There are no speakers in the queue.
-[10:26]	<manu1>	PROPOSAL: In an expanded JSON-LD object, authors can use "@list" and "@set".
 [10:28]	<manu1>	PROPOSAL: Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.
 [10:28]	<lanthaler>	+1
 [10:28]	<gkellogg>	+1
@@ -87,10 +82,9 @@
 [10:33]	<niklasl>	+1
 [10:33]	<manu1>	RESOLVED: The use of "@container" is ignored in the body of a JSON-LD document.
 [10:35]	<manu1>	Topic: Expansion of strings and numbers
+[10:35]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/87
 [10:35]	<manu1>	The question is, what does this expand to: "term1": "v1",
 [10:35]	<manu1>	and what does this expand to: "term2": 5
-[10:36]	<lanthaler>	Created ISSUE-87 (https://github.com/json-ld/json-ld.org/issues/87) for this mail
-[10:36]	<gkellogg>	topic: value exapnsion
 [10:36]	<manu1>	{ "@value": "5", "@type": "xsd:integer" }
 [10:37]	<gkellogg>	manu: we're not being consistent, we would expand v1 into {"@value": "v1", "@type": "xsd:string"}
 [10:37]	<gkellogg>	manu: however, this doesn't really buy us anything.
@@ -133,29 +127,24 @@
 [10:51]	<lanthaler>	{ "@context": { "term" : { "@type": "xsd:integer" } } , "term": 5 }
 [10:52]	<lanthaler>	expanded: { "term" : { "@value": "5", "@type": "xsd:integer" } }
 [10:52]	<lanthaler>	or { "term" : 5 } ??
-[10:52]	<gkellogg>	the later
-[10:53]	<gkellogg>	nikalsl: double must have a non-zero fractional value.
+[10:52]	<gkellogg>	gregg: I prefer the latter
+[10:53]	<gkellogg>	niklas: double must have a non-zero fractional value.
 [10:54]	<gkellogg>	manu: if they specify a datatype in the context, we should stay true to their intent.
 [10:54]	<gkellogg>	… however, this may mean that some unexpected transformation is happening.
 [10:55]	<manu1>	gkellogg: I think we need to stick to "expansion is the /minimum/ representation of the graph without a context" - which means, use native JSON types.
 [10:57]	<gkellogg>	niklasl: you can always predict the how a number is transformed. a number with no fractions is always an integer. with a fraction, it's a double; otherwise, you must be explicit.
 [10:58]	<gkellogg>	manu: either be consistent with context, meaning always expand to string form.
 [10:58]	<gkellogg>	… otherwise, always use minimum necessary to express without a context.
-[10:58]	<gkellogg>	mint: do we have automatic typing or not?
-[10:58]	<gkellogg>	manu: we do support automatic typing now.
+[10:58]	<gkellogg>	markus: do we have automatic typing or not?
+[10:58]	<gkellogg>	manu: we do support automatic typing now, in normalization.
 [11:00]	<gkellogg>	manu: least surprising thing is to do minimum necessary representation.
 [11:00]	<gkellogg>	… less of a surprise to the author.
 [11:02]	<gkellogg>	markus: if we have a normalized document, it's intended to work for other RDF serializations.
 [11:02]	<gkellogg>	manu: correct, it end up creating an N-Triples document with deterministic BNode naming.
-[11:02]	<gkellogg>	Then sort and transform back to JSON-LD.
+[11:02]	<gkellogg>	...Then sort and transform back to JSON-LD.
 [11:05]	<gkellogg>	manu: 5 can't be represented as 5.0, as it wouldn't survive round-tripping.
-[11:05]	<gkellogg>	5, 5., and 5.0 are all the same number.
+[11:05]	<gkellogg>	... 5, 5., and 5.0 are all the same number.
 [11:06]	<gkellogg>	… it can't be translated into a native datatype
-[11:07]	<niklasl>	{"@context": {"term": {"@type": "xsd:integer"}}, "term": 5} => {"term": 5}
-[11:07]	<niklasl>	{"@context": {"term": {"@type": "xsd:double"}}, "term": 5} => {"term: {"@value": "5", "@type": "xsd:double"}
-[11:08]	<niklasl>	{"term": 5.0} => {"term": 5}
-[11:09]	<niklasl>	(5.0).toString()
-[11:09]	<niklasl>	"5"'
 [11:09]	<gkellogg>	markus: the fact that 4.9 and 5.0 are different types is a difficult thing for users to understand.
 [11:11]	<gkellogg>	manu: only way to be consistent is to always expand to full value form, and not rely on native representations.
 [11:11]	<taaz>	i think some of these issues are hard and we probably need more real world usage data to make better decisions on what is most practical.
@@ -166,7 +155,6 @@
 [11:14]	<niklasl>	+1
 [11:14]	<taaz>	+0
 [11:14]	<manu1>	RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
-[11:16]	<gkellogg>	scribe: taaz
 [11:16]	<manu1>	Topic: ISSUE-85: Support @language in term definitions
 [11:16]	<manu1>	https://github.com/json-ld/json-ld.org/issues/85
 [11:18]	<manu1>	niklasl: The basic proposal is to allow @language in the term definitions - so you can have multiple terms that allow you to express the same thing in different languages.
@@ -180,10 +168,9 @@
 [11:23]	<gkellogg>	+1
 [11:24]	<taaz>	+1
 [11:24]	<manu1>	RESOLVED: Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.
-[11:24]	<manu1>	Topic: How @language applied in JSON-LD
+[11:24]	<manu1>	Topic: How is @language applied to strings?
 [11:25]	<gkellogg>	manu: if @language is supplied at the top level of the @context it applies to all strings in the JSON-LD document (not subject to coercion).
 [11:25]	<gkellogg>	… use @language: null in term definition to remove this coercion, or a @datatype coerecion.
-[11:26]	<manu1>	PROPOSAL: If @language is specified at the top-level of a @context, then it applies to all native strings in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.
 [11:27]	<manu1>	PROPOSAL: If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.
 [11:27]	<gkellogg>	+1
 [11:27]	<manu1>	+1
@@ -213,9 +200,6 @@
 [11:34]	<manu1>	niklas: This is the RDF List construct.
 [11:34]	<manu1>	gregg: The subject is http://example.org/basket, which contains a reference to the list (which is a bnode)
 [11:35]	<manu1>	Explanation of what http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection means
-[11:35]	<niklasl>	</basket> ex:hasFruit ( </banana> </apple> </pear> ) .
-[11:35]	<niklasl>	</basket> ex:hasFruit [ rdf:first </banana>; rdf:rest [ rdf:first </apple>; rdf:rest [ rdf:first </pear>; rdf:rest rdf:nil ] ) .
-[11:36]	<niklasl>	</basket> ex:hasFruit [ rdf:first </banana>; rdf:rest [ rdf:first </apple>; rdf:rest [ rdf:first </pear>; rdf:rest rdf:nil ] . # removed trailing ")"
 [11:36]	<manu1>	manu: Lists are very difficult in pure RDF... which is unfortunate.
 [11:36]	<manu1>	gregg: They're becoming more mainstream now... with SPARQL list values... RDFa, TURTLE, etc. have good ways of expressing lsits.
 [11:37]	<manu1>	manu: I don't think we should name lists - nobody else does that, really.
@@ -231,16 +215,15 @@
 [11:42]	<taaz>	+0
 [11:42]	<gkellogg>	+1
 [11:42]	<manu1>	RESOLVED: Do not support the direct naming of lists using IRIs in this revision of JSON-LD.
-[11:43]	<lanthaler>	https://github.com/json-ld/json-ld.org/issues/81
-[11:43]	<manu1>	Topic: ISSUE-81: Round tripping issues due to lack of precious
+[11:43]	<manu1>	Topic: ISSUE-81: Double round tripping issues due to lack of precision
 [11:43]	<manu1>	https://github.com/json-ld/json-ld.org/issues/81
-[11:44]	<manu1>	gkellogg: the most precious maintained by NTriples tests is the second one... "2.2340000000000005" => "2.2340000000000005",
+[11:44]	<manu1>	gkellogg: the most precise value maintained by NTriples tests is the second one... "2.2340000000000005",
 [11:46]	<manu1>	manu: The issue is this doesn't capture a full 64-bit double precision float... 4.9406564584124654 x 10−324
 [11:46]	<lanthaler>	Wikipedia on 64 bit doubles: This gives from 15 - 17 significant decimal digits precision (if a decimal string with at most 15 significant decimal is converted to IEEE 754 double precision and then converted back to the same number of significant decimal, then the final string should match the original; and if an IEEE 754 double precision is converted to a decimal string with at least 17 significant decimal and then converted back to
 [11:46]	<manu1>	gkellogg: I think we just have to be focused on xsd:double.
 [11:47]	<manu1>	gkellogg: I think we should be consistent with other RDF test suites... 16 decimal places.
 [11:47]	<manu1>	manu: 16 is fine with me...
-[11:50]	<manu1>	PROPOSAL: Convert all values coerced to xsd:double to strings using the C-syntax formula of "%1.16e".
+[11:50]	<manu1>	PROPOSAL: Convert all values coerced to xsd;double to strings using the C-syntax formula of "%1.16e".
 [11:50]	<gkellogg>	+1
 [11:50]	<manu1>	+1
 [11:50]	<niklasl>	+1
