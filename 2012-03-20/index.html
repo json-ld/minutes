@@ -1,0 +1,336 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-03-20</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0011.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0011.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Clarification of @set and expansion</a><li><a href="#topic-2">Expansion of strings and numbers</a><li><a href="#topic-3">ISSUE-85: Support @language in term definitions</a><li><a href="#topic-4">How is @language applied to strings?</a><li><a href="#topic-5">ISSUE-75: References to lists</a><li><a href="#topic-6">ISSUE-81: Double round tripping issues due to lack of precision</a><li><a href="#topic-7">ISSUE-86: IRI normalization</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.</a><li><a href="#resolution-2">During compaction "@set" expressed in expanded form MUST be optimized away if it is not coerced to a "@list". During expansion "@set" MUST be optimized away.</a><li><a href="#resolution-3">The use of "@container" is ignored in the body of a JSON-LD document.</a><li><a href="#resolution-4">The value of the @value key is always transformed to a string by the JSON-LD processor.</a><li><a href="#resolution-5">Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</a><li><a href="#resolution-6">Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.</a><li><a href="#resolution-7">If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.</a><li><a href="#resolution-8">Do not support the direct naming of lists using IRIs in this revision of JSON-LD.</a><li><a href="#resolution-9">Convert all values coerced to xsd:double to strings using the C-syntax formula of "%1.16e".</a><li><a href="#resolution-10">Conform to the requirements of RFC3986, Section 5 (Reference Resolution), when processing IRIs.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg, Manu Sporny</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Markus Lanthaler, Manu Sporny, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Clarification of @set and expansion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0010.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0010.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  there is how @set is supposed to work, and if we allow the shorthand syntax</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "test": { "@set": [ ... ] }</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The discussion is whether or not to allow the above</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we want to add more types of containers, we have to add more behavior to understanding the keywords in the body [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We might want to just use "@container" in the @context... I'm not a fan of using @container: in the body. If we had 4 different types of containers, we'd have 4 different keywords - bigger impact on processor. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, you're concerned about processor complexity. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to add things in keyword position - adding in key position might be adding more complexity - we should just consider it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Does this mean we remove "@list": [] in body? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, for consistency's sake, I think we would. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Basically, agree with gregg, however, by implication this would argue for @value [], @container: @list.</div>
+<div class="comment-continuation">… during expansion, you would never use @set explicitly, as it's implied.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  probably, we shouldn't have a special case for @set.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  processor complexity should be the last concern, but it might be a sign that the language is getting too complex.</div>
+<div class="comment-continuation">… one of the decisions was to be as explicit as possible when using a new construct.</div>
+<div class="comment-continuation">… what is going to be easier on authors.</div>
+<div class="comment-continuation">… leaning towards @list: [], or @set: [].</div>
+<div class="comment"><span class="name">David I. Lehn</span>: both are awkward</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not clear what authors would prefer.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  expanded form is getting less and less useful because of the flourishes we're adding.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  agreed, we've probably going too far.</div>
+<div class="comment-continuation">… what are the other kind of containers, how would they appear?</div>
+<div class="comment"><span class="name">David I. Lehn</span>: raw triple container? @triples: [[s,p,o],[s,p,o],...]?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Well, there are other types we could add - people are unhappy with RDF List... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>: not sure if that makes sense or not</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  also raw, or @graph containers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  at this point, okay with having a different keyword (e.g. @set) for each new type of container.</div>
+<div class="comment-continuation">… okay to optimize away @set when expanding, as that is the default collection type.</div>
+<div class="comment-continuation">… at this point, leaning towards using the keyword and then allowing an array, and keeping @value really simple.</div>
+<div class="comment-continuation">… if you have more than a signal value, use @set, @list or other nomenclatures.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  agreed. @set is expanded away, devolves on expansion.</div>
+<div class="comment-continuation">… if we introduced, e.g., @langmap, they would also go away on expansion.</div>
+<div class="comment-continuation">… only @list (or @orderedlist) would need to remain.</div>
+<div class="comment-continuation">… @set should be allowed to be used explicitly, in certain situations.</div>
+<div class="comment-continuation">… for instance, when it's coerced to a @list, but used in some circumstances when it is a @set.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you're saying we allow @set, but optimize away in expansion.</div>
+<div class="comment-continuation">… don't allow @container: @set construct.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  During compaction "@set" expressed in expanded form MUST be optimized away if it is not coerced to a "@list". During expansion "@set" MUST be optimized away.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> During compaction "@set" expressed in expanded form MUST be optimized away if it is not coerced to a "@list". During expansion "@set" MUST be optimized away.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The use of "@container" is ignored in the body of a JSON-LD document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> The use of "@container" is ignored in the body of a JSON-LD document.</div>
+<h1 id="topic-2" class="topic">Topic: Expansion of strings and numbers</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/87">https://github.com/json-ld/json-ld.org/issues/87</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: The question is, what does this expand to: "term1": "v1",</div>
+<div class="comment"><span class="name">Manu Sporny</span>: and what does this expand to: "term2": 5</div>
+<div class="comment"><span class="name">Manu Sporny</span>: { "@value": "5", "@type": "xsd:integer" }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're not being consistent, we would expand v1 into {"@value": "v1", "@type": "xsd:string"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  however, this doesn't really buy us anything.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  my thought is that we not expand "fundamental" values. Leave it to normalization algorithm.</div>
+<div class="comment-continuation">… strings aren't expanded into xsd:string, numbers not into xsd:integer</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the principle that we should stick to, with expansion, is do minimum necessary to represent the data w/o the @context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My original thought was that integers should not be expanded because they don't need to. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  xsd:integer binds us more tightly to RDF, not necessary for JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The primitive forms that can be expressed in JSON should remain in that form during expansion and compaction. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think I agree as well. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  No opinion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: gkellog: lanthaler is me Markus LaNThaler :-)</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The valid range of @value is a JSON string that represents the lexical form of the literal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  see no reason to restrict on input.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can say that @value is always coerced to a string through altorighms.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The value of the @value key is always transformed to a string by the JSON-LD processor.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> The value of the @value key is always transformed to a string by the JSON-LD processor.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  that includes the edgcase of 5.0 that is a double.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@context": { "term" : { "@type": "xsd:integer" } } , "term": 5 }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: expanded: { "term" : { "@value": "5", "@type": "xsd:integer" } }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: or { "term" : 5 } ??</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I prefer the latter</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  double must have a non-zero fractional value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if they specify a datatype in the context, we should stay true to their intent.</div>
+<div class="comment-continuation">… however, this may mean that some unexpected transformation is happening.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we need to stick to "expansion is the /minimum/ representation of the graph without a context" - which means, use native JSON types. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you can always predict the how a number is transformed. a number with no fractions is always an integer. with a fraction, it's a double; otherwise, you must be explicit.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  either be consistent with context, meaning always expand to string form.</div>
+<div class="comment-continuation">… otherwise, always use minimum necessary to express without a context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we have automatic typing or not?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we do support automatic typing now, in normalization.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  least surprising thing is to do minimum necessary representation.</div>
+<div class="comment-continuation">… less of a surprise to the author.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we have a normalized document, it's intended to work for other RDF serializations.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  correct, it end up creating an N-Triples document with deterministic BNode naming.</div>
+<div class="comment-continuation">...Then sort and transform back to JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  5 can't be represented as 5.0, as it wouldn't survive round-tripping.</div>
+<div class="comment-continuation">... 5, 5., and 5.0 are all the same number.</div>
+<div class="comment-continuation">… it can't be translated into a native datatype</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the fact that 4.9 and 5.0 are different types is a difficult thing for users to understand.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  only way to be consistent is to always expand to full value form, and not rely on native representations.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: i think some of these issues are hard and we probably need more real world usage data to make better decisions on what is most practical.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-85: Support @language in term definitions</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/85">https://github.com/json-ld/json-ld.org/issues/85</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The basic proposal is to allow @language in the term definitions - so you can have multiple terms that allow you to express the same thing in different languages. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  @language does not apply if @type is specified in the context for a term.</div>
+<div class="comment-continuation">… either a global language declaration, or a per-term declaration.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have a minor inconsistency about how @langauge is specified.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.</div>
+<h1 id="topic-4" class="topic">Topic: How is @language applied to strings?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  if @language is supplied at the top level of the @context it applies to all strings in the JSON-LD document (not subject to coercion).</div>
+<div class="comment-continuation">… use @language: null in term definition to remove this coercion, or a @datatype coerecion.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-75: References to lists</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/75">https://github.com/json-ld/json-ld.org/issues/75</a></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You normally represent lists or sets ... only way to do that in JSON-LD is by using a linked list...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  One proposal is to use @value for that - the use case is referencing @list or @set which are stored in a different resource in REST terminology.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-list-elements">http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-list-elements</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think this is more or less the same.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This has been deprecated in RDF 1.1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is an RDF translation, but no native syntactic sugar other than RDF/XML</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … <a href="http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection">http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  rdf:_1, rdf:_2 is what you end up seeing w/ lists.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … rdf:parseType="Collection"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That list has an IRI, no?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  No, the list is anonymous in the example...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What's the IRI for the bag? Does it not exist? Is it like a blank node?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The value of hasFruit is the blank node that has two properties... the first property is rdf:first, then the link to the banana, then rdf:rest, which is another bnode...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is the RDF List construct.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The subject is <a href="http://example.org/basket,">http://example.org/basket,</a> which contains a reference to the list (which is a bnode)</div>
+<div class="information">Explanation of what <a href="http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection">http://www.w3.org/TR/REC-rdf-syntax/#section-Syntax-parsetype-Collection</a> means</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Lists are very difficult in pure RDF... which is unfortunate.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  They're becoming more mainstream now... with SPARQL list values... RDFa, TURTLE, etc. have good ways of expressing lsits.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we should name lists - nobody else does that, really.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  N3 kinda allows you to assing an IRI to the first bnode, but it's done through reasoning rather than through sytnax.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  perhaps JSON-LD could go toward it in the future. You may want to link to the representation of the linked list... may be premature to do that now.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you want to represent RDF lists, you should stick to how they are intended to be used.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you want to link to a resource that carries a list, you can always use rdf:value to connect to a list... MusicOntology may have added ordered list.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, it was MO.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support the direct naming of lists using IRIs in this revision of JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> Do not support the direct naming of lists using IRIs in this revision of JSON-LD.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-81: Double round tripping issues due to lack of precision</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/81">https://github.com/json-ld/json-ld.org/issues/81</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the most precise value maintained by NTriples tests is the second one... "2.2340000000000005",</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issue is this doesn't capture a full 64-bit double precision float... 4.9406564584124654 x 10−324</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Wikipedia on 64 bit doubles: This gives from 15 - 17 significant decimal digits precision (if a decimal string with at most 15 significant decimal is converted to IEEE 754 double precision and then converted back to the same number of significant decimal, then the final string should match the original; and if an IEEE 754 double precision is converted to a decimal string with at least 17 significant decimal and then converted back to</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we just have to be focused on xsd:double.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should be consistent with other RDF test suites... 16 decimal places.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  16 is fine with me...</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Convert all values coerced to xsd;double to strings using the C-syntax formula of "%1.16e".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-9" class="resolution"><strong>RESOLUTION:</strong> Convert all values coerced to xsd:double to strings using the C-syntax formula of "%1.16e".</div>
+<h1 id="topic-7" class="topic">Topic: ISSUE-86: IRI normalization</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/86">https://github.com/json-ld/json-ld.org/issues/86</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The question is should the JSON-LD library need to do any form of IRI normalization?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think TURTLE does IRI normalization...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Well, TURTLE doesn't have any sort of API, does it?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My triple store does not do IRI normalization.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It may be the applications job to do IRI normalization.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you did, you'd lose fidelity when going through representations.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we say that IRIs might be normalized, we'd lose fidelity.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You always have to have full IRIs in RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, but not normalized.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you say <a href="http://example.com/.">http://example.com/.</a> and http://example.com/ - those are different IRIs... they normalize to the same IRI, but they're different.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, but you resolve things like "../" against base, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes... /resolved/ but not /normalized/.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: base: <a href="http://example.com/test/">http://example.com/test/</a> + ../hello === http://example.com/hello ??</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My proposal is to say that we resolve the issue by looking at the behavior of other RDF processors - my processor does not normalize.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's a bit different in those circumstances... we rely on the full IRI - we could get IRI collisions in some places. We could get two different values for one thing?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is no different from RDFa - if you have a term defined, it expands as a term... if you wanted it to be relative, you would use ./ - and the resulting IRI would contain ./ in it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I guess the 2 hours are up.. :)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: sorry.. back in a sec</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: So, <a href="http://example.com/foo/../">http://example.com/foo/../</a> is normalized to http://example.com</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is <a href="http://example.com/foo/../">http://example.com/foo/../</a> a valid IRI</div>
+<div class="comment"><span class="name">David I. Lehn</span>: the full rfc normalization rules are pretty complex</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, it's valid.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We haven't talked about escapes... expanding UTF-8 escape sequences... rather not go there, but that is done in TURTLE.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  percent-escape sequences which are not expanded.</div>
+<div class="error">Error: (IRC nickname not recognized)[12:05]	&lt;niklasl&gt;	In Turtle and RDFa, I think with @base: &lt;<a href="http://example.org/foo0x1c&gt;,">http://example.org/foo0x1c&gt;,</a> given &lt;/bar&gt; *or* &lt;../bar&gt; you get &lt;&lt;http://example.org/bar&gt;.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we should do anything fancy - just copy what the author gave us.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, let's not go here.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://tools.ietf.org/html/rfc3986#section-5.2.4">http://tools.ietf.org/html/rfc3986#section-5.2.4</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. but there is no normalization within full IRIs (so &lt;<a href="http://example.org/foo/../bar&gt;)">http://example.org/foo/../bar&gt;)</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://rdfa.info/test-suite/test-cases/rdfa1.1/xhtml5/0114.xhtml">http://rdfa.info/test-suite/test-cases/rdfa1.1/xhtml5/0114.xhtml</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We should not resolve full IRIs, they are opaque.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "//"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The question on whether or not to resolve relative IRIs is still open, imo.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Relative IRI resolution is common in RDF... everything is limited to that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It could be that this is the behavior of the common libraries...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Well, if you didn't resolve relative references... you would end up with something that is not a valid IRI</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It is a valid IRI, it's just not normalized.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe normalization is the wrong name... it's really just resolving relative IRIs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: URI resolution in java: new URI("<a href="http://example.org/foo/../").resolve("http://example.org/bar")">http://example.org/foo/../").resolve("http://example.org/bar")</a> becomes http://example.org/bar</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the behavior that we're seeing in RDFa, appending a relative IRI to a base IRI, comes directly out of some RFC.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  JSON-LD may need to resolve relative IRIs against base... we should look into this a bit more.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Reference resolution: <a href="http://tools.ietf.org/html/rfc3986#section-5">http://tools.ietf.org/html/rfc3986#section-5</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. and for comparison: new URI("<a href="http://example.org/foo/../").resolve("htTP://example..org//bar")">http://example.org/foo/../").resolve("htTP://example..org//bar")</a> become "htTP://example..org//bar"</div>
+<div class="information">syntax rule of Section 3.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Conform to the requirements of RFC3986, Section 5 (Reference Resolution), when processing IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-10" class="resolution"><strong>RESOLUTION:</strong> Conform to the requirements of RFC3986, Section 5 (Reference Resolution), when processing IRIs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Might be interesting: <a href="http://www.w3.org/wiki/UriTesting">http://www.w3.org/wiki/UriTesting</a></div>
+</body>
+</html>
