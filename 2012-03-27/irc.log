@@ -1,0 +1,105 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0025.html
+[10:02]	<voip-ld>	David I. Lehn (SIP/71.171.26.195-0000004b) has joined the conference.
+[10:02]	<manu1>	scribe: mlnt
+[10:03]	<manu1>	Any updates or changes to agenda?
+[10:03]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/87
+[10:03]	<manu1>	markus: discuss ISSUE-87 again - clarify compaction.
+[10:03]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/81
+[10:04]	<manu1>	gregg: We also have an issue on xsd:double... anything coerced to double will use %1.16 form - probably meant any numeric type.
+[10:04]	<manu1>	Topic: ISSUE-87: Clarification of @set and expansion
+[10:04]	<niklasl>	q+
+[10:04]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:05]	<niklasl>	q-
+[10:05]	<voip-ld>	Removed niklasl from the speaker queue: (empty)
+[10:05]	* niklasl	would like to ask about defining a term for rdf:type (after this topic)
+[10:07]	<manu1>	Topic: ISSUE-81: Data round tripping issue (not enough precision)
+[10:07]	<mlnt>	mlnt: What's the result of expansion at the top-level?
+[10:07]	<manu1>	https://github.com/json-ld/json-ld.org/issues/81
+[10:07]	<mlnt>	gregg: Dave Lehn specified it in the tests as array
+[10:07]	<mlnt>	mlnt: OK, I think we didn't specifiy it anywhere.. fine with that
+[10:13]	<mlnt>	discussion about data round-tripping
+[10:13]	<gkellogg>	issue with 1.16E in Ruby: "%.16E" % 5.2
+[10:13]	<gkellogg>	=> "5.2000000000000002E+00"
+[10:14]	<gkellogg>	q+
+[10:14]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:16]	<gkellogg>	%1.16E" % 5.3
+[10:16]	<gkellogg>	=> "5.2999999999999998E+00"
+[10:16]	<mlnt>	http://www.w3.org/TR/xmlschema-2/#double
+[10:17]	<mlnt>	gregg: the resolution for this is to convert all native doubles to strings
+[10:17]	<mlnt>	gregg: that means everything that is coerced will always be converted to a string
+[10:18]	<mlnt>	mlnt: when should that happen? expansion? normalization?
+[10:18]	<mlnt>	gregg: in expansion and normalization
+[10:20]	<mlnt>	That was last week's resolution: RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[10:22]	<mlnt>	manu: we want to be consistent in how we handle xsd:integer and xsd:double
+[10:22]	<niklasl>	q+
+[10:22]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:22]	<mlnt>	manu: we need to specify what happes if you have a native number and coercion
+[10:23]	<mlnt>	manu: and the other thing is what should happen to strings such as "foo" that have coercions
+[10:24]	<mlnt>	gregg: the other thing we could do is to revert that change and make coercion just apply to strings, not other native types such as JSON numbers or booleans
+[10:25]	<mlnt>	manu: I'm worried that this would make the algorithms quite complex
+[10:27]	<manu1>	ack gkellogg
+[10:27]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:27]	<mlnt>	gregg: I don't think it makes sense do apply, e.g., xsd:date to a boolean.. similar xsd:double doesn't make sense for booleans
+[10:29]	<mlnt>	niklas: we have two things to consider: 1) if someone expresses something as a string with a datatype they would like to preserve that and 2) convenience.. developers should be able to work with native types where possible
+[10:30]	<mlnt>	niklas: if someone has given a number in a native type they gave up on the lexical representation but you can control the datatype and will know the lexical repr. by specifying the coercion
+[10:32]	<mlnt>	q+
+[10:32]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:32]	<manu1>	ack mlnt
+[10:32]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:33]	<manu1>	markus: Wouldn't it make sense to specify that numbers can be coerced to xsd:integer or xsd:double, and round-tripping is specified in a way that these numbers are 64-bit numbers?
+[10:34]	<niklasl>	"%1.16E" % 5.3 => "5.2999999999999998E+00" in Python 2.7 on OS X
+[10:34]	<manu1>	"%1.15E" % 5.3 -> '5.300000000000000E+00' in Python 2.6 on Linux
+[10:35]	<niklasl>	(OS X on an intel core i7 specifically)
+[10:36]	<mlnt>	last week's resolution: RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[10:37]	<niklasl>	.. I think that's problematic since I want "age": 123 in compact form *and* coerce "age" as xsd:integer...
+[10:37]	<mlnt>	manu: would it be OK to put that back to the mailing list?
+[10:39]	<mlnt>	gregg: OK, I'll create some issues for this
+[10:40]	<mlnt>	gregg: Unfortunately a lot of the recent changes made the implementation much more complex
+[10:41]	<manu1>	Topic: ISSUE-87: Clarification of @set and expansion
+[10:41]	<manu1>	https://github.com/json-ld/json-ld.org/issues/87
+[10:42]	<niklasl>	q+
+[10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:42]	<mlnt>	gregg: does coercion to xsd:boolean apply to something that is not a native boolean or string?
+[10:42]	<mlnt>	manu: no, we don't try to interpret "foo" as boolean e.g.
+[10:42]	<niklasl>	integer("foo") => {"@value": "foo", "@type": "xsd:string"}
+[10:43]	<gkellogg>	"foo"^^xsd:integer in Turtle?
+[10:43]	<manu1>	ack niklasl
+[10:43]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:43]	<niklasl>	.. integer("foo") => {"@value": "foo", "@type": "xsd:integer"}
+[10:43]	<niklasl>	.. just {"@value": "foo", "@type": "xsd:integer"}
+[10:44]	<niklasl>	.. integer("foo") => {"@value": "foo", "@type": "xsd:integer"}
+[10:44]	<gkellogg>	{"@value": "November 1", "@type": "xsd:date"}
+[10:46]	<mlnt>	gregg: when compacting we would convert it just to a native type if the value matches the lexical space
+[10:49]	<niklasl>	"type": {"@id": "rdf:type", "@container": "@set"}
+[10:49]	<manu1>	Topic: Explicit term for RDF type?
+[10:52]	<manu1>	Topic: ISSUE-88: Reserved keywords
+[10:52]	<manu1>	https://github.com/json-ld/json-ld.org/issues/88
+[10:53]	<niklasl>	q+
+[10:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:54]	<mlnt>	manu: I think we should make it clear in the spec that we might use any @-term in the future but don't throw an exception
+[10:56]	<mlnt>	gregg: what if someone aliases @id to @graph and then we change the semantics of @graph?
+[10:56]	<niklasl>	q-
+[10:56]	<voip-ld>	Removed niklasl from the speaker queue: (empty)
+[10:58]	<gkellogg>	PROPOSAL: terms MUST have the lexical form of IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".
+[10:59]	<manu1>	+1
+[10:59]	<niklasl>	q+
+[10:59]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:00]	<mlnt>	{ "language": "@language", "language": "en" }
+[11:01]	<manu1>	ack niklasl
+[11:01]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:01]	<niklasl>	"@type": {"@id": "rdf:type", "@type": "@id"} // what does the coercion mean here?
+[11:06]	<manu1>	PROPOSAL: Term definitions MUST have the lexical form of an IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".
+[11:06]	<manu1>	+1
+[11:06]	<gkellogg>	+1
+[11:06]	<niklasl>	+1
+[11:06]	<taaz>	+0
+[11:11]	<mlnt>	-1
+[11:12]	<manu1>	PROPOSAL: Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may create forward-compatibility issues.
+[11:12]	<gkellogg>	+1
+[11:12]	<manu1>	+1
+[11:12]	<niklasl>	+1
+[11:12]	<mlnt>	+1
+[11:12]	<taaz>	+0
+[11:12]	<manu1>	RESOLVED: Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may createforward-compatibilit y issues.
