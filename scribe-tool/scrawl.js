@@ -341,6 +341,7 @@
           {
              if(nick in aliases)
              {
+                scrawl.present(context, aliases[nick]);
                 rval = scrawl.scribe(msg, textMode, aliases[nick]);
              }
           }
@@ -382,7 +383,14 @@
           // the line is a comment by somebody else
           else if(nick != context.scribenick)
           {
-             if(msg.indexOf(":") != -1)
+             // ! is a code comment or a line that shouldn't be interpreted
+             // as a scribe-assist
+             if(msg.indexOf("!") == 0)
+             {
+                rval = scrawl.scribe(
+                   msg.substring(1, msg.length), textMode, aliases[nick]);
+             }
+             else if(msg.indexOf(":") != -1)
              {
                 var alias = msg.split(":", 1)[0].replace(" ", "").toLowerCase();
                 
