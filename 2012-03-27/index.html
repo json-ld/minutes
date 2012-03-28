@@ -1,0 +1,160 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-03-27</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0025.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Mar/0025.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-81: Data round tripping issues</a><li><a href="#topic-2">ISSUE-87: Clarification of @set and expansion</a><li><a href="#topic-3">Explicit term for RDF type?</a><li><a href="#topic-4">ISSUE-88: Reserved keywords</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may createforward-compatibilit y issues.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Any updates or changes to agenda?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We may want to discuss this: <a href="https://github.com/json-ld/json-ld.org/issues/87">https://github.com/json-ld/json-ld.org/issues/87</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  discuss ISSUE-87 again - clarify compaction. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We also have an issue on xsd:double... anything coerced to double will use %1.16 form - probably meant any numeric type. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That's this: <a href="https://github.com/json-ld/json-ld.org/issues/81">https://github.com/json-ld/json-ld.org/issues/81</a></div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-81: Data round tripping issues</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What's the result of expansion at the top-level?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/81">https://github.com/json-ld/json-ld.org/issues/81</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Dave Lehn specified it in the tests as array</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  OK, I think we didn't specifiy it anywhere.. fine with that</div>
+<div class="information">Discussion about data round-tripping</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: issue with 1.16E in Ruby: </div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "%1.16E" % 5.2 =&gt; "5.2000000000000002E+00"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "%1.16E" % 5.3 =&gt; "5.2999999999999998E+00"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  <a href="http://www.w3.org/TR/xmlschema-2/#double">http://www.w3.org/TR/xmlschema-2/#double</a> is a 64-bit number, you lose precision after that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the resolution for this is to convert all native doubles to strings</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that means everything that is coerced will always be converted to a string</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  when should that happen? expansion? normalization?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in expansion and normalization</div>
+<div class="information">That was last week's resolution: RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we want to be consistent in how we handle xsd:integer and xsd:double</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to specify what happes if you have a native number and coercion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and the other thing is what should happen to strings such as "foo" that have coercions</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the other thing we could do is to revert that change and make coercion just apply to strings, not other native types such as JSON numbers or booleans</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm worried that this would make the algorithms quite complex</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think it makes sense do apply, e.g., xsd:date to a boolean.. similar xsd:double doesn't make sense for booleans</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we have two things to consider: 1) if someone expresses something as a string with a datatype they would like to preserve that and 2) convenience.. developers should be able to work with native types where possible</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if someone has given a number in a native type they gave up on the lexical representation but you can control the datatype and will know the lexical repr. by specifying the coercion</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Wouldn't it make sense to specify that numbers can be coerced to xsd:integer or xsd:double, and round-tripping is specified in a way that these numbers are 64-bit numbers? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "%1.16E" % 5.3 =&gt; "5.2999999999999998E+00" in Python 2.7 on OS X</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "%1.15E" % 5.3 -&gt; '5.300000000000000E+00' in Python 2.6 on Linux</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: (OS X on an intel core i7 specifically)</div>
+<div class="information">last week's resolution: RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I think that's problematic since I want "age": 123 in compact form *and* coerce "age" as xsd:integer...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would it be OK to put that back to the mailing list?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  OK, I'll create some issues for this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Unfortunately a lot of the recent changes made the implementation much more complex</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-87: Clarification of @set and expansion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/87">https://github.com/json-ld/json-ld.org/issues/87</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  does coercion to xsd:boolean apply to something that is not a native boolean or string?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no, we don't try to interpret "foo" as boolean e.g.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: integer("foo") =&gt; {"@value": "foo", "@type": "xsd:string"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "foo"^^xsd:integer in Turtle?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. integer("foo") =&gt; {"@value": "foo", "@type": "xsd:integer"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. just {"@value": "foo", "@type": "xsd:integer"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. integer("foo") =&gt; {"@value": "foo", "@type": "xsd:integer"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@value": "November 1", "@type": "xsd:date"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when compacting we would convert it just to a native type if the value matches the lexical space</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "type": {"@id": "rdf:type", "@container": "@set"}</div>
+<h1 id="topic-3" class="topic">Topic: Explicit term for RDF type?</h1>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What happens when somebody does this in the @context? "type": { "@id": "rdf:type", "@container": "@set" }? Do we need an issue for this? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we need an issue for that. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-88: Reserved keywords</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/88">https://github.com/json-ld/json-ld.org/issues/88</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we should make it clear in the spec that we might use any @-term in the future, but don't throw an exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What if someone aliases @id to @graph and then we change the semantics of @graph? How do you future-proof?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Terms MUST have the lexical form of IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What if someone does this? { "language": "@language", "language": "en" }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Double keys, can't do that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: What does the coercion mean here? "@type": {"@id": "rdf:type", "@type": "@id"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We need a new issue for that.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Term definitions MUST have the lexical form of an IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1 - Why don't we just allow any character for term declarations? Why limit it? Whitespace? Why not?</div>
+<div class="information">Discussion about allowing any character that is valid in a JSON string, resulting in this proposal:</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may create forward-compatibility issues.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may createforward-compatibilit y issues.</div>
+</body>
+</html>

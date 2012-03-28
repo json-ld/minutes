@@ -2,29 +2,27 @@
 [10:02]	<voip-ld>	David I. Lehn (SIP/71.171.26.195-0000004b) has joined the conference.
 [10:02]	<manu1>	scribe: mlnt
 [10:03]	<manu1>	Any updates or changes to agenda?
-[10:03]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/87
+[10:03]	<mlnt>	markus: We may want to discuss this: https://github.com/json-ld/json-ld.org/issues/87
 [10:03]	<manu1>	markus: discuss ISSUE-87 again - clarify compaction.
-[10:03]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/81
 [10:04]	<manu1>	gregg: We also have an issue on xsd:double... anything coerced to double will use %1.16 form - probably meant any numeric type.
-[10:04]	<manu1>	Topic: ISSUE-87: Clarification of @set and expansion
+[10:04]	<mlnt>	markus: That's this: https://github.com/json-ld/json-ld.org/issues/81
 [10:04]	<niklasl>	q+
 [10:04]	<voip-ld>	Added niklasl to the speaker queue: niklasl
 [10:05]	<niklasl>	q-
 [10:05]	<voip-ld>	Removed niklasl from the speaker queue: (empty)
 [10:05]	* niklasl	would like to ask about defining a term for rdf:type (after this topic)
-[10:07]	<manu1>	Topic: ISSUE-81: Data round tripping issue (not enough precision)
+[10:07]	<manu1>	Topic: ISSUE-81: Data round tripping issues
 [10:07]	<mlnt>	mlnt: What's the result of expansion at the top-level?
 [10:07]	<manu1>	https://github.com/json-ld/json-ld.org/issues/81
 [10:07]	<mlnt>	gregg: Dave Lehn specified it in the tests as array
 [10:07]	<mlnt>	mlnt: OK, I think we didn't specifiy it anywhere.. fine with that
-[10:13]	<mlnt>	discussion about data round-tripping
-[10:13]	<gkellogg>	issue with 1.16E in Ruby: "%.16E" % 5.2
-[10:13]	<gkellogg>	=> "5.2000000000000002E+00"
+[10:13]	<mlnt>	Discussion about data round-tripping
+[10:13]	<gkellogg>	issue with 1.16E in Ruby: 
+[10:13]	<gkellogg>	"%1.16E" % 5.2 => "5.2000000000000002E+00"
 [10:14]	<gkellogg>	q+
 [10:14]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
-[10:16]	<gkellogg>	%1.16E" % 5.3
-[10:16]	<gkellogg>	=> "5.2999999999999998E+00"
-[10:16]	<mlnt>	http://www.w3.org/TR/xmlschema-2/#double
+[10:16]	<gkellogg>	"%1.16E" % 5.3 => "5.2999999999999998E+00"
+[10:16]	<mlnt>	markus: http://www.w3.org/TR/xmlschema-2/#double is a 64-bit number, you lose precision after that
 [10:17]	<mlnt>	gregg: the resolution for this is to convert all native doubles to strings
 [10:17]	<mlnt>	gregg: that means everything that is coerced will always be converted to a string
 [10:18]	<mlnt>	mlnt: when should that happen? expansion? normalization?
@@ -63,7 +61,7 @@
 [10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
 [10:42]	<mlnt>	gregg: does coercion to xsd:boolean apply to something that is not a native boolean or string?
 [10:42]	<mlnt>	manu: no, we don't try to interpret "foo" as boolean e.g.
-[10:42]	<niklasl>	integer("foo") => {"@value": "foo", "@type": "xsd:string"}
+[10:42]	<niklasl>	!integer("foo") => {"@value": "foo", "@type": "xsd:string"}
 [10:43]	<gkellogg>	"foo"^^xsd:integer in Turtle?
 [10:43]	<manu1>	ack niklasl
 [10:43]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
@@ -74,28 +72,33 @@
 [10:46]	<mlnt>	gregg: when compacting we would convert it just to a native type if the value matches the lexical space
 [10:49]	<niklasl>	"type": {"@id": "rdf:type", "@container": "@set"}
 [10:49]	<manu1>	Topic: Explicit term for RDF type?
+[10:49]	<manu1>	niklas: What happens when somebody does this in the @context? "type": { "@id": "rdf:type", "@container": "@set" }? Do we need an issue for this?
+[10:49]	<manu1>	Manu: Yes, we need an issue for that.
 [10:52]	<manu1>	Topic: ISSUE-88: Reserved keywords
 [10:52]	<manu1>	https://github.com/json-ld/json-ld.org/issues/88
 [10:53]	<niklasl>	q+
 [10:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
-[10:54]	<mlnt>	manu: I think we should make it clear in the spec that we might use any @-term in the future but don't throw an exception
-[10:56]	<mlnt>	gregg: what if someone aliases @id to @graph and then we change the semantics of @graph?
+[10:54]	<mlnt>	manu: I think we should make it clear in the spec that we might use any @-term in the future, but don't throw an exception.
+[10:56]	<mlnt>	gregg: What if someone aliases @id to @graph and then we change the semantics of @graph? How do you future-proof?
 [10:56]	<niklasl>	q-
 [10:56]	<voip-ld>	Removed niklasl from the speaker queue: (empty)
-[10:58]	<gkellogg>	PROPOSAL: terms MUST have the lexical form of IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".
+[10:58]	<gkellogg>	PROPOSAL: Terms MUST have the lexical form of IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".
 [10:59]	<manu1>	+1
 [10:59]	<niklasl>	q+
 [10:59]	<voip-ld>	Added niklasl to the speaker queue: niklasl
-[11:00]	<mlnt>	{ "language": "@language", "language": "en" }
+[11:00]	<mlnt>	markus: What if someone does this? { "language": "@language", "language": "en" }
+[11:00]	<mlnt>	niklas: Double keys, can't do that.
 [11:01]	<manu1>	ack niklasl
 [11:01]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
-[11:01]	<niklasl>	"@type": {"@id": "rdf:type", "@type": "@id"} // what does the coercion mean here?
+[11:01]	<niklasl>	What does the coercion mean here? "@type": {"@id": "rdf:type", "@type": "@id"}
+[11:01]	<manu1>	We need a new issue for that.
 [11:06]	<manu1>	PROPOSAL: Term definitions MUST have the lexical form of an IRI with the addition of "@" being an allowed initial character. Authors SHOULD NOT create terms with an initial "@".
 [11:06]	<manu1>	+1
 [11:06]	<gkellogg>	+1
 [11:06]	<niklasl>	+1
 [11:06]	<taaz>	+0
-[11:11]	<mlnt>	-1
+[11:11]	<mlnt>	-1 - Why don't we just allow any character for term declarations? Why limit it? Whitespace? Why not?
+[11:11]	<mlnt>	Discussion about allowing any character that is valid in a JSON string, resulting in this proposal:
 [11:12]	<manu1>	PROPOSAL: Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may create forward-compatibility issues.
 [11:12]	<gkellogg>	+1
 [11:12]	<manu1>	+1
