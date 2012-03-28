@@ -27,7 +27,7 @@
 [10:17]	<mlnt>	gregg: that means everything that is coerced will always be converted to a string
 [10:18]	<mlnt>	mlnt: when should that happen? expansion? normalization?
 [10:18]	<mlnt>	gregg: in expansion and normalization
-[10:20]	<mlnt>	That was last week's resolution: RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[10:20]	<mlnt>	That was last week's resolution: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
 [10:22]	<mlnt>	manu: we want to be consistent in how we handle xsd:integer and xsd:double
 [10:22]	<niklasl>	q+
 [10:22]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
@@ -50,7 +50,7 @@
 [10:34]	<niklasl>	"%1.16E" % 5.3 => "5.2999999999999998E+00" in Python 2.7 on OS X
 [10:34]	<manu1>	"%1.15E" % 5.3 -> '5.300000000000000E+00' in Python 2.6 on Linux
 [10:35]	<niklasl>	(OS X on an intel core i7 specifically)
-[10:36]	<mlnt>	last week's resolution: RESOLVED: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
+[10:36]	<mlnt>	last week's resolution: Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.
 [10:37]	<niklasl>	.. I think that's problematic since I want "age": 123 in compact form *and* coerce "age" as xsd:integer...
 [10:37]	<mlnt>	manu: would it be OK to put that back to the mailing list?
 [10:39]	<mlnt>	gregg: OK, I'll create some issues for this
