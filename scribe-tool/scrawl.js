@@ -15,7 +15,7 @@
    scrawl.updateCounterTimeout = null;
 
    /* Standard regular expressions to use when matching lines */
-   var commentRx = /^\[(.*)\]\s+\<(.*)\>\s+(.*)$/;
+   var commentRx = /^\[(.*)\]\s+\<(.*?)\>\s+(.*)$/;
    var scribeRx = /^scribe:.*$/i;
    var chairRx = /^chair:.*$/i;
    var proposalRx = /^(proposal|proposed):.*$/i;
@@ -383,8 +383,7 @@
           // the line is a comment by somebody else
           else if(nick != context.scribenick)
           {
-             // ! is a code comment or a line that shouldn't be interpreted
-             // as a scribe-assist
+             // line starting with '!' shouldn't be interpreted
              if(msg.indexOf("!") == 0)
              {
                 rval = scrawl.scribe(
