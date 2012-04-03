@@ -1,0 +1,196 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-04-03</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0000.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0000.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-95: Remove @graph from the spec</a><li><a href="#topic-2">ISSUE-84: Probing of unlinked objects</a><li><a href="#topic-3">ISSUE-74: IRI conflicts when compacting/expanding</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Do not remove @graph from the JSON-LD syntax.</a><li><a href="#resolution-2">Do not support controlled probing of unlinked objects for this version of JSON-LD.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Markus Lanthaler, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Niklas Lindström is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's move Marcus' issue 95 to the first item on the Agenda</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I've heard that Drupal is looking at JSON-LD for web service stuff in drupal 8</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-95: Remove @graph from the spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/95">https://github.com/json-ld/json-ld.org/issues/95</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  since @graph currently doesn't support named graphs, it's just a copy of @set, doesn't provide anything more</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we *could* do that</div>
+<div class="comment-continuation">… related issue regarding framing</div>
+<div class="comment-continuation">… if we coerced a graph to @set, it would not collapse a graph (we would keep the array)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  two arguments to keep graph: 1. forward-looking</div>
+<div class="comment-continuation">… if we want to add support for named graphs, we need to supply the ID</div>
+<div class="comment-continuation">… by removing graph now, we're gonna have to reintroduce it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree. graph has two purposes; 1. the use of @id with an array is to implicit 2; we believe that named graphs are inevitable</div>
+<div class="comment-continuation">… if @graph and @id on the same level, @id gives the graphs name</div>
+<div class="comment-continuation">… if you have a signature, you need to know what it applies to -- the terminologgy with @set is less obvious</div>
+<div class="comment-continuation">… we've seen several people being confused by the overloaded @type meaning</div>
+<div class="comment-continuation">… this removal of @graph could be too confusing, since people won't know how these things work in context</div>
+<div class="comment-continuation">… we don't really expect people to use @set explicitly; it's a control keyword in the context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the way @graph currently is specified, the value is just replaced with the content, and you'll lose all the other properties</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we must update the spec to say that if @graph is used, it is the only (currently) active keyword</div>
+<div class="comment-continuation">... in that object</div>
+<div class="comment-continuation">… collapsing should only be done if @graph is the only property</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  how does things work if @graph is used at lower level</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the current redundance is temporary</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  even if we are going there in the future, we can always introduce it, but dropping things are more difficult</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you don't have to add new functionality</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a context can live in any object</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The most tricky part here is the mechanics of @set are special in so far as they currently only work in conjunction with the term or property for which it is the value. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  @set just means repeat the property for each value in this array. Making @set something which can be used at the top level extends the meaning of set, but only at the top level. It would still mean repeat the property if used anywhere that is not the top-level. If @graph is used further below, it would mean something - it would create a triple to it. We don't have names for @graph, because we don't support @id paired with @graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There are different semantics to the way these things would work in the future. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the problem is that we oversimplify to the detriment of the language</div>
+<div class="comment-continuation">… while in principle we should avoid redundant keywords, in this context we expect the difference to be important</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we could add the @set as a shortcut</div>
+<div class="comment-continuation">… there is nothing more at the top-level, so the behavior isn't different...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if in the future, you want to express multiple objects at the top level, you could use either or?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we add @graph now but don't add a blank node, do we have to change it?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  right now, the processor should throw an exception or explicitly ignore it (probably better) if it encounters something using @graph in combination with @id or other terms</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  why not introduce named graphs?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could, but the concern is that we might get out of line with that the RDF 1.1. WG will come up with regarding named graphs</div>
+<div class="comment-continuation">… it would unnecessarily tie up the spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but don't we introduce one half of a spec then?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we create a placeholder for an expected feature</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we should add a design note to the spec with these thoughts on named graphs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but if we cannot fit it into the result of the RDF WG graph solution, do we have to add @graph2?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we should defer if we cannot make a decision</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but if we use @set at the top level, it does behave like @graph?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes. for consistency's sake with @list.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not remove @graph from the JSON-LD syntax.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  +0.75</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: 0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Do not remove @graph from the JSON-LD syntax.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-84: Probing of unlinked objects</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/84">https://github.com/json-ld/json-ld.org/issues/84</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  raised by niklas. the idea is to explore if we can make the processor search for data in the values of terms which themselves have no meaning (null-terms)</div>
+<div class="comment-continuation">… a way of doing deep processing on values</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  main question: are we putting this in to support @rev?</div>
+<div class="comment-continuation">... or something more general?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's true that I propose this as a way of using the structure I've been using @rev for and keeping all of the data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: It's the former for me - not specifically support for @rev - just a way to preserve all of the data in the shape that I would end up with if I use my own mechanics for @rev.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There might be other use cases, but those are straw-men from my view. You might have a long path down to a set of triples. You might want easy access to this from another part of the structure. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to consider things to support reusing other kinds of structures, and this is a good way of doing this</div>
+<div class="comment-continuation">… we need to clarify how to handle unknown terms in general</div>
+<div class="comment-continuation">… in this case, it is explicitly saying that the term represents nothing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if @rev is what's sought after, we should consider it directly, and not have a pseudo-feature with this as the ulterior motive</div>
+<div class="comment-continuation">… I agree that gregg's point about other structures is important, but we don't know how those shapes would look nor if this would actually support it</div>
+<div class="comment-continuation">… I have mainly come across using JSON-LD in a new fresh approach, not to retrofit legacy JSON with JSON-LD contexts</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I do support @rev in my processor, currently it is another kind of structure - it tacks on @rev as a keyword - it has an object where the keys are direct terms. I have "@rev": [REFERENCES] [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When we discussed deep probing of data, there seemed to be interest in that - that's why I proposed it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would prefer support for @rev if there is interest in that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Things might have changed. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we want to discuss @rev, specifically. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think that the need for @rev is stronger know. I do believe it might be useful, but people haven't stepped forward in favor of it yet.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  most JSON structures has this reverse structure</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In support for @rev - given a subject-oriented service that has one document for each resource, this is a very nice shape for the data. The alternatives are ugly, as Markus outlined. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  These ORM systems often have reverse mechanics in place - if you expose something, relevant references to that become important. Things linking to that object (publisher, creator, etc.) are important. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can always mint a new property for that, can't you? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  No, you can't always do that - you don't want to litter your core data - there are not always reverse relations defined in the vocabulary. If you use the graph API, you have no problem traversing the properties in any direction. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is exactly the scenario I have in the legal information system. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Have you thought about introducing a rule regime on top of this, take a property and associate it with a rule that creates an inverse of? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There are many complex things that could be added, but I want to keep this simple. There is no need for inverse reification if my developers understood RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You could solve this problem by re-framing, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Not really, no. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I create extremely denormalized records which are put into Elastic Search - filtering is easier when you have these reverse relationship. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need a solid @rev proposal; niklas can you do that?</div>
+<div class="comment-continuation">… we could reserve the keyword @rev</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  yes, I can write that proposal</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the EARL reports might have some use for it, but I don't know if I can use this directly</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support controlled probing of unlinked objects for this version of JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Do not support controlled probing of unlinked objects for this version of JSON-LD.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-74: IRI conflicts when compacting/expanding</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/74">https://github.com/json-ld/json-ld.org/issues/74</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if two terms apply, they are combined</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you can merge when you're expanding, when you're compacting, you might split, partitioning on datatype</div>
+<div class="comment-continuation">… i.e. on terms which most specifically apply (given coercion) the given value</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i have, in expanded form: {"<a href="http://example.com/foo":">http://example.com/foo":</a> [1, "a", {@id: "/bar"}] }</div>
+<div class="comment-continuation">… and terms defined for foo: {@context": {"foo_int": {@id "foo", @type: xsd:integer"}, … }</div>
+<div class="comment-continuation">... the values would be split among them: {foo_int: 1, foo: "a", foo_ref: "/bar"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned if there is another issue here: where we have to figure out which term applies, and we have to resort to lexicographical comparison</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  for all the values or once per value</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you can calculate how close you're at (if there is one integer, one float and value is date time)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when I am combining values on expansion, the orders of arrays doesn't matter, but tests care for that...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When you're compacting and you have a term for integer and float and dateTime - could we pick either one of them? Wouldn't we just not pick any of them - use the non-compacted form? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You can compact it - but the compacted form would have to use a @value. In general, I think we should want to use terms for properties rather than IRIs. If you had the information to mint a CURIE, you could do that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we probably need some informative order for combining/splitting values in compaction</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley has an algorithm for this, we should look at that</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0000.html
+[10:03]	<manu1>	scribe: niklasl
+[10:03]	<niklasl>	manu: Let's move Marcus' issue 95 to the first item on the Agenda
+[10:04]	<voip-ld>	David I. Lehn (SIP/71.171.26.195-00000055) has joined the conference.
+[10:04]	<niklasl>	manu: I've heard that Drupal is looking at JSON-LD for web service stuff in drupal 8
+[10:05]	<manu1>	Topic: ISSUE-95: Remove @graph from the spec
+[10:05]	<manu1>	https://github.com/json-ld/json-ld.org/issues/95
+[10:05]	<gkellogg>	q+
+[10:05]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:06]	<manu1>	ack gkellogg
+[10:06]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:06]	<niklasl>	mlnt: since @graph currently doesn't support named graphs, it's just a copy of @set, doesn't provide anything more
+[10:06]	<niklasl>	gregg: we *could* do that
+[10:06]	<niklasl>	… related issue regarding framing
+[10:07]	<niklasl>	… if we coerced a graph to @set, it would not collapse a graph (we would keep the array)
+[10:07]	<niklasl>	gregg: two arguments to keep graph: 1. forward-looking
+[10:08]	<manu1>	q+
+[10:08]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:08]	<niklasl>	… if we want to add support for named graphs, we need to supply the ID
+[10:08]	<manu1>	ack manu1
+[10:08]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:08]	<niklasl>	… by removing graph now, we're gonna have to reintroduce it
+[10:08]	<mlnt>	q+
+[10:08]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:09]	<niklasl>	manu: I agree. graph has two purposes; 1. the use of @id with an array is to implicit 2; we believe that named graphs are inevitable
+[10:09]	<niklasl>	… if @graph and @id on the same level, @id gives the graphs name
+[10:10]	<niklasl>	… if you have a signature, you need to know what it applies to -- the terminologgy with @set is less obvious
+[10:10]	<niklasl>	… we've seen several people being confused by the overloaded @type meaning
+[10:11]	<niklasl>	… this removal of @graph could be too confusing, since people won't know how these things work in context
+[10:11]	<niklasl>	… we don't really expect people to use @set explicitly; it's a control keyword in the context
+[10:11]	<manu1>	ack mlnt
+[10:11]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:12]	<niklasl>	mlnt: the way @graph currently is specified, the value is just replaced with the content, and you'll lose all the other properties
+[10:12]	<niklasl>	gregg: we must update the spec to say that if @graph is used, it is the only (currently) active keyword
+[10:13]	<niklasl>	... in that object
+[10:13]	<niklasl>	… collapsing should only be done if @graph is the only property
+[10:13]	<niklasl>	mlnt: how does things work if @graph is used at lower level
+[10:13]	<niklasl>	q+
+[10:13]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:14]	<niklasl>	manu: the current redundance is temporary
+[10:14]	<niklasl>	mlnt: even if we are going there in the future, we can always introduce it, but dropping things are more difficult
+[10:14]	<niklasl>	mlnt: you don't have to add new functionality
+[10:15]	<niklasl>	gregg: a context can live in any object
+[10:15]	<manu1>	ack niklasl
+[10:15]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:15]	<manu1>	niklasl: The most tricky part here is the mechanics of @set are special in so far as they currently only work in conjunction with the term or property for which it is the value.
+[10:17]	<manu1>	niklasl: @set just means repeat the property for each value in this array. Making @set something which can be used at the top level extends the meaning of set, but only at the top level. It would still mean repeat the property if used anywhere that is not the top-level. If @graph is used further below, it would mean something - it would create a triple to it. We don't have names for @graph, because we don't support @id paired with @graph.
+[10:17]	<manu1>	niklasl: There are different semantics to the way these things would work in the future.
+[10:17]	<niklasl>	manu: the problem is that we oversimplify to the detriment of the language
+[10:18]	<niklasl>	… while in principle we should avoid redundant keywords, in this context we expect the difference to be important
+[10:18]	<niklasl>	mlnt: we could add the @set as a shortcut
+[10:19]	* gkellogg	rathole concern; there are other issues to discuss.
+[10:20]	<niklasl>	… there is nothing more at the top-level, so the behavior isn't different...
+[10:20]	<niklasl>	manu: if in the future, you want to express multiple objects at the top level, you could use either or?
+[10:21]	<niklasl>	mlnt: if we add @graph now but don't add a blank node, do we have to change it?
+[10:22]	<niklasl>	manu: right now, the processor should throw an exception or explicitly ignore it (probably better) if it encounters something using @graph in combination with @id or other terms
+[10:22]	<niklasl>	mlnt: why not introduce named graphs?
+[10:22]	<niklasl>	manu: we could, but the concern is that we might get out of line with that the RDF 1.1. WG will come up with regarding named graphs
+[10:23]	<niklasl>	… it would unnecessarily tie up the spec
+[10:23]	<niklasl>	mlnt: but don't we introduce one half of a spec then?
+[10:24]	<niklasl>	manu: we create a placeholder for an expected feature
+[10:24]	<niklasl>	gregg: we should add a design note to the spec with these thoughts on named graphs
+[10:24]	<niklasl>	mlnt: but if we cannot fit it into the result of the RDF WG graph solution, do we have to add @graph2?
+[10:25]	<niklasl>	gregg: we should defer if we cannot make a decision
+[10:26]	<niklasl>	mlnt: but if we use @set at the top level, it does behave like @graph?
+[10:26]	<niklasl>	gregg: yes. for consistency's sake with @list.
+[10:28]	<gkellogg>	PROPOSAL: Do not remove @graph from the JSON-LD syntax.
+[10:28]	<gkellogg>	+1
+[10:29]	<niklasl>	niklasl: +0.75
+[10:29]	<manu1>	+1
+[10:29]	<taaz>	+0
+[10:29]	<mlnt>	0
+[10:29]	<gkellogg>	RESOLVED: Do not remove @graph from the JSON-LD syntax.
+[10:29]	<manu1>	Topic: ISSUE-84: Probing of unlinked objects
+[10:29]	<manu1>	https://github.com/json-ld/json-ld.org/issues/84
+[10:30]	<niklasl>	manu: raised by niklas. the idea is to explore if we can make the processor search for data in the values of terms which themselves have no meaning (null-terms)
+[10:31]	<niklasl>	… a way of doing deep processing on values
+[10:31]	<niklasl>	manu: main question: are we putting this in to support @rev?
+[10:31]	<niklasl>	... or something more general?
+[10:32]	<manu1>	niklasl: It's true that I propose this as a way of using the structure I've been using @rev for and keeping all of the data.
+[10:32]	<manu1>	It's the former for me - not specifically support for @rev - just a way to preserve all of the data in the shape that I would end up with if I use my own mechanics for @rev.
+[10:33]	<gkellogg>	q+
+[10:33]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:33]	<manu1>	niklasl: There might be other use cases, but those are straw-men from my view. You might have a long path down to a set of triples. You might want easy access to this from another part of the structure.
+[10:33]	<manu1>	ack gkellogg
+[10:33]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:34]	<niklasl>	gregg: we need to consider things to support reusing other kinds of structures, and this is a good way of doing this
+[10:34]	<niklasl>	… we need to clarify how to handle unknown terms in general
+[10:34]	<niklasl>	… in this case, it is explicitly saying that the term represents nothing
+[10:35]	<niklasl>	manu: if @rev is what's sought after, we should consider it directly, and not have a pseudo-feature with this as the ulterior motive
+[10:36]	<niklasl>	… I agree that gregg's point about other structures is important, but we don't know how those shapes would look nor if this would actually support it
+[10:36]	<niklasl>	… I have mainly come across using JSON-LD in a new fresh approach, not to retrofit legacy JSON with JSON-LD contexts
+[10:36]	<niklasl>	q+
+[10:37]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:37]	<manu1>	ack niklasl
+[10:37]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:37]	<manu1>	niklasl: I do support @rev in my processor, currently it is another kind of structure - it tacks on @rev as a keyword - it has an object where the keys are direct terms. I have "@rev": [REFERENCES]
+[10:38]	<manu1>	niklasl: When we discussed deep probing of data, there seemed to be interest in that - that's why I proposed it.
+[10:38]	<manu1>	niklasl: I would prefer support for @rev if there is interest in that.
+[10:38]	<manu1>	niklasl: Things might have changed.
+[10:38]	<manu1>	q+
+[10:38]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:38]	<manu1>	niklasl: Maybe we want to discuss @rev, specifically.
+[10:39]	<niklasl>	manu: I don't think that the need for @rev is stronger know. I do believe it might be useful, but people haven't stepped forward in favor of it yet.
+[10:39]	<niklasl>	q+
+[10:39]	<voip-ld>	Added niklasl to the speaker queue: manu1, niklasl
+[10:39]	<niklasl>	manu: most JSON structures has this reverse structure
+[10:39]	<manu1>	ack manu1
+[10:39]	<voip-ld>	manu1 has the floor. The next speaker is niklasl.
+[10:40]	<manu1>	ack niklasl
+[10:40]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:40]	<manu1>	niklasl: In support for @rev - given a subject-oriented service that has one document for each resource, this is a very nice shape for the data. The alternatives are ugly, as Markus outlined.
+[10:41]	<manu1>	q+ to ask why "foo:referencedBy" is such a bad thing?
+[10:41]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:41]	<manu1>	niklasl: These ORM systems often have reverse mechanics in place - if you expose something, relevant references to that become important. Things linking to that object (publisher, creator, etc.) are important.
+[10:42]	<manu1>	markus: You can always mint a new property for that, can't you?
+[10:42]	<manu1>	niklasl: No, you can't always do that - you don't want to litter your core data - there are not always reverse relations defined in the vocabulary. If you use the graph API, you have no problem traversing the properties in any direction.
+[10:43]	<manu1>	niklasl: This is exactly the scenario I have in the legal information system.
+[10:43]	<manu1>	gkellogg: Have you thought about introducing a rule regime on top of this, take a property and associate it with a rule that creates an inverse of?
+[10:44]	<manu1>	niklasl: There are many complex things that could be added, but I want to keep this simple. There is no need for inverse reification if my developers understood RDF.
+[10:45]	<manu1>	gkellogg: You could solve this problem by re-framing, right?
+[10:45]	<manu1>	niklasl: Not really, no.
+[10:46]	<manu1>	niklasl: I create extremely denormalized records which are put into Elastic Search - filtering is easier when you have these reverse relationship.
+[10:48]	<niklasl>	manu: we need a solid @rev proposal; niklas can you do that?
+[10:48]	<niklasl>	… we could reserve the keyword @rev
+[10:49]	<niklasl>	niklas: yes, I can write that proposal
+[10:49]	<niklasl>	gregg: the EARL reports might have some use for it, but I don't know if I can use this directly
+[10:51]	<manu1>	PROPOSAL: Do not support controlled probing of unlinked objects for this version of JSON-LD.
+[10:51]	<manu1>	+1
+[10:51]	<niklasl>	+0
+[10:51]	<gkellogg>	+1
+[10:51]	<mlnt>	+0.5
+[10:52]	<taaz>	+0
+[10:52]	<manu1>	RESOLVED: Do not support controlled probing of unlinked objects for this version of JSON-LD.
+[10:52]	<manu1>	Topic: ISSUE-74: IRI conflicts when compacting/expanding
+[10:52]	<manu1>	https://github.com/json-ld/json-ld.org/issues/74
+[10:53]	<niklasl>	manu: if two terms apply, they are combined
+[10:53]	<niklasl>	gregg: you can merge when you're expanding, when you're compacting, you might split, partitioning on datatype
+[10:54]	<niklasl>	… i.e. on terms which most specifically apply (given coercion) the given value
+[10:56]	<niklasl>	gregg: i have, in expanded form: {"http://example.com/foo": [1, "a", {@id: "/bar"}] }
+[10:56]	<niklasl>	… and terms defined for foo: {@context": {"foo_int": {@id "foo", @type: xsd:integer"}, … }
+[10:57]	<niklasl>	... the values would be split among them: {foo_int: 1, foo: "a", foo_ref: "/bar"}
+[10:58]	* niklasl	missed the first part of manu's case
+[10:59]	<niklasl>	manu: I'm concerned if there is another issue here: where we have to figure out which term applies, and we have to resort to lexicographical comparison
+[11:00]	<niklasl>	markus: for all the values or once per value
+[11:00]	<niklasl>	gregg: you can calculate how close you're at (if there is one integer, one float and value is date time)
+[11:00]	<niklasl>	q+
+[11:00]	<voip-ld>	Added niklasl to the speaker queue: manu1, niklasl
+[11:01]	<niklasl>	gregg: when I am combining values on expansion, the orders of arrays doesn't matter, but tests care for that...
+[11:01]	<manu1>	ack manu1
+[11:01]	<voip-ld>	manu1 has the floor (to ask why "foo:referencedBy" is such a bad thing?). The next speaker is niklasl.
+[11:01]	<manu1>	ack niklasl
+[11:01]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[11:02]	<manu1>	niklasl: When you're compacting and you have a term for integer and float and dateTime - could we pick either one of them? Wouldn't we just not pick any of them - use the non-compacted form?
+[11:02]	<manu1>	gkellogg: You can compact it - but the compacted form would have to use a @value. In general, I think we should want to use terms for properties rather than IRIs. If you had the information to mint a CURIE, you could do that.
+[11:03]	<niklasl>	Gregg: we probably need some informative order for combining/splitting values in compaction
+[11:03]	<niklasl>	manu: Dave Longley has an algorithm for this, we should look at that
+
