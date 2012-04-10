@@ -1,0 +1,257 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-04-10</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0031.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0031.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-91: Re-definition of keywords</a><li><a href="#topic-2">ISSUE-92: Limit JSON-LD properties to one @list per property</a><li><a href="#topic-3">ISSUE-93: Keyword aliasing operation</a><li><a href="#topic-4">ISSUE-99: @graph treatment when expanding</a><li><a href="#topic-5">ISSUE-58: Specifying the active context for compaction</a><li><a href="#topic-6">ISSUE-57: Should @context be minimized when compacting?</a><li><a href="#topic-7">ISSUE-53: Remove normalization completely from JSON-LD API spec</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">When performing expansion properties that are coerced to a @container type of @list MUST be placed in an array in expanded form. For example, "prop-iri": [{"@list": [1, 2]}] is correct, "prop-iri": {"@list": [1, 2]} is not.</a><li><a href="#resolution-2">JSON-LD supports multiple aliases for a JSON-LD keyword.</a><li><a href="#resolution-3">Re-affirm that the aliasing of @context is disallowed due to algorithmic complexity/ambiguity and lack of a compelling use case.</a><li><a href="#resolution-4">A @context is processed without regard to keyword aliases. Keyword aliases are taken into account when processing the body of a JSON-LD document.</a><li><a href="#resolution-5">If @graph is the only property in the document's top level object, it MUST be dropped in expansion and compaction. In all other cases (which includes @graph at the document's top level object when there are other properties other than @context at the same level), @graph MUST NOT be dropped in expansion and compaction.</a><li><a href="#resolution-6">The first input parameter for all JSON-LD API methods MAY be an object, an array of objects, or an IRI (DOMString).</a><li><a href="#resolution-7">The second input parameter to the .compact() method is the context that should be used for compaction. The value can be either an object or an IRI.</a><li><a href="#resolution-8">The second input parameter to the .frame() method is the frame that should be used for compaction. The value can be either an object or an IRI.</a><li><a href="#resolution-9">If the optimize flag is not set, the context used for compaction MUST be included without modifications in the resulting document. This applies to both context objects as well as contexts specified by passing an IRI. If the optimize flag is set, a processor is free to modify the context in order to optimize the resulting document body.</a><li><a href="#resolution-10">Remove the normalization algorithm and API from the JSON-LD API specification. The normalization algorithm will be placed into a separate RDF Graph Normalization specification which contains an API for retrieving a set of normalized statements.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Markus Lanthaler, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any updates or changes to the agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to go back over the resolved issues and make sure that we can close remaining open issues. Can we close them, or what further action should be taken to close them? Or are they obsolete?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Regarding the test suite - should we do the split of the test suite?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'd rather keep that in the current website for now - keep them all in the same place.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could use git submodules, but that gets annoying.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It takes a while to download the website.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could update the php to package up the test suite and download it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree with Gregg - working with it online or working with it as a web app has been very beneficial. If I have to run tests locally, I want to be able to check in copies of the tests to the repo - so I agree with Gregg.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: btw, if git is too slow, github has a zip you can download. may be faster?</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  It's on the main page - you can download it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It would be beneficial if it was just the manifest and the tests.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-91: Re-definition of keywords</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/91">https://github.com/json-ld/json-ld.org/issues/91</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is about changing how JSON-LD keywords work - redefining keywords.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  General problem I have is with rdf:type - as it is a regular relation. Not being able to re-define @type is fine with me, if you can create a regular keyword and map it forrdf:type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I do it in the third example in the issue. I don't really know if the algorithm supports this.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If i need to control the way rdf:type is used in compact form, can I?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Currently in compaction/expansion, nothing would prevent you from doing the thing in your 3rd example.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Would my definition of @type take precedence over @type.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you have @type in your document and you expand it, it doesn't get expanded to rdf:type in your document - they don't collide.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @type without a ??? is just another property - there is no issue in JSON-LD, the issue comes in when you round-trip.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can live with that from a matching point of view - when I compact, what is going to happen? Can I always force rdf:type to always be a set?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you define something like 'a', then it will work just like any other definition.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In my first two examples - they emulate what @type does, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No, @type doesn't expand... whereas 'a' would.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In the 3rd example, I used 'rdf:type' without using '@type'.</div>
+<div class="information">Discussion around 3rd example and round-tripping.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It seems like this usage patter is a little strange.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You can support this with a frame.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The other question here is why we treat @type differently from other properties?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That's what I'm asking here.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It might be good to specify @type as another property - this might create issues for framing, where framing requires a particular pattern.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Someone on-list asked for something to this effect.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could solve this, but would have to be careful about not complicating things.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If someone defines another term for rdf:type, then it should be treated like any other property.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's too much special magic - we either demote @type to be just like any property, or you use framing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We have special casing for @type already, it's just where to put it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you look at this from a JSON perspective, it's the other way around.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you look at it from a Linked Data perspective, @type represents a link - and you can have that as a subject, you can have multiple types, etc.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Unlike other relations, you can't say that you'd always want it as a set container. If we want to change @type back to a property, we may want to move things back from @type to @datatype</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @type means two things, based on where it is used - if it's @type it might be in a value, it might be in array form, in other cases, it might not be in array form. If we went back to @datatype, we wouldn't have to complicate the code.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we make @type in objects be like other properties, it would reduce complexity.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So the pseudo-proposal is re-introduce @datatype.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, that would reduce code complexity - but we should ask Dave Longley about this first.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why do we have @type at all then?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Syntactic sugar that folks have come to expect... easier to write code based off of it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  How is re-introducing @datatype different from what we have now?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You can't override @datatype like you can override @type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Even in JSON Schema, there is a different between datatype given and relation to an object type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Even with JSON schema, which has nothing to do with RDF, there is a distinction.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. re. json schema; they have "format": <a href="http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.23">http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.23</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. in json-schema: format is defined as "This property defines the type of data, content type, or microformat to be expected in the instance property values"</div>
+<div class="information">Postponing decision on ISSUE-91 - topics that we need to address: 1) if we want to reintroduce @datatype, 2) if keywords can be redefined, 3) if there is an initial context that specifies '@type' as syntactic sugar (@type is just like any other property)</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-92: Limit JSON-LD properties to one @list per property</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/92">https://github.com/json-ld/json-ld.org/issues/92</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A property can have at most one @list associated with it, that's what we're discussing here - due to complexity for supporting more - throw an exception if more than one @list is used.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I agree with that, there is another issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If there is a property that has @list coercion in it, then something in array form may need to be put into a list - we need to be consistent.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The main thing is what is the representation of @list in expanded form?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Can a property have more than one @list in it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What is the expression in expanded form?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have a pattern that is different from everything else we expand - if we show it in array form, it implies that we can have more than one element - clear that there can only be one list. It's an exception for the way values are treated in expanded form - additional complexity in processing algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You might have multiple properties that might expand to the same IRI, when you go to merge the arrays, it creates confusion on list order - two different lists or multiple values in the same list?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is an issue in expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In expansion, it is just 3 separate lists, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are cases where you may have conflation - it may be 3 separate lists, or it may be one list.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't see a use case that requires more than one list in most cases - if you take that as a concern, then the representation is a single object - I'd rather see it as an array that holds a single object, not just a single object.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think we want to go into the discussion on supporting multiple lists of lists unless there is a compelling use case.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Lists containing lists is extremely complicated.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="http://spinrdf.org/sp.html#sp-Union">http://spinrdf.org/sp.html#sp-Union</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think I agree from a practical point of view - one very strange real-world use case ^^^</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Really don't expect that to be used in JSON-LD. We should know that there is at least one case, and we should throw an exception in that case.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we split this into sub-issues - one for compaction, one for expansion.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. {"prop-iri": [{"@list": [1, 2]}]}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I wonder if we should push this decision off.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should be able to discuss how expanded form should look.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When performing expansion properties that are coerced to a @container type of @list MUST be placed in an array in expanded form. For example, "prop-iri"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> When performing expansion properties that are coerced to a @container type of @list MUST be placed in an array in expanded form. For example, "prop-iri": [{"@list": [1, 2]}] is correct, "prop-iri": {"@list": [1, 2]} is not.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This was creating more corner-cases for us.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This will simplify the algorithm.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe dlongley could add explicit examples.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-93: Keyword aliasing operation</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/93">https://github.com/json-ld/json-ld.org/issues/93</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus raises four questions - 1) Can multiple aliases exist for a keyword? 2) Why is aliasing of @context disallowed? 3) Are aliased keywords supported within a context? 4) How is this processed during contextprocessing/expansion/ compaction</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we should allow multiple aliases for a keyword, don't know for #2, I think we only support aliases being used outside the context, defer to Gregg and Longley on #4</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree with Dave and Gregg after discussion with them.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  JSON-LD supports multiple aliases for a JSON-LD keyword.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> JSON-LD supports multiple aliases for a JSON-LD keyword.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Re-affirm that the aliasing of @context is disallowed due to algorithmic complexity/ambiguity and lack of a compelling use case.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Re-affirm that the aliasing of @context is disallowed due to algorithmic complexity/ambiguity and lack of a compelling use case.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  A @context is processed without regard to keyword aliases. Keyword aliases are taken into account when processing the body of a JSON-LD document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> A @context is processed without regard to keyword aliases. Keyword aliases are taken into account when processing the body of a JSON-LD document.</div>
+<div class="information">The group notes that the processing rules for compaction, expansion and framing are not affected by the previous 3 decisions.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-99: @graph treatment when expanding</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/99">https://github.com/json-ld/json-ld.org/issues/99</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that everyone agrees that the only time that @graph is dropped is when it is the only property expressed in a top-level object other than @context.</div>
+<div class="information">The current proposal is: If @graph is the only property in the document's top level object, it MUST be dropped in expansion and compaction. In all other cases (which includes @graph at the document's top level object when there are other properties at the same level), @graph MUST NOT be dropped in expansion and compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned about how the RDF WG will react to this - may be controversial.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This will affect normalization.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to be able to express graphs - Wikidata folks need this - we don't want to not solve that application because we haven't yet solved the graph issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this isn't a big complication to any of our algorithms</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The interpretation when it comes to RDF is the tricky part - but I don't see it as that tricky</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If @graph is the only property in the document's top level object, it MUST be dropped in expansion and compaction. In all other cases (which includes @graph at the document's top level object when there are other properties other than @context at the same level), @graph MUST NOT be dropped in expansion and compaction.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 with a bit of faith</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> If @graph is the only property in the document's top level object, it MUST be dropped in expansion and compaction. In all other cases (which includes @graph at the document's top level object when there are other properties other than @context at the same level), @graph MUST NOT be dropped in expansion and compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Those were all the discussions related to syntax, now on to API issues.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-58: Specifying the active context for compaction</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/58">https://github.com/json-ld/json-ld.org/issues/58</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We are starting to have a great number of options for these API methods</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should probably put these in options.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What about mandatory arguments, like the context for compaction, or the base IRI?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should discuss allowing passing IRIs or file objects to the compaction, expansion, etc. algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's new, we'll have to discuss the signatures for these methods.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Should we focus the API on higher-level languages only?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think so.</div>
+<div class="information">Discussion around arguments to API methods - whether there should be an 'option' object, or if mandatory options should be separate from 'options', such as the compacting context in the call to .compact().</div>
+<div class="information">Discussion concerning what the arguments can be for the input parameters.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://dev.w3.org/2006/webapi/WebIDL/#idl-union">http://dev.w3.org/2006/webapi/WebIDL/#idl-union</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: (float or float[])</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The first input parameter for all JSON-LD API methods MAY be an object, an array of objects, or an IRI (DOMString).</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> The first input parameter for all JSON-LD API methods MAY be an object, an array of objects, or an IRI (DOMString).</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The second input parameter to the .compact() method is the context that should be used for compaction. The value can be either an object or an IRI.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> The second input parameter to the .compact() method is the context that should be used for compaction. The value can be either an object or an IRI.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The second input parameter to the .frame() method is the frame that should be used for compaction. The value can be either an object or an IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> The second input parameter to the .frame() method is the frame that should be used for compaction. The value can be either an object or an IRI.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-57: Should @context be minimized when compacting?</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/57">https://github.com/json-ld/json-ld.org/issues/57</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If the optimize flag is not set, the context used for compaction MUST be included without modifications in the resulting document. This applies to both context objects as well as contexts specified by passing an IRI. If the optimize flag is set, a processor is free to modify the context in order to optimize the resulting document body.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we all agree on this...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-9" class="resolution"><strong>RESOLUTION:</strong> If the optimize flag is not set, the context used for compaction MUST be included without modifications in the resulting document. This applies to both context objects as well as contexts specified by passing an IRI. If the optimize flag is set, a processor is free to modify the context in order to optimize the resulting document body.</div>
+<h1 id="topic-7" class="topic">Topic: ISSUE-53: Remove normalization completely from JSON-LD API spec</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/53">https://github.com/json-ld/json-ld.org/issues/53</a></div>
+<div class="information">Discussion about how this would be implemented across specification documents.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We don't need normalization in the JSON-LD API, it belongs in a normalization API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So the 'normalization spec' should describe how to normalize RDF graphs and it should outline an API call to get back a list of quads that is normalized and sorted.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  other issue is which bits to pull from the RDF API spec.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Remove the normalization algorithm and API from the JSON-LD API specification. The normalization algorithm will be placed into a separate RDF Graph Normalization specification which contains an API for retrieving a set of normalized statements.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-10" class="resolution"><strong>RESOLUTION:</strong> Remove the normalization algorithm and API from the JSON-LD API specification. The normalization algorithm will be placed into a separate RDF Graph Normalization specification which contains an API for retrieving a set of normalized statements.</div>
+</body>
+</html>
