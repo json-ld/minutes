@@ -1,0 +1,279 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-04-24</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0050.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0050.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">WWW2012 Conference</a><li><a href="#topic-2">ISSUE-106: JSON-LD 1.0 @graph syntax</a><li><a href="#topic-3">ISSUE-102: Can JSON-LD keywords be re-defined in the @context?</a><li><a href="#topic-4">ISSUE-103: Re-introduce @datatype as @valuetype</a><li><a href="#topic-5">ISSUE-92: Limit JSON-LD properties to one @list per property</a><li><a href="#topic-6">ISSUE-91: Re-definition of keywords</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Adopt the 6 points in ISSUE-106 along with Gregg and Longley's proposal for @graph processing in framing as the way we approach named graph support in JSON-LD.</a><li><a href="#resolution-2">JSON-LD keywords MUST NOT be re-defined in the @context. If a JSON-LD processor detects that a JSON-LD keyword is being re-defined, it MUST throw an exception.</a><li><a href="#resolution-3">Do not re-introduce typing JSON-LD @value via something like @datatype or @valuetype.</a><li><a href="#resolution-4">If the result of IRI compaction has an @container @list and there are multiple @list values, throw an exception. When doing IRI compaction do not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.</a><li><a href="#resolution-5">JSON-LD allows sets of lists except where it conflicts with the previous resolution.</a><li><a href="#resolution-6">Remove step #1: "If iri is rdf:type, return @type." from the Compact IRI algorithm.</a><li><a href="#resolution-7">Add an option to the fromRDF algorithm to skip step 5.6 "If the property is rdf:type use @type" to support the use of a term in place of the @type keyword during conversion from RDF to JSON-LD.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">gkellogg to create issue on describing fragid semantics in JSON-LD</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Manu Sporny, Markus Lanthaler, Niklas Lindström</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is one addition to the agenda, possibly - use of fragment identifiers in JSON-LD - IANA considerations - how fragment identifiers are interpreted. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we need to specify something since it's an IRI? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Important for follow-your-spec-nose back to MIMEType definition. [scribe assist by Manu Sporny]</div>
+<div id="action-1" class="action">ACTION: gkellogg to create issue on describing fragid semantics in JSON-LD</div>
+<h1 id="topic-1" class="topic">Topic: WWW2012 Conference</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  talk at WWW2012 on JSON-LD</div>
+<div class="comment-continuation">… TimBL made some disparaging remarks on JSON-LD in a separate discussion.</div>
+<div class="comment-continuation">… the result was to increase attendance at the talk and lead to some realization that JSON-LD is much different than RDF/XML; a more natural fit.</div>
+<div class="comment-continuation">… many big companies interested, but waiting for the spec to become stable.</div>
+<div class="comment-continuation">… there is an issue in adapting existing syntax due to problems in mapping their ids to IRIs.</div>
+<div class="comment-continuation">… some form of IRI template, or JSON-LD macros could help supplement this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  had some discussions. TimBL is off in his criticism.</div>
+<div class="comment-continuation">… RDF/XML is primarily a serialization of RDF in XML. hard to read and hard to use.</div>
+<div class="comment-continuation">… JSON-LD is different; it can be converted to RDF, but it is not principally an RDF serialization.</div>
+<div class="comment-continuation">… It's a linked data format designed for people that already use JSON.</div>
+<div class="comment-continuation">… Important to understand that it is a different kind of linked data format. This seems to have been appreciated by many other people.</div>
+<div class="comment-continuation">… I don't think we should ignore this, but make a concerted blog post to answer the criticism.</div>
+<div class="comment-continuation">... There is some need for IRI templates...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  mostly talking to REST people having existing JSON APIs. They'd like to upgrade to JSON-LD.</div>
+<div class="comment-continuation">… works if ID is already a relative IRI, but existing identifiers are typically not IRIs.</div>
+<div class="comment-continuation">… a template mechanism would allow them to be coerced to IRIs.</div>
+<div class="comment-continuation">… however, this was not widely understood, and the spec should address.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can we outline a use case?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  most already had an API in place having the data, but not simple to just add a @context, because the IDs can't just be made into IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Did you have any interaction with the Wikidata folks? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Nope, wasn't able to find them at the conference. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I've done a bit of reaching out to them - updated their JSON-LD page... need to find out where they're going. They may be doing their own proprietary thing. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  <a href="http://meta.wikimedia.org/wiki/Talk:Wikidata/Data_model">http://meta.wikimedia.org/wiki/Talk:Wikidata/Data_model</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is some concern in there about expressing statements about multiple @graphs [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Reification of statements is an issue - DBPedia makes a separate graph per statement so that they can describe the provenance separately. This is the problem we get into with named graphs - some want to use named graphs for reification of statements, others want to use it to describe a different set of files that are imported (which is how they're used in SPARQL) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The things are pretty equivalent in a model-theoretic sense. At the snik level, (describes a statement and all assertions about that statement), when you get to a larger wiki - where you have much more stuff involved than just that level of granularity - it isn't as useful. If there is a way to turn the graphs upside-down, instead of having statements that ... graph that references... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...assertions upon it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we solve that by allow a string value for @graph? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Could we have something like "@ingraph"? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  These aren't really syntax issues - go through the data model talk page and see if you can make the case for it? This is a natural fit for JSON-LD. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-106: JSON-LD 1.0 @graph syntax</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/106">https://github.com/json-ld/json-ld.org/issues/106</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  discussion on @graph issues.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Support named graphs by having @id and @graph at the same level, where @id expresses the name of the graph.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Both IRIs and BNode-like labels (starting with '_:') can be used in @id to name a graph.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The @graph keyword is alias-able.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The @graph keyword is always associated with an IRI - in JSON, represented by a string, an object with an @id, or an array of objects with @ids.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: A JSON-LD property MAY be associated with a {"@graph": ...} object.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The JSON-LD keywords MUST NOT be associated with a {"@graph": ...} object - especially @id and @value.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The documents that we have currently are consistent with these rules. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to discuss how to deal with @graph and framing - that's where it has the biggest impact. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  RDF transformation to-and-from have been updated w/ @graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "foaf:org": { "@graph": ... } ??</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the documents are pretty consistent with this interpretation... biggest outstanding issues is impact of @graph on framing. Easiest way to deal with that is that framing merges all of these statements. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if a frame includes @graph within it, it is not in a flattened graph space, and the components of each graph are flattened separately. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You flatten, individually in each graph, then you can have semantics where you reference graphs - you traverse into each of the named graphs. Requires how you speak of a graph - some @id matching in a frame, find specific graphs based on their identifiers - not something we wanted to get into right now... perhaps in JSON 1.0, we only support flattened graphs for framing. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  @graph points to an identifier. It's a string, interpreted as an IRI, or an object, or an array of ids/objects.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@id": "id-graph", "@graph": { "@id": "obj-id", ... } }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What happens when you have "@graph": "<a href="http://example.com/#g1"">http://example.com/#g1"</a> ? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It means it's a reference to another graph - you can dereference that URL and get another graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Being able to reference a set of RDF statements is necessary but not sufficient - you would need to add something to the graph itself to state that those statements refer to something else. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is what Manu was concerned about - getting into the "semantics" discussion... we need to stick with the syntax discussion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, but isn't this about syntax? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Not really, both syntax and semantics. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We can just say that you point to an IRI and we don't have to go into the meaning of that IRI, let the RDF WG deal with that. When you dereference that IRI, you insert the graph into the document - but JSON-LD processors don't need to do that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You wouldn't need to go out to the Web and retrieve it? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  no, it's the same thing with other IRIs - we don't have to go out and fetch those either. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If I were to expand a document with @graph referencing a string - I would replace that with an object containing a subject reference. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "@graph": "<a href="http://example.com/#g1"">http://example.com/#g1"</a> == "@graph": { "@id": "http://example.com/#g1" }</div>
+<div class="information">{"@id": foo, "@graph": bar} =&gt; {@id: <a href="http://foo,">http://foo,</a> "@graph: {"@id": "http://bar"}}</div>
+<div class="information">"@id": foo, "@graph": bar} =&gt; {@id: <a href="http://foo,">http://foo,</a> "@graph:[ {"@id": "http://bar"}]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What would it mean if you had an object with {"@id": ... , "@graph": ...} - how is that handled in framing... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If I have a named graph that includes an object that has a named graph, when it is flattened, the identifier for that graph is placed at the top, but all properties are placed into the graph. [scribe assist by Manu Sporny]</div>
+<div class="information">{@id: foo: @graph: {prop: foo, @id: bar, @graph:{ "prop": baz}}}</div>
+<div class="information">[@id: foo: @graph: {@id: bar; prop: foo}}, {@id: bar, @graph {"prop": baz}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What that is saying is this: you have a named graph identified by 'foo', which references and object identified by 'bar' [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @id bar exists in named graph 'foo', and in the default graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you look at the impact on the RDF APIs, it's useful when you take one of these graphs, turn it into RDF and then back into JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When you turn it into RDF, all @graph @ids become the fourth element in a quad. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When you go back to JSON-LD from RDF - then you get the @id and the @graph back, but it removes the nesting. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's the interpretation we could have with framing - the first step in framing is a flattening operation - you could almost flatten by turning the document into RDF, and then back into JSON-LD... The only issue is that you lose order. The JSON-LD algorithm maintains order in the original document. The graphs are isomorphic otherwise. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  general consensus on this approach</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Adopt the 6 points in ISSUE-106 along with Gregg and Longley's proposal for @graph processing in framing as the way we approach named graph support in JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Adopt the 6 points in ISSUE-106 along with Gregg and Longley's proposal for @graph processing in framing as the way we approach named graph support in JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to have a .flatten() API call? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We had a call like that in the original JSON-LD API, but removed it because we weren't using it. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-102: Can JSON-LD keywords be re-defined in the @context?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/102">https://github.com/json-ld/json-ld.org/issues/102</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two options, allow it but warn, next to throw an exeption, 3rd to ignore (except for @type)</div>
+<div class="comment-continuation">… like markus' idea to ignore statements, but if they're invalid, we should throw an exception.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could be a log message instead of an exception.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this is different than document processing, it's an invalid context definition.</div>
+<div class="comment-continuation">… if we ignore the statements, people could have markup in the document that is ignored, but changes meaning if/as/when it is defined.</div>
+<div class="comment-continuation">… this helps avoid a backwards compatibility issue, and that overriding is not allowed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could prevent some innovations with proprietary extensions.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we do address niklasl's use case by allowing @type to be overridden.</div>
+<div class="comment-continuation">… are there other potential innovations?</div>
+<div class="comment-continuation">… we can provide guidance on where innovation is allowed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does this address Niklas' issue? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, except for the fromRDF translation... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We may not need to do anything about that, though. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think he was concerned if re-definition of @type was supported... fromRDF is a concern... but we don't know if it's really an issue. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  JSON-LD keywords MUST NOT be re-defined in the @context. If a JSON-LD processor detects that a JSON-LD keyword is being re-defined, it MUST throw an exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> JSON-LD keywords MUST NOT be re-defined in the @context. If a JSON-LD processor detects that a JSON-LD keyword is being re-defined, it MUST throw an exception.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-103: Re-introduce @datatype as @valuetype</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/103">https://github.com/json-ld/json-ld.org/issues/103</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two things came out of @type discussion:</div>
+<div class="information">1) want @type defined to be something else.</div>
+<div class="information">2) people don't understand that @type has different meanings depends on where it's used.</div>
+<div class="comment-continuation">… question here is if we re-introduce @datatype as @valuetype.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  confusion from RDF people?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  issue from RDF knowledgeable people.</div>
+<div class="comment-continuation">… also, dlongley had a similar problem.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My thought is that it's not compelling enough to make a big change to the language right now. People are looking to us to stabilize the syntax. It's not an unreasonable syntax. It's implemented in different languages, let's not touch this right now. Keep @type as it is right now. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  also think we should stay the same.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  my concern is that @type does two things, one is that it is an alias for rdf:type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  A bit of a concern for me - @type does two things, it's just an alias for rdf:type in one way... if we specify it clearly enough, it's not an issue. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… if we specify enough, that may not be an issue.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we also decided that JSON-LD keywords, including @type, can't be re-defined.</div>
+<div class="comment-continuation">… however, we don't think that impacts niklas' usage.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  wanted to be sure that defined type would be used.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  one of the values of compaction is to know the form of the generated JSON-LD.</div>
+<div class="comment-continuation">… if I want to say that it must be in a list, and I can't re-defined @list, it would be a problem.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  back to issue #103</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not re-introduce typing JSON-LD @value via something like @datatype or @valuetype.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: -0.5</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Do not re-introduce typing JSON-LD @value via something like @datatype or @valuetype.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-92: Limit JSON-LD properties to one @list per property</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/92">https://github.com/json-ld/json-ld.org/issues/92</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in context you define to terms that have the same @id. Both have a @list, when you expand, they're merged.</div>
+<div class="comment-continuation">… the problem comes in expansion, where the order becomes an issue.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  problem isn't in expansion, as order of two lists doesn't matter.</div>
+<div class="comment-continuation">… in compaction, if there is @list containership, it would create a list of lists.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  throw an error when compacting and using a property with @list container with multiple values.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: suggested: During compaction a JSON-LD processor MUST throw an exception when it detects two or more @lists associated with a property that is itself a @container: @list that will become compacted into a single property.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: During compaction a JSON-LD processor MUST throw an exception when it detects two or more @lists associated with a property IRI that is itself a @container: @list</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about how the algorithms currently work and an optimization/clarification.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We may not need to say anything as the spec text may already accomplish this. [scribe assist by Manu Sporny]</div>
+<div class="information">[{@list}, {@list}]</div>
+<div class="information">[[][]]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If I have that - and did simple compaction, it woudl turn into that ^^^ [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This has to do with compaction step 2.2 [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is a corner case of the current spec that we can't support in compaction. I don't think we need to disallow having multiple lists per property just because of this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The spec should say something about this, because it's not straight-forward. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, compaction algorithm should say something about this. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When compacting values with terms that have @container @list, and there are multiple @list values, through an exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="information">also, IRI compaction should not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should combine those statments into one proposal.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If the result of IRI compaction has an @container @list and there are multiple @list values, throw an exception. When doing IRI compaction do not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> If the result of IRI compaction has an @container @list and there are multiple @list values, throw an exception. When doing IRI compaction do not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  JSON-LD allows sets of lists except where it conflicts with the previous resolution.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> JSON-LD allows sets of lists except where it conflicts with the previous resolution.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-91: Re-definition of keywords</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/91">https://github.com/json-ld/json-ld.org/issues/91</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: We had postponed decision on ISSUE-91 because we needed to address the following: 1) if we want to reintroduce @datatype, 2) if keywords can be redefined, 3) if there is an initial context that specifies '@type' as syntactic sugar (@type is just like any other property)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We resolved #1 and #2</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we resolved #1 and #2, we have said that keywords can't be re-defined and so can't be defined in an initial context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/json-ld/json-ld.org/issues/102">https://github.com/json-ld/json-ld.org/issues/102</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I believe what we said is that you can't use "@id" for @type... can you create a context definition that uses "@container": "@set"? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This could be a term selection issue - if we change that, we could address my use case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  During expansion, we don't expand @type to the full IRI anyway. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's sufficient to override the selection in fromRDF() and remove it from IRI compaction. If you have a property like "rdf:type", it wouldn't be affected. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://json-ld.org/spec/latest/json-ld-api/#convert-from-rdf-algorithm">http://json-ld.org/spec/latest/json-ld-api/#convert-from-rdf-algorithm</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  move step 1 in IRI Compaction Algorithm to the end of the algorithm, so that @type is used if no other definition is found, instead of the absolute IRI forrdf</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "rdf:type": { "@id": "test", "label": "labelvalue" } -&gt; expand -&gt; compact -&gt; "@type": { "@id": "test", "label": "labelvalue" }</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Remove step #1; "If iri is rdf;type, return @type." from the Compact IRI algorithm.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Remove step #1: "If iri is rdf:type, return @type." from the Compact IRI algorithm.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add an option to the fromRDF algorithm to skip step 5.6 "If the property is rdf;type use @type" to support the use of a term in place of the @type keyword during conversion from RDF to JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> Add an option to the fromRDF algorithm to skip step 5.6 "If the property is rdf:type use @type" to support the use of a term in place of the @type keyword during conversion from RDF to JSON-LD.</div>
+</body>
+</html>

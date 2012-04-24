@@ -1,0 +1,214 @@
+
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0050.html
+[10:04]	<gkellogg>	scribe: gkellogg
+[10:05]	<manu1>	gkellogg: There is one addition to the agenda, possibly - use of fragment identifiers in JSON-LD - IANA considerations - how fragment identifiers are interpreted.
+[10:06]	<manu1>	manu: Do we need to specify something since it's an IRI?
+[10:06]	<manu1>	gkellogg: Important for follow-your-spec-nose back to MIMEType definition.
+[10:07]	-->|	niklasl (~neuron@83.140.123.154) has joined #json-ld
+[10:07]	<gkellogg>	action: gkellogg to create issue on describing fragid semantics in JSON-LD
+[10:08]	* niklasl	is lurking for a while from the conf. (looks like I'll make it to hour 2 though)
+[10:09]	<manu1>	Topic: WWW2012 Conference
+[10:09]	<gkellogg>	mlnt: talk at WWW2012 on JSON-LD
+[10:10]	<gkellogg>	… TimBL made some disparaging remarks on JSON-LD in a separate discussion.
+[10:10]	<gkellogg>	… the result was to increase attendance at the talk and lead to some realization that JSON-LD is much different than RDF/XML; a more natural fit.
+[10:11]	<gkellogg>	… many big companies interested, but waiting for the spec to become stable.
+[10:11]	<gkellogg>	… there is an issue in adapting existing syntax due to problems in mapping their ids to IRIs.
+[10:12]	<gkellogg>	… some form of IRI template, or JSON-LD macros could help supplement this.
+[10:13]	<gkellogg>	manu: had some discussions. TimBL is off in his criticism.
+[10:13]	<gkellogg>	… RDF/XML is primarily a serialization of RDF in XML. hard to read and hard to use.
+[10:13]	<gkellogg>	… JSON-LD is different; it can be converted to RDF, but it is not principally an RDF serialization.
+[10:14]	<gkellogg>	… It's a linked data format designed for people that already use JSON.
+[10:14]	<gkellogg>	… Important to understand that it is a different kind of linked data format. This seems to have been appreciated by many other people.
+[10:15]	<gkellogg>	… I don't think we should ignore this, but make a concerted blog post to answer the criticism.
+[10:15]	<gkellogg>	... There is some need for IRI templates...
+[10:16]	<gkellogg>	mlnt: mostly talking to REST people having existing JSON APIs. They'd like to upgrade to JSON-LD.
+[10:16]	<gkellogg>	… works if ID is already a relative IRI, but existing identifiers are typically not IRIs.
+[10:16]	<gkellogg>	… a template mechanism would allow them to be coerced to IRIs.
+[10:17]	<gkellogg>	… however, this was not widely understood, and the spec should address.
+[10:17]	<gkellogg>	manu: can we outline a use case?
+[10:18]	<gkellogg>	mlnt: most already had an API in place having the data, but not simple to just add a @context, because the IDs can't just be made into IRIs.
+[10:19]	<manu1>	gkellogg: Did you have any interaction with the Wikidata folks?
+[10:19]	<manu1>	mlnt: Nope, wasn't able to find them at the conference.
+[10:20]	<manu1>	gkellogg: I've done a bit of reaching out to them - updated their JSON-LD page... need to find out where they're going. They may be doing their own proprietary thing.
+[10:21]	<gkellogg>	gkellogg: http://meta.wikimedia.org/wiki/Talk:Wikidata/Data_model
+[10:22]	<voip-ld>	Dave Lehn (SIP/6003-0000007b) has joined the conference.
+[10:23]	<manu1>	gkellogg: There is some concern in there about expressing statements about multiple @graphs
+[10:24]	<manu1>	gkellogg: Reification of statements is an issue - DBPedia makes a separate graph per statement so that they can describe the provenance separately. This is the problem we get into with named graphs - some want to use named graphs for reification of statements, others want to use it to describe a different set of files that are imported (which is how they're used in SPARQL)
+[10:25]	<manu1>	gkellogg: The things are pretty equivalent in a model-theoretic sense. At the snik level, (describes a statement and all assertions about that statement), when you get to a larger wiki - where you have much more stuff involved than just that level of granularity - it isn't as useful. If there is a way to turn the graphs upside-down, instead of having statements that ... graph that references...
+[10:25]	<manu1>	...assertions upon it.
+[10:25]	<manu1>	mlnt: Could we solve that by allow a string value for @graph?
+[10:25]	<manu1>	gkellogg: Could we have something like "@ingraph"?
+[10:26]	<manu1>	gkellogg: These aren't really syntax issues - go through the data model talk page and see if you can make the case for it? This is a natural fit for JSON-LD.
+[10:27]	<manu1>	Topic: ISSUE-106: JSON-LD 1.0 @graph syntax
+[10:27]	<manu1>	https://github.com/json-ld/json-ld.org/issues/106
+[10:27]	-->|	advatar (~advatar@ua-83-227-134-140.cust.bredbandsbolaget.se) has joined #json-ld
+[10:27]	<gkellogg>	manu: discussion on @graph issues.
+[10:27]	<manu1>	Support named graphs by having @id and @graph at the same level, where @id expresses the name of the graph.
+[10:27]	<manu1>	Both IRIs and BNode-like labels (starting with '_:') can be used in @id to name a graph.
+[10:27]	<manu1>	The @graph keyword is alias-able.
+[10:27]	<manu1>	The @graph keyword is always associated with an IRI - in JSON, represented by a string, an object with an @id, or an array of objects with @ids.
+[10:27]	<manu1>	A JSON-LD property MAY be associated with a {"@graph": ...} object.
+[10:27]	<manu1>	The JSON-LD keywords MUST NOT be associated with a {"@graph": ...} object - especially @id and @value.
+[10:29]	-->|	bergie (~bergie@p5DDC4EAE.dip.t-dialin.net) has joined #json-ld
+[10:29]	<manu1>	gkellogg: The documents that we have currently are consistent with these rules.
+[10:30]	<manu1>	gkellogg: We need to discuss how to deal with @graph and framing - that's where it has the biggest impact.
+[10:30]	<manu1>	gkellogg: RDF transformation to-and-from have been updated w/ @graph.
+[10:31]	<mlnt>	"foaf:org": { "@graph": ... } ??
+[10:32]	<manu1>	gkellogg: I think the documents are pretty consistent with this interpretation... biggest outstanding issues is impact of @graph on framing. Easiest way to deal with that is that framing merges all of these statements.
+[10:33]	<manu1>	gkellogg: if a frame includes @graph within it, it is not in a flattened graph space, and the components of each graph are flattened separately.
+[10:33]	<manu1>	gkellogg: You flatten, individually in each graph, then you can have semantics where you reference graphs - you traverse into each of the named graphs. Requires how you speak of a graph - some @id matching in a frame, find specific graphs based on their identifiers - not something we wanted to get into right now... perhaps in JSON 1.0, we only support flattened graphs for framing.
+[10:35]	<gkellogg>	manu: @graph points to an identifier. It's a string, interpreted as an IRI, or an object, or an array of ids/objects.
+[10:35]	<mlnt>	{ "@id": "id-graph", "@graph": { "@id": "obj-id", ... } }
+[10:36]	|<--	niklasl has left freenode (Quit: niklasl)
+[10:37]	<manu1>	mlnt: What happens when you have "@graph": "http://example.com/#g1" ?
+[10:37]	<manu1>	gkellogg: It means it's a reference to another graph - you can dereference that URL and get another graph.
+[10:38]	<manu1>	gkellogg: Being able to reference a set of RDF statements is necessary but not sufficient - you would need to add something to the graph itself to state that those statements refer to something else.
+[10:39]	<manu1>	gkellogg: This is what Manu was concerned about - getting into the "semantics" discussion... we need to stick with the syntax discussion.
+[10:39]	<manu1>	mlnt: Yes, but isn't this about syntax?
+[10:39]	<manu1>	manu: Not really, both syntax and semantics.
+[10:40]	<manu1>	gkellogg: We can just say that you point to an IRI and we don't have to go into the meaning of that IRI, let the RDF WG deal with that. When you dereference that IRI, you insert the graph into the document - but JSON-LD processors don't need to do that.
+[10:40]	<manu1>	mlnt: You wouldn't need to go out to the Web and retrieve it?
+[10:41]	<manu1>	gkellogg: no, it's the same thing with other IRIs - we don't have to go out and fetch those either.
+[10:41]	<manu1>	gkellogg: If I were to expand a document with @graph referencing a string - I would replace that with an object containing a subject reference.
+[10:41]	<mlnt>	"@graph": "http://example.com/#g1" == "@graph": { "@id": "http://example.com/#g1" }
+[10:42]	<gkellogg>	{"@id": foo, "@graph": bar} => {@id: http://foo, "@graph: {"@id": "http://bar"}}
+[10:43]	<gkellogg>	"@id": foo, "@graph": bar} => {@id: http://foo, "@graph:[ {"@id": "http://bar"}]}
+[10:45]	<manu1>	gkellogg: What would it mean if you had an object with {"@id": ... , "@graph": ...} - how is that handled in framing...
+[10:46]	<manu1>	gkellogg: If I have a named graph that includes an object that has a named graph, when it is flattened, the identifier for that graph is placed at the top, but all properties are placed into the graph.
+[10:47]	<gkellogg>	{@id: foo: @graph: {prop: foo, @id: bar, @graph:{ "prop": baz}}}
+[10:48]	<gkellogg>	[@id: foo: @graph: {@id: bar; prop: foo}}, {@id: bar, @graph {"prop": baz}}
+[10:49]	<manu1>	gkellogg: What that is saying is this: you have a named graph identified by 'foo', which references and object identified by 'bar'
+[10:49]	<manu1>	gkellogg: @id bar exists in named graph 'foo', and in the default graph.
+[10:51]	<manu1>	gkellogg: if you look at the impact on the RDF APIs, it's useful when you take one of these graphs, turn it into RDF and then back into JSON-LD.
+[10:52]	<manu1>	gkellogg: When you turn it into RDF, all @graph @ids become the fourth element in a quad.
+[10:52]	<manu1>	gkellogg: When you go back to JSON-LD from RDF - then you get the @id and the @graph back, but it removes the nesting.
+[10:53]	<manu1>	gkellogg: That's the interpretation we could have with framing - the first step in framing is a flattening operation - you could almost flatten by turning the document into RDF, and then back into JSON-LD... The only issue is that you lose order. The JSON-LD algorithm maintains order in the original document. The graphs are isomorphic otherwise.
+[10:54]	<gkellogg>	manu: general consensus on this approach
+[10:55]	<manu1>	PROPOSAL: Adopt the 6 points in ISSUE-106 along with Gregg and Longley's proposal for @graph processing in framing as the way we approach named graph support in JSON-LD.
+[10:55]	<manu1>	+1
+[10:55]	<gkellogg>	+1
+[10:55]	<mlnt>	+1
+[10:56]	<manu1>	RESOLVED: Adopt the 6 points in ISSUE-106 along with Gregg and Longley's proposal for @graph processing in framing as the way we approach named graph support in JSON-LD.
+[10:56]	<manu1>	mlnt: Do we want to have a .flatten() API call?
+[10:57]	<manu1>	manu: We had a call like that in the original JSON-LD API, but removed it because we weren't using it.
+[10:57]	<manu1>	Topic: ISSUE-102: Can JSON-LD keywords be re-defined in the @context?
+[10:57]	<manu1>	https://github.com/json-ld/json-ld.org/issues/102
+[10:58]	<gkellogg>	manu: two options, allow it but warn, next to throw an exeption, 3rd to ignore (except for @type)
+[10:59]	<gkellogg>	… like markus' idea to ignore statements, but if they're invalid, we should throw an exception.
+[10:59]	<gkellogg>	markus: could be a log message instead of an exception.
+[11:00]	<gkellogg>	manu: this is different than document processing, it's an invalid context definition.
+[11:00]	<gkellogg>	… if we ignore the statements, people could have markup in the document that is ignored, but changes meaning if/as/when it is defined.
+[11:00]	<gkellogg>	… this helps avoid a backwards compatibility issue, and that overriding is not allowed.
+[11:01]	<gkellogg>	markus: could prevent some innovations with proprietary extensions.
+[11:01]	<gkellogg>	manu: we do address niklasl's use case by allowing @type to be overridden.
+[11:02]	<gkellogg>	… are there other potential innovations?
+[11:02]	<gkellogg>	… we can provide guidance on where innovation is allowed.
+[11:06]	<manu1>	manu: Does this address Niklas' issue?
+[11:06]	<manu1>	mlnt: Yes, except for the fromRDF translation...
+[11:06]	<manu1>	mlnt: We may not need to do anything about that, though.
+[11:07]	<manu1>	mlnt: I think he was concerned if re-definition of @type was supported... fromRDF is a concern... but we don't know if it's really an issue.
+[11:07]	<manu1>	PROPOSAL: JSON-LD keywords MUST NOT be re-defined in the @context. If a JSON-LD processor detects that a JSON-LD keyword is being re-defined, it MUST throw an exception.
+[11:07]	<gkellogg>	+1
+[11:08]	<manu1>	+1
+[11:08]	<mlnt>	+1
+[11:08]	<manu1>	RESOLVED: JSON-LD keywords MUST NOT be re-defined in the @context. If a JSON-LD processor detects that a JSON-LD keyword is being re-defined, it MUST throw an exception.
+[11:08]	<manu1>	Topic: ISSUE-103: Re-introduce @datatype as @valuetype
+[11:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/103
+[11:08]	<gkellogg>	manu: two things came out of @type discussion:
+[11:09]	<gkellogg>	1) want @type defined to be something else.
+[11:09]	<gkellogg>	2) people don't understand that @type has different meanings depends on where it's used.
+[11:09]	<gkellogg>	… question here is if we re-introduce @datatype as @valuetype.
+[11:09]	<gkellogg>	mlnt: confusion from RDF people?
+[11:10]	<gkellogg>	manu: issue from RDF knowledgeable people.
+[11:10]	<gkellogg>	… also, dlongley had a similar problem.
+[11:11]	-->|	niklasl (~neuron@1-1-4-33a.ras.sth.bostream.se) has joined #json-ld
+[11:11]	<manu1>	gkellogg: My thought is that it's not compelling enough to make a big change to the language right now. People are looking to us to stabilize the syntax. It's not an unreasonable syntax. It's implemented in different languages, let's not touch this right now. Keep @type as it is right now.
+[11:11]	<gkellogg>	markus: also think we should stay the same.
+[11:12]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-0000007c) has joined the conference.
+[11:15]	<gkellogg>	niklas: my concern is that @type does two things, one is that it is an alias for rdf:type.
+[11:15]	<manu1>	niklas: A bit of a concern for me - @type does two things, it's just an alias for rdf:type in one way... if we specify it clearly enough, it's not an issue.
+[11:15]	<gkellogg>	… if we specify enough, that may not be an issue.
+[11:15]	<gkellogg>	manu: we also decided that JSON-LD keywords, including @type, can't be re-defined.
+[11:15]	<gkellogg>	… however, we don't think that impacts niklas' usage.
+[11:16]	<gkellogg>	niklas: wanted to be sure that defined type would be used.
+[11:18]	<gkellogg>	niklasl: one of the values of compaction is to know the form of the generated JSON-LD.
+[11:18]	<gkellogg>	… if I want to say that it must be in a list, and I can't re-defined @list, it would be a problem.
+[11:19]	<gkellogg>	manu: back to issue #103
+[11:19]	<manu1>	PROPOSAL: Do not re-introduce typing JSON-LD @value via something like @datatype or @valuetype.
+[11:19]	<gkellogg>	+1
+[11:19]	<manu1>	+1
+[11:19]	<mlnt>	+1
+[11:20]	<niklasl>	-0.5
+[11:20]	<manu1>	RESOLVED: Do not re-introduce typing JSON-LD @value via something like @datatype or @valuetype.
+[11:20]	<manu1>	Topic: ISSUE-92: Limit JSON-LD properties to one @list per property
+[11:21]	<manu1>	https://github.com/json-ld/json-ld.org/issues/92
+[11:21]	<gkellogg>	manu: in context you define to terms that have the same @id. Both have a @list, when you expand, they're merged.
+[11:22]	<gkellogg>	… the problem comes in expansion, where the order becomes an issue.
+[11:22]	<gkellogg>	mlnt: problem isn't in expansion, as order of two lists doesn't matter.
+[11:22]	<gkellogg>	… in compaction, if there is @list containership, it would create a list of lists.
+[11:24]	<gkellogg>	manu: throw an error when compacting and using a property with @list container with multiple values.
+[11:27]	<manu1>	suggested: During compaction a JSON-LD processor MUST throw an exception when it detects two or more @lists associated with a property that is itself a @container: @list that will become compacted into a single property.
+[11:29]	<mlnt>	During compaction a JSON-LD processor MUST throw an exception when it detects two or more @lists associated with a property IRI that is itself a @container: @list
+[11:31]	<manu1>	Discussion about how the algorithms currently work and an optimization/clarification.
+[11:32]	<manu1>	gkellogg: We may not need to say anything as the spec text may already accomplish this.
+[11:33]	<gkellogg>	[{@list}, {@list}]
+[11:33]	<gkellogg>	[[][]]
+[11:33]	<manu1>	gkellogg: If I have that - and did simple compaction, it woudl turn into that ^^^
+[11:33]	<manu1>	gkellogg: This has to do with compaction step 2.2
+[11:36]	<manu1>	mlnt: This is a corner case of the current spec that we can't support in compaction. I don't think we need to disallow having multiple lists per property just because of this.
+[11:37]	<manu1>	manu: The spec should say something about this, because it's not straight-forward.
+[11:37]	<manu1>	gkellogg: Yes, compaction algorithm should say something about this.
+[11:38]	<gkellogg>	PROPOSAL: When compacting values with terms that have @container @list, and there are multiple @list values, through an exception.
+[11:38]	<gkellogg>	+1
+[11:38]	<manu1>	+1
+[11:40]	<gkellogg>	also, IRI compaction should not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.
+[11:41]	<mlnt>	+1
+[11:43]	<gkellogg>	manu: We should combine those statments into one proposal.
+[11:43]	<mlnt>	PROPOSAL: If the result of IRI compaction has an @container @list and there are multiple @list values, throw an exception. When doing IRI compaction do not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.
+[11:45]	<manu1>	+1
+[11:45]	<gkellogg>	+1
+[11:45]	<mlnt>	+1
+[11:45]	<niklasl>	+1
+[11:46]	<manu1>	RESOLVED: If the result of IRI compaction has an @container @list and there are multiple @list values, throw an exception. When doing IRI compaction do not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.
+[11:47]	<manu1>	PROPOSAL: JSON-LD allows sets of lists except where it conflicts with the previous resolution.
+[11:48]	<manu1>	+1
+[11:48]	<mlnt>	+1
+[11:48]	<gkellogg>	+1
+[11:48]	<niklasl>	+1
+[11:48]	<manu1>	RESOLVED: JSON-LD allows sets of lists except where it conflicts with the previous resolution.
+[11:48]	<manu1>	Topic: ISSUE-91: Re-definition of keywords
+[11:48]	<manu1>	https://github.com/json-ld/json-ld.org/issues/91
+[11:49]	<manu1>	We had postponed decision on ISSUE-91 because we needed to address the following: 1) if we want to reintroduce @datatype, 2) if keywords can be redefined, 3) if there is an initial context that specifies '@type' as syntactic sugar (@type is just like any other property)
+[11:50]	<manu1>	We resolved #1 and #2
+[11:51]	<manu1>	niklasl: If we resolved #1 and #2, we have said that keywords can't be re-defined and so can't be defined in an initial context.
+[11:51]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/102
+[11:53]	<manu1>	gkellogg: I believe what we said is that you can't use "@id" for @type... can you create a context definition that uses "@container": "@set"?
+[11:54]	<manu1>	niklas: This could be a term selection issue - if we change that, we could address my use case.
+[11:55]	<manu1>	mlnt: During expansion, we don't expand @type to the full IRI anyway.
+[11:55]	<manu1>	gkellogg: I think it's sufficient to override the selection in fromRDF() and remove it from IRI compaction. If you have a property like "rdf:type", it wouldn't be affected.
+[11:57]	<gkellogg>	http://json-ld.org/spec/latest/json-ld-api/#convert-from-rdf-algorithm
+[11:58]	<gkellogg>	PROPOSAL: move step 1 in IRI Compaction Algorithm to the end of the algorithm, so that @type is used if no other definition is found, instead of the absolute IRI forrdf:type.
+[12:00]	<manu1>	+1
+[12:00]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000077) has left the conference.
+[12:00]	<niklasl>	+1
+[12:00]	* gkellogg	dropped, dialing back in.
+[12:00]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000007d) has joined the conference.
+[12:01]	<gkellogg>	+1
+[12:03]	<voip-ld>	Manu Sporny (SIP/6000-00000079) has left the conference.
+[12:03]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000007a) has left the conference.
+[12:03]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000007e) has joined the conference.
+[12:03]	<voip-ld>	Manu Sporny (SIP/6000-0000007f) has joined the conference.
+[12:04]	<mlnt>	"rdf:type": { "@id": "test", "label": "labelvalue" } -> expand -> compact -> "@type": { "@id": "test", "label": "labelvalue" }
+[12:08]	<mlnt>	PROPOSAL: Remove step #1; "If iri is rdf;type, return @type." from the Compact IRI algorithm.
+[12:09]	<niklasl>	+1
+[12:09]	<mlnt>	+1
+[12:09]	<gkellogg>	+1
+[12:09]	<manu1>	+1
+[12:10]	<manu1>	RESOLVED: Remove step #1: "If iri is rdf:type, return @type." from the Compact IRI algorithm.
+[12:12]	<manu1>	PROPOSAL: Add an option to the fromRDF algorithm to skip step 5.6 "If the property is rdf;type use @type" to support the use of a term in place of the @type keyword during conversion from RDF to JSON-LD.
+[12:12]	<gkellogg>	+1
+[12:12]	<niklasl>	+1
+[12:12]	<manu1>	+1
+[12:12]	<mlnt>	+1
+[12:12]	<manu1>	RESOLVED: Add an option to the fromRDF algorithm to skip step 5.6 "If the property is rdf:type use @type" to support the use of a term in place of the @type keyword during conversion from RDF to JSON-LD.
+
