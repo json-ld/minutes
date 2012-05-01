@@ -1,0 +1,252 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-05-01</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0057.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0057.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-96: Should framing results be object or array</a><li><a href="#topic-2">ISSUE-97: Frame expansion</a><li><a href="#topic-3">ISSUE-80: Remove initial context from API spec</a><li><a href="#topic-4">ISSUE-107: Fragment identifier interpretation</a><li><a href="#topic-5">ISSUE-98: Datatype coercion of native types</a><li><a href="#topic-6">RDF WG and JSON-LD</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">The result of framing MUST be an object with a @context and @graph property. The value of @graph is always an array containing zero or more results.</a><li><a href="#resolution-2">For framing, use a combination of @preserve and @null, which are replaced in post-processing to avoid the problem of them disappearing during expansion or compaction.</a><li><a href="#resolution-3">If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.</a><li><a href="#resolution-4">In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.</a><li><a href="#resolution-5">When round-tripping xsd:boolean values from JSON-LD through expansion and back through compaction, a JSON-native boolean value with xsd:boolean datatype coersion will remain a JSON-native boolean value.</a><li><a href="#resolution-6">@value supports native JSON datatypes such as number, boolean, string.</a><li><a href="#resolution-7">During expansion, a native JSON value with type coercion applied gets expanded to the expanded object form where the value of @value is still in the native JSON form and @type is the type in the type coercion rule.</a><li><a href="#resolution-8">When compacting, if there is a direct match for @type for the property and @type for the property in the context, then the value of the property is replaced with the value of @value.</a><li><a href="#resolution-9">Introduce a 'useNativeTypes' flag for the fromRDF algorithm which, when set, attempts to convert xsd:boolean, xsd:integer, and xsd:double to native JSON values. If the conversion fails the value will be converted to the expanded object notation form.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, Dave Longley, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates or changes to Agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Let's start with the easy ones - let's start with 96 and 97 [scribe assist by Manu Sporny]</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-96: Should framing results be object or array</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/96">https://github.com/json-ld/json-ld.org/issues/96</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I believe you guys resolved this already on the issue tracker</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  previously framing always returned an array where each object contained an context embedded which didn't make sense for me and Markus</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The result of framing MUST be an object with a @context and @graph property. The value of @graph is always an array containing zero or more results.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1 (via issue tracker)</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> The result of framing MUST be an object with a @context and @graph property. The value of @graph is always an array containing zero or more results.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-97: Frame expansion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/97">https://github.com/json-ld/json-ld.org/issues/97</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this had to do with default values and null values in framing as nulls would have been removed</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we use the @preserve and @null keyword now with a postprocessing step.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is something the implementers figured out between themselves and we're happy with the solution, so let's just resolve this as done since nobody seems to disagree with the current direction.</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> For framing, use a combination of @preserve and @null, which are replaced in post-processing to avoid the problem of them disappearing during expansion or compaction.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I already closed the issue</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-80: Remove initial context from API spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/80">https://github.com/json-ld/json-ld.org/issues/80</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus outlined that updating @type e.g. with @container by relying on the initial context is problematic</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  and we never considered to use the init. context for something else</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's a mistake we made in RDFa - we could have gone around a lot of backwards-incompatability issues by doing so</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could say that in JSON-LD the initial context is blank but this could be used to change functionality in future versions of JSON-LD</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can't see how this helps as an existing processor wouldn't understand that new information</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's not a full solution for that but it's better than not having it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could put prefix definitions in there</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what should we put in there?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  same as in RDFa?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-LD is slightly different</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about whether or not xsd and rdf are useful to pre-define. Markus' position is that it is only important to RDF folks and JSON folks probably won't care about those types of datatypes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Gregg's position is that xsd is used heavily in the spec and has a place in the initial context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is an advantage to saying that there is a default context - processors MUST load it, even if it is empty. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a URL that we define in the spec that is the location of the default context - as part of expansion, all processors must load that context before doing any other processing or when resetting back to the default context. [scribe assist by Manu Sporny]</div>
+<div class="information">would that mean that a processor without network access wouldn't work at all?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  no, it would work but fall back on a build in initial context - meaning the processor has to be updated regularly</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We saw this as a very useful feature in RDFa - it would behoove us to learn from the past and put this future-proofing mechanism in there. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We seem to agree that if there is an initial context, it should be external to the spec. Markus is still skeptical that we need such a feature. Both Gregg and I feel that it is a good future-proofing mechanism - one that we definitely needed in the RDFa world and one that we think we might also need here. </div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 with emphasis on IF</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-107: Fragment identifier interpretation</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/107">https://github.com/json-ld/json-ld.org/issues/107</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  IANA and W3C and WWW-TAG groups require us to define what fragment identifiers mean for MIME Types. Keep in mind that this means what fragment identifiers mean in documents, not necessarily what they mean when IRIs with fragment identifiers are used in documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Markus is proposing: In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what I like on Markus' proposal is that it is about an abstract concept and not a structural element which could be encoded twice in a document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I would like to be able that a browser would be able to jump to something</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  for that we could say it should jump to the first instance.. I don't know if that's something we have to specify</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I prefer Markus' proposal</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm fine with it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't need to put it in the spec</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in terms of locating onself in a document?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  in the example are these full IRIs that are encoded (foo and bar)?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it could as well be just a fragment identifier which would be expanded to a full IRI by taking the document IRI</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the question is what a fragment identifier means when it references a JSON-LD document</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: NOTE: The group has discussed what graphical clients should do when given a JSON-LD fragment identifier and have come to the following conclusion: If an implementer is developing a client to view JSON-LD markup and wants to implement a feature for navigating to a fragment identifier in a JSON-LD document, the client software should navigate to the first definition of the fragment identifier in the JSON-LD document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The group doesn't believe that we need to put this into the spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could we talk about ISSUE-98 now?</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-98: Datatype coercion of native types</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/98">https://github.com/json-ld/json-ld.org/issues/98</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This started when Gregg started to discuss what should happen to native types... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We had a number of discussions around this, but I think that Dave Longley and I said that datatype coercion should apply to native types - during expansion, those native types should be converted to strings. That should fall back on the JSON processors .toString() capabilities, probably. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In RDF round-tripping, native types get automatically type coerced to xsd:integer - they are converted back automatically when converting from RDF to JSON-LD. Longley didn't agree with that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In compaction, strings are never converted to native types, all that happens there is the value is replaced with whatever value was in "@value" if the type matches. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Conversion between native types and strings happen automatically - so a "14"^^xsd:integer would be converted to 14 in JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We may want to have a flag to turn automatic conversion on/off since Longley doesn't agree that we should do the auto-conversion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have a consistency issue - any processing of JSON-LD requires you to expand. Any use of native types will be replaced with strings after doing expansion, compaction, framing or RDF conversion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have lost the ability to retain the native types. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Native types are retained unless you have coercion. If you have a numeric type and you have a numeric conversion, you don't need to transform the type. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  native types are not transformed at all, they remain in their form through expansion/compaction if their meaning is ambiguous. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Type coercion only has effect for strings. It doesn't have an effect for something in native value form, it only has effect for something that is a string. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you specify type coercion, it should always apply. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Then, as an author that wants to use native types, I can do so as long as I don't coerce them to an xsd:integer type. If I have 5, and I say xsd:integer, I can't express it with a number. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  things expressed as boolean integer or double always compact down to their native representations when there is no loss involved. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could depend on the 'strict' flag to tell us when an inconsistency is seen. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you have 5, and you coerce to xsd:double - how would you preserve that in expansion? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that we're discussing a few different issues at the same time. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could move all that automatic conversion to fromRDF/toRDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's similar to Turtle which has native forms for integers, booleans etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could have a flag there to keep strings or convert to native types as Markus suggested</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the xsd types are there to describe how data is stored in computers.. in JSON we do the same even though JSON is crippled as it just has "number"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about what we're discussing - we're talking about how booleans, doubles and integers are round-tripped between compaction/expansion and to/from RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm really concerned that we could have a case where an author specifies true in JSON-native form, expands, then compacts and gets back the string "true". [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  During compaction/expansion, if something is a native form, can we just leave it that way? Do we all agree on that? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Native types stay native types... that's good. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If there is no type coercion rule - we keep the native type. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to use xsd:double or xsd:integer - do they expect it to convert to a JSON type? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's the closest approximation we have. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  xsd:integer and xsd:double is about interoperability. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you don't put any type coercion information into your context, then anything that is a string will stay a string unless you do conversion toxsd:integer in the @context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We get into trouble if we force incoming triples that have xsd:integer to be converted to native type, that's a mistake. We could lose precision. It could make people not want to use it as a data transport mechanism. etc. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Let's separate this from a to/from RDF issue, let's just talk about compaction at this point. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we just use compaction/expansion - if we start with something that is native form, I don't end up with something that is native form. If we don't want to get into automatic conversion, if something is in a native type - it stays in that native type. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What information have you lost? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  You don't know if the number is a double or not - you no longer know if you're working with an integer or a double. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is an issue - 5 (xsd:double) -&gt; expansion -&gt; 5 (no way to know that it is supposed to be an xsd:double)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We want to end up with this: "@value": 5, "@type": "xsd:double"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The issue we have is JSON-LD: 4 (xsd:double) -&gt; expanded 4 -&gt; [[[long discussion about example]] [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Gregg is proposing that we can do: "@value": 5, "@type": "xsd:double" in expanded form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My worry is JSON-LD true -&gt; expansion "true" -&gt; compaction "true" - data doesn't round trip correctly in JSON-LD compaction/expansion. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When round-tripping xsd;boolean values from JSON-LD through expansion and back through compaction, a JSON-native boolean value with xsd</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> When round-tripping xsd:boolean values from JSON-LD through expansion and back through compaction, a JSON-native boolean value with xsd:boolean datatype coersion will remain a JSON-native boolean value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about "principles of expected behavior" - there is such a thing as a native type, if they want to preserve a native type they must be able to do so.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  @value supports native JSON datatypes such as number, boolean, string.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> @value supports native JSON datatypes such as number, boolean, string.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The native value true should expand to {"@value": true, "@type": "whatever_value_they specified} [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  When compacting, @value stays the same if the datatype matches. Or it is kept in expanded form if the datatype does not match. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  During expansion, a native JSON value with type coercion applied gets expanded to the expanded object form where the value of @value is still in the native JSON form and @type is the type in the type coercion rule.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@value": true, "@type": "xsd:integer"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> During expansion, a native JSON value with type coercion applied gets expanded to the expanded object form where the value of @value is still in the native JSON form and @type is the type in the type coercion rule.</div>
+<div class="information">{"@value": true, "@type": "xsd:integer"} -&gt; compaction with term with xsd:double -&gt; {"@value": true, "@type": "xsd:integer"}</div>
+<div class="information">{"@value": true, "@type": "xsd:integer"} -&gt; compaction with term with xsd:integer -&gt; true</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  In strict mode, do we raise an exception for the last thing Markus just said? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think so, yes. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When compacting, if there is a direct match for @type for the property and @type for the property in the context, then the value of the property is replaced with the value of @value.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: So, for example: This is your data: "foo": {"@value": true, "@type": "xsd:boolean"}, this is in the @context "foo": {"@id": "...", "@type": "xsd:boolean"}, then this is the result: "foo": true</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> When compacting, if there is a direct match for @type for the property and @type for the property in the context, then the value of the property is replaced with the value of @value.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Introduce a 'useNativeTypes' flag for the fromRDF algorithm which, when set, attempts to convert xsd;boolean, xsd;integer, and xsd;double to native JSON types. If the conversion fails the value will be converted to the expanded object notation form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: one quick thought: I was thinking about how we have a flag in fromRDF now to decide whether or not rdf:type should map to @type ... maybe we just want to do the same thing for all of the xsd stuff. In other words, in compaction/expansion, don't deal with the meaning of xsd at all; just always leave things in their native form (but include @type information when expanding like we agreed, just consider it opaque). Only when</div>
+<div class="comment"><span class="name">Dave Longley</span>: converting to/from RDF, would special conversion rules apply (to convert natives to another form). We could use mappings instead of flags with defaults to xsd. We could introduce@double/@integer/ @boolean just for that specific purpose (only used as mapping options in to/from RDF), eg: @integer =&gt; xsd:integer and vice versa. afk.</div>
+<div id="resolution-9" class="resolution"><strong>RESOLUTION:</strong> Introduce a 'useNativeTypes' flag for the fromRDF algorithm which, when set, attempts to convert xsd:boolean, xsd:integer, and xsd:double to native JSON values. If the conversion fails the value will be converted to the expanded object notation form.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  pretty much what we were discussing. [scribe assist by Gregg Kellogg]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  having a flag whose default value is true is a bit awkward</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  useNativeTypes set to 'true' is a bit awkward - if we have a flag which is used to get to the unusual case of just using expanded form, it would be more intuitive - what's the appropriate name for the flag to trigger that. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-6" class="topic">Topic: RDF WG and JSON-LD</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: I have notified the RDF WG that we think the JSON-LD Syntax is stable and that we introduced the concept of named graphs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: JSON-LD is stable: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012Apr/0274.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012Apr/0274.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: JSON-LD introduced named graphs: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012Apr/0275.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012Apr/0275.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should send a response to Sandro about the usage of Layer instead of graph - probably don't want to use layer. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll do that. [scribe assist by Manu Sporny]</div>
+</body>
+</html>

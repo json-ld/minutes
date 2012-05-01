@@ -1,0 +1,184 @@
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Apr/0057.html
+[10:04]	<manu1>	scribe: mlnt
+[10:05]	<manu1>	manu: Any updates or changes to Agenda?
+[10:05]	<manu1>	mlnt: Let's start with the easy ones - let's start with 96 and 97
+[10:05]	<manu1>	Topic: ISSUE-96: Should framing results be object or array
+[10:06]	<manu1>	https://github.com/json-ld/json-ld.org/issues/96
+[10:06]	<mlnt>	manu: I believe you guys resolved this already on the issue tracker
+[10:06]	<mlnt>	gregg: previously framing always returned an array where each object contained an context embedded which didn't make sense for me and Markus
+[10:07]	<manu1>	PROPOSAL: The result of framing MUST be an object with a @context and @graph property. The value of @graph is always an array containing zero or more results.
+[10:07]	<gkellogg>	+1
+[10:07]	<manu1>	+1
+[10:07]	<mlnt>	+1
+[10:07]	<dlongley> +1 (via issue tracker)
+[10:07]	<manu1>	RESOLVED: The result of framing MUST be an object with a @context and @graph property. The value of @graph is always an array containing zero or more results.
+[10:08]	<manu1>	Topic: ISSUE-97: Frame expansion
+[10:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/97
+[10:08]	<mlnt>	gregg: this had to do with default values and null values in framing as nulls would have been removed
+[10:08]	<mlnt>	gregg: we use the @preserve and @null keyword now with a postprocessing step.
+[10:08]	<mlnt>	manu: This is something the implementers figured out between themselves and we're happy with the solution, so let's just resolve this as done since nobody seems to disagree with the current direction.
+[10:09]	<manu1>	RESOLVED: For framing, use a combination of @preserve and @null, which are replaced in post-processing to avoid the problem of them disappearing during expansion or compaction.
+[10:09]	<mlnt>	gregg: I already closed the issue
+[10:10]	<manu1>	Topic: ISSUE-80: Remove initial context from API spec
+[10:10]	<manu1>	https://github.com/json-ld/json-ld.org/issues/80
+[10:11]	<mlnt>	gregg: Markus outlined that updating @type e.g. with @container by relying on the initial context is problematic
+[10:12]	<mlnt>	gregg: and we never considered to use the init. context for something else
+[10:12]	<mlnt>	manu: that's a mistake we made in RDFa - we could have gone around a lot of backwards-incompatability issues by doing so
+[10:13]	<mlnt>	manu: we could say that in JSON-LD the initial context is blank but this could be used to change functionality in future versions of JSON-LD
+[10:14]	<mlnt>	gregg: I can't see how this helps as an existing processor wouldn't understand that new information
+[10:14]	<mlnt>	manu: it's not a full solution for that but it's better than not having it
+[10:15]	<mlnt>	gregg: we could put prefix definitions in there
+[10:16]	<mlnt>	manu: what should we put in there?
+[10:16]	<mlnt>	gregg: same as in RDFa?
+[10:16]	<mlnt>	manu: JSON-LD is slightly different
+[10:21]	<manu1>	Discussion about whether or not xsd and rdf are useful to pre-define. Markus' position is that it is only important to RDF folks and JSON folks probably won't care about those types of datatypes.
+[10:22]	<manu1>	Gregg's position is that xsd is used heavily in the spec and has a place in the initial context.
+[10:22]	<manu1>	gregg: There is an advantage to saying that there is a default context - processors MUST load it, even if it is empty.
+[10:23]	<manu1>	gregg: There is a URL that we define in the spec that is the location of the default context - as part of expansion, all processors must load that context before doing any other processing or when resetting back to the default context.
+[10:25]	<mlnt>	would that mean that a processor without network access wouldn't work at all?
+[10:27]	<mlnt>	gregg: no, it would work but fall back on a build in initial context - meaning the processor has to be updated regularly
+[10:29]	<voip-ld>	Dave Lehn (SIP/6003-0000008a) has joined the conference.
+[10:34]	<manu1>	gregg: We saw this as a very useful feature in RDFa - it would behoove us to learn from the past and put this future-proofing mechanism in there.
+[10:34]	<manu1>	We seem to agree that if there is an initial context, it should be external to the spec. Markus is still skeptical that we need such a feature. Both Gregg and I feel that it is a good future-proofing mechanism - one that we definitely needed in the RDFa world and one that we think we might also need here. 
+[10:34]	<manu1>	PROPOSAL: If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.
+[10:35]	<manu1>	+1
+[10:35]	<gkellogg>	+1
+[10:35]	<mlnt>	+1 with emphasis on IF
+[10:35]	<taaz>	+0
+[10:35]	<manu1>	RESOLVED: If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.
+[10:36]	<manu1>	Topic: ISSUE-107: Fragment identifier interpretation
+[10:36]	<manu1>	https://github.com/json-ld/json-ld.org/issues/107
+[10:37]	<mlnt>	manu: IANA and W3C and WWW-TAG groups require us to define what fragment identifiers mean for MIME Types. Keep in mind that this means what fragment identifiers mean in documents, not necessarily what they mean when IRIs with fragment identifiers are used in documents.
+[10:38]	<manu1>	Markus is proposing: In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.
+[10:38]	<mlnt>	gregg: what I like on Markus' proposal is that it is about an abstract concept and not a structural element which could be encoded twice in a document
+[10:38]	<mlnt>	manu: I would like to be able that a browser would be able to jump to something
+[10:39]	<mlnt>	gregg: for that we could say it should jump to the first instance.. I don't know if that's something we have to specify
+[10:39]	<mlnt>	gregg: I prefer Markus' proposal
+[10:39]	<mlnt>	manu: I'm fine with it
+[10:40]	<mlnt>	manu: we don't need to put it in the spec
+[10:40]	<mlnt>	gregg: in terms of locating onself in a document?
+[10:40]	<mlnt>	manu: yes
+[10:41]	<mlnt>	taaz: in the example are these full IRIs that are encoded (foo and bar)?
+[10:41]	<mlnt>	manu: it could as well be just a fragment identifier which would be expanded to a full IRI by taking the document IRI
+[10:43]	<manu1>	PROPOSAL: In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.
+[10:43]	<mlnt>	gregg: the question is what a fragment identifier means when it references a JSON-LD document
+[10:43]	<manu1>	+1
+[10:43]	<mlnt>	+1
+[10:43]	<gkellogg>	+1
+[10:43]	<taaz>	+1
+[10:43]	<manu1>	RESOLVED: In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.
+[10:46]	<manu1>	NOTE: The group has discussed what graphical clients should do when given a JSON-LD fragment identifier and have come to the following conclusion: If an implementer is developing a client to view JSON-LD markup and wants to implement a feature for navigating to a fragment identifier in a JSON-LD document, the client software should navigate to the first definition of the fragment identifier in the JSON-LD document.
+[10:46]	<gkellogg>	+1
+[10:46]	<manu1>	+1
+[10:46]	<mlnt>	+1
+[10:47]	<manu1>	The group doesn't believe that we need to put this into the spec.
+[10:47]	<mlnt>	mlnt: could we talk about ISSUE-98 now?
+[10:47]	<manu1>	Topic: ISSUE-98: Datatype coercion of native types
+[10:47]	<manu1>	https://github.com/json-ld/json-ld.org/issues/98
+[10:48]	<manu1>	mlnt: This started when Gregg started to discuss what should happen to native types...
+[10:49]	<manu1>	mlnt: We had a number of discussions around this, but I think that Dave Longley and I said that datatype coercion should apply to native types - during expansion, those native types should be converted to strings. That should fall back on the JSON processors .toString() capabilities, probably.
+[10:50]	<manu1>	mlnt: In RDF round-tripping, native types get automatically type coerced to xsd:integer - they are converted back automatically when converting from RDF to JSON-LD. Longley didn't agree with that.
+[10:51]	<manu1>	mlnt: In compaction, strings are never converted to native types, all that happens there is the value is replaced with whatever value was in "@value" if the type matches.
+[10:52]	<manu1>	mlnt: Conversion between native types and strings happen automatically - so a "14"^^xsd:integer would be converted to 14 in JSON-LD.
+[10:52]	<manu1>	mlnt: We may want to have a flag to turn automatic conversion on/off since Longley doesn't agree that we should do the auto-conversion.
+[10:53]	<manu1>	gregg: We have a consistency issue - any processing of JSON-LD requires you to expand. Any use of native types will be replaced with strings after doing expansion, compaction, framing or RDF conversion.
+[10:53]	<manu1>	gregg: We have lost the ability to retain the native types.
+[10:53]	<manu1>	markus: Native types are retained unless you have coercion. If you have a numeric type and you have a numeric conversion, you don't need to transform the type.
+[10:54]	<manu1>	gregg: native types are not transformed at all, they remain in their form through expansion/compaction if their meaning is ambiguous.
+[10:54]	<manu1>	gregg: Type coercion only has effect for strings. It doesn't have an effect for something in native value form, it only has effect for something that is a string.
+[10:55]	<manu1>	markus: If you specify type coercion, it should always apply.
+[10:55]	<manu1>	gregg: Then, as an author that wants to use native types, I can do so as long as I don't coerce them to an xsd:integer type. If I have 5, and I say xsd:integer, I can't express it with a number.
+[10:56]	<manu1>	gregg: things expressed as boolean integer or double always compact down to their native representations when there is no loss involved.
+[10:56]	<manu1>	gregg: We could depend on the 'strict' flag to tell us when an inconsistency is seen.
+[10:56]	<manu1>	markus: If you have 5, and you coerce to xsd:double - how would you preserve that in expansion?
+[11:02]	<manu1>	manu: I'm concerned that we're discussing a few different issues at the same time.
+[11:03]	<mlnt>	manu: we could move all that automatic conversion to fromRDF/toRDF
+[11:03]	<mlnt>	gregg: it's similar to Turtle which has native forms for integers, booleans etc.
+[11:03]	<mlnt>	gregg: we could have a flag there to keep strings or convert to native types as Markus suggested
+[11:06]	<mlnt>	gregg: the xsd types are there to describe how data is stored in computers.. in JSON we do the same even though JSON is crippled as it just has "number"
+[11:10]	<manu1>	Discussion about what we're discussing - we're talking about how booleans, doubles and integers are round-tripped between compaction/expansion and to/from RDF.
+[11:11]	<voip-ld>	Dave Longley (SIP/6002-0000008b) has joined the conference.
+[11:11]	<manu1>	gregg: I'm really concerned that we could have a case where an author specifies true in JSON-native form, expands, then compacts and gets back the string "true".
+[11:13]	<manu1>	dlongley: During compaction/expansion, if something is a native form, can we just leave it that way? Do we all agree on that?
+[11:13]	<manu1>	gregg: Native types stay native types... that's good.
+[11:16]	<manu1>	dlongley: If there is no type coercion rule - we keep the native type.
+[11:16]	<manu1>	markus: Do we want to use xsd:double or xsd:integer - do they expect it to convert to a JSON type?
+[11:17]	<manu1>	dlongley: It's the closest approximation we have.
+[11:17]	<manu1>	markus: xsd:integer and xsd:double is about interoperability.
+[11:18]	<manu1>	dlongley: If you don't put any type coercion information into your context, then anything that is a string will stay a string unless you do conversion toxsd:integer in the @context.
+[11:18]	-->|	scor (~scor@132.183.242.211) has joined #json-ld
+[11:18]	|<--	scor has left freenode (Changing host)
+[11:18]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[11:18]	<manu1>	dlongley: We get into trouble if we force incoming triples that have xsd:integer to be converted to native type, that's a mistake. We could lose precision. It could make people not want to use it as a data transport mechanism. etc.
+[11:18]	<manu1>	gregg: Let's separate this from a to/from RDF issue, let's just talk about compaction at this point.
+[11:19]	<manu1>	gregg: If we just use compaction/expansion - if we start with something that is native form, I don't end up with something that is native form. If we don't want to get into automatic conversion, if something is in a native type - it stays in that native type.
+[11:19]	<manu1>	markus: What information have you lost?
+[11:20]	<manu1>	dlongley: You don't know if the number is a double or not - you no longer know if you're working with an integer or a double.
+[11:21]	<mlnt>	mlnt: This is an issue - 5 (xsd:double) -> expansion -> 5 (no way to know that it is supposed to be an xsd:double)
+[11:22]	<mlnt>	mlnt: We want to end up with this: "@value": 5, "@type": "xsd:double"
+[11:22]	<manu1>	dlongley: The issue we have is JSON-LD: 4 (xsd:double) -> expanded 4 -> [[[long discussion about example]]
+[11:23]	<manu1>	Gregg is proposing that we can do: "@value": 5, "@type": "xsd:double" in expanded form.
+[11:24]	<manu1>	gregg: My worry is JSON-LD true -> expansion "true" -> compaction "true" - data doesn't round trip correctly in JSON-LD compaction/expansion.
+[11:25]	<manu1>	q+
+[11:25]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[11:31]	<manu1>	PROPOSAL: When round-tripping xsd;boolean values from JSON-LD through expansion and back through compaction, a JSON-native boolean value with xsd:boolean datatype coersion will remain a JSON-native boolean value.
+[11:31]	<manu1>	+1
+[11:32]	<gkellogg>	+1
+[11:32]	<dlongley>	+1
+[11:32]	<taaz>	+0
+[11:33]	<mlnt>	+1
+[11:33]	<manu1>	RESOLVED: When round-tripping xsd:boolean values from JSON-LD through expansion and back through compaction, a JSON-native boolean value with xsd:boolean datatype coersion will remain a JSON-native boolean value.
+[11:35]	<manu1>	Discussion about "principles of expected behavior" - there is such a thing as a native type, if they want to preserve a native type they must be able to do so.
+[11:37]	<manu1>	PROPOSAL: @value supports native JSON datatypes such as number, boolean, string.
+[11:37]	<mlnt>	+1
+[11:37]	<manu1>	+1
+[11:37]	<gkellogg>	+1
+[11:37]	<dlongley>	+1
+[11:37]	<taaz>	+1
+[11:37]	<manu1>	RESOLVED: @value supports native JSON datatypes such as number, boolean, string.
+[11:38]	<manu1>	gregg: The native value true should expand to {"@value": true, "@type": "whatever_value_they specified}
+[11:39]	<manu1>	dlongley: When compacting, @value stays the same if the datatype matches. Or it is kept in expanded form if the datatype does not match.
+[11:41]	<manu1>	PROPOSAL: During expansion, a native JSON value with type coercion applied gets expanded to the expanded object form where the value of @value is still in the native JSON form and @type is the type in the type coercion rule.
+[11:41]	<mlnt>	+1
+[11:41]	<dlongley>	+1
+[11:41]	<manu1>	+1
+[11:41]	<gkellogg>	{"@value": true, "@type": "xsd:integer"}
+[11:42]	<gkellogg>	+1
+[11:42]	<taaz>	+0
+[11:42]	<manu1>	RESOLVED: During expansion, a native JSON value with type coercion applied gets expanded to the expanded object form where the value of @value is still in the native JSON form and @type is the type in the type coercion rule.
+[11:42]	<voip-ld>	Dave Longley (SIP/6002-0000008b) has left the conference.
+[11:45]	<mlnt>	{"@value": true, "@type": "xsd:integer"} -> compaction with term with xsd:double -> {"@value": true, "@type": "xsd:integer"}
+[11:45]	<mlnt>	{"@value": true, "@type": "xsd:integer"} -> compaction with term with xsd:integer -> true
+[11:49]	<manu1>	manu: In strict mode, do we raise an exception for the last thing Markus just said?
+[11:49]	<manu1>	gregg: I think so, yes.
+[11:52]	<manu1>	PROPOSAL: When compacting, if there is a direct match for @type for the property and @type for the property in the context, then the value of the property is replaced with the value of @value.
+[11:52]	<gkellogg>	+1
+[11:52]	<mlnt>	+1
+[11:52]	<manu1>	+1
+[11:52]	<taaz>	+0
+[11:53]	<manu1>	So, for example: This is your data: "foo": {"@value": true, "@type": "xsd:boolean"}, this is in the @context "foo": {"@id": "...", "@type": "xsd:boolean"}, then this is the result: "foo": true
+[11:53]	<gkellogg>	+1
+[11:53]	<manu1>	RESOLVED: When compacting, if there is a direct match for @type for the property and @type for the property in the context, then the value of the property is replaced with the value of @value.
+[11:58]	<manu1>	PROPOSAL: Introduce a 'useNativeTypes' flag for the fromRDF algorithm which, when set, attempts to convert xsd;boolean, xsd;integer, and xsd;double to native JSON types. If the conversion fails the value will be converted to the expanded object notation form.
+[11:58]	<gkellogg>	+1
+[11:58]	<mlnt>	+1
+[11:58]	<taaz>	+0
+[11:58]	<manu1>	+1
+[11:58]	<dlongley>	one quick thought: I was thinking about how we have a flag in fromRDF now to decide whether or not rdf:type should map to @type ... maybe we just want to do the same thing for all of the xsd stuff. In other words, in compaction/expansion, don't deal with the meaning of xsd at all; just always leave things in their native form (but include @type information when expanding like we agreed, just consider it opaque). Only when
+[11:58]	<dlongley>	converting to/from RDF, would special conversion rules apply (to convert natives to another form). We could use mappings instead of flags with defaults to xsd. We could introduce@double/@integer/ @boolean just for that specific purpose (only used as mapping options in to/from RDF), eg: @integer => xsd:integer and vice versa. afk.
+[11:59]	<manu1>	RESOLVED: Introduce a 'useNativeTypes' flag for the fromRDF algorithm which, when set, attempts to convert xsd:boolean, xsd:integer, and xsd:double to native JSON values. If the conversion fails the value will be converted to the expanded object notation form.
+[11:59]	<gkellogg>	dlongley: pretty much what we were discussing.
+[12:00]	<voip-ld>	Manu Sporny (SIP/6000-00000087) has left the conference.
+[12:00]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000088) has left the conference.
+[12:00]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000089) has left the conference.
+[12:00]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-0000008c) has joined the conference.
+[12:00]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000008d) has joined the conference.
+[12:01]	<voip-ld>	Manu Sporny (SIP/6000-0000008e) has joined the conference.
+[12:02]	<mlnt>	gregg: having a flag whose default value is true is a bit awkward
+[12:02]	<manu1>	gregg: useNativeTypes set to 'true' is a bit awkward - if we have a flag which is used to get to the unusual case of just using expanded form, it would be more intuitive - what's the appropriate name for the flag to trigger that.
+[12:03]	<manu1>	Topic: RDF WG and JSON-LD
+[12:04]	<manu1>	I have notified the RDF WG that we think the JSON-LD Syntax is stable and that we introduced the concept of named graphs.
+[12:04]	<gkellogg>	JSON-LD is stable: http://lists.w3.org/Archives/Public/public-rdf-wg/2012Apr/0274.html
+[12:04]	<gkellogg>	JSON-LD introduced named graphs: http://lists.w3.org/Archives/Public/public-rdf-wg/2012Apr/0275.html
+[12:06]	<manu1>	gregg: We should send a response to Sandro about the usage of Layer instead of graph - probably don't want to use layer.
+[12:06]	<manu1>	manu: I'll do that.
