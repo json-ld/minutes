@@ -1,0 +1,282 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-05-08</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012May/0001.html">http://lists.w3.org/Archives/Public/public-linked-json/2012May/0001.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-115: Expanded form - expand all native types to @value form?</a><li><a href="#topic-2">ISSUE-114: Values space of keywords</a><li><a href="#topic-3">ISSUE-112: Define mandatory API parameters (options)</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">In general, for expansion, ensure that all property values are expressed in expanded value form (e.g. {"@value": 5}, {"@value": "foo"}, {"@id": "http://example.com/"}) with the exception of @id and @type.</a><li><a href="#resolution-2">In expanded form, @graph must be expressed in expanded value form (e.g. "@graph": [{"@id": "http://example.com/foo#graph}])</a><li><a href="#resolution-3">In general, if the author's intent is clear, we should transform the input into proper JSON-LD (keeping the processor mode, if any, in mind - in strict mode, throw exceptions, in lax mode, attempt to interpret the value).</a><li><a href="#resolution-4">When converting toRDF(), any value that is a JSON number that has a fractional value MUST be treated as an xsd:double using the printf("%1.15E", number) representation.</a><li><a href="#resolution-5">There are no mandatory options in the JSON-LD API. Defaults must be specified for all options passed to JSON-LD API methods.</a><li><a href="#resolution-6">The default for the base IRI for JSON-LD API methods is the current document IRI if in a browser context, or the empty string if there is no document context.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Niklas Lindström, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any additions or changes to the agenda?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Should we address the syntax-related ones first?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can only be here for one hour.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Rearrange the agenda to deal with syntax issues...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Let's talk about the ones that Niklas wants to weigh in on.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-115: Expanded form - expand all native types to @value form?</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/115">https://github.com/json-ld/json-ld.org/issues/115</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This issue came up in IRC, discussion about framing - there are different ways to express a value in JSON-LD - plain literals, or a JSON number, etc. Directly as a property value or via @value - in expanded form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  With regard to @graph, it was an issue with subject references - should it be in expanded form {"@id": "<a href="http://graph.id/foo/bar"}">http://graph.id/foo/bar"}</a> or just "http://graph.id/foo/bar" - the @value issue is only one of the issues.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Does expanded form really mean "expanded", or do we do some amount of compaction in expanded form?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I always saw expanded form in as just IRI expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Not just IRI expansion but primarily IRI expansion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the intent in the beginning for expanded form was to have a regular data structure that you could easily code against - the more regular, the easier it is.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  My issue with this is that we may not want to go all the way on this - we may want to do a slight amount of compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have two issues here 1) whether or not to expand @graph to have a value of a JSON object with "@id" in it in expanded form, and 2) whether or not all values get expanded to a JSON object containing "@value" in expanded form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one concern that you have, Markus, is the amount of overhead expanded form has.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Most of the time you just deal with the native datatypes and that is enough - that is, expanded form is not very useful for JSON developers.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Would regular JSON developers like to deal with expanded form at all?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Would they want to use compact form more often?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, the shape of RDF/JSON is always predictable - but it's illegible for anyone expecting plain old JSON. The expanded form of JSON-LD is very similar to RDF/JSON in expanded form.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think we should expand anything that is predictable in a less expanded form... which kind of developer are we catering for...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That's a bit difficult, everyone has their own idea on how this is going to be used.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Based on the shape of the expanded form, we should expect that people want to get it into their JS and just do something with it... this is an information exchange format for extremely detailed info.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Since all IRIs are expanded, it makes it very useful.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, but only if you want to express the RDF description - it's middleware.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's not the type of JSON that a developer would typically expect... that's what framing and compaction are for. Expansion is to get something in a more normal form so it can be further processed. Every time I have a property, the value is expressed as an array of objects - that simplifies things.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, exactly, you should always be able to know what to look at next - normal form is good.</div>
+<div class="information">Manu explains the logic behind the current direction.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Example of how this makes things simpler?</div>
+<div class="information">Manu explains converting to n-triples and branching.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This not only applies to N-Triples - you have to check the value of each property - is it a number, a boolean, a string, or a JSON object? There is going to be branching, but it does simplify the logic in the program.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we don't do this, but allow plain values directly - you'd have to first check if it is an object - it's a more complex algorithm if we mix the types.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is very consistent with how similar formats work - SPARQL and RDF/JSON - there is a regularity in their shapes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think there is broad agreement between Gregg, Niklas, Dave Longley and myself on this being the proper direction.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I won't block if you guys agree - still have a hard time seeing the value in this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can always rewind this decision later if it turns out to be a bad idea.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, @id, @type, and possibly @graph are the only things that are not expanded to @value form?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Still need to discuss @graph, but yes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  hmm</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There hasn't been much support for literals as identifiers over the past 10 years... mint a new IRI scheme if you need to -myid:FooBar</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In general, for expansion, ensure that all property values are expressed in expanded value form (e.g. {"@value"; 5}, {"@value"; "foo"}, {"@id"; "http;//example.com/"}) with the exception of @id and @type.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> In general, for expansion, ensure that all property values are expressed in expanded value form (e.g. {"@value": 5}, {"@value": "foo"}, {"@id": "<a href="http://example.com/"})">http://example.com/"})</a> with the exception of @id and @type.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Next question we need to address is whether or not @graph is expanded value form in expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Is there any reason to have graph expanded?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's more modular code to process it if we express it in expanded value form - and we have a clear way of supporting literal names for graphs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Postel's rule - strict in what you generate, lenient in what a processor does.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Authors/processors must not generate this in expanded form: "@graph": "<a href="http://foo.bar/"">http://foo.bar/"</a> - but a processor must read that as an IRI if it sees it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In the case of @graph, my processor acts as if there is a coercion to @id (it can be a relative IRI), or you could use a fragment ID in that case.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is this the right way to go, Markus?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Based on the previous train of logic, yes.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In expanded form, @graph must be expressed in expanded value form (e.g. "@graph"; [{"@id"; "http;//example.com/foo#graph}])</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> In expanded form, @graph must be expressed in expanded value form (e.g. "@graph": [{"@id": "<a href="http://example.com/foo#graph}])">http://example.com/foo#graph}])</a></div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  When compacting what happens?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Act as if there is a coercion to @id</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we were to accept values, which we don't currently, they would be kept in expanded form - for numbers, booleans, (if that would ever make sense) - keep it in expanded form.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's worth noticing, this doesn't result in any RDF...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have this so you could name a linked graph - a property that references a graph with an IRI - this thing names the reference resource using the @id of the object containing graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Wouldn't it be easier to understand if we keep the expanded form in this case?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think so - in compact form, we should keep this shape.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "@graph": "<a href="http://example.com/foo#graph"">http://example.com/foo#graph"</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That is ambiguous, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not ambiguous, processing rules tell you exactly how to treat that...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you know the spec, then yes - but for someone that doesn't know what's going on - they're not going to understand that that's a graph that is elsewhere?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "prop": "test", "@graph": "<a href="http://example.com/foo#graph"">http://example.com/foo#graph"</a> }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If I just glanced at it, I'd expect that to be the graph identifier.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, I see.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we want to allow a linked representation of graphs - if I have one document that names a graph that is identified as being in another document - having that as an IRI is a natural way to express that, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could make that illegal - this seems like a HTTPRange-14 issue - you can't interpret the document w/o the reference to it to interpret the document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm saying that we shouldn't compact that by default.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe that's a named graph with no content - how would I express that I'm not identifying an empty graph - I'm referencing another document.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This seems like a conflation between syntax and semantics. I can't really see the use case for this.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The problem with named graphs is that there is only one name - what is the context in which you're naming - in WikiData, they want to name each statement with it's own provenance - it requires the SNIK to be encapsulated inside another object that contains provenance information.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Having stuff at the granularity where you're naming makes it more difficult - you want a different dimension on name in that case - being able to remotely reference a graph allows you to have the same triples associated within the same context - if you only have one dimension of naming, you can't do that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't see why this specific construct addresses your use case, Gregg. Seems like you need reification to solve that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  reification seems like it's being obsoleted.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This comes back to the notion of JSON-LD being Linked Data and the ability to link to graphs being named.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not simply an object or an array of objects, but also potentially subject references that could be strings that are IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Fundamental question is do we want to enable linking to external documents and naming them using the named graph syntax, or not? If not, is there some better way to express the intention that the subject reference is intended to have the document dereferenced.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... "@graph": [ {"@id": "<a href="http://example.com/foo#graph,">http://example.com/foo#graph,</a> "@graph": [ {"@id": s, p: o} ] }, ... ]</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-114: Values space of keywords</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/114">https://github.com/json-ld/json-ld.org/issues/114</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: (the above is a graph of graphs, each triple in its own named graph)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is not really an issue - more of trying to get an understanding - what's the value space of the different keywords? Does @type support just strings, or arrays of objects?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I want us to all agree on the value space of all of our keywords.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The case for @type and @id is if it can accept {"@id": "<a href="http://example.com"}">http://example.com"}</a> ?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Given postels law coming up before - we might want to define the value space of the keywords - but accept something more. We allow stranger values to appear, but we turn them back into something not awful.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The concern is making implementations more complex.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, XHTML vs. HTML5.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The goal would be to try and standardize the way weird things are interpreted in JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is syntactic normality and then semantic normality - this has more to do with semantic normality.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Like, do we allow arrays for @id? We say it's not valid, but then we might say that if a JSON-LD processor sees it, pick the first item in the array.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, we could do something like that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could have a part in the API spec that states how a processor reacts when it meets multiple values when it expects a single value. If it expects a string and is presented with an object, then it deals with it in another way.</div>
+<div class="information">Discussion about value spaces described in ISSUE-114 by Markus.</div>
+<div class="information">General agreement that the list generated by Markus is good, modulo that @graph shouldn't allow "string" and @list and @set should be expanded upon to make it more clear about the types of permutations allowed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Should we throw an exception when value space is messed up?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No, we have a "recovery value space" - so, if somebody uses {"@id": "<a href="http://schema.org/Person"}">http://schema.org/Person"}</a> w/ @type, we can still interpret it - exception is thrown in strict mode, otherwise modified in lax mode.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you turn of @type in fromRDF - I don't know why we'd support coercion to @type later on.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have to support coercion of keywords to other things - normal JSON allows a context for that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Are you talking about coercion to type @type.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  a JSON document won't have RDF type in there.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is Postel's law built into JSON-LD - when parsing input, are we forgiving of the form of that input?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Do we turn it into a more normal form or not - that's what strict mode does - it allows you to be pedantic about your input.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  However, in lax mode - we should do what we can to allow it... if the value-space is that of a subject definition or subject reference - it's to be interpreted as an IRI.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If it's unambiguous, we can do something about it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, but implementers need to know when to throw an exception.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We should discuss the most forgiving mode the implementation has to support - we should discuss the least forgiving case as well and what the value space there is.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we accept things that are not in array form - that is, when the author's intention is clear then we should support the transformation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  As a general rule - we're saying: If the author's intent is clear, we should transform it into proper JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we should call it 'preferred' form instead of 'strict'.</div>
+<div class="information">Discussion about what "form" means...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The "preferred form" is the way you should express your form... but we read in forms that are non-preferred, but in which the author's intent is clear.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  My concern when I wrote this issue was to define the input value space for a processor.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In general, if the author's intent is clear, we should transform the input into proper JSON-LD (keeping the processor mode, if any, in mind - in strict mode, throw exceptions, in lax mode, attempt to interpret the value).</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 for the first part</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> In general, if the author's intent is clear, we should transform the input into proper JSON-LD (keeping the processor mode, if any, in mind - in strict mode, throw exceptions, in lax mode, attempt to interpret the value).</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need a way to make the test suite set processor mode flags.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What about when you expect that an exception should be thrown?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  nope, not yet - need to update the test suite.</div>
+<div class="information">ISSUE-81: Data round tripping issue (not enough precision)</div>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/81">https://github.com/json-ld/json-ld.org/issues/81</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we agreed that when expanding, the value is kept as-is last week. We don't convert when expanding/compacting or framing. That moved the issue to RDF conversion.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think Dave Longley said that we should add options that express how to deal with each of the different primitive datatypes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That was about which datatype is used - xsd:boolean or xsd:integer - but not about %1.15E.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a normalized form for each of the XSD types - normalized form is very close to %1.15E - trailing zeroes in the fractional part are trimmed, extra leading zeros in mantissa are trimmed as well. %1.15E always uses two characters and then all 15 digitals.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Couldn't we just say that we rely on the underlying toString() function to convert to decimal string?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if all implementations do the same thing, yes - if not we can't do that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We're going to/from the abstract syntax - the representation of a decimal is the abstract representation - a string with a datatype %1.15E</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If I go to/from TURTLE, there may be no transformation made when we turn it into the expanded form - Markus' point is that by requiring this format transformation, we're doing something different from other RDF representation - why not just use toString().</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Our tests are testing the value-space, but not the abstract value space.</div>
+<div class="information">Discussion on what underlying JSON implementations use to support doubles - 32-bit, 64-bit, or 128-bit...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't have a strong opinion about 64-bit or 128-bit conversions.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why don't we express the output as a 64-bit floating point representation?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Any processor should be able to express 1.15E consistently - if we don't do that and rely upon toString() - someone might implement tests against values and twootherwise-conforming implementations might fail.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  from a practicality point of view - we can't just do JSON value-space conformance tests...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/81#issuecomment-4686154">https://github.com/json-ld/json-ld.org/issues/81#issuecomment-4686154</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When converting toRDF(), any value that is a JSON number that has a fractional value MUST be treated as an xsd;double using the printf("%1.15E", number) representation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> When converting toRDF(), any value that is a JSON number that has a fractional value MUST be treated as an xsd:double using the printf("%1.15E", number) representation.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-112: Define mandatory API parameters (options)</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/112">https://github.com/json-ld/json-ld.org/issues/112</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think having mandatory options is a bit odd - if it's an option, it's not mandatory.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can't necessarily do that for something like base IRI - well, I guess we could specify that the default for base IRI is "_:"?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Or if the base IRI is not set, the processor should try to use the base IRI of the document if it is known.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  For the fromRDF() case, you may have flags like "@boolean" - the use of that, results in a native JSON representation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are options to control this behavior for each native type.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is fine - but we have to specify this somewhere. The base has to be passed if the document is passed as an already parsed object and it has IRIs in it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So you're saying, if a document is parsed that does not have a location, then the base IRI must be set to an absolute IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We require it all the time, or we throw an exception when you find a relative IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In TURTLE, it's common for the output to be output in relative form. I don't see another RDF processor that requires that a base IRI be provided.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Why don't we just use "_:" as the base IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That requires us to remap all blank nodes in expansion?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could say that behavior is processor-dependent - I typically default it to example.com.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That allows you to take a format that you can see - allows you to see that it's illegal.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we don't expand it to a full IRI or blank node, it's properties would get dropped.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could set it to '<a href="http://'">http://'</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Is it really bad to throw an exception in this case?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Not really, no.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the playground sets the base IRI</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why not just set it to the document IRI, and then "<a href="http://example.com/"">http://example.com/"</a> if that doesn't exist - I don't think developers would have an issue with that?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In this case, I treat it as if it is an absolute IRI w/o validating it as such.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Can a property ever be a relative IRI?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In my case, it's not a property - if a property is a relative IRI, it's dropped. For subjects and objects are expanded relative to base, but in the absence of base, they're just used directly.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you specify a relative IRI via @id in the @context, what happens.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@context": { "term": { "@id": "relative" } } }</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's resolved against base.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  There are no mandatory options in the JSON-LD API. Defaults must be specified for all options passed to JSON-LD API methods.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> There are no mandatory options in the JSON-LD API. Defaults must be specified for all options passed to JSON-LD API methods.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@id": "#foo", "@type": "bar"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: @prefix rdf: &lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;">http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</a> .</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: &lt;#foo&gt; a &lt;bar&gt; .</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The default for the base IRI for JSON-LD API methods is the current document IRI if in a browser context, or the empty string if there is no document context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> The default for the base IRI for JSON-LD API methods is the current document IRI if in a browser context, or the empty string if there is no document context.</div>
+</body>
+</html>

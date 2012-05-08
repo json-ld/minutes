@@ -40,7 +40,7 @@
 [10:33]	<manu1>	gkellogg: Still need to discuss @graph, but yes.
 [10:33]	<manu1>	markus: hmm
 [10:33]	<manu1>	manu: There hasn't been much support for literals as identifiers over the past 10 years... mint a new IRI scheme if you need to -myid:FooBar
-[10:35]	<manu1>	PROPOSAL: In general, for expansion, ensure that all property values are expressed in expanded value form (e.g. {"@value": 5}, {"@value": "foo"}, {"@id": "http://example.com/"}) with the exception of @id and @type.
+[10:35]	<manu1>	PROPOSAL: In general, for expansion, ensure that all property values are expressed in expanded value form (e.g. {"@value"; 5}, {"@value"; "foo"}, {"@id"; "http;//example.com/"}) with the exception of @id and @type.
 [10:36]	<gkellogg>	+1
 [10:36]	<niklasl>	+1
 [10:36]	<manu1>	+1
@@ -55,7 +55,7 @@
 [10:43]	<manu1>	gkellogg: In the case of @graph, my processor acts as if there is a coercion to @id (it can be a relative IRI), or you could use a fragment ID in that case.
 [10:44]	<manu1>	manu: Is this the right way to go, Markus?
 [10:44]	<manu1>	markus: Based on the previous train of logic, yes.
-[10:45]	<manu1>	PROPOSAL: In expanded form, @graph must be expressed in expanded value form (e.g. "@graph": [{"@id": "http://example.com/foo#graph}])
+[10:45]	<manu1>	PROPOSAL: In expanded form, @graph must be expressed in expanded value form (e.g. "@graph"; [{"@id"; "http;//example.com/foo#graph}])
 [10:45]	<gkellogg>	+1
 [10:45]	<manu1>	+1
 [10:45]	<niklasl>	+1
@@ -158,7 +158,7 @@
 [11:41]	<manu1>	gkellogg: Any processor should be able to express 1.15E consistently - if we don't do that and rely upon toString() - someone might implement tests against values and twootherwise-conforming implementations might fail.
 [11:42]	<manu1>	gkellogg: from a practicality point of view - we can't just do JSON value-space conformance tests...
 [11:43]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/81#issuecomment-4686154
-[11:49]	<manu1>	PROPOSAL: When converting toRDF(), any value that is a JSON number that has a fractional value MUST be treated as an xsd:double using the printf("%1.15E", number) representation.
+[11:49]	<manu1>	PROPOSAL: When converting toRDF(), any value that is a JSON number that has a fractional value MUST be treated as an xsd;double using the printf("%1.15E", number) representation.
 [11:49]	<gkellogg>	+1
 [11:49]	<manu1>	+1
 [11:49]	<mlnt>	+0
