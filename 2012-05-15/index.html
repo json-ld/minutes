@@ -1,0 +1,257 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-05-15</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012May/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2012May/0005.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Finishing up the JSON-LD Syntax document</a><li><a href="#topic-2">ISSUE-100: Should the JSON-LD API have a "mode": "strict" flag?</a><li><a href="#topic-3">ISSUE-116: Introduce @extension keyword?</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">JSON-LD will support a JSON-LD Processor Event mechanism that will report certain events (to be decided later) via a callback given through JSON-LD API calls.</a><li><a href="#resolution-2">The JSON-LD Processor Event callback would be registered for every JSON-LD API call, and would provide the type of event and the data associated with the event for the callback. This mechanism would be used to report potential errors, warnings and when the processing of the document was complete.</a><li><a href="#resolution-3">When a JSON-LD processor processes input that would result in an exception, it should instead call the JSON-LD Processor Event callback with data concerning the issue that was detected.</a><li><a href="#resolution-4">Do not support the @extension keyword at this point in time.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Manu Sporny, Markus Lanthaler, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Finishing up the JSON-LD Syntax document</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  need to put some last changes in the Syntax spec before submitting to the RDF WG.</div>
+<div class="comment-continuation">… Is it ready? Is there more cleanup necessary.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the last issue on the agenda may be syntax related.</div>
+<div class="comment-continuation">… there's also the formally defined grammar.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could create a section for the grammar and finalize after it goes to the WG.</div>
+<div class="comment-continuation">… @type could also be discussed after it's presented to the RDF WG</div>
+<div class="comment-continuation">… when presenting, we should know how to resolve outstanding issues.</div>
+<div class="comment-continuation">… we should add the two open issues as issue markers in the spec.</div>
+<div class="comment-continuation">… then we can ask for comments and push to an FPWD through RDF WG.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  what is the process once it goes into the RDF WG.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  typically, they would create a task force to propose something to bring back.</div>
+<div class="comment-continuation">… we could say we believe it's ready to be formalized and published as a rec-track doc.</div>
+<div class="comment-continuation">… we'd try to get all of us in the RDF WG so that we could discuss it.</div>
+<div class="comment-continuation">… almost immediately, do an FPWD, and the WG can raise issues on the spec.</div>
+<div class="comment-continuation">… then there is a request for implementations.</div>
+<div class="comment-continuation">… have to figure out how the CR phase should go.</div>
+<div class="comment-continuation">… Then PR and REC. Hopefully a tighter release schedule than RDFa.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  do we want it so finished that there won't be any significant discussion?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the people in this group need to be on the same page before going in to avoid fracturing within the WG.</div>
+<div class="comment-continuation">… if we had a fundamental disagreement about what @graph means, that could get dragged out.</div>
+<div class="comment-continuation">… it could help focus their discussions, or it could blow things up.</div>
+<div class="comment-continuation">… If it were not working well in the RDF WG, it could go to a different group, or that a new one could be created.</div>
+<div class="comment-continuation">… however, it would be good to have more eyes on the work than a new group might bring.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we go into RDF WG, is there a mechanism to move it someplace else?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, that happened with HTML+RDFa, for example.</div>
+<div class="comment-continuation">… this is often done when things get "stuck". In the worst case, there's a spec out there that people can use.</div>
+<div class="comment-continuation">… less likely to be an issue about JSON-LD than there was about HTML+RDFa.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we've seen some different perspectives on how people want to use JSON-LD, but I think we've settled on the general "shape".</div>
+<div class="comment-continuation">… There might be some issue with the overloaded meaning of @type. I probably wouldn't mind re-introducing @datatype, but we might try to make the current use more convincing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we might fixate on this as being a big deal, but that it's not really the issue after all.</div>
+<div class="comment-continuation">… there's no-one in the group that is disingenuous. If there's a lot of negative feedback, we might regroup.</div>
+<div class="comment-continuation">… a couple of people in the group have read it, and most of the comments have been grammatical, not technical.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we would present the syntax and not the API document, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes. We're not putting out the API document yet, because we want to see how people actually use it.</div>
+<div class="comment-continuation">… this allows people to see that the syntax is solid first.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  framing is important. we should have some slack.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think people may have questions about how the RDF conversion works - not having an API spec to reference could create more issues. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the docs there, it's just that there might not be a normative link.</div>
+<div class="comment-continuation">… we could say the reasons whey there is not a normative link, but continue to reference it.</div>
+<div class="comment-continuation">… this allows us to focus on the syntax, and not get into more complex areas until it's more widely used.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One of my concerns is about named graphs - it seems like as they go on, they create more issues. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If JSON-LD goes in, and there are various issues around a non-normative API - it may cause us to spin. JSON-LD might be different as it doesn't have to do with core semantics - doesn't need to be a pedantic discussion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's why we all need to be on the same page.</div>
+<div class="comment-continuation">… the way we address that is to describe our process for creating what's there. The core semantics can be figured out later, by a different group of experts.</div>
+<div class="comment-continuation">… up until now, they haven't had a concrete need for it to be done. JSON-LD puts some pressure on that takes a stand.</div>
+<div class="comment-continuation">… we can then see if this allows consensus to form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're splitting hairs on implementation details in the API; we're in good agreement about the core principles.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I t think we have general agreement; we're down to possible changes in expanded form.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  possible reservation about issue #120, which could be a hint that overloading @type is problematic</div>
+<div class="comment-continuation">… for me, datatype has some meaning separate from type.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  should we put more work in to a primer?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ideally, we'd have a primer, which is a quick read.</div>
+<div class="comment-continuation">… the beginning of the syntax doc is something like a primer, though.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  my approach was that of the novice JSON programmer, who wants to know how to turn is date into Linked data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could put up a wiki, but then it doesn't get edited.</div>
+<div class="comment-continuation">… everyone here has commit rights to the repo, so we should just put up a page.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We may just want a portion of the website that has examples - just examples that they can browse through and see things. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I had some ideas, that are more like stories. One would be a generalized approach for legal information.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's create an examples page that could list a bunch of examples, and then clicking on it could reach out to JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  plan of action to make one more pass through syntax doc and tell the RDF WG we're ready to have it discussed there.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we would all transfer into the RDF WG, and the community group would pretty much go away.</div>
+<div class="comment-continuation">… Work would proceed within the RDF WG.</div>
+<div class="comment-continuation">… if we're successful, we'll be the first CG to get a rec-track spec out.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: (we need a logo and t-shirts)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: :-)</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-100: Should the JSON-LD API have a "mode": "strict" flag?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/100">https://github.com/json-ld/json-ld.org/issues/100</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  first question, have a strict more or validate option in the API.</div>
+<div class="comment-continuation">… second, if there is a mode, should there be just strict and lax or strict, match and lax?</div>
+<div class="comment-continuation">… strict raises errors on any errors.</div>
+<div class="comment-continuation">… match would just drop problematic data</div>
+<div class="comment-continuation">… lax would try to change things based on authors intent.</div>
+<div class="comment-continuation">… a fourth option would be a lint option.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  don't really see the need for these options. JSON-LD isn't intended for human use, so there may not be anyone to "see" that there's an issue. If we don't through an exception, it could just be lost.</div>
+<div class="comment-continuation">… we had said that JSON-LD should be as forgiving as possible. Note sure what these modes do in algorithmic terms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  base concern is that we started out by saying that it should be forgiving; this should be the default probably.</div>
+<div class="comment-continuation">… in general, we want it to be forgiving; but there are cases where having a forgiving process is not ideal; it could create more complex code or allow bad data to be introduced.</div>
+<div class="comment-continuation">… one of the reasons developers prefer JSON to XML is because it's readable.</div>
+<div class="comment-continuation">… key concerns: we'd burden a subset of developers. Some want exceptions thrown when anything unusual happens. Others don't really care about error cases.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we're doing fromRDF and we get something unusual (say "five"^^xsd:integer)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. &lt;&gt; dc:creator "Some Body" vs. &lt;&gt; dc:creator [ foaf:name "Some Body" ]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if I was importing RDF data, and I had data that didn't match what I expected, then throwing an exception in that case might be useful. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I might switch from "strict" to "lax" when I go from development to production mode. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Jena does seem to do some checking, and I've used that to find JSON errors before.</div>
+<div class="comment-continuation">… I would really make use of all three modes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in HTML5 we learned that people use bad formats, but people expect it to work.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: s/find JSON errors/find RDF datatype errors/</div>
+<div class="comment-continuation">… people prefer something that recover when they can. This says that strict mode shouldn't be the default.</div>
+<div class="comment-continuation">… there are a subset of people that care about things that are wrong.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we changed conversion of native types to just fromRDF, so it's not as much of an issue.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. &lt;&gt; dc:created "today" =&gt; "created": {"@id": "dc:created", "@type": "xsd:date"} =&gt; different effects depending on mode</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What the developer needs is potentially something that we can't consider in this group - such as linting - that should be done outside of this group. Maybe we want to be a bit softer - "do stuff w/o any normative language on what should be done". That gives implementers a hook to use that as a basis for doing their own linters or pedantic checkers. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this term would never be choosen in compaction because the type doesn't match [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  or are you talking about fromRDF()? [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We want to give developers a hook to make implementing this easier. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we should come up with the list and decide upon that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ah, right. With this rule I think my case for compaction is safe. in fromRDF, I think if no term is found, it's ok if the full iri fordc:created is used with an expanded literal form. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Strict mode flag when applied to anything that uses expansion, would warn about ignored data - either properties or data. Strict mode flag in compaction would do the expansion and report on problems applying the context to the data. In framing, it would warn you about syntax issues in the frame in addition to issues inexpansion/compaction. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Data type checking comes in when you go from RDF into JSON-LD - and depends on how you do the translation. If booleans/doubles need to be converted into native types. If they ask that "five" be transformed intoxsd:integer, but they cannot be translated into native form. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I see the use case in from RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What happens if you do this - "@id": 5 [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… this could warn about native datatypes which don't match the lexical representation. I don't see the value for compaction, expansion, framing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It would be very bad for us to error out on simple issues like "@id": 5 - that's what XHTML1 did and it didn't solve any issues. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  RDFa does this via processor graphs - don't know if we want to introduce this concept to JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's pretty clear to me that we need a flag. There are some things where we found that we need it. Processors should do "best-effort" when producing JSON-LD. Maybe there is a callback instead of an exception mechanism. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I like that - instead of a flag, the APIs take an extra callback - "onError()"? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You could have a single closure associated with the data - and the program would halt if the callback responds back with a "false" - which means "stop processing". [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  for example, .expand() has a callback... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could use the JSONLD callback to report the issue - the 'type' of the error, and a 'message', and based on the class of the error - there is some other data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, but we should have the list. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we should - but the fundamental question here is - do we have mode strict/lax mode? or do we have JSON-LD processing events? I prefer JSON-LD processing events. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  JSON-LD will support a JSON-LD Processor Event mechanism that will report certain events (to be decided later) via a callback given through JSON-LD API calls.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 (In general)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 (in general as well)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (with details regarding error handling filled in later on)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0!</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> JSON-LD will support a JSON-LD Processor Event mechanism that will report certain events (to be decided later) via a callback given through JSON-LD API calls.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about whether or not we should re-use 'callback' in the JSON-LD API.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.w3.org/TR/websockets/#the-websocket-interface">http://www.w3.org/TR/websockets/#the-websocket-interface</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In a perfect world - we might split these out into different methods - maybe... but I don't write code like that. The code paths become quite difficult in this case... you end up having processing separated "spatially" throughout the document. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this often makes code more complex, as code is scattered across the page. This argues for a single callback. You don't want to overwhelm developers with options.</div>
+<div class="comment-continuation">… this callback is called whenever a processing event happens. If you don't want to stop with errors, always return true.</div>
+<div class="comment-continuation">… with a JSON-LD processor, you tell it to do something, and give it a callback which is used whenever there is some "event", including the end of processing.</div>
+<div class="comment-continuation">… if you need to break it out, the developer does that inline. This give power to the developer.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  getting an event with type and message is an easy way to start. If we see that adding multiple callbacks reduces complexity, we can add later.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/TR/websockets/#event-definitions">http://www.w3.org/TR/websockets/#event-definitions</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the Event Definitions from web sockets looks like a model we could follow.</div>
+<div class="comment-continuation">… we could give options to developers on how they want these to resolve.</div>
+<div class="comment-continuation">… for example, we could allow them to handle datatype transforms.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The JSON-LD Processor Event callback would be registered for every JSON-LD API call, and would provide the type of event and the data associated with the event for the callback. This mechanism would be used to report potential errors, warnings and when the processing of the document was complete.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0 (really need some implementations to valididate all these ideas)</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> The JSON-LD Processor Event callback would be registered for every JSON-LD API call, and would provide the type of event and the data associated with the event for the callback. This mechanism would be used to report potential errors, warnings and when the processing of the document was complete.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could let the developer decide how to detail how to deal with bad data.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The corollary here is that whenever we say that the processor should raise an exception - we call the callback. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When a JSON-LD processor processes input that would result in an exception, it should instead call the JSON-LD Processor Event callback with data concerning the issue that was detected.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 for browser implementations</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> When a JSON-LD processor processes input that would result in an exception, it should instead call the JSON-LD Processor Event callback with data concerning the issue that was detected.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-116: Introduce @extension keyword?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/116">https://github.com/json-ld/json-ld.org/issues/116</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does anybody think we need to do this? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Not I. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We would just ignore @extension now, so they could do that... we'd just ignore it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  Validation is an interesting use case - we don't do that now... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  It's important to think about how validation could be integrated into JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Well, it would be ignored. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  we need to iterate on the JSON validator; it's not "easy".</div>
+<div class="comment-continuation">… If you had a generic extension mechanism, it would at least allow people to experiment.</div>
+<div class="comment-continuation">… there are probably better ways to do validation than we do now; perhaps operating on triples.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  I don't think our (Digital Bazaar's) JSON-LD validator is easy... we need to iterate more before proposing something. I dont' think we want to force any particular validation mechanism on anyone. There is probably a better way to do validation than the way we're doing - more Semantic Webby operating on triples vs. the tree approach we're currently using. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've recently used SPARQL 1.1 and 'schemarama" which helps.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: are we not resolving this issue?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: actually, yeah let's do that.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: look at your clock :)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: takes 2 minutes if we agree :-)</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support the @extension keyword at this point in time.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1 but we should look at the use case for this and figure out how to provide the needed hooks</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: @extension may not be right, but we probably need something for this</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Do not support the @extension keyword at this point in time.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: hmm. i'm unsure about this. i think maybe the @extension request is not even the right issue to be raising. it would be better written as how to support such things as validation and schemas</div>
+</body>
+</html>
