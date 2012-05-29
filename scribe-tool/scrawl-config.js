@@ -15,10 +15,25 @@
          "alias": ["danja"],
          "homepage": "http://dannyayers.com/"
       },
+      "David Wood":
+      {
+         "alias": ["prototypo"],
+         "homepage": "http://prototypo.blogspot.com/"
+      },
+      "François Daoust":
+      {
+         "alias": ["tidoust"],
+         "homepage": "https://twitter.com/tidoust"
+      },
       "Henri Bergius":
       {
          "alias": ["bergie"],
          "homepage": "http://bergie.iki.fi/about/"
+      },
+      "Ivan Herman":
+      {
+         "alias": ["ivan_herman"],
+         "homepage": "http://www.w3.org/People/Ivan/"
       },
       "Nicolas Dufour":
       {
@@ -70,6 +85,11 @@
       {
          "alias": ["manu-db", "manu1", "manu`"],
          "homepage": "http://manu.sporny.org/about"
+      },
+      "Richard Cyganiak":
+      {
+         "alias": ["cygri"],
+         "homepage": "http://richard.cyganiak.de/"
       },
       "Thomas Steiner":
       {

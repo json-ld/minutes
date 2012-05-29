@@ -1,0 +1,238 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012May/0072.html
+[10:03]	<voip-ld>	<unknown> (IAX2/diamondcard-13302) has joined the conference.
+[10:04]	<manu1>	scribe: mlnt
+[10:04]	<manu1>	voip: 13302 is ivan_herman
+[10:04]	<voip-ld>	ivan_herman is now associated with IAX2/diamondcard-13302.
+[10:05]	<manu1>	Topic: RDF WG Spec Concerns
+[10:05]	<manu1>	https://github.com/json-ld/json-ld.org/issues/127
+[10:05]	<manu1>	https://github.com/json-ld/json-ld.org/issues/131
+[10:05]	<mlnt>	manu: Richard, would you mind giving a quick overview of the issues you raised?
+[10:06]	<mlnt>	... also Pat Hayes raised some issues, which are also tracked in ISSUE-131
+[10:07]	<mlnt>	richard: the issues that I raised are mostly about the API spec, WebIDL stuff
+[10:08]	<mlnt>	... the terminology should be changed to match the RDF Concepts
+[10:08]	<manu1>	q+ to discuss the origins of these terms.
+[10:08]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:08]	<mlnt>	... the normative definition of the data model is in the RDF Concepts spec.
+[10:09]	<mlnt>	... issue 131 is basically about aligning the terminology with what we have in RDF Concepts
+[10:09]	<mlnt>	... some problems come from the fact that JSON-LD is slightly different than what RDF COncepts talks about and defines some things as a programmatic interface via WebIDL, so it might not always work out nicely
+[10:09]	<mlnt>	... nevertheless it's still worth trying to align it.
+[10:10]	<manu1>	ack manu1
+[10:10]	<voip-ld>	manu1 has the floor (to discuss the origins of these terms.). The speaker queue is empty.
+[10:10]	<mlnt>	... I agree with Pat that some things are not that clear in text - graphs etc. - Pat gave some good input there.
+[10:10]	<mlnt>	manu: I think both of you made some good points
+[10:11]	<mlnt>	... we are going to be trying to address them in the next few weeks
+[10:11]	<mlnt>	... the confusion is probably for a number of reasons: 1) The JSON-LD API spec wasn't ready for review, 2) We have slightly different terminology because of the Linked Data vs. RDF stuff and 3) Hold-overs from the RDF API that is language that is over 18 months old.
+[10:12]	<mlnt>	... there are some things like predicate vs. property where we might need some more discussion.. but there shouldn't be any show-stoppers here
+[10:12]	<mlnt>	... some terms were pulled over from the RDF API spec which is clearly outdated
+[10:12]	<mlnt>	prototypo: the RDF WG is very happy with JSON-LD so far.
+[10:13]	<mlnt>	... even Turtle - which is everyone's darling - has these problems... we have been tweaking it now for a year and are still not done yet
+[10:14]	<mlnt>	... I think we are all very happy working with JSON-LD
+[10:14]	<mlnt>	manu: I don't see any show stoppers at this point either, good.
+[10:14]	<mlnt>	... I hope no one in the RDF WG sees any show stoppers.
+[10:15]	<manu>	Topic: Concerns about Publishing JSON-LD API
+[10:15]	<mlnt>	manu: The one thing I can see is that the RDF WG might not be interested in publishing the API due to potential charter issues.
+[10:15]	* manu1	markus - this is ivan speaking.
+[10:16]	<mlnt>	ivan: outsiders that need to approve what the WG does might disagree because the API is not on the charter.
+[10:16]	<mlnt>	... depends also what will be done with the RDF conversion stuff
+[10:17]	<mlnt>	... those algorithms have to end up in the RDF WG at some point, the other JSON-LD API methods like compact/expand/etc. don't necessarily have to end up in RDF WG.
+[10:17]	<mlnt>	... I'm still a bit uncertain about the other algorithms
+[10:17]	<gkellogg>	q+
+[10:17]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:17]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000a) has left the conference.
+[10:17]	<mlnt>	... there is an alternative - extract RDF algorithms in a separate document or put them into the syntax doc.
+[10:17]	<manu1>	ack gkellogg
+[10:17]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:18]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000c) has joined the conference.
+[10:18]	<mlnt>	gregg: I did most of the work on the RDF conversion algorithms
+[10:18]	<mlnt>	gregg: the RDF algorithms depend on the expansion algorithm, so we'd have to move that over as well.
+[10:18]	<mlnt>	... framing is more experimental...
+[10:18]	<manu1>	q+ to express concern about splitting the docs up based on charters instead of functionality.
+[10:18]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:19]	<mlnt>	... compaction is used to make JSON-LD more human-readable
+[10:19]	<mlnt>	... so we will at least need expansion for the RDF algorithms.
+[10:19]	<mlnt>	... I don't think the RDF algorithms are tightly bound to the API (WebIDL), we could separate them.
+[10:19]	<cygri>	q+
+[10:19]	<voip-ld>	Added cygri to the speaker queue: manu1, cygri
+[10:20]	<manu1>	ack
+[10:20]	<mlnt>	... it would be fairly straightforward to separate the algorithms from the WebIDL stuff.
+[10:20]	<voip-ld>	manu1 has the floor (to express concern about splitting the docs up based on charters instead of functionality.). The next speaker is cygri.
+[10:20]	<mlnt>	manu: I'm somewhat concerned on changing the spec based on what the RDF WG charter says instead of doing what would make most sense
+[10:21]	<ivan_herman>	q+
+[10:21]	<voip-ld>	Added ivan_herman to the speaker queue: manu1, ivan_herman
+[10:21]	* manu1	sorry cygri - will get to you.
+[10:21]	<manu1>	ack manu1
+[10:21]	<voip-ld>	manu1 has the floor. The next speaker is ivan_herman.
+[10:21]	<mlnt>	prototypo: as long as go over the patent-policy hurdle it's easier... otherwise we have a major problem.
+[10:22]	<manu1>	q+ to mention why we have quads.
+[10:22]	<voip-ld>	Added manu1 to the speaker queue: manu1, manu1
+[10:22]	<mlnt>	richard: it would be a bit premature to talk about graphs since the RDF WG is still discussing that... most likely not quads but more what SPARQL does.
+[10:23]	<mlnt>	... JSON-LD isn't one monolithic thing.. there is syntax, algorithms, etc. and different parts have different levels of maturity
+[10:23]	<manu1>	+1 to what cygri just said.
+[10:24]	<mlnt>	... so it might reasonable to go with through the W3C process with the mature ones and split out the rest (for the time being)
+[10:24]	<manu1>	ack
+[10:24]	<voip-ld>	manu1 has the floor. The next speaker is manu1.
+[10:24]	<mlnt>	ivan: some of the algorithms in the API spec need the term experimental
+[10:24]	<mlnt>	... that worries me a bit
+[10:25]	<mlnt>	... if we take them through the whole process it will keep back JSON-LD from being standardized in time (the RDF charter is fixed)
+[10:25]	<mlnt>	... which would mean that we can't finalize JSON-LD Syntax either
+[10:26]	<manu1>	ack manu1
+[10:26]	<voip-ld>	manu1 has the floor (to mention why we have quads.). The speaker queue is empty.
+[10:26]	<mlnt>	... I'm in favour of extracting the RDF algorithms, put it into syntax spec and go on
+[10:26]	<mlnt>	manu: that's one path forward
+[10:26]	<mlnt>	... and we don't want the API to become the blocker
+[10:27]	<mlnt>	... maybe two docs (syntax + RDF algorithms) and take them to REC...
+[10:27]	<mlnt>	... and publish the rest of the API at a later point in time
+[10:27]	<gkellogg>	q+
+[10:27]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:29]	<mlnt>	ivan: for me the algorithmic description of how to transform JSON-LD to RDF and vice versa would be enough.. doesn't have to be specified in terms of an API
+[10:29]	<manu1>	ack gkellogg
+[10:29]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:30]	<cygri>	q+
+[10:30]	<voip-ld>	Added cygri to the speaker queue: cygri
+[10:30]	<mlnt>	gregg: most of the body of the API spec is algorithmic and the WebIDL part is quite small
+[10:31]	<mlnt>	... so we could describe the algorithms not using API terms pretty easily since it's already done like that.
+[10:31]	<cygri>	q-
+[10:31]	<voip-ld>	Removed cygri from the speaker queue: (empty)
+[10:32]	<mlnt>	manu: if we reorganize the specs there will be quite some discussion on how to do it, I'm afraid of burning time doing this
+[10:32]	<mlnt>	... we would be adding a bit of overhead here...
+[10:32]	<mlnt>	... part of me is concerned that we are doing all of this work just because we're standardizing in RDF WG vs. a JSON-LD WG
+[10:33]	<mlnt>	ivan: that's not quite correct
+[10:33]	<mlnt>	... if the RDF WG is going to publish a standard it has to be fully specified and complete
+[10:33]	<prototypo>	+1 to Ivan; The spec needs to be complete, including the RDF conversion.
+[10:33]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000c) has left the conference.
+[10:34]	<mlnt>	... the RDF conversion is integral and has to be on the same level of maturity of the JSON-LD spec itself
+[10:34]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000d) has joined the conference.
+[10:34]	<mlnt>	... and that's why we are going down this discussion
+[10:34]	<mlnt>	manu: RDF conversion is a requirement of the RDF WG but it wouldn't be a requirement for a JSON-LD WG
+[10:35]	<mlnt>	... if we would go through another WG we wouldn't be having this discussion... just outlining this point - we'd still publish a to/from RDF conversion algorithm.
+[10:35]	<prototypo>	q+
+[10:35]	<voip-ld>	Added prototypo to the speaker queue: prototypo
+[10:35]	<mlnt>	ivan: the problem is that we are pushing one doc through the process and not the other
+[10:35]	<mlnt>	manu: no, both would be there.. to/from RDF in a separate doc and the JSON-LD Syntax - that's the best approach we have right now.
+[10:36]	<mlnt>	ivan: I would be fine with that
+[10:36]	<manu1>	ack prototypo
+[10:36]	<voip-ld>	prototypo has the floor. The speaker queue is empty.
+[10:36]	<mlnt>	prototypo: I'm wondering how much "Linked Data" JSON-LD can be if it can't be transformed to RDF
+[10:37]	<manu1>	q+ to state that json-ld is useful w/o RDF.
+[10:37]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:37]	<mlnt>	manu: just as an example.. internally at Digital Bazaar we use JSON-LD completely without RDF (no triples, no triple store, no SPARQL, etc.)
+[10:37]	<prototypo>	q+ to respond
+[10:37]	<voip-ld>	Added prototypo to the speaker queue: manu1, prototypo
+[10:37]	<mlnt>	... I'm not saying the conversion to RDF isn't useful... it's just not necessary in our case.
+[10:37]	<manu1>	ack manu1
+[10:37]	<voip-ld>	manu1 has the floor (to state that json-ld is useful w/o RDF.). The next speaker is prototypo.
+[10:37]	<tidoust>	I agree with Manu. JSON-LD is pretty useful without the RDF bits.
+[10:37]	<manu1>	ack prototypo
+[10:37]	<voip-ld>	manu1 has the floor (to respond). The speaker queue is empty.
+[10:38]	<mlnt>	manu: I'm just saying it stands on it's own
+[10:38]	<mlnt>	prototypo: it's not the use of a triple store that defines RDF. RDF is a data model.
+[10:38]	<--|	paulkmoore has left #json-ld ("Leaving")
+[10:39]	<mlnt>	... and that data model has its use as well without triple stores, etc.
+[10:39]	<gkellogg>	q+
+[10:39]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:39]	<cygri>	q+
+[10:39]	<voip-ld>	Added cygri to the speaker queue: gkellogg, cygri
+[10:39]	<manu1>	ack gkellogg
+[10:39]	<voip-ld>	gkellogg has the floor. The next speaker is cygri.
+[10:40]	<mlnt>	gregg: a lot of those issues go back to last summer when we discussed what Linked Data is
+[10:40]	<mlnt>	... a lot of people jumped in and said Linked Data != RDF
+[10:40]	<mlnt>	... that's were that "bnode is not linked data" statement comes from
+[10:41]	<manu1>	ack cygri
+[10:41]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:41]	<manu1>	ack gkellogg
+[10:41]	<mlnt>	... we just have to make sure to not get into the way of developers that had bad experiences with RDF before... it's a hard line to walk.
+[10:42]	<mlnt>	richard: your linked data model is quite in line with what RDF's data model is
+[10:43]	<mlnt>	... another option: could we put the data model that you define in the API spec into the RDF Concepts
+[10:43]	<gkellogg>	+1 to cygri
+[10:44]	<mlnt>	manu: JSON-LD is basically RDF but we try to paper over RDF with language that is more accessible to non-computer-science-types... to make it compelling for web developers.
+[10:45]	<mlnt>	... so I don't know if using the RDF Concepts terminology scares average developers away.
+[10:45]	<mlnt>	q+
+[10:45]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:46]	<manu1>	ack mlnt
+[10:46]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:46]	<manu1>	mlnt: Simple question - if you're looking at the API spec, there are a number of algorithms in there - the only experimental one in there right now is framing... why not just pull that out?
+[10:46]	<manu1>	mlnt: expansion, compaction, to/from RDF are fairly stable....
+[10:48]	<manu1>	ivan: So, perhaps we could take framing out and just publish JSON-LD API?
+[10:48]	<mlnt>	ivan: then we might just extract framing and publish the rest if it's stable
+[10:49]	<manu1>	mlnt: The other question is how long is the process going to take? If we start the process now, we don't have to publish the standard tomorrow or in two weeks?
+[10:49]	<manu1>	q+ to discuss the process to standardization.
+[10:49]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:50]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000d) has left the conference.
+[10:50]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000e) has joined the conference.
+[10:50]	<manu1>	ivan: Until Last Call - we can have features in there that won't be in the standard... that's fine in a First Public Working Draft and Working Drafts.
+[10:52]	<manu1>	mlnt: I think we're discussing a lot of things that are not critical - we can extract this stuff into another document at a later time.
+[10:52]	<manu1>	manu: Maybe we publish JSON-LD Syntax and JSON-LD API (modulo framing)?
+[10:52]	<mlnt>	manu: would it be OK for the RDF WG to proceed with the syntax and API spec and maybe take out framing (now or later)
+[10:53]	<mlnt>	ivan: the only concern I have is that APIs are not in the RDF WG charter
+[10:53]	<mlnt>	prototypo: I don't think it's our biggest issue... we may be making this into a bigger issue than it is.
+[10:53]	<mlnt>	manu: so would you see that as a way forward? We publish JSON-LD Syntax and JSON-LD API (without framing)? I can send an e-mail to this effect if we're all okay with this approach.
+[10:54]	<mlnt>	prototypo: yes, I think that's fine
+[10:54]	<cygri>	q+
+[10:54]	<voip-ld>	Added cygri to the speaker queue: manu1, cygri
+[10:54]	<ivan_herman>	q+
+[10:54]	<voip-ld>	Added ivan_herman to the speaker queue: manu1, cygri, ivan_herman
+[10:54]	<mlnt>	... but prepare to be flexible and together we will find a way forward...
+[10:54]	<manu1>	ack manu1
+[10:54]	<voip-ld>	manu1 has the floor (to discuss the process to standardization.). The next speaker is cygri.
+[10:54]	<manu1>	ack cygri
+[10:54]	<voip-ld>	manu1 has the floor. The next speaker is ivan_herman.
+[10:54]	<ivan_herman>	q-
+[10:54]	<mlnt>	richard: the few of us that are here today can't speak for the majority of the RDF WG
+[10:54]	<mlnt>	... you never know what may come up during the discussion
+[10:55]	<mlnt>	... people often feel reluctant to agree on something that they don't understand
+[10:55]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[10:55]	<mlnt>	... so you will probably need to do a lot of explaining.
+[10:55]	<prototypo>	+1 to Richard - expect to explain (and be flexible)
+[10:55]	<mlnt>	... what this group is proposing is bigger than just a simple JSON serialization (not that that is a bad thing)
+[10:56]	<mlnt>	... you have to be prepared for push-back on that
+[10:56]	<mlnt>	... it takes time but is not a fundamental obstacle
+[10:56]	<mlnt>	manu: I hope we get enough time to explain the stuff, I'd hate to be given only one telecon to summarize, explain and defend 18+ months of work.
+[10:57]	<mlnt>	prototypo: well you have specs that can be read, that's a positive. Folks are going to have to RTFM before raising real technical issues.
+[10:57]	<ivan_herman>	q+
+[10:57]	<voip-ld>	Added ivan_herman to the speaker queue: manu1, ivan_herman
+[10:57]	<manu1>	Topic: JSON-LD CG to RDF WG document transition
+[10:57]	<manu1>	http://www.w3.org/community/reports/reqs/
+[10:58]	<mlnt>	manu: there are very specific steps to transition from a CG to the WG
+[10:58]	<mlnt>	... the two major things we need to do
+[10:58]	<mlnt>	... 1) All JSON-LD CG members that contributed text to the spec will have to fill out the patent coverage form so that copyright and patent coverage is clear.
+[10:59]	<mlnt>	... 2) We need to change the copyright from Creative Commons Attribution 1.0 to the permissive W3C license (which still allows us to fork the spec if things go terribly wrong)
+[10:59]	<mlnt>	q+
+[10:59]	<voip-ld>	Added mlnt to the speaker queue: manu1, ivan_herman, mlnt
+[11:00]	<mlnt>	... once we transfer the document to the RDF WG, it can not be worked on by non-RDF WG members anymore.
+[11:00]	<manu1>	ack manu1
+[11:00]	<voip-ld>	manu1 has the floor. The next speaker is ivan_herman.
+[11:00]	<manu1>	ack ivan_herman
+[11:00]	<voip-ld>	manu1 has the floor. The next speaker is mlnt.
+[11:00]	* gkellogg	I've already filled out the IE form
+[11:00]	<mlnt>	manu: so we need to make sure that everyone in the CG that is contributing work is an invited expert or similar to be able to continue to work on this
+[11:00]	<mlnt>	prototypo: you should apply via the invited expert form if you have not done so already
+[11:02]	<mlnt>	manu: the only other remaing thing: how do we track issues?
+[11:02]	<mlnt>	... is it ok to continue on GitHub?
+[11:02]	<mlnt>	ivan: there's no process issue with this
+[11:03]	<mlnt>	... only thing is that you can proof that all issues have been taken into account
+[11:03]	<mlnt>	... as soon as we have a FPWD we move over the issue tracker to make collaboration easier
+[11:04]	* cygri	would be quite comfortable continuing to use GitHub. it's a better issue tracker than the w3c one. only technical advantage of the w3c one is the trackbot IRC integration
+[11:04]	* manu1	agrees with cygri.
+[11:04]	<mlnt>	manu: should we continue to have separate telecons?
+[11:04]	<taaz>	May be more efficient to do so.
+[11:05]	<mlnt>	ivan: yes, I thought about that.. we might need to do this for the time being
+[11:05]	<mlnt>	... but the RDF WG would need to make the final resolutions.
+[11:06]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000e) has left the conference.
+[11:06]	<mlnt>	... on a different note: the canonilization should really be separate from JSON-LD...
+[11:06]	<voip-ld>	Richard Cyganiak (SIP/ekiga.net-0000000f) has joined the conference.
+[11:06]	<mlnt>	manu: yes, we separated it - and we think we have a generalized RDF graph normalization algorithm. The serialization format is in quads, which is why we have Quads in the JSON-LD API.
+[11:07]	<gkellogg>	q+ has the WG considered standardizing N-Quads?
+[11:07]	<voip-ld>	Added gkellogg to the speaker queue: manu1, gkellogg
+[11:07]	<mlnt>	... so, yes I think we have a generic normalization algorithm now
+[11:07]	<prototypo>	That would make a nice WG Note, but we aren't chartered to standardize it.
+[11:07]	<prototypo>	Yes, Ivan and I agree
+[11:07]	<mlnt>	ivan: this is not something that the RDF WG would publish as a spec but at least as a working group note and specify it in two years or so
+[11:08]	<manu1>	ack gkellogg
+[11:08]	<voip-ld>	manu1 has the floor. The next speaker is gkellogg.
+[11:08]	<manu1>	ack manu1
+[11:08]	<voip-ld>	manu1 has the floor (has the WG considered standardizing N-Quads?). The speaker queue is empty.
+[11:08]	<prototypo>	The RDF WG will consider n-quads, but not yet
+[11:09]	-->|	PatHayes (446d6fbc@gateway/web/freenode/ip.68.109.111.188) has joined #json-ld
+[11:09]	<mlnt>	gregg: does the WG considers standardizing N-Quads?
+[11:09]	<mlnt>	ivan: there's no consensus on this
+

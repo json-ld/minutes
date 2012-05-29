@@ -1,0 +1,218 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-05-29</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012May/0072.html">http://lists.w3.org/Archives/Public/public-linked-json/2012May/0072.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">RDF WG Spec Concerns</a><li><a href="#topic-2">Concerns about Publishing JSON-LD API</a><li><a href="#topic-3">JSON-LD CG to RDF WG document transition</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Richard Cyganiak, David Wood, Ivan Herman, Gregg Kellogg, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: RDF WG Spec Concerns</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/127">https://github.com/json-ld/json-ld.org/issues/127</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/131">https://github.com/json-ld/json-ld.org/issues/131</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard, would you mind giving a quick overview of the issues you raised?</div>
+<div class="comment-continuation">... also Pat Hayes raised some issues, which are also tracked in ISSUE-131</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  the issues that I raised are mostly about the API spec, WebIDL stuff</div>
+<div class="comment-continuation">... the terminology should be changed to match the RDF Concepts</div>
+<div class="comment-continuation">... the normative definition of the data model is in the RDF Concepts spec.</div>
+<div class="comment-continuation">... issue 131 is basically about aligning the terminology with what we have in RDF Concepts</div>
+<div class="comment-continuation">... some problems come from the fact that JSON-LD is slightly different than what RDF COncepts talks about and defines some things as a programmatic interface via WebIDL, so it might not always work out nicely</div>
+<div class="comment-continuation">... nevertheless it's still worth trying to align it.</div>
+<div class="comment-continuation">... I agree with Pat that some things are not that clear in text - graphs etc. - Pat gave some good input there.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think both of you made some good points</div>
+<div class="comment-continuation">... we are going to be trying to address them in the next few weeks</div>
+<div class="comment-continuation">... the confusion is probably for a number of reasons: 1) The JSON-LD API spec wasn't ready for review, 2) We have slightly different terminology because of the Linked Data vs. RDF stuff and 3) Hold-overs from the RDF API that is language that is over 18 months old.</div>
+<div class="comment-continuation">... there are some things like predicate vs. property where we might need some more discussion.. but there shouldn't be any show-stoppers here</div>
+<div class="comment-continuation">... some terms were pulled over from the RDF API spec which is clearly outdated</div>
+<div class="comment"><span class="name">David Wood</span>:  the RDF WG is very happy with JSON-LD so far.</div>
+<div class="comment-continuation">... even Turtle - which is everyone's darling - has these problems... we have been tweaking it now for a year and are still not done yet</div>
+<div class="comment-continuation">... I think we are all very happy working with JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't see any show stoppers at this point either, good.</div>
+<div class="comment-continuation">... I hope no one in the RDF WG sees any show stoppers.</div>
+<h1 id="topic-2" class="topic">Topic: Concerns about Publishing JSON-LD API</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  The one thing I can see is that the RDF WG might not be interested in publishing the API due to potential charter issues.</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  outsiders that need to approve what the WG does might disagree because the API is not on the charter.</div>
+<div class="comment-continuation">... depends also what will be done with the RDF conversion stuff</div>
+<div class="comment-continuation">... those algorithms have to end up in the RDF WG at some point, the other JSON-LD API methods like compact/expand/etc. don't necessarily have to end up in RDF WG.</div>
+<div class="comment-continuation">... I'm still a bit uncertain about the other algorithms</div>
+<div class="comment-continuation">... there is an alternative - extract RDF algorithms in a separate document or put them into the syntax doc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I did most of the work on the RDF conversion algorithms</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the RDF algorithms depend on the expansion algorithm, so we'd have to move that over as well.</div>
+<div class="comment-continuation">... framing is more experimental...</div>
+<div class="comment-continuation">... compaction is used to make JSON-LD more human-readable</div>
+<div class="comment-continuation">... so we will at least need expansion for the RDF algorithms.</div>
+<div class="comment-continuation">... I don't think the RDF algorithms are tightly bound to the API (WebIDL), we could separate them.</div>
+<div class="comment-continuation">... it would be fairly straightforward to separate the algorithms from the WebIDL stuff.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm somewhat concerned on changing the spec based on what the RDF WG charter says instead of doing what would make most sense</div>
+<div class="comment"><span class="name">David Wood</span>:  as long as go over the patent-policy hurdle it's easier... otherwise we have a major problem.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  it would be a bit premature to talk about graphs since the RDF WG is still discussing that... most likely not quads but more what SPARQL does.</div>
+<div class="comment-continuation">... JSON-LD isn't one monolithic thing.. there is syntax, algorithms, etc. and different parts have different levels of maturity</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 to what cygri just said.</div>
+<div class="comment-continuation">... so it might reasonable to go with through the W3C process with the mature ones and split out the rest (for the time being)</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  some of the algorithms in the API spec need the term experimental</div>
+<div class="comment-continuation">... that worries me a bit</div>
+<div class="comment-continuation">... if we take them through the whole process it will keep back JSON-LD from being standardized in time (the RDF charter is fixed)</div>
+<div class="comment-continuation">... which would mean that we can't finalize JSON-LD Syntax either</div>
+<div class="comment-continuation">... I'm in favour of extracting the RDF algorithms, put it into syntax spec and go on</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's one path forward</div>
+<div class="comment-continuation">... and we don't want the API to become the blocker</div>
+<div class="comment-continuation">... maybe two docs (syntax + RDF algorithms) and take them to REC...</div>
+<div class="comment-continuation">... and publish the rest of the API at a later point in time</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  for me the algorithmic description of how to transform JSON-LD to RDF and vice versa would be enough.. doesn't have to be specified in terms of an API</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  most of the body of the API spec is algorithmic and the WebIDL part is quite small</div>
+<div class="comment-continuation">... so we could describe the algorithms not using API terms pretty easily since it's already done like that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we reorganize the specs there will be quite some discussion on how to do it, I'm afraid of burning time doing this</div>
+<div class="comment-continuation">... we would be adding a bit of overhead here...</div>
+<div class="comment-continuation">... part of me is concerned that we are doing all of this work just because we're standardizing in RDF WG vs. a JSON-LD WG</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  that's not quite correct</div>
+<div class="comment-continuation">... if the RDF WG is going to publish a standard it has to be fully specified and complete</div>
+<div class="comment"><span class="name">David Wood</span>: +1 to Ivan; The spec needs to be complete, including the RDF conversion.</div>
+<div class="comment-continuation">... the RDF conversion is integral and has to be on the same level of maturity of the JSON-LD spec itself</div>
+<div class="comment-continuation">... and that's why we are going down this discussion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  RDF conversion is a requirement of the RDF WG but it wouldn't be a requirement for a JSON-LD WG</div>
+<div class="comment-continuation">... if we would go through another WG we wouldn't be having this discussion... just outlining this point - we'd still publish a to/from RDF conversion algorithm.</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  the problem is that we are pushing one doc through the process and not the other</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no, both would be there.. to/from RDF in a separate doc and the JSON-LD Syntax - that's the best approach we have right now.</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  I would be fine with that</div>
+<div class="comment"><span class="name">David Wood</span>:  I'm wondering how much "Linked Data" JSON-LD can be if it can't be transformed to RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  just as an example.. internally at Digital Bazaar we use JSON-LD completely without RDF (no triples, no triple store, no SPARQL, etc.)</div>
+<div class="comment-continuation">... I'm not saying the conversion to RDF isn't useful... it's just not necessary in our case.</div>
+<div class="comment"><span class="name">François Daoust</span>: I agree with Manu. JSON-LD is pretty useful without the RDF bits.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm just saying it stands on it's own</div>
+<div class="comment"><span class="name">David Wood</span>:  it's not the use of a triple store that defines RDF. RDF is a data model.</div>
+<div class="comment-continuation">... and that data model has its use as well without triple stores, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a lot of those issues go back to last summer when we discussed what Linked Data is</div>
+<div class="comment-continuation">... a lot of people jumped in and said Linked Data != RDF</div>
+<div class="comment-continuation">... that's were that "bnode is not linked data" statement comes from</div>
+<div class="comment-continuation">... we just have to make sure to not get into the way of developers that had bad experiences with RDF before... it's a hard line to walk.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  your linked data model is quite in line with what RDF's data model is</div>
+<div class="comment-continuation">... another option: could we put the data model that you define in the API spec into the RDF Concepts</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1 to cygri</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-LD is basically RDF but we try to paper over RDF with language that is more accessible to non-computer-science-types... to make it compelling for web developers.</div>
+<div class="comment-continuation">... so I don't know if using the RDF Concepts terminology scares average developers away.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Simple question - if you're looking at the API spec, there are a number of algorithms in there - the only experimental one in there right now is framing... why not just pull that out? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  expansion, compaction, to/from RDF are fairly stable.... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  So, perhaps we could take framing out and just publish JSON-LD API? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  then we might just extract framing and publish the rest if it's stable</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The other question is how long is the process going to take? If we start the process now, we don't have to publish the standard tomorrow or in two weeks? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  Until Last Call - we can have features in there that won't be in the standard... that's fine in a First Public Working Draft and Working Drafts. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we're discussing a lot of things that are not critical - we can extract this stuff into another document at a later time. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe we publish JSON-LD Syntax and JSON-LD API (modulo framing)? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would it be OK for the RDF WG to proceed with the syntax and API spec and maybe take out framing (now or later)</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  the only concern I have is that APIs are not in the RDF WG charter</div>
+<div class="comment"><span class="name">David Wood</span>:  I don't think it's our biggest issue... we may be making this into a bigger issue than it is.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so would you see that as a way forward? We publish JSON-LD Syntax and JSON-LD API (without framing)? I can send an e-mail to this effect if we're all okay with this approach.</div>
+<div class="comment"><span class="name">David Wood</span>:  yes, I think that's fine</div>
+<div class="comment-continuation">... but prepare to be flexible and together we will find a way forward...</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  the few of us that are here today can't speak for the majority of the RDF WG</div>
+<div class="comment-continuation">... you never know what may come up during the discussion</div>
+<div class="comment-continuation">... people often feel reluctant to agree on something that they don't understand</div>
+<div class="comment-continuation">... so you will probably need to do a lot of explaining.</div>
+<div class="comment"><span class="name">David Wood</span>: +1 to Richard - expect to explain (and be flexible)</div>
+<div class="comment-continuation">... what this group is proposing is bigger than just a simple JSON serialization (not that that is a bad thing)</div>
+<div class="comment-continuation">... you have to be prepared for push-back on that</div>
+<div class="comment-continuation">... it takes time but is not a fundamental obstacle</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I hope we get enough time to explain the stuff, I'd hate to be given only one telecon to summarize, explain and defend 18+ months of work.</div>
+<div class="comment"><span class="name">David Wood</span>:  well you have specs that can be read, that's a positive. Folks are going to have to RTFM before raising real technical issues.</div>
+<h1 id="topic-3" class="topic">Topic: JSON-LD CG to RDF WG document transition</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/community/reports/reqs/">http://www.w3.org/community/reports/reqs/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are very specific steps to transition from a CG to the WG</div>
+<div class="comment-continuation">... the two major things we need to do</div>
+<div class="comment-continuation">... 1) All JSON-LD CG members that contributed text to the spec will have to fill out the patent coverage form so that copyright and patent coverage is clear.</div>
+<div class="comment-continuation">... 2) We need to change the copyright from Creative Commons Attribution 1.0 to the permissive W3C license (which still allows us to fork the spec if things go terribly wrong)</div>
+<div class="comment-continuation">... once we transfer the document to the RDF WG, it can not be worked on by non-RDF WG members anymore.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we need to make sure that everyone in the CG that is contributing work is an invited expert or similar to be able to continue to work on this</div>
+<div class="comment"><span class="name">David Wood</span>:  you should apply via the invited expert form if you have not done so already</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the only other remaing thing: how do we track issues?</div>
+<div class="comment-continuation">... is it ok to continue on GitHub?</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  there's no process issue with this</div>
+<div class="comment-continuation">... only thing is that you can proof that all issues have been taken into account</div>
+<div class="comment-continuation">... as soon as we have a FPWD we move over the issue tracker to make collaboration easier</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  should we continue to have separate telecons?</div>
+<div class="comment"><span class="name">David I. Lehn</span>: May be more efficient to do so.</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  yes, I thought about that.. we might need to do this for the time being</div>
+<div class="comment-continuation">... but the RDF WG would need to make the final resolutions.</div>
+<div class="comment-continuation">... on a different note: the canonilization should really be separate from JSON-LD...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we separated it - and we think we have a generalized RDF graph normalization algorithm. The serialization format is in quads, which is why we have Quads in the JSON-LD API.</div>
+<div class="comment-continuation">... so, yes I think we have a generic normalization algorithm now</div>
+<div class="comment"><span class="name">David Wood</span>: That would make a nice WG Note, but we aren't chartered to standardize it.</div>
+<div class="comment"><span class="name">David Wood</span>: Yes, Ivan and I agree</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  this is not something that the RDF WG would publish as a spec but at least as a working group note and specify it in two years or so</div>
+<div class="comment"><span class="name">David Wood</span>: The RDF WG will consider n-quads, but not yet</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  does the WG considers standardizing N-Quads?</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  there's no consensus on this</div>
+</body>
+</html>
