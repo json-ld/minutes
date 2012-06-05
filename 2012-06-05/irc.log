@@ -1,0 +1,104 @@
+[10:01]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0005.html
+[10:02]	<manu1>	scribe: manu1
+[10:02]	<manu1>	Topic: SemTech 2012
+[10:03]	<manu1>	manu: Gregg is doing a presentation on JSON-LD on Thursday, try to support him via Twitter, G+
+[10:04]	<manu1>	manu: Stephane is trying to add JSON-LD Drupal... he spoke about it yesterday at SemTech.
+[10:05]	<manu1>	manu: There was concern that JSON-LD hasn't had enough review at W3C, so RDF WG folks are going to take a look at it and get people that they know to take a look at it.
+[10:05]	<manu1>	markus: What needs to be changed in the spec?
+[10:05]	<manu1>	manu: That's what we're going to discuss today.
+[10:06]	<manu1>	Topic: ISSUE-127: JSON-LD API Introduction
+[10:07]	<manu1>	https://github.com/json-ld/json-ld.org/issues/127
+[10:07]	<manu1>	manu: RDF WG had a few issues with the JSON-LD API spec, mostly because it wasn't quite ready for review.
+[10:08]	<manu1>	manu: They want to publish the JSON-LD API spec, so that's good... we don't have to look for another WG to publish the spec.
+[10:08]	-->|	tidoust (~fd@AMontsouris-159-1-87-21.w92-140.abo.wanadoo.fr) has joined #json-ld
+[10:08]	<manu1>	niklas: Do we have to publish the entire JSON-LD spec? Do we have to separate anything in the specs?
+[10:09]	<voip-ld>	<unknown> (IAX2/diamondcard-11067) has joined the conference.
+[10:09]	* tidoust	just joined, apologies for being late
+[10:10]	<manu1>	manu: For now, we're going to publish the JSON-LD API spec without framing, that seemed to work for the RDF WG.
+[10:10]	<manu1>	manu: Richard Cyganiak has asked for these changes:
+[10:10]	<manu1>	manu: He wants an Introduction to basic API functionality with simple code examples.
+[10:11]	<manu1>	manu: He also wants examples of converting to RDF from JSON-LD and to JSON-LD from RDF.
+[10:11]	<manu1>	markus: Yes, good idea, we should do this.
+[10:11]	<voip-ld>	Dave Lehn (SIP/6003-00000018) has joined the conference.
+[10:12]	<niklasl>	q+
+[10:12]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:13]	<manu1>	manu: Dave Longley added conversion from RDFa API to JSON-LD API - green-turtle.js to jsonld.js - convert from RDF -> JSON-LD.
+[10:14]	<manu1>	niklasl: I've worked on this as well - kinda like an '.objectify()' call... using a JSON-LD context is very valuable in order to work with the object... very similar to the concept of a Projection...
+[10:15]	<manu1>	niklasl: Given that you're already in a programmatic context - having a way to get an object graph back, where you have the interconnections already in place, is very valuable - we should consider this for the RDFa API - it's easier to consume data this way than using framing in the general case... framing is useful for other kinds of scenarios.
+[10:15]	<manu1>	niklasl: The .objectify() idea is very valuable, we should consider it for the JSON-LD API...
+[10:17]	<manu1>	niklasl: If we get this in a simple way for the JSON-LD API, if we had that - we could have a nice way of working with RDF via JSON-LD in dynamic languages... any sort of mapping mechanism works this way - combine a context with the .objectify() is important.
+[10:17]	<manu1>	manu: Can we have an implementation to play around with?
+[10:18]	<manu1>	niklasl: Josh Mandel and I have an implementation... we could use .prototype to invoke the .toJSON() method... it's an in-memory object graph, every reference is a clone of the original node... when you use .toJSON() you get a JSON-LD tree back. If we did that, we could produce the in-memory graph directly and then convert to JSON-LD... don't have to expand anything after-the-fact. It is more complex... but if we do this, we get the feature of parsing RDF into an object graph where the terms are named via JSON-LD @context definitions... no intermediate step.
+[10:20]	<mlnt>	Here's the link to the comment of Josh Mandel: https://github.com/json-ld/json-ld.org/issues/109#issuecomment-5758808
+[10:20]	<manu1>	manu: We can develop this in another spec, and then merge it if it makes sense to do so at a later time.
+[10:20]	<mlnt>	and the pull request to add support for it to jsonld.js: https://github.com/digitalbazaar/jsonld.js/pull/15
+[10:20]	<manu1>	niklasl: I think this would be very appealing to the RDF WG - using RDF programmatically - much easier to present to web developers than navigating a triple store.
+[10:21]	<manu1>	tidoust: I haven't had time yet to play around with JSON-LD as much as I would've liked to - convert to/from RDF - but yes, what Niklas describes sounds like almost exactly what we're looking for.
+[10:22]	<manu1>	tidoust: I'm not sure I see the difference between .frame(), .objectify(), .compact(), etc... but in the end, I need something in-memory that I can easily process. So yes, this sounds good.
+[10:23]	<manu1>	markus: Implementing it would be fairly straight-forward - pretty trivial, most of it is already there. Similar to framing, instead of embedding subject references, you'd just add a reference to the other object. Almost all of the code is already there.
+[10:23]	<manu1>	niklasl: I think that .objectify() and .frame() are complementary - different approaches to solving similar use cases.
+[10:24]	<manu1>	niklasl: This is useful when documenting vocabularies - I have to walk the structure quite a bit... useful when checking property ranges, etc. If you generate some neat description, you usually just navigate one way and rarely more than one step.
+[10:25]	<manu1>	markus: Niklas, are you saying that you'd like to walk the reverse direction as well?
+[10:25]	<niklasl>	https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_ld.js#L31
+[10:25]	<manu1>	niklasl: Yes, I added reverse references in my .graphify() call - does not exist in tree-form of JSON-LD... I call the JavaScript property .via
+[10:26]	<manu1>	manu: Let's back-burner this for a while, keep going through more immediate issues.
+[10:26]	<manu1>	niklasl: Yes, sounds good.
+[10:27]	<manu1>	niklasl: There has been concern that you can't shoe-horn RDF into JSON... but it seems that this allows a way to make it easier to use.
+[10:27]	<manu1>	manu: So, other things from Richard: The Introduction of the API spec is mostly a copy-paste from the syntax spec. Remove the duplication, and replace it with a link if appropriate. Don't force people to read the same thing twice just so that they are sure they're not missing something essential.
+[10:27]	<manu1>	manu: Also - The API spec needs its own introduction that explains what's in the API spec. This needs at least one sentence for each of the algorithms and other major sections of the spec, explaining what that thing is and how it fits into the bigger picture of publishing, consuming and processing JSON-LD. A quick overview of the document's contents. The current lack of such a high-level overview in the API spec is a major flaw, and makes the document almost inaccessible to JSON-LD outsiders. I'd consider this a blocker for FPWD publication of the API spec.
+[10:28]	<manu1>	manu: The API spec should probably have one of those yellow Issue boxes near the beginning stating that the scope of the document, and what exactly is going to be included and excluded, is still somewhat unclear. (This is just to make clear that agreeing to FPWD publication does not necessary mean we agree to everything that's in there; RDF-WG members will need some time to review and understand the spec and how it all hangs together before being able to make informed commentary on what should and shouldn't be included.)
+[10:29]	<manu1>	manu: The API spec should have one of those yellow Issue boxes pointing out that the WebIDL's terminology needs better alignment with RDF Concepts.
+[10:32]	<manu1>	manu: Our primary goal is to create an API that is useful to Web developers... we want to align with RDF Concepts as well - clearly there may be difficulty making both of these happen.
+[10:33]	<manu1>	markus: I don't see a problem as long as we define our terminology and we're consistent.
+[10:33]	<manu1>	niklasl: I think that when in doubt, we should use RDF Concepts... I think the issue is we're not clear whether we're talking about the node, or the thing identified by the node... resource vs. representation.
+[10:34]	<manu1>	manu: Some of the issue is that we lifted language from RDF API and RDFa API spec.
+[10:34]	<manu1>	niklasl: Good to have the discussion... we should keep the stance that Web-developer friendly names trump pedantic specificity.
+[10:35]	<manu1>	manu: My understanding is that the two “Contributing” sections in the two specs need to be changed to reflect the CG-to-WG transition of the documents.
+[10:35]	<manu1>	markus: There was a discussion about that the algorithms should be described in a more mathematical sense.
+[10:37]	<manu1>	manu: I think that we should focus on something that works for developers when discussing the algorithms.
+[10:38]	<manu1>	markus: These algorithms work if you implement them in code, but hard to figure out what they mean if you just read it.
+[10:38]	<manu1>	manu: Perhaps we need better introductions to the algorithm.
+[10:39]	<manu1>	niklasl: Perhaps we could write it in some kind of functional way.
+[10:40]	<manu1>	manu: Maybe we expand the introduction, make each introduction to each algorithm a bit more verbose and see if that makes people like Ivan okay with the algorithms.
+[10:40]	<manu1>	manu: Richard said: My understanding is that the two “Contributing” sections in the two specs need to be changed to reflect the CG-to-WG transition of the documents.
+[10:41]	<manu1>	manu: This change is fine - there is some boilerplate text that we can use to fix those sections.
+[10:41]	<manu1>	manu: Eric Prud'hommeaux wanted us to make this change: In a prominent place in the FPWD, document the intention to align with the RDF model and terminology. This will calm the RDF community and reduce the comments requesting something you already plan to do.
+[10:42]	<manu1>	manu: Seems like a reasonable change to make - just adding an issue.
+[10:43]	<manu1>	manu: Sandro asked us to make this change: even though this is a FPWD, it already has an 18-month history in the JSON-LD Community Group...
+[10:43]	<manu1>	markus: Yes, we should definitely say that.
+[10:43]	<manu1>	manu: Perhaps linking to the group that developed it - link to the JSON-LD community group.
+[10:44]	<manu1>	manu: Do we need to propose and resolve, or can we just make the changes?
+[10:45]	<manu1>	markus: I don't think so - let's just make the changes... these are editorial mostly.
+[10:45]	<manu1>	No objections, make the changes.
+[10:45]	<manu1>	Topic: Define from/to RDF algorithms in terms of standard RDF
+[10:46]	<manu1>	https://github.com/json-ld/json-ld.org/issues/125
+[10:46]	<manu1>	manu: Richard said: I'd prefer if the algorithms were defined in terms of standard RDF terminology (RDF graph, triple, IRI, etc.) rather than API interfaces that use quite different terminology (array of Statements, Statement, NamedNode, etc.)
+[10:49]	<manu1>	manu: The terminology in the document is a mish-mash of stuff from RDF API, which was created before the new RDF Concepts document. It also contains terminology for concepts that aren't necessarily in the RDF Concepts document (like Quads), and there or other words that we use here that are easier for developers (like 'property' vs. 'predicate'). So, some of the changes are easy, some of them are mistakes, and some of the terminology may be problematic to Web developers if we change it. The core of the agreement, however, is that we're going to attempt to align as much as possible and where it makes sense.
+[10:50]	<manu1>	niklasl: I can see Richard's point - I can see why he'd prefer to see Triples in datasets... so seeing triple and triple.dataset - giving items the same level of meaning - value properties of a triple... conceptually when discussing datasets and layers - the general idea of it... a 'dataset' is something on another level.
+[10:52]	<manu1>	markus: I think it might be reasonable to specify the toRDF()/fromRDF() in RDF terms... but that being said, do we have a Quad, or do we have an object that represents the dataset that contains triples?
+[10:52]	<mlnt>	Richard said: Would it be possible at all to redefine the API to use something closer to RDF datasets? Having a Graph interface, and then Dataset with defaultGraph and multiple namedGraphs?
+[10:52]	<taaz>	General concern about how long the named graphs discussion has been going on in RDF WG.
+[10:53]	<mlnt>	This is of importance to this discussion: https://github.com/json-ld/json-ld.org/issues/125#issuecomment-5886644
+[10:55]	<manu1>	markus: I'm concerned that they want us to re-define the API using RDF Concepts terminology... but just in toRDF/fromRDF - but I don't think we should change the API itself, dramatically.
+[10:57]	<manu1>	manu: I think we want this API to be very useful to Web Developers and using RDF Concepts could make them have to delve very deeply into objects... which is not useful ... being overly-pedantic isn't good for APIs...
+[10:57]	<niklasl>	.. Richard wrote: A “triple” is the things in the data model; a “statement” is the meaning of a triple, the thing that you make when asserting the triple.
+[10:59]	<manu1>	manu: The issue is that once we add more information to a triple... it's no longer a triple...
+[11:00]	<manu1>	niklasl: We could add an accessor method - on a Projection() for working with the data.
+[11:00]	<manu1>	niklasl: I can see how you'd say X is a triple and it has this origin... and this creation date... etc.
+[11:00]	<manu1>	manu: Yes, but in that case - is it still a triple? or something else?
+[11:01]	<manu1>	niklasl: Right - you could group all triples from a certain origin in a dataset and then describe the dataset using triples... like date, etc. If you want to describe individual triples, you can have one dataset for each triple.
+[11:03]	<manu1>	manu: I guess we can just make the changes and try to align with RDF Concepts where it makes sense to do so... but then we'll get feedback on the changes to see if they work for Richard.
+[11:03]	<manu1>	niklasl: Yes, I think that makes sense - since it's happening in RDF WG, they'll have feedback.
+[11:05]	<manu1>	niklasl: In discussions, I've seen "Quad" viewed as (subject, predicate, object, and datatype) in discussions between people that don't know about RDF... may be a case against Quad... it's in the same area as the idea that the thing identifying the graph is a 'meta-property' and not part of the data.
+[11:07]	<manu1>	Topic: RDF WG Invited Expert process
+[11:08]	<manu1>	manu: Markus, Niklas, have you guys sent in your Invited Expert application yet?
+[11:08]	<manu1>	markus: Yes.
+[11:11]	<manu1>	niklasl: I'm waiting to hear back from SIXX.
+[11:11]	<manu1>	manu: Let us know how we can help.
+[11:11]	<manu1>	manu: Also, a big thanks to Markus, Niklas, Francois, Gregg, Dave Lehn, Dave Longley and everyone else that continues to volunteer their unpaid time to move this stuff forward - we recognize that it's a big sacrifice and all the hard work is very, very much appreciated.
+[11:12]	<voip-ld>	Manu Sporny (SIP/6000-00000017) has left the conference.
+[11:12]	<voip-ld>	Niklas Lindström (SIP/192.168.3.131-00000015) has left the conference.
+[11:12]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000016) has left the conference.
+[11:12]	<voip-ld>	<unknown> (IAX2/diamondcard-11067) has left the conference.
+[11:12]	<voip-ld>	Dave Lehn (SIP/6003-00000018) has left the conference.
+
