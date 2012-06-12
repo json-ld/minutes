@@ -1,0 +1,157 @@
+[10:01]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0021.html
+[10:01]	<voip-ld>	<unknown> (IAX2/diamondcard-9099) has joined the conference.
+[10:01]	<manu1>	voip: 9099 is tidoust
+[10:01]	<voip-ld>	tidoust is now associated with IAX2/diamondcard-9099.
+[10:03]	<manu1>	Discussion about Stardog, JSON-LD and the upcoming NoSQL conference.
+[10:04]	-->|	fcodvpt_ (~fconil@ecu69-1-82-231-128-172.fbx.proxad.net) has joined #json-ld
+[10:04]	|<--	fcodvpt has left freenode (Read error: Connection reset by peer)
+[10:04]	=-=	fcodvpt_ is now known as fcodvpt
+[10:04]	<gkellogg>	scribe: gkellogg
+[10:04]	<voip-ld>	David I. Lehn (SIP/96.240.174.242-0000002a) has joined the conference.
+[10:05]	<gkellogg>	niklasl: discussion of @container with @language?
+[10:05]	<manu1>	Topic: Use of @container to specify language-maps and other useful things
+[10:05]	<manu1>	https://github.com/json-ld/json-ld.org/issues/133
+[10:05]	<manu1>	https://github.com/json-ld/json-ld.org/issues/134
+[10:06]	<gkellogg>	niklasl: previously, I had brought up something for if the language was a key.
+[10:06]	<gkellogg>	… we've seen some other cases where we'd like like
+[10:07]	<manu1>	gregg: Yeah, Wikidata is quite interested in using a JSON expression for their APIs - Wikidata exists to communicate with other Wikis... they're quite interested in JSON-LD
+[10:08]	<manu1>	gregg: It would allow them to avoid having a different JSON serialization - they presented some use cases - they'd like to, for some wiki topic, have a way of expressing that topic in JSON-LD. The problem is that they need to be able to express this in many different languages/keys - it's the array-as-object pattern.
+[10:08]	<manu1>	gregg: So each key is a subject, not a property... ISSUE-133 would be contain underneath whatever key references it. Wikidata says that they would place the english version or the german version of a video in this layout.
+[10:09]	<gkellogg>	niklasl: if 133 was chosen, if you have objects, it could be specified in a way so that the expression used, if the object is not a value, the language is set below.
+[10:10]	<gkellogg>	… but, not sure @language works that way.
+[10:11]	<manu1>	gregg: My original concern was to add a @context that defines a particular language... from Denny's perspective, he would be perfectly happy if he had to explicitly set a context that defines a language - not really a short-cut to avoid extra description... it's an index pattern which is important. He wants to be able to access this stuff using JavaScript object notation.
+[10:11]	<gkellogg>	niklasl: we might want to study this pattern for things other than @language (such as @id).
+[10:12]	<gkellogg>	… I have some suspicion that JSON keys are used not as properties, but as "index" keys for values.
+[10:12]	<gkellogg>	… consider RDF/JSON, which has as it's outer container something which works like an indexing feature.
+[10:12]	<manu1>	q+ to express a few non-blocking concerns.
+[10:12]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:12]	<gkellogg>	… this pattern is fairly conventional in JSON. I wonder how far towards a transformation language we want to go.
+[10:13]	<gkellogg>	… We can't just do the simplest thing possible, because we need to be able to allow for such usage patterns.
+[10:13]	<manu1>	ack manu1
+[10:13]	<voip-ld>	manu1 has the floor (to express a few non-blocking concerns.). The speaker queue is empty.
+[10:13]	<gkellogg>	… if we can make it understandable, can we work with @container to adopt more conventional forms of JSON.
+[10:13]	<gkellogg>	manu: I have a couple of concerns:
+[10:14]	<gkellogg>	… 1) is denny modeling his data that makes sense for JSON-LD?
+[10:14]	<gkellogg>	… we've already said there are patterns we're not going to support.
+[10:14]	<gkellogg>	… I'm concerned about the overhead it adds, not to processing, but to the intellectual overhead.
+[10:14]	<gkellogg>	q+
+[10:14]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:15]	<gkellogg>	… Same issue that RDF was worried about, that there are too many ways to say the same thing.
+[10:15]	<niklasl>	q+
+[10:16]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, niklasl
+[10:16]	<manu1>	gregg: Yes, the main reason Denny wants this is that he wants to be able to access these values in JavaScript dot-notation...
+[10:17]	<manu1>	gregg: regarding intellectual complexity - my philosophy on language design is a bit different - simple things should be simple, complex things should be possible (not impossible)
+[10:17]	<manu1>	gregg: I think we need to consider this as a fairly standard usage pattern... I'm not convinced we need to support it via compaction/framing, but as a way of being able to express JSON where you can derive RDF, it's interesting.
+[10:17]	<manu1>	ack gkellogg
+[10:17]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:18]	<gkellogg>	niklasl: I appreciate manu's concerns about discussing the usage pattern in-depth, but I think that what gkellogg said may be true, that it is a common usage pattern.
+[10:18]	<gkellogg>	… It may be more predictable to do this by extending @container. Probing makes it more difficult to read the JSON and glean the data.
+[10:19]	<gkellogg>	… Embedding RDF forms in "noisy" JSON may open a can of words.
+[10:19]	<gkellogg>	… I we us @container for @language (and maybe @id) it will make it easier to read.
+[10:19]	<gkellogg>	… It's true that you can no longer rely on a key being a property.
+[10:20]	<gkellogg>	… But the idea, is to stick to existing usage patterns. Given that indexing is a common usage pattern, and is the most expressive and useful, JSON-LD may be marginalized if it can't support this pattern.
+[10:20]	<gkellogg>	… I've seen many templating patterns where being able to use keys in this manner would simplify things.
+[10:21]	<gkellogg>	… If we define it as a mechanism of container, anyone knowing how JSON-LD @context works, will figure this out quickly.
+[10:21]	<gkellogg>	manu: I hear general agreement that we're going to try to make it work.
+[10:21]	<gkellogg>	… As markus said, there are still some issues about how this will work.
+[10:22]	<gkellogg>	niklasl: I experimented with language mapping before, and it worked okay for compaction.
+[10:22]	<gkellogg>	… oddly shaped data will highlight the edge-cases.
+[10:24]	<gkellogg>	… using keys of different types in a language can lead to a conflict, but we can provide a mechanism to resolve this, such as to skip the @container: @language definition.
+[10:25]	<gkellogg>	manu: we should probably table for now until we have an implementation.
+[10:25]	<gkellogg>	… once we work out the edge-cases, we should come back to it.
+[10:25]	<gkellogg>	… One concern is that does really affect the syntax, so we can't put it off for too long.
+[10:28]	<manu1>	PROPOSAL: Attempt to support other @container options, such as "@container": "@language" to support use cases such as Wikidata's language-map use case.
+[10:28]	<manu1>	PROPOSAL: Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case.
+[10:29]	<manu1>	+1
+[10:29]	<gkellogg>	+1
+[10:29]	<niklasl>	+1
+[10:29]	<tidoust>	+1
+[10:29]	<taaz>	+1
+[10:29]	<manu1>	RESOLVED: Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case.
+[10:29]	<manu1>	Topic: Review latest JSON-LD Syntax and API specs
+[10:30]	<manu1>	http://json-ld.org/spec/latest/json-ld-syntax/
+[10:30]	<manu1>	http://json-ld.org/spec/latest/json-ld-api/
+[10:30]	<gkellogg>	manu: I sent an email out to the RDF WG indicating that we had applied all change requests to the documents, marking it up as an FPWD.
+[10:30]	<manu1>	http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0028.html
+[10:31]	<gkellogg>	… I linked to each commit to make sure that every piece of feedback was responded to.
+[10:31]	<gkellogg>	… the big changes were that the JSON-LD API now has an introductory section that is specific to it.
+[10:32]	<gkellogg>	… We added issue markers to indicate that it's been in development for 18 months, and scope, and alignment with RDF Concepts.
+[10:32]	<gkellogg>	… Hopefully, they'll look at it tomorrow, they'll publish as an FPWD.
+[10:32]	<gkellogg>	… Hope for FPWD in the month of July.
+[10:32]	<manu1>	Topic: ISSUE-120: Expand @type to @id-objects
+[10:33]	<manu1>	https://github.com/json-ld/json-ld.org/issues/120
+[10:33]	<gkellogg>	manu: this has do do with the expanded form of @type. Should it be expanded to {"@id"} form? or should we keep it as is, where it can only be a string or an array of strings.
+[10:33]	<gkellogg>	q=
+[10:33]	<gkellogg>	q+
+[10:33]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:33]	<manu1>	ack gkellogg
+[10:33]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:33]	<tidoust>	[I note a missing "API" in the title of the spec in the normative reference to JSON-LD API: http://json-ld.org/spec/latest/json-ld-syntax/#bib-JSON-LD-API ]
+[10:34]	<manu1>	gregg: There are two things that drive this - one of them is the IRI space for @type being different than other keys like @id - perhaps it should be kept distinct by not using the @id pattern. If we use the @id pattern, you would be in a different context when you applied that. If you needed vocab expansion, or an absolute IRI vs. relative IRI would need to be thought about more deeply.
+[10:35]	<niklasl>	q+
+[10:35]	<manu1>	gregg: That said, in expansion we should tolerate seeing values of this type which are expressed in the @id form... the canonical form would be to just be an array of strings.
+[10:35]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:36]	<manu1>	gregg: So, I'm in support of supporting this feature.
+[10:36]	<manu1>	ack niklasl
+[10:36]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:36]	<manu1>	niklasl: I'm pretty sure that I'm in agreement on Gregg on all of this - I have the same perspective.
+[10:36]	<gkellogg>	niklasl: I'm pretty sure that I agree with Gregg on this stuff. I have the same perspective on the items that are brought up.
+[10:36]	* manu1	:)
+[10:37]	<gkellogg>	… with possible exception to the notion of expansion. If this is the case, we should also change @type to be like rdf:type.
+[10:37]	<gkellogg>	… @type is a syntactical expression, and if we expand it, we should expand to rdf:type.
+[10:38]	<manu1>	gregg: I'm worried that we push a bit too much RDF onto the JSON folks if we do that... I'm not too keen on expanding "@type" to "rdf:type" on expansion.
+[10:38]	<gkellogg>	niklasl: I'm not sure which side I'll end up on.
+[10:39]	<gkellogg>	manu: I'm a bit concerned about expanding to rdf:type too. It might be more pure from an RDF standpoint, but we don't want to push this on people that aren't interested in RDF.
+[10:39]	<gkellogg>	… This is a type of confusion we'd like to stay away from.
+[10:39]	<gkellogg>	… Two different things, what happens on RHS and on LHS.
+[10:40]	<gkellogg>	niklasl: on the LHS, we use @type, the value on the RHS should never be an object.
+[10:40]	<gkellogg>	… If you want to do this in the context, you'd need to be sure when expanding that this wasn't the case.
+[10:41]	<gkellogg>	… I'm feel that we shouldn't expand @type.
+[10:41]	<gkellogg>	manu: I thought we were talking about if the RHS of @type to have an object when expanding.
+[10:42]	<manu1>	In expansion, should we do this: "@type": "http://xmlns.com/foaf/0.1/Person" or this: "@type": { "@id": "http://xmlns.com/foaf/0.1/Person" }
+[10:43]	<manu1>	gregg: yes, that's what this issue is about - if we have foaf:Person - does it expand into the IRI form or the object form?
+[10:43]	<gkellogg>	"type": {"@id": "foaf:Person"}
+[10:44]	<manu1>	gregg: There are at least three cases here - what happens when "@type" is aliased to "type", what happens if somebody does "rdf:type" on the LHS, what happens to { "@id": ... } in expanded form
+[10:46]	<gkellogg>	manu: to be consistent, we should always express as a string, or expand out into a subject reference.
+[10:46]	<gkellogg>	… it seems to me that for @type we should expand out to the @id form.
+[10:46]	<gkellogg>	… we do that for everything else.
+[10:46]	<gkellogg>	niklasl: then you'd do it for literals too?
+[10:47]	<gkellogg>	manu: if we expanded an object with a label, we'd through the label away.
+[10:47]	<gkellogg>	… we don't do it for @id or @type. If you want to express more information, define it elsewhere.
+[10:48]	<gkellogg>	… @type is no different from @id and the datatype usage. If you want to say more, say more somewhere else.
+[10:49]	<niklasl>	.. [ {"@id": "a", "@type": {"@id": "http://example.com/type", "label": "Type name"} } ]
+[10:50]	<gkellogg>	niklasl: my problem is that @type is a specific syntactic form. That's why I brought up that a consistent form is to expand @type tordf:type
+[10:50]	<niklasl>	[ {"@id": "a" "@type": ["http://example.com/type"]}, {"@id": "http://example.com/type", "label": "Type name"} ]
+[10:51]	<manu1>	gregg: This is an interesting artifact - in TURTLE you can't do chaining for objects that are also subjects.
+[10:51]	<manu1>	gregg: Niklas' second form is the only way you can express it in TURTLE...
+[10:53]	<gkellogg>	manu: consensus that when we have @type with objects, we just take the IRIs and through way the other data when expanding.
+[10:54]	<niklasl>	.. [ {"@id": "a", "type": {"@id": "http://example.com/type", "label": "Type name"} } ]
+[10:54]	<gkellogg>	niklasl: want to be sure that in compaction, I can get back to that example.
+[10:54]	<niklasl>	.. "type": "rdf:type"
+[10:55]	<manu1>	PROPOSAL: In expanded form, the value of @type MUST be a string or an array of strings that are IRIs. If expanded form is used to express one or more object references @type (e.g. "@type": [{"@id": "http://...", "foo": bar"}, "http://example.com/othertype"]), then only the IRIs of the types are used in the expanded output.
+[10:57]	<manu1>	PROPOSAL: In expanded form, the value of @type MUST always be an array of strings that are IRIs.
+[10:58]	<manu1>	PROPOSAL: When operating on @type, the result of the expansion algorithm MUST always result in an array of strings that are IRIs.
+[10:58]	<gkellogg>	+1
+[10:58]	<manu1>	+1
+[10:58]	<tidoust>	abstains (proposal sounds good, I just don't feel I get the ins and outs correctly on that issue)
+[10:58]	<taaz>	+0
+[10:58]	<niklasl>	+1
+[10:58]	<manu1>	RESOLVED: When operating on @type, the result of the expansion algorithm MUST always result in an array of strings that are IRIs.
+[10:58]	<manu1>	Manu: A clarification on the resolution above.
+[11:01]	<manu1>	PROPOSAL: In the expansion algorithm, when expanding the value associated with @type, if a JSON object is detected, only the value of @id MUST be used.
+[11:03]	<gkellogg>	PROPOSAL: when expanding the object value of a key interpreted as @type, extract only @id from that value. Discard any value that does not expand to an absolute IRI.
+[11:05]	<manu1>	PROPOSAL: In the expansion algorithm, when expanding the value associated with @type, extract only @id from that value. Any value that does not expand to an absolute IRI MUST be discarded.
+[11:06]	<manu1>	+1
+[11:06]	<gkellogg>	+1
+[11:06]	<niklasl>	+1
+[11:06]	<tidoust>	abstains (same comment)
+[11:06]	<taaz>	+0
+[11:06]	<manu1>	RESOLVED: In the expansion algorithm, when expanding the value associated with @type, extract only @id from that value. Any value that does not expand to an absolute IRI MUST be discarded.
+[11:06]	<voip-ld>	Manu Sporny (SIP/6000-00000029) has left the conference.
+[11:06]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000027) has left the conference.
+[11:06]	* tidoust	bye
+[11:06]	<voip-ld>	David I. Lehn (SIP/96.240.174.242-0000002a) has left the conference.
+[11:06]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000028) has left the conference.
+[11:06]	<voip-ld>	tidoust (IAX2/diamondcard-9099) has left the conference.
