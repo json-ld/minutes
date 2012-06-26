@@ -20,6 +20,11 @@
          "alias": ["prototypo"],
          "homepage": "http://prototypo.blogspot.com/"
       },
+      "Josh Mandel":
+      {
+         "alias": ["JoshM"],
+         "homepage": "http://joshuamandel.com/"
+      },
       "François Daoust":
       {
          "alias": ["tidoust"],

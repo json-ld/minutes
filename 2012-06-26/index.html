@@ -1,0 +1,184 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-06-26</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0071.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0071.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Transition of documents to the RDF WG</a><li><a href="#topic-2">ISSUE-120 recap - Expansion and @type</a><li><a href="#topic-3">.objectify() vs. .frame()</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas Lindström, Markus Lanthaler, Dave Longley, Josh Mandel, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything else we should discuss today? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Let's discuss .objectify() vs. .frame() [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus wanted to look at ISSUE-120 again - expansion and @type [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i also spoke with linclark, some of that info is in the jsonld irc channel [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I spoke w/ Lin Clark - she has an interesting use case that we should discuss. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's discuss some of the issues that have come up before the w3c publication in the rdf working group [scribe assist by Dave Longley]</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Transition of documents to the RDF WG</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're pretty much set to go</div>
+<div class="comment-continuation">... bug the publication tool is buggy, so we can't get the FPWD out just yet...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  then we need everyone to do their IPR coverage</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://dvcs.w3.org/hg/json-ld">https://dvcs.w3.org/hg/json-ld</a></div>
+<div class="comment-continuation">... we don't have a hg repo, but the W3C staff is ok with us mirroring the github repo into the w3c hg for the time being (specs, tests, website)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the IPR stuff means a blanket statement that one has no issues regarding patents when going forward</div>
+<div class="comment-continuation">... the editors/auhors in the community group must be ok with this from a copyright pov</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we must use the tool for this for the legal stuff to become valid</div>
+<div class="information">Discussion about the w3c membership process...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any other questions re. W3C FPWD publication</div>
+<div class="information">No questions.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus, you had a question re #120?</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-120 recap - Expansion and @type</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  why do we support objects as value of @type at all?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the reasoning says that the value space is different, but the decision to throw away data seems contradictory</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the only thing @type is looking for is a value to interpret as an @id</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in order to make the algorithm more accepting, we allow an object but only keep the value of @id</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm find with both ways, but not a combination</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  keeping the data adds lots of complexity, throwing an error is unnecessary since it's easy to get the value of @id from the object..</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need a better reason for throwing an error than that otherwise we discard the other data in the @type object</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it makes the algorithm more complex than necessary if we throw an error in this corner case</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have plenty of other corner cases where we throw an error</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we have callbacks, but we don't define what they do</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do you rather see that the callback controls recovery instead of automatic recovery?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  that would be fine with me (explicit callback recovery)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Markus makes a good point that other things have to be considered as well. if an object is there, callback controls recovery</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in the absence of a callback, I'd like the current recovery</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the narrow use case, having RDF data transferred over, with a type in expanded form, and when doing compaction I want to use @type, this would be beneficial default behaviour</div>
+<div class="comment"><span class="name">Dave Longley</span>:  so the use case is fromRDF not using @type, but wants @type in compacted form?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other (stronger) reason is that we don't want to err out where it's easy to recover (it's the html5 behavior)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we have a similar problem with @id</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's different</div>
+<div class="information">Gregg and Dave discuss thoughts on numeric id:s and IRI templating....</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there could be something like that in the future; in the mean time (going to REC) we need to work this out</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  currently there is no JSON-LD out there, so it's better to not support it until it appears</div>
+<div class="comment"><span class="name">Dave Longley</span>:  to we have real data like this?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it was an observation from working with external sources</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's hard to reason too much about this w/o looking at concrete cases - part of this discussion cropped up a few months ago when we discussed whether it was possible to represent the RDF type like a general relation, just like any other property. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: as far as I remember this came up before we allowed rdf:type not to be automatically to @type in fromRDF()</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've seen some need for this - for example - Elastic Search - you want an IRI for the type or perhaps a keyword and /also/ some kind of label in different languages because people want to search for it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you declare rdf:type in your context... it may not be coerced like @type. I think this works if you create an expanded form fromRDF() and define a term forrdf:type in your context when you compact. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: rdf:type a rdf:Property .</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  From my point of view - I'm fine w/ throwing an error - that we don't allow this form. There should be means for recovering. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I do think that what we have right now is enough, explicit recovery is enough in this case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@id": "rdf:type", "@type": "rdf:Property" }</div>
+<div class="information">.. or {"@id": "rdf:type", "rdf:type":{"@id: "rdf:Property"}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  perhaps if we use the expanded form in all the cases where @id isn't applicable, to not lose information</div>
+<h1 id="topic-3" class="topic">Topic: .objectify() vs. .frame()</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  gregg, can you write this down in the issue 120?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  sure</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Regarding .objectify() - I find framing very confusing to use right now</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's hard to predict</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if I can use objectify instead, I have a surface type api, where everything is linked and I can access what I want in a very simple manner</div>
+<div class="comment"><span class="name">Josh Mandel</span>: (Re: potential search mechanisms, have folks seen: <a href="http://jsonselect.org/#tryit">http://jsonselect.org/#tryit</a> ?)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree that it is complex and difficult to understand how to use the complex stuff</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can't remove framing until we have a good replacement. objectify would probably be that</div>
+<div class="comment"><span class="name">Josh Mandel</span>: I (clearly) also found framing difficult to use, which is why I coded up objectify() in the js library...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I generally agree that framing is difficult - I do have some use cases for framing. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  .objectify() feels like the way to distinguish JSON-LD usage from regular JSON usage... JavaScript has all of the requirements in place to make .objectify() work well... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you are using JSON-LD in a programmatic environment, it makes more sense to have an API that creates a graph structure of the objects within... because they are linked. It feels like a bit of a waste to not do that. This is the way I've used RDF previously in object mappers... we should be using references. The context definition is a good way to navigate Linked Data in general. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  One thing - I'm not sure about the name .objectify() - it might not capture the essence... I would use .toGraph() or .graphify() - just a detail, but if we're going forward with this, I wanted to raise this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: decode()??</div>
+<div class="comment"><span class="name">Josh Mandel</span>: Yes, I just made up the name `objectify` because it sounded cute and I needed to call it something.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is an alternate meaning of Linked Data here - you're linking your data internally to create a real graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There is something in rdflab - my play area for code on github - I've added something that we may want to discuss - reverse relations... which makes navigating an RDF vocabulary very easy. The thing that I noticed was that this structure I got was interesting in that in-memory graphs in RDF are more triple centric. This is just linked objects in a graph, and that felt much more natural. The triple view of things could be created as an iterator. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This 'shape' felt much more natural... maybe this would fit in well with projections in the RDFa API. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  To back up quickly - the case where .frame() is useful - which is the case where I mostly use JSON-LD - which is to index stuff in elastic search. In that case, I didn't use the framing algorithm (I used an expand as much as I can algorithm... always rooted in current subject resource, which I track), I have very advanced search needs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I need to search for things linking to and from that document. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I agree with a lot of this - including naming - perhaps .connect()?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  also a query mechanism is good</div>
+<div class="comment"><span class="name">Dave Longley</span>:  but we have to make sure that code don't end up cycling indefinitely (but that can probably be prevented anyway)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it's important not to call e.g. expand on an "objectified" structure</div>
+<div class="comment"><span class="name">Dave Longley</span>:  some of the power in framing is available with e.g. @container, but some cases might still need to be supported to adapt data to current patterns</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is the question either or, or can they complement each other?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it should be noted that non-GC languages and objectify might not work as well</div>
+<div class="comment"><span class="name">Josh Mandel</span>: <a href="http://jsonselect.org/#tryit">http://jsonselect.org/#tryit</a></div>
+<div class="comment"><span class="name">Josh Mandel</span>:  JSON-select could potentially be used for querying</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I used the prototype-based features to be clones of the actual objects - this makes the resulting graph object serializable by calling .toJSON() on it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Josh Mandel</span>:  Well, except for cycles. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The clones have replaced the .toJSON() message with null - it skips cycles - expands into a tree again. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it might be ambiguous in general though</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  flatten is the key to get it to work</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  how do you enter the graph?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to explore whether we can completely replace framing with objectify in usages, and if/how they complement each other</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  are we continuing in the github tracker?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we can continue to use it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  how to get github to notify the mailing list (not only the people)?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the w3c tracker doesn't either; we can create a script</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's important, and I think we can solve it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and I suspect we agree that gh:s tracker is the better one?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  although the w3c tracker works well with irc (but there's probably a means with gh as well)</div>
+<div class="comment"><span class="name">François Daoust</span>: bye</div>
+<div class="comment"><span class="name">David I. Lehn</span>: bye</div>
+</body>
+</html>
