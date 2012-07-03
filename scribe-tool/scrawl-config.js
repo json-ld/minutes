@@ -20,6 +20,11 @@
          "alias": ["prototypo"],
          "homepage": "http://prototypo.blogspot.com/"
       },
+      "Zdenko 'Denny' Vrandečić":
+      {
+         "alias": ["Denny", "Denny_WMDE", "Denny_WMDE1"],
+         "homepage": "http://simia.net/wiki/Denny"
+      },
       "Josh Mandel":
       {
          "alias": ["JoshM"],
