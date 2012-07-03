@@ -36,13 +36,20 @@ print <<< htmlcode
                   <li><strong>Next Meeting:</strong> 
 htmlcode;
 
-print date('l, F jS (Y-m-d)', strtotime('next Tuesday'));
+if(date('l', strtotime('today') === 'Tuesday'))
+{
+   print date('l, F jS (Y-m-d)', strtotime('today'));
+}
+else
+{
+   print date('l, F jS (Y-m-d)', strtotime('next Tuesday'));
+}
 
 print <<< htmlcode
                   </li>
                   <li><strong>Time:</strong> 1500 UTC, 7am San Francisco, 10am Boston, 3pm London</li>
                   <li><strong>Where:</strong> Digital Bazaar JSON-LD Telecon Bridge, SIP: <a href="sip:json-ld@digitalbazaar.com">json-ld@digitalbazaar.com</a>, tel: +1.540.961.4469 x6303.</li>
-                  <li><strong>IRC:</strong> <a href="irc://freenode.net/#json-ld">irc://freenode.net/#json-ld</a>
+                  <li><strong>IRC:</strong> <a href="irc://freenode.net/#json-ld">irc://freenode.net/#json-ld</a> (<a href="http://webchat.freenode.net?channels=json-ld">join via WebIRC</a>)
                   <li><strong>Duration:</strong> 60 minutes
                </ul>
 
