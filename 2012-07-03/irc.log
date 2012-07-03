@@ -1,0 +1,185 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0091.html
+[10:05]	<manu1>	scribe: mlnt
+[10:05]	<manu1>	Topic: FPWD of JSON-LD Syntax and API
+[10:05]	<manu1>	gkellogg: Let's go over IPR status and protocol for editing specs.
+[10:06]	<mlnt>	manu: last week the RDF WG agreed to publish a FPWD.. should be online on July 12th
+[10:06]	<mlnt>	... we have all the IPR commitments we need except Josh's
+[10:07]	|<--	fcodvpt has left freenode (Quit: fcodvpt)
+[10:07]	<mlnt>	gregg: I saw Mark Birbeck commited to syntax but not API
+[10:07]	<mlnt>	manu: that's OK as he didn't contribute to API.. he's listed as author as author on syntax spec
+[10:08]	<mlnt>	... the protocol for editing the spec now is to not make text changes that are not directly requested
+[10:09]	<mlnt>	... going forward the only people that should making changes to the spec are Markus, Gregg, Niklas and myself or anyone else from the RDF WG
+[10:09]	<mlnt>	... what we can do is look at suggestions and come up with our own wording
+[10:11]	<mlnt>	gregg: dave longley made a change to fix a spec bug but made a mistake.. we should go and change that before FPWD
+[10:11]	<mlnt>	manu: feel free to make that change
+[10:12]	<mlnt>	mlnt: do we continue to use github or do we switch over to W3C's mercurial?
+[10:12]	<mlnt>	manu: we keep on using github
+[10:12]	<mlnt>	gregg: the issue tracker as well?
+[10:12]	<mlnt>	manu: yes, but once we go to last call we should track them in W3C's issue tracker
+[10:13]	<mlnt>	... to make sure to track everything..
+[10:13]	<manu1>	Topic: ISSUE-133: Add @container: @language
+[10:13]	<manu1>	https://github.com/json-ld/json-ld.org/issues/133
+[10:13]	<mlnt>	... this issue was triggered by the wikidata people
+[10:13]	<mlnt>	... they need to express data in different languages
+[10:14]	<mlnt>	gregg: the observation was that maintaining information in multiple languages simultaneously would be more convenient by using language keys instead of language tagging literals
+[10:15]	<mlnt>	... wikidata would also find it convenient to group other things (whole subtrees) under a language tag
+[10:15]	<mlnt>	... think videos etc. in a specific language
+[10:15]	<mlnt>	... in the issue there are two approaches
+[10:15]	<mlnt>	... here's the summary:
+[10:15]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6536114
+[10:16]	<mlnt>	... value-map vs. property-map
+[10:17]	<mlnt>	manu: denny, what kind of structure would you ideally like to have?
+[10:17]	<voip-ld>	Denny (IAX2/diamondcard-4760) has left the conference.
+[10:18]	<mlnt>	Difficulty hearing Denny... he's dialing back in.
+[10:18]	<niklasl>	q+
+[10:18]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:18]	<voip-ld>	<unknown> (IAX2/diamondcard-5875) has joined the conference.
+[10:18]	<manu1>	markus: My concern is that on one hand, it feels a bit confusing for me to understand what's going on... from where Gregg is coming from with his proposal.
+[10:19]	<manu1>	markus: Perhaps we could have different sub-graphs for each language... we specify default language in a context and do that instead.
+[10:19]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6548061
+[10:19]	-->|	Denny_WMDE1 (~Adium@p5ddc578f.dip.t-dialin.net) has joined #json-ld
+[10:19]	<manu1>	ack niklasl
+[10:19]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:19]	* manu1	waves to Denny
+[10:20]	<mlnt>	niklas: I think at this time I agree mostly with markus
+[10:20]	<Denny_WMDE1>	i hear you well on the call
+[10:20]	<mlnt>	... only because I have a fear that it might be difficult to understand data like this
+[10:21]	<mlnt>	... it should be clear by looking at the data what the subject etc. is
+[10:21]	<mlnt>	... of course there are places where we can't do this as JSON is quite terse
+[10:22]	<mlnt>	... but if we start to change the general entity-value shape I have concerns that that kind of JSON is difficult to understand
+[10:22]	<mlnt>	... I saw data modelled that way in RDF/XML
+[10:23]	<mlnt>	... but I think we shouldn't go down that way with JSON-LD
+[10:23]	-->|	fcodvpt (~fconil@2001:660:5001:142:21b:63ff:fea7:217c) has joined #json-ld
+[10:23]	<niklasl>	mlnt: correction: in XML (RDF/XML can't really be reshaped like that)
+[10:24]	<mlnt>	manu: it might be that wikidata found a use case for which JSON-LD isn't a good match and it would be quite difficult to support it... which would be a shame, because it seems like a pretty important use case.
+[10:24]	<mlnt>	denny: the use case is to express labels in different languages
+[10:24]	<mlnt>	... the thing is that we don't want to have an array of objects but an associative map
+[10:25]	<mlnt>	... we don't wanna to iterate over the objects but rather have a key to directly access it
+[10:25]	<voip-ld>	Dave Lehn (SIP/6003-00000005) has joined the conference.
+[10:25]	<mlnt>	... this is a pattern used when writing JavaScript
+[10:25]	<niklasl>	q+
+[10:25]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:26]	<mlnt>	gregg: denny, by that logic it seems that both approaches serve your needs?
+[10:26]	=-=	_n_ot_here is now known as _n_
+[10:27]	<mlnt>	gkellogg: the first option is value-map the second one would be the property-map in the issue
+[10:28]	<mlnt>	denny: the thing is that we might wanna add more information to a label, e.g., the pronunciation
+[10:28]	<mlnt>	... without thinking at RDF in JSON I would just use an object with further keys
+[10:28]	<mlnt>	... keeping a link to a video, the pronunciation, etc.
+[10:28]	<mlnt>	... but I'm not sure if it's out of scope for JSON-LD
+[10:29]	<manu1>	ack niklasl
+[10:29]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:29]	<mlnt>	... alternative would be instead of using a single string as value I would use a object as value
+[10:29]	<mlnt>	niklas: I think we have two quite distinct things here
+[10:29]	<mlnt>	... we have the map (language or IRI as the key)
+[10:30]	<mlnt>	... the other situation, the property-map
+[10:31]	<mlnt>	... the case where you divide a description of something in parts (categories)
+[10:31]	<mlnt>	... we might be able to support both
+[10:31]	<mlnt>	... the value-map by using @container
+[10:31]	<mlnt>	... and the property-map by leveraging as suggested by markus
+[10:32]	<mlnt>	... we could define a context modifier for @graph similar to something gregg proposed
+[10:32]	<mlnt>	gregg: we could extend @container: @graph
+[10:33]	<mlnt>	niklas: we could also use content negotiation for different languages
+[10:33]	<mlnt>	manu: let's summarize
+[10:33]	<mlnt>	... we have multiple graphs, each with a different language
+[10:34]	<mlnt>	... we have gregg's two proposals (value- and property-map)
+[10:34]	<mlnt>	... and markus' @container: @language proposal
+[10:35]	<mlnt>	gregg: I just wanted to throw in something denny considered: using an unlabeled node
+[10:36]	<mlnt>	denny: I have problems following the discussion...
+[10:36]	<niklasl>	q+
+[10:36]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:37]	<mlnt>	manu: You're not the only one, Denny - this is a difficult discussion to follow.
+[10:37]	<mlnt>	manu: out of gregg's proposals I would prefer this - "rdfs:label" : {"en": "Foo", ...}
+[10:40]	<mlnt>	niklas: I would be careful with using rdf:value
+[10:40]	<niklasl>	Denny, have you considered skosxl? http://www.w3.org/TR/skos-reference/skos-xl.html
+[10:42]	<mlnt>	niklas: using different graphs would be reflect the fact that documents in different languages are expressed
+[10:43]	<manu1>	niklasl: There are two things that Gregg mentioned - one of which is deep probing.
+[10:43]	<mlnt>	niklas: we might combine markus' proposal with using disjoint graphs and combine that with controlled probing
+[10:43]	<manu1>	niklasl: We could use "@container": "@graph" - each key representing the specific graph... you could also bind the language 'en' - the IRI for the named graph.
+[10:44]	<manu1>	q+
+[10:44]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:44]	<manu1>	ack niklasl
+[10:44]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:44]	<manu1>	ack manu1
+[10:44]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:44]	<mlnt>	manu: Denny, what would the ideal shape of the data would be for you?
+[10:44]	<manu1>	What are we looking for here - foo.bar.en or en.foo.bar or foo.en.bar ?
+[10:45]	<Denny_WMDE1>	label.en.value = "San Francisco"
+[10:45]	* niklasl	is thinking we'd need an ether pad session for this, working together on an example
+[10:45]	<mlnt>	... my understanding would be that the first one would be ideal
+[10:45]	<Denny_WMDE1>	population.value = "300000"
+[10:45]	<Denny_WMDE1>	capital.value = IRI
+[10:46]	<Denny_WMDE1>	label.en.pronounciation = IRI
+[10:46]	<mlnt>	manu: another thing denny mentioned was to associated the pronunciation with a specific language
+[10:46]	<Denny_WMDE1>	but this really is outside of the scope of RDF, right?
+[10:46]	<mlnt>	manu: denny you can express label.en.pronunciation in JSON-LD today, but it wouldn't transform over to RDF
+[10:47]	<manu1>	label.en: { "value": "Foo", "pronunciation": "Feu" }
+[10:47]	<Denny_WMDE1>	+1
+[10:47]	<mlnt>	manu: assuming value is aliased to @value
+[10:47]	<mlnt>	... it wouldn't come accross to RDF
+[10:48]	<mlnt>	niklas: in skosxl there are concepts for this
+[10:48]	<Denny_WMDE1>	i think the issue with the skosxl solution is that for every sense of the word you need an IRI
+[10:48]	<mlnt>	q+
+[10:48]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:48]	<manu1>	q+
+[10:49]	<voip-ld>	Added manu1 to the speaker queue: mlnt, manu1
+[10:49]	<niklasl>	@context: { "label": {"@id": "skosxl:prefLabel", "@container": "dc:language"} }
+[10:50]	<manu1>	ack mlnt
+[10:50]	<voip-ld>	mlnt has the floor. The next speaker is manu1.
+[10:51]	<manu1>	mlnt: Wondering if it's important to Denny to keep everything language-related in the same subtree?
+[10:51]	<manu1>	mlnt: Could you have label/pronunciation in the same subtree?
+[10:51]	<mlnt>	mlnt: label.en and pronuncation.en vs. en.label and en.pronuncation
+[10:51]	<manu1>	Denny: No, not important to have everything in same subtree - important to connect pronunciation w/ the label.
+[10:52]	<Denny_WMDE1>	so it is not important to have them in one tree
+[10:52]	<gkellogg>	label: {en: {rdf:value: "Foo", pronunciation: "F-o-o"}}
+[10:52]	<Denny_WMDE1>	but it is important to connect the pronounciation with the label
+[10:52]	<manu1>	ack manu1
+[10:52]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:53]	<Denny_WMDE1>	skos-xl does cover that, though, iirc
+[10:53]	<niklasl>	.. gregg: skosxl:literalForm should be suitable
+[10:54]	<Denny_WMDE1>	if something has two labels - like "USA" and "United States" - there would be distinct pronounciation URLs pointing to files
+[10:55]	<mlnt>	niklas: for literals RDF has taken a simple path, we have to pay the price when we have to link resources to them (reification)
+[10:55]	<mlnt>	manu: is it important that the RDF contains things like pronunciation?
+[10:55]	<Denny_WMDE1>	it is not immediately important
+[10:55]	<Denny_WMDE1>	it will be later
+[10:56]	<Denny_WMDE1>	it would be a pity if the RDF representation would not be complete
+[10:56]	<mlnt>	... what I'm saying is you have it in JSON-LD but you loose it when converting to RDF
+[10:56]	<Denny_WMDE1>	but not a catastrophe
+[10:57]	<mlnt>	manu: so I think what we are talking about here is a simple macro that makes it easy to express it in JSON-LD and allows it to transform it to RDF
+[10:57]	<mlnt>	niklas: today in RDF you would use structured labels such as used in skosxl
+[10:58]	<mlnt>	manu: we are coming close to the end of the call
+[10:58]	<Denny_WMDE1>	in an ideal world i would see the following: label.en = { value = "USA", pronouncation = "..:" } and have that translated to both w:USArdf:label "USA"^en and w:USA skos-xl:label _:1 . _:1 prefLabel "USA"^en ; pronouncation "…" .
+[10:59]	<Denny_WMDE1>	yes, i agree
+[10:59]	<mlnt>	niklas: this might be a bit too advanced for JSON-LD
+[10:59]	<Denny_WMDE1>	understood and agreed. just saying :)
+[11:00]	<mlnt>	niklas: we would have to make @value to be dualistic
+[11:00]	<mlnt>	... we are getting close to quantum-theory :-)
+[11:00]	<Denny_WMDE1>	so we would simply have label.en = "USA" and label-xl.en = { value = "USA", pronouncation = "…" }
+[11:00]	<Denny_WMDE1>	and that would be translated to both then
+[11:01]	<niklasl>	+1 for that
+[11:01]	<mlnt>	gregg: the last example denny typed looks like a good way forward
+[11:02]	<mlnt>	manu: niklas, are you saying you agree with this being a good way forward
+[11:03]	<mlnt>	markus: niklas, could you type an expanded example?
+[11:03]	<Denny_WMDE1>	-> _:1 dc:langauge "en"
+[11:03]	|<--	peacekeep3r has left freenode (Quit: Leaving)
+[11:04]	-->|	peacekeep3r (~peacekeep@chello084114169104.2.15.vie.surfer.at) has joined #json-ld
+[11:05]	<Denny_WMDE1>	Thanks for having me on the telco. I didn't intend to hijack it. I will have a draft of our planned rdf export soon, and then i would be glad to see further if we can go together
+[11:05]	<mlnt>	manu: Not at all - this is an important use case and your need for it gives us clarity when attempting to find a solution to the issue.
+[11:05]	<Denny_WMDE1>	ok, thanks
+[11:05]	<mlnt>	manu: Denny, is JSON-LD a no-go for Wikidata if you don't have this feature?
+[11:05]	<Denny_WMDE1>	hard to say
+[11:05]	<Denny_WMDE1>	i would prefer to use json-ld
+[11:06]	<manu1>	PROPOSAL: Support language-maps via the "@container"; "@language" pattern in @context.
+[11:07]	<mlnt>	+1
+[11:07]	<manu1>	+1
+[11:07]	<niklasl>	+1 (and possibly @id and regular properties)
+[11:07]	<gkellogg>	+1
+[11:07]	<taaz>	+0
+[11:07]	<manu1>	RESOLVED: Support language-maps via the "@container": "@language" pattern in @context.
+[11:08]	<niklasl>	Another option is this - @context: { "label": {"@container": "@language"}, "label-xl": {"@id": "skosxl:prefLabel", "@container": "dc:language"} }
+[11:08]	<niklasl>	which would produce this - {"label-xl": {"en": {"value": "stuff"}}} => {"label-xl": {"dc:language": "en", "value": "stuff"}}
+[11:12]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000002) has left the conference.
+[11:12]	<voip-ld>	Manu Sporny (SIP/6000-00000001) has left the conference.
+[11:12]	<voip-ld>	Dave Lehn (SIP/6003-00000005) has left the conference.
+[11:12]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000004) has left the conference.
+[11:12]	<voip-ld>	Niklas Lindström (SIP/192.168.3.19-00000003) has left the conference.
+[11:12]	<voip-ld>	<unknown> (IAX2/diamondcard-5875) has left the conference.

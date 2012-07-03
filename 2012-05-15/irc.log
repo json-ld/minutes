@@ -1,0 +1,186 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012May/0005.html
+[10:02]	<gkellogg>	scribe: gkellogg
+[10:04]	<manu1>	Topic: Finishing up the JSON-LD Syntax document
+[10:04]	<gkellogg>	manu: need to put some last changes in the Syntax spec before submitting to the RDF WG.
+[10:04]	<gkellogg>	… Is it ready? Is there more cleanup necessary.
+[10:05]	<gkellogg>	markus: the last issue on the agenda may be syntax related.
+[10:05]	<gkellogg>	… there's also the formally defined grammar.
+[10:06]	<gkellogg>	manu: we could create a section for the grammar and finalize after it goes to the WG.
+[10:06]	<gkellogg>	… @type could also be discussed after it's presented to the RDF WG
+[10:06]	<gkellogg>	… when presenting, we should know how to resolve outstanding issues.
+[10:06]	<gkellogg>	… we should add the two open issues as issue markers in the spec.
+[10:07]	<gkellogg>	… then we can ask for comments and push to an FPWD through RDF WG.
+[10:07]	<gkellogg>	niklas: what is the process once it goes into the RDF WG.
+[10:07]	<gkellogg>	manu: typically, they would create a task force to propose something to bring back.
+[10:08]	<gkellogg>	… we could say we believe it's ready to be formalized and published as a rec-track doc.
+[10:08]	<gkellogg>	… we'd try to get all of us in the RDF WG so that we could discuss it.
+[10:08]	<gkellogg>	… almost immediately, do an FPWD, and the WG can raise issues on the spec.
+[10:09]	<gkellogg>	… then there is a request for implementations.
+[10:09]	<gkellogg>	… have to figure out how the CR phase should go.
+[10:09]	<gkellogg>	… Then PR and REC. Hopefully a tighter release schedule than RDFa.
+[10:10]	<gkellogg>	niklas: do we want it so finished that there won't be any significant discussion?
+[10:10]	<gkellogg>	manu: the people in this group need to be on the same page before going in to avoid fracturing within the WG.
+[10:11]	<gkellogg>	… if we had a fundamental disagreement about what @graph means, that could get dragged out.
+[10:11]	<gkellogg>	… it could help focus their discussions, or it could blow things up.
+[10:12]	<gkellogg>	… If it were not working well in the RDF WG, it could go to a different group, or that a new one could be created.
+[10:12]	<gkellogg>	… however, it would be good to have more eyes on the work than a new group might bring.
+[10:13]	<gkellogg>	markus: if we go into RDF WG, is there a mechanism to move it someplace else?
+[10:13]	<gkellogg>	manu: yes, that happened with HTML+RDFa, for example.
+[10:14]	<gkellogg>	… this is often done when things get "stuck". In the worst case, there's a spec out there that people can use.
+[10:14]	<gkellogg>	… less likely to be an issue about JSON-LD than there was about HTML+RDFa.
+[10:15]	<gkellogg>	niklas: we've seen some different perspectives on how people want to use JSON-LD, but I think we've settled on the general "shape".
+[10:15]	<gkellogg>	… There might be some issue with the overloaded meaning of @type. I probably wouldn't mind re-introducing @datatype, but we might try to make the current use more convincing.
+[10:16]	<gkellogg>	manu: we might fixate on this as being a big deal, but that it's not really the issue after all.
+[10:17]	<gkellogg>	… there's no-one in the group that is disingenuous. If there's a lot of negative feedback, we might regroup.
+[10:17]	<gkellogg>	… a couple of people in the group have read it, and most of the comments have been grammatical, not technical.
+[10:17]	<gkellogg>	markus: we would present the syntax and not the API document, right?
+[10:18]	<gkellogg>	manu: yes. We're not putting out the API document yet, because we want to see how people actually use it.
+[10:18]	<voip-ld>	Dave Lehn (SIP/6003-000000a8) has joined the conference.
+[10:18]	<gkellogg>	… this allows people to see that the syntax is solid first.
+[10:19]	<gkellogg>	niklas: framing is important. we should have some slack.
+[10:20]	<manu1>	gkellogg: I think people may have questions about how the RDF conversion works - not having an API spec to reference could create more issues.
+[10:20]	<gkellogg>	manu: the docs there, it's just that there might not be a normative link.
+[10:21]	<gkellogg>	… we could say the reasons whey there is not a normative link, but continue to reference it.
+[10:21]	<gkellogg>	… this allows us to focus on the syntax, and not get into more complex areas until it's more widely used.
+[10:22]	<manu1>	gkellogg: One of my concerns is about named graphs - it seems like as they go on, they create more issues.
+[10:22]	<manu1>	gkellogg: If JSON-LD goes in, and there are various issues around a non-normative API - it may cause us to spin. JSON-LD might be different as it doesn't have to do with core semantics - doesn't need to be a pedantic discussion.
+[10:23]	<gkellogg>	manu: that's why we all need to be on the same page.
+[10:24]	<gkellogg>	… the way we address that is to describe our process for creating what's there. The core semantics can be figured out later, by a different group of experts.
+[10:25]	<gkellogg>	… up until now, they haven't had a concrete need for it to be done. JSON-LD puts some pressure on that takes a stand.
+[10:25]	<gkellogg>	… we can then see if this allows consensus to form.
+[10:27]	<gkellogg>	manu: we're splitting hairs on implementation details in the API; we're in good agreement about the core principles.
+[10:28]	<gkellogg>	markus: I t think we have general agreement; we're down to possible changes in expanded form.
+[10:29]	<gkellogg>	niklas: possible reservation about issue #120, which could be a hint that overloading @type is problematic
+[10:29]	<gkellogg>	… for me, datatype has some meaning separate from type.
+[10:30]	<gkellogg>	dave: should we put more work in to a primer?
+[10:31]	<gkellogg>	s/dave/taaz/
+[10:31]	<gkellogg>	manu: ideally, we'd have a primer, which is a quick read.
+[10:32]	<gkellogg>	… the beginning of the syntax doc is something like a primer, though.
+[10:32]	<gkellogg>	taaz: my approach was that of the novice JSON programmer, who wants to know how to turn is date into Linked data.
+[10:33]	<gkellogg>	manu: we could put up a wiki, but then it doesn't get edited.
+[10:33]	<gkellogg>	… everyone here has commit rights to the repo, so we should just put up a page.
+[10:35]	<manu1>	gkellogg: We may just want a portion of the website that has examples - just examples that they can browse through and see things.
+[10:35]	<gkellogg>	niklas: I had some ideas, that are more like stories. One would be a generalized approach for legal information.
+[10:38]	<gkellogg>	manu: let's create an examples page that could list a bunch of examples, and then clicking on it could reach out to JSON-LD.
+[10:41]	<gkellogg>	manu: plan of action to make one more pass through syntax doc and tell the RDF WG we're ready to have it discussed there.
+[10:43]	<gkellogg>	manu: we would all transfer into the RDF WG, and the community group would pretty much go away.
+[10:43]	<gkellogg>	… Work would proceed within the RDF WG.
+[10:44]	<gkellogg>	… if we're successful, we'll be the first CG to get a rec-track spec out.
+[10:44]	<taaz>	(we need a logo and t-shirts)
+[10:44]	<mlnt>	:-)
+[10:45]	* gkellogg	absolutely!
+[10:46]	<manu1>	Topic: ISSUE-100: Should the JSON-LD API have a "mode": "strict" flag?
+[10:46]	<manu1>	https://github.com/json-ld/json-ld.org/issues/100
+[10:47]	<gkellogg>	manu: first question, have a strict more or validate option in the API.
+[10:47]	<gkellogg>	… second, if there is a mode, should there be just strict and lax or strict, match and lax?
+[10:47]	<gkellogg>	… strict raises errors on any errors.
+[10:47]	<gkellogg>	… match would just drop problematic data
+[10:48]	<gkellogg>	… lax would try to change things based on authors intent.
+[10:48]	<gkellogg>	… a fourth option would be a lint option.
+[10:49]	<gkellogg>	markus: don't really see the need for these options. JSON-LD isn't intended for human use, so there may not be anyone to "see" that there's an issue. If we don't through an exception, it could just be lost.
+[10:49]	<gkellogg>	… we had said that JSON-LD should be as forgiving as possible. Note sure what these modes do in algorithmic terms.
+[10:50]	<gkellogg>	manu: base concern is that we started out by saying that it should be forgiving; this should be the default probably.
+[10:50]	<gkellogg>	… in general, we want it to be forgiving; but there are cases where having a forgiving process is not ideal; it could create more complex code or allow bad data to be introduced.
+[10:51]	<gkellogg>	… one of the reasons developers prefer JSON to XML is because it's readable.
+[10:52]	<gkellogg>	… key concerns: we'd burden a subset of developers. Some want exceptions thrown when anything unusual happens. Others don't really care about error cases.
+[10:52]	<gkellogg>	markus: if we're doing fromRDF and we get something unusual (say "five"^^xsd:integer)
+[10:53]	<niklasl>	.. <> dc:creator "Some Body" vs. <> dc:creator [ foaf:name "Some Body" ]
+[10:54]	<manu1>	gkellogg: if I was importing RDF data, and I had data that didn't match what I expected, then throwing an exception in that case might be useful.
+[10:55]	<manu1>	gkellogg: I might switch from "strict" to "lax" when I go from development to production mode.
+[10:55]	<gkellogg>	niklas: Jena does seem to do some checking, and I've used that to find JSON errors before.
+[10:55]	<gkellogg>	… I would really make use of all three modes.
+[10:57]	<gkellogg>	manu: in HTML5 we learned that people use bad formats, but people expect it to work.
+[10:58]	<niklasl>	s/find JSON errors/find RDF datatype errors/
+[10:58]	<gkellogg>	… people prefer something that recover when they can. This says that strict mode shouldn't be the default.
+[10:58]	<gkellogg>	… there are a subset of people that care about things that are wrong.
+[11:01]	<gkellogg>	markus: we changed conversion of native types to just fromRDF, so it's not as much of an issue.
+[11:03]	<niklasl>	.. <> dc:created "today" => "created": {"@id": "dc:created", "@type": "xsd:date"} => different effects depending on mode
+[11:06]	<manu1>	gkellogg: What the developer needs is potentially something that we can't consider in this group - such as linting - that should be done outside of this group. Maybe we want to be a bit softer - "do stuff w/o any normative language on what should be done". That gives implementers a hook to use that as a basis for doing their own linters or pedantic checkers.
+[11:06]	<mlnt>	niklasl: this term would never be choosen in compaction because the type doesn't match
+[11:08]	<mlnt>	niklasl: or are you talking about fromRDF()?
+[11:08]	<manu1>	gkellogg: We want to give developers a hook to make implementing this easier.
+[11:08]	<gkellogg>	markus: we should come up with the list and decide upon that.
+[11:09]	<niklasl>	mlnt: ah, right. With this rule I think my case for compaction is safe. in fromRDF, I think if no term is found, it's ok if the full iri fordc:created is used with an expanded literal form.
+[11:09]	<manu1>	gkellogg: Strict mode flag when applied to anything that uses expansion, would warn about ignored data - either properties or data. Strict mode flag in compaction would do the expansion and report on problems applying the context to the data. In framing, it would warn you about syntax issues in the frame in addition to issues inexpansion/compaction.
+[11:10]	<manu1>	gkellogg: Data type checking comes in when you go from RDF into JSON-LD - and depends on how you do the translation. If booleans/doubles need to be converted into native types. If they ask that "five" be transformed intoxsd:integer, but they cannot be translated into native form.
+[11:10]	<gkellogg>	markus: I see the use case in from RDF
+[11:11]	<manu1>	manu: What happens if you do this - "@id": 5
+[11:11]	<gkellogg>	… this could warn about native datatypes which don't match the lexical representation. I don't see the value for compaction, expansion, framing.
+[11:18]	<manu1>	manu: It would be very bad for us to error out on simple issues like "@id": 5 - that's what XHTML1 did and it didn't solve any issues.
+[11:18]	<manu1>	gkellogg: RDFa does this via processor graphs - don't know if we want to introduce this concept to JSON-LD.
+[11:19]	<manu1>	gkellogg: It's pretty clear to me that we need a flag. There are some things where we found that we need it. Processors should do "best-effort" when producing JSON-LD. Maybe there is a callback instead of an exception mechanism.
+[11:20]	<manu1>	manu: I like that - instead of a flag, the APIs take an extra callback - "onError()"?
+[11:21]	<manu1>	gkellogg: You could have a single closure associated with the data - and the program would halt if the callback responds back with a "false" - which means "stop processing".
+[11:22]	<manu1>	gkellogg: for example, .expand() has a callback...
+[11:25]	<manu1>	gkellogg: We could use the JSONLD callback to report the issue - the 'type' of the error, and a 'message', and based on the class of the error - there is some other data.
+[11:28]	<manu1>	markus: Yes, but we should have the list.
+[11:29]	<manu1>	manu: Yes, we should - but the fundamental question here is - do we have mode strict/lax mode? or do we have JSON-LD processing events? I prefer JSON-LD processing events.
+[11:30]	<manu1>	PROPOSAL: JSON-LD will support a JSON-LD Processor Event mechanism that will report certain events (to be decided later) via a callback given through JSON-LD API calls.
+[11:30]	<gkellogg>	+1
+[11:30]	<manu1>	+1 (In general)
+[11:30]	<mlnt>	+1 (in general as well)
+[11:30]	<niklasl>	+1 (with details regarding error handling filled in later on)
+[11:31]	<taaz>	+0!
+[11:36]	<manu1>	RESOLVED: JSON-LD will support a JSON-LD Processor Event mechanism that will report certain events (to be decided later) via a callback given through JSON-LD API calls.
+[11:36]	<manu1>	Discussion about whether or not we should re-use 'callback' in the JSON-LD API.
+[11:37]	<mlnt>	http://www.w3.org/TR/websockets/#the-websocket-interface
+[11:39]	<manu1>	gkellogg: In a perfect world - we might split these out into different methods - maybe... but I don't write code like that. The code paths become quite difficult in this case... you end up having processing separated "spatially" throughout the document.
+[11:41]	<gkellogg>	manu: this often makes code more complex, as code is scattered across the page. This argues for a single callback. You don't want to overwhelm developers with options.
+[11:41]	<gkellogg>	… this callback is called whenever a processing event happens. If you don't want to stop with errors, always return true.
+[11:41]	<gkellogg>	… with a JSON-LD processor, you tell it to do something, and give it a callback which is used whenever there is some "event", including the end of processing.
+[11:42]	<gkellogg>	… if you need to break it out, the developer does that inline. This give power to the developer.
+[11:43]	<gkellogg>	niklas: getting an event with type and message is an easy way to start. If we see that adding multiple callbacks reduces complexity, we can add later.
+[11:44]	<manu1>	http://www.w3.org/TR/websockets/#event-definitions
+[11:44]	<gkellogg>	manu: the Event Definitions from web sockets looks like a model we could follow.
+[11:45]	<gkellogg>	… we could give options to developers on how they want these to resolve.
+[11:45]	<gkellogg>	… for example, we could allow them to handle datatype transforms.
+[11:47]	<manu1>	PROPOSAL: The JSON-LD Processor Event callback would be registered for every JSON-LD API call, and would provide the type of event and the data associated with the event for the callback. This mechanism would be used to report potential errors, warnings and when the processing of the document was complete.
+[11:47]	<gkellogg>	+1
+[11:47]	<manu1>	+1
+[11:47]	<niklasl>	+1
+[11:48]	<mlnt>	+1
+[11:48]	<taaz>	+0 (really need some implementations to valididate all these ideas)
+[11:49]	<manu1>	RESOLVED: The JSON-LD Processor Event callback would be registered for every JSON-LD API call, and would provide the type of event and the data associated with the event for the callback. This mechanism would be used to report potential errors, warnings and when the processing of the document was complete.
+[11:49]	<gkellogg>	manu: we could let the developer decide how to detail how to deal with bad data.
+[11:50]	<manu1>	gkellogg: The corollary here is that whenever we say that the processor should raise an exception - we call the callback.
+[11:51]	<manu1>	PROPOSAL: When a JSON-LD processor processes input that would result in an exception, it should instead call the JSON-LD Processor Event callback with data concerning the issue that was detected.
+[11:51]	<gkellogg>	+1
+[11:51]	<manu1>	+1
+[11:51]	<niklasl>	+1
+[11:52]	<mlnt>	+1 for browser implementations
+[11:52]	<taaz>	+0
+[11:53]	<manu1>	RESOLVED: When a JSON-LD processor processes input that would result in an exception, it should instead call the JSON-LD Processor Event callback with data concerning the issue that was detected.
+[11:55]	<manu1>	Topic: ISSUE-116: Introduce @extension keyword?
+[11:55]	<manu1>	https://github.com/json-ld/json-ld.org/issues/116
+[11:56]	<manu1>	manu: Does anybody think we need to do this?
+[11:56]	<manu1>	markus: Not I.
+[11:57]	<manu1>	gkellogg: We would just ignore @extension now, so they could do that... we'd just ignore it.
+[11:57]	<manu1>	taaz: Validation is an interesting use case - we don't do that now...
+[11:57]	<manu1>	taaz: It's important to think about how validation could be integrated into JSON-LD.
+[11:58]	<manu1>	markus: Well, it would be ignored.
+[11:59]	<gkellogg>	taaz: we need to iterate on the JSON validator; it's not "easy".
+[11:59]	<gkellogg>	… If you had a generic extension mechanism, it would at least allow people to experiment.
+[11:59]	<gkellogg>	… there are probably better ways to do validation than we do now; perhaps operating on triples.
+[12:00]	<manu1>	taaz: I don't think our (Digital Bazaar's) JSON-LD validator is easy... we need to iterate more before proposing something. I dont' think we want to force any particular validation mechanism on anyone. There is probably a better way to do validation than the way we're doing - more Semantic Webby operating on triples vs. the tree approach we're currently using.
+[12:00]	<gkellogg>	niklas: I've recently used SPARQL 1.1 and 'schemarama" which helps.
+[12:01]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-000000a3) has left the conference.
+[12:01]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000000a5) has left the conference.
+[12:01]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-000000a9) has joined the conference.
+[12:01]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000000a6) has left the conference.
+[12:01]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000000aa) has joined the conference.
+[12:01]	<voip-ld>	Manu Sporny (SIP/6000-000000a7) has left the conference.
+[12:02]	* manu1	waves bye... since he was disconnected - call is over :)
+[12:02]	<mlnt>	are we not resolving this issue?
+[12:02]	* manu1	should really put a "15 minutes" audible warning.
+[12:02]	<manu1>	actually, yeah let's do that.
+[12:02]	<taaz>	look at your clock :)
+[12:03]	<mlnt>	takes 2 minutes if we agree :-)
+[12:03]	<manu1>	PROPOSAL: Do not support the @extension keyword at this point in time.
+[12:03]	<manu1>	+1
+[12:03]	<mlnt>	+1
+[12:03]	<niklasl>	+1
+[12:04]	<taaz>	+1 but we should look at the use case for this and figure out how to provide the needed hooks
+[12:05]	<gkellogg>	+1
+[12:04]	<taaz>	@extension may not be right, but we probably need something for this
+[12:05]	<manu1>	RESOLVED: Do not support the @extension keyword at this point in time.
+[12:06]	<taaz>	hmm. i'm unsure about this. i think maybe the @extension request is not even the right issue to be raising. it would be better written as how to support such things as validation and schemas

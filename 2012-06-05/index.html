@@ -1,0 +1,174 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-06-05</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0005.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">SemTech 2012</a><li><a href="#topic-2">ISSUE-127: JSON-LD API Introduction</a><li><a href="#topic-3">Define from/to RDF algorithms in terms of standard RDF</a><li><a href="#topic-4">RDF WG Invited Expert process</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Niklas Lindström, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: SemTech 2012</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg is doing a presentation on JSON-LD on Thursday, try to support him via Twitter, G+</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Stephane is trying to add JSON-LD Drupal... he spoke about it yesterday at SemTech.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There was concern that JSON-LD hasn't had enough review at W3C, so RDF WG folks are going to take a look at it and get people that they know to take a look at it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What needs to be changed in the spec?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's what we're going to discuss today.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-127: JSON-LD API Introduction</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/127">https://github.com/json-ld/json-ld.org/issues/127</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  RDF WG had a few issues with the JSON-LD API spec, mostly because it wasn't quite ready for review.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  They want to publish the JSON-LD API spec, so that's good... we don't have to look for another WG to publish the spec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Do we have to publish the entire JSON-LD spec? Do we have to separate anything in the specs?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  For now, we're going to publish the JSON-LD API spec without framing, that seemed to work for the RDF WG.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard Cyganiak has asked for these changes:</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  He wants an Introduction to basic API functionality with simple code examples.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  He also wants examples of converting to RDF from JSON-LD and to JSON-LD from RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, good idea, we should do this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley added conversion from RDFa API to JSON-LD API - green-turtle.js to jsonld.js - convert from RDF -&gt; JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've worked on this as well - kinda like an '.objectify()' call... using a JSON-LD context is very valuable in order to work with the object... very similar to the concept of a Projection...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Given that you're already in a programmatic context - having a way to get an object graph back, where you have the interconnections already in place, is very valuable - we should consider this for the RDFa API - it's easier to consume data this way than using framing in the general case... framing is useful for other kinds of scenarios.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The .objectify() idea is very valuable, we should consider it for the JSON-LD API...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we get this in a simple way for the JSON-LD API, if we had that - we could have a nice way of working with RDF via JSON-LD in dynamic languages... any sort of mapping mechanism works this way - combine a context with the .objectify() is important.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Can we have an implementation to play around with?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Josh Mandel and I have an implementation... we could use .prototype to invoke the .toJSON() method... it's an in-memory object graph, every reference is a clone of the original node... when you use .toJSON() you get a JSON-LD tree back. If we did that, we could produce the in-memory graph directly and then convert to JSON-LD... don't have to expand anything after-the-fact. It is more complex... but if we do this, we get the feature of parsing RDF into an object graph where the terms are named via JSON-LD @context definitions... no intermediate step.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Here's the link to the comment of Josh Mandel: <a href="https://github.com/json-ld/json-ld.org/issues/109#issuecomment-5758808">https://github.com/json-ld/json-ld.org/issues/109#issuecomment-5758808</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can develop this in another spec, and then merge it if it makes sense to do so at a later time.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: and the pull request to add support for it to jsonld.js: <a href="https://github.com/digitalbazaar/jsonld.js/pull/15">https://github.com/digitalbazaar/jsonld.js/pull/15</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think this would be very appealing to the RDF WG - using RDF programmatically - much easier to present to web developers than navigating a triple store.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I haven't had time yet to play around with JSON-LD as much as I would've liked to - convert to/from RDF - but yes, what Niklas describes sounds like almost exactly what we're looking for.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'm not sure I see the difference between .frame(), .objectify(), .compact(), etc... but in the end, I need something in-memory that I can easily process. So yes, this sounds good.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Implementing it would be fairly straight-forward - pretty trivial, most of it is already there. Similar to framing, instead of embedding subject references, you'd just add a reference to the other object. Almost all of the code is already there.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that .objectify() and .frame() are complementary - different approaches to solving similar use cases.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is useful when documenting vocabularies - I have to walk the structure quite a bit... useful when checking property ranges, etc. If you generate some neat description, you usually just navigate one way and rarely more than one step.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Niklas, are you saying that you'd like to walk the reverse direction as well?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_ld.js#L31">https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_ld.js#L31</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, I added reverse references in my .graphify() call - does not exist in tree-form of JSON-LD... I call the JavaScript property .via</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's back-burner this for a while, keep going through more immediate issues.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, sounds good.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There has been concern that you can't shoe-horn RDF into JSON... but it seems that this allows a way to make it easier to use.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, other things from Richard: The Introduction of the API spec is mostly a copy-paste from the syntax spec. Remove the duplication, and replace it with a link if appropriate. Don't force people to read the same thing twice just so that they are sure they're not missing something essential.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Also - The API spec needs its own introduction that explains what's in the API spec. This needs at least one sentence for each of the algorithms and other major sections of the spec, explaining what that thing is and how it fits into the bigger picture of publishing, consuming and processing JSON-LD. A quick overview of the document's contents. The current lack of such a high-level overview in the API spec is a major flaw, and makes the document almost inaccessible to JSON-LD outsiders. I'd consider this a blocker for FPWD publication of the API spec.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The API spec should probably have one of those yellow Issue boxes near the beginning stating that the scope of the document, and what exactly is going to be included and excluded, is still somewhat unclear. (This is just to make clear that agreeing to FPWD publication does not necessary mean we agree to everything that's in there; RDF-WG members will need some time to review and understand the spec and how it all hangs together before being able to make informed commentary on what should and shouldn't be included.)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The API spec should have one of those yellow Issue boxes pointing out that the WebIDL's terminology needs better alignment with RDF Concepts.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Our primary goal is to create an API that is useful to Web developers... we want to align with RDF Concepts as well - clearly there may be difficulty making both of these happen.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't see a problem as long as we define our terminology and we're consistent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that when in doubt, we should use RDF Concepts... I think the issue is we're not clear whether we're talking about the node, or the thing identified by the node... resource vs. representation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Some of the issue is that we lifted language from RDF API and RDFa API spec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Good to have the discussion... we should keep the stance that Web-developer friendly names trump pedantic specificity.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My understanding is that the two “Contributing” sections in the two specs need to be changed to reflect the CG-to-WG transition of the documents.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There was a discussion about that the algorithms should be described in a more mathematical sense.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that we should focus on something that works for developers when discussing the algorithms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  These algorithms work if you implement them in code, but hard to figure out what they mean if you just read it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Perhaps we need better introductions to the algorithm.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Perhaps we could write it in some kind of functional way.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe we expand the introduction, make each introduction to each algorithm a bit more verbose and see if that makes people like Ivan okay with the algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard said: My understanding is that the two “Contributing” sections in the two specs need to be changed to reflect the CG-to-WG transition of the documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This change is fine - there is some boilerplate text that we can use to fix those sections.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Eric Prud'hommeaux wanted us to make this change: In a prominent place in the FPWD, document the intention to align with the RDF model and terminology. This will calm the RDF community and reduce the comments requesting something you already plan to do.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Seems like a reasonable change to make - just adding an issue.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Sandro asked us to make this change: even though this is a FPWD, it already has an 18-month history in the JSON-LD Community Group...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, we should definitely say that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Perhaps linking to the group that developed it - link to the JSON-LD community group.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we need to propose and resolve, or can we just make the changes?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think so - let's just make the changes... these are editorial mostly.</div>
+<div class="information">No objections, make the changes.</div>
+<h1 id="topic-3" class="topic">Topic: Define from/to RDF algorithms in terms of standard RDF</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/125">https://github.com/json-ld/json-ld.org/issues/125</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard said: I'd prefer if the algorithms were defined in terms of standard RDF terminology (RDF graph, triple, IRI, etc.) rather than API interfaces that use quite different terminology (array of Statements, Statement, NamedNode, etc.)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The terminology in the document is a mish-mash of stuff from RDF API, which was created before the new RDF Concepts document. It also contains terminology for concepts that aren't necessarily in the RDF Concepts document (like Quads), and there or other words that we use here that are easier for developers (like 'property' vs. 'predicate'). So, some of the changes are easy, some of them are mistakes, and some of the terminology may be problematic to Web developers if we change it. The core of the agreement, however, is that we're going to attempt to align as much as possible and where it makes sense.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can see Richard's point - I can see why he'd prefer to see Triples in datasets... so seeing triple and triple.dataset - giving items the same level of meaning - value properties of a triple... conceptually when discussing datasets and layers - the general idea of it... a 'dataset' is something on another level.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think it might be reasonable to specify the toRDF()/fromRDF() in RDF terms... but that being said, do we have a Quad, or do we have an object that represents the dataset that contains triples?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Richard said: Would it be possible at all to redefine the API to use something closer to RDF datasets? Having a Graph interface, and then Dataset with defaultGraph and multiple namedGraphs?</div>
+<div class="comment"><span class="name">David I. Lehn</span>: General concern about how long the named graphs discussion has been going on in RDF WG.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: This is of importance to this discussion: <a href="https://github.com/json-ld/json-ld.org/issues/125#issuecomment-5886644">https://github.com/json-ld/json-ld.org/issues/125#issuecomment-5886644</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm concerned that they want us to re-define the API using RDF Concepts terminology... but just in toRDF/fromRDF - but I don't think we should change the API itself, dramatically.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we want this API to be very useful to Web Developers and using RDF Concepts could make them have to delve very deeply into objects... which is not useful ... being overly-pedantic isn't good for APIs...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. Richard wrote: A “triple” is the things in the data model; a “statement” is the meaning of a triple, the thing that you make when asserting the triple.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issue is that once we add more information to a triple... it's no longer a triple...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could add an accessor method - on a Projection() for working with the data.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can see how you'd say X is a triple and it has this origin... and this creation date... etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, but in that case - is it still a triple? or something else?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Right - you could group all triples from a certain origin in a dataset and then describe the dataset using triples... like date, etc. If you want to describe individual triples, you can have one dataset for each triple.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I guess we can just make the changes and try to align with RDF Concepts where it makes sense to do so... but then we'll get feedback on the changes to see if they work for Richard.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, I think that makes sense - since it's happening in RDF WG, they'll have feedback.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In discussions, I've seen "Quad" viewed as (subject, predicate, object, and datatype) in discussions between people that don't know about RDF... may be a case against Quad... it's in the same area as the idea that the thing identifying the graph is a 'meta-property' and not part of the data.</div>
+<h1 id="topic-4" class="topic">Topic: RDF WG Invited Expert process</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, Niklas, have you guys sent in your Invited Expert application yet?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm waiting to hear back from SIXX.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let us know how we can help.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Also, a big thanks to Markus, Niklas, Francois, Gregg, Dave Lehn, Dave Longley and everyone else that continues to volunteer their unpaid time to move this stuff forward - we recognize that it's a big sacrifice and all the hard work is very, very much appreciated.</div>
+</body>
+</html>

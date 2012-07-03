@@ -1,0 +1,111 @@
+[10:06]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012May/0008.html
+[10:07]	<manu1>	manu1: Any changes to the agenda?
+[10:08]	<manu1>	niklasl: I have one thing I'd like to discuss - the multiple embeds issue... alternative to the RDF API... wondering if it could apply to what I'm working on.
+[10:08]	<manu1>	gregg: It might be worth talking a bit more about the JSON-LD grammar.
+[10:09]	<manu1>	Topic: JSON-LD pushed to RDF WG for review
+[10:09]	<manu1>	http://lists.w3.org/Archives/Public/public-rdf-wg/2012May/0480.html
+[10:09]	<manu1>	I sent that e-mail out to the RDF WG to request that JSON-LD be picked up in that group and be taken to REC. We should all keep a close eye on the mailing list and respond to any questions as they come in. I've asked Guus and David (RDF WG chairs) what the next steps are.
+[10:10]	<manu1>	scribe: niklasl
+[10:10]	<manu1>	Topic: ISSUE-114: JSON-LD Grammar
+[10:11]	<manu1>	The grammar that Markus put together was reworked slightly and put into the spec here: http://json-ld.org/spec/ED/json-ld-syntax/20120522/#json-ld-grammar
+[10:11]	<gkellogg>	issue is here: https://github.com/json-ld/json-ld.org/issues/114
+[10:11]	<niklasl>	manu: took markus' revision, rewrote a bit to the language of the spec
+[10:12]	<niklasl>	… if we express the grammar in ebnf, people may have hard to follow what's going on
+[10:12]	<niklasl>	… gregg mentioned that there may be some controversial stuff in the grammae
+[10:12]	<niklasl>	markus: some minor errors
+[10:13]	<niklasl>	… i'll go through it in the next couple of days
+[10:13]	<niklasl>	gregg: 21 and 22 might need some more discussions (perhaps some more)
+[10:14]	<niklasl>	markus: @type under discussion: if we really allow an object
+[10:14]	<niklasl>	… and are we going to allow relative iri:s?
+[10:14]	<niklasl>	… (e.g. in compact form)
+[10:15]	<niklasl>	gregg: my processor handles relative in subjects and object, but not in predicates and datatypes
+[10:15]	<niklasl>	gregg: and @type handled like datatype: i.e. must be absolute
+[10:16]	<niklasl>	manu: but what if there is a relative iri in there?
+[10:17]	<niklasl>	gregg: treated like a term - if not resolved or it's not an absolute iri, ignore it
+[10:17]	<niklasl>	… just like datatype: integer (not xsd:integer) would be ignored
+[10:17]	<niklasl>	manu: should we have the exact same mechanism everywhere?
+[10:17]	<niklasl>	q+
+[10:18]	<niklasl>	…: but there's a tradeoff, we don't want to generate faulty data
+[10:18]	<niklasl>	… but the authors need to understand where relative are allowed and where not
+[10:18]	<niklasl>	gregg: but we already do that with properties
+[10:18]	<niklasl>	… so why don't we treat a relative term like a relative iri?
+[10:19]	<niklasl>	… we want to be consistent
+[10:21]	<niklasl>	niklasl: I agree with gregg, these are orthogonal value spaces (predicates and types have different roles than subjects/objects); and it's the way all other rdf serializations work
+[10:21]	<mlnt>	"@type": "relativeornot"
+[10:21]	<niklasl>	gregg: not relative
+[10:21]	<gkellogg>	"@id": "relativeornot"
+[10:21]	<niklasl>	gregg: relative
+[10:21]	<niklasl>	manu: the latter is relative
+[10:22]	<niklasl>	gregg: that's how it works in RDFa
+[10:22]	<niklasl>	niklas: I agree, I don't think it's a problem in practice
+[10:22]	<niklasl>	manu: but the group that's going to use this don't have an RDF background
+[10:22]	<niklasl>	gregg: I think it will be clear
+[10:23]	<niklasl>	manu: we could have a relative ref in @type; it's frowned upon but allowed
+[10:24]	<niklasl>	gregg: but this would confuse things a lot if we e.g. reintroduced @vocab
+[10:25]	<mlnt>	"@type": "/types/Person"
+[10:25]	<niklasl>	gregg: the current spec would drop that
+[10:26]	<niklasl>	manu: we should make a distinction between best practice and allowed grammar
+[10:27]	<niklasl>	gregg: we can't give simple grammar rules for determining if somethings abs/relative; that's on another level [of semantics]
+[10:28]	<niklasl>	manu: that's also why I'm concerned about using EBNF
+[10:28]	<niklasl>	gregg: then we shouldn't call it a "grammar"
+[10:28]	<niklasl>	manu: markus want sometning explicit about whats syntactically allowed
+[10:29]	<niklasl>	… we need to figure out how a processor will report back what's allowed and not
+[10:31]	<niklasl>	manu: normally, if a grammar is violated, the parser quits; but this is not the case, the json-ld spec explains how to continue (and possibly recover)
+[10:31]	<niklasl>	gregg: not entirely true in all cases.
+[10:32]	<niklasl>	gregg: we can have a formal grammar plus higher-level consistency rules
+[10:33]	<manu1>	niklasl: I think that the JSON-LD spec can be defined using plain language as well - we don't have to formally define a grammar, we can just say that something is ignored.
+[10:35]	<niklasl>	manu: markus' list is simple enough and seems to cover what we need
+[10:36]	<manu1>	niklasl: I think that we can approach this in the same way as the Atom spec - they have SHOULDs and MUSTs, but everything else is ignored.
+[10:37]	<manu1>	niklasl: You can throw in forbidden attributes anywhere, but they're ignored. They have an informative RelaxNG specification, parsers are not supposed to use it - it's just there for teaching purposes.
+[10:39]	<niklasl>	manu: we could e.g. turn true into "true"
+[10:40]	<niklasl>	gregg: but we should not allow bad data
+[10:40]	<niklasl>	manu: true. that also seems to support not supporting relative iri:s in properties and @type
+[10:41]	<niklasl>	manu: the grammar rules should perhaps be called authoring rules
+[10:41]	<niklasl>	gregg: json-ld processors should be able to process any json
+[10:41]	<niklasl>	[pushing back this to the list]
+[10:42]	<niklasl>	manu: deferring issue 110 (too long to discuss today)
+[10:42]	<niklasl>	Topic: ISSUE-118: @graph support in framing
+[10:42]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/118
+[10:43]	<niklasl>	gregg: we're sort of in the area of inventions; we need implementations to see the needs
+[10:44]	<niklasl>	manu: yes, we need to allow implementations to evaluate the changes
+[10:44]	<niklasl>	… the other concern is that if we treat everything as flat, I don't want to paint ourselves into a corner
+[10:45]	<niklasl>	… to not prevent ourselves from future use cases
+[10:46]	<niklasl>	manu: proposal right now is to put this in the back burner until we know what should be done (e.g. 3 different implementors tackling he situation)
+[10:47]	<niklasl>	gregg: what is really required for specific applications, and handle that in a separate framing spec...
+[10:47]	<niklasl>	manu: if we make framing as complex as sparql is, it'll be hard to grasp. It should be a very basic query language.
+[10:48]	<niklasl>	… for right now, focus on really simple rest services; if people want to do complicated framing, they can implement it on top of the api
+[10:48]	<niklasl>	markus: so you're arguing against e.g. value matching?
+[10:48]	<niklasl>	manu: yes, for now..
+[10:50]	<manu1>	niklasl: I wonder if these advanced scenarios go beyond what JSON-LD is for... aren't we just re-implementing the entire RDF stack if we support some of these more advanced use cases?
+[10:51]	<niklasl>	markus: but why did we introduce named graphs?
+[10:51]	<niklasl>	manu: the reason for named graphs is more for [packaging the data] for e.g. signing
+[10:52]	<niklasl>	… we only need one named graph at a time in the document
+[10:53]	<niklasl>	markus: but it's not the @graph, it's the value matching in framing that's more complex
+[10:53]	<niklasl>	manu: yes, but we're adding nice-to-haves we haven't seen fully formed needs yet, and it'll add more rules for people to comprehend
+[10:54]	<gkellogg>	PROPOSAL: defer @graph and, in general, value matching from the frame algorithm.
+[10:54]	<niklasl>	+1
+[10:54]	<manu1>	+1
+[10:54]	<gkellogg>	+1
+[10:55]	<taaz>	+1
+[10:55]	<mlnt>	+0 (want to work on a solution for this)
+[10:55]	<manu1>	RESOLVED: Defer @graph and, in general, value matching from the framing algorithm.
+[10:56]	<niklasl>	Topic: ISSUE-119: Aggressive embedding support
+[10:57]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/119
+[10:57]	<niklasl>	manu: how developers need to use data (looping over cycles etc.)
+[10:58]	<niklasl>	q+
+[10:58]	<niklasl>	manu: currently, you need to implement a "findSubjects"
+[10:58]	<niklasl>	… josh suggests "aggressive embedding"
+[10:59]	<niklasl>	… insert the same subject [and data of it] everywhere it's referenced, just cycles
+[11:02]	<manu1>	niklasl: I've had this embed situation in 3 different contexts. 1) I've used a tree representation of an OWL ontology and tried to generate documentation from that, where labels need to be associated with classes - either the tree is going to be gigantic, or I have to back away from using a tree representation entirely and use a proper graph representation.
+[11:04]	<manu1>	niklasl: This is the general case for using Linked Data programmatically - unless I'm trying to render the tree in a flat way. Anytime I need a label for a link, or the context for a link - publisher, responsible person at publisher, etc. Any real-world situation of using this data, I need a graph in memory. Where I've found aggressive embedding useful, is when I've used a JSON-LD context...
+[11:04]	<manu1>	...applied on a big chunk of data and related things and put that into Elastic Search.
+[11:04]	<manu1>	niklasl: I can do very advanced filters, etc. - sort on date values for things referencing the current object - things like that. Those things invalidate the current document - need to filter on those dates. Need to see if they are active at the current time. So, I've seen both of these proposed solutions to the problem.
+[11:05]	<manu1>	niklasl: I think that we should actively explore both of them.
+[11:05]	<manu1>	niklasl: One is using JSON is indexing scenarios - very narrow usecase - but useful (MongoDB, Solr, Elastic Search).
+[11:06]	<manu1>	niklasl: Programmatically using Linked Data, you use in-memory graph of what you've gathered in order to walk it properly. Dereferencing the links must be easy in that case.
+[11:07]	<manu1>	niklasl: If I have a compact JSON-LD representation of a lot of vocabularies, I need labels for them all, it's straight-forward if I have a flat JSON-LD structure.
+[11:08]	<manu1>	niklasl: Properties are compacted, I have simple keys and I have @language to reduce to simple graph list - if I walk every property and put the object in place where there is a reference, that's a very simple loop and makes the data infinitely more useable in a template or programmatic usage.
+[11:08]	<mlnt>	Josh Mandel has built an objectify() API call to create an in-memory graph: https://github.com/json-ld/json-ld.org/issues/109#issuecomment-5758808
+[11:09]	* niklasl	mlnt; cool; thanks for the ref.
+[11:09]	<taaz>	https://github.com/digitalbazaar/jsonld.js/pull/15
+[11:09]	<taaz>	in case you all didn't see JoshM's in memory graph experiment

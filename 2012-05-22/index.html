@@ -1,0 +1,190 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-05-22</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012May/0008.html">http://lists.w3.org/Archives/Public/public-linked-json/2012May/0008.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">JSON-LD pushed to RDF WG for review</a><li><a href="#topic-2">ISSUE-114: JSON-LD Grammar</a><li><a href="#topic-3">ISSUE-118: @graph support in framing</a><li><a href="#topic-4">ISSUE-119: Aggressive embedding support</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Defer @graph and, in general, value matching from the framing algorithm.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Gregg Kellogg, Markus Lanthaler, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to the agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I have one thing I'd like to discuss - the multiple embeds issue... alternative to the RDF API... wondering if it could apply to what I'm working on. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It might be worth talking a bit more about the JSON-LD grammar. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-1" class="topic">Topic: JSON-LD pushed to RDF WG for review</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012May/0480.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012May/0480.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: I sent that e-mail out to the RDF WG to request that JSON-LD be picked up in that group and be taken to REC. We should all keep a close eye on the mailing list and respond to any questions as they come in. I've asked Guus and David (RDF WG chairs) what the next steps are.</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-114: JSON-LD Grammar</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: The grammar that Markus put together was reworked slightly and put into the spec here: <a href="http://json-ld.org/spec/ED/json-ld-syntax/20120522/#json-ld-grammar">http://json-ld.org/spec/ED/json-ld-syntax/20120522/#json-ld-grammar</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: issue is here: <a href="https://github.com/json-ld/json-ld.org/issues/114">https://github.com/json-ld/json-ld.org/issues/114</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  took markus' revision, rewrote a bit to the language of the spec</div>
+<div class="comment-continuation">… if we express the grammar in ebnf, people may have hard to follow what's going on</div>
+<div class="comment-continuation">… gregg mentioned that there may be some controversial stuff in the grammae</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  some minor errors</div>
+<div class="comment-continuation">… i'll go through it in the next couple of days</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  21 and 22 might need some more discussions (perhaps some more)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @type under discussion: if we really allow an object</div>
+<div class="comment-continuation">… and are we going to allow relative iri:s?</div>
+<div class="comment-continuation">… (e.g. in compact form)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my processor handles relative in subjects and object, but not in predicates and datatypes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  and @type handled like datatype: i.e. must be absolute</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but what if there is a relative iri in there?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  treated like a term - if not resolved or it's not an absolute iri, ignore it</div>
+<div class="comment-continuation">… just like datatype: integer (not xsd:integer) would be ignored</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  should we have the exact same mechanism everywhere?</div>
+<div class="comment-continuation">…: but there's a tradeoff, we don't want to generate faulty data</div>
+<div class="comment-continuation">… but the authors need to understand where relative are allowed and where not</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but we already do that with properties</div>
+<div class="comment-continuation">… so why don't we treat a relative term like a relative iri?</div>
+<div class="comment-continuation">… we want to be consistent</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree with gregg, these are orthogonal value spaces (predicates and types have different roles than subjects/objects); and it's the way all other rdf serializations work</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "@type": "relativeornot"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  not relative</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "@id": "relativeornot"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  relative</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the latter is relative</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's how it works in RDFa</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree, I don't think it's a problem in practice</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but the group that's going to use this don't have an RDF background</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it will be clear</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could have a relative ref in @type; it's frowned upon but allowed</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but this would confuse things a lot if we e.g. reintroduced @vocab</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "@type": "/types/Person"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the current spec would drop that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should make a distinction between best practice and allowed grammar</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we can't give simple grammar rules for determining if somethings abs/relative; that's on another level [of semantics]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's also why I'm concerned about using EBNF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  then we shouldn't call it a "grammar"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus want sometning explicit about whats syntactically allowed</div>
+<div class="comment-continuation">… we need to figure out how a processor will report back what's allowed and not</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  normally, if a grammar is violated, the parser quits; but this is not the case, the json-ld spec explains how to continue (and possibly recover)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  not entirely true in all cases.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we can have a formal grammar plus higher-level consistency rules</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that the JSON-LD spec can be defined using plain language as well - we don't have to formally define a grammar, we can just say that something is ignored. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus' list is simple enough and seems to cover what we need</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that we can approach this in the same way as the Atom spec - they have SHOULDs and MUSTs, but everything else is ignored. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You can throw in forbidden attributes anywhere, but they're ignored. They have an informative RelaxNG specification, parsers are not supposed to use it - it's just there for teaching purposes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could e.g. turn true into "true"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but we should not allow bad data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  true. that also seems to support not supporting relative iri:s in properties and @type</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the grammar rules should perhaps be called authoring rules</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  json-ld processors should be able to process any json</div>
+<div class="information">[pushing back this to the list]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  deferring issue 110 (too long to discuss today)</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-118: @graph support in framing</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/118">https://github.com/json-ld/json-ld.org/issues/118</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we're sort of in the area of inventions; we need implementations to see the needs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we need to allow implementations to evaluate the changes</div>
+<div class="comment-continuation">… the other concern is that if we treat everything as flat, I don't want to paint ourselves into a corner</div>
+<div class="comment-continuation">… to not prevent ourselves from future use cases</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  proposal right now is to put this in the back burner until we know what should be done (e.g. 3 different implementors tackling he situation)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what is really required for specific applications, and handle that in a separate framing spec...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we make framing as complex as sparql is, it'll be hard to grasp. It should be a very basic query language.</div>
+<div class="comment-continuation">… for right now, focus on really simple rest services; if people want to do complicated framing, they can implement it on top of the api</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so you're arguing against e.g. value matching?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, for now..</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I wonder if these advanced scenarios go beyond what JSON-LD is for... aren't we just re-implementing the entire RDF stack if we support some of these more advanced use cases? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but why did we introduce named graphs?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the reason for named graphs is more for [packaging the data] for e.g. signing</div>
+<div class="comment-continuation">… we only need one named graph at a time in the document</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but it's not the @graph, it's the value matching in framing that's more complex</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, but we're adding nice-to-haves we haven't seen fully formed needs yet, and it'll add more rules for people to comprehend</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  defer @graph and, in general, value matching from the frame algorithm.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0 (want to work on a solution for this)</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Defer @graph and, in general, value matching from the framing algorithm.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-119: Aggressive embedding support</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/119">https://github.com/json-ld/json-ld.org/issues/119</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  how developers need to use data (looping over cycles etc.)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  currently, you need to implement a "findSubjects"</div>
+<div class="comment-continuation">… josh suggests "aggressive embedding"</div>
+<div class="comment-continuation">… insert the same subject [and data of it] everywhere it's referenced, just cycles</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've had this embed situation in 3 different contexts. 1) I've used a tree representation of an OWL ontology and tried to generate documentation from that, where labels need to be associated with classes - either the tree is going to be gigantic, or I have to back away from using a tree representation entirely and use a proper graph representation. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is the general case for using Linked Data programmatically - unless I'm trying to render the tree in a flat way. Anytime I need a label for a link, or the context for a link - publisher, responsible person at publisher, etc. Any real-world situation of using this data, I need a graph in memory. Where I've found aggressive embedding useful, is when I've used a JSON-LD context... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...applied on a big chunk of data and related things and put that into Elastic Search.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can do very advanced filters, etc. - sort on date values for things referencing the current object - things like that. Those things invalidate the current document - need to filter on those dates. Need to see if they are active at the current time. So, I've seen both of these proposed solutions to the problem. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that we should actively explore both of them. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  One is using JSON is indexing scenarios - very narrow usecase - but useful (MongoDB, Solr, Elastic Search). [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Programmatically using Linked Data, you use in-memory graph of what you've gathered in order to walk it properly. Dereferencing the links must be easy in that case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If I have a compact JSON-LD representation of a lot of vocabularies, I need labels for them all, it's straight-forward if I have a flat JSON-LD structure. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Properties are compacted, I have simple keys and I have @language to reduce to simple graph list - if I walk every property and put the object in place where there is a reference, that's a very simple loop and makes the data infinitely more useable in a template or programmatic usage. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Josh Mandel has built an objectify() API call to create an in-memory graph: <a href="https://github.com/json-ld/json-ld.org/issues/109#issuecomment-5758808">https://github.com/json-ld/json-ld.org/issues/109#issuecomment-5758808</a></div>
+<div class="comment"><span class="name">David I. Lehn</span>: <a href="https://github.com/digitalbazaar/jsonld.js/pull/15">https://github.com/digitalbazaar/jsonld.js/pull/15</a></div>
+<div class="comment"><span class="name">David I. Lehn</span>: in case you all didn't see JoshM's in memory graph experiment</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-06-12</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0021.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0021.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Use of @container to specify language-maps and other useful things</a><li><a href="#topic-2">Review latest JSON-LD Syntax and API specs</a><li><a href="#topic-3">ISSUE-120: Expand @type to @id-objects</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case.</a><li><a href="#resolution-2">When operating on @type, the result of the expansion algorithm MUST always result in an array of strings that are IRIs.</a><li><a href="#resolution-3">In the expansion algorithm, when expanding a value associated with @type that is a JSON object, extract only @id from that value. Any value that does not expand to an absolute IRI MUST be discarded.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas Lindström, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about Stardog, JSON-LD and the upcoming NoSQL conference.</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  discussion of @container with @language?</div>
+<h1 id="topic-1" class="topic">Topic: Use of @container to specify language-maps and other useful things</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/133">https://github.com/json-ld/json-ld.org/issues/133</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/134">https://github.com/json-ld/json-ld.org/issues/134</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  previously, I had brought up something for if the language was a key.</div>
+<div class="comment-continuation">… we've seen some other cases where we'd like like</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, Wikidata is quite interested in using a JSON expression for their APIs - Wikidata exists to communicate with other Wikis... they're quite interested in JSON-LD [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would allow them to avoid having a different JSON serialization - they presented some use cases - they'd like to, for some wiki topic, have a way of expressing that topic in JSON-LD. The problem is that they need to be able to express this in many different languages/keys - it's the array-as-object pattern. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So each key is a subject, not a property... ISSUE-133 would be contain underneath whatever key references it. Wikidata says that they would place the english version or the german version of a video in this layout. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if 133 was chosen, if you have objects, it could be specified in a way so that the expression used, if the object is not a value, the language is set below.</div>
+<div class="comment-continuation">… but, not sure @language works that way.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My original concern was to add a @context that defines a particular language... from Denny's perspective, he would be perfectly happy if he had to explicitly set a context that defines a language - not really a short-cut to avoid extra description... it's an index pattern which is important. He wants to be able to access this stuff using JavaScript object notation. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we might want to study this pattern for things other than @language (such as @id).</div>
+<div class="comment-continuation">… I have some suspicion that JSON keys are used not as properties, but as "index" keys for values.</div>
+<div class="comment-continuation">… consider RDF/JSON, which has as it's outer container something which works like an indexing feature.</div>
+<div class="comment-continuation">… this pattern is fairly conventional in JSON. I wonder how far towards a transformation language we want to go.</div>
+<div class="comment-continuation">… We can't just do the simplest thing possible, because we need to be able to allow for such usage patterns.</div>
+<div class="comment-continuation">… if we can make it understandable, can we work with @container to adopt more conventional forms of JSON.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have a couple of concerns:</div>
+<div class="comment-continuation">… 1) is denny modeling his data that makes sense for JSON-LD?</div>
+<div class="comment-continuation">… we've already said there are patterns we're not going to support.</div>
+<div class="comment-continuation">… I'm concerned about the overhead it adds, not to processing, but to the intellectual overhead.</div>
+<div class="comment-continuation">… Same issue that WHATWG had with RDFa - that there are too many ways to say the same thing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, the main reason Denny wants this is that he wants to be able to access these values in JavaScript dot-notation... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  regarding intellectual complexity - my philosophy on language design is a bit different - simple things should be simple, complex things should be possible (not impossible) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we need to consider this as a fairly standard usage pattern... I'm not convinced we need to support it via compaction/framing, but as a way of being able to express JSON where you can derive RDF, it's interesting. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I appreciate manu's concerns about discussing the usage pattern in-depth, but I think that what gkellogg said may be true, that it is a common usage pattern.</div>
+<div class="comment-continuation">… It may be more predictable to do this by extending @container. Probing makes it more difficult to read the JSON and glean the data.</div>
+<div class="comment-continuation">… Embedding RDF forms in "noisy" JSON may open a can of words.</div>
+<div class="comment-continuation">… I we us @container for @language (and maybe @id) it will make it easier to read.</div>
+<div class="comment-continuation">… It's true that you can no longer rely on a key being a property.</div>
+<div class="comment-continuation">… But the idea, is to stick to existing usage patterns. Given that indexing is a common usage pattern, and is the most expressive and useful, JSON-LD may be marginalized if it can't support this pattern.</div>
+<div class="comment-continuation">… I've seen many templating patterns where being able to use keys in this manner would simplify things.</div>
+<div class="comment-continuation">… If we define it as a mechanism of container, anyone knowing how JSON-LD @context works, will figure this out quickly.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I hear general agreement that we're going to try to make it work.</div>
+<div class="comment-continuation">… As markus said, there are still some issues about how this will work.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I experimented with language mapping before, and it worked okay for compaction.</div>
+<div class="comment-continuation">… oddly shaped data will highlight the edge-cases.</div>
+<div class="comment-continuation">… using keys of different types in a language can lead to a conflict, but we can provide a mechanism to resolve this, such as to skip the @container: @language definition.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should probably table for now until we have an implementation.</div>
+<div class="comment-continuation">… once we work out the edge-cases, we should come back to it.</div>
+<div class="comment-continuation">… One concern is that does really affect the syntax, so we can't put it off for too long.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Attempt to add other @container options, such as "@container"; "@language" to support Wikidata's language-map use case.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case.</div>
+<h1 id="topic-2" class="topic">Topic: Review latest JSON-LD Syntax and API specs</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/">http://json-ld.org/spec/latest/json-ld-syntax/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/">http://json-ld.org/spec/latest/json-ld-api/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I sent an email out to the RDF WG indicating that we had applied all change requests to the documents, marking it up as an FPWD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0028.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0028.html</a></div>
+<div class="comment-continuation">… I linked to each commit to make sure that every piece of feedback was responded to.</div>
+<div class="comment-continuation">… the big changes were that the JSON-LD API now has an introductory section that is specific to it.</div>
+<div class="comment-continuation">… We added issue markers to indicate that it's been in development for 18 months, and scope, and alignment with RDF Concepts.</div>
+<div class="comment-continuation">… Hopefully, they'll look at it tomorrow, they'll publish as an FPWD.</div>
+<div class="comment-continuation">… Hope for FPWD in the month of July.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-120: Expand @type to @id-objects</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/120">https://github.com/json-ld/json-ld.org/issues/120</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this has do do with the expanded form of @type. Should it be expanded to {"@id"} form? or should we keep it as is, where it can only be a string or an array of strings.</div>
+<div class="comment"><span class="name">François Daoust</span>: [I note a missing "API" in the title of the spec in the normative reference to JSON-LD API: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#bib-JSON-LD-API">http://json-ld.org/spec/latest/json-ld-syntax/#bib-JSON-LD-API</a> ]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are two things that drive this - one of them is the IRI space for @type being different than other keys like @id - perhaps it should be kept distinct by not using the @id pattern. If we use the @id pattern, you would be in a different context when you applied that. If you needed vocab expansion, or an absolute IRI vs. relative IRI would need to be thought about more deeply. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That said, in expansion we should tolerate seeing values of this type which are expressed in the @id form... the canonical form would be to just be an array of strings. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So, I'm in support of supporting this feature. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm pretty sure that I'm in agreement on Gregg on all of this - I have the same perspective. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm pretty sure that I agree with Gregg on this stuff. I have the same perspective on the items that are brought up.</div>
+<div class="comment-continuation">… with possible exception to the notion of expansion. If this is the case, we should also change @type to be like rdf:type.</div>
+<div class="comment-continuation">… @type is a syntactical expression, and if we expand it, we should expand to rdf:type.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm worried that we push a bit too much RDF onto the JSON folks if we do that... I'm not too keen on expanding "@type" to "rdf:type" on expansion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm not sure which side I'll end up on.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm a bit concerned about expanding to rdf:type too. It might be more pure from an RDF standpoint, but we don't want to push this on people that aren't interested in RDF.</div>
+<div class="comment-continuation">… This is a type of confusion we'd like to stay away from.</div>
+<div class="comment-continuation">… Two different things, what happens on RHS and on LHS.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  on the LHS, we use @type, the value on the RHS should never be an object.</div>
+<div class="comment-continuation">… If you want to do this in the context, you'd need to be sure when expanding that this wasn't the case.</div>
+<div class="comment-continuation">… I feel that we shouldn't expand @type.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought we were talking about if the RHS of @type to have an object when expanding.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: In expansion, should we do this: "@type": "<a href="http://xmlns.com/foaf/0.1/Person"">http://xmlns.com/foaf/0.1/Person"</a> or this: "@type": { "@id": "http://xmlns.com/foaf/0.1/Person" }</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, that's what this issue is about - if we have foaf:Person - does it expand into the IRI form or the object form? [scribe assist by Manu Sporny]</div>
+<div class="information">"type": {"@id": "foaf:Person"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are at least three cases here - what happens when "@type" is aliased to "type", what happens if somebody does "rdf:type" on the LHS, what happens to { "@id": ... } in expanded form [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  to be consistent, we should always express as a string, or expand out into a subject reference.</div>
+<div class="comment-continuation">… it seems to me that for @type we should expand out to the @id form.</div>
+<div class="comment-continuation">… we do that for everything else.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  then you'd do it for literals too?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we expanded an object with a label, we'd through the label away.</div>
+<div class="comment-continuation">… we don't do it for @id or @type. If you want to express more information, define it elsewhere.</div>
+<div class="comment-continuation">… @type is no different from @id and the datatype usage. If you want to say more, say more somewhere else.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. [ {"@id": "a", "@type": {"@id": "<a href="http://example.com/type",">http://example.com/type",</a> "label": "Type name"} } ]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  my problem is that @type is a specific syntactic form. That's why I brought up that a consistent form is to expand @type tordf:type</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: [ {"@id": "a" "@type": ["<a href="http://example.com/type"]},">http://example.com/type"]},</a> {"@id": "http://example.com/type", "label": "Type name"} ]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is an interesting artifact - in TURTLE you can't do chaining for objects that are also subjects. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Niklas' second form is the only way you can express it in TURTLE... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  consensus that when we have @type with objects, we just take the IRIs and through way the other data when expanding.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. [ {"@id": "a", "type": {"@id": "<a href="http://example.com/type",">http://example.com/type",</a> "label": "Type name"} } ]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  want to be sure that in compaction, I can get back to that example.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "type": "rdf:type"</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In expanded form, the value of @type MUST be a string or an array of strings that are IRIs. If expanded form is used to express one or more object references @type (e.g. "@type"</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In expanded form, the value of @type MUST always be an array of strings that are IRIs.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When operating on @type, the result of the expansion algorithm MUST always result in an array of strings that are IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: abstains (proposal sounds good, I just don't feel I get the ins and outs correctly on that issue)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> When operating on @type, the result of the expansion algorithm MUST always result in an array of strings that are IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A clarification on the resolution above. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In the expansion algorithm, when expanding the value associated with @type, if a JSON object is detected, only the value of @id MUST be used.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  when expanding the object value of a key interpreted as @type, extract only @id from that value. Discard any value that does not expand to an absolute IRI.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  In the expansion algorithm, when expanding a value associated with @type that is a JSON object, extract only @id from that value. Any value that does not expand to an absolute IRI MUST be discarded.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: abstains (same comment)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> In the expansion algorithm, when expanding a value associated with @type that is a JSON object, extract only @id from that value. Any value that does not expand to an absolute IRI MUST be discarded.</div>
+</body>
+</html>
+

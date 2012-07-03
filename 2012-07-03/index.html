@@ -1,0 +1,226 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-07-03</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0091.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0091.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">FPWD of JSON-LD Syntax and API</a><li><a href="#topic-2">ISSUE-133: Add @container: @language</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Support language-maps via the "@container": "@language" pattern in @context.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Gregg Kellogg, Manu Sporny, Niklas Lindström, Zdenko 'Denny' Vrandečić, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: FPWD of JSON-LD Syntax and API</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Let's go over IPR status and protocol for editing specs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  last week the RDF WG agreed to publish a FPWD.. should be online on July 12th</div>
+<div class="comment-continuation">... we have all the IPR commitments we need except Josh's</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I saw Mark Birbeck commited to syntax but not API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's OK as he didn't contribute to API.. he's listed as author as author on syntax spec</div>
+<div class="comment-continuation">... the protocol for editing the spec now is to not make text changes that are not directly requested</div>
+<div class="comment-continuation">... going forward the only people that should making changes to the spec are Markus, Gregg, Niklas and myself or anyone else from the RDF WG</div>
+<div class="comment-continuation">... what we can do is look at suggestions and come up with our own wording</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  dave longley made a change to fix a spec bug but made a mistake.. we should go and change that before FPWD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  feel free to make that change</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we continue to use github or do we switch over to W3C's mercurial?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we keep on using github</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the issue tracker as well?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, but once we go to last call we should track them in W3C's issue tracker</div>
+<div class="comment-continuation">... to make sure to track everything..</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-133: Add @container: @language</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/133">https://github.com/json-ld/json-ld.org/issues/133</a></div>
+<div class="comment-continuation">... this issue was triggered by the wikidata people</div>
+<div class="comment-continuation">... they need to express data in different languages</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the observation was that maintaining information in multiple languages simultaneously would be more convenient by using language keys instead of language tagging literals</div>
+<div class="comment-continuation">... wikidata would also find it convenient to group other things (whole subtrees) under a language tag</div>
+<div class="comment-continuation">... think videos etc. in a specific language</div>
+<div class="comment-continuation">... in the issue there are two approaches</div>
+<div class="comment-continuation">... here's the summary:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6536114">https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6536114</a></div>
+<div class="comment-continuation">... value-map vs. property-map</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  denny, what kind of structure would you ideally like to have?</div>
+<div class="information">Difficulty hearing Denny... he's dialing back in.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  My concern is that on one hand, it feels a bit confusing for me to understand what's going on... from where Gregg is coming from with his proposal. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Perhaps we could have different sub-graphs for each language... we specify default language in a context and do that instead. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6548061">https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6548061</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think at this time I agree mostly with markus</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: i hear you well on the call</div>
+<div class="comment-continuation">... only because I have a fear that it might be difficult to understand data like this</div>
+<div class="comment-continuation">... it should be clear by looking at the data what the subject etc. is</div>
+<div class="comment-continuation">... of course there are places where we can't do this as JSON is quite terse</div>
+<div class="comment-continuation">... but if we start to change the general entity-value shape I have concerns that that kind of JSON is difficult to understand</div>
+<div class="comment-continuation">... I saw data modelled that way in RDF/XML</div>
+<div class="comment-continuation">... but I think we shouldn't go down that way with JSON-LD</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  correction: in XML (RDF/XML can't really be reshaped like that) [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it might be that wikidata found a use case for which JSON-LD isn't a good match and it would be quite difficult to support it... which would be a shame, because it seems like a pretty important use case.</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>:  the use case is to express labels in different languages</div>
+<div class="comment-continuation">... the thing is that we don't want to have an array of objects but an associative map</div>
+<div class="comment-continuation">... we don't wanna to iterate over the objects but rather have a key to directly access it</div>
+<div class="comment-continuation">... this is a pattern used when writing JavaScript</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  denny, by that logic it seems that both approaches serve your needs?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the first option is value-map the second one would be the property-map in the issue</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>:  the thing is that we might wanna add more information to a label, e.g., the pronunciation</div>
+<div class="comment-continuation">... without thinking at RDF in JSON I would just use an object with further keys</div>
+<div class="comment-continuation">... keeping a link to a video, the pronunciation, etc.</div>
+<div class="comment-continuation">... but I'm not sure if it's out of scope for JSON-LD</div>
+<div class="comment-continuation">... alternative would be instead of using a single string as value I would use a object as value</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think we have two quite distinct things here</div>
+<div class="comment-continuation">... we have the map (language or IRI as the key)</div>
+<div class="comment-continuation">... the other situation, the property-map</div>
+<div class="comment-continuation">... the case where you divide a description of something in parts (categories)</div>
+<div class="comment-continuation">... we might be able to support both</div>
+<div class="comment-continuation">... the value-map by using @container</div>
+<div class="comment-continuation">... and the property-map by leveraging as suggested by markus</div>
+<div class="comment-continuation">... we could define a context modifier for @graph similar to something gregg proposed</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could extend @container: @graph</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we could also use content negotiation for different languages</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's summarize</div>
+<div class="comment-continuation">... we have multiple graphs, each with a different language</div>
+<div class="comment-continuation">... we have gregg's two proposals (value- and property-map)</div>
+<div class="comment-continuation">... and markus' @container: @language proposal</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I just wanted to throw in something denny considered: using an unlabeled node</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>:  I have problems following the discussion...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You're not the only one, Denny - this is a difficult discussion to follow.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  out of gregg's proposals I would prefer this - "rdfs:label" : {"en": "Foo", ...}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would be careful with using rdf:value</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Denny, have you considered skosxl? <a href="http://www.w3.org/TR/skos-reference/skos-xl.html">http://www.w3.org/TR/skos-reference/skos-xl.html</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  using different graphs would be reflect the fact that documents in different languages are expressed</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There are two things that Gregg mentioned - one of which is deep probing. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we might combine markus' proposal with using disjoint graphs and combine that with controlled probing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could use "@container": "@graph" - each key representing the specific graph... you could also bind the language 'en' - the IRI for the named graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Denny, what would the ideal shape of the data would be for you?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: What are we looking for here - foo.bar.en or en.foo.bar or foo.en.bar ?</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: label.en.value = "San Francisco"</div>
+<div class="comment-continuation">... my understanding would be that the first one would be ideal</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: population.value = "300000"</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: capital.value = IRI</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: label.en.pronounciation = IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  another thing denny mentioned was to associated the pronunciation with a specific language</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: but this really is outside of the scope of RDF, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  denny you can express label.en.pronunciation in JSON-LD today, but it wouldn't transform over to RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>: label.en: { "value": "Foo", "pronunciation": "Feu" }</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  assuming value is aliased to @value</div>
+<div class="comment-continuation">... it wouldn't come accross to RDF</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  in skosxl there are concepts for this</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: i think the issue with the skosxl solution is that for every sense of the word you need an IRI</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: @context: { "label": {"@id": "skosxl:prefLabel", "@container": "dc:language"} }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Wondering if it's important to Denny to keep everything language-related in the same subtree? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could you have label/pronunciation in the same subtree? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  label.en and pronuncation.en vs. en.label and en.pronuncation</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>:  No, not important to have everything in same subtree - important to connect pronunciation w/ the label. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: so it is not important to have them in one tree</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: label: {en: {rdf:value: "Foo", pronunciation: "F-o-o"}}</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: but it is important to connect the pronounciation with the label</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: skos-xl does cover that, though, iirc</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. gregg: skosxl:literalForm should be suitable</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: if something has two labels - like "USA" and "United States" - there would be distinct pronounciation URLs pointing to files</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  for literals RDF has taken a simple path, we have to pay the price when we have to link resources to them (reification)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is it important that the RDF contains things like pronunciation?</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: it is not immediately important</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: it will be later</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: it would be a pity if the RDF representation would not be complete</div>
+<div class="comment-continuation">... what I'm saying is you have it in JSON-LD but you loose it when converting to RDF</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: but not a catastrophe</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so I think what we are talking about here is a simple macro that makes it easy to express it in JSON-LD and allows it to transform it to RDF</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  today in RDF you would use structured labels such as used in skosxl</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we are coming close to the end of the call</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: in an ideal world i would see the following: label.en = { value = "USA", pronouncation = "..:" } and have that translated to both w:USArdf:label "USA"^en and w:USA skos-xl:label _:1 . _:1 prefLabel "USA"^en ; pronouncation "…" .</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: yes, i agree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this might be a bit too advanced for JSON-LD</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: understood and agreed. just saying :)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we would have to make @value to be dualistic</div>
+<div class="comment-continuation">... we are getting close to quantum-theory :-)</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: so we would simply have label.en = "USA" and label-xl.en = { value = "USA", pronouncation = "…" }</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: and that would be translated to both then</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 for that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the last example denny typed looks like a good way forward</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  niklas, are you saying you agree with this being a good way forward</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  niklas, could you type an expanded example?</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: -&gt; _:1 dc:langauge "en"</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: Thanks for having me on the telco. I didn't intend to hijack it. I will have a draft of our planned rdf export soon, and then i would be glad to see further if we can go together</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Not at all - this is an important use case and your need for it gives us clarity when attempting to find a solution to the issue.</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: ok, thanks</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Denny, is JSON-LD a no-go for Wikidata if you don't have this feature?</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: hard to say</div>
+<div class="comment"><span class="name">Zdenko 'Denny' Vrandečić</span>: i would prefer to use json-ld</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support language-maps via the "@container"; "@language" pattern in @context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (and possibly @id and regular properties)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Support language-maps via the "@container": "@language" pattern in @context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Another option is this - @context: { "label": {"@container": "@language"}, "label-xl": {"@id": "skosxl:prefLabel", "@container": "dc:language"} }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: which would produce this - {"label-xl": {"en": {"value": "stuff"}}} =&gt; {"label-xl": {"dc:language": "en", "value": "stuff"}}</div>
+</body>
+</html>

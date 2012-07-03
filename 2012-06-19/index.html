@@ -1,0 +1,235 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-06-19</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0057.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jun/0057.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Feedback from RDF WG</a><li><a href="#topic-2">Linked Data and JSON-LD introductory videos</a><li><a href="#topic-3">ISSUE-26: @vocab support</a><li><a href="#topic-4">ISSUE-129: Eliminate duplicates in expansion</a><li><a href="#topic-5">ISSUE-108: IRI templates</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Support the @vocab keyword for setting a default vocabulary URL for a JSON-LD document.</a><li><a href="#resolution-2">Remove text relating to removing duplicates when expanding JSON-LD documents</a><li><a href="#resolution-3">Do not add any normative language relating to IRI templates or other transformations</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>François Daoust, Manu Sporny, Gregg Kellogg, Niklas Lindström, Markus Lanthaler, David I. Lehn, Dave Longley</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">François Daoust is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agenda on IRC. Anything else to add?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  do we want to talk about feedback we got?</div>
+<h1 id="topic-1" class="topic">Topic: Feedback from RDF WG</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have two reviews in. A full one and a partial one from EricP</div>
+<div class="comment-continuation">… I read through seaborne's review</div>
+<div class="comment-continuation">… There are some last call blockers in there. Gregg, do you want to take them one by one or high level overview?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Andy Seaborne's review: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0080.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0080.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  High level. There's a related thread on eliminating graphs and using @id-maps instead</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Eric Prud'hommeaux's review: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0085.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jun/0085.html</a></div>
+<div class="comment-continuation">… I think that the point is to put things at risk. Graph has not been entirely embraced by the RDF WG. The notion of named graph is not a closed issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the reason that we have put graphs in there. If you have a bunch of objects in an array form, you need some way to put them in a graph. If you have IDs, you wouldn't need graphs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm still confused as to how you name the graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  let me type something</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {@context:{}, @graph:[{@id: a}, {@id: b}]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's what you might have.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: a: {@id:a, @container: @id}</div>
+<div class="comment-continuation">… If you have @id-map, you can instead have:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {@context: {}, a: {@id: a}, b: {@id: b}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  'a' is a subject ID, and then it references the subject definition. There is no graph.</div>
+<div class="comment-continuation">… It would allow us to put subjects that are URIs as keys.</div>
+<div class="comment-continuation">… This is not for the named graph case.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So there are two problems: how do we name a graph, and how do we use subject identifiers as keys.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the original use of graph was not to name graph, it was just as a way to have multiple objects</div>
+<div class="comment-continuation">… assuming we needed to remove the concept of named graph from JSON-LD, this could be a solution</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't know if we need to discuss a solution for if we have to remove named graph from JSON-LD.</div>
+<div class="comment-continuation">… That seems to be food for last call comments. The RDF WG needs to figure that out.</div>
+<div class="comment-continuation">… It's so fundamental to real case uses that I don't want to remove it right away unless necessary.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there was a threat that it might need to be removed. If it is at risk, then we'd better have counter proposals.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ivan even said that he was using language a bit too strong. It's perfectly fine to have things in there that might become at risk in the future.</div>
+<div class="comment-continuation">… Marking them at risk now sends the wrong message, I think.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  named graph is much more complex than a document format for triples. We could use @set instead of @graph if we want to avoid using @graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: timezone confusion.. thought it's in an hour</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The concern I have is that if we reopen the discussion, it will mean spending multiple weeks on this whereas we already have a solution.</div>
+<div class="comment-continuation">… I'd rather have them come up with a strong case about why we need to drop that from JSON-LD</div>
+<div class="comment-continuation">… Any other strong opinion on this?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  My feeling is that named graph hasn't been needed in e.g. Turtle.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I disagree.</div>
+<div class="comment-continuation">… In our case, there's no name graph support in RDFa, so we end up with all this soup that's more complicated. We have different ways to generate IDs for the graphs and so on.</div>
+<div class="comment-continuation">… I disagree with the notion that we haven't been needing named graph in RDF/XML, Turtle and so on.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I see your point. You have a very good solid use case. Discussions about named graph are much more esoteric.</div>
+<div class="comment-continuation">… This use case about signature is much more about packaging and transportation of data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's precisely my point. I'd like a list of concrete use cases that we need to solve, to think about solutions that are easy to use for developers.</div>
+<div class="comment-continuation">… We're coming from the other direction: "this is what we need"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think it's important to highlight this. This can be aligned with existing things in SPARQL.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Important thing to discuss is how we're going to address feedback from the RDF WG. First thing is to get a feeling tomorrow on whether we need to make further changes to JSON-LD.</div>
+<div class="comment-continuation">… We could perhaps hand the document over to RDF WG, making necessary patent commitments, publish the FPWD and then move on from there in the RDF WG.</div>
+<div class="comment-continuation">… Maybe the best way forward is to ask Andy and Eric what precise changes they want to see.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  they both stated that they didn't see any blockers to FPWD. That's my interpretation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  right. Just getting confirmation on that would be good.</div>
+<div class="comment-continuation">… I've heard people say that before and then have issue with publication as FPWD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I suggest we make some of the purely editorial changes that are in there, and then sprikle some issue markers and be done with that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do you want to make a pass?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm asking because I don't think I'll have time this week.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think I can do a quick pass.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Would you mind waiting up until after the call tomorrow to have a clearer view as to what changes might be required?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what I really want is to put issue markers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok. Anything else on this topic?</div>
+<h1 id="topic-2" class="topic">Topic: Linked Data and JSON-LD introductory videos</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Good job on the videos!</div>
+<div class="comment"><span class="name">Manu Sporny</span>: What is Linked Data? <a href="http://www.youtube.com/watch?v=4x_xzT5eF5Q">http://www.youtube.com/watch?v=4x_xzT5eF5Q</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I spent some time this week-end to put together two videos on Linked Data and JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: What is JSON-LD? <a href="http://www.youtube.com/watch?v=vioCbTo3C-4">http://www.youtube.com/watch?v=vioCbTo3C-4</a></div>
+<div class="comment-continuation">… Introduction to Linked Data and introduction on JSON-LD.</div>
+<div class="comment-continuation">… I would really appreciate feedback from you guys. Anything that could help improve the videos</div>
+<div class="comment-continuation">… If they look cheap, stuff to add/remove.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think they are great.</div>
+<div class="comment-continuation">… I don't have any technical feedback. I'll put that on my queue.</div>
+<div class="comment-continuation">… It looks to me to be very approachable, so very valuable material.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  One of the things I need to do is to have a transcript.</div>
+<div class="comment-continuation">… Maybe translating would be good? Francois for instance if you have time?</div>
+<div class="comment-continuation">… Or maybe in Japanese.</div>
+<div class="comment-continuation">… We could put the transcript on github and then have people translate it.</div>
+<div class="comment"><span class="name">François Daoust</span>:  The video's are good - they just explain things pretty easily - I don't have time right now... I'm happy to try translating to French. Don't know when I could do it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  It would be valuable if you could extract the slides - could you do that? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, I'll try to extract the images. I don't have a scanner, though ;)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: i can scan them at home for you</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Thanks Dave Lehn... will take you up on that offer.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I just wanted to echo the previous feedback on the quality of the videos. Only had time to watch one.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anything else on the videos before we move on?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  just good job!</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-26: @vocab support</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/26">https://github.com/json-ld/json-ld.org/issues/26</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  question about whether we should put @vocab back in the spec. This is only @vocab. I don't think anyone is trying to put @base back.</div>
+<div class="comment-continuation">… Almost everyone seems to be willing to bring @vocab back.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it would be ok to bring @vocab back in the spec. I'm not totally opposed to it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus raised some concerns. I don't know if he's totally on board.</div>
+<div class="comment-continuation">… To me, it's obvious. Whenever I play with people, @vocab is so useful because it allows to skip the "term" mapping for quick uses.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Question about @vocab from external JSON-LD context.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support the @vocab keyword for setting a default vocabulary URL for a JSON-LD document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -0</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Support the @vocab keyword for setting a default vocabulary URL for a JSON-LD document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, could you outline your concerns?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: can you hear me?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ok :-)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: was already wondering before :-)</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/issues/26#issuecomment-6265997">https://github.com/json-ld/json-ld.org/issues/26#issuecomment-6265997</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: my thoughts are basically in the issue</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: it adds cognitive overhead: two base IRIs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: issue with external contexts</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus says that developers were confused about having to use two base IRIs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: and the word @vocab itself is a bit confusing itself apparently</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: to what vocab applies.. @type and properties</div>
+<div class="comment-continuation">… I don't think that the main issue is about using prefixes. I just think many developers will just want to use "schema.org" and have JSON-LD documents that are prefix-less.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: will call back in in a sec.. hope to solve audio issues</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think the confusion is more about how the future will work</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/json-ld/json-ld.org/issues/26#issuecomment-5937869">https://github.com/json-ld/json-ld.org/issues/26#issuecomment-5937869</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I just want to reference the notion of (in-)transitivity of @vocab. That same notion should apply to @language.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-129: Eliminate duplicates in expansion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, not a discussion for today.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/129">https://github.com/json-ld/json-ld.org/issues/129</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The question is whether or not we should remove duplicates automatically.</div>
+<div class="comment-continuation">… If we don't do duplicate elimination, there are follow-up issues.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In terms of toRDF, you can certainly specify duplicate values. There is nothing wrong in JSON-LD with having multiple values when you generate RDF. The same would happen in Turtle.</div>
+<div class="comment-continuation">… The graph model would eliminate them on its own</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's probably the case that most people that will be using JSON-LD directly without going from/to RDF will be using some kind of duplicate eliminitation. I actually agree with Markus that we should remove duplicates to simplify.</div>
+<div class="comment-continuation">… The question is how to handle them in the normalization algorithm. At the end of it, we should leave duplicates around in expansion algorithm.</div>
+<div class="comment-continuation">… In my particular implementation I have a couple of methods. They are going to need to be different for the expansion algorithm. In other parts, you'll want to remove duplicates, but not for the expansion.</div>
+<div class="comment"><span class="name">Dave Longley</span>: no</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Remove text relating to removing duplicates when expanding JSON-LD documents</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Remove text relating to removing duplicates when expanding JSON-LD documents</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-108: IRI templates</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/108">https://github.com/json-ld/json-ld.org/issues/108</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  at some point translating legacy JSON into JSON-LD should be a note but for now it's outside of the scope of what we're trying to accomplish [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's useful and will be common. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i agree, we should close the issue and not address it directly in JSON-LD for now. [scribe assist by Dave Longley]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not add any normative language relating to IRI templates or other transformations</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.75 (I've seen potential, but it's reasonably too complex)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Do not add any normative language relating to IRI templates or other transformations</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think that's it for the issues today and given the audio problems we're having i suggest we end the call. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  any other issues? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i wanted to ask about a decision made last time, but we can do that on the mailing list. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think it's pretty clear in the audio log what we were trying to accomplish, but if you raise an issue we can put it on the agenda next time. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  bye everyone [scribe assist by Dave Longley]</div>
+</body>
+</html>
