@@ -1,0 +1,159 @@
+[10:00]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0005.html
+[10:01]	<voip-ld>	Niklas Lindström (SIP/192.168.3.19-00000007) has joined the conference.
+[10:01]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000008) has joined the conference.
+[10:02]	<voip-ld>	Dave Longley (SIP/6002-00000009) has joined the conference.
+[10:03]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000000a) has joined the conference.
+[10:03]	<manu1>	scribe: manu1
+[10:04]	<manu1>	Manu: Anybody had any more thoughts about @container: @language?
+[10:04]	-->|	gkellogg (~gregg@c-98-248-150-91.hsd1.ca.comcast.net) has joined #json-ld
+[10:04]	<manu1>	Niklas: I had thought about it a bit - my gluon stuff tracks it fairly closely - I think we can do it fairly simply.
+[10:04]	<voip-ld>	David I. Lehn (SIP/71.171.19.12-0000000b) has joined the conference.
+[10:05]	<manu1>	Manu: Any updates/changes to the Agenda?
+[10:05]	<manu1>	gkellogg: I'm speaking today at Stanford, about JSON-LD... one of the folks will be with the Protoge group. Creating editors for vocabularies - can't show it more widely because it's work done for a client.
+[10:05]	<manu1>	Manu: When is the NoSQL talk on JSON-LD?
+[10:05]	<manu1>	gkellogg: In August at some point.
+[10:06]	<manu1>	Topic: ISSUE-133: Add @container: @language
+[10:06]	<manu1>	https://github.com/json-ld/json-ld.org/issues/133
+[10:08]	<gkellogg>	q+
+[10:08]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:08]	<manu1>	manu: Are we making JSON-LD too complicated by adding this feature? Is it worth it?
+[10:09]	<manu1>	gkellogg: The key discussion point was to be able to use object patterns where we're using array patterns right now. Object-patterns are good for using dot-pattern for accessing data.
+[10:09]	<manu1>	Niklas: Yes, that's the gist of all of this - regarding complexity, it's not so much about the complexity of JSON-LD, spec-wise... it's more about what to expect as a reader/consumer of JSON-LD.
+[10:10]	<manu1>	Niklas: The generic shape (E-A-V), we fold in a property value and use it as a key... it's fairly idiomatic JSON... well, JSON is used in a very wide range of data... JSON is a slice of data. There are always structures in JSON that don't make sense to put it in JSON-LD.
+[10:11]	<manu1>	Niklas: Sometimes you have keys that come from certain view-related contexts that have no reasonable semantic representation. If you view JSON like that, and try to express those shapes as triples, you will get very strange entities.
+[10:12]	<dlongley-db>	manu: When we convert to RDF from language maps (and similar) I think it's strange to RDF people. The shape of the data is different and we seem to hop around to generate the triples, it seems like it may be a little backwards for RDF people.
+[10:12]	* manu1	thanks dlongley-db.
+[10:13]	<manu1>	niklas: When you see well-shaped JSON, you see what the JSON-LD context should be... @container: @language and @container: @id - maybe @container: @type and @container: ANY_PROPERTY may be possible?
+[10:13]	<manu1>	dlongley-db: Maybe we can let people create maps in any way that they want?
+[10:14]	<dlongley-db>	manu: does anyone here have a handle on how to genericize this?
+[10:14]	<manu1>	niklasl: If we say that "@container" can be used for all these cases... maybe @container defines the kind of objects ... if it's lists or sets, then you use an array... if not, maybe you use a map.
+[10:15]	<gkellogg>	For value-map; in Expansion:
+[10:15]	<gkellogg>	Before 2.2:
+[10:15]	<gkellogg>	If active property is has @container: @language, and every key in element is of the form language (from BCP47) and does not map to an absolute IRI, the return value is an array constructed from the result of performing Value Expansion on each value using a copy of context with @language set to each key from element in turn.
+[10:15]	<manu1>	niklasl: The exact property that you use is defined as the value of the container in the context.
+[10:15]	<manu1>	gkellogg: The language above tweaks the processing rules a bit - when you expand, that pattern goes away.
+[10:16]	<manu1>	niklasl: This is a specific part of the general suggestion - maybe language, just like @context, could be put into any context? Maybe it doesn't need to be put in literals... but likexml:lang, it can be put anywhere.
+[10:17]	<manu1>	markus: You can still do that, right? Put @context anywhere and make it contain @language.
+[10:17]	<manu1>	niklasl: Maybe this would make things more complex... maybe it would simplify @container: @language.
+[10:17]	<manu1>	markus: This is getting complex if you have such subtrees... especially from the standpoint of compaction.
+[10:18]	<manu1>	dlongley-db: We're still going to have to treat @language a little differently - it doesn't work in the same way as some of this other stuff.
+[10:18]	<manu1>	niklasl: Right, but @container: FOO might act a little differently.
+[10:20]	<dlongley-db>	manu: we need to try out some implementations for this, either we can try out some algorithms for the general case, or we could just implement @container: @language/@id since we have use cases for those ... and we could generalize later.
+[10:20]	<dlongley-db>	manu: what we really need are some implementations to try this out, we don't need to talk about it because it would take a long time.
+[10:20]	<manu1>	niklasl: @container: @id might be interesting for RDF/JSON people.
+[10:21]	<manu1>	niklasl: Maybe we could do a @graph alias with the @container set to @id.
+[10:21]	<manu1>	Topic: Sub-tree support for @container
+[10:22]	<voip-ld>	Added mlnt to the speaker queue: gkellogg, mlnt
+[10:22]	<gkellogg>	q+
+[10:22]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg, mlnt, gkellogg
+[10:22]	<gkellogg>	q-
+[10:22]	<voip-ld>	Removed gkellogg from the speaker queue: mlnt, gkellogg
+[10:23]	<manu1>	mlnt: regarding @container: @language - do we want to support entire subtrees?
+[10:23]	<mlnt>	{ "de": subtree, "en": or literal" }
+[10:23]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6740466
+[10:24]	<manu1>	mlnt: I think Manu and I want this to be a bit simpler...
+[10:25]	<manu1>	gkellogg: Processing-wise, it's fairly straight-forward... objects, or objects that can contain other objects seems needlessly restrictive. It disallows the exact process Denny was asking for.
+[10:26]	<manu1>	dlongley-db: I don't think it's that difficult to see what's going on here - if you get into sub-levels... looking at Gregg's example... it's fairly obvious how it works. It may be confusing about how to go from expanded to compact form.
+[10:26]	<manu1>	dlongley-db: I don't think people are going to think about how to convert from one to another when the tools exist, people won't have to think about it.
+[10:26]	<manu1>	niklasl: Yes, I agree.
+[10:27]	<manu1>	mlnt: I agree w/ expansion - quite understandable to developers/authors. Regarding compaction, I don't see how it would work. You'd have to either keep it in expanded form, or you'd have to inject a context.
+[10:27]	<manu1>	niklasl: This example, when we discussed it, I don't recall the guidelines for using skosxl - perhaps using dc:language would be more suitable? That is why I brought up the idea of a generic @container feature.
+[10:28]	<manu1>	niklasl: Maybe we should use the IRI for dc:language instead - current bnode for SKOS-XL literal form might be a datatype ... [scribe missed]
+[10:28]	<manu1>	gkellogg: All types and languages are datatype properties...
+[10:28]	<manu1>	gkellogg: In RDF 1.1.
+[10:29]	<manu1>	gkellogg: If the property is of the form BCP47, in this case you might be able to have other properties at that level. May be reasonable to restrict it - @container: @language - all properties of the object it references must be of that form.
+[10:30]	<manu1>	gkellogg: This would also work better for the definition for @container: @id - all keys of the object it's referenced by would be IRIs. It would allow us to use compact IRIs, relative IRIs, etc.
+[10:30]	<manu1>	niklasl: Yes.
+[10:30]	<manu1>	dlongley-db: We could just restrict it, like Gregg is suggesting - it doesn't work if you don't comply with the rules.
+[10:30]	<manu1>	niklasl: Yes, anything else would be hard to understand.
+[10:31]	<manu1>	Discussion about a vocabulary for http://dbpedia.org/resource/International_Phonetic_Alphabet
+[10:32]	* niklasl	perhaps add ipa to http://open.vocab.org/
+[10:32]	<manu1>	gkellogg: This is kind of a form of reification... metadata about metadata.
+[10:32]	<manu1>	dlongley-db: Yeah, you could always create a new property...
+[10:32]	<manu1>	niklasl: Yes, label by map or by language...
+[10:32]	<manu1>	gkellogg: Compaction rules would be fairly clear on this...
+[10:33]	<manu1>	gkellogg: There is definitely some complexity in here - we're going to have to work through it.
+[10:33]	<manu1>	dlongley-db: We will need to specify where properties like @type go.
+[10:33]	<manu1>	niklasl: I think @type should be there.
+[10:33]	<manu1>	dlongley-db: If we had a second map, we'd have to figure it out in the algorithm.
+[10:34]	<manu1>	Discussion about corner cases about how to specify where certain properties go...
+[10:35]	<mlnt>	gkellogg: Could you have a quick look at this: http://typewith.me/p/20120712jsonld
+[10:35]	<niklasl>	… "labelByLang": {"@id": "rdfs:label", "@context": "@language"}
+[10:35]	<niklasl>	… "labelByLang": {"@id": "rdfs:label", "@container": "@language"}
+[10:36]	<manu1>	niklasl: The cases for using these @container declarations are very application specific - most would probably stay away from it.
+[10:36]	<manu1>	markus: Take a look at the Etherpad link I put above
+[10:36]	<manu1>	markus: What should we do about @value's that are not language-tagged?
+[10:36]	<manu1>	gkellogg: I think it should remain in expanded form.
+[10:37]	<manu1>	gkellogg: The way that I was proposing it was that the result is to set the language specified in the key as the default language in the context.
+[10:37]	<manu1>	gkellogg: The other way to do it would be to override the language definition of 'ex' to say that the language is null...
+[10:38]	<manu1>	niklasl: It's hard to know what X means here.
+[10:38]	<manu1>	gkellogg: We need to be careful here about how to set xsd:string - it's an RDF 1.1 model issue, so a back-end should implement it this way, though. A plain literal gets the datatype of xsd:string.
+[10:39]	<gkellogg>	From RDF Concepts: "A language-tagged string is any literal whose datatype IRI is equal to http://www.w3.org/1999/02/22-rdf-syntax-ns#langString."
+[10:41]	<dlongley-db>	manu: it sounds like we're homing in on some kind of solution here, but only an implementation would handle most of the issues with this
+[10:41]	<dlongley-db>	manu: any other concerns about @container: @language before we talk about @container: @id?
+[10:42]	<manu1>	niklasl: Maybe applying compaction w/ SKOS-XL labels, you have to do a deep traversal, put things into different buckets - that's an argument against doing deeper subtrees.
+[10:43]	<manu1>	gkellogg: The problem with compaction is that you need to know when you're in a subtree... it makes it more complicated. That's why the rule I specified above is simpler.
+[10:43]	<manu1>	niklasl: In expansion, it's simpler... in compaction it's a bit more difficult.
+[10:43]	<manu1>	gkellogg: It may be that this is not applied in compaction...
+[10:44]	<manu1>	niklasl: Maybe only on language literals is where you can use this in compaction?
+[10:44]	<manu1>	gkellogg: What if there are multiples?
+[10:44]	<manu1>	niklasl: The code would end up being half-way to a reasoner.
+[10:44]	<manu1>	gkellogg: Maybe we need to have something like dc:language as niklas suggested...
+[10:45]	<manu1>	niklasl: That would make it a bit simpler, yes.
+[10:45]	<manu1>	gkellogg: If we allowed "@language" in a subject definition - we could just use that instead.
+[10:46]	<dlongley-db>	manu: i'm a bit concerned that we're now thinking about adding features just to make other features work more cleanly
+[10:46]	<dlongley-db>	gkellogg: i think the answer is that we're not done yet, we need to keep working on the issue
+[10:46]	<manu1>	Topic: ISSUE-134: Add @container: @id
+[10:46]	<manu1>	https://github.com/json-ld/json-ld.org/issues/134
+[10:47]	<dlongley-db>	manu: do we want to support @container: @id? is the RDF/JSON use case compelling? would people actually rather use that than just N-triples, etc.?
+[10:47]	<dlongley-db>	manu: one argument for it would be that they could just JSON-LD for everything if we had this feature
+[10:47]	<dlongley-db>	manu: the concern is that if we don't generalize this @container behavior it's one more special feature we have to add and consider how to interpret JSON-LD
+[10:47]	<dlongley-db>	manu: it's becoming more difficult to look at the JSON data without looking at the @context to understand it
+[10:48]	<manu1>	gkellogg: You can't really do RDF/JSON - the keys at the top-level are subjects. With @container: @id, it has to be an object that is the value of some other property.
+[10:48]	<manu1>	gkellogg: We can't completely the duplicate RDF/JSON pattern.
+[10:48]	<manu1>	niklasl: Unless we can [scribe missed]
+[10:49]	<niklasl>	… "byURL": {"@id": "@graph", "@container": "@id"}
+[10:49]	<manu1>	gkellogg: We could just change it so that the object of graph is a subject-map. Maybe we don't have to do @container: @id
+[10:49]	<manu1>	gkellogg: You can syntactically have @graph with an object-value rather than an array-value... we could change it for @graph so that if it is an object value, then it is a subject-map.
+[10:49]	<manu1>	gkellogg: We could do that w/o any context definition at all.
+[10:50]	<dlongley-db>	manu: could you clarify what you're saying about how we'd change @graph?
+[10:50]	<manu1>	manu: Could you clarify a bit?
+[10:51]	<dlongley-db>	change the meaning of @graph: {} from a single subject to a subject map.
+[10:51]	<manu1>	gkellogg: @graph is something that was more recently introduced. The fact that we have @graphs that can have values that are objects... it's a convenience... we could change the processing rules so that if the value of @graph is an object, then the keys of that object are treated as subject.
+[10:52]	<manu1>	manu: Do we support @graph deep down in the subtree?
+[10:52]	<manu1>	dlongley-db: yes
+[10:52]	<manu1>	gkellogg: yes.
+[10:52]	<niklasl>	… "@graph": {"@id": "@graph", "@container": "@id"}
+[10:52]	<manu1>	niklasl: We may need to have a flag to specify when to do this.
+[10:52]	<manu1>	niklasl: Specifically, for compaction.
+[10:53]	<dlongley-db>	manu: ok, it seems like that may be a fairly reasonable approach for supporting @container: @id
+[10:53]	<dlongley-db>	manu: this would allow people to use index based off of subjects, etc.
+[10:54]	<dlongley-db>	manu: so back to the original question, how many people would want/need this feature?
+[10:54]	<manu1>	gkellogg: Yes, I had to use object patterns with the RDFa Test Suite... you want to use objects in many cases. Avoid the use of arrays.
+[10:54]	<manu1>	dlongley-db: This is about wanting to get at subjects quickly w/o having to do queries. This would enable that to happen.
+[10:55]	<manu1>	niklasl: Since RDF/JSON has been shelved, maybe we could re-enable that use case with this feature.
+[10:56]	<manu1>	dlongley-db: Don't want to add complexity - but we could re-use this for the query mechanism that we had in the API. If we could just put @container: @id or @container: @type, you could just use it like a JavaScript object and get at the data that way.
+[10:57]	<manu1>	niklasl: Yes, I hit this when looking at .graphify() - this general mechanism of using @container to create maps of important bits is very valuable.
+[10:57]	<manu1>	niklasl: using objects as maps instead of filtering arrays is quite palatable - we should be clear that this is for specific use cases only.
+[10:58]	<dlongley-db>	manu: the concern i keep coming back to is that we're adding complexity to the language
+[10:58]	<dlongley-db>	manu: and we're saying that we only need people to use these features for specific corner-cases
+[10:59]	<manu1>	niklasl: This should be an experiment and marked as such in the spec.
+[11:00]	<manu1>	gkellogg: This is an issue of some usage of JSON directly. I've been putting these data in a collection - each item is a model. I get something from the collection by ID. Most convenient form for me is to have a flat representation.
+[11:00]	<manu1>	gkellogg: I like a shallow traversal of the objects that come back - if that's how people are going to use JSON-LD, to drive REST-ful applications... keeping things in an array form, and using .objectify(), .graphify() is a useful pattern.
+[11:01]	<manu1>	dlongley-db: It does seem like we're mixing features - that's what the API was intended to do - .frame() and .objectify()... maybe we're overstepping our bounds.. maybe this should be something the API does.
+[11:01]	<manu1>	dlongley-db: We're definitely talking about how to shape the data... that's API territory.
+[11:02]	<manu1>	gkellogg: Yes, so should that be a step in framing? Maybe we're talking about what is syntactically valid JSON-LD... maybe language and ID maps are output from the API, but the output needs to be syntactically valid JSON-LD.
+[11:02]	<manu1>	niklasl: If you want to use compacted form, you want to send your data in very simple forms - in a common usage pattern. These maps instead of arrays are very useful in those scenarios.
+[11:03]	<manu1>	niklasl: It may be good to see these scenarios in the wild - these scenarios are probably not going to look at the API ... .graphify() is mainly for people that understand the data model.
+[11:04]	<manu1>	gkellogg: one of the reasons I don't care for graphify, what we're talking aobut is the way that people expect to use JSON data... they want to use dot-notation to get to data.
+[11:05]	<dlongley-db>	manu: there are use cases for each approach that we've been talking about, but i do agree with gregg because i don't think people are going to depend on an API ... they are just going to publish their data and if we don't support that pattern they just won't use JSON-LD
+[11:05]	<dlongley-db>	manu: i don't think they are going to be willing to ask the consumers of their data to use the JSON-LD API in order to use their data
+[11:05]	<mlnt>	+1 to what manu just said
+[11:05]	<dlongley-db>	+1
+[11:06]	<manu1>	niklasl: With this mechanism, in a JSON-LD context - we can say "This object map X, means this expression Y."
+[11:06]	<manu1>	niklasl: We can glean that meaning, but with this extended @container we can specify it.
+[11:06]	<dlongley-db>	manu: we're at the top of the hour
+[11:07]	<dlongley-db>	manu: these are all good discussions, next step is that we need to do some implementations on this and see how feasible this is
+[11:07]	<dlongley-db>	manu: implement @container: @language, maybe modify @graph to be a subject map for object values
+[11:07]	<dlongley-db>	manu: and figure out how to generalize @container: foo
+[11:08]	<dlongley-db>	Discussion about IP/patent agreement stuff - we have all IPR necessary to do a FPWD. Josh Mandel is the only person that we wanted to get a commitment from that we didn't. He didn't contribute anything to the specs that we're publishing. He was involved in the .objectify() discussion.

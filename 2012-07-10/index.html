@@ -1,0 +1,226 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-07-10</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0005.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-133: Add @container: @language</a><li><a href="#topic-2">Sub-tree support for @container</a><li><a href="#topic-3">ISSUE-134: Add @container: @id</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Gregg Kellogg, Dave Longley, Markus Lanthaler</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anybody had any more thoughts about @container: @language?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I had thought about it a bit - my gluon stuff tracks it fairly closely - I think we can do it fairly simply.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates/changes to the Agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm speaking today at Stanford, about JSON-LD... one of the folks will be with the Protoge group. Creating editors for vocabularies - can't show it more widely because it's work done for a client.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  When is the NoSQL talk on JSON-LD?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In August at some point.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-133: Add @container: @language</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/133">https://github.com/json-ld/json-ld.org/issues/133</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Are we making JSON-LD too complicated by adding this feature? Is it worth it?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The key discussion point was to be able to use object patterns where we're using array patterns right now. Object-patterns are good for using dot-pattern for accessing data.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, that's the gist of all of this - regarding complexity, it's not so much about the complexity of JSON-LD, spec-wise... it's more about what to expect as a reader/consumer of JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The generic shape (E-A-V), we fold in a property value and use it as a key... it's fairly idiomatic JSON... well, JSON is used in a very wide range of data... JSON is a slice of data. There are always structures in JSON that don't make sense to put it in JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Sometimes you have keys that come from certain view-related contexts that have no reasonable semantic representation. If you view JSON like that, and try to express those shapes as triples, you will get very strange entities.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  When we convert to RDF from language maps (and similar) I think it's strange to RDF people. The shape of the data is different and we seem to hop around to generate the triples, it seems like it may be a little backwards for RDF people. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When you see well-shaped JSON, you see what the JSON-LD context should be... @container: @language and @container: @id - maybe @container: @type and @container: ANY_PROPERTY may be possible?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe we can let people create maps in any way that they want?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  does anyone here have a handle on how to genericize this? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we say that "@container" can be used for all these cases... maybe @container defines the kind of objects ... if it's lists or sets, then you use an array... if not, maybe you use a map.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: For value-map; in Expansion:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Before 2.2:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: If active property is has @container: @language, and every key in element is of the form language (from BCP47) and does not map to an absolute IRI, the return value is an array constructed from the result of performing Value Expansion on each value using a copy of context with @language set to each key from element in turn.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The exact property that you use is defined as the value of the container in the context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The language above tweaks the processing rules a bit - when you expand, that pattern goes away.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is a specific part of the general suggestion - maybe language, just like @context, could be put into any context? Maybe it doesn't need to be put in literals... but likexml:lang, it can be put anywhere.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can still do that, right? Put @context anywhere and make it contain @language.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe this would make things more complex... maybe it would simplify @container: @language.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is getting complex if you have such subtrees... especially from the standpoint of compaction.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We're still going to have to treat @language a little differently - it doesn't work in the same way as some of this other stuff.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Right, but @container: FOO might act a little differently.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to try out some implementations for this, either we can try out some algorithms for the general case, or we could just implement @container: @language/@id since we have use cases for those ... and we could generalize later. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what we really need are some implementations to try this out, we don't need to talk about it because it would take a long time. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  @container: @id might be interesting for RDF/JSON people.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we could do a @graph alias with the @container set to @id.</div>
+<h1 id="topic-2" class="topic">Topic: Sub-tree support for @container</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  regarding @container: @language - do we want to support entire subtrees?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "de": subtree, "en": or literal" }</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6740466">https://github.com/json-ld/json-ld.org/issues/133#issuecomment-6740466</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think Manu and I want this to be a bit simpler...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Processing-wise, it's fairly straight-forward... objects, or objects that can contain other objects seems needlessly restrictive. It disallows the exact process Denny was asking for.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't think it's that difficult to see what's going on here - if you get into sub-levels... looking at Gregg's example... it's fairly obvious how it works. It may be confusing about how to go from expanded to compact form.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't think people are going to think about how to convert from one to another when the tools exist, people won't have to think about it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, I agree.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree w/ expansion - quite understandable to developers/authors. Regarding compaction, I don't see how it would work. You'd have to either keep it in expanded form, or you'd have to inject a context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This example, when we discussed it, I don't recall the guidelines for using skosxl - perhaps using dc:language would be more suitable? That is why I brought up the idea of a generic @container feature.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we should use the IRI for dc:language instead - current bnode for SKOS-XL literal form might be a datatype ... [scribe missed]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  All types and languages are datatype properties...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In RDF 1.1.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If the property is of the form BCP47, in this case you might be able to have other properties at that level. May be reasonable to restrict it - @container: @language - all properties of the object it references must be of that form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This would also work better for the definition for @container: @id - all keys of the object it's referenced by would be IRIs. It would allow us to use compact IRIs, relative IRIs, etc.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We could just restrict it, like Gregg is suggesting - it doesn't work if you don't comply with the rules.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, anything else would be hard to understand.</div>
+<div class="information">Discussion about a vocabulary for <a href="http://dbpedia.org/resource/International_Phonetic_Alphabet">http://dbpedia.org/resource/International_Phonetic_Alphabet</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is kind of a form of reification... metadata about metadata.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yeah, you could always create a new property...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, label by map or by language...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Compaction rules would be fairly clear on this...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is definitely some complexity in here - we're going to have to work through it.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We will need to specify where properties like @type go.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think @type should be there.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we had a second map, we'd have to figure it out in the algorithm.</div>
+<div class="information">Discussion about corner cases about how to specify where certain properties go...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Could you have a quick look at this: <a href="http://typewith.me/p/20120712jsonld">http://typewith.me/p/20120712jsonld</a> [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "labelByLang": {"@id": "rdfs:label", "@context": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "labelByLang": {"@id": "rdfs:label", "@container": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The cases for using these @container declarations are very application specific - most would probably stay away from it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Take a look at the Etherpad link I put above</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What should we do about @value's that are not language-tagged?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it should remain in expanded form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The way that I was proposing it was that the result is to set the language specified in the key as the default language in the context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The other way to do it would be to override the language definition of 'ex' to say that the language is null...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's hard to know what X means here.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to be careful here about how to set xsd:string - it's an RDF 1.1 model issue, so a back-end should implement it this way, though. A plain literal gets the datatype of xsd:string.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: From RDF Concepts: "A language-tagged string is any literal whose datatype IRI is equal to <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString."">http://www.w3.org/1999/02/22-rdf-syntax-ns#langString."</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it sounds like we're homing in on some kind of solution here, but only an implementation would handle most of the issues with this [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any other concerns about @container: @language before we talk about @container: @id? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe applying compaction w/ SKOS-XL labels, you have to do a deep traversal, put things into different buckets - that's an argument against doing deeper subtrees.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The problem with compaction is that you need to know when you're in a subtree... it makes it more complicated. That's why the rule I specified above is simpler.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In expansion, it's simpler... in compaction it's a bit more difficult.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It may be that this is not applied in compaction...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe only on language literals is where you can use this in compaction?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What if there are multiples?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The code would end up being half-way to a reasoner.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we need to have something like dc:language as niklas suggested...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That would make it a bit simpler, yes.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we allowed "@language" in a subject definition - we could just use that instead.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm a bit concerned that we're now thinking about adding features just to make other features work more cleanly [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think the answer is that we're not done yet, we need to keep working on the issue [scribe assist by Dave Longley]</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-134: Add @container: @id</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/134">https://github.com/json-ld/json-ld.org/issues/134</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we want to support @container: @id? is the RDF/JSON use case compelling? would people actually rather use that than just N-triples, etc.? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one argument for it would be that they could just JSON-LD for everything if we had this feature [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the concern is that if we don't generalize this @container behavior it's one more special feature we have to add and consider how to interpret JSON-LD [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's becoming more difficult to look at the JSON data without looking at the @context to understand it [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You can't really do RDF/JSON - the keys at the top-level are subjects. With @container: @id, it has to be an object that is the value of some other property.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We can't completely the duplicate RDF/JSON pattern.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Unless we can [scribe missed]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "byURL": {"@id": "@graph", "@container": "@id"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could just change it so that the object of graph is a subject-map. Maybe we don't have to do @container: @id</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You can syntactically have @graph with an object-value rather than an array-value... we could change it for @graph so that if it is an object value, then it is a subject-map.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could do that w/o any context definition at all.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  could you clarify what you're saying about how we'd change @graph? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Could you clarify a bit?</div>
+<div class="comment"><span class="name">Dave Longley</span>: change the meaning of @graph: {} from a single subject to a subject map.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @graph is something that was more recently introduced. The fact that we have @graphs that can have values that are objects... it's a convenience... we could change the processing rules so that if the value of @graph is an object, then the keys of that object are treated as subject.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we support @graph deep down in the subtree?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "@graph": {"@id": "@graph", "@container": "@id"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We may need to have a flag to specify when to do this.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Specifically, for compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, it seems like that may be a fairly reasonable approach for supporting @container: @id [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this would allow people to use index based off of subjects, etc. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so back to the original question, how many people would want/need this feature? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, I had to use object patterns with the RDFa Test Suite... you want to use objects in many cases. Avoid the use of arrays.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This is about wanting to get at subjects quickly w/o having to do queries. This would enable that to happen.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Since RDF/JSON has been shelved, maybe we could re-enable that use case with this feature.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Don't want to add complexity - but we could re-use this for the query mechanism that we had in the API. If we could just put @container: @id or @container: @type, you could just use it like a JavaScript object and get at the data that way.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, I hit this when looking at .graphify() - this general mechanism of using @container to create maps of important bits is very valuable.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  using objects as maps instead of filtering arrays is quite palatable - we should be clear that this is for specific use cases only.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the concern i keep coming back to is that we're adding complexity to the language [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and we're saying that we only need people to use these features for specific corner-cases [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This should be an experiment and marked as such in the spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is an issue of some usage of JSON directly. I've been putting these data in a collection - each item is a model. I get something from the collection by ID. Most convenient form for me is to have a flat representation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I like a shallow traversal of the objects that come back - if that's how people are going to use JSON-LD, to drive REST-ful applications... keeping things in an array form, and using .objectify(), .graphify() is a useful pattern.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It does seem like we're mixing features - that's what the API was intended to do - .frame() and .objectify()... maybe we're overstepping our bounds.. maybe this should be something the API does.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We're definitely talking about how to shape the data... that's API territory.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, so should that be a step in framing? Maybe we're talking about what is syntactically valid JSON-LD... maybe language and ID maps are output from the API, but the output needs to be syntactically valid JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you want to use compacted form, you want to send your data in very simple forms - in a common usage pattern. These maps instead of arrays are very useful in those scenarios.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It may be good to see these scenarios in the wild - these scenarios are probably not going to look at the API ... .graphify() is mainly for people that understand the data model.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  one of the reasons I don't care for graphify, what we're talking aobut is the way that people expect to use JSON data... they want to use dot-notation to get to data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are use cases for each approach that we've been talking about, but i do agree with gregg because i don't think people are going to depend on an API ... they are just going to publish their data and if we don't support that pattern they just won't use JSON-LD [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i don't think they are going to be willing to ask the consumers of their data to use the JSON-LD API in order to use their data [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 to what manu just said</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  With this mechanism, in a JSON-LD context - we can say "This object map X, means this expression Y."</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We can glean that meaning, but with this extended @container we can specify it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're at the top of the hour [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  these are all good discussions, next step is that we need to do some implementations on this and see how feasible this is [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  implement @container: @language, maybe modify @graph to be a subject map for object values [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and figure out how to generalize @container: foo [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Dave Longley</span>: Discussion about IP/patent agreement stuff - we have all IPR necessary to do a FPWD. Josh Mandel is the only person that we wanted to get a commitment from that we didn't. He didn't contribute anything to the specs that we're publishing. He was involved in the .objectify() discussion.</div>
+</body>
+</html>
