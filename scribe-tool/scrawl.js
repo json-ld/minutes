@@ -15,7 +15,7 @@
    scrawl.updateCounterTimeout = null;
 
    /* Standard regular expressions to use when matching lines */
-   var commentRx = /^\[(.*)\]\s+\<(.*?)\>\s+(.*)$/;
+   var commentRx = /^\[(.*)\]\s+\<(.*)\>\s+(.*)$/;
    var scribeRx = /^scribe:.*$/i;
    var chairRx = /^chair:.*$/i;
    var proposalRx = /^(proposal|proposed):.*$/i;
@@ -383,13 +383,7 @@
           // the line is a comment by somebody else
           else if(nick != context.scribenick)
           {
-             // line starting with '!' shouldn't be interpreted
-             if(msg.indexOf("!") == 0)
-             {
-                rval = scrawl.scribe(
-                   msg.substring(1, msg.length), textMode, aliases[nick]);
-             }
-             else if(msg.indexOf(":") != -1)
+             if(msg.indexOf(":") != -1)
              {
                 var alias = msg.split(":", 1)[0].replace(" ", "").toLowerCase();
                 
@@ -513,7 +507,7 @@
              "<div><audio controls=\"controls\" preload=\"none\">\n" + 
              "<source src=\"" + audio + "\" type=\"audio/ogg\" />" +
              "Warning: Your browser does not support the HTML5 audio element, " +
-             "please upgrade.</audio></div></dd></dl></div>\n";
+             "please upgrade.</div></dd>\n";
       }
       else
       {
@@ -561,7 +555,10 @@
          rval += "Chair:\n   " + chair + "\n";
          rval += "Scribe:\n   " + scribe + "\n";
          rval += "Present:\n   " + 
-            scrawl.wordwrap(present.join(", "), 65, "\n   ") + "\n\n";
+            scrawl.wordwrap(present.join(", "), 65, "\n   ") + "\n";
+         rval += "Audio:\n   http://json-ld.org/minutes/" +
+            time.getFullYear() + "-" + 
+             month + "-" + day + "/audio.ogg\n\n";
       }
 
       return rval;
