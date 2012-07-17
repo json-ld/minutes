@@ -1,0 +1,204 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-07-17</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0022.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0022.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">JSON-LD for Biomedical Informatics</a><li><a href="#topic-2">JSON-LD First Public Working Drafts</a><li><a href="#topic-3">ISSUE-132: Reconsider prefix/suffix separator</a><li><a href="#topic-4">Super sessions</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Do not change the prefix-suffix separator from COLON ':' to anything else.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas Lindström, David I. Lehn, Markus Lanthaler, François Daoust</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd></dl></div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Standard agenda... anything else to add to this?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I did a talk on JSON-LD to the bioinformatics group - also the Protoge group.</div>
+<h1 id="topic-1" class="topic">Topic: JSON-LD for Biomedical Informatics</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  lots of ontology work there - work around Protoge - some work mapping multiple ontologies together.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Lots to do with different format differences - as the applications make a lot of use of Web pages - JSON-LD would be used to support REST-ful APIs in HTML-based user interfaces.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Were there any feature requests?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The main one that keeps coming up is @id mapping... something being in a different form than is stated.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so @id mapping via @graph?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  no, template-based IRI generation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/108">https://github.com/json-ld/json-ld.org/issues/108</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We should be able to do something simple.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm confused why they can't just generate the @id from their data?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, I mentioned that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is a teaching issue, potentially - we should consider this if we go down this path. People tend to conflate what we mean by "@id" with what they use internally as an id... We mean "@id" to connect data with other stuff - it's a public identifier. They seem to be using @id like a local identifier.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's dangerous to conflate these things - you don't link by IRI anymore. There are things here that we need to be explicit about.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://tools.ietf.org/html/rfc6570">http://tools.ietf.org/html/rfc6570</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We may want to look at URI templates - incorporate that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://code.google.com/p/court/wiki/COIN">http://code.google.com/p/court/wiki/COIN</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I have a temporarily shelved project called COIN (above)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This covers how to create IRIs from parts of the data... I use that in the legal information project I worked on. We had very strange legacy forms and needed to generate @ids.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I started to declare these definitions in raw JSON - needed to define a vocabulary to make this more clean.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I started to write a spec for it. Richard Cyganiak thought that it would be a good thing to have.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's not always as simple as picking the one key from the data - it's often a combination of keys.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Very much depends on the old ways of publishing the data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned about re-opening this issue, it's fairly easy to generate these @ids in code.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Different IRIs represent different things - there's a decent bit of complexity here.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The other area that came up is the use of URNs as an identifier space - the lack of a @base keyword prevent us from creating URNs automatically.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There was some discussion about whether @base should be something we should add back into JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, that or some other prefix... you could define terms for the @id itself... bind the key to the proper IRI and use that opaque value for the value of the @id property. If you really want that shape, you can push all the @ids into the context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I will update the issue to the minutes from today.</div>
+<h1 id="topic-2" class="topic">Topic: JSON-LD First Public Working Drafts</h1>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-LD FPWD out!</div>
+<div class="comment-continuation">… When we started JSON-LD in the CG, we were unsure where it was going. However, it's been going smoothly in the RDF WG and the chairs support getting this out as a REC.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.w3.org/TR/json-ld-syntax/">http://www.w3.org/TR/json-ld-syntax/</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.w3.org/TR/json-ld-api/">http://www.w3.org/TR/json-ld-api/</a></div>
+<div class="comment-continuation">… I forgot to include niklas' name in the FPWD, but I'm trying to get it updated.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  During the RDF call last week, there is concern about how we're accepting changes into the spec.</div>
+<div class="comment-continuation">… The API and Syntax are now under the purview of the RDF WG, so the CG isn't working on them any more.</div>
+<div class="comment-continuation">… That means we can't accept pull requests from people not in the WG.</div>
+<div class="comment-continuation">… If you have commit rights, make sure their from someone who's an RDF WG member.</div>
+<div class="comment-continuation">… This relates to ensuring that their IPR is licensed to be used in the spec.</div>
+<div class="comment-continuation">… Alternatively, with WG members can make updates using their own language.</div>
+<div class="comment-continuation">… This means that dlongley and taaz can't make changes as they're not WG members.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've been waiting for response to get in the WG myself.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If something does need to go in, it requires an explicit license.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Change requests can go into RDF Comments. Thus, if a pull request comes in, we can ask them to send it to RDF Comments.</div>
+<div class="comment-continuation">… There are some open questions of if a pull request can basically assert the license, but it's not worth persuing right now.</div>
+<div class="comment-continuation">… Also, don't accept patches sent into RDF Comments.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's unfortunate that dave &amp; dave can't contribute. Sort of like my situation, but worse.</div>
+<div class="comment-continuation">… As it is right now, I take time off to do stuff, and I can't motivate my company to pay for that.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: just to understand, how much can we even participate on these calls? is suggesting changes here a problem?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: No, suggesting changes here is not a problem... but we do need to clear up the legalities.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  It's one issue for us, but for random people that come across the specs, it's another issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The intention is to deal with substantive changes - not typos. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's an issue of keeping things on record at W3C.</div>
+<div class="comment-continuation">… This means we need to be careful when new people join the call. However, there's no "thought police", but when something new comes up, we need to be careful.</div>
+<div class="comment-continuation">… I'm discussing with Ian at W3C.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-132: Reconsider prefix/suffix separator</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/132">https://github.com/json-ld/json-ld.org/issues/132</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  basically, reconsider the use of ":" as a separator in a Compact IRI, or use another character to allow it to be used as an identifier within a programming language.</div>
+<div class="comment-continuation">… People don't like to use prefixes, because they can't use the "." notation.</div>
+<div class="comment-continuation">… If we're going to change it, we should do it now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agree that using "." operator is preferred.</div>
+<div class="comment-continuation">… What we did with Payswarm was to decide to turn everything into a term.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Instead of this - sec:publicKey we now do this: publicKey</div>
+<div class="comment"><span class="name">David I. Lehn</span>: and our context has become large!</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this has made for large contexts.</div>
+<div class="comment-continuation">… "_" and "__" are problematic; sometimes used in vocabularies.</div>
+<div class="comment-continuation">… "$" is used in JavaScript, but is confusing when you look at the code.</div>
+<div class="comment-continuation">… @vocab is an issue when using multiple vocabularies.</div>
+<div class="comment-continuation">… Using the [] operators is slightly annoying, but not too bad.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I generally agree that we should use terms in the context to handle these issues.</div>
+<div class="comment-continuation">… I had thoughts of using prefix with another keyword, and I've come to see that if I'm not defining the term in the context, I'm probably trying to mix too much.</div>
+<div class="comment"><span class="name">François Daoust</span>: [I think using terms, either explicitly or through @vocab, really helps, so I wouldn't try to change a prefix that is already agreed upon pretty much everywhere else]</div>
+<div class="comment-continuation">… A context is not a general thing, but is a very specific thing. If I want to publish everything I've got, the explicit use of @prefix or IRIs is appropriate.</div>
+<div class="comment-continuation">… The explicit needs to use [] is a way to signal that it is auxiliary data, and not intended to be primary.</div>
+<div class="comment-continuation">… in general, using terms to define the context is the way to go.</div>
+<div class="comment-continuation">… I think that CURIEs are a pragmatic tool to make IRIs compact, but that's just for data packing.</div>
+<div class="comment-continuation">… That said, it applies regardless of if you use ":" or something else.</div>
+<div class="comment-continuation">… If the issue crops up at general intervals, I wouldn't mind a mechanism of defining an alias for ":" in the context, but I'd rather not switch to it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm working quite a bit with my own vocab, using schema.org - when I use schema terms, there are quite a number of them. Programmatically, writing code to access elements from objects, I know what I want to access... so I alias "@id" and "@type" in backbone. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are certain things I expect every object to have, such as a name or description - when accessing range, subtypeof - for those cases, I define terms to make it easy. It's for the cases where my logic is not built to access things that are not known in there, I couldn't use dot-notation. My logic doesn't try to deal with that data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't see a need to be more explicit to allow dot notation for things that are not already built into my code. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other issue with "$" is that can be confused with jQuery if you're scanning through the code.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree with the arguments, but it's more about why people are using @vocab; it's not that it's missing, but because prefixes loose some convenience. On the other hand, people don't want large contexts.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't see how this makes the need for @vocab to go away. WIth @vocab, you use the terms from the vocabulary "as-is".</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  using as-is, means that you don't need to use brackets.</div>
+<div class="information">w+</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that for some sub-set of users, the use of @vocab is useful. It's mainly useful for vocabularies such as schema.org.</div>
+<div class="comment-continuation">… I know some of the people from Google like this because it makes the data look clean.</div>
+<div class="comment-continuation">… I don't know if we can make an argument about the primary reason people are using these attributes. For example, If we changed it to "_", our company still wouldn't use it.</div>
+<div class="comment-continuation">… We think our developers are going to want to use "." notation. Developers would rather use ".asset" rather than ".ps_asset".</div>
+<div class="comment-continuation">… We've really switched our opinions on CURIEs in general. They're great for compacting use of IRIs, but when you actually go to work with the data, terms are much more useful.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I do have some other uses where I use terms - an annotation property - what term I want to use in the OWL definitions - the reason for that is not because of programmatic access - it's what users expect for common properties. I use OWL with restrictions as a way to show properties that are expected to be expressed in an object. For those types of things, I want to make it friendly... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...to developers that use 'name' or 'date' without having to do things like 'schema_name' or 'schema_date'.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's really where terms come in handy - with regards to that, I don't find having to use square brackets to be problematic. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not change the prefix-suffix separator from COLON to anything else.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Do not change the prefix-suffix separator from COLON ':' to anything else.</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Should we introduce an alias for ':' ? [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Allow the prefix-suffix separator to be aliased (for example, '$' in addition to '</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: -1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">François Daoust</span>: +0</div>
+<div class="information">Group consensus on not allowing prefix-suffix separator aliasing.</div>
+<h1 id="topic-4" class="topic">Topic: Super sessions</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  preference for 75 min or 90 min calls.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  better than 120!</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  next call will be 90 minutes</div>
+<div class="comment-continuation">… we'll continue on 90 minute calls while we get through to LC.</div>
+<div class="comment"><span class="name">François Daoust</span>: [regrets for next 2 weeks]</div>
+</body>
+</html>
