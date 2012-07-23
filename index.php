@@ -36,7 +36,7 @@ print <<< htmlcode
                   <li><strong>Next Meeting:</strong> 
 htmlcode;
 
-if(date('l', strtotime('today') === 'Tuesday'))
+if(date('l', strtotime('today')) === 'Tuesday')
 {
    print date('l, F jS (Y-m-d)', strtotime('today'));
 }
