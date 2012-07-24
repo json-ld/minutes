@@ -1,0 +1,256 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-07-24</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0040.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0040.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-120: Expand @type to @id-objects</a><li><a href="#topic-2">ISSUE-114: JSON-LD Grammar</a><li><a href="#topic-3">ISSUE-142: Allow terms to expand to multiple IRIs</a><li><a href="#topic-4">ISSUE-144: @context in coercion rules</a><li><a href="#topic-5">ISSUE-146: Support array position to property binding</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">When @id is found as a value in an object associated with @type, a handler callback is called to handle the issue.</a><li><a href="#resolution-2">Express the JSON-LD Grammar in prose with supporting tables/examples. Clarify that violating the grammar does not necessarily mean that a JSON-LD processor will not process the document.</a><li><a href="#resolution-3">Support a single term expanding to multiple IRIs when an array of @ids are associated with a single term in the @context.</a><li><a href="#resolution-4">Do not support embedding @contexts within a @context to re-define the IRI that a term maps to.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Gregg and Manu to improve the JSON-LD Grammar section in the JSON-LD Syntax specification.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Niklas Lindström, Gregg Kellogg, Stéphane Corlosquet</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Niklas Lindström</span>: Regarding the graphify() mechanism, I've been playing around a little with a connect() mechanism here - you guys might be interested in that: </div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_ld.js">https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_ld.js</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_rdf.js">https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_rdf.js</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any discussion items to add to the Agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yeah, ISSUE-120 - we need to determine what happens when an @id is detected in an object associated with @type. [scribe assist by Manu Sporny]</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-120: Expand @type to @id-objects</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we decided we're not expanding @type to @id objects. The question is if we allow usage of @id objects for @type, or if we should throw exceptions</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  were using callbacks more for error; so if we see this usage, we can allow the app to decide what to do.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I feel it is important to support that pattern, in the case some JSON used the type construct like this, and we want to cast it to @type</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should call the callback</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to figure out the callback workings; is it an event bubbling kind of mechanism?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  should they propagate etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we should discuss this more</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  also, in a non-programmatic context (distiller etc.), we should do the most liberal thing: i.e. use the @id</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we should call the callback (which is it? not error handler...)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the callback should be able to cancel the use...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there might be three choices: use, ignore or stop</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  use a binary for use/ignore and throw exception to stop</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When @id is found as a value in an object associated with @type, a handler callback is called to handle the issue.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> When @id is found as a value in an object associated with @type, a handler callback is called to handle the issue.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  for all cases where there is non-conformant data?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: To clarify - the handler callback is called whenever any "non-conforming" data is found.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-114: JSON-LD Grammar</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/114">https://github.com/json-ld/json-ld.org/issues/114</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  with this mechanism, a document isn't automatically invalid when a document doesn't conform to the grammar. This allows for figuring out what the data should mean.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we define what can be handled automatically, the document would be conformant still</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but when is a document clearly non-conformant?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't want to make the statement that a JSON-LD doc with non-defined terms is non-conformant</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but that is explicitly ignored</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  true. we have to be careful about how we define this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the reason for having a grammar was that before we had spread out in various places what forms are allowed where</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I wonder to what extent we need to keep using the abstract description? There are only a few cases where we need to handle non-canonical expressions. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The specific case is where you are coercing to an @id, but you have an object that is a JavaScript object with an 'id' keyword. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There is also value coercion - we need to call out for that. Maybe we can just define these specific cases? If you coerce to @id and you have an entire object there, the object will be thrown away, but the @id will be kept. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you have coerced to a literal, you have @id or @language - you will throw an error. If you use an expanded literal for @type, you will throw an error. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we need to express in prose or EBNF?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I started on EBNF, but that's difficult, and probably not appropriate</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#json-ld-authoring-guidelines">http://json-ld.org/spec/latest/json-ld-syntax/#json-ld-authoring-guidelines</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  EBNF is not applicable [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/114#issuecomment-5820544">https://github.com/json-ld/json-ld.org/issues/114#issuecomment-5820544</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's a compact, good start. it needs some more work, but it's good and usable</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  just prose, highlighted with examples would be good</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but don't we have lots of that? we need some kind of summary (which Andy looked for)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could repeat what we say above [in the spec], but top-down instead of bottom-up</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'll add a issue feature to respec.js</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we'll attempt to express the json-ld grammar (gregg will start on it)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in prose, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, but possibly with formal tables etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a processor must note when a document is non-conformant, but may still produce data</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Express the JSON-LD Grammar in prose with supporting tables/examples. Clarify that violating the grammar does not necessarily mean that a JSON-LD processor will not process the document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Express the JSON-LD Grammar in prose with supporting tables/examples. Clarify that violating the grammar does not necessarily mean that a JSON-LD processor will not process the document.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We need to outline all the things that are problematic - for example, using @graph in @context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we may have to leave certain deviations undefined</div>
+<div id="action-1" class="action">ACTION: Gregg and Manu to improve the JSON-LD Grammar section in the JSON-LD Syntax specification.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-142: Allow terms to expand to multiple IRIs</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/142">https://github.com/json-ld/json-ld.org/issues/142</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  brought up for the drupal use case</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the biggest question is do we want to support this?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I thought about this before this was brought up - it's similar to RDFa... I think in our situation, it does complicate things. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's one thing to use this when you are interpreting compact JSON... so that when you're expanding it, you have more than one triple for each key. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Compacting data is much harder - if you use a context with these kinds of terms, we have to say something more specific - it's a sort of inference... data will magically appear that doesn't exist in the input. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Something that would be much more complex, but proper - a term should only match when all items are in the document. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  for expressing data, this is quite useful. But my opinion is also that we've painted ourselves into a corner when it comes to compacting data with contexts using these</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can see for expressing data, this is very useful. My opinion though, is that we've painted ourselves into a corner when we do compaction. There are other examples where we output things that are non-intuitive because we are strictly adhering to the @context expression. If you have something that's not a date that is a term. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we may have to separate these concepts from the task of compaction</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so that we can use these forms to *express* data but not apply them when compacting</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: can a feature be supported for one way (expansion) and not the other way (compaction)?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is that feature really required? in restful apis, you can use e.g. content negotiation for different uses</div>
+<div class="comment"><span class="name">Manu Sporny</span>: scor, that's what we're discussing right now - we /could/ do it... but it would be the first time we're doing something like that.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  other formats, like RDFa and microdata, support this feature.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  and we use this in Drupal, so we'd have to do something special for JSON-LD if we don't have this</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  it's gonna be more verbose</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a possible consequence of this would be to allow key-object keys to have a space-separated list of terms</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"schema:name dc:title": "foo"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that it's too foreign for JSON developers. It's a neat trick, but it would be hard to use that data</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I probably agree</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@context": { "term": {"@id": ["dc:title", "schema:name", "foaf:name"]}}}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the other question is: who are the clients of these documents?</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  there is a proposal in the drupal community, and to define a local namespace for properties, which would be used for sharing data. At the same time, we want to support schema.org, DC, etc.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: What about data.jsonld?vocab=foaf vs. data.jsonld?vocab=schema</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  conneg for this is not a mature pattern which is commonly used by clients</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Markus, I think the issue is that they don't have to do that anywhere else in their system.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  different consumers understand different parts, and we want to target as many as possible with the same data.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I see your point</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the pattern among linked data publishers right now; JSON-LD is used by e.g. VIE in the backend, and the JSON-LD is transformed to RDFa, and then lifted out again.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they wanted to use multiple vocabularies, so this would be usable. If we can figure out the issue with compaction...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  another approach would be to use vocabulary expansion..</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that it would be easier to use this feature than something like an "RDFa Profile"... this is a more raw equivalent of that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The more RDF-y the Web gets, the easier all of this gets... we would ultimately use our own vocabs w/ mappings. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  But that's 5-10 years off. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could support this, but not apply it on compaction</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should determine if we need this, and then if it should or shouldn't apply in compaction</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: "@context": {</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: "name": "<a href="http://xmlns.com/foaf/0.1/name">http://xmlns.com/foaf/0.1/name</a> http://schema.org/name",</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@context": { "term": {"@id": ["dc:title", "schema:name", "foaf:name"]}}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@context": {"term": ["dc:title", "schema:name"]}}</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support a single term expanding to multiple IRIs when an array of @ids are associated with a single term in the @context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (provided we can solve how to handle it in compaction)</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Support a single term expanding to multiple IRIs when an array of @ids are associated with a single term in the @context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: What is this compacted to? { "dc:title": "title1", "schema:name": "title2" }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  re: compaction w/ single-to-multiple terms - three ways to solve this - if any @id matches use that term, match only if all items match, only use first term in the list. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: What is this compacted to? { "dc:title": "sametitle", "schema:name": "sametitle" }</div>
+<div class="comment"><span class="name">Manu Sporny</span>: mlnt, don't you mean this - { "dc:title": "sametitle", "schema:title": "sametitle" } ?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's the second case, I was also wondering what happens if you have two different values [scribe assist by Markus Lanthaler]</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-144: @context in coercion rules</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/144">https://github.com/json-ld/json-ld.org/issues/144</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have a severe reaction to this… [ ;) ]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this suggests that a term can mean different things depending on where in the data it appears, depending on terms referencing the current piece</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we already support this by explicitly using "@context" at various places</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I have explored this idea before... it's way too complex. There is a nice academic idea that you could adapt to almost any data... but it gets very complex to process and much harder to read the data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you mix-match terms in the same document, such that you can't use the same term for the same meaning, you're in trouble... it's a bad practice. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We already support this via @context embedding... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: I'm with niklas</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You could take the approach where you bind a @context to a type... but I still think it's too much... I'm not in support of it at this point. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support embedding @contexts within a @context to re-define the IRI that a term maps to.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: +0</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Do not support embedding @contexts within a @context to re-define the IRI that a term maps to.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-146: Support array position to property binding</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/146">https://github.com/json-ld/json-ld.org/issues/146</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this came about during a discussion with reto.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "position": ["18.324235", "-36.4387934"],</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Often people have data which expresses data in tuples.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A whole bunch of geo-data matches this pattern. Even if explicit terms are "better", people are not going do use that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  other cases are e.g. vectors, circles, or general data pairs</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "position": {"@id": "geo:position", "@container": [{"@id": "geo:latitude"}, {"@id": "geo:longitude"}]}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: or this: "coordinates": {"@container": "@list", "@tuple": [{"@id": "geo:latitude"}, {"@id": "geo:longitude"}]}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I am in favor of supporting it - I thought of it when I saw GeoJSON. I came across it when I worked with biographical data at the Royal Library... we're slowly moving towards RDF and I'm using JSON-LD as the target there. There are many complications on that road, may not be able to achieve this... there are certain shapes of data that use this form. I'd like to transform those... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...expressions because they're cumbersome.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  However, for GeoJSON, that is a very good use case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Statistics and measurements as well. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I see the value of it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  again, compaction complexity might be a problem. But I support it for expressing data</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree with the arguments and see the value in it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but I'm concerned about all the various ways of expressing data, and the impact of that on understanding data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, I agree with marcus</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the issue is what happens when you have JSON data and need to transfer it to JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it would be nice to figure out a way to add experimental features but not including it in 1.0 proper</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the complexity really lies in compaction. You can use a context to understand a specific form. But the general compaction algorithm would suffer if it had to support all kinds of "gleaning"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we may want to move away from symmetric application of context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but that could confuse users</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but will people use framing, or proprietary algorithms?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we often use that approach too</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  will compaction mostly be the "pretty print" for JSON-LD?</div>
+<div class="information">.. discussion about framing vs. graphify</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  graphify addresses the shape issue. It ensures that you can navigate with dot notation consistently.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  framing does the query thing, matches and extracts data</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't know if we've discussed enough for a vote? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  compaction is useful though; for e.g. graphify</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  even if we break the symmetry between expansion and compaction, I'm concerned about the complexity</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an anecdote: Dave Beckett said about Turtle that a feature was only added when there was lots of complaints about it missing</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we may want to look at macros instead...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, I'm on the edge for this feature - I like many of the suggestions, but I'm also concerned about the complexity - we may want a pre-processing language? It would be nice to have something declarative in JSON. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could use IRI templates, etc... so, we might want to have a "third" thing, not a part of the 1.0 JSON-LD spec - that's some sort of GRDDL for JSON-LD w/ a definined macro language for the next version of expansion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we may add a preprocessing step to the JSON-LD API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about pre-processing step vs. declarative form for modifying a document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Okay, out of time for today - thanks for the call - we'll have another call next week.</div>
+</body>
+</html>

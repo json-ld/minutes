@@ -25,6 +25,11 @@
          "alias": ["Denny", "Denny_WMDE", "Denny_WMDE1"],
          "homepage": "http://simia.net/wiki/Denny"
       },
+      "Stéphane Corlosquet":
+      {
+         "alias": ["scor"],
+         "homepage": "http://www.linkedin.com/in/scorlosquet"
+      },
       "Josh Mandel":
       {
          "alias": ["JoshM"],

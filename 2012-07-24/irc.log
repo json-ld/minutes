@@ -1,0 +1,241 @@
+[10:05]	<niklasl>	Regarding the graphify() mechanism, I've been playing around a little with a connect() mechanism here - you guys might be interested in that: 
+[10:05]	<niklasl>	https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_ld.js
+[10:05]	<niklasl>	https://github.com/niklasl/rdfa-lab/blob/gh-pages/test/test_rdf.js
+[10:07]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0040.html
+[10:07]	<manu1>	manu: Any discussion items to add to the Agenda?
+[10:08]	<manu1>	markus: Yeah, ISSUE-120 - we need to determine what happens when an @id is detected in an object associated with @type.
+[10:08]	<manu1>	scribe: niklasl
+[10:08]	<manu1>	Topic: ISSUE-120: Expand @type to @id-objects
+[10:09]	<niklasl>	manu: we decided we're not expanding @type to @id objects. The question is if we allow usage of @id objects for @type, or if we should throw exceptions
+[10:09]	|<--	fcodvpt has left freenode (Ping timeout: 246 seconds)
+[10:09]	<niklasl>	gregg: were using callbacks more for error; so if we see this usage, we can allow the app to decide what to do.
+[10:10]	<niklasl>	gregg: I feel it is important to support that pattern, in the case some JSON used the type construct like this, and we want to cast it to @type
+[10:10]	-->|	fcodvpt (~fconil@2001:660:5001:142:21b:63ff:fea7:217c) has joined #json-ld
+[10:10]	<niklasl>	manu: we should call the callback
+[10:11]	<niklasl>	gregg: we need to figure out the callback workings; is it an event bubbling kind of mechanism?
+[10:11]	<niklasl>	gregg: should they propagate etc.
+[10:11]	<niklasl>	manu: yes, we should discuss this more
+[10:12]	<niklasl>	gregg: also, in a non-programmatic context (distiller etc.), we should do the most liberal thing: i.e. use the @id
+[10:12]	<niklasl>	manu: so we should call the callback (which is it? not error handler...)
+[10:12]	<niklasl>	gregg: the callback should be able to cancel the use...
+[10:13]	<niklasl>	manu: there might be three choices: use, ignore or stop
+[10:13]	<niklasl>	gregg: use a binary for use/ignore and throw exception to stop
+[10:14]	* niklasl	has to answer a message; back in 1 min.
+[10:14]	<manu1>	PROPOSAL: When @id is found as a value in an object associated with @type, a handler callback is called to handle the issue.
+[10:15]	<mlnt>	+1
+[10:15]	<manu1>	+1
+[10:15]	<gkellogg>	+1
+[10:15]	<niklasl>	+1
+[10:15]	* scor	only lurking
+[10:15]	* scor	please move on, thanks for asking
+[10:16]	<manu1>	RESOLVED: When @id is found as a value in an object associated with @type, a handler callback is called to handle the issue.
+[10:16]	<niklasl>	mlnt: for all cases where there is non-conformant data?
+[10:16]	<manu1>	To clarify - the handler callback is called whenever any "non-conforming" data is found.
+[10:17]	<manu1>	Topic: ISSUE-114: JSON-LD Grammar
+[10:17]	<manu1>	https://github.com/json-ld/json-ld.org/issues/114
+[10:18]	<niklasl>	manu: with this mechanism, a document isn't automatically invalid when a document doesn't conform to the grammar. This allows for figuring out what the data should mean.
+[10:19]	<niklasl>	gregg: if we define what can be handled automatically, the document would be conformant still
+[10:20]	<voip-ld>	Dave Lehn (SIP/6003-00000014) has joined the conference.
+[10:20]	<voip-ld>	Dave Lehn (SIP/6003-00000014) has left the conference.
+[10:20]	<niklasl>	mlnt: but when is a document clearly non-conformant?
+[10:21]	<niklasl>	manu: we don't want to make the statement that a JSON-LD doc with non-defined terms is non-conformant
+[10:21]	<niklasl>	mlnt: but that is explicitly ignored
+[10:21]	<niklasl>	manu: true. we have to be careful about how we define this
+[10:23]	<niklasl>	gregg: the reason for having a grammar was that before we had spread out in various places what forms are allowed where
+[10:24]	<niklasl>	q+
+[10:24]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:24]	<manu1>	ack niklasl
+[10:24]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:25]	<manu1>	niklasl: I wonder to what extent we need to keep using the abstract description? There are only a few cases where we need to handle non-canonical expressions.
+[10:25]	<manu1>	niklasl: The specific case is where you are coercing to an @id, but you have an object that is a JavaScript object with an 'id' keyword.
+[10:26]	<manu1>	niklasl: There is also value coercion - we need to call out for that. Maybe we can just define these specific cases? If you coerce to @id and you have an entire object there, the object will be thrown away, but the @id will be kept.
+[10:26]	<manu1>	niklasl: If you have coerced to a literal, you have @id or @language - you will throw an error. If you use an expanded literal for @type, you will throw an error.
+[10:28]	<niklasl>	manu: do we need to express in prose or EBNF?
+[10:28]	<niklasl>	gregg: I started on EBNF, but that's difficult, and probably not appropriate
+[10:29]	<mlnt>	http://json-ld.org/spec/latest/json-ld-syntax/#json-ld-authoring-guidelines
+[10:29]	<manu1>	niklasl: EBNF is not applicable
+[10:29]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/114#issuecomment-5820544
+[10:30]	<niklasl>	gregg: that's a compact, good start. it needs some more work, but it's good and usable
+[10:30]	<niklasl>	gregg: just prose, highlighted with examples would be good
+[10:31]	<niklasl>	manu: but don't we have lots of that? we need some kind of summary (which Andy looked for)
+[10:32]	<niklasl>	gregg: we could repeat what we say above [in the spec], but top-down instead of bottom-up
+[10:32]	<voip-ld>	Dave Lehn (SIP/6003-0000001c) has joined the conference.
+[10:33]	<niklasl>	gregg: I'll add a issue feature to respec.js
+[10:34]	<niklasl>	manu: so we'll attempt to express the json-ld grammar (gregg will start on it)
+[10:34]	<niklasl>	mlnt: in prose, right?
+[10:34]	<niklasl>	manu: yes, but possibly with formal tables etc.
+[10:35]	<niklasl>	gregg: a processor must note when a document is non-conformant, but may still produce data
+[10:35]	<manu1>	PROPOSAL: Express the JSON-LD Grammar in prose with supporting tables/examples. Clarify that violating the grammar does not necessarily mean that a JSON-LD processor will not process the document.
+[10:36]	<gkellogg>	+1
+[10:36]	<manu1>	+1
+[10:36]	<mlnt>	+1
+[10:36]	<niklasl>	+1
+[10:37]	<manu1>	RESOLVED: Express the JSON-LD Grammar in prose with supporting tables/examples. Clarify that violating the grammar does not necessarily mean that a JSON-LD processor will not process the document.
+[10:38]	<manu1>	niklasl: We need to outline all the things that are problematic - for example, using @graph in @context.
+[10:40]	<niklasl>	manu: we may have to leave certain deviations undefined
+[10:41]	<gkellogg>	ACTION: Gregg and Manu to improve the JSON-LD Grammar section in the JSON-LD Syntax specification.
+[10:41]	<manu1>	Topic: ISSUE-142: Allow terms to expand to multiple IRIs
+[10:41]	<manu1>	https://github.com/json-ld/json-ld.org/issues/142
+[10:41]	* scor	wakes up
+[10:41]	<niklasl>	manu: brought up for the drupal use case
+[10:42]	<niklasl>	manu: the biggest question is do we want to support this?
+[10:42]	<niklasl>	q+
+[10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:42]	<gkellogg>	q+
+[10:42]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:42]	<manu1>	ack niklasl
+[10:42]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:42]	<manu1>	niklasl: I thought about this before this was brought up - it's similar to RDFa... I think in our situation, it does complicate things.
+[10:43]	<manu1>	niklasl: It's one thing to use this when you are interpreting compact JSON... so that when you're expanding it, you have more than one triple for each key.
+[10:43]	<manu1>	niklasl: Compacting data is much harder - if you use a context with these kinds of terms, we have to say something more specific - it's a sort of inference... data will magically appear that doesn't exist in the input.
+[10:44]	<manu1>	niklasl: Something that would be much more complex, but proper - a term should only match when all items are in the document.
+[10:44]	<manu1>	ack gkellogg
+[10:44]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:44]	<niklasl>	gregg: for expressing data, this is quite useful. But my opinion is also that we've painted ourselves into a corner when it comes to compacting data with contexts using these
+[10:45]	<manu1>	gkellogg: I can see for expressing data, this is very useful. My opinion though, is that we've painted ourselves into a corner when we do compaction. There are other examples where we output things that are non-intuitive because we are strictly adhering to the @context expression. If you have something that's not a date that is a term.
+[10:46]	<niklasl>	gregg: we may have to separate these concepts from the task of compaction
+[10:46]	<niklasl>	gregg: so that we can use these forms to *express* data but not apply them when compacting
+[10:47]	<mlnt>	q+
+[10:47]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:47]	<manu1>	ack mlnt
+[10:47]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:47]	<scor>	can a feature be supported for one way (expansion) and not the other way (compaction)?
+[10:48]	<niklasl>	mlnt: is that feature really required? in restful apis, you can use e.g. content negotiation for different uses
+[10:48]	<manu1>	scor, that's what we're discussing right now - we /could/ do it... but it would be the first time we're doing something like that.
+[10:49]	<niklasl>	scor: other formats, like RDFa and microdata, support this feature.
+[10:49]	<gkellogg>	q+
+[10:49]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:49]	<niklasl>	scor: and we use this in Drupal, so we'd have to do something special for JSON-LD if we don't have this
+[10:50]	<niklasl>	scor: it's gonna be more verbose
+[10:50]	<manu1>	ack gkellogg
+[10:50]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:50]	<niklasl>	gregg: a possible consequence of this would be to allow key-object keys to have a space-separated list of terms
+[10:51]	<manu1>	q+
+[10:51]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:51]	<manu1>	ack manu1
+[10:51]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:51]	<gkellogg>	{"schema:name dc:title": "foo"}
+[10:52]	<niklasl>	manu: I'm concerned that it's too foreign for JSON developers. It's a neat trick, but it would be hard to use that data
+[10:52]	<niklasl>	niklas: I probably agree
+[10:53]	<gkellogg>	{"@context": { "term": {"@id": ["dc:title", "schema:name", "foaf:name"]}}}
+[10:53]	<niklasl>	mlnt: the other question is: who are the clients of these documents?
+[10:54]	<niklasl>	scor: there is a proposal in the drupal community, and to define a local namespace for properties, which would be used for sharing data. At the same time, we want to support schema.org, DC, etc.
+[10:54]	<niklasl>	q+
+[10:54]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:54]	<mlnt>	What about data.jsonld?vocab=foaf vs. data.jsonld?vocab=schema
+[10:55]	<niklasl>	scor: conneg for this is not a mature pattern which is commonly used by clients
+[10:55]	<manu1>	Markus, I think the issue is that they don't have to do that anywhere else in their system.
+[10:56]	<manu1>	q+
+[10:56]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:56]	<gkellogg>	q+ have you considered something like vocabulary expansion?
+[10:56]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, manu1, gkellogg
+[10:56]	<niklasl>	scor: different consumers understand different parts, and we want to target as many as possible with the same data.
+[10:57]	<manu1>	ack niklasl
+[10:57]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:57]	<manu1>	ack manu1
+[10:57]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:57]	<niklasl>	mlnt: I see your point
+[10:58]	<niklasl>	manu: the pattern among linked data publishers right now; JSON-LD is used by e.g. VIE in the backend, and the JSON-LD is transformed to RDFa, and then lifted out again.
+[10:58]	<niklasl>	manu: they wanted to use multiple vocabularies, so this would be usable. If we can figure out the issue with compaction...
+[10:59]	<manu1>	ack gkellogg
+[10:59]	<voip-ld>	niklasl has the floor (have you considered something like vocabulary expansion?). The speaker queue is empty.
+[10:59]	<niklasl>	gregg: another approach would be to use vocabulary expansion..
+[11:01]	<manu1>	niklasl: I think that it would be easier to use this feature than something like an "RDFa Profile"... this is a more raw equivalent of that.
+[11:01]	<scor>	q+
+[11:01]	<voip-ld>	Added scor to the speaker queue: scor
+[11:02]	<manu1>	niklasl: The more RDF-y the Web gets, the easier all of this gets... we would ultimately use our own vocabs w/ mappings.
+[11:02]	<manu1>	niklasl: But that's 5-10 years off.
+[11:03]	<niklasl>	gregg: we could support this, but not apply it on compaction
+[11:03]	<scor>	q- nevermind, that's what Gregg was proposing before
+[11:03]	<voip-ld>	Removed scor from the speaker queue: (empty)
+[11:03]	<niklasl>	manu: we should determine if we need this, and then if it should or shouldn't apply in compaction
+[11:04]	<scor>	"@context": {
+[11:04]	<scor>	"name": "http://xmlns.com/foaf/0.1/name http://schema.org/name",
+[11:04]	<gkellogg>	{"@context": { "term": {"@id": ["dc:title", "schema:name", "foaf:name"]}}}
+[11:05]	<gkellogg>	{"@context": {"term": ["dc:title", "schema:name"]}}
+[11:05]	<manu1>	PROPOSAL: Support a single term expanding to multiple IRIs when an array of @ids are associated with a single term in the @context.
+[11:05]	<manu1>	+1
+[11:05]	<gkellogg>	+1
+[11:05]	<scor>	+1
+[11:05]	<mlnt>	+0.5
+[11:05]	<niklasl>	+1 (provided we can solve how to handle it in compaction)
+[11:05]	<manu1>	RESOLVED: Support a single term expanding to multiple IRIs when an array of @ids are associated with a single term in the @context.
+[11:08]	<manu1> What is this compacted to? { "dc:title": "title1", "schema:name": "title2" }
+[11:08]	<manu1>	niklasl: re: compaction w/ single-to-multiple terms - three ways to solve this - if any @id matches use that term, match only if all items match, only use first term in the list.
+[11:08]	<mlnt>	What is this compacted to? { "dc:title": "sametitle", "schema:name": "sametitle" }
+[11:08]	<manu1>	mlnt, don't you mean this - { "dc:title": "sametitle", "schema:title": "sametitle" } ?
+[11:09]	<mlnt>	manu1: that's the second case, I was also wondering what happens if you have two different values
+[11:11]	<manu1>	Topic: ISSUE-144: @context in coercion rules
+[11:11]	<manu1>	https://github.com/json-ld/json-ld.org/issues/144
+[11:11]	<niklasl>	manu: I have a severe reaction to this… [ ;) ]
+[11:12]	<niklasl>	manu: this suggests that a term can mean different things depending on where in the data it appears, depending on terms referencing the current piece
+[11:13]	<niklasl>	manu: we already support this by explicitly using "@context" at various places
+[11:13]	<niklasl>	q+
+[11:13]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:13]	<manu1>	ack niklasl
+[11:13]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:13]	<manu1>	niklasl: I have explored this idea before... it's way too complex. There is a nice academic idea that you could adapt to almost any data... but it gets very complex to process and much harder to read the data.
+[11:14]	<manu1>	niklasl: If you mix-match terms in the same document, such that you can't use the same term for the same meaning, you're in trouble... it's a bad practice.
+[11:14]	<manu1>	niklasl: We already support this via @context embedding...
+[11:15]	<gkellogg>	I'm with niklas
+[11:15]	<manu1>	niklasl: You could take the approach where you bind a @context to a type... but I still think it's too much... I'm not in support of it at this point.
+[11:16]	<manu1>	PROPOSAL: Do not support embedding @contexts within a @context to re-define the IRI that a term maps to.
+[11:16]	<mlnt>	+1
+[11:16]	<manu1>	+1
+[11:16]	<niklasl>	+1
+[11:16]	<scor>	+0
+[11:16]	<gkellogg>	+1
+[11:16]	<manu1>	RESOLVED: Do not support embedding @contexts within a @context to re-define the IRI that a term maps to.
+[11:16]	<manu1>	Topic: ISSUE-146: Support array position to property binding
+[11:16]	<manu1>	https://github.com/json-ld/json-ld.org/issues/146
+[11:17]	<niklasl>	manu: this came about during a discussion with reto.
+[11:17]	<manu1>	"position": ["18.324235", "-36.4387934"],
+[11:17]	<niklasl>	manu: Often people have data which expresses data in tuples.
+[11:18]	<niklasl>	manu: A whole bunch of geo-data matches this pattern. Even if explicit terms are "better", people are not going do use that.
+[11:18]	<niklasl>	manu: other cases are e.g. vectors, circles, or general data pairs
+[11:19]	<manu1>	"position": {"@id": "geo:position", "@container": [{"@id": "geo:latitude"}, {"@id": "geo:longitude"}]}
+[11:19]	<manu1>	or this: "coordinates": {"@container": "@list", "@tuple": [{"@id": "geo:latitude"}, {"@id": "geo:longitude"}]}
+[11:19]	<niklasl>	q+
+[11:19]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:19]	<manu1>	ack niklasl
+[11:19]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:21]	<manu1>	niklasl: I am in favor of supporting it - I thought of it when I saw GeoJSON. I came across it when I worked with biographical data at the Royal Library... we're slowly moving towards RDF and I'm using JSON-LD as the target there. There are many complications on that road, may not be able to achieve this... there are certain shapes of data that use this form. I'd like to transform those...
+[11:21]	<manu1>	...expressions because they're cumbersome.
+[11:21]	<manu1>	niklasl: However, for GeoJSON, that is a very good use case.
+[11:21]	<gkellogg>	q+
+[11:21]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:21]	<manu1>	niklasl: Statistics and measurements as well.
+[11:21]	<manu1>	ack gkellogg
+[11:21]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:21]	<niklasl>	gregg: I see the value of it
+[11:22]	<niklasl>	gregg: again, compaction complexity might be a problem. But I support it for expressing data
+[11:22]	<niklasl>	markus: I agree with the arguments and see the value in it.
+[11:23]	<niklasl>	markus: but I'm concerned about all the various ways of expressing data, and the impact of that on understanding data
+[11:23]	<niklasl>	manu: yes, I agree with marcus
+[11:24]	<niklasl>	manu: the issue is what happens when you have JSON data and need to transfer it to JSON-LD
+[11:24]	<niklasl>	manu: it would be nice to figure out a way to add experimental features but not including it in 1.0 proper
+[11:25]	<niklasl>	gregg: I think the complexity really lies in compaction. You can use a context to understand a specific form. But the general compaction algorithm would suffer if it had to support all kinds of "gleaning"
+[11:26]	<niklasl>	gregg: we may want to move away from symmetric application of context
+[11:26]	<niklasl>	manu: but that could confuse users
+[11:26]	<niklasl>	gregg: but will people use framing, or proprietary algorithms?
+[11:26]	* niklasl	have used proprietary approaches so far..
+[11:27]	<niklasl>	manu: we often use that approach too
+[11:28]	<niklasl>	manu: will compaction mostly be the "pretty print" for JSON-LD?
+[11:28]	<niklasl>	.. discussion about framing vs. graphify
+[11:29]	<niklasl>	gregg: graphify addresses the shape issue. It ensures that you can navigate with dot notation consistently.
+[11:29]	<niklasl>	gregg: framing does the query thing, matches and extracts data
+[11:30]	* niklasl	gotta run soon; should we vote on 146?
+[11:30]	<manu1>	niklasl: I don't know if we've discussed enough for a vote?
+[11:31]	<niklasl>	gregg: compaction is useful though; for e.g. graphify
+[11:32]	<niklasl>	manu: even if we break the symmetry between expansion and compaction, I'm concerned about the complexity
+[11:32]	<niklasl>	gregg: an anecdote: Dave Beckett said about Turtle that a feature was only added when there was lots of complaints about it missing
+[11:33]	<niklasl>	gregg: we may want to look at macros instead...
+[11:33]	<niklasl>	q+
+[11:33]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:33]	<manu1>	ack niklasl
+[11:33]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:34]	<manu1>	niklasl: Yeah, I'm on the edge for this feature - I like many of the suggestions, but I'm also concerned about the complexity - we may want a pre-processing language? It would be nice to have something declarative in JSON.
+[11:35]	<manu1>	niklasl: We could use IRI templates, etc... so, we might want to have a "third" thing, not a part of the 1.0 JSON-LD spec - that's some sort of GRDDL for JSON-LD w/ a definined macro language for the next version of expansion.
+[11:35]	<niklasl>	manu: we may add a preprocessing step to the JSON-LD API.
+[11:39]	<manu1>	Discussion about pre-processing step vs. declarative form for modifying a document.
+[11:39]	<manu1>	Okay, out of time for today - thanks for the call - we'll have another call next week.
