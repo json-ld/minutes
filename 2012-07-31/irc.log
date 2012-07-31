@@ -1,0 +1,161 @@
+[10:06]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0054.html
+[10:07]	<manu1>	scribe: mlnt
+[10:07]	<mlnt>	manu: Any changes to the Agenda?
+[10:07]	<manu1>	Markus: Ivan sent an e-mail earlier today, propose to feature freeze JSON-LD: http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jul/0068.html
+[10:07]	<manu1>	Topic: Feature freeze of JSON-LD
+[10:07]	<mlnt>	manu: I'm a bit worried about doing a feature freeze
+[10:08]	<mlnt>	... while there are still folks like Lin out there who have certain needs that we don't address yet
+[10:09]	<mlnt>	markus: At some point we need to feature freeze but I think we should at least carefully look at the container stuff
+[10:09]	<mlnt>	niklas: We all want to make things easier but often to make things usable you have to compromise simplicity
+[10:10]	<mlnt>	manu: OK, I think we have to push this request from Ivan back a bit
+[10:10]	<mlnt>	... on the same time we have that unspoken agreement to keep it simple and try to avoid adding features
+[10:10]	<mlnt>	... that's why we are talking about the pre-processing step e.g.
+[10:11]	<mlnt>	niklas: in going forward when discussing the container stuff we have to keep in mind that the data shape gets distorted
+[10:12]	<mlnt>	... this makes it e.g. difficult for some tools to extract the id as it is no longer in the object itself
+[10:12]	<manu1>	Topic: Lin Clark public domain dedication
+[10:13]	<mlnt>	manu: It's important for Lin to declare that she doesn't own any intellectual property that she is going to discuss today (such as patents or copyright), that she is not going to propose solutions for which she knows patents exist (or that she will tell us if there are any patents that cover ideas being discussed), and that she is granting a license to the W3C to publish anything she says today in a future specification.
+[10:14]	<mlnt>	lin: I agree to all of those terms.
+[10:14]	<manu1>	Topic: Drupal Language-Map requirement discussion
+[10:14]	<manu1>	http://groups.drupal.org/node/244158#comment-793008
+[10:15]	<mlnt>	lin: basically the problem is that we language tagged literals as well as language-specific entity references
+[10:16]	<mlnt>	... as Markus pointed out these are really different entities
+[10:16]	<mlnt>	... but we are going to move to a single entity in Drupal
+[10:17]	<mlnt>	... we have to do this as the property level and not at the entity level
+[10:17]	<mlnt>	manu: what's the ideal way a developer would access the data?
+[10:18]	<mlnt>	manu: Would it be something like data.en.value?
+[10:18]	<mlnt>	linclark: Could you type an example in IRC?
+[10:19]	<manu1>	field_name.en = [{'@id': 'http://example.com/node/en/foo', 'value': 'foo'}, {'@id': 'http://example.com/node/en/blah', 'value': 'blah', 'formattedValue': 'Blah\nBlah'}]
+[10:19]	<mlnt>	manu: is this the type of structure you are looking for?
+[10:19]	<mlnt>	lin: yes
+[10:19]	<manu1>	to access, the developer would do: field_name.en[0].value ?
+[10:21]	-->|	gkellogg (~gregg@c-98-248-150-91.hsd1.ca.comcast.net) has joined #json-ld
+[10:22]	<mlnt>	niklas: an option would be to use @container: @id
+[10:22]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-0000002c) has joined the conference.
+[10:22]	<mlnt>	... but you wouldn't have language tagged literals then
+[10:23]	<mlnt>	... I think for raw literals you would probably like to use the container language feature as well
+[10:23]	<mlnt>	lin: I think we would like to use the same structure/feature everywhere.. even if that makes it more verbose
+[10:24]	<voip-ld>	Dave Lehn (SIP/6003-0000002d) has joined the conference.
+[10:24]	<manu1>	two options: [{}, {}, {}] vs. [”, ”, ”], which one would developers use?
+[10:25]	<mlnt>	lin: we would probably use the first option as we probably need to store more attributes not just plain values (literals)
+[10:26]	<mlnt>	... if we were going to translate it to a different RDF serialization we would probably apply transformations anyway
+[10:27]	<mlnt>	... we would probably use framing for this
+[10:27]	<mlnt>	manu: framing wasn't really designed for this
+[10:27]	<mlnt>	... it was more to transform incoming data to a form more suitable for consumption as JSON-LD
+[10:28]	<mlnt>	lin: in the Drupal community we do not have RDF knowledge, so we don't really need to worry about this
+[10:29]	<mlnt>	manu: people would normally just use JSON-LD's toRDF() and put the output in a triple store
+[10:30]	<mlnt>	lin: this was more related to accessing the language information e.g.
+[10:30]	<mlnt>	... but this is not a high priority
+[10:32]	<mlnt>	... discussion about how to get RDF in a "nice" shape out of Drupal ...
+[10:34]	<mlnt>	manu: What I see here is that the .en in the example is basically doing a context modification
+[10:35]	<mlnt>	... what we could do is to interpret that as a modification of the context (changing the default language)
+[10:35]	<manu1>	'@context': {'@modifyLanguage': ['en', 'es', 'ja']}
+[10:35]	<mlnt>	gregg: isn't that what I originally proposed?
+[10:35]	<manu1>	anytime you did foo.ja.bar
+[10:36]	<mlnt>	manu: If it is, I didn't understand it
+[10:36]	<manu1>	'@context': { '@language': '@ja' }
+[10:36]	<mlnt>	... it would inject this
+[10:36]	<gkellogg>	"es": {"@container": "@language"},
+[10:36]	<mlnt>	manu: is this what you proposed Gregg?
+[10:37]	<mlnt>	... this would mean that everytime you see the key "es" it injects a context and sets default language to "es"
+[10:38]	<niklasl>	.. "@language" as shorthand for {"@context": "@language"}
+[10:38]	<manu1>	'en': '@language' ?
+[10:38]	<niklasl>	… "tags": {"@container": "@language"}
+[10:39]	<mlnt>	markus: this is what gregg originally proposed: "en": {"@id": null", "@language": "en", "@fold": true},
+[10:39]	<niklasl>	.. {"@context": "@language"}
+[10:39]	<niklasl>	.. "@language" as shorthand for {"@context": "@language"}
+[10:39]	<niklasl>	.. "@language" as shorthand for {"@context": {"@language": <key>}}
+[10:40]	<mlnt>	niklas: the difference is whether we have to create a term for every language vs. a term which then contains a language map
+[10:41]	<mlnt>	gregg: Well, this wouldn't give you a very usable RDF signature.
+[10:41]	<mlnt>	lin: I don't think we really have to have a nice RDF signature.. despite all the buzz about RDFa support in Drupal we haven't seen big adoption of it
+[10:43]	<niklasl>	… "tags": {"@container": "@language"}
+[10:44]	<niklasl>	"tags": {"en": {"value": "Hi"}}
+[10:44]	<mlnt>	gregg: niklas, I have "tags": {"@container": "@language"} you have "es": {"@container": "@language"}
+[10:44]	<manu1>	I'm lost. Are these the two options you guys were discussing? "field_name": {"@container": "@language"} vs. "en": {"@container": "@language"}
+[10:45]	<niklasl>	… "tags": {"@container": "@language"}
+[10:45]	<niklasl>	"tags": {"en": [{"@id": "a", "value": "Hi"}]}
+[10:46]	<mlnt>	gregg: I think Niklas' approach is more concise
+[10:46]	<manu1>	"tags": {"@id": "http://example.com/vocab#tags", "@container": "@language"}
+[10:46]	<mlnt>	... and it also allows other things such as the skosxl example
+[10:46]	<manu1>	This is what the Drupal folks would use: tags.en[0].value
+[10:47]	<manu1>	This is what the Wikidata folks would use: tags.en
+[10:47]	<niklasl> The effect of "tags": {"@id": "…#tags", "@container": "@language"}
+[10:47]	<niklasl> ... equivalent to "tags": [{"@context": {"@language": "en"}, "@id": "a", "value": "Hi"}]
+[10:47]	<niklasl> ... equivalent to (perhaps in the future) "tags": [{"@language": "en", "@id": "a", "value": "Hi"}] 
+[10:48]	<mlnt>	niklas: I would also propose to allow to set the default language outside of @context
+[10:49]	<mlnt>	... this would make it simpler to understand the container feature
+[10:51]	<manu1>	Is this the proposal: "tags": {"@id": "http://example.com/vocab#tags", "@container": "@language"}
+[10:51]	<manu1>	the way you access this form of data is: tags.LANGUAGE.ANY_PROPERTY
+[10:53]	<niklasl>	q+
+[10:53]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:54]	<mlnt>	mlnt: this data "tags": { "en": { "value": "ok" } } with container language would be equivalent to "tags": { { "@context": { "@language": "en" }, "value": "ok" } }
+[10:54]	<mlnt>	q+
+[10:54]	<voip-ld>	Added mlnt to the speaker queue: niklasl, mlnt
+[10:55]	<manu1>	ack niklasl
+[10:55]	<voip-ld>	niklasl has the floor. The next speaker is mlnt.
+[10:56]	<mlnt>	niklas: the upside is that this works for Drupal/Wikidata use cases, the downside of all of the proposals is that you probably can't use them for simple compaction algorithms - round-tripping is affected as you would have to partition the data per language
+[10:57]	<mlnt>	lin: I'm a little concerned... Are you saying that when you compact all data is combined into one property
+[10:57]	<manu1>	q+ to explain non-orthogonality of compaction/expansion.
+[10:57]	<mlnt>	niklas: no, it wouldn't combine them but it would be difficult for a processor to create a language map in compaction
+[10:57]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:58]	<mlnt>	gregg: my feeling is that compaction is already too complex
+[10:59]	<manu1>	ack mlnt
+[10:59]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:59]	<manu1>	mlnt: Question for Lin? If we are going to support the language map stuff, you'd still have the issue with references - you have references to terms which are then translated.
+[10:59]	<manu1>	mlnt: You have different terms for english vs. german version. I don't see how this proposal would solve that issue.
+[11:00]	<manu1>	lin: This would give us what we need in JSON-LD... as long as expansion/compaction work... if we can say object.field_name.language and then get an array of nodes - that's fine.
+[11:01]	<manu1>	mlnt: You'd lose the form if you do .compact()/.expand()
+[11:01]	<manu1>	lin: This is the problem that I'm trying to understand... going back/forth between compaction/expansion - the shape was maintained.
+[11:02]	<manu1>	lin: Having dc:language as a part of the node could make it so that we could use framing... by relying on dc:language.
+[11:02]	<manu1>	ack manu1
+[11:02]	<voip-ld>	niklasl has the floor (to explain non-orthogonality of compaction/expansion.). The speaker queue is empty.
+[11:03]	<mlnt>	manu: this is something we have been discussing in the last weeks
+[11:03]	<mlnt>	... every feature we add makes compaction more complicated, at a geometric rate, to a point where it gets impossible
+[11:04]	<mlnt>	... I don't think that the Drupal use case needs round-tripping
+[11:04]	<mlnt>	... more then likely the consuming system will use the data directly, they won't need to compact/frame/etc. the data
+[11:05]	<mlnt>	... just systems using RDF triple stores or other technologies would need to do that
+[11:05]	<mlnt>	... Lin, do you think round-tripping is required?
+[11:06]	<mlnt>	lin: we are publishing a compact form, then when people wanna merge two sites that use different terms.. what would be the easiest way to do that if you can't use expansion?
+[11:06]	<mlnt>	gregg: you probably want to flatten in that case as otherwise you would probably have multiple definitions for the same subject
+[11:07]	<niklasl>	q+
+[11:07]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:09]	<mlnt>	lin: what does JSON-LD buy us then when we can't use the general tool for merging?
+[11:09]	<mlnt>	gregg: it allows you to explicitely define what terms mean etc.
+[11:10]	<mlnt>	manu: the other thing it gives you is that it allows you to merge the data easily without worrying about conflicts.
+[11:10]	<manu1>	ack niklasl
+[11:10]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:10]	<mlnt>	q+
+[11:10]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[11:12]	<mlnt>	niklas: a possible way to approach the non-orthogonality of compaction/expansion would be to move all container mapping features to framing and just leave @set and @list in the syntax spec.
+[11:12]	<manu1>	ack mlnt
+[11:12]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[11:13]	<mlnt>	mlnt: article.en - tagA, tagB, article.de - tagB, tagC
+[11:13]	<manu1>	mlnt: It's still the same problem - you can't merge the data anymore... you can't even expand it.
+[11:14]	<manu1>	mlnt: You'd lose the language information.
+[11:14]	<mlnt>	mlnt: How do you get back to this? "article": { "en": { "@id": "tagA" } }
+[11:16]	<manu1>	Expanded form would be: "article": { "@context": {"@language": "en"}, "@id": "tagA"}
+[11:17]	<mlnt>	mlnt: Maybe we could do this? "article": { "@language": "en",, "@id": "tagA"}
+[11:19]	<manu1>	Add the following ability to the @context - "tags": { "@id": "http://example.com/vocab#tags", "@container": "@language"}
+[11:20]	<mlnt>	markus: we decided that already: http://json-ld.org/minutes/2012-07-03/ "Support language-maps via the "@container": "@language" pattern in @context."
+[11:23]	<mlnt>	manu: Yes, but we didn't explain exactly /how/ we would accomplish this. The proposal on the table right now states how we would accomplish this.
+[11:24]	<manu1>	PROPOSAL: Add support for language maps via the "@container"; "@language" annotation in @context. For example - "tags"; { "@id"; "http;//example.com/vocab#tags", "@container"; "@language"}. The child property of the term MUST be an associative array. All associative array keys MUST be BCP47 language strings.
+[11:24]	<gkellogg>	+1
+[11:24]	<manu1>	+1
+[11:25]	<mlnt>	+1 ... nitpick: the value of the term MUST be an associative array
+[11:25]	<niklasl>	+1
+[11:26]	<taaz>	+0
+[11:26]	<linclark>	abstain... waiting to see compaction/expansion example
+[11:26]	<manu1>	RESOLVED: Add support for language maps via the "@container": "@language" annotation in @context. For example: "tags": { "@id": "http://example.com/vocab#tags", "@container": "@language"}. The value of the term MUST be an associative array. All associative array keys MUST be BCP47 language strings.
+[11:29]	<mlnt>	niklas: How do you expect the Drupal community to use the JSON-LD? As JSON, or as RDF data?
+[11:30]	<mlnt>	lin: I think the primary use is as JSON data, but it would be nice if we could use the JSON-LD API to merge data between websites.
+[11:32]	<mlnt>	manu: I would be wary of telling Drupal developers that they should use the API... it leaves some folks without implementations out in the cold, which is not good for adoption.
+[11:34]	<mlnt>	lin: Merging isn't the primary use case, but it would be nice if the API allowed full round-tripping between compact and expanded form.
+[11:36]	<mlnt>	manu: Yes, we are going to try to accomplish that. I think we have a proposal that does that, the only question is whether or not we're going to allow the added complexity to the compaction algorithm.
+[11:39]	<manu1>	Topic: JSON-LD issues reflected in W3C Tracker
+[11:39]	<manu1>	gkellogg: Guus asked us to reflect issues in the issue tracker...
+[11:40]	<manu1>	manu: We discussed this in the RDF WG and agreed that we'd continue to track issues in github's issue tracker.
+[11:42]	<manu1>	manu: My understanding is that it's fine as long as we track the issues on github, cc the RDF WG on all telecon minutes, and summarize changes to the spec to the RDF WG.
+[11:44]	<manu1>	manu: I don't think Guus was on the call when we decided that this was the best course of action.
+[11:45]	<manu1>	mlnt: We could make it so that we cc the RDF WG on all new issues by placing rdf-comments as a receiver of new issue submissions.
+[11:45]	<manu1>	manu: the issue is finding somebody that has the time to write the code to do that - we're all over-worked as it is, the github issue tracker is working for us just fine, and there is no requirement per W3C process that says that we have to use the W3C issue tracker before Last Call. I think we're good, I'll double-check with Guus to make sure.
+[11:46]	<mlnt>	manu: Thanks for the call everyone. Thanks especially to Lin for joining us on the call and helping us understand the Drupal use case in more depth. The next call is next week and will be 90 minutes long.
+

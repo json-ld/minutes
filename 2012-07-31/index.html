@@ -1,0 +1,219 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-07-31</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0054.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Jul/0054.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Feature freeze of JSON-LD</a><li><a href="#topic-2">Lin Clark public domain dedication</a><li><a href="#topic-3">Drupal Language-Map requirement discussion</a><li><a href="#topic-4">JSON-LD issues reflected in W3C Tracker</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Add support for language maps via the "@container": "@language" annotation in @context. For example: "tags": { "@id": "http://example.com/vocab#tags", "@container": "@language"}. The value of the term MUST be an associative array. All associative array keys MUST be BCP47 language strings.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Niklas Lindström, Lin Clark, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to the Agenda?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Ivan sent an e-mail earlier today, propose to feature freeze JSON-LD: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jul/0068.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2012Jul/0068.html</a> [scribe assist by Manu Sporny]</div>
+<h1 id="topic-1" class="topic">Topic: Feature freeze of JSON-LD</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm a bit worried about doing a feature freeze</div>
+<div class="comment-continuation">... while there are still folks like Lin out there who have certain needs that we don't address yet</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  At some point we need to feature freeze but I think we should at least carefully look at the container stuff</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We all want to make things easier but often to make things usable you have to compromise simplicity</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, I think we have to push this request from Ivan back a bit</div>
+<div class="comment-continuation">... on the same time we have that unspoken agreement to keep it simple and try to avoid adding features</div>
+<div class="comment-continuation">... that's why we are talking about the pre-processing step e.g.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  in going forward when discussing the container stuff we have to keep in mind that the data shape gets distorted</div>
+<div class="comment-continuation">... this makes it e.g. difficult for some tools to extract the id as it is no longer in the object itself</div>
+<h1 id="topic-2" class="topic">Topic: Lin Clark public domain dedication</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's important for Lin to declare that she doesn't own any intellectual property that she is going to discuss today (such as patents or copyright), that she is not going to propose solutions for which she knows patents exist (or that she will tell us if there are any patents that cover ideas being discussed), and that she is granting a license to the W3C to publish anything she says today in a future specification.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I agree to all of those terms.</div>
+<h1 id="topic-3" class="topic">Topic: Drupal Language-Map requirement discussion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://groups.drupal.org/node/244158#comment-793008">http://groups.drupal.org/node/244158#comment-793008</a></div>
+<div class="comment"><span class="name">Lin Clark</span>:  basically the problem is that we language tagged literals as well as language-specific entity references</div>
+<div class="comment-continuation">... as Markus pointed out these are really different entities</div>
+<div class="comment-continuation">... but we are going to move to a single entity in Drupal</div>
+<div class="comment-continuation">... we have to do this as the property level and not at the entity level</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what's the ideal way a developer would access the data?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Would it be something like data.en.value?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Could you type an example in IRC?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: field_name.en = [{'@id': '<a href="http://example.com/node/en/foo',">http://example.com/node/en/foo',</a> 'value': 'foo'}, {'@id': 'http://example.com/node/en/blah', 'value': 'blah', 'formattedValue': 'Blah\nBlah'}]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is this the type of structure you are looking for?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  yes</div>
+<div class="comment"><span class="name">Manu Sporny</span>: to access, the developer would do: field_name.en[0].value ?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  an option would be to use @container: @id</div>
+<div class="comment-continuation">... but you wouldn't have language tagged literals then</div>
+<div class="comment-continuation">... I think for raw literals you would probably like to use the container language feature as well</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I think we would like to use the same structure/feature everywhere.. even if that makes it more verbose</div>
+<div class="comment"><span class="name">Manu Sporny</span>: two options: [{}, {}, {}] vs. [”, ”, ”], which one would developers use?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  we would probably use the first option as we probably need to store more attributes not just plain values (literals)</div>
+<div class="comment-continuation">... if we were going to translate it to a different RDF serialization we would probably apply transformations anyway</div>
+<div class="comment-continuation">... we would probably use framing for this</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  framing wasn't really designed for this</div>
+<div class="comment-continuation">... it was more to transform incoming data to a form more suitable for consumption as JSON-LD</div>
+<div class="comment"><span class="name">Lin Clark</span>:  in the Drupal community we do not have RDF knowledge, so we don't really need to worry about this</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people would normally just use JSON-LD's toRDF() and put the output in a triple store</div>
+<div class="comment"><span class="name">Lin Clark</span>:  this was more related to accessing the language information e.g.</div>
+<div class="comment-continuation">... but this is not a high priority</div>
+<div class="comment-continuation">... discussion about how to get RDF in a "nice" shape out of Drupal ...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What I see here is that the .en in the example is basically doing a context modification</div>
+<div class="comment-continuation">... what we could do is to interpret that as a modification of the context (changing the default language)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: '@context': {'@modifyLanguage': ['en', 'es', 'ja']}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  isn't that what I originally proposed?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: anytime you did foo.ja.bar</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If it is, I didn't understand it</div>
+<div class="comment"><span class="name">Manu Sporny</span>: '@context': { '@language': '@ja' }</div>
+<div class="comment-continuation">... it would inject this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "es": {"@container": "@language"},</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is this what you proposed Gregg?</div>
+<div class="comment-continuation">... this would mean that everytime you see the key "es" it injects a context and sets default language to "es"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "@language" as shorthand for {"@context": "@language"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 'en': '@language' ?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "tags": {"@container": "@language"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  this is what gregg originally proposed: "en": {"@id": null", "@language": "en", "@fold": true},</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. {"@context": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "@language" as shorthand for {"@context": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "@language" as shorthand for {"@context": {"@language": &lt;key&gt;}}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the difference is whether we have to create a term for every language vs. a term which then contains a language map</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Well, this wouldn't give you a very usable RDF signature.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I don't think we really have to have a nice RDF signature.. despite all the buzz about RDFa support in Drupal we haven't seen big adoption of it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "tags": {"@container": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "tags": {"en": {"value": "Hi"}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  niklas, I have "tags": {"@container": "@language"} you have "es": {"@container": "@language"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: I'm lost. Are these the two options you guys were discussing? "field_name": {"@container": "@language"} vs. "en": {"@container": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … "tags": {"@container": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "tags": {"en": [{"@id": "a", "value": "Hi"}]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think Niklas' approach is more concise</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "tags": {"@id": "<a href="http://example.com/vocab#tags",">http://example.com/vocab#tags",</a> "@container": "@language"}</div>
+<div class="comment-continuation">... and it also allows other things such as the skosxl example</div>
+<div class="comment"><span class="name">Manu Sporny</span>: This is what the Drupal folks would use: tags.en[0].value</div>
+<div class="comment"><span class="name">Manu Sporny</span>: This is what the Wikidata folks would use: tags.en</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: The effect of "tags": {"@id": "…#tags", "@container": "@language"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... equivalent to "tags": [{"@context": {"@language": "en"}, "@id": "a", "value": "Hi"}]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... equivalent to (perhaps in the future) "tags": [{"@language": "en", "@id": "a", "value": "Hi"}] </div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would also propose to allow to set the default language outside of @context</div>
+<div class="comment-continuation">... this would make it simpler to understand the container feature</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Is this the proposal: "tags": {"@id": "<a href="http://example.com/vocab#tags",">http://example.com/vocab#tags",</a> "@container": "@language"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: the way you access this form of data is: tags.LANGUAGE.ANY_PROPERTY</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  this data "tags": { "en": { "value": "ok" } } with container language would be equivalent to "tags": { { "@context": { "@language": "en" }, "value": "ok" } }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the upside is that this works for Drupal/Wikidata use cases, the downside of all of the proposals is that you probably can't use them for simple compaction algorithms - round-tripping is affected as you would have to partition the data per language</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I'm a little concerned... Are you saying that when you compact all data is combined into one property</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  no, it wouldn't combine them but it would be difficult for a processor to create a language map in compaction</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my feeling is that compaction is already too complex</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Question for Lin? If we are going to support the language map stuff, you'd still have the issue with references - you have references to terms which are then translated. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You have different terms for english vs. german version. I don't see how this proposal would solve that issue. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Lin Clark</span>:  This would give us what we need in JSON-LD... as long as expansion/compaction work... if we can say object.field_name.language and then get an array of nodes - that's fine. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You'd lose the form if you do .compact()/.expand() [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Lin Clark</span>:  This is the problem that I'm trying to understand... going back/forth between compaction/expansion - the shape was maintained. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Having dc:language as a part of the node could make it so that we could use framing... by relying on dc:language. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this is something we have been discussing in the last weeks</div>
+<div class="comment-continuation">... every feature we add makes compaction more complicated, at a geometric rate, to a point where it gets impossible</div>
+<div class="comment-continuation">... I don't think that the Drupal use case needs round-tripping</div>
+<div class="comment-continuation">... more then likely the consuming system will use the data directly, they won't need to compact/frame/etc. the data</div>
+<div class="comment-continuation">... just systems using RDF triple stores or other technologies would need to do that</div>
+<div class="comment-continuation">... Lin, do you think round-tripping is required?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  we are publishing a compact form, then when people wanna merge two sites that use different terms.. what would be the easiest way to do that if you can't use expansion?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you probably want to flatten in that case as otherwise you would probably have multiple definitions for the same subject</div>
+<div class="comment"><span class="name">Lin Clark</span>:  what does JSON-LD buy us then when we can't use the general tool for merging?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it allows you to explicitely define what terms mean etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other thing it gives you is that it allows you to merge the data easily without worrying about conflicts.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  a possible way to approach the non-orthogonality of compaction/expansion would be to move all container mapping features to framing and just leave @set and @list in the syntax spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  article.en - tagA, tagB, article.de - tagB, tagC</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's still the same problem - you can't merge the data anymore... you can't even expand it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You'd lose the language information. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  How do you get back to this? "article": { "en": { "@id": "tagA" } }</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Expanded form would be: "article": { "@context": {"@language": "en"}, "@id": "tagA"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe we could do this? "article": { "@language": "en",, "@id": "tagA"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Add the following ability to the @context - "tags": { "@id": "<a href="http://example.com/vocab#tags",">http://example.com/vocab#tags",</a> "@container": "@language"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we decided that already: <a href="http://json-ld.org/minutes/2012-07-03/">http://json-ld.org/minutes/2012-07-03/</a> "Support language-maps via the "@container": "@language" pattern in @context."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, but we didn't explain exactly /how/ we would accomplish this. The proposal on the table right now states how we would accomplish this.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add support for language maps via the "@container"; "@language" annotation in @context. For example - "tags"; { "@id"; "http;//example.com/vocab#tags", "@container"; "@language"}. The child property of the term MUST be an associative array. All associative array keys MUST be BCP47 language strings.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 ... nitpick: the value of the term MUST be an associative array</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Lin Clark</span>: abstain... waiting to see compaction/expansion example</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Add support for language maps via the "@container": "@language" annotation in @context. For example: "tags": { "@id": "<a href="http://example.com/vocab#tags",">http://example.com/vocab#tags",</a> "@container": "@language"}. The value of the term MUST be an associative array. All associative array keys MUST be BCP47 language strings.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  How do you expect the Drupal community to use the JSON-LD? As JSON, or as RDF data?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I think the primary use is as JSON data, but it would be nice if we could use the JSON-LD API to merge data between websites.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I would be wary of telling Drupal developers that they should use the API... it leaves some folks without implementations out in the cold, which is not good for adoption.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Merging isn't the primary use case, but it would be nice if the API allowed full round-tripping between compact and expanded form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we are going to try to accomplish that. I think we have a proposal that does that, the only question is whether or not we're going to allow the added complexity to the compaction algorithm.</div>
+<h1 id="topic-4" class="topic">Topic: JSON-LD issues reflected in W3C Tracker</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Guus asked us to reflect issues in the issue tracker... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We discussed this in the RDF WG and agreed that we'd continue to track issues in github's issue tracker. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My understanding is that it's fine as long as we track the issues on github, cc the RDF WG on all telecon minutes, and summarize changes to the spec to the RDF WG. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think Guus was on the call when we decided that this was the best course of action. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could make it so that we cc the RDF WG on all new issues by placing rdf-comments as a receiver of new issue submissions. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the issue is finding somebody that has the time to write the code to do that - we're all over-worked as it is, the github issue tracker is working for us just fine, and there is no requirement per W3C process that says that we have to use the W3C issue tracker before Last Call. I think we're good, I'll double-check with Guus to make sure. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Thanks for the call everyone. Thanks especially to Lin for joining us on the call and helping us understand the Drupal use case in more depth. The next call is next week and will be 90 minutes long.</div>
+</body>
+</html>

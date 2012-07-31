@@ -50,6 +50,11 @@
          "alias": ["ivan_herman"],
          "homepage": "http://www.w3.org/People/Ivan/"
       },
+      "Lin Clark":
+      {
+         "alias": ["linclark", "lin"],
+         "homepage": "http://lin-clark.com/"
+      },
       "Nicolas Dufour":
       {
          "alias": ["capnemo"],
