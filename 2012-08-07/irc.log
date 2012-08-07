@@ -1,0 +1,317 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0005.html
+[10:02]	<manu1>	Manu: Any changes to the agenda?
+[10:03]	<manu1>	gkellogg: Perhaps looking at the new github event notification system? Mirror the activity over to rdf-comments.
+[10:03]	<manu1>	scribe: tidoust
+[10:03]	<manu1>	Topic: New github event notification system
+[10:03]	<voip-ld>	David I. Lehn (SIP/71.171.19.12-00000038) has joined the conference.
+[10:03]	<tidoust>	manu: Stephane sent an email about this new mechanism on Github.
+[10:03]	<tidoust>	… I looked at it yesterday.
+[10:04]	<tidoust>	… It could work. We could register a user, one email address per project, maybe, I think, though.
+[10:04]	<tidoust>	… Two ways to go: through the W3C system, or through a reflector to rdf-comments.
+[10:04]	<tidoust>	… Either way would work fine. Any opinion?
+[10:05]	<tidoust>	gkellogg: I suggest to bring it up on the RDF call tomorrow.
+[10:05]	<tidoust>	… Other people might want to use that on top of JSON-LD.
+[10:05]	<taaz>	github folks might add features you need if they don't have them now
+[10:05]	<tidoust>	Manu: sounds good.
+[10:05]	<tidoust>	… The other concern I have is about spamming the list with tiny changes.
+[10:06]	<tidoust>	… 3 filtering options I think, commits to the repo are just sent but they may not be related to the spec itself.
+[10:06]	<tidoust>	gkellogg: there's an argument that maybe we should split things up.
+[10:06]	<tidoust>	… Using sub projects might be a better way to move forward.
+[10:07]	<tidoust>	gkellogg: we could use Github pages.
+[10:07]	<tidoust>	Manu: Can you run JS server-side there?
+[10:07]	<tidoust>	gkellogg: not sure.
+[10:08]	<tidoust>	… Two separable issues. We can keep the PHP system the way we have it today.
+[10:08]	<tidoust>	Manu: The other issue is that all the minutes are generated, so it needs write access. It's done automatically.
+[10:08]	<tidoust>	… To me, it looks too much of a headache for the time being.
+[10:09]	<tidoust>	… We'll propose the reflector to the RDF WG tomorrow and see what they'll say.
+[10:09]	* tidoust	should be locally muted
+[10:09]	<manu1>	Topic: ISSUE-149: Create a pre-processing step option for the API
+[10:09]	<manu1>	https://github.com/json-ld/json-ld.org/issues/149
+[10:10]	<tidoust>	Manu: An attempt to address some of the other concerns that people have.
+[10:10]	<tidoust>	… First thing where pre-processing might apply would be to split an array into properties where each positions in an array is mapped to different properties
+[10:10]	<tidoust>	… (example of location)
+[10:11]	<tidoust>	… We could add a mechanism in JSON-LD that explicits the mapping.
+[10:11]	<tidoust>	… A more generic way of doing this is to add a pre-processing step where a function gets called during expansion to do the mapping.
+[10:11]	<tidoust>	… That would allow us to support this mapping without having to put the explicit mapping.
+[10:12]	<tidoust>	… The argument against is that people can already do it by running a pre-processing step themselves.
+[10:12]	<niklasl>	q+
+[10:12]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:12]	<manu1>	ack niklasl
+[10:12]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:12]	<tidoust>	… What do people think? No pre-processing? declarative? pre-processing function?
+[10:13]	<tidoust>	Niklas: I'm for declarative only or nothing.
+[10:13]	<manu1>	voip: mute tidoust
+[10:13]	<voip-ld>	tidoust has been muted.
+[10:13]	<tidoust>	… You can already do that.
+[10:13]	<gkellogg>	q+
+[10:13]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:13]	<tidoust>	… I also fear that to some extent any arbitrary JSON may be JSON-LD given some pre-processing hook.
+[10:14]	<manu1>	ack gkellogg
+[10:14]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:14]	<tidoust>	… The only way to understand the JSON would be to have declarative mechanism.
+[10:14]	<tidoust>	gkellogg: I'm of the same opinion. I also think that it's not necessary.
+[10:14]	<tidoust>	… It just doesn't really do anything.
+[10:14]	<tidoust>	… It basically says: run any arbitrary code you want.
+[10:15]	<tidoust>	… It doesn't really provide any useful thing for authors. They won't know how to implement that given some context.
+[10:15]	<manu1>	voip: unmute tidoust
+[10:15]	<voip-ld>	tidoust has been unmuted.
+[10:15]	<tidoust>	… I agree that if we want to support something like this, it should be a declarative mechanism.
+[10:16]	<tidoust>	Manu: others?
+[10:16]	<tidoust>	Markus: I agree.
+[10:16]	<tidoust>	Manu: The argument in favor is to give developers some hook to think differently, to know how to do it.
+[10:17]	<tidoust>	… They might think: "Oh, I just need to implement that pre-processing step to convert my JSON into JSON-LD".
+[10:17]	<tidoust>	Niklas: I think that there might be general transformation specs around that might be more applicable to that case.
+[10:18]	<tidoust>	q+
+[10:18]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[10:18]	<manu1>	tidoust: Having given this some thought - there is one thing that developers very often use...
+[10:19]	<manu1>	tidoust: The .replace() function in JavaScript... you can change data in any way that you want - you can use a regular string, or you can use a function... it's more flexible. It gives developers some flexibility
+[10:19]	<manu1>	tidoust: From an external point of view, the declarative mechanism seems too complex, with not much added value.
+[10:19]	<gkellogg>	q+
+[10:19]	<voip-ld>	Added gkellogg to the speaker queue: tidoust, gkellogg
+[10:19]	<manu1>	ack tidoust
+[10:19]	<voip-ld>	tidoust has the floor. The next speaker is gkellogg.
+[10:19]	<manu1>	ack gkellogg
+[10:19]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[10:20]	<tidoust>	voip: mute me
+[10:20]	<voip-ld>	tidoust has been muted.
+[10:20]	<tidoust>	gkellogg: good use for the Wiki to reference techniques.
+[10:21]	<tidoust>	Manu: indeed, totally agree with Gregg.
+[10:21]	<niklasl>	q+
+[10:21]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:21]	<manu1>	ack niklasl
+[10:21]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:22]	<tidoust>	Nicklas: I think that we should be careful about this notion in the spec. The purpose of JSON-LD is to find the precise semantics of a document and this all relates to arbitrary consumption of it.
+[10:22]	<mlnt>	don't know if you guys saw it.. I added a "Publications / Articles" and "Presentations" section to the homepage: http://json-ld.org/#publ
+[10:22]	<tidoust>	… You can always say JSON + code = RDF.
+[10:22]	<mlnt>	I don't think we need a wiki (yet)
+[10:22]	<manu1>	mlnt, Yep saw it - good work and we should use that.
+[10:23]	<tidoust>	Manu: So proposal is: do not support a pre-processing step option in the JSON-LD API
+[10:23]	<manu1>	PROPOSAL: Do not support a pre-processing step option in the JSON-LD API to transform incoming JSON.
+[10:23]	<manu1>	+1
+[10:23]	<niklasl>	+1
+[10:23]	<gkellogg>	+1
+[10:23]	<mlnt>	+1
+[10:23]	<tidoust>	+1
+[10:23]	<taaz>	+1
+[10:23]	<manu1>	RESOLVED: Do not support a pre-processing step option in the JSON-LD API to transform incoming JSON.
+[10:23]	<manu1>	Topic: ISSUE-146: Support array position to property binding
+[10:23]	-->|	MacTed (~Thud@63.119.36.36) has joined #json-ld
+[10:24]	<manu1>	https://github.com/json-ld/json-ld.org/issues/146
+[10:24]	<tidoust>	Manu: This is the reason why we started with ISSUE-149 since it would have solved this one.
+[10:25]	<tidoust>	… The argument is that they have a bunch of data with lat/lon coordinates and they don't want to be overly verbose in their data, adding lat/lon properties. They'd like to work with data in their native form, as lat/lon couples.
+[10:25]	<tidoust>	… The request is thus to support a declarative way of being explicit about the mapping.
+[10:25]	<tidoust>	… Do we feel that it is something that is acceptable?
+[10:26]	<tidoust>	… I don't think they'd be happy if we don't support but the previous point about introducing complexity stands.
+[10:26]	<gkellogg>	q+
+[10:26]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:26]	<manu1>	ack gkellogg
+[10:26]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:26]	<tidoust>	… Any thoughts on this? Should we add it right now? Later on? Not at all?
+[10:27]	<tidoust>	gkellogg: One of the strongest objections against pre-processing was that it should have been done at the RDF level.
+[10:28]	<tidoust>	… One way that this could be done is to use a list form, SPARQL, and… [scribe did not get the explanation]
+[10:28]	<tidoust>	… There's also a tendency that JSON-LD is looking too much at having the spec adopted by anyone, adding everything to please everyone.
+[10:29]	<niklasl>	q+
+[10:29]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:29]	<manu1>	ack niklasl
+[10:29]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:29]	<tidoust>	… In this case, the tuple position seems to be very domain-specific.
+[10:29]	<tidoust>	… I think there are other ways to do that.
+[10:29]	<tidoust>	Niklas: even in JSON, using property names as keys is more common.
+[10:30]	<manu1>	q+ to say that having to drop back to SPARQL is an issue for many people.
+[10:30]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:30]	<tidoust>	… Also there might be more interest to define a vocabulary to describe such things.
+[10:31]	<tidoust>	… Question is whether to keep this on the proposition list for a potential JSON-LD 1.1. I had this issue when I saw geo-json.
+[10:32]	<tidoust>	… I think of SPARQL as a good success going to 1.0 without adding new ideas that were quickly finalized afterwards in 1.1.
+[10:32]	<manu1>	ack manu1
+[10:32]	<voip-ld>	manu1 has the floor (to say that having to drop back to SPARQL is an issue for many people.). The speaker queue is empty.
+[10:33]	<tidoust>	Manu: I agree with everything that has been said so far. The argument that they can do the transformation in RDF and SPARQL, I don't think that this is acceptable to developers all around toying with JSON-LD.
+[10:33]	<tidoust>	… I don't think that telling them to mess with RDF or SPARQL is good idea.
+[10:33]	<gkellogg>	q+
+[10:33]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:33]	<manu1>	ack gkellogg
+[10:33]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:34]	<tidoust>	… So proposal is to not support a declarative mechanism to support such mappings.
+[10:34]	<tidoust>	gkellogg: If we have a very SPARQL-like mechanism in JSON, that could be very useful. For another spec.
+[10:35]	<manu1>	PROPOSAL: Do not support a declarative mechanism that is capable of mapping array position to an RDF property.
+[10:35]	<mlnt>	+1
+[10:35]	<tidoust>	+1
+[10:35]	<manu1>	+1
+[10:35]	<gkellogg>	+1
+[10:35]	<taaz>	+0
+[10:35]	<niklasl>	+0.5 (since I like it, but probably not for 1.0)
+[10:35]	<manu1>	RESOLVED: Do not support a declarative mechanism that is capable of mapping array position to an RDF property.
+[10:36]	<manu1>	Topic: ISSUE-147: Add synchronous methods to the API
+[10:36]	<manu1>	https://github.com/json-ld/json-ld.org/issues/147
+[10:37]	<tidoust>	Niklas: Initially, it struck as a bit odd when I tried to use the API in my RDF lab experiments.
+[10:37]	<tidoust>	… From what I understand, the reason for expand/compact methods to be asynchronous is that there may be external resources that might be fetched.
+[10:38]	<tidoust>	… I/O in JavaScript is preminently asynchronous.
+[10:39]	<tidoust>	… It may be interesting to add synchronous companions.
+[10:39]	<tidoust>	… In my case, I didn't have to lookup external context.
+[10:40]	<tidoust>	Manu: interesting talk about Node.js forwarded by Dave.
+[10:40]	<tidoust>	… Methods have "Sync" companions which is nice for people who have background in Python, Ruby, etc.
+[10:41]	<tidoust>	… One thing he said though is that it was a mistake because you ended up not knowing whether the function was synchronous or asynchronous.
+[10:42]	<tidoust>	… The same comment applies to our API. It doubles the size of the API. It might cause issues with developers.
+[10:43]	<tidoust>	… The arguments you pass to the synchronous methods and the asynchronous methods are slightly different.
+[10:44]	<tidoust>	… My preference would be to just provide asynchronous methods for the time being.
+[10:44]	<tidoust>	… Even in Python or Ruby, it's not a big deal to pass on a function pointer as a function parameter.
+[10:44]	<gkellogg>	+1
+[10:44]	<tidoust>	… I'd stick to an asynchronous API until someone yells about adding synchronous methods.
+[10:45]	<gkellogg>	q+
+[10:45]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:45]	<tidoust>	q+
+[10:45]	<voip-ld>	Added tidoust to the speaker queue: gkellogg, tidoust
+[10:45]	<niklasl>	q+
+[10:45]	<voip-ld>	Added niklasl to the speaker queue: gkellogg, tidoust, niklasl
+[10:45]	<tidoust>	niklas: I would just add a note that tells implementors that they are free to implement synchronous methods if they prefer.
+[10:46]	<tidoust>	Manu: I don't think we should do that. This would create two different function signatures.
+[10:46]	<manu1>	ack gkellogg
+[10:46]	<voip-ld>	gkellogg has the floor. The next speaker is tidoust.
+[10:46]	<tidoust>	… If we allow implementors to not allow callback functions, libraries cannot be dropped and replaced.
+[10:47]	<tidoust>	gkellogg: my implementation is actually synchronous, but I do support the asynchronous callback of course.
+[10:47]	<tidoust>	… Some languages are more suitable for synchronous-style programming in which case you can do the same.
+[10:48]	<tidoust>	… I don't think we need anything. I also agree that we shouldn't add new function signatures in the spec.
+[10:48]	<tidoust>	… Easy enough to add a wrapper without having to make it part of the spec.
+[10:48]	<manu1>	ack tidoust
+[10:48]	<voip-ld>	gkellogg has the floor. The next speaker is niklasl.
+[10:48]	<gkellogg>	q-
+[10:48]	<manu1>	voip: unmute tidoust
+[10:48]	<voip-ld>	Removed gkellogg from the speaker queue: (empty)
+[10:48]	<voip-ld>	tidoust has been unmuted.
+[10:49]	<tidoust>	http://scriptlib-cg.github.com/api-design-cookbook/#when-to-be-asynchronous
+[10:49]	<manu1>	tidoust: Looking at another WG API - API design cookbook.
+[10:49]	<manu1>	tidoust: This section is empty for the time being...
+[10:49]	<manu1>	tidoust: We should get in touch with the editor...
+[10:50]	<manu1>	tidoust: I'd prefer asynchronous-only, but Robin may have useful feedback for us.
+[10:51]	<tidoust>	Niklas: in Python, it's not common at all to pass callbacks. It's more common to have a "sync" parameter.
+[10:51]	<tidoust>	… Asynchronous code is harder to read.
+[10:52]	<tidoust>	… Of course, there may be a case where you have external context.
+[10:52]	<tidoust>	… I would favor a situation where, when you have no callback, you would trigger the synchronous mode.
+[10:52]	<tidoust>	Manu: interesting idea. That would keep the same signature between functions.
+[10:52]	<tidoust>	gkellogg: That's basically how things work in Ruby.
+[10:52]	<tidoust>	… although more common to use a block.
+[10:53]	<tidoust>	… A reasonable approach is to provide a behavior when there is no callback
+[10:53]	<tidoust>	q+
+[10:53]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[10:54]	<tidoust>	gkellogg: that does complicate things a bit.
+[10:55]	<tidoust>	Niklas: note that in JavaScript, it might be difficult to convert from asynchronous to synchronous.
+[10:55]	<manu1>	ack tidoust
+[10:55]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[10:55]	<manu1>	tidoust: I would be against a different behavior based on a parameter in a function - switching between async vs. sync...
+[10:55]	<niklasl>	q+
+[10:55]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:56]	<manu1>	tidoust: I think developers forget parameters every now and then, I'd rather not go down this path.
+[10:56]	<manu1>	tidoust: If we decide to go down that road, I wouldn't use the same function for both.
+[10:56]	<manu1>	tidoust: Or, we would want an explicit parameter.
+[10:56]	<manu1>	ack niklasl
+[10:56]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:56]	<tidoust>	Niklas: I don't think it's that uncommon.
+[10:57]	<manu1>	tidoust: I can't think of an example in JavaScript.
+[10:58]	<tidoust>	Manu: I have never seen any of the core Node.js API doing any of this. I do agree with Francois that it would be dangerous to change the behavior just because you forget a parameter.
+[10:58]	<tidoust>	… On one case it's a neat trick because it keeps signature consistent, but changing the behavior based on the presence of a parameter is dangerous.
+[10:59]	<tidoust>	… We could mention the synchronous methods informally without spec-ing them in Web IDL.
+[11:00]	<tidoust>	… I.e. to add documentation to the JSON-LD API that the core Web IDL is going to be only asynchronous, but that if the developer wants to add synchronous interfaces, they could add "Sync", remove the callback and return the result of the call.
+[11:02]	<tidoust>	q+ to wonder about error mechanism for compact/expand
+[11:02]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:03]	<tidoust>	[discussion around asynchronous/synchronous in different languages]
+[11:04]	<manu1>	ack tidoust
+[11:04]	<voip-ld>	tidoust has the floor (to wonder about error mechanism for compact/expand). The speaker queue is empty.
+[11:04]	<tidoust>	ack me
+[11:04]	<manu1>	tidoust: I was looking at the JSON-LD API document, at .compact() and .expand() - what about the error mechanism? There are callbacks there, right?
+[11:05]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/100#issuecomment-5719453
+[11:05]	<manu1>	tidoust: You can't throw an exception while you're in a real asynchronous call... if something wrong happens, you can't just throw an exception and catch it from the main thread.
+[11:05]	<mlnt>	we already resolved this, see link above
+[11:06]	<niklasl>	.. another example of "synchronous" when no callback is passed: http://ajaxrpc.com/
+[11:06]	<tidoust>	tidoust: ok good, thanks!
+[11:06]	<tidoust>	Manu: Going back to the initial problem.
+[11:07]	<tidoust>	… In JavaScript, there is almost never a good reason to be synchronous. In Python, it's a bit of the contrary. There are good arguments either way. I still think we should provide asynchronous methods only.
+[11:08]	<tidoust>	… The error mechanism is problematic as well. You cannot simply return an exception to stop the execution.
+[11:09]	<tidoust>	Niklas: In general, I think that asynchronous APIs are more complex.
+[11:09]	<tidoust>	Manu: I believed that three months ago, but think the other way around.
+[11:10]	<tidoust>	… now that I've played with Node.js. I hated it in the beginning but now wish that Python has asynchronous interfaces the same way.
+[11:10]	<tidoust>	Niklas: adding a callback does not mean the function would be asynchronous.
+[11:10]	<tidoust>	Manu: true.
+[11:11]	<mlnt>	s/Niklas/Markus
+[11:12]	<tidoust>	Manu: if the developer forgets to include the callback, it's going to act completely differently. Though we may say they are using the API incorrectly.
+[11:13]	<tidoust>	… The proposal becomes "The API signature across all languages is exactly the same. If you want to have synchronous behavior, just don't add the callback parameter".
+[11:14]	<tidoust>	Niklas: I like it better although I very much respect the notion of code errors.
+[11:14]	<tidoust>	… Maybe we should look at other APIs.
+[11:14]	<tidoust>	+1 to reach out to other groups that produce APIs.
+[11:15]	<tidoust>	gkellogg: We could add a note to the spec asking for feedback.
+[11:16]	<manu1>	PROPOSAL: The JSON-LD API method signatures across all languages are exactly the same. If a developer wants synchronous behavior, they MUST NOT add the callback parameter. Add an issue marker to the JSON-LD API spec stating that this functionality is at risk.
+[11:16]	<gkellogg>	+1
+[11:16]	<manu1>	+1
+[11:16]	<niklasl>	+1
+[11:16]	<tidoust>	+1
+[11:16]	<mlnt>	-0.5
+[11:17]	<taaz>	+0
+[11:17]	<manu1>	RESOLVED: The JSON-LD API method signatures across all languages are exactly the same. If a developer wants synchronous behavior, they MUST NOT add the callback parameter. Add an issue marker to the JSON-LD API spec stating that this functionality is at risk.
+[11:17]	<manu1>	Note that we intend to explore this mechanism further before finalizing the API spec.
+[11:17]	<manu1>	Topic: ISSUE-80: Remove initial context from API spec
+[11:18]	<manu1>	https://github.com/json-ld/json-ld.org/issues/80
+[11:18]	<gkellogg>	q+
+[11:18]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:18]	<tidoust>	Manu: We never quite resolved this.
+[11:18]	<mlnt>	last resolution was: If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.
+[11:19]	<tidoust>	Manu: There was a proposal where the initial context would have @type and @graph.
+[11:19]	<tidoust>	… Do we have a use for the initial context? I think that we don't at this point, really. We can always introduce an initial context.
+[11:20]	<tidoust>	… The initial context would future-proof the language. That's why it's there in RDFa. But I don't think that's needed for JSON-LD.
+[11:20]	<manu1>	ack gkellogg
+[11:20]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:20]	<tidoust>	… The proposal is not to support the initial context in v1.0.
+[11:21]	<tidoust>	gkellogg: there's a big push for us to reach feature freeze. I think that not putting it in now would mean it's going to be hard to add it back later on.
+[11:21]	<tidoust>	… I think it's valuable to have it in there even if it's empty for the reason you mention about future versions.
+[11:22]	<tidoust>	… I've seen some arguments on the RDF mailing-list that we should leave this for now and add it back in v1.1 or v2. Similarly, this would make it difficult to roll back on that decision later on if we don't keep it in the spec.
+[11:23]	<tidoust>	… And then at some point in the future, we may discuss whether it makes sense to define prefixes or the like.
+[11:23]	<tidoust>	Markus: Why do you see a problem to bring it back later on?
+[11:23]	<tidoust>	… It's mentioned once in all the algorithms?
+[11:23]	<niklasl>	q+
+[11:23]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:24]	<tidoust>	gkellogg: I'm thinking just from a procedure point of view.
+[11:24]	<manu1>	q+ to say that if we did an initial context, it would be outside of the spec.
+[11:24]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[11:24]	<tidoust>	Markus: The way it's written, it's useless.
+[11:24]	<manu1>	ack niklasl
+[11:24]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[11:25]	<tidoust>	gkellogg: I think that's something we need to address, to give a way for it to be modified outside of the spec.
+[11:25]	<tidoust>	Markus: Not sure I want to see that.
+[11:26]	<manu1>	ack manu1
+[11:26]	<voip-ld>	niklasl has the floor (to say that if we did an initial context, it would be outside of the spec.). The speaker queue is empty.
+[11:26]	<tidoust>	Niklas: It is more confusing for authors. It would be simpler if we didn't have it here. You have to monitor that context.
+[11:27]	<tidoust>	Manu: If we had an initial context, it would be completely outside of the spec, maintained by Ivan.
+[11:27]	<tidoust>	… The initial RDFa context was really useful to convince large companies to support RDFa.
+[11:27]	<dlongley>	any security issues? does the initial context live at an HTTP endpoint vs. an HTTPS one?
+[11:28]	<niklasl>	q+
+[11:28]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:29]	<tidoust>	… The problem is more political than technical. Pure extractors are not going to extract data from a document that is not explicit about its initial context.
+[11:29]	<tidoust>	… It seems that it would be a bad move not to have a mechanism to correct this.
+[11:29]	<tidoust>	… I agree with Markus that it is not going to be a big deal for JSON-LD as it was for RDFa.
+[11:30]	<dlongley>	seems like a potential security problem to require all JSON-LD processors to hit an insecure endpoint to initialize themselves
+[11:30]	<tidoust>	gkellogg: I don't understand how that works if it's in the spec.
+[11:31]	<tidoust>	Manu: My preference is still to add a URL for an initial context, and then leave it empty up until we need it. Not a big deal if it ends up not being used.
+[11:31]	<tidoust>	Markus: If we put it in there right now, we won't ever be able to drop it afterwards.
+[11:32]	<tidoust>	… That would then need that every JSON-LD processor would need to fetch the IRI.
+[11:32]	<tidoust>	Manu: Processors can cache the context.
+[11:32]	<tidoust>	Markus: But how do you fix the problem then?
+[11:32]	<tidoust>	Manu: Software updates.
+[11:33]	<tidoust>	… The overhead for starting a new group, creating the spec, adding the feature and starting to work on a standard is 9 month to 2-3 years.
+[11:33]	<tidoust>	Markus: I just don't see the real scenario that would pop-up for that.
+[11:34]	<tidoust>	… You use terms most of the time. Hopefully we won't have requests from large companies to put all terms in the initial context.
+[11:34]	* tidoust	will have to go shortly
+[11:35]	<tidoust>	Markus: The other point is that it's easy to reference an external context through a URI.
+[11:35]	<tidoust>	Manu: good points on either side.
+[11:36]	<tidoust>	Manu: If large companies could agree on something such as schema.org, they are in a good position to drive the inclusion of the vocabulary in the initial context. We may not like that or want that, but that's how things go.
+[11:37]	<manu1>	q+ to end the telecon.
+[11:37]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[11:37]	<manu1>	ack niklasl
+[11:37]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[11:37]	<tidoust>	Niklas: It's easy for publishers to add all the terms from schema.org in their context.
+[11:38]	<tidoust>	Manu: interesting discussion that we already had in the RDFa WG. We should discuss again.
+[11:39]	<tidoust>	Markus: we already can do that with an optional context in expand/compact.
+[11:39]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessor
+[11:39]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000034) has left the conference.
+[11:39]	<tidoust>	[discussion adjourned]
+[11:39]	<voip-ld>	Manu Sporny (SIP/6000-00000035) has left the conference.
+[11:39]	<voip-ld>	David I. Lehn (SIP/71.171.19.12-00000038) has left the conference.
+[11:39]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000037) has left the conference.
+[11:39]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000036) has left the conference.
+[11:39]	<voip-ld>	tidoust (IAX2/diamondcard-3145) has left the conference.

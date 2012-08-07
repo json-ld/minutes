@@ -1,0 +1,302 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-08-07</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0005.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">New github event notification system</a><li><a href="#topic-2">ISSUE-149: Create a pre-processing step option for the API</a><li><a href="#topic-3">ISSUE-146: Support array position to property binding</a><li><a href="#topic-4">ISSUE-147: Add synchronous methods to the API</a><li><a href="#topic-5">ISSUE-80: Remove initial context from API spec</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Do not support a pre-processing step option in the JSON-LD API to transform incoming JSON.</a><li><a href="#resolution-2">Do not support a declarative mechanism that is capable of mapping array position to an RDF property.</a><li><a href="#resolution-3">The JSON-LD API method signatures across all languages are exactly the same. If a developer wants synchronous behavior, they MUST NOT add the callback parameter. Add an issue marker to the JSON-LD API spec stating that this functionality is at risk.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, François Daoust, David I. Lehn, Niklas Lindström, Markus Lanthaler, Dave Longley</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to the agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Perhaps looking at the new github event notification system? Mirror the activity over to rdf-comments. [scribe assist by Manu Sporny]</div>
+<div class="information">François Daoust is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: New github event notification system</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Stephane sent an email about this new mechanism on Github.</div>
+<div class="comment-continuation">… I looked at it yesterday.</div>
+<div class="comment-continuation">… It could work. We could register a user, one email address per project, maybe, I think, though.</div>
+<div class="comment-continuation">… Two ways to go: through the W3C system, or through a reflector to rdf-comments.</div>
+<div class="comment-continuation">… Either way would work fine. Any opinion?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I suggest to bring it up on the RDF call tomorrow.</div>
+<div class="comment-continuation">… Other people might want to use that on top of JSON-LD.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: github folks might add features you need if they don't have them now</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sounds good.</div>
+<div class="comment-continuation">… The other concern I have is about spamming the list with tiny changes.</div>
+<div class="comment-continuation">… 3 filtering options I think, commits to the repo are just sent but they may not be related to the spec itself.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's an argument that maybe we should split things up.</div>
+<div class="comment-continuation">… Using sub projects might be a better way to move forward.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could use Github pages.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Can you run JS server-side there?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  not sure.</div>
+<div class="comment-continuation">… Two separable issues. We can keep the PHP system the way we have it today.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The other issue is that all the minutes are generated, so it needs write access. It's done automatically.</div>
+<div class="comment-continuation">… To me, it looks too much of a headache for the time being.</div>
+<div class="comment-continuation">… We'll propose the reflector to the RDF WG tomorrow and see what they'll say.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-149: Create a pre-processing step option for the API</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/149">https://github.com/json-ld/json-ld.org/issues/149</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  An attempt to address some of the other concerns that people have.</div>
+<div class="comment-continuation">… First thing where pre-processing might apply would be to split an array into properties where each positions in an array is mapped to different properties</div>
+<div class="comment-continuation">… (example of location)</div>
+<div class="comment-continuation">… We could add a mechanism in JSON-LD that explicits the mapping.</div>
+<div class="comment-continuation">… A more generic way of doing this is to add a pre-processing step where a function gets called during expansion to do the mapping.</div>
+<div class="comment-continuation">… That would allow us to support this mapping without having to put the explicit mapping.</div>
+<div class="comment-continuation">… The argument against is that people can already do it by running a pre-processing step themselves.</div>
+<div class="comment-continuation">… What do people think? No pre-processing? declarative? pre-processing function?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm for declarative only or nothing.</div>
+<div class="comment-continuation">… You can already do that.</div>
+<div class="comment-continuation">… I also fear that to some extent any arbitrary JSON may be JSON-LD given some pre-processing hook.</div>
+<div class="comment-continuation">… The only way to understand the JSON would be to have declarative mechanism.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm of the same opinion. I also think that it's not necessary.</div>
+<div class="comment-continuation">… It just doesn't really do anything.</div>
+<div class="comment-continuation">… It basically says: run any arbitrary code you want.</div>
+<div class="comment-continuation">… It doesn't really provide any useful thing for authors. They won't know how to implement that given some context.</div>
+<div class="comment-continuation">… I agree that if we want to support something like this, it should be a declarative mechanism.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  others?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The argument in favor is to give developers some hook to think differently, to know how to do it.</div>
+<div class="comment-continuation">… They might think: "Oh, I just need to implement that pre-processing step to convert my JSON into JSON-LD".</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that there might be general transformation specs around that might be more applicable to that case.</div>
+<div class="comment"><span class="name">François Daoust</span>:  Having given this some thought - there is one thing that developers very often use... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  The .replace() function in JavaScript... you can change data in any way that you want - you can use a regular string, or you can use a function... it's more flexible. It gives developers some flexibility [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  From an external point of view, the declarative mechanism seems too complex, with not much added value. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  good use for the Wiki to reference techniques.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  indeed, totally agree with Gregg.</div>
+<div class="information">Nicklas: I think that we should be careful about this notion in the spec. The purpose of JSON-LD is to find the precise semantics of a document and this all relates to arbitrary consumption of it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: don't know if you guys saw it.. I added a "Publications / Articles" and "Presentations" section to the homepage: <a href="http://json-ld.org/#publ">http://json-ld.org/#publ</a></div>
+<div class="comment-continuation">… You can always say JSON + code = RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I don't think we need a wiki (yet)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: mlnt, Yep saw it - good work and we should use that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So proposal is: do not support a pre-processing step option in the JSON-LD API</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support a pre-processing step option in the JSON-LD API to transform incoming JSON.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Do not support a pre-processing step option in the JSON-LD API to transform incoming JSON.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-146: Support array position to property binding</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/146">https://github.com/json-ld/json-ld.org/issues/146</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is the reason why we started with ISSUE-149 since it would have solved this one.</div>
+<div class="comment-continuation">… The argument is that they have a bunch of data with lat/lon coordinates and they don't want to be overly verbose in their data, adding lat/lon properties. They'd like to work with data in their native form, as lat/lon couples.</div>
+<div class="comment-continuation">… The request is thus to support a declarative way of being explicit about the mapping.</div>
+<div class="comment-continuation">… Do we feel that it is something that is acceptable?</div>
+<div class="comment-continuation">… I don't think they'd be happy if we don't support but the previous point about introducing complexity stands.</div>
+<div class="comment-continuation">… Any thoughts on this? Should we add it right now? Later on? Not at all?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One of the strongest objections against pre-processing was that it should have been done at the RDF level.</div>
+<div class="comment-continuation">… One way that this could be done is to use a list form, SPARQL, and… [scribe did not get the explanation]</div>
+<div class="comment-continuation">… There's also a tendency that JSON-LD is looking too much at having the spec adopted by anyone, adding everything to please everyone.</div>
+<div class="comment-continuation">… In this case, the tuple position seems to be very domain-specific.</div>
+<div class="comment-continuation">… I think there are other ways to do that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  even in JSON, using property names as keys is more common.</div>
+<div class="comment-continuation">… Also there might be more interest to define a vocabulary to describe such things.</div>
+<div class="comment-continuation">… Question is whether to keep this on the proposition list for a potential JSON-LD 1.1. I had this issue when I saw geo-json.</div>
+<div class="comment-continuation">… I think of SPARQL as a good success going to 1.0 without adding new ideas that were quickly finalized afterwards in 1.1.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree with everything that has been said so far. The argument that they can do the transformation in RDF and SPARQL, I don't think that this is acceptable to developers all around toying with JSON-LD.</div>
+<div class="comment-continuation">… I don't think that telling them to mess with RDF or SPARQL is good idea.</div>
+<div class="comment-continuation">… So proposal is to not support a declarative mechanism to support such mappings.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we have a very SPARQL-like mechanism in JSON, that could be very useful. For another spec.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support a declarative mechanism that is capable of mapping array position to an RDF property.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5 (since I like it, but probably not for 1.0)</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Do not support a declarative mechanism that is capable of mapping array position to an RDF property.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-147: Add synchronous methods to the API</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/147">https://github.com/json-ld/json-ld.org/issues/147</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Initially, it struck as a bit odd when I tried to use the API in my RDF lab experiments.</div>
+<div class="comment-continuation">… From what I understand, the reason for expand/compact methods to be asynchronous is that there may be external resources that might be fetched.</div>
+<div class="comment-continuation">… I/O in JavaScript is preminently asynchronous.</div>
+<div class="comment-continuation">… It may be interesting to add synchronous companions.</div>
+<div class="comment-continuation">… In my case, I didn't have to lookup external context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  interesting talk about Node.js forwarded by Dave.</div>
+<div class="comment-continuation">… Methods have "Sync" companions which is nice for people who have background in Python, Ruby, etc.</div>
+<div class="comment-continuation">… One thing he said though is that it was a mistake because you ended up not knowing whether the function was synchronous or asynchronous.</div>
+<div class="comment-continuation">… The same comment applies to our API. It doubles the size of the API. It might cause issues with developers.</div>
+<div class="comment-continuation">… The arguments you pass to the synchronous methods and the asynchronous methods are slightly different.</div>
+<div class="comment-continuation">… My preference would be to just provide asynchronous methods for the time being.</div>
+<div class="comment-continuation">… Even in Python or Ruby, it's not a big deal to pass on a function pointer as a function parameter.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment-continuation">… I'd stick to an asynchronous API until someone yells about adding synchronous methods.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would just add a note that tells implementors that they are free to implement synchronous methods if they prefer.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we should do that. This would create two different function signatures.</div>
+<div class="comment-continuation">… If we allow implementors to not allow callback functions, libraries cannot be dropped and replaced.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my implementation is actually synchronous, but I do support the asynchronous callback of course.</div>
+<div class="comment-continuation">… Some languages are more suitable for synchronous-style programming in which case you can do the same.</div>
+<div class="comment-continuation">… I don't think we need anything. I also agree that we shouldn't add new function signatures in the spec.</div>
+<div class="comment-continuation">… Easy enough to add a wrapper without having to make it part of the spec.</div>
+<div class="information"><a href="http://scriptlib-cg.github.com/api-design-cookbook/#when-to-be-asynchronous">http://scriptlib-cg.github.com/api-design-cookbook/#when-to-be-asynchronous</a></div>
+<div class="comment"><span class="name">François Daoust</span>:  Looking at another WG API - API design cookbook. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  This section is empty for the time being... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  We should get in touch with the editor... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'd prefer asynchronous-only, but Robin may have useful feedback for us. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  in Python, it's not common at all to pass callbacks. It's more common to have a "sync" parameter.</div>
+<div class="comment-continuation">… Asynchronous code is harder to read.</div>
+<div class="comment-continuation">… Of course, there may be a case where you have external context.</div>
+<div class="comment-continuation">… I would favor a situation where, when you have no callback, you would trigger the synchronous mode.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  interesting idea. That would keep the same signature between functions.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's basically how things work in Ruby.</div>
+<div class="comment-continuation">… although more common to use a block.</div>
+<div class="comment-continuation">… A reasonable approach is to provide a behavior when there is no callback</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that does complicate things a bit.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  note that in JavaScript, it might be difficult to convert from asynchronous to synchronous.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I would be against a different behavior based on a parameter in a function - switching between async vs. sync... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  I think developers forget parameters every now and then, I'd rather not go down this path. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  If we decide to go down that road, I wouldn't use the same function for both. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  Or, we would want an explicit parameter. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think it's that uncommon.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I can't think of an example in JavaScript. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have never seen any of the core Node.js API doing any of this. I do agree with Francois that it would be dangerous to change the behavior just because you forget a parameter.</div>
+<div class="comment-continuation">… On one case it's a neat trick because it keeps signature consistent, but changing the behavior based on the presence of a parameter is dangerous.</div>
+<div class="comment-continuation">… We could mention the synchronous methods informally without spec-ing them in Web IDL.</div>
+<div class="comment-continuation">… I.e. to add documentation to the JSON-LD API that the core Web IDL is going to be only asynchronous, but that if the developer wants to add synchronous interfaces, they could add "Sync", remove the callback and return the result of the call.</div>
+<div class="information">[discussion around asynchronous/synchronous in different languages]</div>
+<div class="comment"><span class="name">François Daoust</span>:  I was looking at the JSON-LD API document, at .compact() and .expand() - what about the error mechanism? There are callbacks there, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/100#issuecomment-5719453">https://github.com/json-ld/json-ld.org/issues/100#issuecomment-5719453</a></div>
+<div class="comment"><span class="name">François Daoust</span>:  You can't throw an exception while you're in a real asynchronous call... if something wrong happens, you can't just throw an exception and catch it from the main thread. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: we already resolved this, see link above</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. another example of "synchronous" when no callback is passed: <a href="http://ajaxrpc.com/">http://ajaxrpc.com/</a></div>
+<div class="comment"><span class="name">François Daoust</span>:  ok good, thanks!</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Going back to the initial problem.</div>
+<div class="comment-continuation">… In JavaScript, there is almost never a good reason to be synchronous. In Python, it's a bit of the contrary. There are good arguments either way. I still think we should provide asynchronous methods only.</div>
+<div class="comment-continuation">… The error mechanism is problematic as well. You cannot simply return an exception to stop the execution.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In general, I think that asynchronous APIs are more complex.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I believed that three months ago, but think the other way around.</div>
+<div class="comment-continuation">… now that I've played with Node.js. I hated it in the beginning but now wish that Python has asynchronous interfaces the same way.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  adding a callback does not mean the function would be asynchronous.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  true.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: s/Niklas/Markus</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if the developer forgets to include the callback, it's going to act completely differently. Though we may say they are using the API incorrectly.</div>
+<div class="comment-continuation">… The proposal becomes "The API signature across all languages is exactly the same. If you want to have synchronous behavior, just don't add the callback parameter".</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I like it better although I very much respect the notion of code errors.</div>
+<div class="comment-continuation">… Maybe we should look at other APIs.</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 to reach out to other groups that produce APIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could add a note to the spec asking for feedback.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The JSON-LD API method signatures across all languages are exactly the same. If a developer wants synchronous behavior, they MUST NOT add the callback parameter. Add an issue marker to the JSON-LD API spec stating that this functionality is at risk.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -0.5</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> The JSON-LD API method signatures across all languages are exactly the same. If a developer wants synchronous behavior, they MUST NOT add the callback parameter. Add an issue marker to the JSON-LD API spec stating that this functionality is at risk.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Note that we intend to explore this mechanism further before finalizing the API spec.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-80: Remove initial context from API spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/80">https://github.com/json-ld/json-ld.org/issues/80</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We never quite resolved this.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: last resolution was: If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There was a proposal where the initial context would have @type and @graph.</div>
+<div class="comment-continuation">… Do we have a use for the initial context? I think that we don't at this point, really. We can always introduce an initial context.</div>
+<div class="comment-continuation">… The initial context would future-proof the language. That's why it's there in RDFa. But I don't think that's needed for JSON-LD.</div>
+<div class="comment-continuation">… The proposal is not to support the initial context in v1.0.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's a big push for us to reach feature freeze. I think that not putting it in now would mean it's going to be hard to add it back later on.</div>
+<div class="comment-continuation">… I think it's valuable to have it in there even if it's empty for the reason you mention about future versions.</div>
+<div class="comment-continuation">… I've seen some arguments on the RDF mailing-list that we should leave this for now and add it back in v1.1 or v2. Similarly, this would make it difficult to roll back on that decision later on if we don't keep it in the spec.</div>
+<div class="comment-continuation">… And then at some point in the future, we may discuss whether it makes sense to define prefixes or the like.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why do you see a problem to bring it back later on?</div>
+<div class="comment-continuation">… It's mentioned once in all the algorithms?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm thinking just from a procedure point of view.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The way it's written, it's useless.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that's something we need to address, to give a way for it to be modified outside of the spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Not sure I want to see that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It is more confusing for authors. It would be simpler if we didn't have it here. You have to monitor that context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If we had an initial context, it would be completely outside of the spec, maintained by Ivan.</div>
+<div class="comment-continuation">… The initial RDFa context was really useful to convince large companies to support RDFa.</div>
+<div class="comment"><span class="name">Dave Longley</span>: any security issues? does the initial context live at an HTTP endpoint vs. an HTTPS one?</div>
+<div class="comment-continuation">… The problem is more political than technical. Pure extractors are not going to extract data from a document that is not explicit about its initial context.</div>
+<div class="comment-continuation">… It seems that it would be a bad move not to have a mechanism to correct this.</div>
+<div class="comment-continuation">… I agree with Markus that it is not going to be a big deal for JSON-LD as it was for RDFa.</div>
+<div class="comment"><span class="name">Dave Longley</span>: seems like a potential security problem to require all JSON-LD processors to hit an insecure endpoint to initialize themselves</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't understand how that works if it's in the spec.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My preference is still to add a URL for an initial context, and then leave it empty up until we need it. Not a big deal if it ends up not being used.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we put it in there right now, we won't ever be able to drop it afterwards.</div>
+<div class="comment-continuation">… That would then need that every JSON-LD processor would need to fetch the IRI.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Processors can cache the context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  But how do you fix the problem then?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Software updates.</div>
+<div class="comment-continuation">… The overhead for starting a new group, creating the spec, adding the feature and starting to work on a standard is 9 month to 2-3 years.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I just don't see the real scenario that would pop-up for that.</div>
+<div class="comment-continuation">… You use terms most of the time. Hopefully we won't have requests from large companies to put all terms in the initial context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The other point is that it's easy to reference an external context through a URI.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  good points on either side.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If large companies could agree on something such as schema.org, they are in a good position to drive the inclusion of the vocabulary in the initial context. We may not like that or want that, but that's how things go.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's easy for publishers to add all the terms from schema.org in their context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  interesting discussion that we already had in the RDFa WG. We should discuss again.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we already can do that with an optional context in expand/compact.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessor">http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessor</a></div>
+<div class="information">[discussion adjourned]</div>
+</body>
+</html>
