@@ -1,0 +1,243 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-08-14</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0011.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0011.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">JSON-LD at NoSQL conference</a><li><a href="#topic-2">In-memory JSON-LD object representation</a><li><a href="#topic-3">@language / @vocab Intransitivity</a><li><a href="#topic-4">ISSUE-80: Remove initial context from API spec</a><li><a href="#topic-5">ISSUE-150: Use of native types in from/to RDF</a><li><a href="#topic-6">ISSUE-151: Context Processing Algorithm Dependency Resolution</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Do not support an initial context in JSON-LD 1.0.</a><li><a href="#resolution-2">Continue to support 'useNativeDatatypes' in .fromRDF(), specifying how the native type conversion happens. Do not support options for overriding each native datatype with a different value.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Dave Longley to send suggested spec text to modify the algorithm to public-rdf-comments@w3.org</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas Lindström, Markus Lanthaler, Dave Longley</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything else that needs to be on the agenda?</div>
+<h1 id="topic-1" class="topic">Topic: JSON-LD at NoSQL conference</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm talking at the NoSQL conference, please review my slides.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What's the strategy with this talk?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Stay away from the algorithms, introducing the concepts - expanded form / compacted form - discussion on how to get to compacted form. Benefits between expanded and compacted form.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Integration w/ JSON-LD w/ databases like MongoDB or CouchDB - use references, use object-level granularity, graphify() vs. other approaches to working with the data.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Tying into backbone.js - trying to retrieve from DB, map to model (backbone), and display. Mostly practical experience and how to use JSON-LD in production code.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I've built a serialization of schema.org and other stuff into JSON-LD serialization... which feeds Backbone application that gives cool documentation for all of the API points - used constraints quite a bit to give more structure. Also built an object editor - object model defined by schema... helps create/edit/validate all object instances, which are then stores in MongoDB collection.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Any app built on any schema, very useful.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Would you be able to put it out as open source at some point?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think so.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Did lots of the backend in CoffeeScript.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, CoffeeScript is nice... also use JavaScript. Nicer to work in CoffeeScript.</div>
+<h1 id="topic-2" class="topic">Topic: In-memory JSON-LD object representation</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This type of application shows the advantages of Linked Data models... I think I'd like .link() instead of .graphify() because that's what you're really doing here.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When I edit a specific object, I can do a query to get back any object that has a relationship to a particular object... then tie them together using .link() - pretty useful term for what I'm doing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I use .connect() in my RDFa experiment.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In my RDF lab - simple idea - a schema vocabulary presentation and then some kind of editor. Did this years ago, but would like to try it out w/ JSON-LD approach.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://niklasl.github.com/rdfa-lab/examples/rdfa-dom-usage">http://niklasl.github.com/rdfa-lab/examples/rdfa-dom-usage</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I use an HTML5 data-* attribute to store the expanded version of the RDFa data...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I go from RDFa to JSON-LD directly...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'll eventually put all of this up on the wiki - real goal of this experiment is to put more of the parser logic into the DOM API to eventually be able to produce JSON-LD from the DOM API.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think it'll be pretty small amount of JavaScript.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Trying to find a balance between logic needed to extract @context from DOM and what the current term represents.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If it has a subject that comes from a subject element, these things can be put together simply w/o extracting triples... conversion to JSON-LD should be easy.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The goal of the DOM API is to navigate through the DOM using RDF concepts.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, that's good - extracting JSON-LD is very good.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The Microdata API actually gives you back elements carrying the properties, then if you do .toJSON() you get the JSON representation at that point. It dawned on me that that may be the way forward for the DOM API. You want to be able to navigate the HTML elements using RDFsubjects/objects/ etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, anything else to add to the Agenda before we start?</div>
+<h1 id="topic-3" class="topic">Topic: @language / @vocab Intransitivity</h1>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It might make sense to make @vocab and @language intransitive? If you inherit a context from another context, you don't necessarily inherit the @language. If you have a @context which sets the language, you don't see that. Maybe the closest context should affect the language.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  my concern is that it complicates things (@language acts differently in different places) and prevents certain things from working (like being able to set @language in @context).</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Is @vocab in there now?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, it's in there now, Markus added it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Also, there is now spec text for a more formal description of JSON-LD...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, haven't had a chance to look at it yet, hope to do so tsoon.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I haven't pinged Andy Seaborne on it yet...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we need to publish a new Working Draft via RDF WG as well - we should do it soon.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/RDFLib/rdflib-jsonld">https://github.com/RDFLib/rdflib-jsonld</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I updated the JSON-LD implementation for rdflib.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-80: Remove initial context from API spec</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/80">https://github.com/json-ld/json-ld.org/issues/80</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we left it at: Gregg and me wanting to put it in the spec, Markus and Niklas not wanting to put it into the spec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It might be nice to have xsd and rdf pre-defined..</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe schema as well?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I end up setting @vocab to "<a href="http://schema.org/"">http://schema.org/"</a> for most of what we're doing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think we should do that (set @vocab to schema.org)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It might be helpful to have pre-defined terms, but it might also make it more difficult to understand JSON-LD</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We might want to "level the ground" to not have implicit prefixes... if we decide to have an initial context, it should be able to completely cancel it by setting "@context": [null, x, y z]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I rarely use "rdf" namespace in JSON-LD. One advantage of JSON-LD is that there is support for datatypes. If you do any support for datatypes, you need "xsd". I continue to forget to include it and I have to go and look up the URI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that having "xsd" as a pre-defined term in the initial context would be very useful, avoid many easy mistakes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You don't really use "xsd" that often... mostly for dates.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I also use it for owl serialization stuff - most of the cardinality stuff are unsigned integers.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You have to declare something - not a typical usage pattern.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  schema.org have defined their own datatypes, which are basically string-derived.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  OWL definition they have they end up being object properties - it's not very useful. rdfs.org version is much better in that regard, doesn't contain as much ranging information.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Interesting to note that you can't really do this modeling round-tripping in Microdata.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Take a look at the RDFa representation, they don't use rdfs:range and rdfs:domain... they use schema:range and schema:domain.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is convenient - but I don't think prefixes are one of the "good" features of JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think that w/o prefixes, they don't have value for you - and they may clash.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that if we add prefixes - anything used as a prefix cannot be used as a default term unless you reset it, they will collide.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we discussed this before - possibility of defining a term w/ a trailing colon to mean "only use this as a prefix, never a term".</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Argument against that is "no microsyntaxes"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There was a collision which would be preventable w/o the term. I defined a thing to use as a prefix locally, to make term declarations simpler/more compact.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The problem was that I did not want the prefix to be used later on in general, it ended up somewhere I wanted to use it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I do use prefixes a lot, mostly in context definition.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Within data, I rely on terms for things I explicitly use in my code. When I do things to work w/ more generic data, terms/curies don't impact me at all. When working with multiple vocabs, better to keep things in a CURIE syntax.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Translation from TURTLE is more natural when using CURIEs as long as you have access to prefix definitions.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In that case, there is no danger for forgetting declaration - comes from TURTLE.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I was responding to "CURIEs not very useful" statement.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the only one that needs to be in there is XSD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think I don't want an initial context in there now... you only need "xsd" when you are declaring contexts, you don't do that that often.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If we really need to put this feature in, then we can do so in the implementations later on.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  At this point, I don't feel strongly enough to object to not having it. My feeling is that it does more good than harm... but I'll just do a -0 on a resolution.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support an initial context in JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.75</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: -0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Do not support an initial context in JSON-LD 1.0.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-150: Use of native types in from/to RDF</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/150">https://github.com/json-ld/json-ld.org/issues/150</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  before we decided to have a "useNativeTypes" flag in the fromRDF() algorithm, it automatically assumes we're using "xsd:boolean", "xsd:double", etc.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Dave Longley proposed to split that flag into 4 different flags that specify the datatype for each of the native types... one flag for integers (maps by default toxsd:integer), and so on.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question is whether or not we want to do that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's been several months since this came up - but adding flags to the RDF serialization makes it a little bit crufty and unwieldy. I'd rather come up with a set of practices that are just constrained to the RDF serialization. Let's just fix these things, if you're transforming an integer fromRDF() to RDF, you can represent it fairly easily in TURTLE (as an integer).</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question is in the other direction - if you're doing fromRDF() and you want to convert "unsigned integers" to "integers", then you would want to do this.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't find the value to represent this as a non-negative integer as something else.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My concern is that we're closing off some use case by not allowing this to happen.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If everything I was doing was using the JSON-LD API, then everything I was doing through the API calls...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I have an RDF distiller, it hasn't needed any special attributes for any particular serialization.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that my serializes for TURTLE do not make use of the native representation for these things by default. There might be some tools, but I use string representations for things.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the question is if we want to decouple JSON-LD from XSD. For example, schema.org uses their own datatypes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two arguments here - complexity vs. flexibility</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Going from RDF to JSON-LD, that's a different issue - we don't make use of native datatypes when transforming from RDF to JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My concern is that JavaScript developers expect stuff to be converted to native types.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I see cases for both sides of this argument. I mainly agree with Gregg - there is a standard way to say what types are in RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I might provide some interfaces to provide greater fidelity. I'd put a flag in there that says "use native datatype representations".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could say that "implementations may provide a mechanism that allows these representations to be overridden."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Okay - so we could just keep 'useNativeDatatypes', specify how to do the conversion, and add this feature in later.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#jsonldoptions">http://json-ld.org/spec/latest/json-ld-api/#jsonldoptions</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Continue to support 'useNativeDatatypes' in .fromRDF(), specifying how the native type conversion happens. Do not support options for overriding each native datatype with a different value.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Continue to support 'useNativeDatatypes' in .fromRDF(), specifying how the native type conversion happens. Do not support options for overriding each native datatype with a different value.</div>
+<div class="information">NOTE: If this feature needs to be added in the future, it can be done without creating any backwards-compatability issues.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-151: Context Processing Algorithm Dependency Resolution</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/151">https://github.com/json-ld/json-ld.org/issues/151</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The main issue is this, if you define something like so in the @context: "schema": "<a href="http://schema.org/"">http://schema.org/"</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and then later you do this: "name": "schema:name"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley is concerned that there are some corner cases that could lead to implementations doing two different things.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm concerned that we don't need to spec everything down to this level of details. Oddly construed examples could be placed into the test suite - that could catch these implementation issues.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This sounds like an error condition that we want to signal, not that everyone can resolve this stuff in the same way.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's difficult to understand what the algorithms are supposed to do w/o implementing them... if you do implement them, every implementation is doing exactly the same thing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The risk is that we don't get good analysis from people that don't implement it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm leaning towards gregg's notion - a bit more lenience in how to implement an algorithm and ensure that test cases cover all the corner cases that might crop up is the best approach. We may want a comment in the spec about edge cases - state the intent in the algorithm.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could put more detail in an algorithm in the appendix would be better. We don't want to subject readers to all the corner cases that we're trying to document.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i think that if you follow the algorithm in the spec you should pass the test suite</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I agree</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: me too...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'd probably be a +0 on this, leaving too much to interpretation is dangerous.</div>
+<div class="comment"><span class="name">Dave Longley</span>: one sec</div>
+<div class="comment"><span class="name">Dave Longley</span>: was talking ... not working.</div>
+<div class="comment"><span class="name">Dave Longley</span>: software issues over here.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'd like to see some spec text, if it's simple then fine... if it's complex, then not okay.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i was going to say that other specifications , in my experience, generally spell out how to write a fully conformant processor</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We'll ask Dave Longley to send some spec text to RDF comments.</div>
+<div class="comment"><span class="name">Dave Longley</span>: and that, at least when i'm reading a spec to try and implement it, i'd prefer it to be that way</div>
+<div class="comment"><span class="name">Dave Longley</span>: i think one should be able to just read the spec, following the language --- and write code as you go, resulting in something that passes the test suite.</div>
+<div class="comment"><span class="name">Dave Longley</span>: if you want to go off on your own and change the algorithm or try and improve upon it, that's fine (and encouraged, i'd think)</div>
+<div class="comment"><span class="name">Dave Longley</span>: but, at a minimum, i don't think implementors should have to figure out their own algorithms if they don't want to</div>
+<div id="action-1" class="action">ACTION: Dave Longley to send suggested spec text to modify the algorithm to public-rdf-comments@w3.org</div>
+<div class="comment"><span class="name">Dave Longley</span>: i do think it's somewhat annoying to write the spec language :), however, i don't think that that is a good reason to not do it</div>
+<div class="comment"><span class="name">Dave Longley</span>: yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  To respond to Dave Longley, there has been some evidence that spec algorithm complexity has prevented folks from getting into the specs a bit further.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'd like them to be able to participate w/o being buried in details.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I have an action to annotate RDF algorithms to make it more clear about what's going on.</div>
+<div class="comment"><span class="name">Dave Longley</span>: prevented implementors from getting into the specs or users of the APIs?</div>
+<div class="comment"><span class="name">Dave Longley</span>: because i think that might be a presentation issue if it's just the users of the APIs</div>
+<div class="comment"><span class="name">Dave Longley</span>: i can see it being frustrating, when writing an implementation, that you don't pass the test suite ...</div>
+<div class="comment"><span class="name">Dave Longley</span>: and the spec document doesn't spell out why</div>
+<div class="comment"><span class="name">Dave Longley</span>: i don't think that's something that an implementor wants to spend their time on</div>
+<div class="comment"><span class="name">Dave Longley</span>: i guess i'm ok with the spec spelling it out in another section ... but i don't know what that really buys us</div>
+<div class="comment"><span class="name">Dave Longley</span>: and that it might just make it more complex to implement (having to jump around the spec to find caveats, etc)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think there are good arguments from both sides - algorithms too high-level, interoperability problems. algorithms too low-level, hard for people to contribute.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I do agree that test cases shouldn't come out of nothing... there should be spec text backing them up. Having test cases should protect against some of these corner cases. Balancing act.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I wonder if there is room for internal re-factoring? For example, in RDFa algorithm there are references from high-level text (in the algorithm) to low-level text in the spec (elsewhere in the spec).</div>
+<div class="comment"><span class="name">Dave Longley</span>: if we simply spell out that prefix dependencies have to be resolved and cycles must generate errors -- and then we craft test cases that expose the corner cases, then i can compromise and agree to that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave, yeah, I think that's where we are right now.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i worry that we don't currently have those corner cases -- and that it's difficult to generate them, however. (doesn't mean they won't show up in the real world)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the term selection algorithm is an example of this right now, it's very complicated. We could simplify it, but the result might not be that desirable when faced with complicated input.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the important part is that when the data is very complex, you want to make each part distinct. created/date and created/datetime are important to differentiate in complex data.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm concerned about the geometric complexity that is added when we support all of these corner cases, we may just want to punt on some of this stuff.</div>
+<div class="comment"><span class="name">Dave Longley</span>: another thing to be concerned with is that if we don't spec some of this stuff out, then the algorithms that are in the spec might be fundamentally incompatible with a working implementation</div>
+<div class="comment"><span class="name">Dave Longley</span>: as in, if we have a very detailed way of looping over keys in a context during processing ... but in order to properly resolve dependencies we must not loop (not saying this is the case)</div>
+<div class="comment"><span class="name">Dave Longley</span>: then we've spec'd out something that doesn't actually work when you take into consideration the other parts of the spec that aren't spec'd in detail.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Okay, that's the call for today, we'll meet again next week.</div>
+</body>
+</html>
