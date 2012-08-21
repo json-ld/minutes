@@ -1,0 +1,229 @@
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0018.html
+[10:06]	<gkellogg>	scribe: gkellogg
+[10:06]	<gkellogg>	http://greggkellogg.net/2012/08/21/json-ld-and-mongodb
+[10:06]	<gkellogg>	Gregg describes talk he's giving at NoSQL Now!, slides are above, good feedback from folks.
+[10:07]	<manu1>	Topic: DrupalCon discussion on JSON-LD
+[10:07]	<manu1>	http://groups.drupal.org/node/249128
+[10:07]	<gkellogg>	manu: Lin has asked what JSON-LD features should be used in Drupal.
+[10:07]	<gkellogg>	… Two issues that were important have been re-opened: property generators and language map.
+[10:08]	<gkellogg>	… When they were re-opened they became nervous about stability of JSON-LD.
+[10:08]	<gkellogg>	… We need to discuss why they were re-opened, and what to do going forward.
+[10:08]	<gkellogg>	… The message is that the features are unstable, and could go away, which is not true.
+[10:09]	<gkellogg>	markus: The main reason they were opened was because the algorithms haven't been updated, and we haven't discussed how compaction works.
+[10:09]	<gkellogg>	… In the property generators issue, there was a comment that this was supported, but the array-position wasn't.
+[10:09]	<gkellogg>	… I thought we might want to discuss the array-position issue again.
+[10:10]	<gkellogg>	… The main reason was to make sure that the algorithms are updated before the issue is closed.
+[10:10]	<gkellogg>	markus: I had some question about our support for property generators.
+[10:10]	<gkellogg>	manu: Perhaps we should discuss how compaction should work.
+[10:11]	<gkellogg>	… the main thing is to signal to Drupal that we're not pulling the rug out from under them.
+[10:11]	<gkellogg>	… We re-opened to make sure that all the work was completed, not that the feature was in doubt.
+[10:11]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/142#issuecomment-7866816
+[10:12]	<niklasl>	q+
+[10:12]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:12]	<gkellogg>	manu: It's not just for drupal, we have a similar mechanism in RDFa, and other companies have indicated their need for it too.
+[10:12]	<manu1>	ack niklasl
+[10:12]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:12]	<gkellogg>	… It's not just for drupal, but they did provide motivation.
+[10:13]	<gkellogg>	niklas: I understand that the mutliple-property feature could be seen as "un-pure" from a theoretical perspective. You should rely on inference and other things, but those are all ideals.
+[10:13]	<gkellogg>	… This case supports a fairly easy way for both producers and consumers to manage such properties.
+[10:14]	<gkellogg>	… The alternative would be to create different documents for different consumers, which isn't very useful.
+[10:14]	<gkellogg>	… It's un-pure, but useful.
+[10:14]	<gkellogg>	manu: I don't hear any objection to keeping the feature, we just need to work out details, specifically in compaction.
+[10:15]	<manu1>	gkellogg: We may want to say right now that it's not addressed in compaction, it would allow us to close out this particular feature.
+[10:15]	<manu1>	gkellogg: We could say that if we /do not/ describe anything happening in compaction, then we may not do anything.
+[10:16]	<manu1>	gkellogg: The algorithm for compaction would be a bit different... more heavyweight.
+[10:17]	<manu1>	gkellogg: I don't think we want to wrap these things together, we don't want to message that just because we haven't wrapped some of the API details up, that we're not going to support the feature.
+[10:17]	<niklasl>	+1 for that
+[10:17]	<gkellogg>	manu: we do a proposal that says "support both property-generators and language-maps; close issues; create new issues for compaction implications".
+[10:17]	<gkellogg>	markus: you can't make use of these things without the API, so we need all parts.
+[10:18]	<manu1>	gkellogg: I think we need to do the expansion... no controversy there, the issue comes in via compaction and in via framing... certainly, there is some open work to be done in the expansion algorithms. It's reasonable to link them to the existing issues.
+[10:19]	<manu1>	gkellogg: Our practice has been to keep issues open until the language has been updated to reflect what's done. It's a book-keeping exercise.
+[10:20]	<gkellogg>	manu: we need to do something to tell them that there is a clear effort to support these features.
+[10:20]	<gkellogg>	… The proposal is to underscore that both property generators and language maps are supported features, and the group is working out the details of how the API supports them.
+[10:21]	<gkellogg>	manu: we could post on drupal that we're supporting it, the issue is resolved, but the work's not all done.
+[10:22]	* niklasl	is having some problems with choppy sound
+[10:22]	<gkellogg>	manu: the reason we need to be more careful on how we use the issue tracker is because the the perception on outside groups.
+[10:23]	<manu1>	PROPOSAL: The group is committed to support language maps and property generators in JSON-LD 1.0.
+[10:23]	<gkellogg>	+1
+[10:23]	<manu1>	+1
+[10:23]	<niklasl>	+1
+[10:24]	<mlnt>	+1
+[10:24]	<tidoust>	+1
+[10:24]	<manu1>	RESOLVED: The group is committed to support language maps and property generators in JSON-LD 1.0.
+[10:24]	<manu1>	Topic: Property Generators and .compact() API
+[10:25]	<gkellogg>	manu: Markus' point is that we've typically dealt with things all in one issue, why is this different.
+[10:25]	<manu1>	gkellogg: I don't know where other people are wrt to this. The .compact() algorithm is getting to be almost unimplementably complex.
+[10:26]	<manu1>	gkellogg: It becomes almost unacceptable in an algorithm, when in-fact, most people typically generate JSON-LD through their own customized mechanisms. I do make use of compaction, but mostly as a way of doing fairly standard normalizations.
+[10:27]	<manu1>	gkellogg: I usually generate properties as arrays - so for example, dropping single value arrays. Making use of CURIEs, or other terms. I find compaction() useful for that stuff. I don't find .frame() useful at all. I usually do in-memory linking.
+[10:27]	<manu1>	gkellogg: It would be too much work to get the API to do what I wanted... noticed this in .frame(). If it doesn't work, it doesn't work and there is no insight into why. Very hard to debug frames.
+[10:27]	<manu1>	gkellogg: I think these things make it fairly useless, adding more complexity to .compact() is not something I'd like to do.
+[10:28]	<manu1>	gkellogg: Which term is selected for a specific property is one of those things.
+[10:28]	<manu1>	gkellogg: The ranking algorithm... the very act of splitting properties among multiple terms, is strange.
+[10:29]	<manu1>	gkellogg: if you have a property that has an equivalent IRI, the datatypes are split among those terms.... if you are trying to be entirely symmetric between compaction and expansion. It leads to unexpected results.
+[10:29]	<voip-ld>	Dave Lehn (SIP/6003-00000060) has joined the conference.
+[10:30]	<gkellogg>	manu: At a high level, I agree on the complexity argument. That's one of the reasons in the beginning we said that when we talk about compaction, we leave a lot of the magic up the the implementation.
+[10:30]	<gkellogg>	… Maybe we should define a core-set of interoperability that you should expect from compaction, but it leaves serious concerns about interoperability.
+[10:30]	<gkellogg>	manu: 2 questions: 1) do we expect compaction to be interoperable. 2) were do we draw the line on interoperability?
+[10:30]	<niklasl>	q+
+[10:30]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:31]	<gkellogg>	… property generators are a case where we may not want the algorithm to do anything when it goes to compact those values.
+[10:31]	<manu1>	ack niklasl
+[10:31]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:31]	<gkellogg>	niklas: I also agree on a high level, especially w.r.t. property generators.
+[10:32]	<gkellogg>	… I do see the need for ranking, and tend to think that that should be interoperable.
+[10:32]	<gkellogg>	… The mapping from RDF to elastic search indexing of data. I'd like that to be as automatic as possible.
+[10:33]	<gkellogg>	… From my point of view, although I agree we should debate, I feel we should draw the line at where you cannot determine what term is used from the value alone.
+[10:33]	<gkellogg>	… That rules out property generators. Does not rule out ranking, and might not language maps, but I agree that it's on the edge.
+[10:34]	<gkellogg>	manu: would we be opposed to some implementations implementing it, and others not.
+[10:35]	<manu1>	gkellogg: In RDFa, we have examples of optional features - implementing the feature is not required, but if it is required, it has interoperability requirements. Processor graphs is one such example.
+[10:36]	<manu1>	gkellogg: Maybe we have a flag that allows best-effort compaction... maybe we can have a set of parameters that are associated with these optional features. Processors can declare whether they are supported or not. They're supported if the appropriate options are passed to the algorithm. It also makes testing easier. It can also reduce the computational complexity to support odd cases that are more likely to never come about.
+[10:36]	<manu1>	gkellogg: In that case, maybe term selection is not optional, but it is a feature that is controlled through an API flag.
+[10:36]	<manu1>	niklasl: I think flags are good for optional features. It should be possible to query the implementation via a .hasFeature() method.
+[10:36]	<gkellogg>	niklas: flags are good for optional features. We should have a "has feature" method, so you can take appropriate measure.
+[10:36]	<manu1>	+1 to niklasl
+[10:37]	<gkellogg>	manu: I agree with the general direction of the discussion. We're discussing two things:
+[10:37]	<gkellogg>	… 1) the compact call will have a mechanism to turn off or on different features.
+[10:37]	<gkellogg>	… 2) if a processor implements a feature, it must be done in an interoperable way.
+[10:38]	<mlnt>	q+
+[10:38]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:38]	<gkellogg>	… This would indicate that compaction for property generators would not be part of the base API, but people could implement it by providing a feature driven by a flag.
+[10:38]	<manu1>	ack mlnt
+[10:38]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[10:38]	<gkellogg>	markus: I'm wondering if, in this case, it might not be too difficult to support.
+[10:39]	<gkellogg>	… It's difficult at the moment to distinguish between prefixes and terms, because every term can be a prefix. You could then have a prefix which would expand compact IRIs.
+[10:40]	<gkellogg>	… if we limit other options on terms that are property generators, we could simplify compaction.
+[10:40]	<gkellogg>	manu: this would modify the feature because of complexity, and give poor signals to developers.
+[10:40]	<gkellogg>	markus: we currently silently ignore all other definitions for a prefix if it's also a term.
+[10:40]	<niklasl>	q+
+[10:40]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:41]	<manu1>	ack niklasl
+[10:41]	<gkellogg>	… I ran across some issues where a term was used as a prefix, or the other way, and other attributes of the term were not used.
+[10:41]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:41]	<gkellogg>	niklas: we could actually say that things define with an expanded term definition are never used as prefixes.
+[10:42]	<gkellogg>	markus: then I would need to keep track what's a prefix or what's not.
+[10:42]	<manu1>	gkellogg: We might say that if it uses an expanded definition, it only uses the @id key - if that, then it can be used as a prefix.
+[10:43]	<manu1>	gkellogg: A term can be used as a term if it matches.
+[10:43]	<gkellogg>	manu: If we require a : at the end of a prefix this creates a micro-syntax.
+[10:44]	<gkellogg>	… This would make it work differently in the body of a document. The way we have it now, you need to understand that these terms would not be used as prefixes, but that's a detail developers need to worry about.
+[10:44]	<gkellogg>	… If we have something with a ':' in it, the general case is that they would need to educate themselves about this.
+[10:45]	<gkellogg>	… If we require a ':', it could be error prone. A single-character mistake could mess them up.
+[10:45]	<gkellogg>	… I don't like this for those reasons, and I think developers would have a hard time learning about this.
+[10:46]	<niklasl>	.. "foaf": {"@id": "…", "@prefix": true}
+[10:46]	<manu1>	gkellogg: What are the issues where this happens in common practice? The only time this becomes an issue is in something like an OWL definition.
+[10:46]	<manu1>	gkellogg: There are very few cases here where this happens.
+[10:48]	<gkellogg>	niklas: there were some issue when I did some RDFa/JSON-LD conversion; it's not clear from the context if I can use them for prefixes.
+[10:48]	<manu1>	gkellogg: Maybe converting from RDFa to JSON-LD...
+[10:49]	<gkellogg>	manu: the issue was how we would support property generator in compaction.
+[10:49]	<gkellogg>	manu: do we think that there may be optional features in compaction?
+[10:49]	* niklasl	markus, can you summarize your needs for explicit prefixes in an issue? I'll add to it if I can find what troubled me
+[10:49]	<gkellogg>	… If there optional features, we are going to say if you implement it, it has conformance requirements to guarantee interoperability.
+[10:50]	<gkellogg>	… If a feature is optional, it does not need to be implemented, but if you do, it must conform.
+[10:51]	<gkellogg>	… In practice, you know if the feature is there. It's only when you have a modular system that this is useful.
+[10:52]	<gkellogg>	markus: In General, I don't like this, but there may be some cases where it's useful.
+[10:52]	<gkellogg>	… I think the cost to processor implementors is small compared to consumer's needs.
+[10:53]	<manu1>	gkellogg: There is a computational concern, if these features are enabled by default, it could really slow down your workflow.
+[10:53]	<manu1>	gkellogg: I have to do a combinatorial search over those properties for things like property generators... that is a computational burden.
+[10:54]	<manu1>	gkellogg: That's for somebody that doesn't even want property generator compaction.
+[10:54]	<manu1>	gkellogg: Perhaps these are features where the defaults can be defined by the presence of the feature.
+[10:55]	<gkellogg>	manu: the more I think about it, the more I'm concerned about the memory/computational overhead of compacting property generators.
+[10:56]	<gkellogg>	… Drupal needs this to use core properties and be compatible with schema.org.
+[10:56]	<gkellogg>	… The decision lies with the authors. It's not import for us to decide.
+[10:57]	<gkellogg>	… If not you're okay with the computational issues, you can turn it on or off.
+[10:58]	<niklasl>	q+
+[10:58]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:58]	<manu1>	gkellogg: As a consumer of data, I don't specify a context... I use what is served to me.
+[10:59]	<manu1>	markus: Then why are we concerned about compaction if people might not use it?
+[10:59]	<manu1>	gkellogg: Because people do use .compact() and we don't want the computational complexity in the default case.
+[10:59]	<manu1>	ack niklasl
+[10:59]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:00]	<gkellogg>	niklas: I was thinking that if drupal started using a lot of properties for a given term, it could be that the consumers will react to that, and think that it's just noise. I wouldn't expect more than 3-5.
+[11:00]	<gkellogg>	… If consumers want to consume such data, they can consume it incrementally, triple by triple.
+[11:02]	<gkellogg>	manu: we're going to need to do some "least-resistance" proposal to make some progress.
+[11:02]	<manu1>	Proposals on the table: 1) Support optional features in .compact(), 2) Make all features required in .compact()
+[11:02]	<mlnt>	we already support optional features - optimize
+[11:02]	<gkellogg>	manu: if we support optional features, we're likely to support property generation is high. If all are required, property generation support is low.
+[11:04]	<manu1>	+1 to 1), -1 to 2)
+[11:04]	<gkellogg>	+1 for 1), -1 to 2)
+[11:04]	<tidoust>	+1 to 1), -1 to 2)
+[11:04]	<mlnt>	-1 to 1), +1 to 2) (except optimizations)
+[11:04]	<niklasl>	+1 to 1), -0.5 to 2)
+[11:05]	<dlongley>	following along in IRC ... keep in mind that those that want to use the feature (eg: drupal) might shy away from JSON-LD anyway if they think it's "optional" (the compaction side of it)
+[11:05]	<dlongley>	it needs to be sold that a processor that they can use will implement it ... otherwise what good is it?
+[11:06]	<dlongley>	that said, i'm ok with the optional path, just pointing out (if it hasn't been) a possible issue.
+[11:06]	* gkellogg	dlongley: thanks.
+[11:06]	<manu1>	PROPOSAL: Support optional features in .compact(). Any optional feature that is implemented, MUST be implemented in a specific way as outlined in the JSON-LD API.
+[11:06]	<gkellogg>	+1
+[11:06]	<manu1>	+1
+[11:06]	<mlnt>	-1
+[11:06]	<tidoust>	+1
+[11:06]	<niklasl>	+1
+[11:06]	* niklasl	thinks perhaps an option for 'compact_id' (with default true) would be good to compact (it'd still be required implementation-wise)..
+[11:07]	<manu1>	RESOLVED: Support optional features in .compact(). Any optional feature that is implemented, MUST be implemented in a specific way as outlined in the JSON-LD API.
+[11:08]	<manu>	Topic: Alternative to combinatorial .compact()
+[11:08]	<dlongley>	maybe a better solution would be to mark which term you want to use in the compaction, in the @context, so the compaction algorithm can just look there and pick it.
+[11:08]	<dlongley>	that's really what i think people would want anyway ... instead of having to think through the algorithm in their minds
+[11:08]	<dlongley>	and guess which term will be selected based on whichever combination is most efficient.
+[11:09]	<dlongley>	{"@context": {"foo": {"compact: true", ... (other stuff here) ... }}
+[11:09]	<dlongley>	that would make compaction super simple ... and it would do what you want.
+[11:09]	<gkellogg>	manu: you have a document with a property generator already in compact form.
+[11:09]	<gkellogg>	… When it is expanded, three properties are expanded. When compaction, they don't get coalesced.
+[11:11]	<voip-ld>	Dave Longley (SIP/6002-00000061) has joined the conference.
+[11:12]	<manu1>	Proposals for property generators and .compact(): 1) Support property generator compaction as an optional feature, 2) Do not support compaction of property generators at all, 3) Support property generator compaction as a required feature, 4) Compact only the first value in the enumeration of the array
+[11:12]	<gkellogg>	+1 to 1), +0 to 2), -1 to 3), -1 to 4)
+[11:12]	<dlongley>	{"@context": {"foo": {"compact: true", ... (other stuff here) ... }}
+[11:13]	<gkellogg>	dlongley: the other option is to be explicit in the context for what to compact.
+[11:13]	<dlongley>	"foo": {"@id": "whatever", ... property generator ..., "compact": true}
+[11:15]	<gkellogg>	dlongley: the problem has always been that you need to understand the algorithm. This allows you to be more clear and not have deep understanding.
+[11:16]	<gkellogg>	… We could put the ranking algorithm into the context. You could be very explicit about what terms to pick.
+[11:17]	<gkellogg>	manu: my concern is that it's pretty complex, in that it doesn't hide any of the complexity from the developer.
+[11:17]	<gkellogg>	… it's much more complicated than the other features.
+[11:18]	<gkellogg>	markus: if you want to be specific, then you only need to specify one.
+[11:19]	<dlongley>	"foo": {"@id": [any match in here], "compact": true}
+[11:20]	<dlongley>	"foo": {"@id": [any match in here], "compact": 1}
+[11:20]	<dlongley>	"foo": {"@id": [any match in here], "compact": 5}
+[11:21]	<gkellogg>	dlongley: one of the issues is knowing what term to pick.
+[11:22]	<gkellogg>	manu: I thought the way the algorithm was supposed to work is that every id must exist with the same value. Then and only then do you use foo.
+[11:22]	<gkellogg>	… what we're trying to do here is say how property generators are round-tripped.
+[11:22]	<gkellogg>	… this is a new way to do compaction.
+[11:24]	<gkellogg>	manu: I think dave's option is interesting, but it is tangentially related to property generator compaction.
+[11:24]	<gkellogg>	dlongley: do they really care about this?
+[11:25]	<gkellogg>	… I would think that, in the general case, I want to say that all these properties mean the same thing. If that's true, I don't think we need the extra complexity.
+[11:26]	<gkellogg>	dlongley: if the intention is to generate multiple properties when you see a single key, I don't see there's an issue.
+[11:26]	<gkellogg>	manu: it does mean that it doesn't cleanly round-trip.
+[11:27]	<manu1>	+1 to 1), -1 to 2), -1 to 3), -1 to 4), +0 to 5)
+[11:28]	<mlnt>	+0.5 to 1), -1 to 2) +1 to 3), -1 to 4)
+[11:28]	<gkellogg>	+ 0.5 to 5)
+[11:28]	<tidoust>	+1 to 1), -1 to 2), -1 to 3), -1 to 4)
+[11:28]	<tidoust>	[also like 5)]
+[11:28]	<gkellogg>	manu: this could send mixed messages to the drupal community.
+[11:29]	<niklasl>	+1 to 1), -0.5 to 2), -1 to 3), -1 to 4), +0 to 5)
+[11:29]	<gkellogg>	dlongley: it's more like we're fighting for their feature. We should ask them how they feel about 5)
+[11:29]	<mlnt>	don't really understand 5) to be honest... the way I would implement this is to rank a term for each of it @id's in compaction and leave all the rest the same
+[11:30]	<gkellogg>	manu: this takes us into entailment, and we should tread carefully.
+[11:30]	<dlongley>	+1 to 1) -1 to 2) +0.5 to 3) +0 to 4) +1 to 5)
+[11:30]	<gkellogg>	… If we start to add ranking flags, we should be careful.
+[11:31]	<gkellogg>	manu: 1) seems to have the strongest support.
+[11:31]	<gkellogg>	dlongley: I'm worried that people may feel this is license to not implement.
+[11:31]	<gkellogg>	manu: once people see an implementation (PHP), they'll be fine with it.
+[11:33]	<gkellogg>	markus: I can try an implementation of 1) to see how easy it is
+[11:34]	<gkellogg>	dlongley: the only way for the algorithm to work is if you check both properties and values (for 1)
+[11:35]	<gkellogg>	… when you expand "foo", it might expand into 3 different IRIs.
+[11:35]	<gkellogg>	... However, if when you expand, you might have something that maps.
+[11:36]	<mlnt>	"foo": [ "a", "b" ] - foo: data - expand - a: data, b: data - compact - foo: data, data ??? Remove duplicates, round-trip OK?
+[11:36]	<gkellogg>	dlongley: you could end up choosing the wrong term, and create more data.
+[11:37]	<gkellogg>	… multiple property generators are even worse.
+[11:37]	<gkellogg>	… you might then need the ranking algorithm.
+[11:39]	<gkellogg>	markus: we already have that problem. if you have two properties that map to the same IRI, they might not compact back the same.
+[11:40]	<gkellogg>	manu: maybe a callback could help.
+[11:41]	<gkellogg>	manu: for the drupal case, they definitely want to generate multiple properties on expansion.
+[11:41]	* niklasl	Re. ranking: all I need a way to distinguish between dateCreated and yearCreated (both being dc:created, one for values of type xsd:date, the other for xsd:gYear)
+[11:42]	<gkellogg>	manu: we need to reach out to the drupal community about this.
+[11:43]	<gkellogg>	… I'll touch base with Lin and Stephane about this.
+[11:43]	<voip-ld>	Dave Longley (SIP/6002-00000061) has left the conference.
+[11:43]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000005d) has left the conference.
+[11:43]	<voip-ld>	Manu Sporny (SIP/6000-0000005f) has left the conference.
+[11:43]	<voip-ld>	<unknown> (IAX2/diamondcard-7844) has left the conference.
+[11:43]	<voip-ld>	Niklas Lindström (SIP/192.168.3.15-0000005e) has left the conference.
+[11:43]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000005c) has left the conference.
+[11:43]	<voip-ld>	Dave Lehn (SIP/6003-00000060) has left the conference.
+
