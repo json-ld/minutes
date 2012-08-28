@@ -1,0 +1,226 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-08-28</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0031.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0031.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-47: Subject, property and object terminology</a><li><a href="#topic-2">ISSUE-66: Scoped/nested @contexts</a><li><a href="#topic-3">ISSUE-122: Allow declaring `@container` on `@type`</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Rename "subject definition" to "node definition" and "subject reference" to "node reference"</a><li><a href="#resolution-2">Change the 'nest'ed terminology to 'scope'ed when referring to @contexts that exist inside of JSON objects.</a><li><a href="#resolution-3">Add a flag to the .compact() and .frame() algorithms that turns off optimization of arrays with single items in them to single values in the output.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to setup a phone call with Richard Cyganiak to discuss RDF/JSON-LD terminology.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Gregg Kellogg, Markus Lanthaler, François Daoust</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-47: Subject, property and object terminology</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/47">https://github.com/json-ld/json-ld.org/issues/47</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's a discussion on the rdf wg list initiated by cygri about this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there are many things discussed</div>
+<div class="comment-continuation">… the of the problem as described is that our data model is unclear</div>
+<div class="comment-continuation">…. we should be more discinct regarding wha'ts the json data model and the linked data model</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 to node definition / node reference</div>
+<div class="comment-continuation">… the subject/object definitions are not good as they stand, we should address this. probably in the direction of using nodes</div>
+<div class="comment-continuation">… there are issues on what a properly/predicate is, graphs</div>
+<div class="comment-continuation">… and whether json-ld actually can have *many* nodes with the same id or not</div>
+<div class="comment-continuation">… we should go through point by point</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  out of cygri:s 3 suggested strategies, we have one: align with rdf terminology as much as we can</div>
+<div class="comment-continuation">... but cygri sees more differences between rdf model and json-ld model than there already are</div>
+<div class="comment-continuation">… i think that richard's right in that json-ld model is less restrictive</div>
+<div class="comment-continuation">… predicates could be strings/literals: but there's no semantic meaning to them yet</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we probably contradict ourselves in regard to what subjects can be</div>
+<div class="comment-continuation">… id is always an IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, that comes from early days of JSON-LD, where we didn't want to set that in stone</div>
+<div class="comment-continuation">… we could make it stricter, but we may lose something</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but we may lose the people who say that linked data is not rdf</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we haven't heard from them for quite some time, and we are part of the RDF WG</div>
+<div class="comment-continuation">… if we need for ID:s to be just strings, we would need some syntax for that, etc.</div>
+<div class="comment-continuation">… occasionally, these topics are brought up in the rdf wg group</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  These things do come up in RDF discussions, and Semantic Web and Linked Data mailing lists for many years - they say, "Perhaps we should allow plain strings as subjects and predicates"? Subjects should allowed to be literals. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When I come to think about those arguments, they're not very compelling. They look to extend the RDF data model into something more pure. Literals as subjects are not a good argument because the concept of literals is impure. It's a practical definition. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The difference between type and datatype, for example. I agree with a lot of what Richard is getting at. I find some of the parts a little too misunderstood, I think that there is a bit of a danger of leaving the JSON-LD data model as too lax. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What I like about RDF is that everything is defined, there is no wiggle room for creative extensions. That restriction means that I can understand any data that I can get. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You see this "extension" ability in Atom, people experiment, but you never really see these extensions catch on because there is no real interoperability. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm concerned that we may end up in the same situation. Undefined terms may /mean/ something, but I'd rather that we say that they're dropped entirely from the level of semantics. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  They're more structured code comments than semantics that extend the RDF model. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  on a high level I agree. I can see these arguments.</div>
+<div class="comment-continuation">... but I don't see the pure theoretical things as such. In JSON, they are used directly. It's not fair to label that as theoretical.</div>
+<div class="comment-continuation">… we don't have an alternative model to map to than RDF</div>
+<div class="comment-continuation">… if you use things that aren't mapped to that. If somebody comes up with another data model in the future, that data model could be supported..</div>
+<div class="comment-continuation">… until then, we can say that subjects and predicates must to IRIs</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  currently we say "should" on e.g. predicates are IRIs</div>
+<div class="comment-continuation">… It was glen mcdonald who argued that the language should support it</div>
+<div class="comment-continuation">… if you can't have a JSON object with a key that cannot be mapped to an IRI, it's just dropped when we expand</div>
+<div class="comment-continuation">... we support the expressions in the data, but they are dropped on expansion</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  wrt strings as subjects and properties, e.g. notation 3 use that for productions</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, that's true. The "theoretical" comment was about the current arguments to why these should be a part of RDF. I've seen these as a part of N3 as well. It depends on how you want to interpret this. The problem is that we don't say anything about that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the issue is that Richard is unsure about whether we support a model that is more akin to N3, but we don't say anything about that - we do say a lot of "mights" and "possibles" - we should constraint the language a bit more. More clearly state it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we should say that the JSON-LD data model supports these things, and that they're not translatable to RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We may want to say that we drop anything that can't be translated to RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the issue is that if we support a broader data model than RDF, we have to talk about what that is. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the problem is that if we define a larger data model without providing the semantics for it is problematic</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm fine with changing the language so that we constrain what is understood as linked data in JSON-LD now</div>
+<div class="comment-continuation">… the idea is that we can extend it later on if needed. but at this point we constrain id and properties to IRIs.</div>
+<div class="comment-continuation">… in the future, we *could* use something ilke @sid as string-id or similar</div>
+<div class="comment-continuation">... doing that we *could* support data model extension like that, but do not at this point</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I like that approach - it makes it clear that we can support that in the future, but not right now. Hopefully, it should address the issues that Richard has. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's inevitable that we should do this, to make our lives easier. but before we do that we should propose those changes with clearly stated reasons why, to give people who might have a stake in that have a chance to speak up</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes. the devil's in the details, so we need to see a final proposal to understand the implications</div>
+<div class="comment-continuation">… we also have the terminology issue to change subject/object terms</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we must consider what subject maps means for this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in json, the key is called a name</div>
+<div class="comment-continuation">… we can define that as the key position, and define what it means in rdf terms (a property)</div>
+<div class="comment-continuation">… and subjects/objects we should refer to them as nodes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but we want to differentiate between node definition and node reference, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  richard says node object and reference object</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: If you stop using the term “object” for the “nodes” of a JSON-LD graph, then I'd think that terms like “node object” and “reference object” instead of “node definition” and “node reference” might be better, because they're kinds of JSON objects.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we need to differentiate between them?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we say a node definition, that implies that it represents the node in full</div>
+<div class="comment-continuation">... from a data model perspective the node is the *union* of all the json objects with that id</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have the node itself; only in the data model. then we have the node definitions, and node references.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we do this, we should add a flatten api method</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not sure; it could eat a lot of time, and we could document it properly</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we have a complete description by markus</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we have agreement on the suggested renaming?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Rename "subject definition" to "node definition" and "subject reference" to "node reference"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're striving on using the same terminology across all specifications</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Rename "subject definition" to "node definition" and "subject reference" to "node reference"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is the distinction necessary in the data model?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think Richard said that he thinks we make a distinction between the node and the IRI that labels the node. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we haven't said that an object is a node reference. it may be that, or a value (literal?). and a node reference may use an IRI or a bnode.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#linking-data">http://json-ld.org/spec/latest/json-ld-syntax/#linking-data</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we went through 3 months defining this. we can adapt the terminology here, but if we change it all to RDF, we've said linked data == RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we use subject 70+ times in the document, and object some 43 times. 49 are subject definitions...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  our definition of linked data, by itself, should be clear and simple enough</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but if it is RDF, we should use the same terms</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we're talking about the resulting data graph (realized e.g. by parsing json-ld with a "connect"/"link" algorithm into an in memory graph). But that's neither the abstract triple structure of a graph, nor the denoted "knowledge graph"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  So, let's work with Richard on this and try to find some common ground. It would be fine if we clearly say what we're describing... it's tangible, but perhaps somewhere inbetween the abstract and the concrete may be okay. [scribe assist by Manu Sporny]</div>
+<div id="action-1" class="action">ACTION: Manu to setup a phone call with Richard Cyganiak to discuss RDF/JSON-LD terminology.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We mean almost exactly the same things... maybe we should find where we differ and go from there. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We want JSON-LD to be a path to RDF w/o all of the theory up front. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My concern is that if we point RDF Concepts to people, that is a losing strategy with Web Developers... if we can't explain it in 2 paragraphs or 10 items in a list, we've failed. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Just found this in RDF Concepts: The predicate itself is an IRI and denotes a binary relation, also known as a property</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, RDF may be pure conceptually... but it may require a Web developer to be a philosopher... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the important thing is that we don't contradict RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  text is a syntactic thing; literal is a model thing</div>
+<div class="comment-continuation">... it might be worth updating the document with an issue marker about this</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'll rewrite it and put the proposing change into the issue marker</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an issue marker for 47 an 136</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-66: Scoped/nested @contexts</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/66">https://github.com/json-ld/json-ld.org/issues/66</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  raised by dave lehn: The "External Contexts" section briefly mentions nested contexts.</div>
+<div class="comment-continuation">... seems out of place and could perhaps use it's own named spec section</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I agree that we need to keep nested contexts distinct</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but contexts within contexts adds complexity</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we call contexts within a part of a document "scoped"?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an author may nest contexts within subject [sic] definitions</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  change that to scoped?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an author may include contexs within node definitions to accomplish a scoped context</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Change the 'nest'ed terminology to 'scope'ed when referring to @contexts that exist inside of JSON objects.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Change the 'nest'ed terminology to 'scope'ed when referring to @contexts that exist inside of JSON objects.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We should also split the description of "scoped" contexts into it's own sub-section in the advanced section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-122: Allow declaring `@container` on `@type`</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/122">https://github.com/json-ld/json-ld.org/issues/122</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you're +1 to support this, to force value of type to a json array</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so you can know the type value is always wrapped in an array. for predictable access.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: _.compact(_.flatten([foo['@type']))</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What about adding a declarative syntax to the @context? "@container": "@set"? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not too fond of the idea. [scribe assist by Manu Sporny]</div>
+<div class="information">Discussion on pros/cons of flag for "always set" or e.g. @set: true or @container: @set in top-level of @context</div>
+<div class="comment"><span class="name">François Daoust</span>:  is this an all-or-nothing for having values within arrays in compact form?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the in-between is having @set on every term, except for @type where we cannot do that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the alternative is to allow @container: @set in the context and @container: false to override that</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the point is that you are either dealing w/ everything as optimized, or everything as an array - that's what the flag is for. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm wavering on this because I've seen cases where most of the data should be in sets... but there are also a bunch of properties that are functional properties -dct:identifier, dct:publisher, etc. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>: [OK, I had somehow missed the issue was restricted to @type. I am in favor of an option flag to "compact()"]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The needs for compaction are so specific for compaction that we can't address them all at this point. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Would you rather not put the flag in there? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm fine w/ a flag at this point. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add a flag to the .compact() and .frame() algorithms that turns off optimization of arrays with single items in them to single values in the output.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.5</div>
+<div class="comment"><span class="name">François Daoust</span>: +0.5</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Add a flag to the .compact() and .frame() algorithms that turns off optimization of arrays with single items in them to single values in the output.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Interesting discussion on TAG related to Linked Data and RDF: <a href="http://www.w3.org/2001/tag/2012/08/23-minutes#item04">http://www.w3.org/2001/tag/2012/08/23-minutes#item04</a></div>
+</body>
+</html>

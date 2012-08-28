@@ -1,0 +1,194 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Aug/0031.html
+[10:03]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000006e) has joined the conference.
+[10:03]	<manu1>	scribe: niklasl
+[10:04]	<manu1>	Topic: ISSUE-47: Subject, property and object terminology
+[10:04]	<manu1>	https://github.com/json-ld/json-ld.org/issues/47
+[10:04]	<niklasl>	manu: there's a discussion on the rdf wg list initiated by cygri about this
+[10:04]	<voip-ld>	Manu Sporny (SIP/6000-0000006a) has left the conference.
+[10:05]	<niklasl>	gregg: there are many things discussed
+[10:05]	<voip-ld>	Manu Sporny (SIP/6000-0000006f) has joined the conference.
+[10:05]	* tidoust	should be locally muted but feel free to mute me on the server if my line makes noise
+[10:05]	<manu1>	voip: mute tidoust
+[10:05]	<voip-ld>	tidoust has been muted.
+[10:05]	<niklasl>	… the of the problem as described is that our data model is unclear
+[10:06]	<niklasl>	…. we should be more discinct regarding wha'ts the json data model and the linked data model
+[10:06]	<manu1>	+1 to node definition / node reference
+[10:06]	* manu1	tidoust - static was you, sorry - you're muted... just do 'voip: unmute tidoust' to speak
+[10:06]	<niklasl>	… the subject/object definitions are not good as they stand, we should address this. probably in the direction of using nodes
+[10:07]	* tidoust	sure, no problem
+[10:07]	<niklasl>	… there are issues on what a properly/predicate is, graphs
+[10:07]	<niklasl>	… and whether json-ld actually can have *many* nodes with the same id or not
+[10:07]	<niklasl>	… we should go through point by point
+[10:08]	<niklasl>	manu: out of cygri:s 3 suggested strategies, we have one: align with rdf terminology as much as we can
+[10:08]	<niklasl>	... but cygri sees more differences between rdf model and json-ld model than there already are
+[10:09]	<niklasl>	… i think that richard's right in that json-ld model is less restrictive
+[10:09]	<niklasl>	… predicates could be strings/literals: but there's no semantic meaning to them yet
+[10:09]	<niklasl>	gregg: we probably contradict ourselves in regard to what subjects can be
+[10:09]	<niklasl>	… id is always an IRI
+[10:10]	<niklasl>	manu: yes, that comes from early days of JSON-LD, where we didn't want to set that in stone
+[10:10]	<niklasl>	… we could make it stricter, but we may lose something
+[10:10]	<niklasl>	q+
+[10:10]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:10]	<niklasl>	manu: but we may lose the people who say that linked data is not rdf
+[10:11]	<niklasl>	gregg: we haven't heard from them for quite some time, and we are part of the RDF WG
+[10:11]	<niklasl>	… if we need for ID:s to be just strings, we would need some syntax for that, etc.
+[10:12]	<manu1>	ack niklasl
+[10:12]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:12]	<niklasl>	… occasionally, these topics are brought up in the rdf wg group
+[10:12]	<manu1>	niklasl: These things do come up in RDF discussions, and Semantic Web and Linked Data mailing lists for many years - they say, "Perhaps we should allow plain strings as subjects and predicates"? Subjects should allowed to be literals.
+[10:13]	<manu1>	niklasl: When I come to think about those arguments, they're not very compelling. They look to extend the RDF data model into something more pure. Literals as subjects are not a good argument because the concept of literals is impure. It's a practical definition.
+[10:14]	<manu1>	niklasl: The difference between type and datatype, for example. I agree with a lot of what Richard is getting at. I find some of the parts a little too misunderstood, I think that there is a bit of a danger of leaving the JSON-LD data model as too lax.
+[10:14]	<manu1>	niklasl: What I like about RDF is that everything is defined, there is no wiggle room for creative extensions. That restriction means that I can understand any data that I can get.
+[10:15]	<manu1>	niklasl: You see this "extension" ability in Atom, people experiment, but you never really see these extensions catch on because there is no real interoperability.
+[10:15]	<manu1>	niklasl: I'm concerned that we may end up in the same situation. Undefined terms may /mean/ something, but I'd rather that we say that they're dropped entirely from the level of semantics.
+[10:16]	<manu1>	niklasl: They're more structured code comments than semantics that extend the RDF model.
+[10:16]	<niklasl>	manu: on a high level I agree. I can see these arguments.
+[10:16]	<gkellogg>	q+
+[10:16]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:17]	<niklasl>	... but I don't see the pure theoretical things as such. In JSON, they are used directly. It's not fair to label that as theoretical.
+[10:17]	<niklasl>	… we don't have an alternative model to map to than RDF
+[10:18]	<niklasl>	… if you use things that aren't mapped to that. If somebody comes up with another data model in the future, that data model could be supported..
+[10:18]	<manu1>	ack gkellogg
+[10:18]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:18]	<niklasl>	… until then, we can say that subjects and predicates must to IRIs
+[10:18]	<niklasl>	gregg: currently we say "should" on e.g. predicates are IRIs
+[10:19]	<niklasl>	… It was glen mcdonald who argued that the language should support it
+[10:20]	<niklasl>	… if you can't have a JSON object with a key that cannot be mapped to an IRI, it's just dropped when we expand
+[10:20]	<niklasl>	q+
+[10:20]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:20]	<niklasl>	... we support the expressions in the data, but they are dropped on expansion
+[10:21]	<manu1>	ack niklasl
+[10:21]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:21]	<niklasl>	gregg: wrt strings as subjects and properties, e.g. notation 3 use that for productions
+[10:22]	<manu1>	q+ to discuss how to support strings as subject and predicates in the future.
+[10:22]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:22]	<manu1>	niklasl: Yes, that's true. The "theoretical" comment was about the current arguments to why these should be a part of RDF. I've seen these as a part of N3 as well. It depends on how you want to interpret this. The problem is that we don't say anything about that.
+[10:23]	<manu1>	niklasl: I think the issue is that Richard is unsure about whether we support a model that is more akin to N3, but we don't say anything about that - we do say a lot of "mights" and "possibles" - we should constraint the language a bit more. More clearly state it.
+[10:23]	<manu1>	niklasl: Maybe we should say that the JSON-LD data model supports these things, and that they're not translatable to RDF.
+[10:24]	<manu1>	niklasl: We may want to say that we drop anything that can't be translated to RDF.
+[10:24]	<manu1>	gregg: I think the issue is that if we support a broader data model than RDF, we have to talk about what that is.
+[10:24]	<manu1>	ack manu1
+[10:24]	<voip-ld>	manu1 has the floor (to discuss how to support strings as subject and predicates in the future.). The speaker queue is empty.
+[10:24]	<niklasl>	gregg: the problem is that if we define a larger data model without providing the semantics for it is problematic
+[10:25]	<niklasl>	manu: I'm fine with changing the language so that we constrain what is understood as linked data in JSON-LD now
+[10:25]	<niklasl>	… the idea is that we can extend it later on if needed. but at this point we constrain id and properties to IRIs.
+[10:25]	<niklasl>	… in the future, we *could* use something ilke @sid as string-id or similar
+[10:26]	<niklasl>	q+
+[10:26]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:26]	<niklasl>	... doing that we *could* support data model extension like that, but do not at this point
+[10:27]	<gkellogg>	q+
+[10:27]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:27]	<manu1>	ack niklasl
+[10:27]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:28]	<manu1>	niklasl: I like that approach - it makes it clear that we can support that in the future, but not right now. Hopefully, it should address the issues that Richard has.
+[10:28]	<manu1>	ack gkellogg
+[10:28]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:29]	<niklasl>	gregg: it's inevitable that we should do this, to make our lives easier. but before we do that we should propose those changes with clearly stated reasons why, to give people who might have a stake in that have a chance to speak up
+[10:30]	<niklasl>	manu: yes. the devil's in the details, so we need to see a final proposal to understand the implications
+[10:30]	<niklasl>	… we also have the terminology issue to change subject/object terms
+[10:31]	<niklasl>	markus: we must consider what subject maps means for this
+[10:32]	<niklasl>	gregg: in json, the key is called a name
+[10:32]	<niklasl>	… we can define that as the key position, and define what it means in rdf terms (a property)
+[10:32]	<niklasl>	… and subjects/objects we should refer to them as nodes
+[10:33]	<niklasl>	q+
+[10:33]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:33]	<niklasl>	manu: but we want to differentiate between node definition and node reference, right?
+[10:33]	<niklasl>	gregg: richard says node object and reference object
+[10:33]	<gkellogg>	If you stop using the term “object” for the “nodes” of a JSON-LD graph, then I'd think that terms like “node object” and “reference object” instead of “node definition” and “node reference” might be better, because they're kinds of JSON objects.
+[10:33]	<niklasl>	markus: do we need to differentiate between them?
+[10:34]	<niklasl>	gregg: if we say a node definition, that implies that it represents the node in full
+[10:35]	<niklasl>	... from a data model perspective the node is the *union* of all the json objects with that id
+[10:37]	<niklasl>	manu: we have the node itself; only in the data model. then we have the node definitions, and node references.
+[10:39]	<niklasl>	gregg: if we do this, we should add a flatten api method
+[10:39]	<niklasl>	manu: I'm not sure; it could eat a lot of time, and we could document it properly
+[10:41]	<niklasl>	gregg: we have a complete description by markus
+[10:41]	<niklasl>	manu: do we have agreement on the suggested renaming?
+[10:41]	<gkellogg>	PROPOSAL: Rename "subject definition" to "node definition" and "subject reference" to "node reference"
+[10:42]	<niklasl>	+1
+[10:42]	<gkellogg>	+1
+[10:42]	<tidoust>	+1
+[10:42]	<mlnt>	+1
+[10:42]	<manu1>	+1
+[10:42]	<niklasl>	manu: we're striving on using the same terminology across all specifications
+[10:43]	<gkellogg>	RESOLVED: Rename "subject definition" to "node definition" and "subject reference" to "node reference"
+[10:44]	<niklasl>	markus: is the distinction necessary in the data model?
+[10:45]	<manu1>	niklasl: I think Richard said that he thinks we make a distinction between the node and the IRI that labels the node.
+[10:47]	<niklasl>	gregg: we haven't said that an object is a node reference. it may be that, or a value (literal?). and a node reference may use an IRI or a bnode.
+[10:48]	<mlnt>	http://json-ld.org/spec/latest/json-ld-syntax/#linking-data
+[10:51]	<niklasl>	manu: we went through 3 months defining this. we can adapt the terminology here, but if we change it all to RDF, we've said linked data == RDF.
+[10:52]	<niklasl>	manu: we use subject 70+ times in the document, and object some 43 times. 49 are subject definitions...
+[10:58]	<niklasl>	manu: our definition of linked data, by itself, should be clear and simple enough
+[10:59]	<niklasl>	gregg: but if it is RDF, we should use the same terms
+[11:00]	<niklasl>	niklas: we're talking about the resulting data graph (realized e.g. by parsing json-ld with a "connect"/"link" algorithm into an in memory graph). But that's neither the abstract triple structure of a graph, nor the denoted "knowledge graph"
+[11:02]	<manu1>	niklasl: So, let's work with Richard on this and try to find some common ground. It would be fine if we clearly say what we're describing... it's tangible, but perhaps somewhere inbetween the abstract and the concrete may be okay.
+[11:03]	<manu1>	ACTION: Manu to setup a phone call with Richard Cyganiak to discuss RDF/JSON-LD terminology.
+[11:03]	<manu1>	niklasl: We mean almost exactly the same things... maybe we should find where we differ and go from there.
+[11:03]	<manu1>	niklasl: We want JSON-LD to be a path to RDF w/o all of the theory up front.
+[11:05]	<manu1>	manu: My concern is that if we point RDF Concepts to people, that is a losing strategy with Web Developers... if we can't explain it in 2 paragraphs or 10 items in a list, we've failed.
+[11:05]	<mlnt>	Just found this in RDF Concepts: The predicate itself is an IRI and denotes a binary relation, also known as a property
+[11:06]	<manu1>	niklasl: Yes, RDF may be pure conceptually... but it may require a Web developer to be a philosopher...
+[11:07]	<niklasl>	gregg: the important thing is that we don't contradict RDF
+[11:09]	<niklasl>	gregg: text is a syntactic thing; literal is a model thing
+[11:10]	<niklasl>	... it might be worth updating the document with an issue marker about this
+[11:10]	<niklasl>	markus: I'll rewrite it and put the proposing change into the issue marker
+[11:10]	<niklasl>	gregg: an issue marker for 47 an 136
+[11:11]	<manu1>	Topic: ISSUE-66: Scoped/nested @contexts
+[11:11]	<manu1>	https://github.com/json-ld/json-ld.org/issues/66
+[11:11]	<niklasl>	manu: raised by dave lehn: The "External Contexts" section briefly mentions nested contexts.
+[11:11]	<niklasl>	... seems out of place and could perhaps use it's own named spec section
+[11:12]	<niklasl>	gregg: I agree that we need to keep nested contexts distinct
+[11:12]	<niklasl>	manu: but contexts within contexts adds complexity
+[11:14]	<niklasl>	manu: do we call contexts within a part of a document "scoped"?
+[11:14]	<niklasl>	gregg: an author may nest contexts within subject [sic] definitions
+[11:15]	<niklasl>	manu: change that to scoped?
+[11:15]	<niklasl>	gregg: an author may include contexs within node definitions to accomplish a scoped context
+[11:15]	<manu1>	PROPOSAL: Change the 'nest'ed terminology to 'scope'ed when referring to @contexts that exist inside of JSON objects.
+[11:16]	<gkellogg>	+1
+[11:16]	<niklasl>	+1
+[11:16]	<manu1>	+1
+[11:16]	<tidoust>	+1
+[11:16]	<mlnt>	+1
+[11:16]	<manu1>	RESOLVED: Change the 'nest'ed terminology to 'scope'ed when referring to @contexts that exist inside of JSON objects.
+[11:17]	<manu1>	markus: We should also split the description of "scoped" contexts into it's own sub-section in the advanced section.
+[11:17]	<manu1>	+1
+[11:19]	<manu1>	Topic: ISSUE-122: Allow declaring `@container` on `@type`
+[11:19]	<manu1>	https://github.com/json-ld/json-ld.org/issues/122
+[11:20]	<niklasl>	manu: you're +1 to support this, to force value of type to a json array
+[11:21]	<niklasl>	gregg: so you can know the type value is always wrapped in an array. for predictable access.
+[11:23]	<gkellogg>	_.compact(_.flatten([foo['@type']))
+[11:32]	<tidoust>	q+
+[11:32]	<voip-ld>	Added tidoust to the speaker queue: niklasl, tidoust
+[11:33]	<manu1>	ack niklasl
+[11:33]	<voip-ld>	niklasl has the floor. The next speaker is tidoust.
+[11:33]	<manu1>	niklasl: What about adding a declarative syntax to the @context? "@container": "@set"?
+[11:33]	<manu1>	manu: I'm not too fond of the idea.
+[11:33]	<tidoust>	ack me
+[11:33]	<manu1>	ack tidoust
+[11:33]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:33]	<manu1>	voip: unmute tidoust
+[11:33]	<voip-ld>	tidoust has been unmuted.
+[11:33]	<niklasl>	Discussion on pros/cons of flag for "always set" or e.g. @set: true or @container: @set in top-level of @context
+[11:35]	<niklasl>	tidoust: is this an all-or-nothing for having values within arrays in compact form?
+[11:35]	<niklasl>	manu: the in-between is having @set on every term, except for @type where we cannot do that
+[11:35]	<niklasl>	gregg: the alternative is to allow @container: @set in the context and @container: false to override that
+[11:36]	<manu1>	mlnt: I think the point is that you are either dealing w/ everything as optimized, or everything as an array - that's what the flag is for.
+[11:37]	<manu1>	niklasl: I'm wavering on this because I've seen cases where most of the data should be in sets... but there are also a bunch of properties that are functional properties -dct:identifier, dct:publisher, etc.
+[11:38]	<tidoust>	[OK, I had somehow missed the issue was restricted to @type. I am in favor of an option flag to "compact()"]
+[11:39]	<manu1>	voip: mute tidoust
+[11:39]	<voip-ld>	tidoust has been muted.
+[11:39]	* manu1	sorry tidoust - hearing static feedback again (for the person that's talking)
+[11:39]	<manu1>	niklasl: The needs for compaction are so specific for compaction that we can't address them all at this point.
+[11:40]	<manu1>	manu: Would you rather not put the flag in there?
+[11:40]	<manu1>	niklasl: I'm fine w/ a flag at this point.
+[11:40]	<manu1>	PROPOSAL: Add a flag to the .compact() and .frame() algorithms that turns off optimization of arrays with single items in them to single values in the output.
+[11:40]	<manu1>	+1
+[11:40]	<niklasl>	+1
+[11:40]	<mlnt>	+1
+[11:40]	<gkellogg>	+0.5
+[11:40]	<tidoust>	voip: unmute me
+[11:41]	<voip-ld>	tidoust has been unmuted.
+[11:42]	<tidoust>	+0.5
+[11:42]	<manu1>	RESOLVED: Add a flag to the .compact() and .frame() algorithms that turns off optimization of arrays with single items in them to single values in the output.
+[11:42]	<tidoust>	voip: mute me
+[11:42]	<voip-ld>	tidoust has been muted.
+[11:42]	<gkellogg>	Interesting discussion on TAG related to Linked Data and RDF: http://www.w3.org/2001/tag/2012/08/23-minutes#item04
