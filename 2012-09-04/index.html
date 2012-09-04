@@ -1,0 +1,257 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-09-04</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0000.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0000.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Talk about JSON-LD at NoSQL conference</a><li><a href="#topic-2">Discussion on RDF Concepts terminology</a><li><a href="#topic-3">ISSUE-134: Add @container: @id</a><li><a href="#topic-4">ISSUE-141: Prefix/CURIE terminology</a><li><a href="#topic-5">ISSUE-155: JSON-LD introduction via data model</a><li><a href="#topic-6">ISSUE-109: Add flatten() method to JSON-LD API</a><li><a href="#topic-7">Determine if .frame() should be in JSON-LD 1.0</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Do not support id-maps via 'container'; '@id' in JSON-LD 1.0.</a><li><a href="#resolution-2">Rewrite the introductory portions of the JSON-LD document to explain JSON-LD in JSON terms first, then describe the advantages of JSON-LD, then rework the Linked Data section as the JSON-LD data model section.</a><li><a href="#resolution-3">Support a 'flatten' option to .expand() and .compact(). The value of the option will be the graph to flatten and return. The default value will be false, to ensure that that the JSON-LD input document is not flattened.</a><li><a href="#resolution-4">Do not support .frame() in JSON-LD 1.0 API.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Niklas Lindström, Manu Sporny, Gregg Kellogg, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Markus Lanthaler</span>: hi</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/json-ld/json-ld.org/issues/140">https://github.com/json-ld/json-ld.org/issues/140</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  regarding framing we might take into account as well ISSUE 140 (objectify) as well</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates to the agenda? I have two things - would like to hear from Gregg about NoSQL + JSON-LD discussion, and I had a long discussion w/ Richard Cyganiak that was good. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">... probably we should start off with framing and look at that as an alternative to it</div>
+<h1 id="topic-1" class="topic">Topic: Talk about JSON-LD at NoSQL conference</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the audience was a bit unusual as NoSQL is just not *a* thing.. it's a lot of things</div>
+<div class="comment-continuation">... the tendency in Mongo is to use small docs however this can lead into severe performance issues</div>
+<div class="comment-continuation">... where JSON-LD really has an advantage there is that it supports named graphs</div>
+<div class="comment-continuation">... you can include all data collected from a source into one document in Mongo</div>
+<div class="comment-continuation">... another interesting thing is that there were several talks about JSONiq</div>
+<div class="comment-continuation">... which is basically XPath for JSON</div>
+<div class="comment-continuation">... I didn't had a look at it yet.. but the basic form to use it would be flattened graphs</div>
+<div class="comment-continuation">... a query should be something we should be able to tackle (generically)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://jsoniq.org">http://jsoniq.org</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, framing was intended to do some querying</div>
+<div class="comment-continuation">... any question regarding your talk at the conference</div>
+<div class="comment-continuation">... how do you feel about the approach you choose this time? Was it better than last time?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I spent very little time on the API</div>
+<div class="comment-continuation">... I probably should have had another slide on the API calls, describing them on a high-level</div>
+<div class="comment-continuation">... I think this approach worked pretty well.</div>
+<div class="comment-continuation">... there was a different group. I think the SemTech people understand the issues more to get confused :-)</div>
+<h1 id="topic-2" class="topic">Topic: Discussion on RDF Concepts terminology</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I talked to Richard off-line yesterday</div>
+<div class="comment-continuation">... Richard felt that we need to say a bit more how JSON-LD relates to RDF</div>
+<div class="comment-continuation">... but we don't need to do this at the beginning</div>
+<div class="comment-continuation">... he's the one to keep the terminology accross all "RDF" in sync</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 for Richard's contribution</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 as well</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment-continuation">... Richard will try to write that section</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment-continuation">... he also proposed to re-write the introduction in terms that Web developers understand, i.e., JSON terminology</div>
+<div class="comment-continuation">... e.g. JSON folks are more used to talk about objects than about nodes</div>
+<div class="comment-continuation">... he also felt pretty strongly about the JSON-LD model</div>
+<div class="comment-continuation">... he's not concerned about the people reading the model</div>
+<div class="comment-continuation">... it's more about people trying to create interoperable specs</div>
+<div class="comment-continuation">... we should also state clearly what JSON-LD adds to plain old JSON</div>
+<div class="comment-continuation">... I have an idea how the introduction should look like but would like to talk about this first</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Richard also mentioned to remove the whole Linked Data definition from the spec</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, that's another point</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the thing the draw me to RDF in general is that there is a clear intent on the conceptual level that you describe things on themselves</div>
+<div class="comment-continuation">... you have not raw data as in a table but you have a clear link to the domain model</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, I'll give it a try</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I would be -1 for renaming node definition/reference to object definition/reference</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This brings us to the last point</div>
+<div class="comment-continuation">... Richard was concernced about specifying what is linked data and what isn't linked data</div>
+<div class="comment-continuation">... this might be problematic as the web might change in the future</div>
+<div class="comment-continuation">... so we should take the normative linked data definition out and just define the JSON-LD's data model instead</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I agree that moving it away from defining Linked Data is a good idea</div>
+<div class="comment-continuation">... it's not really the job of a syntax/API spec to define something that broad</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm wondering what we are aiming at.. I mean we wanna make it compatible to RDF, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, and the answer is the RDF appendix Richard will be working on</div>
+<div class="comment-continuation">... but we can't say JSON-LD is a 1:1 serialization of RDF</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-134: Add @container: @id</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/134">https://github.com/json-ld/json-ld.org/issues/134</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we want support to @id maps?</div>
+<div class="comment-continuation">... the last resolution we made was "Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case."</div>
+<div class="comment-continuation">... I don't know what the other's position is</div>
+<div class="comment-continuation">... my position clearly changed.. I was against it at the beginning but after working on integrating some systems into JSON-LD I think I would be +1 on supporting this now</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm a bit more worried about using it deeply in a document</div>
+<div class="comment-continuation">... I would instead see it more reasonable at the document's top-level</div>
+<div class="comment-continuation">... which means it would need to work differently from other @containers</div>
+<div class="comment-continuation">... otherwise it's difficult to understand the data by just looking at a document</div>
+<div class="comment-continuation">... so summarized I would be +1 for having it at the top-level</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I generally agree with Gregg</div>
+<div class="comment-continuation">... it would be interesting some examples of the work you talked about before Manu</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I will try to add some</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think generally this is very useful for expansion (less so for compaction)</div>
+<div class="comment-continuation">... just like language maps it distorts the data shape</div>
+<div class="comment-continuation">... but the ID is such a fundamental concept that makes it problematic</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I tend to agree</div>
+<div class="comment-continuation">... if people start using all the available ways to express data it's very difficult to read documents</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there are a lot of practical reasons to support that at the top-level</div>
+<div class="comment-continuation">... e.g. node maps, graphify etc.</div>
+<div class="comment-continuation">... otherwise we use a data structure internally and there's no way to express that as a document in general</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm a bit worried about just supporting it at the top-level</div>
+<div class="comment-continuation">... not even the example in the issue is at the top-level</div>
+<div class="comment-continuation">... I'm worrying that adding just that doesn't address the issue</div>
+<div class="comment-continuation">... my preference right now is to do just nothing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  do we already support this for graphs?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  no</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we already support similar things so it wouldn't be too far off the path</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What's the difference between this and language maps? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's fairly easy to understand what a language map is doing just by looking at it... that's not necessarily true for @id maps. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does anyone feels strongly about addressing this in JSON-LD 1.0?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Just as Markus just said it is often a very efficient way to access data</div>
+<div class="comment-continuation">... if someone has a bunch of resources that are tightly bound together you either frame the data using one root node or you keep the data in something like a node map</div>
+<div class="comment-continuation">... doing graphify would make this probably make unnecessary as everything would be linked</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support id-maps via 'container'; '@id' in JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +-0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Do not support id-maps via 'container'; '@id' in JSON-LD 1.0.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-141: Prefix/CURIE terminology</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/141">https://github.com/json-ld/json-ld.org/issues/141</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I already checked the text, it's been changed and I think it addresses Gavin's issue. So, I closed the issue. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll ping Gavin to make sure he's okay with the change. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-155: JSON-LD introduction via data model</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/155">https://github.com/json-ld/json-ld.org/issues/155</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This what we discussed at the beginning of the call</div>
+<div class="comment-continuation">... I think we handled that already in the beginning of the call and I think we have agreement on this</div>
+<div class="comment"><span class="name">Manu Sporny</span>: In general, the introduction should be re-written to do the following things, in this order:</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 1. Basic Introduction to what JSON-LD is about.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 2. Basic introduction to the JSON model and what JSON-LD enables over the regular JSON model. Try to use JSON model terminology as much as possible at this stage.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 3. An introduction to the JSON-LD data model (this is currently the Linked Data section, but it may be renamed to avoid conflict in the RDF WG)</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Rewrite the introductory portions of the JSON-LD document to explain JSON-LD in JSON terms first, then describe the advantages of JSON-LD, then rework the Linked Data section as the JSON-LD data model section.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Rewrite the introductory portions of the JSON-LD document to explain JSON-LD in JSON terms first, then describe the advantages of JSON-LD, then rework the Linked Data section as the JSON-LD data model section.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-109: Add flatten() method to JSON-LD API</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/109">https://github.com/json-ld/json-ld.org/issues/109</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we might wanna have a flag to the call to just return the node map instead</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I wouldn't like to just have a flag.. I would prefer having two methods instead</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is the result of flatten() compacted?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  no</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I rely on that in my graphify() and it would be also useful in other scenarios such as using it with backbone</div>
+<div class="comment-continuation">... I think the question is whether we reduce the number of entry points or create API calls that depend on each other</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm worried that adding all that atomic stuff makes it more difficult for people to learn the API</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  first my graphify/connect doesn't flatten first.. it just traverses entire documents</div>
+<div class="comment-continuation">... the other thing is whether we need a flatten() method or whether we should have a flag to expand() to flatten a document</div>
+<div class="comment-continuation">... or compact()</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I like that idea</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You could use an empty frame, and that would flatten it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we all agree that some form of flatten should go into the spec</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so four options 1) Add a 'compact' flag to .expand() and .compact(), 2) Add a .flatten() method, 3) Add a .flattenToMap() call, and 4) .frame(obj, {}) would flatten. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 1) +1, 2) +0.5, 3) +0 - separate issue, 4) -1 - i don't think we're going to support .frame()</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: 1) +1(but the flag should be called 'flatten' or perhaps perferably 'merged'?), 2) -1, 3) +0, 4) -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: 1) +1, 2) +0.5, 3) +0.5, 4) -1</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'm a bit confused by the different options - I'm concerned that where a method can return something that isn't JSON-LD in the end. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One thing flatten() allows you to do is to pass a graph name and it just returns you the contents of that graph</div>
+<div class="comment-continuation">... this should be supported as well as something which allows you to get back as well the graph definitions itself</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'm concerned that depending on a flag, you get something different out of the API. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  It seems like we should be able to get JSON-LD out of .compact, .expand, etc. I understand that we don't do this for toRDF, and that's fine. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You are right, developers want indexed documents. If I just get back a flattened document I would have to go and redo the step of creating an indexed structure</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we need to seperate these two issues: flattening and id-maps</div>
+<div class="comment-continuation">... let's just try to decide what to do with flattening</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree.. and looking at the votes we probably end up adding a flag to compact/expand</div>
+<div class="comment-continuation">... one detail: "merged" might be a better term then "flatten"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is kind of doing both</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Support a 'flatten' option to .expand() and .compact(). The value of the option will be the graph to flatten and return. The default value will be false, to ensure that that the JSON-LD input document is not flattened.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Support a 'flatten' option to .expand() and .compact(). The value of the option will be the graph to flatten and return. The default value will be false, to ensure that that the JSON-LD input document is not flattened.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Just wanted to tell you that in my implementation I also support @type maps</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think this shows that we need some sort of .index() API method. Then we could have id-maps, type-maps, property-maps, etc. It would be the general solution that we've been looking for.</div>
+<h1 id="topic-7" class="topic">Topic: Determine if .frame() should be in JSON-LD 1.0</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/110">https://github.com/json-ld/json-ld.org/issues/110</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/118">https://github.com/json-ld/json-ld.org/issues/118</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/119">https://github.com/json-ld/json-ld.org/issues/119</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I have very little use of framing</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I do some kind of framing but it is totally idiomatic</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have a strong use of framing but I think it's too complicated</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 not to have framing in JSON-LD 1.0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I would be fine either way. What would be the next steps if we decide to drop it? Would we remove it from json-ld.org?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  No, I think we should keep the spec on json-ld.org - other people might find it helpful.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: we do use framing so would be nice to look into standardizing it sometime unless an alternative presents itself</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support .frame() in JSON-LD 1.0 API.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Do not support .frame() in JSON-LD 1.0 API.</div>
+</body>
+</html>

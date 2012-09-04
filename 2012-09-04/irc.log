@@ -1,0 +1,235 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0000.html
+[10:02]	* gkellogg	hey!
+[10:03]	<mlnt>	hi
+[10:03]	* tidoust	(well, morning for some, right)
+[10:04]	<manu1>	scribe: mlnt
+[10:04]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/140
+[10:04]	<mlnt>	niklas: regarding framing we might take into account as well ISSUE 140 (objectify) as well
+[10:05]	<manu1>	Manu: Any updates to the agenda? I have two things - would like to hear from Gregg about NoSQL + JSON-LD discussion, and I had a long discussion w/ Richard Cyganiak that was good.
+[10:05]	<mlnt>	... probably we should start off with framing and look at that as an alternative to it
+[10:05]	-->|	scor (~scor@132.183.243.165) has joined #json-ld
+[10:05]	|<--	scor has left freenode (Changing host)
+[10:05]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[10:05]	<manu1>	Topic: Talk about JSON-LD at NoSQL conference
+[10:06]	<mlnt>	gregg: the audience was a bit unusual as NoSQL is just not *a* thing.. it's a lot of things
+[10:07]	<mlnt>	... the tendency in Mongo is to use small docs however this can lead into severe performance issues
+[10:07]	<mlnt>	... where JSON-LD really has an advantage there is that it supports named graphs
+[10:07]	<mlnt>	... you can include all data collected from a source into one document in Mongo
+[10:09]	<mlnt>	... another interesting thing is that there were several talks about JSONiq
+[10:09]	<mlnt>	... which is basically XPath for JSON
+[10:09]	<mlnt>	... I didn't had a look at it yet.. but the basic form to use it would be flattened graphs
+[10:10]	<mlnt>	... a query should be something we should be able to tackle (generically)
+[10:10]	<gkellogg>	http://jsoniq.org
+[10:11]	<mlnt>	manu: Yes, framing was intended to do some querying
+[10:12]	<mlnt>	... any question regarding your talk at the conference
+[10:12]	<mlnt>	... how do you feel about the approach you choose this time? Was it better than last time?
+[10:12]	<mlnt>	gregg: I spent very little time on the API
+[10:13]	<mlnt>	... I probably should have had another slide on the API calls, describing them on a high-level
+[10:13]	<mlnt>	... I think this approach worked pretty well.
+[10:14]	<mlnt>	... there was a different group. I think the SemTech people understand the issues more to get confused :-)
+[10:14]	<manu1>	Topic: Discussion on RDF Concepts terminology
+[10:14]	<mlnt>	manu: I talked to Richard off-line yesterday
+[10:15]	<mlnt>	... Richard felt that we need to say a bit more how JSON-LD relates to RDF
+[10:15]	<mlnt>	... but we don't need to do this at the beginning
+[10:16]	<mlnt>	... he's the one to keep the terminology accross all "RDF" in sync
+[10:16]	<niklasl>	+1 for Richard's contribution
+[10:16]	<tidoust>	+1 as well
+[10:16]	<gkellogg>	+1
+[10:16]	<mlnt>	... Richard will try to write that section
+[10:16]	<mlnt>	+1
+[10:17]	<mlnt>	... he also proposed to re-write the introduction in terms that Web developers understand, i.e., JSON terminology
+[10:17]	<mlnt>	... e.g. JSON folks are more used to talk about objects than about nodes
+[10:18]	<mlnt>	... he also felt pretty strongly about the JSON-LD model
+[10:19]	<mlnt>	... he's not concerned about the people reading the model
+[10:19]	<mlnt>	... it's more about people trying to create interoperable specs
+[10:19]	<mlnt>	... we should also state clearly what JSON-LD adds to plain old JSON
+[10:20]	<gkellogg>	q+
+[10:20]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:20]	<manu1>	ack gkellogg
+[10:20]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:20]	<mlnt>	... I have an idea how the introduction should look like but would like to talk about this first
+[10:20]	<mlnt>	gregg: Richard also mentioned to remove the whole Linked Data definition from the spec
+[10:20]	<mlnt>	manu: Yes, that's another point
+[10:21]	<niklasl>	q+
+[10:21]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:21]	<manu1>	ack niklasl
+[10:21]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:22]	<mlnt>	niklas: the thing the draw me to RDF in general is that there is a clear intent on the conceptual level that you describe things on themselves
+[10:22]	<mlnt>	... you have not raw data as in a table but you have a clear link to the domain model
+[10:23]	<mlnt>	manu: OK, I'll give it a try
+[10:23]	<mlnt>	gregg: I would be -1 for renaming node definition/reference to object definition/reference
+[10:24]	<mlnt>	manu: This brings us to the last point
+[10:24]	<mlnt>	... Richard was concernced about specifying what is linked data and what isn't linked data
+[10:24]	<mlnt>	... this might be problematic as the web might change in the future
+[10:25]	<mlnt>	... so we should take the normative linked data definition out and just define the JSON-LD's data model instead
+[10:25]	<gkellogg>	q+
+[10:25]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:26]	<manu1>	ack gkellogg
+[10:26]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:26]	<mlnt>	gregg: I agree that moving it away from defining Linked Data is a good idea
+[10:27]	<mlnt>	... it's not really the job of a syntax/API spec to define something that broad
+[10:28]	<niklasl>	q+
+[10:28]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:28]	<manu1>	ack niklasl
+[10:28]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:28]	<mlnt>	niklas: I'm wondering what we are aiming at.. I mean we wanna make it compatible to RDF, right?
+[10:29]	<mlnt>	manu: Yes, and the answer is the RDF appendix Richard will be working on
+[10:29]	<mlnt>	... but we can't say JSON-LD is a 1:1 serialization of RDF
+[10:30]	<manu1>	Topic: ISSUE-134: Add @container: @id
+[10:30]	<manu1>	https://github.com/json-ld/json-ld.org/issues/134
+[10:31]	<mlnt>	manu: Do we want support to @id maps?
+[10:31]	<gkellogg>	q+
+[10:31]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:31]	<mlnt>	... the last resolution we made was "Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case."
+[10:31]	<mlnt>	... I don't know what the other's position is
+[10:32]	<manu1>	ack gkellogg
+[10:32]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:32]	<mlnt>	... my position clearly changed.. I was against it at the beginning but after working on integrating some systems into JSON-LD I think I would be +1 on supporting this now
+[10:33]	<mlnt>	gregg: I'm a bit more worried about using it deeply in a document
+[10:33]	<mlnt>	... I would instead see it more reasonable at the document's top-level
+[10:33]	<mlnt>	... which means it would need to work differently from other @containers
+[10:33]	<niklasl>	q+
+[10:33]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:34]	<mlnt>	... otherwise it's difficult to understand the data by just looking at a document
+[10:34]	<manu1>	ack niklasl
+[10:34]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:34]	<mlnt>	... so summarized I would be +1 for having it at the top-level
+[10:34]	<mlnt>	niklas: I generally agree with Gregg
+[10:35]	<mlnt>	... it would be interesting some examples of the work you talked about before Manu
+[10:35]	<mlnt>	manu: I will try to add some
+[10:35]	<mlnt>	niklas: I think generally this is very useful for expansion (less so for compaction)
+[10:36]	<mlnt>	... just like language maps it distorts the data shape
+[10:36]	<mlnt>	... but the ID is such a fundamental concept that makes it problematic
+[10:37]	<mlnt>	manu: I tend to agree
+[10:38]	<mlnt>	... if people start using all the available ways to express data it's very difficult to read documents
+[10:39]	<mlnt>	gregg: there are a lot of practical reasons to support that at the top-level
+[10:39]	<mlnt>	... e.g. node maps, graphify etc.
+[10:39]	<mlnt>	... otherwise we use a data structure internally and there's no way to express that as a document in general
+[10:39]	<mlnt>	manu: I'm a bit worried about just supporting it at the top-level
+[10:40]	<niklasl>	q+
+[10:40]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:40]	<mlnt>	... not even the example in the issue is at the top-level
+[10:40]	<mlnt>	... I'm worrying that adding just that doesn't address the issue
+[10:40]	<mlnt>	... my preference right now is to do just nothing
+[10:40]	<manu1>	ack niklasl
+[10:40]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:41]	<mlnt>	niklas: do we already support this for graphs?
+[10:41]	<mlnt>	mlnt: no
+[10:42]	<mlnt>	niklas: we already support similar things so it wouldn't be too far off the path
+[10:44]	<manu1>	markus: What's the difference between this and language maps?
+[10:45]	<manu1>	gregg: It's fairly easy to understand what a language map is doing just by looking at it... that's not necessarily true for @id maps.
+[10:50]	<mlnt>	manu: Does anyone feels strongly about addressing this in JSON-LD 1.0?
+[10:51]	<mlnt>	niklas: Just as Markus just said it is often a very efficient way to access data
+[10:52]	<mlnt>	... if someone has a bunch of resources that are tightly bound together you either frame the data using one root node or you keep the data in something like a node map
+[10:54]	<mlnt>	... doing graphify would make this probably make unnecessary as everything would be linked
+[10:54]	<manu1>	PROPOSAL: Do not support id-maps via 'container'; '@id' in JSON-LD 1.0.
+[10:54]	<manu1>	+1
+[10:54]	<gkellogg>	+1
+[10:54]	<tidoust>	+1
+[10:54]	<niklasl>	+-0
+[10:54]	<mlnt>	+0
+[10:54]	<manu1>	RESOLVED: Do not support id-maps via 'container'; '@id' in JSON-LD 1.0.
+[10:55]	<manu1>	Topic: ISSUE-141: Prefix/CURIE terminology
+[10:55]	<manu1>	https://github.com/json-ld/json-ld.org/issues/141
+[10:56]	<manu1>	mlnt: I already checked the text, it's been changed and I think it addresses Gavin's issue. So, I closed the issue.
+[10:57]	<manu1>	manu: I'll ping Gavin to make sure he's okay with the change.
+[10:58]	<manu1>	Topic: ISSUE-155: JSON-LD introduction via data model
+[10:59]	<manu1>	https://github.com/json-ld/json-ld.org/issues/155
+[10:59]	<mlnt>	manu: This what we discussed at the beginning of the call
+[10:59]	<mlnt>	... I think we handled that already in the beginning of the call and I think we have agreement on this
+[11:00]	<manu1>	In general, the introduction should be re-written to do the following things, in this order:
+[11:00]	<manu1>	1. Basic Introduction to what JSON-LD is about.
+[11:00]	<manu1>	2. Basic introduction to the JSON model and what JSON-LD enables over the regular JSON model. Try to use JSON model terminology as much as possible at this stage.
+[11:00]	<manu1>	3. An introduction to the JSON-LD data model (this is currently the Linked Data section, but it may be renamed to avoid conflict in the RDF WG)
+[11:01]	<manu1>	PROPOSAL: Rewrite the introductory portions of the JSON-LD document to explain JSON-LD in JSON terms first, then describe the advantages of JSON-LD, then rework the Linked Data section as the JSON-LD data model section.
+[11:01]	<gkellogg>	+1
+[11:01]	<manu1>	+1
+[11:01]	<tidoust>	+1
+[11:01]	<niklasl>	+1
+[11:01]	<mlnt>	+1
+[11:01]	<manu1>	RESOLVED: Rewrite the introductory portions of the JSON-LD document to explain JSON-LD in JSON terms first, then describe the advantages of JSON-LD, then rework the Linked Data section as the JSON-LD data model section.
+[11:01]	<manu1>	Topic: ISSUE-109: Add flatten() method to JSON-LD API
+[11:02]	<manu1>	https://github.com/json-ld/json-ld.org/issues/109
+[11:03]	<mlnt>	gregg: we might wanna have a flag to the call to just return the node map instead
+[11:05]	<mlnt>	markus: I wouldn't like to just have a flag.. I would prefer having two methods instead
+[11:06]	<niklasl>	q+
+[11:06]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:06]	<mlnt>	gregg: Is the result of flatten() compacted?
+[11:06]	<mlnt>	markus: no
+[11:07]	<mlnt>	gregg: I rely on that in my graphify() and it would be also useful in other scenarios such as using it with backbone
+[11:08]	<mlnt>	... I think the question is whether we reduce the number of entry points or create API calls that depend on each other
+[11:09]	<mlnt>	manu: I'm worried that adding all that atomic stuff makes it more difficult for people to learn the API
+[11:09]	<mlnt>	q+
+[11:09]	<voip-ld>	Added mlnt to the speaker queue: niklasl, mlnt
+[11:09]	<manu1>	ack niklasl
+[11:09]	<voip-ld>	niklasl has the floor. The next speaker is mlnt.
+[11:10]	<mlnt>	niklas: first my graphify/connect doesn't flatten first.. it just traverses entire documents
+[11:11]	<mlnt>	... the other thing is whether we need a flatten() method or whether we should have a flag to expand() to flatten a document
+[11:11]	<mlnt>	... or compact()
+[11:11]	<mlnt>	gregg: I like that idea
+[11:12]	<manu1>	ack mlnt
+[11:12]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:12]	<manu1>	mlnt: You could use an empty frame, and that would flatten it.
+[11:13]	<mlnt>	manu: I think we all agree that some form of flatten should go into the spec
+[11:13]	<voip-ld>	Dave Lehn (SIP/6003-0000007c) has joined the conference.
+[11:14]	<manu1>	manu: Ok, so four options 1) Add a 'compact' flag to .expand() and .compact(), 2) Add a .flatten() method, 3) Add a .flattenToMap() call, and 4) .frame(obj, {}) would flatten.
+[11:16]	<manu1>	1) +1, 2) +0.5, 3) +0 - separate issue, 4) -1 - i don't think we're going to support .frame()
+[11:17]	<niklasl>	1) +1(but the flag should be called 'flatten' or perhaps perferably 'merged'?), 2) -1, 3) +0, 4) -1
+[11:17]	<gkellogg>	1) +1, 2) +0.5, 3) +0.5, 4) -1
+[11:19]	<tidoust>	q+
+[11:19]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:19]	<tidoust>	voip: unmute me
+[11:19]	<manu1>	ack tidoust
+[11:19]	<voip-ld>	tidoust has been unmuted.
+[11:19]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[11:20]	<manu1>	tidoust: I'm a bit confused by the different options - I'm concerned that where a method can return something that isn't JSON-LD in the end.
+[11:20]	<mlnt>	gregg: One thing flatten() allows you to do is to pass a graph name and it just returns you the contents of that graph
+[11:21]	<mlnt>	... this should be supported as well as something which allows you to get back as well the graph definitions itself
+[11:21]	<manu1>	tidoust: I'm concerned that depending on a flag, you get something different out of the API.
+[11:22]	<manu1>	tidoust: It seems like we should be able to get JSON-LD out of .compact, .expand, etc. I understand that we don't do this for toRDF, and that's fine.
+[11:22]	<tidoust>	voip: mute me
+[11:22]	<voip-ld>	tidoust has been muted.
+[11:22]	<niklasl>	q+
+[11:22]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:24]	<mlnt>	gregg: You are right, developers want indexed documents. If I just get back a flattened document I would have to go and redo the step of creating an indexed structure
+[11:24]	<mlnt>	manu: I think we need to seperate these two issues: flattening and id-maps
+[11:24]	<manu1>	ack niklasl
+[11:24]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:24]	<mlnt>	... let's just try to decide what to do with flattening
+[11:25]	<mlnt>	niklas: I agree.. and looking at the votes we probably end up adding a flag to compact/expand
+[11:26]	<mlnt>	... one detail: "merged" might be a better term then "flatten"
+[11:26]	<mlnt>	gregg: Is kind of doing both
+[11:27]	|<--	linclark has left freenode (Read error: Connection reset by peer)
+[11:28]	<manu1>	PROPOSAL: Support a 'flatten' option to .expand() and .compact(). The value of the option will be the graph to flatten and return. The default value will be false, to ensure that that the JSON-LD input document is not flattened.
+[11:29]	<gkellogg>	+1
+[11:29]	<manu1>	+1
+[11:29]	<niklasl>	+1
+[11:29]	<tidoust>	+1
+[11:29]	<mlnt>	+1
+[11:29]	<manu1>	RESOLVED: Support a 'flatten' option to .expand() and .compact(). The value of the option will be the graph to flatten and return. The default value will be false, to ensure that that the JSON-LD input document is not flattened.
+[11:30]	<niklasl>	q+
+[11:31]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:31]	<manu1>	ack niklasl
+[11:31]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:31]	<mlnt>	niklas: Just wanted to tell you that in my implementation I also support @type maps
+[11:31]	<mlnt>	manu: I think this shows that we need some sort of .index() API method. Then we could have id-maps, type-maps, property-maps, etc. It would be the general solution that we've been looking for.
+[11:34]	<manu1>	Topic: Determine if .frame() should be in JSON-LD 1.0
+[11:34]	<manu1>	https://github.com/json-ld/json-ld.org/issues/110
+[11:34]	<manu1>	https://github.com/json-ld/json-ld.org/issues/118
+[11:34]	<manu1>	https://github.com/json-ld/json-ld.org/issues/119
+[11:34]	<mlnt>	gregg: I have very little use of framing
+[11:35]	<mlnt>	niklas: I do some kind of framing but it is totally idiomatic
+[11:35]	<mlnt>	manu: We have a strong use of framing but I think it's too complicated
+[11:35]	<tidoust>	+1 not to have framing in JSON-LD 1.0
+[11:36]	<mlnt>	markus: I would be fine either way. What would be the next steps if we decide to drop it? Would we remove it from json-ld.org?
+[11:36]	<mlnt>	manu: No, I think we should keep the spec on json-ld.org - other people might find it helpful.
+[11:37]	<taaz>	we do use framing so would be nice to look into standardizing it sometime unless an alternative presents itself
+[11:37]	<manu1>	PROPOSAL: Do not support .frame() in JSON-LD 1.0 API.
+[11:37]	<gkellogg>	+1
+[11:37]	<tidoust>	+1
+[11:37]	<manu1>	+1
+[11:37]	<mlnt>	+0
+[11:37]	<niklasl>	+1
+[11:37]	<taaz>	+0
+[11:37]	<manu1>	RESOLVED: Do not support .frame() in JSON-LD 1.0 API.
+
