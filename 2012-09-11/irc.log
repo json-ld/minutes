@@ -1,0 +1,281 @@
+[10:06]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0004.html
+[10:07]	<tidoust>	[Manu going through the agenda. A couple of issues may not be resolved today as there are too many proposals on the table]
+[10:07]	<manu1>	scribe: tidoust
+[10:07]	<manu1>	Topic: ISSUE-159: Add specifying @language to expanded form
+[10:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/159
+[10:08]	<tidoust>	Manu: Issue has to do with round-tripping language-map stuff.
+[10:08]	<tidoust>	... We added support for Drupal community and Wikidata community.
+[10:09]	<niklasl>	q+ to compare expanded map with named graphs and explicit language (e.g. dc:language)
+[10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:09]	<tidoust>	... No context in expanded form, otherwise we'd have to interpret this in very weird ways.
+[10:09]	<tidoust>	... Question I asked the Wikidata community was "Why not work in compact form?"
+[10:10]	<tidoust>	... Having languages as keys gives direct access to data
+[10:11]	<tidoust>	... The problem is now to define how the expanded form is generated from the compact form so that we can get back to the compact form afterwards.
+[10:11]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/159#issuecomment-8455585
+[10:11]	<tidoust>	Markus: If you have @language in expanded form, there might be collisions with @language that are already there or with properties that are of other types and do not accept @language.
+[10:11]	<tidoust>	... See comment in github issue
+[10:12]	<tidoust>	... One option to solve this would be to keep a @context in expanded form, but not what we'd like to have.
+[10:13]	<tidoust>	Niklas: Precedence is good in any case. Even in compact form.
+[10:13]	<tidoust>	Manu: Yes. If we have precedence, does it address your concern Markus?
+[10:13]	<scor>	are you guys saying that in any case, any typed value could not have a language?
+[10:13]	<tidoust>	Markus: for a plain literal, it wouldn't because you cannot add @language to a plain literal.
+[10:14]	<scor>	niklasl: we understand we're diverging from RDF here
+[10:15]	<tidoust>	... It's strange to have language information in expanded form. The only way to describe this is RDF is to have a named graph.
+[10:15]	<tidoust>	... (scribe missed details)
+[10:15]	<manu1>	"term": { "@language": {"en": ..., "de": ...}}
+[10:15]	<manu1>	"http://foo.bar/vocab#term": { "@language": {"en": ..., "de": ...}}
+[10:16]	<tidoust>	Manu: wondering if we could do something like the snippet I just pasted
+[10:16]	<tidoust>	Markus: The problem is that we're trying to express data that is not there. It's metadata.
+[10:17]	<tidoust>	Niklas: The expanded form is an abstract triple representation and what we do with language maps (and id-maps for that matter) is just reify indexing.
+[10:17]	<scor>	voip-ld: unmute me
+[10:17]	<voip-ld>	scor has been unmuted.
+[10:17]	<tidoust>	... Only if we stay within JSON-LD and expand/compact would you get round-tripping.
+[10:18]	<scor>	q+
+[10:18]	<voip-ld>	Added scor to the speaker queue: niklasl, scor
+[10:18]	<tidoust>	Manu: The concern in the Drupal community is that you could get something different out.
+[10:18]	<manu1>	ack niklasl
+[10:18]	<voip-ld>	niklasl has the floor (to compare expanded map with named graphs and explicit language (e.g. dc:language)). The next speaker is scor.
+[10:18]	<tidoust>	Niklas: The only thing expanded are terms. That's the only expansion we've talked about. Perhaps that's a good concept.
+[10:19]	<manu1>	ack scor
+[10:19]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:19]	<tidoust>	Manu: I don't know if ends up becoming a different type of form for JSON-LD.
+[10:19]	<tidoust>	scor: Niklas, you were talking about round-tripping in RDF.
+[10:20]	<tidoust>	... It wouldn't be a concern in Drupal because it's never used internally.
+[10:20]	<tidoust>	... Our goal is not necessarily to output RDF in the end.
+[10:21]	<tidoust>	... What we'd like to do is use the compact form, expand it and process it.
+[10:21]	<tidoust>	... We just want to have the language in the expanded form.
+[10:21]	<niklasl>	q+
+[10:21]	<manu1>	q+ to explain Drupal use case in a little more depth.
+[10:21]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:21]	<tidoust>	... Getting the same data from compaction is not exactly our use case.
+[10:21]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[10:21]	<mlnt>	q+
+[10:21]	<voip-ld>	Added mlnt to the speaker queue: niklasl, manu1, mlnt
+[10:21]	<manu1>	ack niklasl
+[10:21]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[10:22]	<tidoust>	... You guys may want to recompact it again and get the same data, but not exactly what we need in practice.
+[10:22]	<tidoust>	Niklas: I can understand your use case. I touched upon it during a RDFa to JSON-LD workshop.
+[10:23]	<manu1>	ack manu1
+[10:23]	<voip-ld>	niklasl has the floor (to explain Drupal use case in a little more depth.). The next speaker is mlnt.
+[10:23]	<tidoust>	... If we want to support it, we should do it via the notion of term expansion, not full expansion.
+[10:23]	* niklasl	gets a lot of noise
+[10:23]	<manu1>	voip: mute scor
+[10:23]	<voip-ld>	scor has been muted.
+[10:23]	<tidoust>	Manu: Just a quick explanation about the Drupal use case. Every Drupal site has a slightly different context.
+[10:24]	<tidoust>	... Tags can have different information associated with them across Drupal sites.
+[10:24]	<scor>	can be anything, 'tags' is just an example
+[10:24]	<tidoust>	manu: Those tags are kind of b-nodes.
+[10:24]	<tidoust>	... When two Drupal sites share data, one of them is going to export data as JSON-LD, using its context, probably expanding it.
+[10:25]	<tidoust>	... The targeted Drupal site will process the received data, using the expanded form as input and compacting using the target context.
+[10:25]	<tidoust>	... The idea that we need to reconstruct the language map is a pretty strong requirement.
+[10:25]	<tidoust>	... I also think that both Niklas and Markus have very strong points.
+[10:26]	<manu1>	"http://foo.bar/vocab#term": { "@language": {"en": ..., "de": ...}}
+[10:26]	<tidoust>	... The only solution that I can see working that doesn't have the issue Markus raised in the beginning is the idea I share on IRC
+[10:26]	<voip-ld>	<unknown> (IAX2/diamondcard-14370) has joined the conference.
+[10:26]	<manu1>	ack manu1
+[10:27]	<manu1>	ack mlnt
+[10:27]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:27]	<tidoust>	... I don't see any issue with this, but I may miss something.
+[10:27]	<mlnt>	alternative: { "@context": { "langmap": "example.com/vocab/term#" }, "langmap:de": ..., "langmap:en": ... }
+[10:27]	<scor>	voip-ld: unmute me
+[10:27]	<voip-ld>	scor has been unmuted.
+[10:27]	<mlnt>	perhaps additionaly define "langmap:de": { "@language": "de" } in context or add context inline
+[10:27]	<tidoust>	Markus: I don't see an issue with that but proposing another alternative on IRC for Stéphane.
+[10:27]	<manu1>	voip: connections?
+[10:27]	<voip-ld>	Conference connections: <no name> (tidoust) [IAX2/diamondcard-15330], Manu Sporny [SIP/6000-00000095], Markus Lanthaler [SIP/sip.linphone.org-00000094], IAX2/diamondcard-14370, <unknown> (scor) [IAX2/diamondcard-2469], Niklas Lindström [SIP/192.168.3.15-00000093]
+[10:28]	<linclark>	hey all, I'm on call now as well
+[10:28]	* manu1	waves at linclark.
+[10:28]	<manu1>	voip: 14370 is linclark
+[10:28]	<voip-ld>	linclark is now associated with IAX2/diamondcard-14370.
+[10:28]	<mlnt>	langmap:de - example.com/vocab/term#de
+[10:28]	<mlnt>	langmap:it - example.com/vocab/term#it
+[10:29]	<mlnt>	example.com/vocab/term#it
+[10:29]	<tidoust>	Markus: basically, you'd have different terms for different properties.
+[10:29]	<tidoust>	scor: How would you re-compact this in the end?
+[10:29]	<mlnt>	{ "@context": { "langmap": "example.com/vocab/term#" }
+[10:29]	<mlnt>	langmap:LANGUAGE
+[10:30]	<tidoust>	Markus: with the context just pasted on IRC, you would just re-generate the initial data
+[10:30]	<tidoust>	Lin: That sounds a lot like the proposal Manu had made initially
+[10:31]	<tidoust>	Manu: There's a downside (missed by scribe) to that that explains why we had left the idea in the end.
+[10:31]	<tidoust>	... The only reason why we want it in expanded form is to be able to recompact it in lossless form.
+[10:32]	<tidoust>	... This idea of being able to tell whether something came from a language map is to reconstruct the same structure in the end.
+[10:32]	<tidoust>	... There may be times that you express values in expanded form where you didn't want them to be necessarily put back in language maps.
+[10:33]	<tidoust>	Niklas: The question is whether data coming from language-based data can be reconstructing. Any deviation from that should not use language maps to compact because that would always give weird results.
+[10:34]	<tidoust>	... If you start mixing from various sources, you may have titles in English but description in Italian, then properties would fall in different buckets if you use language maps.
+[10:34]	<manu1>	I'm proposing this: "http://foo.bar/vocab#term": { "@language": {"en": ..., "de": ...}} because... 1-to-1 mapping
+[10:35]	* tidoust	dammit, again!, I thought I had it right this time ;)
+[10:35]	<mlnt>	http://foo.bar/vocab#term -> term
+[10:36]	* niklasl	:)
+[10:36]	<niklasl>	q+
+[10:36]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:36]	<tidoust>	[Markus and Manu discussing examples of expansion/compaction]
+[10:36]	<manu1>	voip: mute scor
+[10:36]	<voip-ld>	scor has been muted.
+[10:36]	<manu1>	ack niklasl
+[10:36]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:37]	<tidoust>	Niklas: I wonder if the expanded form you're proposing here would solve the problem of combining two sources.
+[10:37]	<tidoust>	... It seems to require things from the compaction algorithm.
+[10:37]	<tidoust>	Manu: Let's say you have two documents that use the same IRI term and you expand.
+[10:39]	<tidoust>	... Without a flag and with the rank algorithm that we have, there wouldn't be any problem.
+[10:39]	<tidoust>	... The term with the language map would be separated from the term without the language map.
+[10:40]	<tidoust>	... That's for when we don't flatten.
+[10:40]	<tidoust>	... If we do flatten, (scribe missed that), that would address the issue.
+[10:41]	<tidoust>	Niklas: I'd rather we put information in the different buckets in expanded form so that compaction be done deterministically
+[10:42]	<tidoust>	Manu: and it's a fairly expensive operation when the data gets bigger. I agree with you Niklas. If we could simplify, we should.
+[10:43]	<tidoust>	... It turns out that, each time we need to look into details, we end up with things that are fairly complex. The ranking algorithm is a good example of this. It becomes impossible to know what will happen without understanding the algorithm itself.
+[10:44]	<tidoust>	... All that to say that I agree in principle, but I'm worried about the algorithm will become more complex than expressing a 1-to-1 mapping with language maps.
+[10:44]	<tidoust>	Niklas: The problem is that we're trying to express something that we cannot even express in our data model.
+[10:45]	<tidoust>	Lin: Are there differences between RDF data model and JSON-LD data model?
+[10:45]	<tidoust>	... I saw discussions from Gregg
+[10:45]	<niklasl>	q+
+[10:45]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:46]	<tidoust>	Manu: This is kind of corner state. We don't make use of the differences for the time being, although there is a tiny difference, indeed.
+[10:46]	<manu1>	ack nicklasl
+[10:46]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:46]	<tidoust>	... We just have to be very careful if we say JSON-LD uses RDF data model since that's not entirely true.
+[10:47]	<niklasl>	{'@language': 'en', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:47]	<niklasl>	{'@language': 'de', '@id': 'http://example.com/tags/baz', 'label': ' Baz'}
+[10:47]	<tidoust>	Niklas: Example on IRC. Different resources because different IDs.
+[10:48]	<tidoust>	... The node themselves have not, in RDF terms, any language expressed.
+[10:48]	<niklasl>	{'@language': 'en', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:48]	<niklasl>	{'@language': 'de', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:48]	<tidoust>	... You can infer that "Foo" seems to be in English.
+[10:48]	<tidoust>	... but that's all.
+[10:48]	<tidoust>	... Now consider the second example, where IDs are the same.
+[10:49]	<niklasl>	{'dc:language': 'en', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:49]	<tidoust>	... We have a problem here because it's not clear whether we want to reify the language. Do we want to say that the node is somehow intrinsically associated with English, then you should use 'dc:language'.
+[10:49]	<scor>	q+
+[10:49]	<voip-ld>	Added scor to the speaker queue: scor
+[10:49]	<manu1>	"term": {"en": "Foo", "de": "Bar"}
+[10:49]	<tidoust>	... That is quite different from that there is an English label about this.
+[10:50]	<scor>	voip-ld: unmute me
+[10:50]	<voip-ld>	scor has been unmuted.
+[10:50]	<tidoust>	Manu: On the opposite, we need to account for very simple examples such as the one I just pasted.
+[10:51]	<niklasl>	{'dc:language': 'en', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:51]	<niklasl>	{'@language': 'en', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:51]	<niklasl>	{'@language': 'de', '@id': 'http://example.com/tags/foo', 'label': ' Foo'}
+[10:51]	<manu1>	ack scor
+[10:51]	<voip-ld>	scor has the floor. The speaker queue is empty.
+[10:51]	<tidoust>	Niklas: actually, that's simple and straightforward.
+[10:51]	<tidoust>	Stéphane: I just wanted to jump on Niklas comments.
+[10:52]	<tidoust>	... When you use 'dc:language', you say that the resource is in English
+[10:53]	<tidoust>	... (scribe missed description because of noise)
+[10:53]	<tidoust>	Niklas: you have two different resources, one being a translation of the other.
+[10:53]	<tidoust>	Lin: No, they don't want to have separate graphs.
+[10:53]	<tidoust>	... Different properties in different languages.
+[10:55]	<tidoust>	... You would have an author field on the node. That field count point to Stéphane for the French version and to myself in the English version.
+[10:55]	<tidoust>	... I understand that in the RDF model, it would be understood as two different graphs.
+[10:56]	<tidoust>	... If we start to introduce complex syntax, people will get lost, and it's just not worth it for the 2-3 people that understand this.
+[10:56]	<tidoust>	Manu: We understand the need to have simple ways of accessing the data.
+[10:57]	<tidoust>	Niklas: I object to this. This has nothing to do with simplicity of accessing the data, but with simplicity of modeling the data.
+[10:57]	<tidoust>	Manu: I don't think it applies to the Drupal use case. I don't think they should have to change data modeling for this.
+[10:58]	<tidoust>	Niklas: I am not a fundamentalist here, we have to find a pragmatical solution to the issue.
+[10:58]	<tidoust>	Lin: The translation to us is not a different resource.
+[10:58]	<tidoust>	Niklas: but there are two different translations.
+[10:59]	<mlnt>	q+
+[10:59]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:59]	<manu1>	aside - "http://foo.bar/vocab#term": { "@language": {"en": ..., "de": ...}} also allows the Drupal folks to work w/ expanded form, if they need to.
+[10:59]	<niklasl>	... {"@id": "/resource", translation": {"en": {"author": {"@id": "/lin"}}, "de": {"author": {"@id": "/stephane"}}}
+[11:00]	<tidoust>	Niklas: you don't have to describe the translation in any more detail than in the code I just pasted.
+[11:00]	<mlnt>	alternative {"@id": "/resource", "en": {"author": {"@id": "/lin"}}, "de": {"author": {"@id": "/stephane"}}}
+[11:01]	<mlnt>	where "en" is a property like example.com/vocab/languages/en
+[11:01]	<tidoust>	... You can have a property that combines translations
+[11:01]	<manu1>	q+ to move to summarize and move to next issue.
+[11:01]	<voip-ld>	Added manu1 to the speaker queue: mlnt, manu1
+[11:01]	<manu1>	ack mlnt
+[11:01]	<voip-ld>	mlnt has the floor. The next speaker is manu1.
+[11:01]	<tidoust>	Markus: along the same lines as Niklas
+[11:01]	<mlnt>	alternative {"@id": "/resource", "en": {"author": {"@id": "/lin"}}, "de": {"author": {"@id": "/stephane"}}}
+[11:02]	<tidoust>	Lin: I actually suggested that to our multilingual initiative, but they put so much work in it and it's already almost done that I don't think that we can or we should change our data model at this point.
+[11:03]	<tidoust>	Niklas: From an implementation perspective, it's more or less the same.
+[11:03]	<tidoust>	Lin: They're doing a lot of stuff in the multilingual initiative that I'm not involved with, so I can't speak particularly to all the details.
+[11:04]	<tidoust>	... I don't think we can convince everyone that it's worth it because of JSON-LD.
+[11:04]	<scor>	Markus: how would it help to turn the structure around? (assuming we coud)
+[11:04]	<tidoust>	Markus: but you wouldn't mind if "en" would not expand to full IRIs in expanded form.
+[11:04]	<mlnt>	{"@id": "/resource", {"author": { "en" {"@id": "/lin"}}, "de": {"@id": "/stephane"}}}
+[11:05]	<mlnt>	{"@id": "/resource", {"author": { "http://example.com/en" {"@id": "/lin"}}, "http://example.com/de": {"@id": "/stephane"}}}
+[11:05]	<tidoust>	Markus: Something like this would work for you, right?
+[11:05]	<tidoust>	... No big deal if it becomes something like this in expanded form, right?
+[11:05]	<tidoust>	Lin: Then can it compact back to the other form?
+[11:06]	<tidoust>	Markus: yes, you wouldn't event need language map for that.
+[11:06]	<tidoust>	Manu: The one concern is that we're going to have terms for each language.
+[11:06]	<tidoust>	Markus: is that really an issue?
+[11:06]	<niklasl>	q+
+[11:06]	<voip-ld>	Added niklasl to the speaker queue: mlnt, niklasl
+[11:06]	<tidoust>	Manu: If you're expressing languages as predicates, the data is jammed.
+[11:07]	<manu1>	q+
+[11:07]	<tidoust>	Markus: right, but that's you have. It's a predicate, not a language.
+[11:07]	<voip-ld>	Added manu1 to the speaker queue: mlnt, niklasl, manu1
+[11:07]	<manu1>	ack mlnt
+[11:07]	<voip-ld>	mlnt has the floor (to move to summarize and move to next issue.). The next speaker is niklasl.
+[11:07]	<manu1>	ack niklasl
+[11:07]	<voip-ld>	mlnt has the floor. The next speaker is manu1.
+[11:08]	<tidoust>	Manu: My only concern is that if Drupal wants to move to RDF in the future, then that direction might be problematic longer term.
+[11:08]	<tidoust>	scor: probably not a real concern for the time being.
+[11:09]	<mlnt>	Here's how the example could work today - completely round-trippable: http://bit.ly/P8i7h7
+[11:09]	<tidoust>	Lin: When we come to that, we could update what's needed to move things to the RDF data modeling
+[11:10]	<voip-ld>	linclark (IAX2/diamondcard-14370) has left the conference.
+[11:10]	<linclark>	I got bumped
+[11:10]	<tidoust>	Manu: OK, it definitely works. I don't know if it's good to model data in that way. I feel uneasy about it.
+[11:11]	<tidoust>	... The other concern I have is that if it works for Drupal folks, and if that works as well for Wikidata folks, then there's a question about supporting language maps in the end.
+[11:11]	* manu1	linclark - try dialing back in?
+[11:12]	<linclark>	manu1: it didn't pick up first try
+[11:12]	<tidoust>	Markus: I wonder if language map couldn't be restricted to simple values such as "title.en" resolves to the English title
+[11:12]	<linclark>	now it is busy
+[11:12]	<mlnt>	Wikidata apparantly just uses simple language maps: http://meta.wikimedia.org/wiki/Wikidata/Data_model_in_JSON
+[11:12]	<tidoust>	Manu: Ok, we spent an hour on this. We should step back and think a bit more about it.
+[11:12]	* scor	linclark: are you dailing in or using SIP?
+[11:12]	<linclark>	dialing in
+[11:12]	<tidoust>	... We have two fairly proposals on the table.
+[11:13]	<manu1>	voip: mute scor
+[11:13]	<voip-ld>	scor has been muted.
+[11:13]	<tidoust>	... 1) Languages become IRIs, 2) 1-to-1 between compact/expanded form for language maps.
+[11:14]	<tidoust>	Niklas: I wonder where the title would end up in the example Markus wrote up. Would there be a similar map for each thing or would we want to group them in language buckets?
+[11:14]	<tidoust>	Markus: that's what I suggested initially but Lin suggested they would rather have properties before languages.
+[11:14]	* scor	linclark: try SIP?
+[11:14]	<tidoust>	Manu: any objection to move on to next issue and track this up in github comments?
+[11:15]	<tidoust>	Markus: Do we want to support complex language maps?
+[11:15]	<tidoust>	Manu: My gut feeling is that, if we're going to support language maps, we need to support all of Drupal's needs. I don't know if it's worth the complexity to add language maps for literal values only.
+[11:17]	<tidoust>	... We could associate the language with a term in the context. If we go with the approach Markus proposed, I don't think we need language maps in the end. In the context, you would have term definitions for languages.
+[11:17]	<manu1>	"en": {"@id": "http://purl.org/bcp47#en", "@language": "en"}
+[11:17]	<tidoust>	... That would expand to:
+[11:17]	<manu1>	"en": "Foo" - "http://purl.org/bcp47#en": {"@value": "Foo", "@language": en}
+[11:18]	<tidoust>	Manu: The way we're modeling this does not really map to RDF, that's what I'm concerned about.
+[11:19]	<tidoust>	Niklas: I do think that things such as freebase may benefit from data exported by Drupal sites
+[11:20]	<scor>	voip-ld: unmute me
+[11:20]	<voip-ld>	scor has been unmuted.
+[11:20]	<scor>	q+
+[11:20]	<voip-ld>	Added scor to the speaker queue: mlnt, scor
+[11:20]	<mlnt>	q-
+[11:20]	<voip-ld>	Removed mlnt from the speaker queue: scor
+[11:20]	<manu1>	ack scor
+[11:20]	<voip-ld>	scor has the floor. The speaker queue is empty.
+[11:21]	<tidoust>	scor: I don't think we should be blocking things here. We could create IRIs for each translations and so on if we really need to.
+[11:21]	<linclark>	hmm, I can't hear what was said but Crell specifically requested we not create IRIs for each translation
+[11:22]	* manu1	points at linclark.
+[11:22]	<scor>	linclark: was talking about how to handle things in RDF
+[11:22]	<scor>	not in JSON-LD
+[11:22]	<manu1>	voip: mute scor
+[11:22]	<voip-ld>	scor has been muted.
+[11:22]	<linclark>	what we've discussed before is that you lose the language handling for objects that are resources
+[11:23]	<linclark>	I don't think we want to have different subject IRIs between JSON-LD and other RDF formats
+[11:23]	<tidoust>	Manu: I'm not convinced that we need to model the data in the way Markus and Niklas are proposing. It works for Drupal folks but I don't think it's the right way to model it as RDF.
+[11:23]	<scor>	linclark: yes - we said we could discuss this outside the call
+[11:24]	<scor>	we haven't decided or changed anything since when you dropped
+[11:24]	<tidoust>	... The other concern that I have is that JSON-LD should be able to cope with data as modeled, especially in cases such as Drupal when it's difficult to identify a right/wrong way of modeling data.
+[11:25]	<voip-ld>	tidoust (IAX2/diamondcard-15330) has left the conference.
+[11:25]	<linclark>	yeah, I was able to get back in now
+[11:26]	<voip-ld>	<unknown> (IAX2/diamondcard-10102) has joined the conference.
+[11:27]	<voip-ld>	Manu Sporny (SIP/6000-00000095) has left the conference.
+[11:27]	<voip-ld>	<unknown> (IAX2/diamondcard-10102) has left the conference.
+[11:27]	<voip-ld>	Niklas Lindström (SIP/192.168.3.15-00000093) has left the conference.
+[11:27]	<voip-ld>	scor (IAX2/diamondcard-2469) has left the conference.
+[11:27]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000094) has left the conference.
+[11:28]	|<--	mlnt has left freenode (Quit: ChatZilla 0.9.88.2 [Firefox 15.0.1/20120905151427])
+[11:30]	|<--	tidoust has left freenode (Ping timeout: 276 seconds)
+[11:31]	<manu1>	I think these are the options available to us right now:
+[11:31]	<manu1>	1) Ask Drupal to change the data model (non-starter),
+[11:31]	<manu1>	2) Adopt a 1-to-1 mapping between compact/expanded form for language maps, (adds complexity to syntax)
+[11:31]	<manu1>	3) Adopt a complex algorithm to reconstruct language maps from expanded form, (adds complexity to API, and may be non-deterministic)
+[11:31]	<manu1>	4) Model the data using BCP47 language code IRIs. (problematic from an RDF data model standpoint)
+[11:31]	<manu1>	each has annoying down-sides.

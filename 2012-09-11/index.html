@@ -1,0 +1,271 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-09-11</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0004.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0004.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-159: Add specifying @language to expanded form</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>François Daoust, Manu Sporny, Markus Lanthaler, Niklas Lindström, Stéphane Corlosquet, Lin Clark</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">François Daoust</span>: [Manu going through the agenda. A couple of issues may not be resolved today as there are too many proposals on the table]</div>
+<div class="information">François Daoust is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-159: Add specifying @language to expanded form</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/159">https://github.com/json-ld/json-ld.org/issues/159</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Issue has to do with round-tripping language-map stuff.</div>
+<div class="comment-continuation">... We added support for Drupal community and Wikidata community.</div>
+<div class="comment-continuation">... No context in expanded form, otherwise we'd have to interpret this in very weird ways.</div>
+<div class="comment-continuation">... Question I asked the Wikidata community was "Why not work in compact form?"</div>
+<div class="comment-continuation">... Having languages as keys gives direct access to data</div>
+<div class="comment-continuation">... The problem is now to define how the expanded form is generated from the compact form so that we can get back to the compact form afterwards.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/159#issuecomment-8455585">https://github.com/json-ld/json-ld.org/issues/159#issuecomment-8455585</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you have @language in expanded form, there might be collisions with @language that are already there or with properties that are of other types and do not accept @language.</div>
+<div class="comment-continuation">... See comment in github issue</div>
+<div class="comment-continuation">... One option to solve this would be to keep a @context in expanded form, but not what we'd like to have.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Precedence is good in any case. Even in compact form.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes. If we have precedence, does it address your concern Markus?</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: are you guys saying that in any case, any typed value could not have a language?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  for a plain literal, it wouldn't because you cannot add @language to a plain literal.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we understand we're diverging from RDF here [scribe assist by Stéphane Corlosquet]</div>
+<div class="comment-continuation">... It's strange to have language information in expanded form. The only way to describe this is RDF is to have a named graph.</div>
+<div class="comment-continuation">... (scribe missed details)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "term": { "@language": {"en": ..., "de": ...}}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "<a href="http://foo.bar/vocab#term":">http://foo.bar/vocab#term":</a> { "@language": {"en": ..., "de": ...}}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  wondering if we could do something like the snippet I just pasted</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The problem is that we're trying to express data that is not there. It's metadata.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The expanded form is an abstract triple representation and what we do with language maps (and id-maps for that matter) is just reify indexing.</div>
+<div class="comment-continuation">... Only if we stay within JSON-LD and expand/compact would you get round-tripping.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The concern in the Drupal community is that you could get something different out.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The only thing expanded are terms. That's the only expansion we've talked about. Perhaps that's a good concept.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't know if ends up becoming a different type of form for JSON-LD.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  Niklas, you were talking about round-tripping in RDF.</div>
+<div class="comment-continuation">... It wouldn't be a concern in Drupal because it's never used internally.</div>
+<div class="comment-continuation">... Our goal is not necessarily to output RDF in the end.</div>
+<div class="comment-continuation">... What we'd like to do is use the compact form, expand it and process it.</div>
+<div class="comment-continuation">... We just want to have the language in the expanded form.</div>
+<div class="comment-continuation">... Getting the same data from compaction is not exactly our use case.</div>
+<div class="comment-continuation">... You guys may want to recompact it again and get the same data, but not exactly what we need in practice.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can understand your use case. I touched upon it during a RDFa to JSON-LD workshop.</div>
+<div class="comment-continuation">... If we want to support it, we should do it via the notion of term expansion, not full expansion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Just a quick explanation about the Drupal use case. Every Drupal site has a slightly different context.</div>
+<div class="comment-continuation">... Tags can have different information associated with them across Drupal sites.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: can be anything, 'tags' is just an example</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Those tags are kind of b-nodes.</div>
+<div class="comment-continuation">... When two Drupal sites share data, one of them is going to export data as JSON-LD, using its context, probably expanding it.</div>
+<div class="comment-continuation">... The targeted Drupal site will process the received data, using the expanded form as input and compacting using the target context.</div>
+<div class="comment-continuation">... The idea that we need to reconstruct the language map is a pretty strong requirement.</div>
+<div class="comment-continuation">... I also think that both Niklas and Markus have very strong points.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "<a href="http://foo.bar/vocab#term":">http://foo.bar/vocab#term":</a> { "@language": {"en": ..., "de": ...}}</div>
+<div class="comment-continuation">... The only solution that I can see working that doesn't have the issue Markus raised in the beginning is the idea I share on IRC</div>
+<div class="comment-continuation">... I don't see any issue with this, but I may miss something.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: alternative: { "@context": { "langmap": "example.com/vocab/term#" }, "langmap:de": ..., "langmap:en": ... }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: perhaps additionaly define "langmap:de": { "@language": "de" } in context or add context inline</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't see an issue with that but proposing another alternative on IRC for Stéphane.</div>
+<div class="comment"><span class="name">Lin Clark</span>: hey all, I'm on call now as well</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: langmap:de - example.com/vocab/term#de</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: langmap:it - example.com/vocab/term#it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: example.com/vocab/term#it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  basically, you'd have different terms for different properties.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  How would you re-compact this in the end?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@context": { "langmap": "example.com/vocab/term#" }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: langmap:LANGUAGE</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  with the context just pasted on IRC, you would just re-generate the initial data</div>
+<div class="comment"><span class="name">Lin Clark</span>:  That sounds a lot like the proposal Manu had made initially</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There's a downside (missed by scribe) to that that explains why we had left the idea in the end.</div>
+<div class="comment-continuation">... The only reason why we want it in expanded form is to be able to recompact it in lossless form.</div>
+<div class="comment-continuation">... This idea of being able to tell whether something came from a language map is to reconstruct the same structure in the end.</div>
+<div class="comment-continuation">... There may be times that you express values in expanded form where you didn't want them to be necessarily put back in language maps.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The question is whether data coming from language-based data can be reconstructing. Any deviation from that should not use language maps to compact because that would always give weird results.</div>
+<div class="comment-continuation">... If you start mixing from various sources, you may have titles in English but description in Italian, then properties would fall in different buckets if you use language maps.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: I'm proposing this: "<a href="http://foo.bar/vocab#term":">http://foo.bar/vocab#term":</a> { "@language": {"en": ..., "de": ...}} because... 1-to-1 mapping</div>
+<div class="information">term</div>
+<div class="information">[Markus and Manu discussing examples of expansion/compaction]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I wonder if the expanded form you're proposing here would solve the problem of combining two sources.</div>
+<div class="comment-continuation">... It seems to require things from the compaction algorithm.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's say you have two documents that use the same IRI term and you expand.</div>
+<div class="comment-continuation">... Without a flag and with the rank algorithm that we have, there wouldn't be any problem.</div>
+<div class="comment-continuation">... The term with the language map would be separated from the term without the language map.</div>
+<div class="comment-continuation">... That's for when we don't flatten.</div>
+<div class="comment-continuation">... If we do flatten, (scribe missed that), that would address the issue.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'd rather we put information in the different buckets in expanded form so that compaction be done deterministically</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and it's a fairly expensive operation when the data gets bigger. I agree with you Niklas. If we could simplify, we should.</div>
+<div class="comment-continuation">... It turns out that, each time we need to look into details, we end up with things that are fairly complex. The ranking algorithm is a good example of this. It becomes impossible to know what will happen without understanding the algorithm itself.</div>
+<div class="comment-continuation">... All that to say that I agree in principle, but I'm worried about the algorithm will become more complex than expressing a 1-to-1 mapping with language maps.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The problem is that we're trying to express something that we cannot even express in our data model.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Are there differences between RDF data model and JSON-LD data model?</div>
+<div class="comment-continuation">... I saw discussions from Gregg</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is kind of corner state. We don't make use of the differences for the time being, although there is a tiny difference, indeed.</div>
+<div class="comment-continuation">... We just have to be very careful if we say JSON-LD uses RDF data model since that's not entirely true.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'@language': 'en', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'@language': 'de', '@id': '<a href="http://example.com/tags/baz',">http://example.com/tags/baz',</a> 'label': ' Baz'}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Example on IRC. Different resources because different IDs.</div>
+<div class="comment-continuation">... The node themselves have not, in RDF terms, any language expressed.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'@language': 'en', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'@language': 'de', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment-continuation">... You can infer that "Foo" seems to be in English.</div>
+<div class="comment-continuation">... but that's all.</div>
+<div class="comment-continuation">... Now consider the second example, where IDs are the same.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'dc:language': 'en', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment-continuation">... We have a problem here because it's not clear whether we want to reify the language. Do we want to say that the node is somehow intrinsically associated with English, then you should use 'dc:language'.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "term": {"en": "Foo", "de": "Bar"}</div>
+<div class="comment-continuation">... That is quite different from that there is an English label about this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  On the opposite, we need to account for very simple examples such as the one I just pasted.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'dc:language': 'en', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'@language': 'en', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {'@language': 'de', '@id': '<a href="http://example.com/tags/foo',">http://example.com/tags/foo',</a> 'label': ' Foo'}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  actually, that's simple and straightforward.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  I just wanted to jump on Niklas comments.</div>
+<div class="comment-continuation">... When you use 'dc:language', you say that the resource is in English</div>
+<div class="comment-continuation">... (scribe missed description because of noise)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you have two different resources, one being a translation of the other.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  No, they don't want to have separate graphs.</div>
+<div class="comment-continuation">... Different properties in different languages.</div>
+<div class="comment-continuation">... You would have an author field on the node. That field count point to Stéphane for the French version and to myself in the English version.</div>
+<div class="comment-continuation">... I understand that in the RDF model, it would be understood as two different graphs.</div>
+<div class="comment-continuation">... If we start to introduce complex syntax, people will get lost, and it's just not worth it for the 2-3 people that understand this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We understand the need to have simple ways of accessing the data.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I object to this. This has nothing to do with simplicity of accessing the data, but with simplicity of modeling the data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think it applies to the Drupal use case. I don't think they should have to change data modeling for this.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I am not a fundamentalist here, we have to find a pragmatical solution to the issue.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  The translation to us is not a different resource.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  but there are two different translations.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: aside - "<a href="http://foo.bar/vocab#term":">http://foo.bar/vocab#term":</a> { "@language": {"en": ..., "de": ...}} also allows the Drupal folks to work w/ expanded form, if they need to.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... {"@id": "/resource", translation": {"en": {"author": {"@id": "/lin"}}, "de": {"author": {"@id": "/stephane"}}}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you don't have to describe the translation in any more detail than in the code I just pasted.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: alternative {"@id": "/resource", "en": {"author": {"@id": "/lin"}}, "de": {"author": {"@id": "/stephane"}}}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: where "en" is a property like example.com/vocab/languages/en</div>
+<div class="comment-continuation">... You can have a property that combines translations</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  along the same lines as Niklas</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: alternative {"@id": "/resource", "en": {"author": {"@id": "/lin"}}, "de": {"author": {"@id": "/stephane"}}}</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I actually suggested that to our multilingual initiative, but they put so much work in it and it's already almost done that I don't think that we can or we should change our data model at this point.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  From an implementation perspective, it's more or less the same.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  They're doing a lot of stuff in the multilingual initiative that I'm not involved with, so I can't speak particularly to all the details.</div>
+<div class="comment-continuation">... I don't think we can convince everyone that it's worth it because of JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  how would it help to turn the structure around? (assuming we coud) [scribe assist by Stéphane Corlosquet]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but you wouldn't mind if "en" would not expand to full IRIs in expanded form.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: {"@id": "/resource", {"author": { "en" {"@id": "/lin"}}, "de": {"@id": "/stephane"}}}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: {"@id": "/resource", {"author": { "<a href="http://example.com/en"">http://example.com/en"</a> {"@id": "/lin"}}, "http://example.com/de": {"@id": "/stephane"}}}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Something like this would work for you, right?</div>
+<div class="comment-continuation">... No big deal if it becomes something like this in expanded form, right?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Then can it compact back to the other form?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, you wouldn't event need language map for that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The one concern is that we're going to have terms for each language.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is that really an issue?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If you're expressing languages as predicates, the data is jammed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  right, but that's you have. It's a predicate, not a language.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My only concern is that if Drupal wants to move to RDF in the future, then that direction might be problematic longer term.</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  probably not a real concern for the time being.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Here's how the example could work today - completely round-trippable: <a href="http://bit.ly/P8i7h7">http://bit.ly/P8i7h7</a></div>
+<div class="comment"><span class="name">Lin Clark</span>:  When we come to that, we could update what's needed to move things to the RDF data modeling</div>
+<div class="comment"><span class="name">Lin Clark</span>: I got bumped</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, it definitely works. I don't know if it's good to model data in that way. I feel uneasy about it.</div>
+<div class="comment-continuation">... The other concern I have is that if it works for Drupal folks, and if that works as well for Wikidata folks, then there's a question about supporting language maps in the end.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it didn't pick up first try [scribe assist by Lin Clark]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I wonder if language map couldn't be restricted to simple values such as "title.en" resolves to the English title</div>
+<div class="comment"><span class="name">Lin Clark</span>: now it is busy</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Wikidata apparantly just uses simple language maps: <a href="http://meta.wikimedia.org/wiki/Wikidata/Data_model_in_JSON">http://meta.wikimedia.org/wiki/Wikidata/Data_model_in_JSON</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, we spent an hour on this. We should step back and think a bit more about it.</div>
+<div class="comment"><span class="name">Lin Clark</span>: dialing in</div>
+<div class="comment-continuation">... We have two fairly proposals on the table.</div>
+<div class="comment-continuation">... 1) Languages become IRIs, 2) 1-to-1 between compact/expanded form for language maps.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I wonder where the title would end up in the example Markus wrote up. Would there be a similar map for each thing or would we want to group them in language buckets?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that's what I suggested initially but Lin suggested they would rather have properties before languages.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any objection to move on to next issue and track this up in github comments?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to support complex language maps?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My gut feeling is that, if we're going to support language maps, we need to support all of Drupal's needs. I don't know if it's worth the complexity to add language maps for literal values only.</div>
+<div class="comment-continuation">... We could associate the language with a term in the context. If we go with the approach Markus proposed, I don't think we need language maps in the end. In the context, you would have term definitions for languages.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "en": {"@id": "<a href="http://purl.org/bcp47#en",">http://purl.org/bcp47#en",</a> "@language": "en"}</div>
+<div class="comment-continuation">... That would expand to:</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "en": "Foo" - "<a href="http://purl.org/bcp47#en":">http://purl.org/bcp47#en":</a> {"@value": "Foo", "@language": en}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The way we're modeling this does not really map to RDF, that's what I'm concerned about.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I do think that things such as freebase may benefit from data exported by Drupal sites</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>:  I don't think we should be blocking things here. We could create IRIs for each translations and so on if we really need to.</div>
+<div class="comment"><span class="name">Lin Clark</span>: hmm, I can't hear what was said but Crell specifically requested we not create IRIs for each translation</div>
+<div class="comment"><span class="name">Lin Clark</span>:  was talking about how to handle things in RDF [scribe assist by Stéphane Corlosquet]</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: not in JSON-LD</div>
+<div class="comment"><span class="name">Lin Clark</span>: what we've discussed before is that you lose the language handling for objects that are resources</div>
+<div class="comment"><span class="name">Lin Clark</span>: I don't think we want to have different subject IRIs between JSON-LD and other RDF formats</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not convinced that we need to model the data in the way Markus and Niklas are proposing. It works for Drupal folks but I don't think it's the right way to model it as RDF.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  yes - we said we could discuss this outside the call [scribe assist by Stéphane Corlosquet]</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: we haven't decided or changed anything since when you dropped</div>
+<div class="comment-continuation">... The other concern that I have is that JSON-LD should be able to cope with data as modeled, especially in cases such as Drupal when it's difficult to identify a right/wrong way of modeling data.</div>
+<div class="comment"><span class="name">Lin Clark</span>: yeah, I was able to get back in now</div>
+<div class="comment"><span class="name">Manu Sporny</span>: I think these are the options available to us right now:</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 1) Ask Drupal to change the data model (non-starter),</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 2) Adopt a 1-to-1 mapping between compact/expanded form for language maps, (adds complexity to syntax)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 3) Adopt a complex algorithm to reconstruct language maps from expanded form, (adds complexity to API, and may be non-deterministic)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: 4) Model the data using BCP47 language code IRIs. (problematic from an RDF data model standpoint)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: each has annoying down-sides.</div>
+</body>
+</html>
