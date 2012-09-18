@@ -1,0 +1,122 @@
+[10:06]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0006.html
+[10:07]	<manu1>	scribe: manu1
+[10:07]	<manu1>	Manu: Gregg, Francois not here today. Dave Lehn will be here shortly. Let's discuss the approach for solving these issues.
+[10:08]	<manu1>	Manu: Any additions/changes to the Agenda?
+[10:08]	<manu1>	No changes
+[10:09]	<manu1>	Topic: ISSUE-113: IRI compaction algorithm
+[10:09]	<manu1>	https://github.com/json-ld/json-ld.org/issues/113
+[10:09]	<manu1>	Markus: The problem was that we never defined how we're going to do IRI compaction, but that has been since corrected, though not ideally the way we wanted it to be.
+[10:10]	<manu1>	Markus: Gregg updated the spec - currently, there is an algorithm that is not understandable without implementing it. It isn't explained how the numbers were generated. If you don't implement it, you have a difficult time understanding what the algorithm is doing.
+[10:11]	<manu1>	Markus: It's just a very difficult to understand algorithm. It makes it quite difficult to explain to people what compaction does. It's kind of a black box at the moment.
+[10:11]	<manu1>	Manu: So, what's the plan here? Make the language simpler?
+[10:12]	<manu1>	Markus: We should consider IRI compaction algorithm and term ranking algorithm when simplifying.
+[10:12]	<manu1>	Markus: Pseudo-code in the issue is easier to understand.
+[10:12]	<manu1>	Markus: Gregg disagrees, and Dave needs more time to look at it.
+[10:13]	<manu1>	Manu: Dave Longley's concern is that all the algorithms, because we're focused on corner cases, are getting difficult to understand. Perhaps what we should do is simplify greatly, and ignore corner cases. One way we could do this is say that if there is ever a term conflict, that we should just throw an error and have the error callback handle the selection of the proper term. The problem with that approach is that developers may choose the wrong way to select the term (or at the very least, it's non-interoperable - or they have to publish their algorithm). To get around that, we could publish the "proper" term matching algorithm along with the JSON-LD API and that can be the default for the .compact() option for the error handler. The problem with that is that we end up having the same amount of complexity in there that we do today.
+[10:16]	<niklasl>	Manu: The other option is that we can explain the algorithm better, but that doesn't remove the complexity of the algorithm.
+[10:16]	<niklasl>	Manu: we could explain the algorithm like this: the algorithm picks the most specific term; but there are complications for this in the edge cases.
+[10:17]	<niklasl>	Manu: so should we simplify it, or can we settle for explaining it better?
+[10:17]	<niklasl>	q+
+[10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:17]	<manu1>	Markus: What do you mean by conflict?
+[10:17]	<manu1>	Manu: Two terms that have the same IRI, but one of them has a datatype - which one is picked?
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:18]	<manu1>	niklasl: I haven't had time recently to grasp the current algorithm. I hope that we could simplify it to some extent.
+[10:18]	<manu1>	niklasl: There are many edge cases, are there test cases?
+[10:18]	<manu1>	manu: yes, lots of test cases.
+[10:19]	<manu1>	niklasl: Perhaps having different terms for date vs. datetime. Author name (dc:creator with a string) vs. with a URI reference. Those would be good to keep.
+[10:19]	<manu1>	niklasl: Not having spent too much time on this recently, I hope that we could make some sort of binary check - either it's a perfect match, or if there is a term for it, use that. So, we don't have multiple steps for checking (to see if there is something matching)
+[10:20]	<niklasl>	Manu: the current algorithm is a multistep process; it ranks the terms. We do have test cases for them.
+[10:21]	<niklasl>	Manu: There are multiple ways of implementing it. The selection algorithm is very complex because it deals with all the corner cases.
+[10:21]	<niklasl>	Manu: Dave Longely proposes to deal with less corner cases, and raise an error if there's a corner case conflict. That has advantages and disadvantages.
+[10:23]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000004) has joined the conference.
+[10:25]	<manu1>	Manu: The big issue is figuring out, when there is a corner case, which term gets picked.
+[10:27]	<manu1>	niklasl: If I have a property 'age' and a value that is an integer, that would be straight forward to pick - that property and three terms - if one of them was coerced to an integer, that one would be picked. If a term was coerced to a list, it wouldn't be picked.
+[10:27]	<manu1>	Manu: The issue is that the algorithm to do that is complex.
+[10:28]	<manu1>	niklasl: I haven't actually implemented that algorithm yet - I'm about to.
+[10:29]	<manu1>	niklasl: I'd map the property IRI to an object that itself has a type dictionary, a container dictionary, or a default property IRI mapping.
+[10:30]	<manu1>	niklasl: I can see there is a certain complexity involved if you are looking for something that is both coerced to a datatype and it has a certain container (ie: has multiple values)... I don't understand why you need to rank items.
+[10:30]	<manu1>	Markus: Gregg wrote it, so he'd know best.
+[10:31]	<manu1>	Markus: I didn't implement it as it is in the spec, I couldn't figure out how to implement it from the spec. The idea is that you have a number of terms or complex IRIs (prefix/suffixes), or even the full IRI, and you assign a number to them (to the IRI/value pair) which expresses how well it matches.
+[10:31]	<manu1>	Markus: So, for example, if you have just one term with one IRI a 1, but you have something that has a datatype and it matches, that gets a value of 2 and wins, etc.
+[10:32]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#term-rank-algorithm
+[10:32]	<manu1>	Markus: There are a number of corner cases there too. My problem with the spec is that if you read the algorithm, ... for example if rank is > 0 and term is ... you don't know how the numbers were created. It's difficult to understand what's going on by looking at the numbers.
+[10:33]	<mlnt>	My proposal is this... https://github.com/json-ld/json-ld.org/issues/113#issuecomment-5567976
+[10:39]	<niklasl>	q+
+[10:39]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:40]	<manu1>	Manu: I think we should try and remove all the numbers in the term ranking algorithm as a way of simplifying the way it is explained. Perhaps we need to implement it as a map-reduce step that always results in 0 or 1 term picked as a result. So, you give the algorithm a list of potential terms that can be matched, and a value that is being considered for match against all the terms. The algorithm then whittles the list of IRIs down to 1 (if a term matched) or 0 (if none of the terms match). This way, there is no weirdness like rank = rank - 2.
+[10:40]	<manu1>	ack niklasl
+[10:40]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:40]	<niklasl>	If you have this - [] dc:created "2012-01-01T00:00:00"^^xsd:dateTime
+[10:40]	<niklasl>	and this term: "created": "dc:created"
+[10:40]	<manu1>	niklasl: Let me see if I understand this correctly...
+[10:40]	<niklasl>	and this term: "dc:created": {"@type": "xsd:dateTime"}
+[10:41]	<manu1>	niklasl: What it we order the list so that you just go down and ignore each item in the list until a selection is made?
+[10:41]	<niklasl>	"createdTimeSet": {"@type": "xsd:dateTime", "@container": "@set"}
+[10:44]	-->|	MacTed (~Thud@63.119.36.36) has joined #json-ld
+[10:45]	<manu1>	niklasl: So, we could simplify by throwing out choices that we don't want to make.... like given the choice between terms and curies, throw out all the curies from the decision before you make the decision?
+[10:46]	<manu1>	Manu: The issue is that people might be surprised by this, because the more accurate term wouldn't be selected.
+[10:46]	<manu1>	niklasl: Then they should only use terms, or only use CURIEs.
+[10:47]	<manu1>	niklasl: If you don't want the terms to be picked, you should be able to manage your own context in that scenario, anyway.
+[10:48]	<manu1>	niklasl: If we try to support that use case, I'm not really sure if we're supporting that usage of @context anyway - it's a complex usage of terms and CURIEs.
+[10:50]	<manu1>	Manu: Perhaps we can do this map-reduce in 3 iterations, instead? First removes @set/@list, second matches against datatype/language, third picks by lexicographical value. That may be easier for folks to understand?
+[10:51]	<manu1>	Markus: Maybe we pick @set/@list first, then @datatype/@language, then last step checks lexicographical/prefix value?
+[10:51]	<manu1>	Markus: Maybe it's enough to specify how the internal inverse-context is sorted? Then we just go down the list of internal inverse-context values and pick an item or skip it?
+[10:51]	<manu1>	niklasl: Maybe we should investigate that - we cover most of the needs - it's more direct/natural.
+[10:55]	<manu1>	Manu: Okay, so loose consensus - we have a function that takes in a list of terms and a value to match... the function whittles down the list to one item by the end. The way it whittles could be performed in 3 iterations, where each iteration removes imperfect matches leaving 1 or 0 matches at the end. The other way it could be whittled down is to sort the list of potential term matches in some way, and then searches for an "exact" match.
+[10:56]	<mlnt>	termA: @list, typeA | termB: @list, typeB --> list: val1/typeA, val2/typeB, val3/typeC
+[10:57]	<mlnt>	I would say this should choose typeA (lexigr. least)
+[10:57]	<mlnt>	for list: val1/typeA, val2/typeB, val3/type
+[10:57]	<manu1>	Manu: So, the approach could be less cognitively complex and more algorithmically complex?
+[10:57]	<manu1>	Niklas: Yeah, but only because we need to be more accurate than we are now.
+[11:00]	<manu1>	Manu: Dave Longley is concerned that when we chose the word 'compact' that it was the wrong decision. The reason is that people think it's supposed to end up with the least number of bytes for the document. In reality, it's supposed to give back an easy-to-use data structure for developers to use. So, when compacting, we should ensure that we don't compact something that shouldn't really be compacted. Like a list with mixed values being compacted to a list of @datatypes that are xsd:integers that would be the wrong thing to do.
+[11:00]	<manu1>	Niklas: Yes, for lists, it either matches exactly (every item in the list), or there is no match.
+[11:01]	<manu1>	Niklas: It should always be crystal clear when something applies...
+[11:03]	<manu1>	Manu: The issue with cornercases is it makes it too complex. The choice is - don't deal with the corner cases, or deal with them. Dealing with the corner cases leads to very complex algorithms. Not dealing with the corner cases has two possible outcomes; 1) Interoperability problems that contain data in the corner cases - people might think JSON-LD sucks because it gives back bad data when you .compact(), 2) Forcing people to mark their data up in a specific way, which removes corner-cases from JSON-LD data because that data doesn't work well with the API. The first is bad, the second is good. No idea which one will happen if we choose to ignore corner cases.
+[11:03]	<manu1>	Niklas: Irregular data where you have mixed types with the same terms are not compact-able, unless you have different terms for different types used. It's obvious from looking at the context that the context is written for irregular data.
+[11:06]	<manu1>	Manu: Okay - maybe Markus and I need to write the pseudocode for what we've discussed today, then we look at it as a group, then decide what we want to go with and include it in the spec.
+[11:06]	<manu1>	Topic: ISSUE-140: Consider objectify/link API method
+[11:06]	<manu1>	https://github.com/json-ld/json-ld.org/issues/140
+[11:07]	<niklasl>	q+
+[11:07]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:07]	<manu1>	Manu: This issue is about whether or not we should add a link(), .graphify(), method to the API
+[11:08]	<manu1>	Manu: I'm concerned that we don't have an algorithm to do this yet... time issue for 1.0
+[11:08]	<manu1>	niklasl: I'm concerned about timing - need to write something in the wiki about this - perhaps I should collaborate with Gregg and write this in a sibling specification.
+[11:09]	<manu1>	ack niklasl
+[11:09]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:09]	<manu1>	Manu: I agree, I don't think we have the time to put this in 1.0, but we should start working on it immediately.
+[11:10]	<manu1>	niklasl: I took your jsonld.js implementation and took out the framing part - needed a smaller code size - and I don't think we need to do anything in the spec. It should be possible to add things later on in a simple way. I don't think we have to add anything in the API document for that.
+[11:10]	<manu1>	niklasl: The .link() / .graphify() mechanism could be extended in the same way the browsers are expanded - you just extend as needed via an 'add-on' API.
+[11:11]	<manu1>	niklasl: We have had a bunch of different names for this - I've been using .connect() recently. I think we all agree that .objectify() wasn't working... .graphify() might be a little too odd.
+[11:12]	<manu1>	Manu: I don't think we need to pick the name now... we can wait until the spec goes to LC, even.
+[11:12]	<manu1>	niklasl: We might want to add some sort of "indexing" mechanism - something that allows you to index JSON-LD documents.
+[11:12]	<manu1>	Manu: Something like a .view() call that is dynamically updated.
+[11:15]	<manu1>	Manu: There is a lot of potential for .graphify() / .connect() and .index() / .view() - but the ideas are floating out there right now... not finalized.
+[11:16]	<manu1>	niklasl: There are a bunch of these sorts of libraries for RDF - they all use the Class mechanism to define short names bound to IRIs/coercions, which is exactly what the JSON-LD context does in a language-agnostic way.
+[11:16]	<manu1>	niklasl: To use a @context as a "lens" to access a live RDF graph to act as if it is something live in memory (it could come from a database backend over the Web/WebSockets)
+[11:16]	<manu1>	niklasl: It makes it much easier to throw RDF into an arbitrary templating systems.
+[11:20]	<niklasl>	q+
+[11:20]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:20]	<manu1>	Manu: I think we're saying that all of these things are important, but we can't do it by JSON-LD 1.0.
+[11:20]	<manu1>	Markus: I'm concerned that if we don't have .frame() / .objectify() that people can't process these documents in an arbitrary way.
+[11:21]	<manu1>	Manu: Well they can, it just won't be 'standardized' - jsonld.js still has .frame(), so does the Ruby implementation.
+[11:21]	<manu1>	Niklas: Can we include a separate .graphify() 1.0, that in 1.1 could evolve?
+[11:22]	<manu1>	Manu: I'm concerned that we don't have any idea how these APIs are going to evolve.
+[11:22]	<manu1>	Niklas: We could always implement the core - then we could add more indexes in the future? Maybe have a callback to do your own indexes.
+[11:23]	<manu1>	ack niklasl
+[11:23]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:24]	<manu1>	Manu: I think somebody needs to volunteer to write the .graphify() / .index() spec - that will ensure that we know what we're getting into if we have a stripped down version of the call in the JSON-LD 1.0 API spec.
+[11:25]	<manu1>	Topic: Timeframe?
+[11:27]	<niklasl>	q+
+[11:27]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:28]	<manu1>	Markus: Is there a timeframe for publication?
+[11:29]	<niklasl>	https://github.com/json-ld/json-ld.org/tree/master/spec/latest
+[11:29]	-->|	tidoust_ (~fd@AMontsouris-159-1-81-236.w92-140.abo.wanadoo.fr) has joined #json-ld
+[11:30]	<manu1>	Manu: Technically, we have to publish every 3-6 months. RDF WG charter ends in January 2013 - so, ideally, we'd be at REC in that time frame. 
+[11:30]	<manu1>	dlehn: That is going to be very difficult to do.
+[11:30]	<manu1>	Manu: I'll talk to the chairs about it.
+[11:30]	<voip-ld>	Manu Sporny (SIP/6000-00000003) has left the conference.
+[11:30]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000004) has left the conference.
+[11:30]	<voip-ld>	Niklas Lindström (SIP/192.168.3.129-00000001) has left the conference.
+[11:30]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000002) has left the conference.

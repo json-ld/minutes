@@ -1,0 +1,179 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-09-18</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0006.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0006.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-113: IRI compaction algorithm</a><li><a href="#topic-2">ISSUE-140: Consider objectify/link API method</a><li><a href="#topic-3">Timeframe?</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg, Francois not here today. Dave Lehn will be here shortly. Let's discuss the approach for solving these issues.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any additions/changes to the Agenda?</div>
+<div class="information">No changes</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-113: IRI compaction algorithm</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/113">https://github.com/json-ld/json-ld.org/issues/113</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The problem was that we never defined how we're going to do IRI compaction, but that has been since corrected, though not ideally the way we wanted it to be.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gregg updated the spec - currently, there is an algorithm that is not understandable without implementing it. It isn't explained how the numbers were generated. If you don't implement it, you have a difficult time understanding what the algorithm is doing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's just a very difficult to understand algorithm. It makes it quite difficult to explain to people what compaction does. It's kind of a black box at the moment.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, what's the plan here? Make the language simpler?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We should consider IRI compaction algorithm and term ranking algorithm when simplifying.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Pseudo-code in the issue is easier to understand.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gregg disagrees, and Dave needs more time to look at it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley's concern is that all the algorithms, because we're focused on corner cases, are getting difficult to understand. Perhaps what we should do is simplify greatly, and ignore corner cases. One way we could do this is say that if there is ever a term conflict, that we should just throw an error and have the error callback handle the selection of the proper term. The problem with that approach is that developers may choose the wrong way to select the term (or at the very least, it's non-interoperable - or they have to publish their algorithm). To get around that, we could publish the "proper" term matching algorithm along with the JSON-LD API and that can be the default for the .compact() option for the error handler. The problem with that is that we end up having the same amount of complexity in there that we do today.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The other option is that we can explain the algorithm better, but that doesn't remove the complexity of the algorithm. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could explain the algorithm like this: the algorithm picks the most specific term; but there are complications for this in the edge cases. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so should we simplify it, or can we settle for explaining it better? [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What do you mean by conflict?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two terms that have the same IRI, but one of them has a datatype - which one is picked?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I haven't had time recently to grasp the current algorithm. I hope that we could simplify it to some extent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There are many edge cases, are there test cases?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, lots of test cases.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Perhaps having different terms for date vs. datetime. Author name (dc:creator with a string) vs. with a URI reference. Those would be good to keep.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Not having spent too much time on this recently, I hope that we could make some sort of binary check - either it's a perfect match, or if there is a term for it, use that. So, we don't have multiple steps for checking (to see if there is something matching)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the current algorithm is a multistep process; it ranks the terms. We do have test cases for them. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are multiple ways of implementing it. The selection algorithm is very complex because it deals with all the corner cases. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longely proposes to deal with less corner cases, and raise an error if there's a corner case conflict. That has advantages and disadvantages. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The big issue is figuring out, when there is a corner case, which term gets picked.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If I have a property 'age' and a value that is an integer, that would be straight forward to pick - that property and three terms - if one of them was coerced to an integer, that one would be picked. If a term was coerced to a list, it wouldn't be picked.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issue is that the algorithm to do that is complex.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I haven't actually implemented that algorithm yet - I'm about to.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'd map the property IRI to an object that itself has a type dictionary, a container dictionary, or a default property IRI mapping.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I can see there is a certain complexity involved if you are looking for something that is both coerced to a datatype and it has a certain container (ie: has multiple values)... I don't understand why you need to rank items.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gregg wrote it, so he'd know best.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I didn't implement it as it is in the spec, I couldn't figure out how to implement it from the spec. The idea is that you have a number of terms or complex IRIs (prefix/suffixes), or even the full IRI, and you assign a number to them (to the IRI/value pair) which expresses how well it matches.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, for example, if you have just one term with one IRI a 1, but you have something that has a datatype and it matches, that gets a value of 2 and wins, etc.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#term-rank-algorithm">http://json-ld.org/spec/latest/json-ld-api/#term-rank-algorithm</a></div>
+<div class="information">0 and term is ... you don't know how the numbers were created. It's difficult to understand what's going on by looking at the numbers.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: My proposal is this... <a href="https://github.com/json-ld/json-ld.org/issues/113#issuecomment-5567976">https://github.com/json-ld/json-ld.org/issues/113#issuecomment-5567976</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we should try and remove all the numbers in the term ranking algorithm as a way of simplifying the way it is explained. Perhaps we need to implement it as a map-reduce step that always results in 0 or 1 term picked as a result. So, you give the algorithm a list of potential terms that can be matched, and a value that is being considered for match against all the terms. The algorithm then whittles the list of IRIs down to 1 (if a term matched) or 0 (if none of the terms match). This way, there is no weirdness like rank = rank - 2.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: If you have this - [] dc:created "2012-01-01T00:00:00"^^xsd:dateTime</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: and this term: "created": "dc:created"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Let me see if I understand this correctly...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: and this term: "dc:created": {"@type": "xsd:dateTime"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What it we order the list so that you just go down and ignore each item in the list until a selection is made?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "createdTimeSet": {"@type": "xsd:dateTime", "@container": "@set"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  So, we could simplify by throwing out choices that we don't want to make.... like given the choice between terms and curies, throw out all the curies from the decision before you make the decision?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issue is that people might be surprised by this, because the more accurate term wouldn't be selected.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Then they should only use terms, or only use CURIEs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you don't want the terms to be picked, you should be able to manage your own context in that scenario, anyway.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we try to support that use case, I'm not really sure if we're supporting that usage of @context anyway - it's a complex usage of terms and CURIEs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Perhaps we can do this map-reduce in 3 iterations, instead? First removes @set/@list, second matches against datatype/language, third picks by lexicographical value. That may be easier for folks to understand?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe we pick @set/@list first, then @datatype/@language, then last step checks lexicographical/prefix value?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe it's enough to specify how the internal inverse-context is sorted? Then we just go down the list of internal inverse-context values and pick an item or skip it?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we should investigate that - we cover most of the needs - it's more direct/natural.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Okay, so loose consensus - we have a function that takes in a list of terms and a value to match... the function whittles down the list to one item by the end. The way it whittles could be performed in 3 iterations, where each iteration removes imperfect matches leaving 1 or 0 matches at the end. The other way it could be whittled down is to sort the list of potential term matches in some way, and then searches for an "exact" match.</div>
+<div class="error">Error: (IRC nickname not recognized)[10:56]	&lt;mlnt&gt;	termA: @list, typeA | termB: @list, typeB --&gt; list: val1/typeA, val2/typeB, val3/typeC</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I would say this should choose typeA (lexigr. least)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: for list: val1/typeA, val2/typeB, val3/type</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, the approach could be less cognitively complex and more algorithmically complex?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, but only because we need to be more accurate than we are now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley is concerned that when we chose the word 'compact' that it was the wrong decision. The reason is that people think it's supposed to end up with the least number of bytes for the document. In reality, it's supposed to give back an easy-to-use data structure for developers to use. So, when compacting, we should ensure that we don't compact something that shouldn't really be compacted. Like a list with mixed values being compacted to a list of @datatypes that are xsd:integers that would be the wrong thing to do.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, for lists, it either matches exactly (every item in the list), or there is no match.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It should always be crystal clear when something applies...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issue with cornercases is it makes it too complex. The choice is - don't deal with the corner cases, or deal with them. Dealing with the corner cases leads to very complex algorithms. Not dealing with the corner cases has two possible outcomes; 1) Interoperability problems that contain data in the corner cases - people might think JSON-LD sucks because it gives back bad data when you .compact(), 2) Forcing people to mark their data up in a specific way, which removes corner-cases from JSON-LD data because that data doesn't work well with the API. The first is bad, the second is good. No idea which one will happen if we choose to ignore corner cases.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Irregular data where you have mixed types with the same terms are not compact-able, unless you have different terms for different types used. It's obvious from looking at the context that the context is written for irregular data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Okay - maybe Markus and I need to write the pseudocode for what we've discussed today, then we look at it as a group, then decide what we want to go with and include it in the spec.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-140: Consider objectify/link API method</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/140">https://github.com/json-ld/json-ld.org/issues/140</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This issue is about whether or not we should add a link(), .graphify(), method to the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that we don't have an algorithm to do this yet... time issue for 1.0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm concerned about timing - need to write something in the wiki about this - perhaps I should collaborate with Gregg and write this in a sibling specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree, I don't think we have the time to put this in 1.0, but we should start working on it immediately.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I took your jsonld.js implementation and took out the framing part - needed a smaller code size - and I don't think we need to do anything in the spec. It should be possible to add things later on in a simple way. I don't think we have to add anything in the API document for that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The .link() / .graphify() mechanism could be extended in the same way the browsers are expanded - you just extend as needed via an 'add-on' API.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We have had a bunch of different names for this - I've been using .connect() recently. I think we all agree that .objectify() wasn't working... .graphify() might be a little too odd.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we need to pick the name now... we can wait until the spec goes to LC, even.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We might want to add some sort of "indexing" mechanism - something that allows you to index JSON-LD documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Something like a .view() call that is dynamically updated.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There is a lot of potential for .graphify() / .connect() and .index() / .view() - but the ideas are floating out there right now... not finalized.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There are a bunch of these sorts of libraries for RDF - they all use the Class mechanism to define short names bound to IRIs/coercions, which is exactly what the JSON-LD context does in a language-agnostic way.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  To use a @context as a "lens" to access a live RDF graph to act as if it is something live in memory (it could come from a database backend over the Web/WebSockets)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It makes it much easier to throw RDF into an arbitrary templating systems.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we're saying that all of these things are important, but we can't do it by JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm concerned that if we don't have .frame() / .objectify() that people can't process these documents in an arbitrary way.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Well they can, it just won't be 'standardized' - jsonld.js still has .frame(), so does the Ruby implementation.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Can we include a separate .graphify() 1.0, that in 1.1 could evolve?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that we don't have any idea how these APIs are going to evolve.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could always implement the core - then we could add more indexes in the future? Maybe have a callback to do your own indexes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think somebody needs to volunteer to write the .graphify() / .index() spec - that will ensure that we know what we're getting into if we have a stripped down version of the call in the JSON-LD 1.0 API spec.</div>
+<h1 id="topic-3" class="topic">Topic: Timeframe?</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Is there a timeframe for publication?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/json-ld/json-ld.org/tree/master/spec/latest">https://github.com/json-ld/json-ld.org/tree/master/spec/latest</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Technically, we have to publish every 3-6 months. RDF WG charter ends in January 2013 - so, ideally, we'd be at REC in that time frame. </div>
+<div class="comment"><span class="name">David I. Lehn</span>:  That is going to be very difficult to do.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll talk to the chairs about it.</div>
+</body>
+</html>
