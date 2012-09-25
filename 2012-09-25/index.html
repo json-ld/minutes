@@ -1,0 +1,250 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-09-25</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0018.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0018.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">TPAC JSON-LD breakout session</a><li><a href="#topic-2">RDF WG review of latest JSON-LD docs</a><li><a href="#topic-3">ISSUE-153: Define error handler behavior</a><li><a href="#topic-4">ISSUE-160: Specify property-generator round-tripping algorithm</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to ping Richard on JSON-LD Syntax and RDF Concepts terminology alignment.</a><li><a href="#action-2">Manu to update spec and integrate changes from tracker</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, François Daoust, Manu Sporny, Markus Lanthaler, Niklas Lindström, Dave Longley, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Probably going to visit Wikimedia Germany - going to talk to them more about JSON-LD and Wikidata during that trip. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  TPAC coming up and of October, last year there were lots of break out sessions, and we're looking for ideas</div>
+<div class="comment-continuation">… I wonder of someone could run a breakout session on JSON-LD</div>
+<h1 id="topic-1" class="topic">Topic: TPAC JSON-LD breakout session</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  it would be good to do, but it doesn't seem like anyone has the time to go.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe a BOF? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  perhaps we can make ourselves available over Skype, if there's a BOF.</div>
+<div class="comment-continuation">… of course, if the connections bad, it might not be worth it.</div>
+<div class="comment"><span class="name">François Daoust</span>: [I will try but I doubt there will be bridges available during the plenary day]</div>
+<h1 id="topic-2" class="topic">Topic: RDF WG review of latest JSON-LD docs</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I got an issue put on me in order to get a plan together for a review from the RDF WG from folks who hadn't reviewed it yet. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Richard and Sandro volunteered to review the documents. I didn't know the status of the docs at the time, need to understand the status. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need the timeframe/plan for the syntax spec to be available for review. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have some resolutions that we can apply to the spec, which would put both syntax and API in good shape</div>
+<div class="comment-continuation">… We could theoretically have a review ready spec by next week.</div>
+<div class="comment-continuation">… There are still some outstanding issues, but we can just put issue markers in</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think synchronizing the status of the spec w/ the latest issue resolutions would be good. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we also decided on language maps - don't know if we have them documented. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  cygri took the action to align the doc with RDF Concepts. We can do everything else.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  They're in the syntax spec... not in the API spec. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… Since Richard is reviewing the document, maybe he would also make sure the two docs are aligned.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  shouldn't we decide how language maps and property generators are going to be implemented before asking for review?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they're reviewing the syntax, and not the API, so it might not be important.</div>
+<div id="action-1" class="action">ACTION: Manu to ping Richard on JSON-LD Syntax and RDF Concepts terminology alignment.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  there haven't been many changes since the last rounds of reviews, so I don't know how much sense it makes to do a review.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's what diffmarks are for. However, people like Sandro, who haven't done a review, end up doing a full review.</div>
+<div class="comment-continuation">… I think there will be significant changes to the intro.</div>
+<div id="action-2" class="action">ACTION: Manu to update spec and integrate changes from tracker</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-153: Define error handler behavior</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/153">https://github.com/json-ld/json-ld.org/issues/153</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  last comment has the basic proposal.</div>
+<div class="comment-continuation">… we probably need more than what we have there right now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/153#issuecomment-8854985">https://github.com/json-ld/json-ld.org/issues/153#issuecomment-8854985</a></div>
+<div class="comment-continuation">… whenever there is a processing error, if an error handler is specified, it is called one argument, which is the error object, with four values.</div>
+<div class="comment-continuation">… type, operation, data, and value</div>
+<div class="comment-continuation">… the return value is an object containing continue (boolean) and corrected value.</div>
+<div class="comment-continuation">… Perhaps we want there to be two arguments: the error and a callback. The callback would be used to allow it to be asynchronous</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  what do you mean by data? Is it the input document, or a document fragment.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Perhaps we need to pass in the entire document and a JSON Pointer. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  normally, the document object would be available to the error handler anyway.</div>
+<div class="comment-continuation">… I think it's also good to have the key for the current value (parent key and value) in addition to the value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we think we need more than just the parent?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we should try to be simple.</div>
+<div class="comment-continuation">… In a list, you would need to return the position in the list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-04">http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-04</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  json pointer is not final yet.</div>
+<div class="comment-continuation">… it uses '/' notation.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it would be more useful to have some JavaScript to do the access.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm pretty wary of using this right now.</div>
+<div class="comment-continuation">… It would really complicate the implementation. If someone needs to find the reference, they can do that anyway.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I'd prefer a regular access path like: "root['@graph'][0]['title']['@value']"</div>
+<div class="comment-continuation">… They can search the document for the value. Even if they needed to do that, they can search for the reference.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if you give them the term string, they can check the context.</div>
+<div class="comment-continuation">... We could give root, parent, key and value. Then you don't need JSON pointer.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  minimum should be term and value, if possible parent and root.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  with just key and value, it is still ambiguous</div>
+<div class="comment-continuation">… If we don't want JSON pointer, we need to be sure we have something that does the same thing.</div>
+<div class="comment-continuation">… for that to happen, it needs to be more than the key and the value.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is exactly what JSON Pointer is designed to do. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. we can give them a path which is an array of strings and numbers</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. that is enough to find the exact value from the root</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. that would be path: [@graph', 0, 'title', '@value']</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't want to hold up JSON-LD just because JSON Pointer hasn't reached Rec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that using a string to represent the path is overkill.</div>
+<div class="comment-continuation">… The result of that parsing is something we can already produce.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I have manu's concern as well. We could easily be blocked because of that status of JSON pointer, and this is not core to the API.</div>
+<div class="comment-continuation">… I was warning if we could make this informative to suggest that implementations ought to (in a non normative way, that is) use JSON Pointers.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm worried that we're going too far. You would have to know the internals of the processor to make use of this.</div>
+<div class="comment-continuation">… Either you program the error handler to deal with a specific situation or ???</div>
+<div class="comment-continuation">… Perhaps we should keep it simple with an error type, message and return value to continue or stop.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so, this would mean that an implementation couldn't hope to correct data at runtime.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I get where francios is going, but I don't think we can be informative in this case.</div>
+<div class="comment-continuation">… It's like saying there's an optional feature.</div>
+<div class="comment-continuation">… this means you need to reference a normative spec.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I don't have a good example right now, and you may just end up with something you don't like.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'd rather leave it as is and allow the spec to move forward.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In RDFa, we provided different ways to specify alternative information. Perhaps there is a way to have some options that can be added that allow stuff like this to be specified. If you're going to do that, and it's not normative, it's probably not that useful. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I appreciate markus' point. Perhaps we can allow for the return to be true or false and not allow for any correction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I still think we should use the data structures I proposed. I like the simplicity of Markus' approach, but I'm concerned that there is no way to do correction.</div>
+<div class="comment-continuation">… Correction seems to be associated with corner cases. But, as Markus said, you could just run a pre-processor over the input to make sure it is in the proper order.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if we provide path information for global processing, it can lead to strange scenarios. If the path information implies that you can do correction, it's better to do a different way.</div>
+<div class="comment-continuation">… we should have more demand before we add such a feature.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could keep type and operation. Remove data.</div>
+<div class="comment-continuation">… Return value is true or false, to ignore and continue or abort.</div>
+<div class="comment-continuation">… The alternative is to allow the return to be different things, either boolean or object.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We might be boiling this down a bit too much if we do true/false. Perhaps we need to keep the return type being an object to ensure the greatest amount of future proofing. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You could just throw an exception - ignore or abort the entire operation via an exception. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it doesn't matter where it happens, as it's synchronous.</div>
+<div class="comment-continuation">… If you don't have an error handler, you would just throw the original exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The error handler is a function that is called, it's not something that intercepts an exception. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we want to use this as an exception intercept. We did this to allow the developer that option.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we did the error handler because it's asynchronous, not synchronous.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'd expect that when the processor stops it does this by throwing an exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The reason we went down this path is because we wanted the developer to have more control over the error handling process. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The way that we had thought processing would stop (with an error) is with the processor returning an exception. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if the programmer wants to do anything else, the developer should throw an exception. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should return a structure that includes some information that may be used by the processor in the future to provide finer granularity, but at this point, the actual return content is ignored and the current input is ignored and you continue processing the input stream. If the user wants to stop processing, they throw an exception. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  what happens when an exception is thrown we're in something asynchronous, you can't catch it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the original caller won't get the exception, but that happens all the time in JavaScript.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We could make this the method signature - function handleError(err, callback)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: if you want to pass along the error, you do this - callback(err)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: if you want to ignore the error and continue, you do this - callback(null, {})</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's a standard way to do errors in node.js. If you look at the async library, this pattern of having error and callback as arguments is well established.</div>
+<div class="comment-continuation">… If we want to do things asynchronously, this is the way to do it.</div>
+<div class="comment-continuation">… if there's an error, 'handle error' is called with the error and a callback. This allows the error handler to notify it's completion by calling the callback.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this is not the way error handler callbacks are used in other libraries.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's an old design, and people have moved away from that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  unless the handler is going to do something asynchronous itself, this looks like serious overkill.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  before the handler returns, the processor can decide whether to continue or not.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  all node.js libraries are designed like this.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i don't think we want to prohibit asynchronous behavior in the error handler -- especially when the rest of the design for the JSON-LD API is asynchronous</div>
+<div class="comment"><span class="name">Dave Longley</span>: you might want to make other JSON-LD calls in the error handler ... or do anything else in an asynchronous way; if we're not consistently supporting async ... then we're not supporting async; it's going to be very frustrating for people who need it</div>
+<div class="comment"><span class="name">Dave Longley</span>: (as in, they'll have to rewrite the processor)</div>
+<div class="comment"><span class="name">Dave Longley</span>: i think it's a bad idea to mix and match async w/sync... because it just means that it won't always work</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think there's anything to prevent the processor from continuing to process.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  either you stop processing, or you have a callback state to start and restart.</div>
+<div class="comment"><span class="name">François Daoust</span>:  you mentioned that it is common practice, but I'd like to see an example.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://expressjs.com/api.html">http://expressjs.com/api.html</a></div>
+<div class="comment-continuation">… I can't find an example having a continuation.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'm still a bit confused.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://stackoverflow.com/questions/7310521/node-js-best-practice-exception-handling">http://stackoverflow.com/questions/7310521/node-js-best-practice-exception-handling</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/caolan/async">https://github.com/caolan/async</a></div>
+<div class="comment"><span class="name">David I. Lehn</span>: hmm</div>
+<div class="comment"><span class="name">François Daoust</span>:  in the async world, the error handler signature doesn't take a callback.</div>
+<div class="comment-continuation">… handle error is already a callback.</div>
+<div class="comment-continuation">… This is only necessary if the error handler needs to be asynchronous itself.</div>
+<div class="comment-continuation">… I don't think that a error handler callback itself using a callback is that common.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but sending a callback for something that should execute asynchronously is common.</div>
+<div class="comment"><span class="name">Dave Longley</span>: as soon as you force synchronicity into an asynchronous system you've broken it -- which means that you've prohibited yourself from using the same async APIs that do things for you in your error handlers that you use everywhere else</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I wanted to ask if we should postpone until we have more information.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-160: Specify property-generator round-tripping algorithm</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/160">https://github.com/json-ld/json-ld.org/issues/160</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we never got around to discussing this in depth.</div>
+<div class="comment-continuation">… I think we said that there were issues with compaction, as it could be combinatorially complex to run, and we may want an option to tell the API to do this, or not.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think we should probably resolve issue 113 first.</div>
+<div class="comment-continuation">… Based on that, we can decide on issue 160.</div>
+<div class="comment-continuation">… that will tell us if it is feasible to do something that isn't "high fidelity"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  as there might be more information under a language, I don't know if it's even feasible.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  when we introduced property generators we said that it was likely that we wouldn't use it for compaction at all.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the crux of the issue is that data gets created.</div>
+<div class="comment-continuation">… drupal community wants to be sure that if the compact, they get the same thing. We said we'd given them a flag to allow this.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we could accomplish this by just picking the property-generator term before all other terms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We may also want to implement duplicate removal as well. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I realized that what gregg said makes sense: given a flag, property generators should only be used on data which you know about in advance. You shouldn't use them otherwise.</div>
+<div class="comment-continuation">… Given that, we could simplify the algorithm by just using the first value in the property generator, because you expect (require) that the data be consistent with doing that.</div>
+<div class="comment-continuation">… If a flag is used, you won't accidentally use that.</div>
+<div class="comment-continuation">… The flag should enable the use of property generators in compaction.</div>
+<div class="comment-continuation">… by using try, you're prepared that every term that has a property generator will only create round-trippable data if your input has duplicate data for all values.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you use gregg's algorithm, it is linear and not combinatorial.</div>
+<div class="information">The key thing is that in the term selector you have to use property generator terms first.</div>
+<div class="information">If we follow a standard selection process, it is linear.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  modify compaction algorithm to consider property generator terms before any other term.</div>
+<div class="comment-continuation">… any time you find something that matches, you check to see if it already exists and if it has that value. If it does, you ignore it, otherwise, you add to the end of the array.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What about @lists - do we check all entries in there? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, I think we have to. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, and keep in mind that list order is important. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if there's a value, you need to check all keys in the value.</div>
+<div class="comment-continuation">… If there's an ID, the expressed information is enough.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  this doesn't guarantee that the node definitions are equivalent.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I have a problem with expanded forms not always being flattened anyway.</div>
+<div class="comment-continuation">… For this case, it would really help.</div>
+<div class="comment-continuation">… we could say that to not loose data, it needs to be used with 'flatten' set to true.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  drupal wants this because the use RDFa, and this is consistent with the use in RDFa.</div>
+<div class="comment-continuation">… what they don't care about is the potential of using vocabulary expansion, which could be done on the RDF side.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it seems we have a solution, but it still has complexities due to complex values.</div>
+<div class="comment-continuation">… We can implement a basic version of this, but if we find deeply nested objects we can throw an exception.</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0018.html
+[10:05]	<gkellogg>	scribe: gkellogg
+[10:06]	<tidoust>	voip: unmute me
+[10:06]	<voip-ld>	tidoust has been unmuted.
+[10:06]	<tidoust>	q+
+[10:06]	<voip-ld>	Added tidoust to the speaker queue: niklasl, tidoust
+[10:06]	<manu1>	gregg: Probably going to visit Wikimedia Germany - going to talk to them more about JSON-LD and Wikidata during that trip.
+[10:06]	<manu1>	ack niklasl
+[10:06]	<voip-ld>	niklasl has the floor. The next speaker is tidoust.
+[10:06]	<manu1>	ack tidoust
+[10:06]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:07]	<gkellogg>	tidoust: TPAC coming up and of October, last year there were lots of break out sessions, and we're looking for ideas
+[10:07]	<gkellogg>	… I wonder of someone could run a breakout session on JSON-LD
+[10:08]	<manu1>	Topic: TPAC JSON-LD breakout session
+[10:09]	<gkellogg>	manu: it would be good to do, but it doesn't seem like anyone has the time to go.
+[10:09]	<manu1>	gkellogg: Maybe a BOF?
+[10:10]	<tidoust>	voip: mute me
+[10:10]	<voip-ld>	tidoust has been muted.
+[10:10]	<gkellogg>	manu: perhaps we can make ourselves available over Skype, if there's a BOF.
+[10:11]	<gkellogg>	… of course, if the connections bad, it might not be worth it.
+[10:11]	<tidoust>	[I will try but I doubt there will be bridges available during the plenary day]
+[10:11]	<manu1>	Topic: RDF WG review of latest JSON-LD docs
+[10:12]	<manu1>	Gregg: I got an issue put on me in order to get a plan together for a review from the RDF WG from folks who hadn't reviewed it yet.
+[10:13]	<manu1>	gregg: Richard and Sandro volunteered to review the documents. I didn't know the status of the docs at the time, need to understand the status.
+[10:13]	<manu1>	gregg: We need the timeframe/plan for the syntax spec to be available for review.
+[10:13]	<gkellogg>	manu: we have some resolutions that we can apply to the spec, which would put both syntax and API in good shape
+[10:14]	<gkellogg>	… We could theoretically have a review ready spec by next week.
+[10:14]	<gkellogg>	… There are still some outstanding issues, but we can just put issue markers in
+[10:15]	<manu1>	gregg: I think synchronizing the status of the spec w/ the latest issue resolutions would be good.
+[10:15]	<manu1>	gregg: I think we also decided on language maps - don't know if we have them documented.
+[10:16]	<gkellogg>	manu: cygri took the action to align the doc with RDF Concepts. We can do everything else.
+[10:16]	<manu1>	manu: They're in the syntax spec... not in the API spec.
+[10:16]	<gkellogg>	… Since Richard is reviewing the document, maybe he would also make sure the two docs are aligned.
+[10:17]	<gkellogg>	markus: shouldn't we decide how language maps and property generators are going to be implemented before asking for review?
+[10:17]	<gkellogg>	manu: they're reviewing the syntax, and not the API, so it might not be important.
+[10:17]	<manu1>	ACTION: Manu to ping Richard on JSON-LD Syntax and RDF Concepts terminology alignment.
+[10:18]	<gkellogg>	markus: there haven't been many changes since the last rounds of reviews, so I don't know how much sense it makes to do a review.
+[10:18]	<gkellogg>	manu: that's what diffmarks are for. However, people like Sandro, who haven't done a review, end up doing a full review.
+[10:19]	<gkellogg>	… I think there will be significant changes to the intro.
+[10:19]	<gkellogg>	ACTION: Manu to update spec and integrate changes from tracker
+[10:19]	<manu1>	Topic: ISSUE-153: Define error handler behavior
+[10:20]	<manu1>	https://github.com/json-ld/json-ld.org/issues/153
+[10:20]	<gkellogg>	manu: last comment has the basic proposal.
+[10:20]	<gkellogg>	… we probably need more than what we have there right now.
+[10:20]	<manu1>	https://github.com/json-ld/json-ld.org/issues/153#issuecomment-8854985
+[10:21]	<gkellogg>	… whenever there is a processing error, if an error handler is specified, it is called one argument, which is the error object, with four values.
+[10:21]	<gkellogg>	… type, operation, data, and value
+[10:22]	<gkellogg>	… the return value is an object containing continue (boolean) and corrected value.
+[10:23]	<gkellogg>	… Perhaps we want there to be two arguments: the error and a callback. The callback would be used to allow it to be asynchronous
+[10:23]	<gkellogg>	markus: what do you mean by data? Is it the input document, or a document fragment.
+[10:24]	<niklasl>	q+
+[10:24]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:24]	<manu1>	ack niklasl
+[10:24]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:24]	<manu1>	gregg: Perhaps we need to pass in the entire document and a JSON Pointer.
+[10:24]	<gkellogg>	niklas: normally, the document object would be available to the error handler anyway.
+[10:25]	<gkellogg>	… I think it's also good to have the key for the current value (parent key and value) in addition to the value.
+[10:25]	<gkellogg>	manu: do we think we need more than just the parent?
+[10:25]	<gkellogg>	niklas: we should try to be simple.
+[10:25]	<gkellogg>	… In a list, you would need to return the position in the list.
+[10:27]	<manu1>	http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-04
+[10:27]	<gkellogg>	manu: json pointer is not final yet.
+[10:28]	<gkellogg>	… it uses '/' notation.
+[10:28]	<gkellogg>	niklas: it would be more useful to have some JavaScript to do the access.
+[10:28]	<gkellogg>	manu: I'm pretty wary of using this right now.
+[10:29]	<gkellogg>	… It would really complicate the implementation. If someone needs to find the reference, they can do that anyway.
+[10:29]	<niklasl>	.. I'd prefer a regular access path like: "root['@graph'][0]['title']['@value']"
+[10:29]	<gkellogg>	… They can search the document for the value. Even if they needed to do that, they can search for the reference.
+[10:30]	<gkellogg>	niklas: if you give them the term string, they can check the context.
+[10:30]	<gkellogg>	... We could give root, parent, key and value. Then you don't need JSON pointer.
+[10:31]	<gkellogg>	niklas: minimum should be term and value, if possible parent and root.
+[10:31]	<gkellogg>	manu: with just key and value, it is still ambiguous
+[10:32]	<gkellogg>	… If we don't want JSON pointer, we need to be sure we have something that does the same thing.
+[10:32]	<gkellogg>	… for that to happen, it needs to be more than the key and the value.
+[10:32]	<manu1>	gregg: This is exactly what JSON Pointer is designed to do.
+[10:32]	<niklasl>	.. we can give them a path which is an array of strings and numbers
+[10:33]	<niklasl>	.. that is enough to find the exact value from the root
+[10:33]	<niklasl>	.. that would be path: [@graph', 0, 'title', '@value']
+[10:33]	<niklasl>	q+
+[10:33]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:33]	<tidoust>	q+
+[10:33]	<voip-ld>	Added tidoust to the speaker queue: niklasl, tidoust
+[10:33]	<mlnt>	q+
+[10:33]	<voip-ld>	Added mlnt to the speaker queue: niklasl, tidoust, mlnt
+[10:34]	<gkellogg>	manu: I don't want to hold up JSON-LD just because JSON Pointer hasn't reached Rec.
+[10:35]	<gkellogg>	niklas: I think that using a string to represent the path is overkill.
+[10:35]	<manu1>	ack niklasl
+[10:35]	<voip-ld>	niklasl has the floor. The next speaker is tidoust.
+[10:35]	<gkellogg>	… The result of that parsing is something we can already produce.
+[10:35]	<manu1>	ack tidoust
+[10:35]	<voip-ld>	niklasl has the floor. The next speaker is mlnt.
+[10:35]	<tidoust>	voip: unmute me
+[10:35]	<voip-ld>	tidoust has been unmuted.
+[10:36]	<gkellogg>	tidoust: I have manu's concern as well. We could easily be blocked because of that status of JSON pointer, and this is not core to the API.
+[10:37]	<gkellogg>	… I was warning if we could make this informative to suggest that implementations ought to (in a non normative way, that is) use JSON Pointers.
+[10:37]	<manu1>	ack mlnt
+[10:37]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:37]	<tidoust>	voip: mute me
+[10:37]	<voip-ld>	tidoust has been muted.
+[10:37]	<gkellogg>	markus: I'm worried that we're going too far. You would have to know the internals of the processor to make use of this.
+[10:38]	<gkellogg>	… Either you program the error handler to deal with a specific situation or ???
+[10:38]	<gkellogg>	… Perhaps we should keep it simple with an error type, message and return value to continue or stop.
+[10:39]	<gkellogg>	manu: so, this would mean that an implementation couldn't hope to correct data at runtime.
+[10:39]	<manu1>	q+
+[10:39]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:39]	<manu1>	ack manu1
+[10:39]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:40]	<gkellogg>	manu: I get where francios is going, but I don't think we can be informative in this case.
+[10:40]	<gkellogg>	q+
+[10:40]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:40]	<gkellogg>	… It's like saying there's an optional feature.
+[10:41]	<tidoust>	voip: unmute me
+[10:41]	<voip-ld>	tidoust has been unmuted.
+[10:41]	<gkellogg>	… this means you need to reference a normative spec.
+[10:41]	* niklasl	is skeptical to json pointer, both for this case and for it's current design
+[10:41]	<gkellogg>	tidoust: I don't have a good example right now, and you may just end up with something you don't like.
+[10:41]	<gkellogg>	q-
+[10:41]	<voip-ld>	Removed gkellogg from the speaker queue: (empty)
+[10:42]	<niklasl>	q+
+[10:42]	<gkellogg>	tidoust: I'd rather leave it as is and allow the spec to move forward.
+[10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:42]	<tidoust>	voip: mute me
+[10:42]	<voip-ld>	tidoust has been muted.
+[10:43]	<manu1>	gregg: In RDFa, we provided different ways to specify alternative information. Perhaps there is a way to have some options that can be added that allow stuff like this to be specified. If you're going to do that, and it's not normative, it's probably not that useful.
+[10:43]	<manu1>	ack niklasl
+[10:43]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:43]	<gkellogg>	niklas: I appreciate markus' point. Perhaps we can allow for the return to be true or false and not allow for any correction.
+[10:44]	<gkellogg>	manu: I still think we should use the data structures I proposed. I like the simplicity of Markus' approach, but I'm concerned that there is no way to do correction.
+[10:44]	<gkellogg>	… Correction seems to be associated with corner cases. But, as Markus said, you could just run a pre-processor over the input to make sure it is in the proper order.
+[10:45]	<gkellogg>	niklas: if we provide path information for global processing, it can lead to strange scenarios. If the path information implies that you can do correction, it's better to do a different way.
+[10:45]	<gkellogg>	… we should have more demand before we add such a feature.
+[10:46]	<gkellogg>	manu: we could keep type and operation. Remove data.
+[10:46]	<gkellogg>	… Return value is true or false, to ignore and continue or abort.
+[10:47]	<gkellogg>	… The alternative is to allow the return to be different things, either boolean or object.
+[10:48]	<manu1>	gregg: We might be boiling this down a bit too much if we do true/false. Perhaps we need to keep the return type being an object to ensure the greatest amount of future proofing.
+[10:49]	<manu1>	gregg: You could just throw an exception - ignore or abort the entire operation via an exception.
+[10:50]	<gkellogg>	niklas: it doesn't matter where it happens, as it's synchronous.
+[10:50]	<gkellogg>	… If you don't have an error handler, you would just throw the original exception.
+[10:51]	<manu1>	gregg: The error handler is a function that is called, it's not something that intercepts an exception.
+[10:51]	<gkellogg>	manu: I don't think we want to use this as an exception intercept. We did this to allow the developer that option.
+[10:52]	<gkellogg>	markus: we did the error handler because it's asynchronous, not synchronous.
+[10:54]	<gkellogg>	manu: I'd expect that when the processor stops it does this by throwing an exception.
+[10:55]	<manu1>	gregg: The reason we went down this path is because we wanted the developer to have more control over the error handling process.
+[10:55]	<manu1>	gregg: The way that we had thought processing would stop (with an error) is with the processor returning an exception.
+[10:55]	<manu1>	gregg: if the programmer wants to do anything else, the developer should throw an exception.
+[10:56]	<niklasl>	q+
+[10:56]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:56]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-0000000b) has joined the conference.
+[10:56]	<manu1>	gregg: I think we should return a structure that includes some information that may be used by the processor in the future to provide finer granularity, but at this point, the actual return content is ignored and the current input is ignored and you continue processing the input stream. If the user wants to stop processing, they throw an exception.
+[10:57]	<manu1>	voip: mute gkellogg
+[10:57]	<voip-ld>	gkellogg is not associated with an audio channel. You may specify the first or last name of a person's Caller ID. You may also specify the last 2 or more digits of the audio channel name. You can also map an IRC nickname to an audio channel. Use 'voip-ld: <CHANNEL> is me' to map yourself to an audio channel. Use 'voip-ld: <CHANNEL> is <NICK>' to map someone else to an audio channel.
+[10:57]	<manu1>	voip: mute gregg
+[10:57]	<voip-ld>	SIP/10.0.1.18-00000008 has been muted.
+[10:57]	<gkellogg>	niklas: what happens when an exception is thrown we're in something asynchronous, you can't catch it.
+[10:57]	<gkellogg>	voip: unmute me
+[10:57]	<voip-ld>	gkellogg is not associated with an audio channel. You may specify the first or last name of a person's Caller ID. You may also specify the last 2 or more digits of the audio channel name. You can also map an IRC nickname to an audio channel. Use 'voip-ld: <CHANNEL> is me' to map yourself to an audio channel. Use 'voip-ld: <CHANNEL> is <NICK>' to map someone else to an audio channel.
+[10:58]	<manu1>	voip: unmute gregg
+[10:58]	<voip-ld>	SIP/10.0.1.18-00000008 has been unmuted.
+[10:59]	<gkellogg>	manu: the original caller won't get the exception, but that happens all the time in JavaScript.
+[11:00]	<manu1>	We could make this the method signature - function handleError(err, callback)
+[11:00]	<manu1>	if you want to pass along the error, you do this - callback(err)
+[11:01]	<manu1>	if you want to ignore the error and continue, you do this - callback(null, {})
+[11:02]	<gkellogg>	manu: there's a standard way to do errors in node.js. If you look at the async library, this pattern of having error and callback as arguments is well established.
+[11:03]	<gkellogg>	… If we want to do things asynchronously, this is the way to do it.
+[11:03]	<gkellogg>	… if there's an error, 'handle error' is called with the error and a callback. This allows the error handler to notify it's completion by calling the callback.
+[11:04]	<gkellogg>	niklas: this is not the way error handler callbacks are used in other libraries.
+[11:04]	<gkellogg>	manu: that's an old design, and people have moved away from that.
+[11:05]	<gkellogg>	niklas: unless the handler is going to do something asynchronous itself, this looks like serious overkill.
+[11:06]	<gkellogg>	markus: before the handler returns, the processor can decide whether to continue or not.
+[11:06]	<gkellogg>	manu: all node.js libraries are designed like this.
+[11:07]	<dlongley>	i don't think we want to prohibit asynchronous behavior in the error handler -- especially when the rest of the design for the JSON-LD API is asynchronous
+[11:07]	<dlongley>	you might want to make other JSON-LD calls in the error handler ... or do anything else in an asynchronous way; if we're not consistently supporting async ... then we're not supporting async; it's going to be very frustrating for people who need it
+[11:08]	<dlongley>	(as in, they'll have to rewrite the processor)
+[11:08]	<tidoust>	q+
+[11:08]	<voip-ld>	Added tidoust to the speaker queue: niklasl, tidoust
+[11:08]	<dlongley>	i think it's a bad idea to mix and match async w/sync... because it just means that it won't always work
+[11:08]	<gkellogg>	manu: I don't think there's anything to prevent the processor from continuing to process.
+[11:09]	<gkellogg>	markus: either you stop processing, or you have a callback state to start and restart.
+[11:10]	<manu1>	ack tidoust
+[11:10]	<voip-ld>	niklasl has the floor. The next speaker is tidoust.
+[11:10]	<tidoust>	voip: unmute me
+[11:10]	<voip-ld>	tidoust has been unmuted.
+[11:10]	<gkellogg>	tidoust: you mentioned that it is common practice, but I'd like to see an example.
+[11:10]	<manu1>	http://expressjs.com/api.html
+[11:10]	<gkellogg>	… I can't find an example having a continuation.
+[11:12]	<gkellogg>	tidoust: I'm still a bit confused.
+[11:12]	<dlongley>	http://stackoverflow.com/questions/7310521/node-js-best-practice-exception-handling
+[11:12]	<manu1>	https://github.com/caolan/async
+[11:13]	<mlnt>	q+ ask to pospone discussion on this issue till we have a more formal proposal
+[11:13]	<voip-ld>	Added mlnt to the speaker queue: niklasl, mlnt
+[11:13]	<taaz>	hmm
+[11:13]	<gkellogg>	tidoust: in the async world, the error handler signature doesn't take a callback.
+[11:14]	<gkellogg>	… handle error is already a callback.
+[11:14]	<gkellogg>	… This is only necessary if the error handler needs to be asynchronous itself.
+[11:15]	<gkellogg>	… I don't think that a error handler callback itself using a callback is that common.
+[11:15]	<tidoust>	voip: mute me
+[11:15]	<voip-ld>	tidoust has been muted.
+[11:15]	<gkellogg>	manu: but sending a callback for something that should execute asynchronously is common.
+[11:15]	<manu1>	ack niklasl
+[11:15]	<voip-ld>	niklasl has the floor. The next speaker is mlnt.
+[11:15]	<manu1>	ack mlnt
+[11:15]	<voip-ld>	niklasl has the floor (ask to pospone discussion on this issue till we have a more formal proposal). The speaker queue is empty.
+[11:16]	<dlongley>	as soon as you force synchronicity into an asynchronous system you've broken it -- which means that you've prohibited yourself from using the same async APIs that do things for you in your error handlers that you use everywhere else
+[11:16]	<gkellogg>	markus: I wanted to ask if we should postpone until we have more information.
+[11:16]	<manu1>	Topic: ISSUE-160: Specify property-generator round-tripping algorithm
+[11:16]	<manu1>	https://github.com/json-ld/json-ld.org/issues/160
+[11:17]	<gkellogg>	manu: we never got around to discussing this in depth.
+[11:17]	<gkellogg>	… I think we said that there were issues with compaction, as it could be combinatorially complex to run, and we may want an option to tell the API to do this, or not.
+[11:17]	<niklasl>	q+
+[11:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:18]	<manu1>	ack niklasl
+[11:18]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:18]	<gkellogg>	niklas: I think we should probably resolve issue 113 first.
+[11:18]	<gkellogg>	… Based on that, we can decide on issue 160.
+[11:19]	<gkellogg>	… that will tell us if it is feasible to do something that isn't "high fidelity"
+[11:19]	<gkellogg>	markus: as there might be more information under a language, I don't know if it's even feasible.
+[11:20]	<gkellogg>	niklas: when we introduced property generators we said that it was likely that we wouldn't use it for compaction at all.
+[11:20]	<gkellogg>	manu: the crux of the issue is that data gets created.
+[11:21]	<gkellogg>	… drupal community wants to be sure that if the compact, they get the same thing. We said we'd given them a flag to allow this.
+[11:24]	<niklasl>	q+
+[11:24]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:28]	<voip-ld>	tidoust (IAX2/diamondcard-1396) has left the conference.
+[11:28]	<manu1>	ack niklasl
+[11:28]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:29]	<manu1>	gregg: I think we could accomplish this by just picking the property-generator term before all other terms.
+[11:29]	-->|	tidoust_ (~fd@AMontsouris-159-1-99-126.w82-123.abo.wanadoo.fr) has joined #json-ld
+[11:29]	<manu1>	gregg: We may also want to implement duplicate removal as well.
+[11:29]	<gkellogg>	niklas: I realized that what gregg said makes sense: given a flag, property generators should only be used on data which you know about in advance. You shouldn't use them otherwise.
+[11:29]	<gkellogg>	… Given that, we could simplify the algorithm by just using the first value in the property generator, because you expect (require) that the data be consistent with doing that.
+[11:30]	<gkellogg>	… If a flag is used, you won't accidentally use that.
+[11:30]	<gkellogg>	… The flag should enable the use of property generators in compaction.
+[11:30]	<gkellogg>	… by using try, you're prepared that every term that has a property generator will only create round-trippable data if your input has duplicate data for all values.
+[11:31]	<gkellogg>	manu: if you use gregg's algorithm, it is linear and not combinatorial.
+[11:31]	|<--	tidoust has left freenode (Ping timeout: 246 seconds)
+[11:31]	=-=	tidoust_ is now known as tidoust
+[11:31]	<gkellogg>	The key thing is that in the term selector you have to use property generator terms first.
+[11:32]	<gkellogg>	If we follow a standard selection process, it is linear.
+[11:32]	<gkellogg>	manu: modify compaction algorithm to consider property generator terms before any other term.
+[11:33]	<gkellogg>	… any time you find something that matches, you check to see if it already exists and if it has that value. If it does, you ignore it, otherwise, you add to the end of the array.
+[11:34]	<manu1>	mlnt: What about @lists - do we check all entries in there?
+[11:34]	<manu1>	manu: Yes, I think we have to.
+[11:34]	<manu1>	gregg: Yes, and keep in mind that list order is important.
+[11:35]	<gkellogg>	niklas: if there's a value, you need to check all keys in the value.
+[11:35]	<gkellogg>	… If there's an ID, the expressed information is enough.
+[11:36]	<gkellogg>	markus: this doesn't guarantee that the node definitions are equivalent.
+[11:37]	<gkellogg>	niklas: I have a problem with expanded forms not always being flattened anyway.
+[11:37]	<gkellogg>	… For this case, it would really help.
+[11:37]	<gkellogg>	… we could say that to not loose data, it needs to be used with 'flatten' set to true.
+[11:40]	<gkellogg>	niklas: drupal wants this because the use RDFa, and this is consistent with the use in RDFa.
+[11:40]	<gkellogg>	… what they don't care about is the potential of using vocabulary expansion, which could be done on the RDF side.
+[11:40]	<gkellogg>	manu: it seems we have a solution, but it still has complexities due to complex values.
+[11:41]	<gkellogg>	… We can implement a basic version of this, but if we find deeply nested objects we can throw an exception.
+[11:43]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000008) has left the conference.
+[11:43]	<voip-ld>	Manu Sporny (SIP/6000-00000009) has left the conference.
+[11:43]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-0000000b) has left the conference.
+[11:43]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000000a) has left the conference.
+[11:43]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000007) has left the conference.
