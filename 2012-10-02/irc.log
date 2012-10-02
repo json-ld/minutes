@@ -1,0 +1,171 @@
+[10:07]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0022.html
+[10:07]	<manu1>	scribe: niklasl
+[10:07]	<niklasl>	manu1: Two additions to the agenda: talk about the connect/graphify mechanism
+[10:08]	<niklasl>	… and the microdata/json to json-ld topic
+[10:08]	<niklasl>	… we'll add those to the end of the agenda
+[10:08]	<manu1>	Topic: ISSUE-160: Specify property-generator round-tripping algorithm
+[10:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/160
+[10:08]	<manu1>	Current proposal is here: https://github.com/json-ld/json-ld.org/issues/160#issuecomment-8956476
+[10:09]	<niklasl>	manu1: had a good discussion with lin about this recently. We may have a new angle/proposal for this.
+[10:09]	<niklasl>	… the big problem with this issue is that it creates new data
+[10:09]	<niklasl>	… when expanding, and re-compacting, it's not clear how to get back to the original data
+[10:10]	<niklasl>	… the idea that came up was that we could tag the generated data to make clear where it came from
+[10:10]	<niklasl>	… thus recompaction knows how to *re*compact
+[10:10]	<niklasl>	… I like this mostly because there's linear time complexity
+[10:10]	<niklasl>	… downsides are: we're now generating instructions to the processor
+[10:11]	<niklasl>	… and it is not a general solution in the sense that non-tagged multiple occurrences will not be compacted even if there is a property generator expression for a term in the context
+[10:11]	<niklasl>	… so the question is: do we want this kind of tagged data?
+[10:12]	<niklasl>	… If we decide that we want to take this path, we can apply this to the language maps as well (and other forms of syntactic sugar in the future)
+[10:13]	<manu1>	q+ to discuss expanded output w/o @processor tags.
+[10:13]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:13]	<niklasl>	markus: Do we want to include such metadata in the expanded output? Some systems may publish expanded data. If the metadata isn't there, users wanting to use property generators in compact contexts, they won't work.
+[10:14]	<niklasl>	markus: I'm also unsure about the use cases Drupal has. Can type coercion work for that?
+[10:14]	<niklasl>	Lin: I checked with the community. We cannot rely on gzip-ing for reducing bandwidth
+[10:15]	<niklasl>	Lin: Regarding type coercions: we don't know if those will have different types.
+[10:15]	<niklasl>	… The people defining the fields aren't necessarily developers. So this is beyond our control.
+[10:15]	<niklasl>	q+
+[10:15]	<voip-ld>	Added niklasl to the speaker queue: manu1, niklasl
+[10:15]	<niklasl>	markus: but you could generate a type based on the field names automatically..
+[10:15]	<niklasl>	lin: We want to expose the type that people say things are.
+[10:16]	<gkellogg>	q+ to ask about using subProperties along with entailment rules to distinguish between different uses of properties
+[10:16]	<voip-ld>	Added gkellogg to the speaker queue: manu1, niklasl, gkellogg
+[10:17]	<niklasl>	manu: to clarify; the issue is that two different sites have different kinds of properties that share a common schema.org property?
+[10:17]	<mlnt>	This shows how using different types would work: https://bitly.com/U0Qo87
+[10:17]	<manu1>	ack niklasl
+[10:17]	<voip-ld>	manu1 has the floor (to discuss expanded output w/o @processor tags.). The next speaker is niklasl.
+[10:19]	<manu1>	niklasl: This is kinda like the RDFa vocabulary expansion feature.
+[10:20]	<manu1>	niklasl: I think that people will need this feature in JSON-LD - the property generator stuff. In all of these cases, the important property is the first property in the array. If we include this, we could specify something along those lines. Property generators aren't a general feature, they're a feature for those who cannot use entailment. It's a dirty solution w/ a practical use case.
+[10:21]	<manu1>	niklasl: I think we should clearly mark the metadata-in-expanded-form would be okay with me if we were clear about the issues.
+[10:21]	<manu1>	ack gkellogg
+[10:21]	<voip-ld>	manu1 has the floor. The next speaker is gkellogg.
+[10:22]	<niklasl>	gregg: my thought was to use the spirit of entailment, in order to define the property generator array to be a list of properties for which the stated term as a subproperty relationship
+[10:22]	<niklasl>	… so when we expand, we only use the single id of that property
+[10:23]	<manu1>	voip: connections?
+[10:23]	<voip-ld>	Conference connections: getonsip_linclark [SIP/sip.onsip.com-00000018], <unknown> (tidoust) [IAX2/diamondcard-13314], Gregg Kellogg [SIP/10.0.1.18-00000019], Niklas Lindström [SIP/82.182.71.107-00000016], Manu Sporny [SIP/6000-0000001a], Markus Lanthaler [SIP/sip.linphone.org-00000017]
+[10:23]	<niklasl>	… if we just stick with a single iri for the @id, but include a property generator array as well
+[10:24]	<niklasl>	… and we could add a flag to turn on using that to use those properties as well
+[10:24]	<niklasl>	… I'd rather do that than add pragma data to the expanded output
+[10:26]	<mlnt>	q+
+[10:26]	<voip-ld>	Added mlnt to the speaker queue: manu1, mlnt
+[10:27]	<niklasl>	gregg: on compaction, the extra properties in the generator expression could be removed; unless they are also defined elsewhere..
+[10:27]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-0000001b) has joined the conference.
+[10:27]	<manu1>	ack mlnt
+[10:27]	<voip-ld>	manu1 has the floor (to ask about using subProperties along with entailment rules to distinguish between different uses of properties). The next speaker is mlnt.
+[10:28]	<niklasl>	manu: and we could have rules for treating presence of an iri both in a generator expression and regular term as an error
+[10:28]	<niklasl>	lin: one of our cases is the ability to expand and then compact again
+[10:28]	<niklasl>	…. although going back to compacted form is more theoretical for us
+[10:29]	* niklasl	or does Drupal require it?
+[10:29]	* niklasl	a bit lost...
+[10:30]	<niklasl>	lin: a number of the suggestions proposed will probably work for us
+[10:32]	<mlnt>	I meant instead of having "term": { "@id": ["http://example.org/vocab#term1", "http://example.org/vocab#term2" ]} in the context
+[10:32]	-->|	scor (~scor@132.183.243.214) has joined #json-ld
+[10:32]	|<--	scor has left freenode (Changing host)
+[10:32]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[10:32]	<mlnt>	we could have "term": { "@id": "http://example.org/vocab#term1", "@expandAlsoTo": "http://example.org/vocab#term2" ]}
+[10:32]	<taaz>	hmm...
+[10:32]	<mlnt>	in compaction we would then just use @id, i.e., expandAlsoTo is completely ignored in compaction
+[10:32]	<niklasl>	gregg: instead of direct expansion, we can output a subPropery-assertion for the property
+[10:32]	<linclark>	mlnt: yeah, that would work for us. we will always have at least one unique IRI for the term
+[10:33]	<niklasl>	gregg: in my proposal, that'd result in term1 rdfs:subPropertyOf term2
+[10:34]	<manu1>	{"@context": {"compactor": {"@id": "http://bar.com/baz", "@expandAlsoTo": ["http://schema.org/title", "http://example.com/a"]}, "http://schema.org/title": "foo"}
+[10:35]	<mlnt>	@expandAlsoTo is ignored in compaction
+[10:36]	<gkellogg>	{"@id": "http://bar.com/baz", "rdfs:subPropertyOf": "http://schema.org/title"}
+[10:36]	<niklasl>	niklas: what are the consumer demands here?
+[10:37]	<niklasl>	manu: do the consumers expect to see schema.org/title in the expanded form here?
+[10:37]	<niklasl>	… or is the need just for semantic annotation
+[10:37]	* niklasl	which looks as reinventing RDFS in json-ld to me
+[10:38]	<niklasl>	gregg: not really reinventing. It's more like what we do in RDFa.
+[10:38]	<niklasl>	manu: the downside is that you need to reason on the graph.
+[10:39]	* niklasl	corrects myself: it is *expressing* RDFS in json-ld contexts...
+[10:39]	<niklasl>	lin: we want to communicate with multiple different consumers using different vocabularies
+[10:40]	<niklasl>	… and also e.g. content staging...
+[10:40]	<niklasl>	… we want to use ison-ld instead of RDF but with the full irri
+[10:40]	<niklasl>	gregg: so then we need to expand this
+[10:40]	<niklasl>	q+
+[10:40]	<voip-ld>	Added niklasl to the speaker queue: manu1, niklasl
+[10:41]	<niklasl>	markus: do we need to be able to undo that?
+[10:42]	<niklasl>	gregg: if we don't perform generator expansion we don't need to undo anything
+[10:42]	<niklasl>	… if you perform expansion you shouldn't expect to be able to undo it
+[10:42]	<manu1>	ack niklasl
+[10:42]	<voip-ld>	manu1 has the floor. The next speaker is niklasl.
+[10:42]	<manu1>	ack
+[10:42]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:43]	<manu1>	niklasl: I may have gotten a clear picture from what Gregg said... we have to consider the entire use case... when do we need to throw away the generated data? If we have property generators, on expansion, do they always generate the extra data (or do you need a flag to do that?)
+[10:44]	<manu1>	niklasl: When you use compaction on expanded data, do you throw away something? Any full IRI that is used only in a property generator? Other alternative is to have the pragma directive.
+[10:44]	<manu1>	q+ to answer question
+[10:44]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:45]	<manu1>	niklasl: Actually see if all of the statements are the same? That is use the heavily computation intensive mechanism.
+[10:46]	<niklasl>	manu: if we do have a flag, we have the roundtripping issue
+[10:46]	<niklasl>	manu: i think we need to support roundtripping
+[10:46]	<gkellogg>	q+ to discuss node value duplicate identification.
+[10:46]	<voip-ld>	Added gkellogg to the speaker queue: manu1, gkellogg
+[10:46]	<niklasl>	… I don't want that to be computation expensive. If we have pragmas we can do it cheaply.
+[10:47]	<niklasl>	manu: throwing away iris within property generators is ambiguous because it may not have come from expansion.
+[10:47]	* niklasl	yes, we may destroy data
+[10:48]	* niklasl	but *who* and *when* will compact with contexts using property generators?
+[10:49]	<mlnt>	that's *the* question I would say niklas
+[10:49]	<manu1>	ack manu1
+[10:49]	<voip-ld>	manu1 has the floor (to answer question). The next speaker is gkellogg.
+[10:50]	<manu1>	ack gkellogg
+[10:50]	<voip-ld>	manu1 has the floor (to discuss node value duplicate identification.). The speaker queue is empty.
+[10:51]	<niklasl>	gregg: when expanding, if we have a property generators, bnodes *must* have node-id:s since the expanded properties link to the *same* bnode
+[10:51]	<niklasl>	… and thus we can compact and compare values
+[10:52]	<niklasl>	manu: assigning bnodes requires graph normalization
+[10:53]	* niklasl	what happens with pragmas going through flattening?
+[10:55]	* niklasl	but *who* and *when* will compact with contexts using property generators? ;)
+[10:56]	<niklasl>	manu: a drupal site might export and re-import via expanded form
+[10:56]	<niklasl>	markus: but that system can ignore data not relevant for it
+[10:56]	<niklasl>	lin: the direction of the api is unclear for me
+[10:56]	<niklasl>	… if the idea is that you will round-trip, we want to be able to use it
+[10:57]	<mlnt>	q+
+[11:01]	<niklasl>	niklas: {ctx; {term: {id: [a, b]}, term: {label: 'unknown'}} } expands to [{a: {@id: "_:genid-1", {b: {@id: "_:genid-1"}}, {@id: "_:genid-1", label: 'unknown'}]
+[11:02]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/160#issuecomment-8956476
+[11:02]	<mlnt>	{ "@context": { "property": "http://schema.org/foo" } }
+[11:03]	<manu1>	What I'm proposing is something like this - {"@value": "foo", "@processor": "drop-when-compacting"}, not that terrible, I don't think. Problem is that re-compacting with a different context could lose data.
+[11:04]	<niklasl>	markus: compacting with processor pragmas and a new context seems problematic
+[11:08]	<niklasl>	manu: can we create a bnode mechanism that is easily identified?
+[11:10]	<manu1>	ack mlnt
+[11:10]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[11:11]	<niklasl>	gregg: when expanding a property generator term, all iris:s associated with the generator are repeated for them. If a value is a bnode without @id, an @id must be generated for that to ensure that the same bnode is referenced more than once.
+[11:12]	<niklasl>	…. when we compact, upon checking a term match for a term using property generators, we must compare the values to see if we have the same value. If all are the same, use the property generator term.
+[11:15]	<manu1>	niklasl: Can we just say that we use the node definition for the first item in the array, and references for the other items in the array.
+[11:17]	<niklasl>	markus: if you get an expanded document where iris used in non-normalized node definitions, would a property generator matching algorithm miss something?
+[11:20]	<niklasl>	gregg: I'l write down a proposal
+[11:20]	<niklasl>	manu: so backing up, do we still want to support property generators? Lin and I think they're important.
+[11:20]	<niklasl>	+1 with some faith
+[11:22]	<niklasl>	manu: we have two approaches, both *may* destroy data in edge cases upon compaction
+[11:22]	<niklasl>	markus: still, do we really have to eliminate the data?
+[11:22]	<niklasl>	… it would make it much, much simpler
+[11:23]	<niklasl>	gregg: then we wouldn't roundtrip
+[11:25]	<niklasl>	manu: Okay, so we have consensus that we want to support property generators and we want to support round-tripping. There is concerns that we don't want to inject pragma directives into expanded form.
+[11:26]	<manu1>	Topic: Microdata to JSON-LD conversion
+[11:26]	* tidoust	sorry folks, need to go, bye
+[11:26]	<niklasl>	gregg: we've discussed off-list about the possibility to take the json generated by a microdata parser and treat it as json-ld
+[11:26]	<voip-ld>	tidoust (IAX2/diamondcard-13314) has left the conference.
+[11:26]	* manu1	waves to tidoust.
+[11:27]	<niklasl>	… the crux is that md-json contains a "properties" term which means nothing; so we'd need to "fold that upwards"
+[11:27]	<niklasl>	q+
+[11:27]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:27]	<niklasl>	… we'd need something like a "properties": {@container: "@fold"} to be able to do this.
+[11:27]	<manu1>	q+ to suggest just having a .fromMicrodata() extension to the API?
+[11:28]	<voip-ld>	Added manu1 to the speaker queue: niklasl, manu1
+[11:29]	<gkellogg>	Example of microdata+json: http://tinyurl.com/9n45rs5
+[11:31]	<manu1>	ack nikasl
+[11:37]	<niklasl>	niklas: We have seen this requirement before, the ability to keep processing if a particular key is found, but has no semantic meaning.
+[11:31]	<voip-ld>	niklasl has the floor. The next speaker is manu1.
+[11:31]	<manu1>	ack manu1
+[11:31]	<voip-ld>	niklasl has the floor (to suggest just having a .fromMicrodata() extension to the API?). The speaker queue is empty.
+[11:37]	<niklasl>	manu: the further we delay 1.0 to accommodate these new features, the higher the risk is that we lose current adopters of the api. I'm very concerned about this, I'd rather that we add features like this in extension specs and see what the market uptake for it is.
+[11:37]	<niklasl>	gregg: I'm concerned about that as well.
+[11:38]	<manu1>	manu: We could just add an API method - .fromMicrodata() - it's not declarative (which is bad), but it could be done in parallel to JSON-LD 1.0 going to REC.
+[11:43]	<voip-ld>	Manu Sporny (SIP/6000-0000001a) has left the conference.
+[11:43]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-0000001b) has left the conference.
+[11:43]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000019) has left the conference.
+[11:43]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000016) has left the conference.
+[11:43]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000017) has left the conference.
+[11:45]	<mlnt>	Topic: JSON-LD in Drupal 8
+[11:45]	<mlnt>	Just saw Lin's post about integrating JSON-LD into Drupal 8: http://groups.drupal.org/node/258778
+[11:49]	<niklasl>	niklas: Great!
+[11:53]	<--|	niklasl has left #json-ld
+[11:58]	<scor>	yeah we even manage to get a bit of funding to help with the integration of JSON-LD in Drupal, hopefully that will speed things up.
+

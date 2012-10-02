@@ -1,0 +1,190 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-10-02</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0022.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0022.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-160: Specify property-generator round-tripping algorithm</a><li><a href="#topic-2">Microdata to JSON-LD conversion</a><li><a href="#topic-3">JSON-LD in Drupal 8</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Markus Lanthaler, Lin Clark, Gregg Kellogg, David I. Lehn, Stéphane Corlosquet</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Niklas Lindström is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two additions to the agenda: talk about the connect/graphify mechanism</div>
+<div class="comment-continuation">… and the microdata/json to json-ld topic</div>
+<div class="comment-continuation">… we'll add those to the end of the agenda</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-160: Specify property-generator round-tripping algorithm</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/160">https://github.com/json-ld/json-ld.org/issues/160</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Current proposal is here: <a href="https://github.com/json-ld/json-ld.org/issues/160#issuecomment-8956476">https://github.com/json-ld/json-ld.org/issues/160#issuecomment-8956476</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  had a good discussion with lin about this recently. We may have a new angle/proposal for this.</div>
+<div class="comment-continuation">… the big problem with this issue is that it creates new data</div>
+<div class="comment-continuation">… when expanding, and re-compacting, it's not clear how to get back to the original data</div>
+<div class="comment-continuation">… the idea that came up was that we could tag the generated data to make clear where it came from</div>
+<div class="comment-continuation">… thus recompaction knows how to *re*compact</div>
+<div class="comment-continuation">… I like this mostly because there's linear time complexity</div>
+<div class="comment-continuation">… downsides are: we're now generating instructions to the processor</div>
+<div class="comment-continuation">… and it is not a general solution in the sense that non-tagged multiple occurrences will not be compacted even if there is a property generator expression for a term in the context</div>
+<div class="comment-continuation">… so the question is: do we want this kind of tagged data?</div>
+<div class="comment-continuation">… If we decide that we want to take this path, we can apply this to the language maps as well (and other forms of syntactic sugar in the future)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to include such metadata in the expanded output? Some systems may publish expanded data. If the metadata isn't there, users wanting to use property generators in compact contexts, they won't work.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm also unsure about the use cases Drupal has. Can type coercion work for that?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I checked with the community. We cannot rely on gzip-ing for reducing bandwidth</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Regarding type coercions: we don't know if those will have different types.</div>
+<div class="comment-continuation">… The people defining the fields aren't necessarily developers. So this is beyond our control.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but you could generate a type based on the field names automatically..</div>
+<div class="comment"><span class="name">Lin Clark</span>:  We want to expose the type that people say things are.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  to clarify; the issue is that two different sites have different kinds of properties that share a common schema.org property?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: This shows how using different types would work: <a href="https://bitly.com/U0Qo87">https://bitly.com/U0Qo87</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is kinda like the RDFa vocabulary expansion feature. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that people will need this feature in JSON-LD - the property generator stuff. In all of these cases, the important property is the first property in the array. If we include this, we could specify something along those lines. Property generators aren't a general feature, they're a feature for those who cannot use entailment. It's a dirty solution w/ a practical use case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think we should clearly mark the metadata-in-expanded-form would be okay with me if we were clear about the issues. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my thought was to use the spirit of entailment, in order to define the property generator array to be a list of properties for which the stated term as a subproperty relationship</div>
+<div class="comment-continuation">… so when we expand, we only use the single id of that property</div>
+<div class="comment-continuation">… if we just stick with a single iri for the @id, but include a property generator array as well</div>
+<div class="comment-continuation">… and we could add a flag to turn on using that to use those properties as well</div>
+<div class="comment-continuation">… I'd rather do that than add pragma data to the expanded output</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  on compaction, the extra properties in the generator expression could be removed; unless they are also defined elsewhere..</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and we could have rules for treating presence of an iri both in a generator expression and regular term as an error</div>
+<div class="comment"><span class="name">Lin Clark</span>:  one of our cases is the ability to expand and then compact again</div>
+<div class="comment-continuation">…. although going back to compacted form is more theoretical for us</div>
+<div class="comment"><span class="name">Lin Clark</span>:  a number of the suggestions proposed will probably work for us</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I meant instead of having "term": { "@id": ["<a href="http://example.org/vocab#term1",">http://example.org/vocab#term1",</a> "http://example.org/vocab#term2" ]} in the context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: we could have "term": { "@id": "<a href="http://example.org/vocab#term1",">http://example.org/vocab#term1",</a> "@expandAlsoTo": "http://example.org/vocab#term2" ]}</div>
+<div class="comment"><span class="name">David I. Lehn</span>: hmm...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: in compaction we would then just use @id, i.e., expandAlsoTo is completely ignored in compaction</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  instead of direct expansion, we can output a subPropery-assertion for the property</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yeah, that would work for us. we will always have at least one unique IRI for the term [scribe assist by Lin Clark]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in my proposal, that'd result in term1 rdfs:subPropertyOf term2</div>
+<div class="comment"><span class="name">Manu Sporny</span>: {"@context": {"compactor": {"@id": "<a href="http://bar.com/baz",">http://bar.com/baz",</a> "@expandAlsoTo": ["http://schema.org/title", "http://example.com/a"]}, "http://schema.org/title": "foo"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: @expandAlsoTo is ignored in compaction</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@id": "<a href="http://bar.com/baz",">http://bar.com/baz",</a> "rdfs:subPropertyOf": "http://schema.org/title"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  what are the consumer demands here?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do the consumers expect to see schema.org/title in the expanded form here?</div>
+<div class="comment-continuation">… or is the need just for semantic annotation</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  not really reinventing. It's more like what we do in RDFa.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the downside is that you need to reason on the graph.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  we want to communicate with multiple different consumers using different vocabularies</div>
+<div class="comment-continuation">… and also e.g. content staging...</div>
+<div class="comment-continuation">… we want to use ison-ld instead of RDF but with the full irri</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so then we need to expand this</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we need to be able to undo that?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we don't perform generator expansion we don't need to undo anything</div>
+<div class="comment-continuation">… if you perform expansion you shouldn't expect to be able to undo it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I may have gotten a clear picture from what Gregg said... we have to consider the entire use case... when do we need to throw away the generated data? If we have property generators, on expansion, do they always generate the extra data (or do you need a flag to do that?) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When you use compaction on expanded data, do you throw away something? Any full IRI that is used only in a property generator? Other alternative is to have the pragma directive. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Actually see if all of the statements are the same? That is use the heavily computation intensive mechanism. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we do have a flag, we have the roundtripping issue</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we need to support roundtripping</div>
+<div class="comment-continuation">… I don't want that to be computation expensive. If we have pragmas we can do it cheaply.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  throwing away iris within property generators is ambiguous because it may not have come from expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: that's *the* question I would say niklas</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when expanding, if we have a property generators, bnodes *must* have node-id:s since the expanded properties link to the *same* bnode</div>
+<div class="comment-continuation">… and thus we can compact and compare values</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  assigning bnodes requires graph normalization</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a drupal site might export and re-import via expanded form</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but that system can ignore data not relevant for it</div>
+<div class="comment"><span class="name">Lin Clark</span>:  the direction of the api is unclear for me</div>
+<div class="comment-continuation">… if the idea is that you will round-trip, we want to be able to use it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  {ctx; {term: {id: [a, b]}, term: {label: 'unknown'}} } expands to [{a: {@id: "_:genid-1", {b: {@id: "_:genid-1"}}, {@id: "_:genid-1", label: 'unknown'}]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/160#issuecomment-8956476">https://github.com/json-ld/json-ld.org/issues/160#issuecomment-8956476</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@context": { "property": "<a href="http://schema.org/foo"">http://schema.org/foo"</a> } }</div>
+<div class="comment"><span class="name">Manu Sporny</span>: What I'm proposing is something like this - {"@value": "foo", "@processor": "drop-when-compacting"}, not that terrible, I don't think. Problem is that re-compacting with a different context could lose data.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  compacting with processor pragmas and a new context seems problematic</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can we create a bnode mechanism that is easily identified?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when expanding a property generator term, all iris:s associated with the generator are repeated for them. If a value is a bnode without @id, an @id must be generated for that to ensure that the same bnode is referenced more than once.</div>
+<div class="comment-continuation">…. when we compact, upon checking a term match for a term using property generators, we must compare the values to see if we have the same value. If all are the same, use the property generator term.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Can we just say that we use the node definition for the first item in the array, and references for the other items in the array. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you get an expanded document where iris used in non-normalized node definitions, would a property generator matching algorithm miss something?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'l write down a proposal</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so backing up, do we still want to support property generators? Lin and I think they're important.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 with some faith</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have two approaches, both *may* destroy data in edge cases upon compaction</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  still, do we really have to eliminate the data?</div>
+<div class="comment-continuation">… it would make it much, much simpler</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  then we wouldn't roundtrip</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Okay, so we have consensus that we want to support property generators and we want to support round-tripping. There is concerns that we don't want to inject pragma directives into expanded form.</div>
+<h1 id="topic-2" class="topic">Topic: Microdata to JSON-LD conversion</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we've discussed off-list about the possibility to take the json generated by a microdata parser and treat it as json-ld</div>
+<div class="comment-continuation">… the crux is that md-json contains a "properties" term which means nothing; so we'd need to "fold that upwards"</div>
+<div class="comment-continuation">… we'd need something like a "properties": {@container: "@fold"} to be able to do this.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Example of microdata+json: <a href="http://tinyurl.com/9n45rs5">http://tinyurl.com/9n45rs5</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We have seen this requirement before, the ability to keep processing if a particular key is found, but has no semantic meaning.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the further we delay 1.0 to accommodate these new features, the higher the risk is that we lose current adopters of the api. I'm very concerned about this, I'd rather that we add features like this in extension specs and see what the market uptake for it is.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm concerned about that as well.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could just add an API method - .fromMicrodata() - it's not declarative (which is bad), but it could be done in parallel to JSON-LD 1.0 going to REC. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-3" class="topic">Topic: JSON-LD in Drupal 8</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Just saw Lin's post about integrating JSON-LD into Drupal 8: <a href="http://groups.drupal.org/node/258778">http://groups.drupal.org/node/258778</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Great!</div>
+<div class="comment"><span class="name">Stéphane Corlosquet</span>: yeah we even manage to get a bit of funding to help with the integration of JSON-LD in Drupal, hopefully that will speed things up.</div>
+</body>
+</html>
