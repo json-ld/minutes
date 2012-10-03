@@ -73,7 +73,7 @@ ol {
 <div class="summary">
 <dl>
 <dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0018.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Sep/0018.html</a></dd>
-<dt>Topics</dt><dd><ol><li><a href="#topic-1">TPAC JSON-LD breakout session</a><li><a href="#topic-2">RDF WG review of latest JSON-LD docs</a><li><a href="#topic-3">ISSUE-153: Define error handler behavior</a><li><a href="#topic-4">ISSUE-160: Specify property-generator round-tripping algorithm</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to ping Richard on JSON-LD Syntax and RDF Concepts terminology alignment.</a><li><a href="#action-2">Manu to update spec and integrate changes from tracker</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">TPAC JSON-LD breakout session</a><li><a href="#topic-2">RDF WG review of latest JSON-LD docs</a><li><a href="#topic-3">ISSUE-153: Define error handler behavior</a><li><a href="#topic-4">ISSUE-160: Specify property-generator round-tripping algorithm</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to ping Richard on JSON-LD Syntax and RDF Concepts terminology alignment.</a><li><a href="#action-2">Manu to update JSON-LD Syntax spec and integrate changes from issue tracker.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
 <dt>Scribe</dt><dd>Gregg Kellogg</dd>
 <dt>Present</dt><dd>Gregg Kellogg, François Daoust, Manu Sporny, Markus Lanthaler, Niklas Lindström, Dave Longley, David I. Lehn</dd>
 <dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
@@ -107,7 +107,7 @@ ol {
 <div class="comment"><span class="name">Markus Lanthaler</span>:  there haven't been many changes since the last rounds of reviews, so I don't know how much sense it makes to do a review.</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  that's what diffmarks are for. However, people like Sandro, who haven't done a review, end up doing a full review.</div>
 <div class="comment-continuation">… I think there will be significant changes to the intro.</div>
-<div id="action-2" class="action">ACTION: Manu to update spec and integrate changes from tracker</div>
+<div id="action-2" class="action">ACTION: Manu to update JSON-LD Syntax spec and integrate changes from issue tracker.</div>
 <h1 id="topic-3" class="topic">Topic: ISSUE-153: Define error handler behavior</h1>
 <div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/153">https://github.com/json-ld/json-ld.org/issues/153</a></div>
 <div class="comment"><span class="name">Manu Sporny</span>:  last comment has the basic proposal.</div>
@@ -185,7 +185,7 @@ ol {
 <div class="comment"><span class="name">Manu Sporny</span>:  there's a standard way to do errors in node.js. If you look at the async library, this pattern of having error and callback as arguments is well established.</div>
 <div class="comment-continuation">… If we want to do things asynchronously, this is the way to do it.</div>
 <div class="comment-continuation">… if there's an error, 'handle error' is called with the error and a callback. This allows the error handler to notify it's completion by calling the callback.</div>
-<div class="comment"><span class="name">Niklas Lindström</span>:  this is not the way error handler callbacks are used in other libraries.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this is not the way error handler callbacks are used in other libraries, like XMLHttpRequest.</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  that's an old design, and people have moved away from that.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  unless the handler is going to do something asynchronous itself, this looks like serious overkill.</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>:  before the handler returns, the processor can decide whether to continue or not.</div>
@@ -229,8 +229,8 @@ ol {
 <div class="comment-continuation">… The flag should enable the use of property generators in compaction.</div>
 <div class="comment-continuation">… by using try, you're prepared that every term that has a property generator will only create round-trippable data if your input has duplicate data for all values.</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  if you use gregg's algorithm, it is linear and not combinatorial.</div>
-<div class="information">The key thing is that in the term selector you have to use property generator terms first.</div>
-<div class="information">If we follow a standard selection process, it is linear.</div>
+<div class="comment-continuation">... The key thing is that in the term selector you have to use property generator terms first.</div>
+<div class="comment-continuation">... If we follow a standard selection process, it is linear.</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  modify compaction algorithm to consider property generator terms before any other term.</div>
 <div class="comment-continuation">… any time you find something that matches, you check to see if it already exists and if it has that value. If it does, you ignore it, otherwise, you add to the end of the array.</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>:  What about @lists - do we check all entries in there? [scribe assist by Manu Sporny]</div>

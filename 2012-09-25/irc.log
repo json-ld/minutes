@@ -37,7 +37,7 @@
 [10:18]	<gkellogg>	markus: there haven't been many changes since the last rounds of reviews, so I don't know how much sense it makes to do a review.
 [10:18]	<gkellogg>	manu: that's what diffmarks are for. However, people like Sandro, who haven't done a review, end up doing a full review.
 [10:19]	<gkellogg>	… I think there will be significant changes to the intro.
-[10:19]	<gkellogg>	ACTION: Manu to update spec and integrate changes from tracker
+[10:19]	<gkellogg>	ACTION: Manu to update JSON-LD Syntax spec and integrate changes from issue tracker.
 [10:19]	<manu1>	Topic: ISSUE-153: Define error handler behavior
 [10:20]	<manu1>	https://github.com/json-ld/json-ld.org/issues/153
 [10:20]	<gkellogg>	manu: last comment has the basic proposal.
@@ -163,7 +163,7 @@
 [11:02]	<gkellogg>	manu: there's a standard way to do errors in node.js. If you look at the async library, this pattern of having error and callback as arguments is well established.
 [11:03]	<gkellogg>	… If we want to do things asynchronously, this is the way to do it.
 [11:03]	<gkellogg>	… if there's an error, 'handle error' is called with the error and a callback. This allows the error handler to notify it's completion by calling the callback.
-[11:04]	<gkellogg>	niklas: this is not the way error handler callbacks are used in other libraries.
+[11:04]	<gkellogg>	niklas: this is not the way error handler callbacks are used in other libraries, like XMLHttpRequest.
 [11:04]	<gkellogg>	manu: that's an old design, and people have moved away from that.
 [11:05]	<gkellogg>	niklas: unless the handler is going to do something asynchronous itself, this looks like serious overkill.
 [11:06]	<gkellogg>	markus: before the handler returns, the processor can decide whether to continue or not.
@@ -233,8 +233,8 @@
 [11:31]	<gkellogg>	manu: if you use gregg's algorithm, it is linear and not combinatorial.
 [11:31]	|<--	tidoust has left freenode (Ping timeout: 246 seconds)
 [11:31]	=-=	tidoust_ is now known as tidoust
-[11:31]	<gkellogg>	The key thing is that in the term selector you have to use property generator terms first.
-[11:32]	<gkellogg>	If we follow a standard selection process, it is linear.
+[11:31]	<gkellogg>	... The key thing is that in the term selector you have to use property generator terms first.
+[11:32]	<gkellogg>	... If we follow a standard selection process, it is linear.
 [11:32]	<gkellogg>	manu: modify compaction algorithm to consider property generator terms before any other term.
 [11:33]	<gkellogg>	… any time you find something that matches, you check to see if it already exists and if it has that value. If it does, you ignore it, otherwise, you add to the end of the array.
 [11:34]	<manu1>	mlnt: What about @lists - do we check all entries in there?
