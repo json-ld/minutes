@@ -1,0 +1,161 @@
+[10:11]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0005.html
+[10:11]	<mlnt>	scribe: mlnt
+[10:11]	<manu1>	Topic: ISSUE-140: Consider objectify/link API method
+[10:12]	<manu1>	https://github.com/json-ld/json-ld.org/issues/140
+[10:12]	<mlnt>	manu: I moved this to the JSON-LD.next milestone.. which means we are not going to include it in 1.0
+[10:12]	<mlnt>	... but since I did that Niklas wrote up a proposal
+[10:13]	<mlnt>	... my big concern is that we are pushing 1.0 back for 1-2 months if we are going to include this
+[10:14]	<mlnt>	... I would suggest to work on this in parallel and see if we can get this done before we go to  LC, if we do, then include it. If not, then defer it.
+[10:14]	<gkellogg>	voip: connections?
+[10:14]	<voip-ld>	Conference connections: Gregg Kellogg [SIP/10.10.10.228-0000002f], Markus Lanthaler [SIP/sip.linphone.org-0000002b], getonsip_linclark [SIP/sip.onsip.com-0000002c], Manu Sporny [SIP/192.168.21.10-0000002d]
+[10:15]	<manu1>	mlnt: I have a strong opinion about removing .connect() and .frame() - we have .flatten() in there, but it requires you to iterate over every object. We need a way to get to a node based on ID.
+[10:16]	<manu1>	mlnt: We could have something like @id containers - we might be able to express that node map as valid JSON-LD. We could expose the node map via a call.
+[10:17]	<manu1>	gkellogg: These issues are orthogonal - if you don't have a node-map, you need to construct your own. Not all systems work that way, though - if you're working w/ backbone, it expects an array and builds an index using those models. The .flatten() method does create this data, but you can't access it. If we had @id-maps, we could expose this data.
+[10:17]	<manu1>	gkellogg: I'm concerned about adding these extra features - we don't have to have everything as the W3C spec when we first come out... we can add these in supplemental specs published by the Community Group.
+[10:18]	<mlnt>	markus: still.. I find it a bit weird to have an API that doesn't include a way to access data directly if you don't know the exact shape of the data
+[10:19]	<manu1>	mlnt: It's a bit weird to have an API without a feature like this.
+[10:19]	<mlnt>	manu: true.. I have been thinking about this myself as well.. The question is how easy it is for people to write it themselves
+[10:19]	<mlnt>	... I have been writing that several times myself
+[10:20]	<mlnt>	... I'm just really concernced that this requires more time
+[10:21]	<mlnt>	gregg: I believe there's a certain amount of energy left in the group (at least in my case)..
+[10:21]	<mlnt>	... I'm not sure we should take on more work before 1.0
+[10:22]	<manu1>	mlnt: I'm fine with delaying the issue until we get all the other stuff done. Let's look at this issue again when we're done w/ everything else.
+[10:23]	<manu1>	gregg: If you're interested in this feature, add spec text, add tests, implement the feature - that'll move us further on this feature.
+[10:23]	<mlnt>	manu: True.. that would be the right way to do it
+[10:24]	|<--	peacekeep3r has left freenode (Read error: Connection reset by peer)
+[10:24]	-->|	peacekeep3r (~peacekeep@chello084114211002.13.15.vie.surfer.at) has joined #json-ld
+[10:24]	<manu1>	PROPOSAL: Table issue-140 for the time being, delay discussion until all other issues for JSON-LD 1.0 have been addressed.
+[10:24]	<manu1>	+1
+[10:24]	<gkellogg>	+1
+[10:24]	<mlnt>	+1
+[10:25]	<linclark>	+0
+[10:25]	<manu1>	RESOLVED: Table issue-140 for the time being, delay discussion until all other issues for JSON-LD 1.0 have been addressed.
+[10:25]	<manu1>	Topic: ISSUE-160: Specify property-generator round-tripping algorithm
+[10:25]	<manu1>	https://github.com/json-ld/json-ld.org/issues/160
+[10:26]	<mlnt>	manu: Basically everyone agrees that tagging where the data came from is unworkable
+[10:26]	<mlnt>	... this leaves us with Gregg's proposal.
+[10:27]	<mlnt>	... We might need some minor changes though: instead of having just node references we would have to copy the data
+[10:28]	<mlnt>	... because otherwise it would be difficult to get to the data
+[10:30]	<mlnt>	Gregg: Does the data using property generators contain node definitions?
+[10:30]	<mlnt>	Lin: Yes
+[10:31]	<mlnt>	Gregg: The other question is what the interoperability requirements are
+[10:31]	<mlnt>	... what would happen if an application that just understand one of the vocabularies modifies the data?
+[10:32]	<mlnt>	Lin: It would be nice to have but I think it is definitely not a requirement
+[10:32]	<mlnt>	... we would do that directly in compact form
+[10:33]	<mlnt>	Gregg: I just feel we are conflating a couple of things for convenience
+[10:34]	<mlnt>	... e.g. things that could be done with owl:sameAs
+[10:34]	<mlnt>	Lin: there have been proposals using different HTTP headers, query parameters etc.
+[10:34]	<mlnt>	... but I think that's not the right way to do it
+[10:35]	<mlnt>	Manu: Prop. generators have some downsides but I think esp. for mobile apps they are very valuable
+[10:36]	<mlnt>	Manu: Lin, is there something in the current proposal that doesn't address Drupal's requirements
+[10:37]	<manu1>	mlnt: The main difference between the proposal I put forward and Gregg put forward was separating the "main id" from "alternative ids" - a term can also expand to alternative IRIs, but in compaction you just ignore the "alternative IRIs"
+[10:37]	<manu1>	mlnt: This would keep the algorithm quite trivial because the "alternate ids" would be removed in compaction.
+[10:38]	<manu1>	mlnt: Downsides are - no removal of extra data in compaction. The reasoning behind it is that you have a main vocabulary that you're using - you can use a more generic vocabulary such as schema.org or foaf.
+[10:38]	<manu1>	mlnt: It's more or less a simple addition to expansion.
+[10:38]	-->|	MacTed (~Thud@63.119.36.36) has joined #json-ld
+[10:39]	<manu1>	manu: You also had an issue with the implied relationship between all IRIs in a property generator.
+[10:39]	<manu1>	mlnt: Yes, they might think that they're owl:sameAs when they're not.
+[10:40]	<manu1>	mlnt: The other issue is that developers might assume that both IRIs compact to the same term... but that only happens when there is data duplication.
+[10:40]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000030) has joined the conference.
+[10:42]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-00000031) has joined the conference.
+[10:43]	-->|	mlnt (~markus@37.117.78.198) has joined #json-ld
+[10:44]	<mlnt>	Manu: all that being said, we all have concerns with property generators but it addresses a real world problem
+[10:45]	* mlnt	sorry.. have to wait till my previous nick is available again.. connection dropped for a sec
+[10:45]	<manu1>	PROPOSAL: Adopt Gregg Kellogg's property generator algorithm when expanding/compacting with the following modifications; 1) use node definitions everywhere when expanding, 2) generate bnode IDs for all node definitions without an '@id', 3) use deep comparisons when eliminating node definitions during compaction.
+[10:46]	<gkellogg>	+1
+[10:46]	<manu1>	+1
+[10:46]	<linclark>	+1
+[10:46]	<mlnt>	-0
+[10:46]	|<--	mlnt has left freenode (Ping timeout: 260 seconds)
+[10:46]	=-=	mlnt is now known as mlnt
+[10:46]	<tidoust>	0
+[10:46]	<manu1>	dlongley: +1
+[10:46]	<taaz>	+0
+[10:46]	<manu1>	RESOLVED: Adopt Gregg Kellogg's property generator algorithm when expanding/compacting with the following modifications; 1) use node definitions everywhere when expanding, 2) generate bnode IDs for all node definitions without an '@id', 3) use deep comparisons when eliminating node definitions during compaction.
+[10:48]	<manu1>	manu: we have another proposal based on this resolution
+[10:48]	<manu1>	PROPOSAL: Add warning language to the JSON-LD Syntax and API specs noting the most problematic issues when working with property generators.
+[10:48]	<manu1>	+1
+[10:48]	<gkellogg>	+1
+[10:48]	<tidoust>	+1
+[10:48]	<linclark>	+1
+[10:48]	<mlnt>	+1
+[10:48]	<manu1>	RESOLVED: Add warning language to the JSON-LD Syntax and API specs noting the most problematic issues when working with property generators.
+[10:49]	<mlnt>	Markus: Do we want to add a flag to disable property generators?
+[10:54]	<mlnt>	... we don't have to put this in the spec though
+[10:55]	<mlnt>	Gregg: We could add a note
+[10:56]	<mlnt>	Markus: Let's add a note to the warning section of this feature
+[10:56]	<manu1>	PROPOSAL: Add a non-normative note to tell implementers that their implementations may have a feature that allows all but one node definition created by a property generator to be collapsed into a node reference.
+[10:56]	<gkellogg>	+1
+[10:56]	<manu1>	+1
+[10:56]	<mlnt>	+1
+[10:57]	<tidoust>	+1
+[10:58]	<manu1>	RESOLVED: Add a non-normative note to tell implementers that their implementations may have a feature that allows all but one node definition created by a property generator to be collapsed into a node reference.
+[10:58]	<mlnt>	Manu: Markus raised an issue that we might need define some processing/memory limits to mitigate DoS attacks
+[10:59]	<mlnt>	Gregg: That would have to be done at an operating system level, right?
+[10:59]	<mlnt>	Manu: Well, you could e.g. count the number of method calls, document size. How to implement it would be up to implementers.
+[10:59]	<mlnt>	... but I agree.. it varies wildly from language to language
+[10:59]	<manu1>	Topic: ISSUE-153: Define error handler behavior
+[10:59]	<manu1>	https://github.com/json-ld/json-ld.org/issues/153
+[11:00]	<manu1>	http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessingerror
+[11:00]	<manu1>	http://json-ld.org/spec/latest/json-ld-api/#conformancecallback
+[11:01]	<mlnt>	Manu: The ConformanceCallback is called whenever a recoverable conformance issue is detected
+[11:03]	<manu1>	https://github.com/json-ld/json-ld.org/blob/master/spec/latest/json-ld-api/index.html#L847
+[11:03]	<manu1>	https://github.com/json-ld/json-ld.org/blob/master/spec/latest/json-ld-api/index.html#L936
+[11:04]	<mlnt>	... this is the standard way Node.js does it
+[11:06]	|<--	tidoust has left freenode (Ping timeout: 246 seconds)
+[11:07]	-->|	tidoust (~fd@AMontsouris-159-1-73-194.w92-128.abo.wanadoo.fr) has joined #json-ld
+[11:11]	<manu1>	mlnt: I feel like we're doing too much here - it's difficult to understand where in the document it is.
+[11:12]	<manu1>	mlnt: where the error is - I don't know if it's possible to have a generic error handler like this. We could just have STOP_ON_ERROR and IGNORE_ERROR. I'd like to see an implementation of this. I can't make a decision based on this proposal.
+[11:12]	<manu1>	mlnt: Yeah, having an implementation would be helpful to understand whether this is nice in theory, but impractical in practice.
+[11:13]	<manu1>	ACTION: Dave Longley to do an implementation of the conformance issue feature.
+[11:13]	<linclark>	No opinion on how it is implemented.
+[11:14]	<manu1>	Manu: Dave Longley might have an opinion on this proposal.
+[11:14]	<manu1>	Topic: ISSUE-159: Add specifying @language to expanded form
+[11:15]	<manu1>	https://github.com/json-ld/json-ld.org/issues/159
+[11:15]	<mlnt>	Manu: The basic question here is how we are going to round-trip
+[11:16]	<manu1>	Ask Drupal to change the data model (non-starter),
+[11:16]	<manu1>	Adopt a 1-to-1 mapping between compact/expanded form for language maps, (adds complexity to syntax)
+[11:16]	<manu1>	Adopt a complex algorithm to reconstruct language maps from expanded form, (adds complexity to API, and may be non-deterministic)
+[11:16]	<manu1>	Model the data using BCP47 language code IRIs. (problematic from an RDF data model standpoint)
+[11:18]	<manu1>	We could do something like this: { '@language': {'en': {}, 'de': {} } }
+[11:19]	<gkellogg>	how would it work for this? {"en": "foo", "de": "bar"}
+[11:19]	<manu1>	or this alternative - {'@languagemap': 'en', a: ”, b: ”}
+[11:20]	<mlnt>	Gregg: This would be another case where we include metadata in the data, which we didn't like before
+[11:20]	<gkellogg>	{"@id": "foo", "@language": "en", …}
+[11:21]	<mlnt>	mlnt: for strings: {"@value": "foo", "@language": "en", …}
+[11:21]	<gkellogg>	We could just do this in compact form: {"en": ["foo", {"@id": "bar"}]}
+[11:22]	<gkellogg>	which would expand to this: {"http://prop", [{"@value": "foo", "@language": "en"}, {"@id":"bar", "@language": "en"}]}
+[11:23]	<linclark>	isn't this the proposal in #4?
+[11:23]	<manu1>	Lin, yes I think it is.
+[11:23]	<mlnt>	mlnt: what would you do if this was in compact form? {"@id": "foo", "@language": "en", …}
+[11:24]	<mlnt>	mlnt: We could use IRIs for languages - {"@id": "foo", "http://json-ld.org/vocab/language": "en", …}
+[11:25]	<linclark>	yeah, that's not a req for us
+[11:27]	<mlnt>	mlnt: What's the meaning of this: { "@context": { "@language": "de" }, "@id": "foo", "@language": "en", …}
+[11:30]	<manu1>	manu: the @language outside of the @context takes precedence.
+[11:31]	<manu1>	ACTION: Gregg to write up language-map spec text for JSON-LD API in the issue tracker.
+[11:34]	<gkellogg>	This could be a problem - {"@value": 4}
+[11:35]	<gkellogg>	if somebody does this - {"en": 4}
+[11:35]	<gkellogg>	what does this mean? {"http://prop": {"@value": 4, "@language": "en"}}
+[11:36]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-00000032) has joined the conference.
+[11:37]	<gkellogg>	{"http://prop": {"@value": "4", "@language": "en", "@type": "xsd:integer}}
+[11:38]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-00000034) has joined the conference.
+[11:40]	<mlnt>	{"http://prop": {"@value": "somestring", "@language": "en", "@type": "someType}}
+[11:41]	<mlnt>	Manu: Gregg, what about allowing @language in compact form but using @langmap in expanded form instead
+[11:42]	<mlnt>	... the problem with precedence rules is that a developer needs to know them to work with the data, and it's hard to keep all of that in your head.
+[11:42]	<mlnt>	Gregg: Yes, but then this feature would become useless
+[11:43]	-->|	mlnt (~markus@37.117.78.198) has joined #json-ld
+[11:44]	<mlnt>	Markus: wasn't that the same argument we just had for prop. generators? We don't want to have metadata in the data?
+[11:47]	|<--	mlnt has left freenode (Ping timeout: 252 seconds)
+[11:47]	=-=	mlnt is now known as mlnt
+[11:47]	=-=	mlnt is now known as Guest92904
+[11:50]	* Guest92904	this is Markus
+[11:51]	* Guest92904	lost connection again
+[11:54]	<mlnt>	mlnt: what about this? {"en": 4} - expands to - { "@value": 4 }
+[11:54]	<mlnt>	mlnt: That wouldn't be put in language map when compacting
+[11:55]	<gkellogg>	I think think is possible in compact form: {"foaf:age": [{"en": 42}, {"de": 59}]}
+[11:57]	<gkellogg>	which would expand to this, if we use @langmap: {"foaf:age": [{"@value": 42, "@langmap": "en"}, {"@value": 59, "@langmap": "de"}]}
+[11:59]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-00000035) has joined the conference.
+[11:59]	<gkellogg>	or this: {"foaf:age": [{"en": "42"}, {"de": "59" }]}
+[11:59]	<gkellogg>	would expand to this: {"foaf:age": [{"@value": "42", "@language": "en"}, {"@value": "59", "@language": "de"}]}
+[12:00]	<manu1>	mlnt: I'm not convinced that we should include @langmap - it's metadata, it looks like it's a hack.
+[12:01]	<manu1>	gkellogg: The only reason to have a hack is so we don't get to the case where we have both @type and @language. We're adding a keyword to support an anti-pattern. Maybe we should just throw a conformance error if somebody tries to use a langmap and expresses a number against it.

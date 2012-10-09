@@ -1,0 +1,221 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-10-09</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0005.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-140: Consider objectify/link API method</a><li><a href="#topic-2">ISSUE-160: Specify property-generator round-tripping algorithm</a><li><a href="#topic-3">ISSUE-153: Define error handler behavior</a><li><a href="#topic-4">ISSUE-159: Add specifying @language to expanded form</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Table issue-140 for the time being, delay discussion until all other issues for JSON-LD 1.0 have been addressed.</a><li><a href="#resolution-2">Adopt Gregg Kellogg's property generator algorithm when expanding/compacting with the following modifications; 1) use node definitions everywhere when expanding, 2) generate bnode IDs for all node definitions without an '@id', 3) use deep comparisons when eliminating node definitions during compaction.</a><li><a href="#resolution-3">Add warning language to the JSON-LD Syntax and API specs noting the most problematic issues when working with property generators.</a><li><a href="#resolution-4">Add a non-normative note to tell implementers that their implementations may have a feature that allows all but one node definition created by a property generator to be collapsed into a node reference.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Dave Longley to do an implementation of the conformance issue feature.</a><li><a href="#action-2">Gregg to write up language-map spec text for JSON-LD API in the issue tracker.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, Lin Clark, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-140: Consider objectify/link API method</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/140">https://github.com/json-ld/json-ld.org/issues/140</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I moved this to the JSON-LD.next milestone.. which means we are not going to include it in 1.0</div>
+<div class="comment-continuation">... but since I did that Niklas wrote up a proposal</div>
+<div class="comment-continuation">... my big concern is that we are pushing 1.0 back for 1-2 months if we are going to include this</div>
+<div class="comment-continuation">... I would suggest to work on this in parallel and see if we can get this done before we go to  LC, if we do, then include it. If not, then defer it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I have a strong opinion about removing .connect() and .frame() - we have .flatten() in there, but it requires you to iterate over every object. We need a way to get to a node based on ID. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could have something like @id containers - we might be able to express that node map as valid JSON-LD. We could expose the node map via a call. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  These issues are orthogonal - if you don't have a node-map, you need to construct your own. Not all systems work that way, though - if you're working w/ backbone, it expects an array and builds an index using those models. The .flatten() method does create this data, but you can't access it. If we had @id-maps, we could expose this data. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm concerned about adding these extra features - we don't have to have everything as the W3C spec when we first come out... we can add these in supplemental specs published by the Community Group. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  still.. I find it a bit weird to have an API that doesn't include a way to access data directly if you don't know the exact shape of the data</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's a bit weird to have an API without a feature like this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  true.. I have been thinking about this myself as well.. The question is how easy it is for people to write it themselves</div>
+<div class="comment-continuation">... I have been writing that several times myself</div>
+<div class="comment-continuation">... I'm just really concernced that this requires more time</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I believe there's a certain amount of energy left in the group (at least in my case)..</div>
+<div class="comment-continuation">... I'm not sure we should take on more work before 1.0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm fine with delaying the issue until we get all the other stuff done. Let's look at this issue again when we're done w/ everything else. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you're interested in this feature, add spec text, add tests, implement the feature - that'll move us further on this feature. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  True.. that would be the right way to do it</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Table issue-140 for the time being, delay discussion until all other issues for JSON-LD 1.0 have been addressed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Lin Clark</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Table issue-140 for the time being, delay discussion until all other issues for JSON-LD 1.0 have been addressed.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-160: Specify property-generator round-tripping algorithm</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/160">https://github.com/json-ld/json-ld.org/issues/160</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Basically everyone agrees that tagging where the data came from is unworkable</div>
+<div class="comment-continuation">... this leaves us with Gregg's proposal.</div>
+<div class="comment-continuation">... We might need some minor changes though: instead of having just node references we would have to copy the data</div>
+<div class="comment-continuation">... because otherwise it would be difficult to get to the data</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Does the data using property generators contain node definitions?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  Yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The other question is what the interoperability requirements are</div>
+<div class="comment-continuation">... what would happen if an application that just understand one of the vocabularies modifies the data?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  It would be nice to have but I think it is definitely not a requirement</div>
+<div class="comment-continuation">... we would do that directly in compact form</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I just feel we are conflating a couple of things for convenience</div>
+<div class="comment-continuation">... e.g. things that could be done with owl:sameAs</div>
+<div class="comment"><span class="name">Lin Clark</span>:  there have been proposals using different HTTP headers, query parameters etc.</div>
+<div class="comment-continuation">... but I think that's not the right way to do it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Prop. generators have some downsides but I think esp. for mobile apps they are very valuable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Lin, is there something in the current proposal that doesn't address Drupal's requirements</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The main difference between the proposal I put forward and Gregg put forward was separating the "main id" from "alternative ids" - a term can also expand to alternative IRIs, but in compaction you just ignore the "alternative IRIs" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This would keep the algorithm quite trivial because the "alternate ids" would be removed in compaction. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Downsides are - no removal of extra data in compaction. The reasoning behind it is that you have a main vocabulary that you're using - you can use a more generic vocabulary such as schema.org or foaf. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's more or less a simple addition to expansion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You also had an issue with the implied relationship between all IRIs in a property generator. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, they might think that they're owl:sameAs when they're not. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The other issue is that developers might assume that both IRIs compact to the same term... but that only happens when there is data duplication. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  all that being said, we all have concerns with property generators but it addresses a real world problem</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Adopt Gregg Kellogg's property generator algorithm when expanding/compacting with the following modifications; 1) use node definitions everywhere when expanding, 2) generate bnode IDs for all node definitions without an '@id', 3) use deep comparisons when eliminating node definitions during compaction.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Lin Clark</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -0</div>
+<div class="comment"><span class="name">François Daoust</span>: 0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: dlongley: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Adopt Gregg Kellogg's property generator algorithm when expanding/compacting with the following modifications; 1) use node definitions everywhere when expanding, 2) generate bnode IDs for all node definitions without an '@id', 3) use deep comparisons when eliminating node definitions during compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have another proposal based on this resolution [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add warning language to the JSON-LD Syntax and API specs noting the most problematic issues when working with property generators.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Lin Clark</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Add warning language to the JSON-LD Syntax and API specs noting the most problematic issues when working with property generators.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to add a flag to disable property generators?</div>
+<div class="comment-continuation">... we don't have to put this in the spec though</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could add a note</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Let's add a note to the warning section of this feature</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add a non-normative note to tell implementers that their implementations may have a feature that allows all but one node definition created by a property generator to be collapsed into a node reference.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Add a non-normative note to tell implementers that their implementations may have a feature that allows all but one node definition created by a property generator to be collapsed into a node reference.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus raised an issue that we might need define some processing/memory limits to mitigate DoS attacks</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That would have to be done at an operating system level, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Well, you could e.g. count the number of method calls, document size. How to implement it would be up to implementers.</div>
+<div class="comment-continuation">... but I agree.. it varies wildly from language to language</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-153: Define error handler behavior</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/153">https://github.com/json-ld/json-ld.org/issues/153</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessingerror">http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessingerror</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#conformancecallback">http://json-ld.org/spec/latest/json-ld-api/#conformancecallback</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The ConformanceCallback is called whenever a recoverable conformance issue is detected</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/spec/latest/json-ld-api/index.html#L847">https://github.com/json-ld/json-ld.org/blob/master/spec/latest/json-ld-api/index.html#L847</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/spec/latest/json-ld-api/index.html#L936">https://github.com/json-ld/json-ld.org/blob/master/spec/latest/json-ld-api/index.html#L936</a></div>
+<div class="comment-continuation">... this is the standard way Node.js does it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I feel like we're doing too much here - it's difficult to understand where in the document it is. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  where the error is - I don't know if it's possible to have a generic error handler like this. We could just have STOP_ON_ERROR and IGNORE_ERROR. I'd like to see an implementation of this. I can't make a decision based on this proposal. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yeah, having an implementation would be helpful to understand whether this is nice in theory, but impractical in practice. [scribe assist by Manu Sporny]</div>
+<div id="action-1" class="action">ACTION: Dave Longley to do an implementation of the conformance issue feature.</div>
+<div class="comment"><span class="name">Lin Clark</span>: No opinion on how it is implemented.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley might have an opinion on this proposal. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-159: Add specifying @language to expanded form</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/159">https://github.com/json-ld/json-ld.org/issues/159</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The basic question here is how we are going to round-trip</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Ask Drupal to change the data model (non-starter),</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Adopt a 1-to-1 mapping between compact/expanded form for language maps, (adds complexity to syntax)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Adopt a complex algorithm to reconstruct language maps from expanded form, (adds complexity to API, and may be non-deterministic)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Model the data using BCP47 language code IRIs. (problematic from an RDF data model standpoint)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We could do something like this: { '@language': {'en': {}, 'de': {} } }</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: how would it work for this? {"en": "foo", "de": "bar"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>: or this alternative - {'@languagemap': 'en', a: ”, b: ”}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This would be another case where we include metadata in the data, which we didn't like before</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"@id": "foo", "@language": "en", …}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  for strings: {"@value": "foo", "@language": "en", …}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: We could just do this in compact form: {"en": ["foo", {"@id": "bar"}]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: which would expand to this: {"<a href="http://prop",">http://prop",</a> [{"@value": "foo", "@language": "en"}, {"@id":"bar", "@language": "en"}]}</div>
+<div class="comment"><span class="name">Lin Clark</span>: isn't this the proposal in #4?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Lin, yes I think it is.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  what would you do if this was in compact form? {"@id": "foo", "@language": "en", …}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could use IRIs for languages - {"@id": "foo", "<a href="http://json-ld.org/vocab/language":">http://json-ld.org/vocab/language":</a> "en", …}</div>
+<div class="comment"><span class="name">Lin Clark</span>: yeah, that's not a req for us</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What's the meaning of this: { "@context": { "@language": "de" }, "@id": "foo", "@language": "en", …}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the @language outside of the @context takes precedence. [scribe assist by Manu Sporny]</div>
+<div id="action-2" class="action">ACTION: Gregg to write up language-map spec text for JSON-LD API in the issue tracker.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: This could be a problem - {"@value": 4}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: if somebody does this - {"en": 4}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: what does this mean? {"<a href="http://prop":">http://prop":</a> {"@value": 4, "@language": "en"}}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: {"<a href="http://prop":">http://prop":</a> {"@value": "4", "@language": "en", "@type": "xsd:integer}}</div>
+<div class="information">{"<a href="http://prop":">http://prop":</a> {"@value": "somestring", "@language": "en", "@type": "someType}}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg, what about allowing @language in compact form but using @langmap in expanded form instead</div>
+<div class="comment-continuation">... the problem with precedence rules is that a developer needs to know them to work with the data, and it's hard to keep all of that in your head.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, but then this feature would become useless</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  wasn't that the same argument we just had for prop. generators? We don't want to have metadata in the data?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  what about this? {"en": 4} - expands to - { "@value": 4 }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That wouldn't be put in language map when compacting</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: I think think is possible in compact form: {"foaf:age": [{"en": 42}, {"de": 59}]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: which would expand to this, if we use @langmap: {"foaf:age": [{"@value": 42, "@langmap": "en"}, {"@value": 59, "@langmap": "de"}]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: or this: {"foaf:age": [{"en": "42"}, {"de": "59" }]}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: would expand to this: {"foaf:age": [{"@value": "42", "@language": "en"}, {"@value": "59", "@language": "de"}]}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm not convinced that we should include @langmap - it's metadata, it looks like it's a hack. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The only reason to have a hack is so we don't get to the case where we have both @type and @language. We're adding a keyword to support an anti-pattern. Maybe we should just throw a conformance error if somebody tries to use a langmap and expresses a number against it. [scribe assist by Manu Sporny]</div>
+</body>
+</html>
