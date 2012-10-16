@@ -1,0 +1,313 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-10-16</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0008.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0008.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Wikidata visit</a><li><a href="#topic-2">RDF WG Face-to-face</a><li><a href="#topic-3">Drupal JSON-LD Vendor extension</a><li><a href="#topic-4">ISSUE-113: IRI compaction algorithm</a><li><a href="#topic-5">ISSUE-114: JSON-LD grammar</a><li><a href="#topic-6">Issue review</a><li><a href="#topic-7">Thoughts on .link()</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Add an optional parameter to the application/ld+json mimetype called 'profile' where the value associated with it SHOULD be an IRI.</a><li><a href="#resolution-2">Move all examples in the JSON-LD Grammar section of the spec to the main body and point to them with links.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Niklas to review spec text for ISSUE-125.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>François Daoust, Manu Sporny, Gregg Kellogg, Markus Lanthaler, Niklas Lindström, Lin Clark</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">François Daoust is scribing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://groups.drupal.org/node/261843">http://groups.drupal.org/node/261843</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  additions to the agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  need to discuss availability for RDF WG F2F agenda</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  discuss article from Lin on need to have two different serializations of JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not unlike what Wikidata has to do.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I wonder if it's a limitation in JSON-LD or whether this has nothing to do with JSON-LD. Sounds like the latter.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think it's really two use cases.</div>
+<h1 id="topic-1" class="topic">Topic: Wikidata visit</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I went and visited about half a day Wikidata Germany. Spoke with several developers including Denny.</div>
+<div class="comment-continuation">… In August, they sent out something about SWIG about their RDF serialization issues.</div>
+<div class="comment-continuation">… Last message is August 9th.</div>
+<div class="comment-continuation">… We discussed a little bit and it brought some issues.</div>
+<div class="comment-continuation">… Brought us to an example with an item and its pronunciation. End up using two bnodes.</div>
+<div class="comment-continuation">… Normally, that would be an RDF value but it doesn't seem to be particularly mainstream.</div>
+<div class="comment-continuation">… Lowercase 'title' that would a language map and pronounciation and upper case 'TITLE' that would possibly have nodes on which they can hang data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A bit strange</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It is, but it helps with the API.</div>
+<div class="comment-continuation">… JSON-LD gives you unique IDs for properties and context that gives you certain amount of typing, allowing you to distinguish between literals and objects.</div>
+<div class="comment-continuation">… [example of Wikia and hybrid export]</div>
+<div class="comment-continuation">… I probably need to write a blog post about that.</div>
+<div class="comment-continuation">… JSON-LD is alive and well but not firmly established right now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  release schedule?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  They have something right now. Schedule for real deploy end of March.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  First, quick reflexion. It seems that the Wiki idea of the upper case title property sounds like SKOS-XL structure</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it bears some similarity, yes.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. &lt;<a href="http://www.w3.org/TR/skos-reference/skos-xl.html&gt;">http://www.w3.org/TR/skos-reference/skos-xl.html&gt;</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  From their perspective, only two formats of interest RDF/XML and JSON-LD, interesting.</div>
+<div class="information">[short discussion on merits of different RDF serializations]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Here's the swig thread: <a href="http://lists.w3.org/Archives/Public/semantic-web/2012Aug/0021.html">http://lists.w3.org/Archives/Public/semantic-web/2012Aug/0021.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Wikidata export in RDF - <a href="http://lists.w3.org/Archives/Public/semantic-web/2012Aug/0021.html">http://lists.w3.org/Archives/Public/semantic-web/2012Aug/0021.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  [explaining definitions of properties into classes and subtypes]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "properties": {"@rev": "rdfs:domain"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've done the same thing when I generated documentation from owl. My general reflexion, it sounded like what I've been doing in my own framing. I just wanted to note the similarities.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is there anything that this group should do? Anything they're waiting from us?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  most important thing is to get to REC. Syntax is key to them more than the API at this point.</div>
+<div class="comment-continuation">… Quite a lot of discussion, that was pretty good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Good, thanks for the time you took to reach out to them.</div>
+<h1 id="topic-2" class="topic">Topic: RDF WG Face-to-face</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I can definitely attend the F2F remotely.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: RDF WG Agenda: <a href="http://www.w3.org/2011/rdf-wg/wiki/FTF3#Agenda">http://www.w3.org/2011/rdf-wg/wiki/FTF3#Agenda</a></div>
+<div class="comment-continuation">… Anyone else planning to be there?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  JSON-LD is on day 2 at 13:30 to 14:30 local time in Lyon. GMT+1, I think.</div>
+<div class="comment-continuation">… I don't necessarily feel compelled to be on, it's fairly early for me.</div>
+<div class="comment-continuation">… Manu, if you can be on for that, that would be good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll be on.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I will be in the room. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'll be there remotely as well.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: François will be at the RDF WG F2F too</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  good to have people.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the generic goal is to bring the specs to LC.</div>
+<div class="comment-continuation">… The idea would be to resolve issues by then, or to flag issues that remain to be resolved before LC.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have a number of outstanding issues waiting for people to add something or propose spec text.</div>
+<div class="comment-continuation">… We discussed language maps.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that probably deserves a bit of discussion because of cases that prevent round-tripping.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that's the biggest issue.</div>
+<div class="comment-continuation">… I don't think we'll be able to say the doc is LC-ready.</div>
+<div class="comment-continuation">… but we won't have much things to discuss anymore.</div>
+<h1 id="topic-3" class="topic">Topic: Drupal JSON-LD Vendor extension</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Two JSON-LDs for Drupal: <a href="http://groups.drupal.org/node/261843">http://groups.drupal.org/node/261843</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Enable standard literal handling for RDF-ish domain models: <a href="http://drupal.org/node/1813328">http://drupal.org/node/1813328</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Decide how to negotiate between the 2 JSON-LD serializations: <a href="http://drupal.org/node/1797210">http://drupal.org/node/1797210</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't know much more, I just read that post where Lin basically outlines that they seem to need two different JSON-LD serializations.</div>
+<div class="comment-continuation">… Data structure is different for each one.</div>
+<div class="comment-continuation">… For one use case, given an article, the body of the article would be a bnode, and on the other hand, they want to model their data in a more "user-friendly" way.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there is actually a class for a Web page fragment in schema.org, which would be reasonable to use.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should definitely continue to talk with Lin and see if there's something we can do.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  From a modeling perspective, you might say that an article has a body and a description. Saying that it has a web page fragment kind of crosses domains.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://schema.org/Article">http://schema.org/Article</a></div>
+<div class="comment-continuation">… There are ways to do that, but that starts to be a little weird.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: articleBody Text</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anything we can discuss here in the absence of Lin?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Lin, we're discussing your dual-use of JSON-LD now</div>
+<div class="comment"><span class="name">Lin Clark</span>: oh, give me two minutes and I'll join</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  two issues raised, on negotiation between the 2 serializations and handling for RDF-ish domain models.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I just want to make sure that I understand this. This is a general modeling problem, it doesn't seem to be an issue with JSON-LD, nor with RDF as an expression model.</div>
+<div class="comment-continuation">… That's just a basic problem of "simple vs. complete".</div>
+<div class="comment-continuation">… It's always a trade-off.</div>
+<div class="information">[Lin just joined the call]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Hi Lin, anything we could do to address these issues or are they best handled by the Drupal community?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I honestly don't think that you need to change the spec for this.</div>
+<div class="comment-continuation">… I'm pretty sure that this is something that we need to deal with internally.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/16#issuecomment-6327597">https://github.com/json-ld/json-ld.org/issues/16#issuecomment-6327597</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we discussed that before. Wondering about using "profile" to distinguish between serializations.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  we should have content conneg added later on.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#iana-considerations">http://json-ld.org/spec/latest/json-ld-syntax/#iana-considerations</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the change would be quite trivial, simply add a profile to the MIME type declaration.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the optional parameter that we would have would be "profile" and people could use a URL or a string value.</div>
+<div class="comment-continuation">… Lin, would that work for Drupal?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "profile" or "context"?</div>
+<div class="comment-continuation">… It would still be application/ld+json but completed with a "profile"</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I think that that should work with us.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: application/ld+json;profile=<a href="http://drupal.org/profiles/deploy">http://drupal.org/profiles/deploy</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any comment on whether it should be a text string or an IRI?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  It does not matter too much for us.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think I prefer to do an IRI, just because it's very specific.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment-continuation">… You don't want two people to use the same string for different purposes.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It sounds that we have general agreement for this.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  should it be "profile" or "context"?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two different things in my view, the "context" points to a very specific JSON-LD context. The profile conveys the generic layout of the data. You may use multiple contexts but still one profile.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  note there's nothing that prevents using a context IRI for the profile IRI</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add an optional parameter to the application/ld+json mimetype called 'profile' where the value associated with it SHOULD be an IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Lin Clark</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Add an optional parameter to the application/ld+json mimetype called 'profile' where the value associated with it SHOULD be an IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Created issue 164 for this</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/164">https://github.com/json-ld/json-ld.org/issues/164</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the other thing we talked about was about Web page fragments. You could have intermediary nodes using primaryTopicOf and so on.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  The only reason why we used schema.org is because it's a common vocabulary but users may build and use other vocabularies.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-113: IRI compaction algorithm</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/113">https://github.com/json-ld/json-ld.org/issues/113</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Initial concern by Markus. Gregg suggested we made it very simple. The counter-argument to that is that it leaves some leeway in some compaction cases. I proposed to deal with it in rounds. I talked with Dave Longley about that, but that would end up with something that is actually more complicated than what we have now.</div>
+<div class="comment-continuation">… The term ranking thing that we have seems to be the most reasonable thing for everyone in the end.</div>
+<div class="comment-continuation">… We did talk about your algorithm, Markus. Dave Longley felt it was different but not necessarily simpler.</div>
+<div class="comment-continuation">… In short, I think that where we are right now is: no reason to change anything as the only other proposal on the table does not bring a lot. Markus, what do you think?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I personally find my proposal simpler because you understand it when you write it on a sheet of paper and because I implemented it this way.</div>
+<div class="comment-continuation">… The algorithm is already there but I did not really understand it so could not implement it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's my main concern. If one people in the group does not understand how to implement it, it does not start very well.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can follow the steps and implement the algorithm. It just looks like code so you just won't understand how it's supposed to work.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Indeed, I don't disagree with any of the points you're making. I just think we have a time issue here.</div>
+<div class="comment-continuation">… We should prepare a more prose version that we could put side by side with the algorithm in the code.</div>
+<div class="comment-continuation">… It would take time though.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There are some good examples in the comments. Is there a comprehensive set of tests for that?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, there are. The problem is that tests often test for multiple things, so it may be hard to figure out what precisely is a problem.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That speaks more to "we need to fix the test suite".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you implement things correctly, tests will pass and are great, but don't help you much when you fail.</div>
+<div class="comment-continuation">… Perhaps what we could be doing is adding annotations to the spec.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  your proposal would be to add issue marker to algorithms that are not clear enough?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  And then we could go to Last Call.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Manu, is your implementation currently using the algorithm in the spec?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave would know. I think so.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  otherwise we wouldn't have one implementation.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I think that JSON-LD is in good shape regarding text and algorithms. I wouldn't worry too much about how the algorithm is defined, usually done after LC... that's what you do during CR. It's not such a big deal because we will need to refine the algorithms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>:  We have done this before with W3C specs and it worked out just fine. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's mark the spec with an issue marker, saying that the algorithm might be refined for clarification purpose after last call.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I also have an implementation that passes all the tests. It may not be worth spending time adding issue tracking. Basically, I'm proposing to do nothing. We should check whether the current text passes the test suite.</div>
+<div class="comment-continuation">… and update the text if it doesn't</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  or update the test suite.</div>
+<div class="comment-continuation">… I'll go straight to where I'm failing and see if I can resolve those issues.</div>
+<div class="comment-continuation">… If I can make mine pass or find something that we disagree about this week, that would help us for next call.</div>
+<div class="comment-continuation">… Also, note that I don't think that we have tests for "flatten".</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should do that, although that should not block us from going to last call.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  finding an online test runner was very effective for RDFa too.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I note that I also prefer data to algorithms.</div>
+<div class="information">[Manu actioning people to check tests]</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-114: JSON-LD grammar</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/114">https://github.com/json-ld/json-ld.org/issues/114</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we're pretty much done with issues that could modify the spec dramatically.</div>
+<div class="comment-continuation">… This one was on hold for other issues.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The grammar is too long so you can't get a quick overview of what's allowed where and what is not. I think it's 3 or 4 pages right now, it should be down to half a page.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that if you look at the text, the intention is to be very descriptive. It strives to be extremely precise of what could be happening without duplicating text.</div>
+<div class="comment-continuation">… I would be satisfied if the introduction sections references sections that details them.</div>
+<div class="comment-continuation">… That said, replacing with a short text is going to be very challenging, I think.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1 to putting in references back to examples in the spec. +1 to it being difficult to distill it down to 1/2 to one page.</div>
+<div class="comment-continuation">… [looking at node definition]</div>
+<div class="comment-continuation">… I'm not convinced that making it smaller by removing that context is an improvement.</div>
+<div class="comment-continuation">… Mostly, it's pretty much the examples that are sort of fluff.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two statements from Gregg I agree with: 1. difficult to go down to one page. 2. to reference examples in the spec.</div>
+<div class="comment-continuation">… I don't think we should be doing more than that. Removing examples should already give us what we need.</div>
+<div class="comment-continuation">… Markus, if just those two changes are made (removing examples and pointing to them), would that be enough for you?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, I think I'd be ok with that.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Move all examples in the JSON-LD Grammar section of the spec to the main body and point to them with links.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="information">[discussion about example IDs not generated by ReSpec for the time being]</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Move all examples in the JSON-LD Grammar section of the spec to the main body and point to them with links.</div>
+<h1 id="topic-6" class="topic">Topic: Issue review</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, let's make a really quick pass to remaining issues to see where we are.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=updated&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=updated&amp;state=open</a></div>
+<div class="comment-continuation">… 6 open issues.</div>
+<div class="comment-continuation">… ISSUE-114, just resolved.</div>
+<div class="comment-continuation">… ISSUE-159 on language containers, we still need to discuss</div>
+<div class="comment-continuation">… ISSUE-142: resolved</div>
+<div class="comment-continuation">… ISSUE-163: will work on this</div>
+<div class="comment-continuation">… ISSUE-133: should be marked as resolved</div>
+<div class="comment-continuation">… ISSUE-157: I sent an email to Richard Cyganiak. He should be able to find some time in the next couple of weeks.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues?milestone=1&amp;page=1&amp;sort=updated&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=1&amp;page=1&amp;sort=updated&amp;state=open</a></div>
+<div class="comment-continuation">… 8 open issues on the API.</div>
+<div class="comment-continuation">… ISSUE-113: pending tests feedback as discussed today</div>
+<div class="comment-continuation">… ISSUE-151: waiting on Dave Longley</div>
+<div class="comment-continuation">… ISSUE-153: waiting on Dave Longley</div>
+<div class="comment-continuation">… ISSUE-160: resolved</div>
+<div class="comment-continuation">… ISSUE-140: deferred to JSON-LD Next (after some discussion at end of call today)</div>
+<div class="comment-continuation">… ISSUE-162: need discussion</div>
+<div class="comment-continuation">… ISSUE-156: need discussion as well</div>
+<div class="comment-continuation">… ISSUE-125: done, I think. Where are we on that, Gregg?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I thought I had done that. Maybe Niklas could have a look to see where I'm clear/unclear.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas, could you take an action to review that?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes.</div>
+<div id="action-1" class="action">ACTION: Niklas to review spec text for ISSUE-125.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have 3 issues that we need to discuss next week. Once those are resolved and text updates are made, we should be ready to go to Last Call.</div>
+<h1 id="topic-7" class="topic">Topic: Thoughts on .link()</h1>
+<div class="comment"><span class="name">Niklas Lindström</span>:  One thing I've been thinking about is whether we should take a stripped down version, a "connect" that doesn't do anything more than connecting IDs.</div>
+<div class="comment-continuation">… If we wanted to include something like this in 1.0, we should probably do something simpler.</div>
+<div class="comment-continuation">… If we put something in 1.0, basically, we should put an algorithm to produce an ID map.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we have one already</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, so we could use it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's just to get a map of subjects to data.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  where is that algorithm used? Flattening?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Framing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The one step generalization of what Niklas is proposing is a ".index" function that would index the data by the provided key.</div>
+<div class="comment-continuation">… What the algorithm would do is flatten everything and search for the index property that you gave it.</div>
+<div class="comment-continuation">… Just to be clear, this isn't "connect", it's "index".</div>
+<div class="comment-continuation">… You would just get key-value pairs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It just feels like creaping features in the spec at that stage.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Perhaps the most reasonable thing to do is to continue working on it in a separate spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What makes these things a little bit experimental is when applied to expanded form.</div>
+<div class="comment-continuation">… so there's value leaving it outside of the spec for the time being.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  One way to explain it is to say it turns JSON-LD Data into objects that are backed by an RDF graph and it makes leveraging that structure to manipulate data easily.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  From what I hear, we have use cases but are not going to put it into 1.0 spec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/expand-0028-in.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/expand-0028-in.jsonld</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything else?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I just found a test that uses @vocab with a notion of data that has not ID. Since there is no context, it's resolved against the vocal.</div>
+<div class="comment-continuation">… I wonder if it's the right behavior.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  no other interpretation where it would make sense, or it wouldn't expand to an IRI.</div>
+<div class="information">[discussion about @id: null, the spec tells the processor to ignore it]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://bit.ly/QPnv9a">http://bit.ly/QPnv9a</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: not handled in the playground, neither in my implementation. So prob. not in the spec</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should create an issue for it to track this as I'm afraid we'll lose it.</div>
+</body>
+</html>

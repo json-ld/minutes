@@ -1,0 +1,293 @@
+[10:09]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0008.html
+[10:09]	<tidoust>	voip: unmute me
+[10:09]	<voip-ld>	tidoust has been unmuted.
+[10:09]	<manu1>	scribe: tidoust
+[10:09]	<tidoust>	voip: mute me
+[10:09]	<voip-ld>	tidoust has been muted.
+[10:10]	<mlnt>	http://groups.drupal.org/node/261843
+[10:10]	<tidoust>	Manu: additions to the agenda?
+[10:10]	<tidoust>	Gregg: need to discuss availability for RDF WG F2F agenda
+[10:11]	<tidoust>	Markus: discuss article from Lin on need to have two different serializations of JSON-LD.
+[10:11]	<tidoust>	Gregg: It's not unlike what Wikidata has to do.
+[10:11]	<tidoust>	Manu: I wonder if it's a limitation in JSON-LD or whether this has nothing to do with JSON-LD. Sounds like the latter.
+[10:12]	<tidoust>	Markus: I think it's really two use cases.
+[10:13]	<manu1>	Topic: Wikidata visit
+[10:13]	<tidoust>	Gregg: I went and visited about half a day Wikidata Germany. Spoke with several developers including Denny.
+[10:13]	<tidoust>	… In August, they sent out something about SWIG about their RDF serialization issues.
+[10:14]	<tidoust>	… Last message is August 9th.
+[10:14]	<tidoust>	… We discussed a little bit and it brought some issues.
+[10:15]	<tidoust>	… Brought us to an example with an item and its pronunciation. End up using two bnodes.
+[10:15]	<tidoust>	… Normally, that would be an RDF value but it doesn't seem to be particularly mainstream.
+[10:16]	<tidoust>	… Lowercase 'title' that would a language map and pronounciation and upper case 'TITLE' that would possibly have nodes on which they can hang data.
+[10:16]	<tidoust>	Manu: A bit strange
+[10:16]	<tidoust>	Gregg: It is, but it helps with the API.
+[10:17]	<tidoust>	… JSON-LD gives you unique IDs for properties and context that gives you certain amount of typing, allowing you to distinguish between literals and objects.
+[10:18]	<tidoust>	… [example of Wikia and hybrid export]
+[10:18]	<niklasl>	q+
+[10:18]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:18]	<tidoust>	… I probably need to write a blog post about that.
+[10:18]	<tidoust>	… JSON-LD is alive and well but not firmly established right now.
+[10:18]	<tidoust>	Manu: release schedule?
+[10:19]	<tidoust>	Gregg: They have something right now. Schedule for real deploy end of March.
+[10:19]	<manu1>	ack niklasl
+[10:19]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:19]	<tidoust>	Niklas: First, quick reflexion. It seems that the Wiki idea of the upper case title property sounds like SKOS-XL structure
+[10:20]	<tidoust>	Gregg: it bears some similarity, yes.
+[10:20]	<niklasl>	.. <http://www.w3.org/TR/skos-reference/skos-xl.html>
+[10:21]	<tidoust>	Gregg: From their perspective, only two formats of interest RDF/XML and JSON-LD, interesting.
+[10:22]	<tidoust>	[short discussion on merits of different RDF serializations]
+[10:22]	<gkellogg>	Here's the swig thread: http://lists.w3.org/Archives/Public/semantic-web/2012Aug/0021.html
+[10:22]	<manu1>	Wikidata export in RDF - http://lists.w3.org/Archives/Public/semantic-web/2012Aug/0021.html
+[10:22]	* manu1	grins - didn't see that Gregg had already posted it.
+[10:23]	<tidoust>	Gregg: [explaining definitions of properties into classes and subtypes]
+[10:24]	<niklasl>	.. "properties": {"@rev": "rdfs:domain"}
+[10:24]	<tidoust>	Niklas: I've done the same thing when I generated documentation from owl. My general reflexion, it sounded like what I've been doing in my own framing. I just wanted to note the similarities.
+[10:25]	<tidoust>	Manu: is there anything that this group should do? Anything they're waiting from us?
+[10:25]	<tidoust>	Gregg: most important thing is to get to REC. Syntax is key to them more than the API at this point.
+[10:26]	<tidoust>	… Quite a lot of discussion, that was pretty good.
+[10:26]	<tidoust>	Manu: Good, thanks for the time you took to reach out to them.
+[10:26]	<manu1>	Topic: RDF WG Face-to-face
+[10:27]	<tidoust>	Manu: I can definitely attend the F2F remotely.
+[10:27]	<gkellogg>	RDF WG Agenda: http://www.w3.org/2011/rdf-wg/wiki/FTF3#Agenda
+[10:27]	<tidoust>	… Anyone else planning to be there?
+[10:27]	<tidoust>	Gregg: JSON-LD is on day 2 at 13:30 to 14:30 local time in Lyon. GMT+1, I think.
+[10:28]	<tidoust>	… I don't necessarily feel compelled to be on, it's fairly early for me.
+[10:28]	<tidoust>	… Manu, if you can be on for that, that would be good.
+[10:28]	<tidoust>	Manu: I'll be on.
+[10:28]	<tidoust>	q+
+[10:28]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[10:28]	<tidoust>	ack me
+[10:28]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[10:28]	<manu1>	ack tidoust
+[10:28]	<tidoust>	voip: unmute me
+[10:28]	<manu1>	voip: unmute tidoust
+[10:28]	<voip-ld>	tidoust has been unmuted.
+[10:28]	<manu1>	tidoust: I will be in the room.
+[10:29]	<tidoust>	voip: mute me
+[10:29]	<voip-ld>	tidoust has been muted.
+[10:29]	<tidoust>	Markus: I'll be there remotely as well.
+[10:29]	<gkellogg>	François will be at the RDF WG F2F too
+[10:30]	<tidoust>	Manu: good to have people.
+[10:30]	<tidoust>	Gregg: the generic goal is to bring the specs to LC.
+[10:31]	<tidoust>	… The idea would be to resolve issues by then, or to flag issues that remain to be resolved before LC.
+[10:31]	<manu1>	voip: mute tidoust
+[10:31]	<manu1>	voip: mute francois
+[10:31]	<voip-ld>	francois is not associated with an audio channel. You may specify the first or last name of a person's Caller ID. You may also specify the last 2 or more digits of the audio channel name. You can also map an IRC nickname to an audio channel. Use 'voip-ld: <CHANNEL> is me' to map yourself to an audio channel. Use 'voip-ld: <CHANNEL> is <NICK>' to map someone else to an audio channel.
+[10:32]	<tidoust>	Manu: We have a number of outstanding issues waiting for people to add something or propose spec text.
+[10:32]	<tidoust>	… We discussed language maps.
+[10:32]	<tidoust>	Gregg: that probably deserves a bit of discussion because of cases that prevent round-tripping.
+[10:32]	<tidoust>	Manu: I think that's the biggest issue.
+[10:33]	<manu1>	voip: connections?
+[10:33]	<voip-ld>	Conference connections: Manu Sporny [SIP/6000-00000043], Markus Lanthaler [SIP/sip.linphone.org-00000042], Gregg Kellogg [SIP/10.0.1.18-00000041], Niklas Lindström [SIP/82.182.71.107-00000040], <unknown> (tidoust) [IAX2/diamondcard-5753]
+[10:33]	<tidoust>	… I don't think we'll be able to say the doc is LC-ready.
+[10:33]	<manu1>	voip: mute 5753
+[10:33]	<tidoust>	… but we won't have much things to discuss anymore.
+[10:34]	<manu1>	Topic: Drupal JSON-LD Vendor extension
+[10:34]	<mlnt>	Two JSON-LDs for Drupal: http://groups.drupal.org/node/261843
+[10:34]	<mlnt>	Enable standard literal handling for RDF-ish domain models: http://drupal.org/node/1813328
+[10:34]	<mlnt>	Decide how to negotiate between the 2 JSON-LD serializations: http://drupal.org/node/1797210
+[10:34]	<tidoust>	Markus: I don't know much more, I just read that post where Lin basically outlines that they seem to need two different JSON-LD serializations.
+[10:34]	<tidoust>	… Data structure is different for each one.
+[10:35]	<tidoust>	… For one use case, given an article, the body of the article would be a bnode, and on the other hand, they want to model their data in a more "user-friendly" way.
+[10:36]	<tidoust>	Gregg: there is actually a class for a Web page fragment in schema.org, which would be reasonable to use.
+[10:36]	<tidoust>	Manu: We should definitely continue to talk with Lin and see if there's something we can do.
+[10:37]	<tidoust>	Gregg: From a modeling perspective, you might say that an article has a body and a description. Saying that it has a web page fragment kind of crosses domains.
+[10:37]	<mlnt>	http://schema.org/Article
+[10:37]	<tidoust>	… There are ways to do that, but that starts to be a little weird.
+[10:37]	<mlnt>	articleBody Text
+[10:37]	<tidoust>	Manu: anything we can discuss here in the absence of Lin?
+[10:37]	<gkellogg>	Lin, we're discussing your dual-use of JSON-LD now
+[10:38]	<linclark>	oh, give me two minutes and I'll join
+[10:38]	<tidoust>	Markus: two issues raised, on negotiation between the 2 serializations and handling for RDF-ish domain models.
+[10:38]	<niklasl>	q+
+[10:38]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:38]	<manu1>	ack niklasl
+[10:38]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:39]	<tidoust>	Niklas: I just want to make sure that I understand this. This is a general modeling problem, it doesn't seem to be an issue with JSON-LD, nor with RDF as an expression model.
+[10:39]	<tidoust>	… That's just a basic problem of "simple vs. complete".
+[10:40]	<voip-ld>	<unknown> (IAX2/diamondcard-3976) has joined the conference.
+[10:40]	<tidoust>	… It's always a trade-off.
+[10:40]	<tidoust>	[Lin just joined the call]
+[10:40]	<tidoust>	Manu: Hi Lin, anything we could do to address these issues or are they best handled by the Drupal community?
+[10:41]	<tidoust>	Lin: I honestly don't think that you need to change the spec for this.
+[10:41]	<tidoust>	… I'm pretty sure that this is something that we need to deal with internally.
+[10:42]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/16#issuecomment-6327597
+[10:42]	<tidoust>	Markus: we discussed that before. Wondering about using "profile" to distinguish between serializations.
+[10:42]	<tidoust>	Lin: we should have content conneg added later on.
+[10:42]	<manu1>	http://json-ld.org/spec/latest/json-ld-syntax/#iana-considerations
+[10:43]	<tidoust>	Markus: the change would be quite trivial, simply add a profile to the MIME type declaration.
+[10:43]	<tidoust>	Manu: the optional parameter that we would have would be "profile" and people could use a URL or a string value.
+[10:43]	<tidoust>	… Lin, would that work for Drupal?
+[10:43]	<niklasl>	.. "profile" or "context"?
+[10:43]	<tidoust>	… It would still be application/ld+json but completed with a "profile"
+[10:44]	<tidoust>	Lin: I think that that should work with us.
+[10:44]	<mlnt>	application/ld+json;profile=http://drupal.org/profiles/deploy
+[10:44]	<tidoust>	Manu: Any comment on whether it should be a text string or an IRI?
+[10:44]	<tidoust>	Lin: It does not matter too much for us.
+[10:45]	<tidoust>	Manu: I think I prefer to do an IRI, just because it's very specific.
+[10:45]	<gkellogg>	+1
+[10:45]	<tidoust>	… You don't want two people to use the same string for different purposes.
+[10:45]	<niklasl>	+1
+[10:45]	<tidoust>	+1
+[10:45]	<tidoust>	Manu: It sounds that we have general agreement for this.
+[10:46]	<tidoust>	Niklas: should it be "profile" or "context"?
+[10:47]	<tidoust>	Manu: Two different things in my view, the "context" points to a very specific JSON-LD context. The profile conveys the generic layout of the data. You may use multiple contexts but still one profile.
+[10:47]	<tidoust>	Gregg: note there's nothing that prevents using a context IRI for the profile IRI
+[10:47]	<manu1>	PROPOSAL: Add an optional parameter to the application/ld+json mimetype called 'profile' where the value associated with it SHOULD be an IRI.
+[10:47]	<mlnt>	+1
+[10:47]	<manu1>	+1
+[10:47]	<gkellogg>	+1
+[10:47]	<niklasl>	+1
+[10:47]	<tidoust>	+1
+[10:48]	<linclark>	+1
+[10:48]	<manu1>	RESOLVED: Add an optional parameter to the application/ld+json mimetype called 'profile' where the value associated with it SHOULD be an IRI.
+[10:48]	<mlnt>	Created issue 164 for this
+[10:48]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/164
+[10:49]	<tidoust>	Gregg: the other thing we talked about was about Web page fragments. You could have intermediary nodes using primaryTopicOf and so on.
+[10:49]	<tidoust>	Lin: The only reason why we used schema.org is because it's a common vocabulary but users may build and use other vocabularies.
+[10:50]	<voip-ld>	<unknown> (IAX2/diamondcard-3976) has left the conference.
+[10:50]	<manu1>	Topic: ISSUE-113: IRI compaction algorithm
+[10:50]	<manu1>	https://github.com/json-ld/json-ld.org/issues/113
+[10:52]	<tidoust>	Manu: Initial concern by Markus. Gregg suggested we made it very simple. The counter-argument to that is that it leaves some leeway in some compaction cases. I proposed to deal with it in rounds. I talked with Dave Longley about that, but that would end up with something that is actually more complicated than what we have now.
+[10:52]	<tidoust>	… The term ranking thing that we have seems to be the most reasonable thing for everyone in the end.
+[10:53]	<tidoust>	… We did talk about your algorithm, Markus. Dave Longley felt it was different but not necessarily simpler.
+[10:53]	<tidoust>	… In short, I think that where we are right now is: no reason to change anything as the only other proposal on the table does not bring a lot. Markus, what do you think?
+[10:54]	<tidoust>	Markus: I personally find my proposal simpler because you understand it when you write it on a sheet of paper and because I implemented it this way.
+[10:54]	<tidoust>	… The algorithm is already there but I did not really understand it so could not implement it.
+[10:55]	<tidoust>	Manu: That's my main concern. If one people in the group does not understand how to implement it, it does not start very well.
+[10:55]	<tidoust>	Markus: You can follow the steps and implement the algorithm. It just looks like code so you just won't understand how it's supposed to work.
+[10:55]	* niklasl	W3C specs should just be in javascript
+[10:56]	<tidoust>	Manu: Indeed, I don't disagree with any of the points you're making. I just think we have a time issue here.
+[10:56]	<niklasl>	q+
+[10:56]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:56]	<manu1>	ack niklasl
+[10:56]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:56]	<tidoust>	… We should prepare a more prose version that we could put side by side with the algorithm in the code.
+[10:57]	<tidoust>	… It would take time though.
+[10:57]	<gkellogg>	q+ if something's ambitious, can we just add an issue marker so that it can be re-edited?
+[10:57]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:57]	<tidoust>	Niklas: There are some good examples in the comments. Is there a comprehensive set of tests for that?
+[10:58]	<tidoust>	Gregg: Yes, there are. The problem is that tests often test for multiple things, so it may be hard to figure out what precisely is a problem.
+[10:58]	<tidoust>	Manu: That speaks more to "we need to fix the test suite".
+[10:59]	<manu1>	ack gkellogg
+[10:59]	<voip-ld>	gkellogg has the floor (if something's ambitious, can we just add an issue marker so that it can be re-edited?). The speaker queue is empty.
+[10:59]	<tidoust>	Gregg: If you implement things correctly, tests will pass and are great, but don't help you much when you fail.
+[11:00]	<tidoust>	… Perhaps what we could be doing is adding annotations to the spec.
+[11:00]	<tidoust>	Manu: your proposal would be to add issue marker to algorithms that are not clear enough?
+[11:00]	<tidoust>	Gregg: Yes
+[11:00]	<tidoust>	Manu: And then we could go to Last Call.
+[11:01]	<tidoust>	Niklas: Manu, is your implementation currently using the algorithm in the spec?
+[11:01]	<tidoust>	Manu: Dave would know. I think so.
+[11:01]	<tidoust>	q+
+[11:01]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:02]	<tidoust>	Markus: otherwise we wouldn't have one implementation.
+[11:02]	<tidoust>	voip: unmute me
+[11:02]	<voip-ld>	tidoust has been unmuted.
+[11:02]	<manu1>	ack tidoust
+[11:02]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[11:04]	<manu1>	tidoust: I think that JSON-LD is in good shape regarding text and algorithms. I wouldn't worry too much about how the algorithm is defined, usually done after LC... that's what you do during CR. It's not such a big deal because we will need to refine the algorithms.
+[11:04]	<tidoust>	voip: mute me
+[11:04]	<manu1>	tidoust: We have done this before with W3C specs and it worked out just fine.
+[11:04]	<voip-ld>	tidoust has been muted.
+[11:05]	<tidoust>	Manu: let's mark the spec with an issue marker, saying that the algorithm might be refined for clarification purpose after last call.
+[11:06]	<tidoust>	Markus: I also have an implementation that passes all the tests. It may not be worth spending time adding issue tracking. Basically, I'm proposing to do nothing. We should check whether the current text passes the test suite.
+[11:06]	<tidoust>	… and update the text if it doesn't
+[11:06]	<tidoust>	Gregg: or update the test suite.
+[11:06]	<tidoust>	… I'll go straight to where I'm failing and see if I can resolve those issues.
+[11:07]	<tidoust>	… If I can make mine pass or find something that we disagree about this week, that would help us for next call.
+[11:07]	<tidoust>	… Also, note that I don't think that we have tests for "flatten".
+[11:07]	<tidoust>	Manu: We should do that, although that should not block us from going to last call.
+[11:08]	<tidoust>	Gregg: finding an online test runner was very effective for RDFa too.
+[11:09]	<tidoust>	Niklas: I note that I also prefer data to algorithms.
+[11:10]	<tidoust>	[Manu actioning people to check tests]
+[11:10]	<manu1>	Topic: ISSUE-114: JSON-LD grammar
+[11:10]	<manu1>	https://github.com/json-ld/json-ld.org/issues/114
+[11:10]	<tidoust>	Manu: I think we're pretty much done with issues that could modify the spec dramatically.
+[11:10]	<gkellogg>	q+
+[11:10]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[11:11]	<tidoust>	… This one was on hold for other issues.
+[11:11]	<manu1>	ack gkellogg
+[11:12]	<tidoust>	Markus: The grammar is too long so you can't get a quick overview of what's allowed where and what is not. I think it's 3 or 4 pages right now, it should be down to half a page.
+[11:12]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:12]	<tidoust>	Gregg: I think that if you look at the text, the intention is to be very descriptive. It strives to be extremely precise of what could be happening without duplicating text.
+[11:13]	<tidoust>	… I would be satisfied if the introduction sections references sections that details them.
+[11:13]	<tidoust>	… That said, replacing with a short text is going to be very challenging, I think.
+[11:13]	<manu1>	+1 to putting in references back to examples in the spec. +1 to it being difficult to distill it down to 1/2 to one page.
+[11:14]	<tidoust>	… [looking at node definition]
+[11:14]	<tidoust>	… I'm not convinced that making it smaller by removing that context is an improvement.
+[11:14]	<manu1>	q+
+[11:14]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[11:15]	<tidoust>	… Mostly, it's pretty much the examples that are sort of fluff.
+[11:15]	<tidoust>	Manu: Two statements from Gregg I agree with: 1. difficult to go down to one page. 2. to reference examples in the spec.
+[11:16]	<tidoust>	… I don't think we should be doing more than that. Removing examples should already give us what we need.
+[11:17]	<tidoust>	… Markus, if just those two changes are made (removing examples and pointing to them), would that be enough for you?
+[11:17]	<tidoust>	Markus: Yes, I think I'd be ok with that.
+[11:18]	<manu1>	PROPOSAL: Move all examples in the JSON-LD Grammar section of the spec to the main body and point to them with links.
+[11:18]	<gkellogg>	+1
+[11:18]	<manu1>	+1
+[11:18]	<tidoust>	+1
+[11:18]	<voip-ld>	Dave Lehn (SIP/6003-00000044) has joined the conference.
+[11:18]	<niklasl>	+1
+[11:18]	<mlnt>	+1
+[11:20]	<tidoust>	[discussion about example IDs not generated by ReSpec for the time being]
+[11:20]	<manu1>	RESOLVED: Move all examples in the JSON-LD Grammar section of the spec to the main body and point to them with links.
+[11:20]	<manu1>	Topic: Issue review
+[11:20]	<tidoust>	Manu: OK, let's make a really quick pass to remaining issues to see where we are.
+[11:20]	<manu1>	https://github.com/json-ld/json-ld.org/issues?milestone=2&page=1&sort=updated&state=open
+[11:21]	<tidoust>	… 6 open issues.
+[11:21]	<tidoust>	… ISSUE-114, just resolved.
+[11:21]	<tidoust>	… ISSUE-159 on language containers, we still need to discuss
+[11:21]	<tidoust>	… ISSUE-142: resolved
+[11:22]	<tidoust>	… ISSUE-163: will work on this
+[11:22]	<tidoust>	… ISSUE-133: should be marked as resolved
+[11:22]	<tidoust>	… ISSUE-157: I sent an email to Richard Cyganiak. He should be able to find some time in the next couple of weeks.
+[11:22]	<manu1>	https://github.com/json-ld/json-ld.org/issues?milestone=1&page=1&sort=updated&state=open
+[11:22]	<tidoust>	… 8 open issues on the API.
+[11:23]	<tidoust>	… ISSUE-113: pending tests feedback as discussed today
+[11:23]	<tidoust>	… ISSUE-151: waiting on Dave Longley
+[11:23]	<tidoust>	… ISSUE-153: waiting on Dave Longley
+[11:23]	<tidoust>	… ISSUE-160: resolved
+[11:23]	<tidoust>	… ISSUE-140: deferred to JSON-LD Next (after some discussion at end of call today)
+[11:25]	<tidoust>	… ISSUE-162: need discussion
+[11:25]	<tidoust>	… ISSUE-156: need discussion as well
+[11:25]	<tidoust>	… ISSUE-125: done, I think. Where are we on that, Gregg?
+[11:26]	<tidoust>	Gregg: I thought I had done that. Maybe Niklas could have a look to see where I'm clear/unclear.
+[11:26]	<tidoust>	Manu: Niklas, could you take an action to review that?
+[11:26]	<tidoust>	Niklas: Yes.
+[11:26]	<manu1>	ACTION: Niklas to review spec text for ISSUE-125.
+[11:28]	<tidoust>	Manu: We have 3 issues that we need to discuss next week. Once those are resolved and text updates are made, we should be ready to go to Last Call.
+[11:29]	<manu1>	Topic: Thoughts on .link()
+[11:29]	<tidoust>	Niklas: One thing I've been thinking about is whether we should take a stripped down version, a "connect" that doesn't do anything more than connecting IDs.
+[11:30]	<tidoust>	… If we wanted to include something like this in 1.0, we should probably do something simpler.
+[11:31]	<tidoust>	… If we put something in 1.0, basically, we should put an algorithm to produce an ID map.
+[11:31]	<tidoust>	Gregg: we have one already
+[11:31]	<tidoust>	Niklas: Yes, so we could use it.
+[11:31]	<tidoust>	Manu: It's just to get a map of subjects to data.
+[11:31]	<tidoust>	Niklas: where is that algorithm used? Flattening?
+[11:31]	<tidoust>	Gregg: Framing.
+[11:32]	<tidoust>	Manu: The one step generalization of what Niklas is proposing is a ".index" function that would index the data by the provided key.
+[11:32]	<tidoust>	… What the algorithm would do is flatten everything and search for the index property that you gave it.
+[11:33]	<tidoust>	… Just to be clear, this isn't "connect", it's "index".
+[11:33]	-->|	scor (~scor@132.183.242.198) has joined #json-ld
+[11:33]	|<--	scor has left freenode (Changing host)
+[11:33]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[11:33]	<tidoust>	… You would just get key-value pairs.
+[11:33]	<tidoust>	Gregg: It just feels like creaping features in the spec at that stage.
+[11:34]	<tidoust>	Niklas: Perhaps the most reasonable thing to do is to continue working on it in a separate spec.
+[11:35]	<tidoust>	Gregg: What makes these things a little bit experimental is when applied to expanded form.
+[11:36]	<tidoust>	… so there's value leaving it outside of the spec for the time being.
+[11:37]	<tidoust>	Niklas: One way to explain it is to say it turns JSON-LD Data into objects that are backed by an RDF graph and it makes leveraging that structure to manipulate data easily.
+[11:37]	<tidoust>	Manu: From what I hear, we have use cases but are not going to put it into 1.0 spec.
+[11:38]	<niklasl>	… https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/expand-0028-in.jsonld
+[11:38]	<tidoust>	Manu: Anything else?
+[11:38]	<tidoust>	Niklas: I just found a test that uses @vocab with a notion of data that has not ID. Since there is no context, it's resolved against the vocal.
+[11:39]	<tidoust>	… I wonder if it's the right behavior.
+[11:39]	<tidoust>	Gregg: no other interpretation where it would make sense, or it wouldn't expand to an IRI.
+[11:40]	<tidoust>	[discussion about @id: null, the spec tells the processor to ignore it]
+[11:41]	<mlnt>	http://bit.ly/QPnv9a
+[11:41]	<mlnt>	not handled in the playground, neither in my implementation. So prob. not in the spec
+[11:41]	<tidoust>	Manu: we should create an issue for it to track this as I'm afraid we'll lose it.
+[11:41]	<voip-ld>	Manu Sporny (SIP/6000-00000043) has left the conference.
+[11:41]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000041) has left the conference.
+[11:41]	<voip-ld>	Dave Lehn (SIP/6003-00000044) has left the conference.
+[11:41]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000040) has left the conference.
