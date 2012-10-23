@@ -132,7 +132,7 @@
 [10:58]	<niklasl>	q+
 [10:58]	<voip-ld>	Added niklasl to the speaker queue: niklasl
 [10:59]	<dlongley>	the compaction algorithm (and others) assume the data will have been normalized
-[10:59]	<dlongley>	values like "world" => {"@value": "world"}
+[10:59]	<dlongley>	values like "world" -- {"@value": "world"}
 [10:59]	<manu1>	ack niklasl
 [10:59]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
 [11:00]	<manu1>	niklasl: If we're going to do anything, we should avoid expanding twice by having an option.
@@ -141,21 +141,21 @@
 [11:00]	<voip-ld>	tidoust has been muted.
 [11:00]	|<--	cygri has left freenode (Quit: cygri)
 [11:01]	<mlnt>	dlongley, we will still be doing that
-[11:01]	<manu1>	dlongley - concerned that you don't quite understand the issue? (having to do two expand-compact-expand-compact calls ... vs just one?)
+[11:01]	<manu1>	Manu: Dave Longley, concerned that you don't quite understand the issue? (having to do two expand-compact-expand-compact calls ... vs just one?)
 [11:01]	<mlnt>	we are discussing to add a expandContext option which would be used as "initial context" for all expansion calls (also expand() itself)
 [11:02]	<niklasl>	.. if the context needed for expansion is provided out-of-band
 [11:02]	<dlongley>	is it difficult to just do: doc["@context"] = "link header result" => compact(doc) ?
 [11:03]	<dlongley>	that will only do one expansion and compaction
-[11:03]	<manu1>	not really, no... we're trying to figure out if it's that difficult.
+[11:03]	<manu1>	Manu: not really, no... we're trying to figure out if it's that difficult.
 [11:04]	<mlnt>	void expand (object or object[] or IRI input, object or IRI? context, JsonLdCallback callback, optional JsonLdOptions? options);
 [11:04]	<manu1>	Markus: What I'm proposing is that expand looks like this ^^^
 [11:05]	<mlnt>	to oid expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);
-[11:05]	<manu1>	change the signature of expand to this: expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);
+[11:05]	<manu1>	Manu: change the signature of expand to this: expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);
 [11:05]	<mlnt>	context is moved into options
 [11:05]	<mlnt>	same option available for compact()
 [11:06]	<mlnt>	void compact (object or object[] or IRI input, object or IRI context, JsonLdCallback callback, optional JsonLdOptions? options);
 [11:06]	<dlongley>	it seems to me that this option only saves a single line? (doc["@context"] = "<result of link header>";) ?
-[11:07]	<manu1>	dlongley - not really what we're discussing...
+[11:07]	<manu1>	Manu: not really what we're discussing...
 [11:07]	<dlongley>	ok
 [11:07]	<manu1>	Manu: What we're discussing is this - specifying the context in .expand() is optional...
 [11:07]	<manu1>	Manu: it's not optional in .compact()
@@ -169,7 +169,7 @@
 [11:10]	<manu1>	RESOLVED: Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.
 [11:11]	<manu1>	Markus: So, next question is whether or not we want to use the 'expansionContext' option, if it is specified, in the .compact() call (when expanding before compacting)
 [11:13]	<manu1>	Markus: If you add an 'expandContext' option, it would start as if there were a wrapper around the context that has the context... so the first context processed would be 'expandContext', then the input document contexts would be applied on top.
-[11:14]	<manu1>	dlongley - any input on this?
+[11:14]	<manu1>	Manu: Dave Longley, any input on this?
 [11:15]	<dlongley>	i guess it's fine, i think it's unnecessary
 [11:15]	<manu1>	Manu: So the proposal would be to use 'expandContext' if it is specified in the options to .compact() as the first context that is processed.
 [11:15]	<dlongley>	we'd have to deal with issues where the input document has another context
@@ -182,7 +182,7 @@
 [11:16]	<dlongley>	not first?
 [11:17]	<mlnt>	doesn't work
 [11:17]	<mlnt>	:-)
-[11:17]	<manu1>	I think the answer is - too bad :)
+[11:17]	<manu1>	Manu: I think the answer is - too bad :)
 [11:17]	<dlongley>	:)
 [11:17]	<tidoust>	+1 to the proposal but make sure the option name is the same for "compact" and "expand".
 [11:17]	<dlongley>	seems like it would be more likely that you'd want to apply it last than first, but i don't know.
@@ -270,7 +270,9 @@
 [11:44]	<tidoust>	+1
 [11:44]	<tidoust>	voip: mute me
 [11:44]	<voip-ld>	tidoust has been muted.
-[11:44]	<mlnt>	test -> http://example.org/test
+[11:44]	<mlnt>	the term 'test' would resolve to http://example.org/test if we treat @vocab as an IRI instead of a prefix, which is not what we want.
 [11:44]	<manu1>	RESOLVED: Do not define @vocab as base IRI but as prefix.
 [11:44]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000004c) has left the conference.
 [11:44]	<niklasl>	note for the minutes: mlnt's last example was what we don't want :)
+[11:44]	<linclark>	bye
+

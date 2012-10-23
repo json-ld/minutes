@@ -75,7 +75,7 @@ ol {
 <dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0018.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0018.html</a></dd>
 <dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-168: JSON-LD Syntax document MUST utilize the RDF definitions</a><li><a href="#topic-2">ISSUE-156: Compact API first expands without provided context</a><li><a href="#topic-3">ISSUE-162: Base IRI used to expand @type</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.</a><li><a href="#resolution-2">Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.</a><li><a href="#resolution-3">When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.</a><li><a href="#resolution-4">Do not define @vocab as base IRI but as prefix.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
 <dt>Scribe</dt><dd>Manu Sporny</dd>
-<dt>Present</dt><dd>Manu Sporny, Richard Cyganiak, François Daoust, Niklas Lindström, Markus Lanthaler, Dave Longley, David I. Lehn</dd>
+<dt>Present</dt><dd>Manu Sporny, Richard Cyganiak, François Daoust, Niklas Lindström, Markus Lanthaler, Dave Longley, David I. Lehn, Lin Clark</dd>
 <dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
 <div><audio controls="controls" preload="none">
 <source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
@@ -168,25 +168,25 @@ ol {
 <div class="comment"><span class="name">François Daoust</span>:  If you start the incoming with an empty context, that turns the document into expanded form, and the document can't decide if it has to do the expansion?</div>
 <div class="comment"><span class="name">François Daoust</span>: { "@context": {}, "hello": "world" }</div>
 <div class="comment"><span class="name">Dave Longley</span>: the compaction algorithm (and others) assume the data will have been normalized</div>
-<div class="error">Error: (IRC nickname not recognized)[10:59]	&lt;dlongley&gt;	values like "world" =&gt; {"@value": "world"}</div>
+<div class="comment"><span class="name">Dave Longley</span>: values like "world" -- {"@value": "world"}</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  If we're going to do anything, we should avoid expanding twice by having an option.</div>
 <div class="comment"><span class="name">Dave Longley</span>: i think we may be prematurely optimizing -- we always do expansion first because it simplifies everything else ... both in the algorithms that must be written and in understanding how they work</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: dlongley, we will still be doing that</div>
-<div class="information">dlongley - concerned that you don't quite understand the issue? (having to do two expand-compact-expand-compact calls ... vs just one?)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley, concerned that you don't quite understand the issue? (having to do two expand-compact-expand-compact calls ... vs just one?)</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: we are discussing to add a expandContext option which would be used as "initial context" for all expansion calls (also expand() itself)</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: .. if the context needed for expansion is provided out-of-band</div>
 <div class="information">compact(doc) ?</div>
 <div class="comment"><span class="name">Dave Longley</span>: that will only do one expansion and compaction</div>
-<div class="information">not really, no... we're trying to figure out if it's that difficult.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not really, no... we're trying to figure out if it's that difficult.</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: void expand (object or object[] or IRI input, object or IRI? context, JsonLdCallback callback, optional JsonLdOptions? options);</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>:  What I'm proposing is that expand looks like this ^^^</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: to oid expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);</div>
-<div class="information">change the signature of expand to this: expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  change the signature of expand to this: expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: context is moved into options</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: same option available for compact()</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: void compact (object or object[] or IRI input, object or IRI context, JsonLdCallback callback, optional JsonLdOptions? options);</div>
 <div class="comment"><span class="name">Dave Longley</span>: it seems to me that this option only saves a single line? (doc["@context"] = "&lt;result of link header&gt;";) ?</div>
-<div class="information">dlongley - not really what we're discussing...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not really what we're discussing...</div>
 <div class="comment"><span class="name">Dave Longley</span>: ok</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  What we're discussing is this - specifying the context in .expand() is optional...</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  it's not optional in .compact()</div>
@@ -200,7 +200,7 @@ ol {
 <div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>:  So, next question is whether or not we want to use the 'expansionContext' option, if it is specified, in the .compact() call (when expanding before compacting)</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>:  If you add an 'expandContext' option, it would start as if there were a wrapper around the context that has the context... so the first context processed would be 'expandContext', then the input document contexts would be applied on top.</div>
-<div class="information">dlongley - any input on this?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley, any input on this?</div>
 <div class="comment"><span class="name">Dave Longley</span>: i guess it's fine, i think it's unnecessary</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  So the proposal would be to use 'expandContext' if it is specified in the options to .compact() as the first context that is processed.</div>
 <div class="comment"><span class="name">Dave Longley</span>: we'd have to deal with issues where the input document has another context</div>
@@ -213,7 +213,7 @@ ol {
 <div class="comment"><span class="name">Dave Longley</span>: not first?</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: doesn't work</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: :-)</div>
-<div class="information">I think the answer is - too bad :)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the answer is - too bad :)</div>
 <div class="comment"><span class="name">Dave Longley</span>: :)</div>
 <div class="comment"><span class="name">François Daoust</span>: +1 to the proposal but make sure the option name is the same for "compact" and "expand".</div>
 <div class="comment"><span class="name">Dave Longley</span>: seems like it would be more likely that you'd want to apply it last than first, but i don't know.</div>
@@ -277,8 +277,9 @@ ol {
 <div class="comment"><span class="name">Niklas Lindström</span>: .. to join @vocab with the suffix using textual concatenation..</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: @vocab: <a href="http://example.org/vocab#">http://example.org/vocab#</a></div>
 <div class="comment"><span class="name">François Daoust</span>: +1</div>
-<div class="information"><a href="http://example.org/test">http://example.org/test</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: the term 'test' would resolve to <a href="http://example.org/test">http://example.org/test</a> if we treat @vocab as an IRI instead of a prefix, which is not what we want.</div>
 <div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Do not define @vocab as base IRI but as prefix.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: note for the minutes: mlnt's last example was what we don't want :)</div>
+<div class="comment"><span class="name">Lin Clark</span>: bye</div>
 </body>
 </html>
