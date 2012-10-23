@@ -1,0 +1,276 @@
+[10:05]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0018.html
+[10:05]	<manu1>	scribe: manu1
+[10:05]	<voip-ld>	<unknown> (IAX2/diamondcard-8452) has joined the conference.
+[10:05]	<tidoust>	voip: 8452 is me
+[10:05]	<voip-ld>	tidoust is now associated with IAX2/diamondcard-8452.
+[10:05]	<tidoust>	voip: mute me
+[10:05]	<voip-ld>	tidoust has been muted.
+[10:06]	<manu1>	Manu: Anything that should be added to the agenda?
+[10:06]	<manu1>	No new additions to the agenda.
+[10:06]	<manu1>	Topic: ISSUE-168: JSON-LD Syntax document MUST utilize the RDF definitions
+[10:06]	<manu1>	https://github.com/json-ld/json-ld.org/issues/168
+[10:06]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000004c) has joined the conference.
+[10:07]	<manu1>	Manu: Michael Hausenblas and Peter Patel-Schneider have raised concerns that JSON-LD isn't aligned with RDF to a degree that they're comfortable with. They feel that the JSON-LD data model overlaps the RDF data model to a large degree and that keeping that overlap is going to create incompatibilities and confusion in the future. We have always held the position that JSON-LD can be used to round-trip to RDF and back, in fact, most of us use it that way. Several months ago, we had committed to adding a section, authored by Richard, that will outline exactly how the JSON-LD data model maps to RDF and back.
+[10:07]	<manu1>	Manu: The issues seem to be more editorial than technical. The change would limit what JSON-LD could express, and what would be considered valid, without a compelling technical reason for doing so. So, we need to figure out what we're going to propose to the RDF WG tomorrow during the call.
+[10:09]	<manu1>	Manu: Richard, do you have any other insight into this issue?
+[10:09]	<manu1>	Richard: There are two parts to this...
+[10:10]	<manu1>	... perception that JSON-LD is re-inventing the wheel - forking the RDF data model. That might decrease interoperability.
+[10:11]	<manu1>	... second part is a marketing issue - JSON-LD wouldn't work if it mentions RDF too much, people might be turned off. Not everybody disagrees with that view.
+[10:11]	<manu1>	Richard: So, there is the technical side and then there is a non-technical side.
+[10:13]	<tidoust>	Manu: More comments from Peter. I agree they fall in those two categories. Danger of derailing the entire discussion in "should we define linked data?". Last time, your advice was to back up a bit, define linked data roughly in the spec. That's what we did, and we're relatively happy with that. We also agreed with you about the addition of an RDF appendix. Do you know what changes would be required now?
+[10:13]	* manu1	thanks tidoust.
+[10:14]	<manu1>	Richard: There really isn't anything they can look at right now that I've edited. They're just commenting on the drafts that don't have any changes. Peter reviewed an earlier draft - that didn't help as he came away with the wrong impression.
+[10:15]	<manu1>	Richard: I'm not entirely sure why this discussion about Linked Data has flared up. It's beside the point at the end of the day. Since JSON-LD in it's latest version doesn't contain a normative statement about Linked Data, we should be fine... this may be just some of the WG members wrapping their mind around the concept.
+[10:15]	<manu1>	Richard: That part of the discussion can probably be ignored. There is no normative definition of Linked Data in JSON-LD anymore.
+[10:16]	<manu1>	Richard: I expected a discussion like this to flare up anyway - if we had the normative Linked Data definition in there we'd have another problem... so it's good that we don't.
+[10:17]	<manu1>	Richard: I've been thinking about what the appendix should contain. One problem that I have is that it seems that, in Section 3.1, that definition leaves a number of details open that might become clear once you read through the rest of the Syntax spec, or the API docs.
+[10:17]	<manu1>	Richard: For example, same ID in a document means the same node?
+[10:17]	<manu1>	Manu: Yes, it does.
+[10:17]	<manu1>	Richard: How do the datatypes and language types on literals work?
+[10:17]	<manu1>	Manu: Same way as RDF...
+[10:18]	<manu1>	Richard: How does ordering work?
+[10:18]	<manu1>	Richard: Order doesn't matter, right?
+[10:18]	<manu1>	Manu: Yes, unordered unless it's a @list (via type coercion or expanded value form).
+[10:19]	<manu1>	Richard: there are a couple of these things that might need to be cleared up. Maybe we need to make those more clear in the data model definition.
+[10:19]	<manu1>	Manu: The group would have no problem with doing that... we should be precise in these cases.
+[10:19]	<manu1>	Richard: Fully aligning with RDF early in the spec, from a didactic point of view, wouldn't be so good.
+[10:20]	<tidoust>	Manu: Deferring to RDF data model wouldn't solve the initial concerns, I think.
+[10:21]	<tidoust>	Manu: One question: Has your position on this changed since last time? Do you feel that we've hit the right balance, from your standpoint?
+[10:22]	<manu1>	Richard: In my opinion, Section 3.1 still needs some clarification - that's not necessarily a huge complication - might be things like having a statement along the lines of "what is a string?" "String can have a language tag", you can't have two nodes that are labeled with the same IRI, etc.
+[10:22]	<manu1>	Richard: I don't have a strong opinion on how to do that editorially.
+[10:24]	<manu1>	Richard: From my point of view - and an editor of the RDF Concepts specs, I would be satisfied that the issue of the relationship of JSON-LD and RDF would be sufficiently addressed if those clarifications were made and if the RDF Appendix exists (which I'm planning on writing).
+[10:24]	<tidoust>	q+
+[10:24]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[10:24]	<manu1>	Richard: if others feel that the alignment should be even closer, Section 3.1 should defer to RDF Concepts directly, I'd be prepared to argue that JSON-LD defining it's own data model should be sufficient... we don't need changes that are that extreme.
+[10:24]	<tidoust>	voip: unmute me
+[10:24]	<voip-ld>	tidoust has been unmuted.
+[10:24]	<manu1>	ack tidoust
+[10:24]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[10:25]	<manu1>	tidoust: When I read the spec, I think 3.1 is pretty clear about the JSON-LD data model. I'm all in favor for it to be more precise.
+[10:26]	<manu1>	tidoust: I'm more on the developer side than the RDF side - I still can't find anywhere, something says the different between RDF data model and JSON-LD data model... maybe with properties allowed to be blank nodes and strings? That's all I can figure out that the differences. Could we add a section in here about that?
+[10:26]	<manu1>	tidoust: I think that would resolve most of the concerns on the RDF WG mailing list.
+[10:26]	<niklasl>	q+
+[10:26]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:26]	<manu1>	Richard: That's one of the goals of the appendix - how do the data models map to each other, where are the differences?
+[10:27]	<manu1>	Richard: I have an action to do this, have been traveling - will do it soon.
+[10:27]	<tidoust>	voip: mute me
+[10:27]	<voip-ld>	tidoust has been muted.
+[10:27]	<mlnt>	Appendix Relationship to RDF: http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf
+[10:27]	<manu1>	tidoust: Will we have a bit in there about differences between RDF data model and JSON-LD data model?
+[10:27]	<manu1>	Manu: Yes, we will have that.
+[10:28]	<manu1>	Niklas: Important to recognize right now that we have general agreement on the approach. There has never been any intent to deviate wildly from the abstract RDF data model. Maybe we should clarify that the JSON data model, given that it's using the JSON structure, is a concrete data model. It's explicitly intended to express everything that is defined by the abstract RDF data model.
+[10:29]	<manu1>	niklasl: The reason we don't want to add this into the document is that it's geared toward the developers. We want to define something that is closed in the document, we don't want to lead people astray... but we also don't want people to deviate from RDF.
+[10:30]	<manu1>	niklasl: Both Gregg and I use JSON-LD to work with RDF - we don't want to deviate from that in any way. I'm not really sure that we can express that in the relationship to RDF appendix. To explain our intent.
+[10:31]	<tidoust>	Manu: This is not the first time this came to the table. On this call, we always come to the same conclusion, which is good. Second point, I don't think Peter and Michael picked up the spec with the history background that we already had discussed that in the group. The prose may need to be more clear about that, but we have thought this through quite deeply.
+[10:31]	<cygri>	q+
+[10:31]	<voip-ld>	Added cygri to the speaker queue: niklasl, cygri
+[10:32]	<tidoust>	Manu: The third thing that are a bit worrisome to me is that both of them said that they have no interest or don't believe that JSON-LD is the right thing to do.
+[10:33]	<tidoust>	Manu: Fundamentally, people that use the spec in production environments should have more weight when opinions are gathered, I feel. Not to say that feedback is not good. But we've discussed this before, and came to the conclusion that a data model was needed because we're building on JSON and trying to bridge to RDF.
+[10:34]	<cygri>	q+ to disagree
+[10:34]	<voip-ld>	Added cygri to the speaker queue: niklasl, cygri, cygri
+[10:34]	<tidoust>	… Let's argue that we throw away the JSON-LD data model away for a second. If you take a JSON document with keys that don't have entries in the context, the JSON-LD document becomes invalid.
+[10:34]	<tidoust>	… That's something we didn't want. We don't want JSON developers to apply a context to half of their JSON-LD document and have an illegal JSON-LD document. Bits that are not recognized are ignored.
+[10:35]	<manu1>	ack niklasl
+[10:35]	<voip-ld>	niklasl has the floor. The next speaker is cygri.
+[10:35]	<manu1>	ack cygri
+[10:35]	<voip-ld>	niklasl has the floor. The next speaker is cygri.
+[10:36]	<tidoust>	… We're re-discussing the issue but coming to the same conclusion. No one wants to remove the data model entirely because it is subtly different than the RDF data model. Is that a fair outline?
+[10:36]	<manu1>	cygri: I disagree slightly, but not suggesting that JSON-LD data model should be discarded and replaced with the RDF data model.
+[10:36]	<manu1>	cygri: However, if we do that, we'd have to find some way to deal with keys that are not mapped to URIs - one option is to pull them away, another is to stick them to the end of a base URI - we could do that, might be a good idea anyway - non-URI keys could be retained.
+[10:37]	<manu1>	cygri: We'd also have to change quite a bit of terminology throughout the specification - there aren't differences that are that large - property vs. predicate is a small one. Quite a few more occurrences of the letters "RDF" in the spec.
+[10:38]	-->|	scor (~scor@31-35-26.wireless.csail.mit.edu) has joined #json-ld
+[10:38]	|<--	scor has left freenode (Changing host)
+[10:38]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[10:38]	<manu1>	cygri: I'm not saying it should be done, but that's mostly for editorial reasons - the spec as it is at the moment is simpler to digest to the alternative version that would use RDF Concepts elsewhere. From a technical point of view, it would be possible to express the spec in terms of RDF Concepts, but we would lose the ability to do a few things.
+[10:38]	<niklasl>	q+ to clarify the role of keys in json-ld
+[10:38]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:39]	<tidoust>	Manu: You said that we could take keys and map them to some base IRI or ignore them. We're should ignore them instead so we don't cut ourselves off from a better model than RDF.
+[10:41]	<manu1>	ack niklasl
+[10:41]	<voip-ld>	niklasl has the floor (to disagree). The next speaker is niklasl.
+[10:41]	<manu1>	ack niklasl
+[10:41]	<voip-ld>	niklasl has the floor (to clarify the role of keys in json-ld). The speaker queue is empty.
+[10:41]	<tidoust>	Manu: There are things that you can do in JSON-LD today that you cannot do in RDF concepts, literals as property names, potentially literals as @ids, etc.
+[10:41]	<cygri>	Manu: if a better data model than RDF comes along in the future (e.g., something like microdata, for instance), then we don't want to be forced to map literal keys to complicated URIS
+[10:42]	<manu1>	niklasl: From my point of view, my uses of JSON-LD, often represent information that, from a data perspective, is noise - either it's reified things or property paths, if you use pure RDF you'd use OWL or CONSTRUCT - JSON carries noisy information to provide easier access to data for Web developers. That's a good thing, and it doesn't always map to RDF.
+[10:43]	<manu1>	niklasl: When I annotate a JSON document with a context, turning it into JSON-LD - I say that certain keys are relevant and certain ones are not. It's handy to do that.
+[10:43]	<cygri> I find that argument *somewhat* compelling.
+[10:44]	<tidoust>	Manu: Richard has an action to align JSON-LD data model and RDF data model. Expected outcome is that you can round-trip between data models.
+[10:45]	<tidoust>	… We'll outline differences between the JSON-LD data model and RDF data model. There aren't many but we don't feel comfortable removing the JSON-LD Data model entirely at this point.
+[10:45]	<manu1>	cygri: One more thing that we should state, which might be helpful to address some of these concerns, have a paragraph in the introduction that says "by the way, JSON-LD has a data model that is compatible with RDF, see appendix: RDF"
+[10:47]	<manu1>	cygri: That might help address the concern that JSON-LD is not a serialization of RDF (even though it is)
+[10:47]	* niklasl	agrees
+[10:48]	<manu1>	Topic: ISSUE-156: Compact API first expands without provided context
+[10:48]	<voip-ld>	cygri (IAX2/diamondcard-6261) has left the conference.
+[10:48]	<manu1>	https://github.com/json-ld/json-ld.org/issues/156
+[10:49]	<manu1>	Markus: You can't specify a context to the .compact() API call.
+[10:50]	<manu1>	Markus: Could we combine .expand() and .compact() to be one method?
+[10:50]	<manu1>	Markus: If you pass an empty context to .compact(), it's basically expansion.
+[10:51]	<tidoust>	Manu: We could do that. I'm a bit concerned that it's going to be difficult to pitch that to developers.
+[10:51]	<tidoust>	… A completely different type of operations would be happening depending on the arguments
+[10:51]	<tidoust>	Markus: It's already happening now. Parameters are enough to change the output completely.
+[10:52]	<tidoust>	Manu: Kind of. For compact, array removal, for instance. What you're getting back is still a compacted document even without context.
+[10:53]	<tidoust>	… Two different forms of document. That's why I'm not in favor of that. That would confuse early adopters.
+[10:53]	<tidoust>	… They're kind of polar opposite.
+[10:54]	<tidoust>	Markus: Basically, not an issue as you can already do that with the current spec.
+[10:54]	<tidoust>	Niklas: I haven't read through all the comments, but Gregg's suggestion to detect whether there's an incoming context and skip expansion form seems reasonable.
+[10:55]	<tidoust>	Markus: but you have to loop through all the document as it could appear at the end of the document.
+[10:55]	<dlongley>	there is value in explicitly naming functions after their intended use
+[10:55]	<tidoust>	q+
+[10:55]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[10:56]	<manu1>	markus: We could move some of this stuff into the options.
+[10:56]	<manu1>	Markus: We could add 'expansionContext' to the options?
+[10:56]	<tidoust>	q-
+[10:56]	<voip-ld>	Removed tidoust from the speaker queue: (empty)
+[10:56]	<tidoust>	voip: unmute me
+[10:56]	<voip-ld>	tidoust has been unmuted.
+[10:56]	<dlongley>	if you skip expansion just because a context is missing you won't normalize things like @value
+[10:57]	<mlnt>	good point dlongley
+[10:57]	<dlongley>	doing expansion before applying our other algorithms simplifies them
+[10:57]	<manu1>	tidoust: I was reacting to the issue of having to parse the document twice before deciding what one should do with the document...
+[10:57]	<manu1>	tidoust: If you start the incoming with an empty context, that turns the document into expanded form, and the document can't decide if it has to do the expansion?
+[10:58]	<tidoust>	{ "@context": {}, "hello": "world" }
+[10:58]	<niklasl>	q+
+[10:58]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:59]	<dlongley>	the compaction algorithm (and others) assume the data will have been normalized
+[10:59]	<dlongley>	values like "world" => {"@value": "world"}
+[10:59]	<manu1>	ack niklasl
+[10:59]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:00]	<manu1>	niklasl: If we're going to do anything, we should avoid expanding twice by having an option.
+[11:00]	<dlongley>	i think we may be prematurely optimizing -- we always do expansion first because it simplifies everything else ... both in the algorithms that must be written and in understanding how they work
+[11:00]	<tidoust>	voip: mute me
+[11:00]	<voip-ld>	tidoust has been muted.
+[11:00]	|<--	cygri has left freenode (Quit: cygri)
+[11:01]	<mlnt>	dlongley, we will still be doing that
+[11:01]	<manu1>	dlongley - concerned that you don't quite understand the issue? (having to do two expand-compact-expand-compact calls ... vs just one?)
+[11:01]	<mlnt>	we are discussing to add a expandContext option which would be used as "initial context" for all expansion calls (also expand() itself)
+[11:02]	<niklasl>	.. if the context needed for expansion is provided out-of-band
+[11:02]	<dlongley>	is it difficult to just do: doc["@context"] = "link header result" => compact(doc) ?
+[11:03]	<dlongley>	that will only do one expansion and compaction
+[11:03]	<manu1>	not really, no... we're trying to figure out if it's that difficult.
+[11:04]	<mlnt>	void expand (object or object[] or IRI input, object or IRI? context, JsonLdCallback callback, optional JsonLdOptions? options);
+[11:04]	<manu1>	Markus: What I'm proposing is that expand looks like this ^^^
+[11:05]	<mlnt>	to oid expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);
+[11:05]	<manu1>	change the signature of expand to this: expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);
+[11:05]	<mlnt>	context is moved into options
+[11:05]	<mlnt>	same option available for compact()
+[11:06]	<mlnt>	void compact (object or object[] or IRI input, object or IRI context, JsonLdCallback callback, optional JsonLdOptions? options);
+[11:06]	<dlongley>	it seems to me that this option only saves a single line? (doc["@context"] = "<result of link header>";) ?
+[11:07]	<manu1>	dlongley - not really what we're discussing...
+[11:07]	<dlongley>	ok
+[11:07]	<manu1>	Manu: What we're discussing is this - specifying the context in .expand() is optional...
+[11:07]	<manu1>	Manu: it's not optional in .compact()
+[11:07]	<manu1>	Manu: So, why not move the expansion context to options'
+[11:08]	<dlongley>	fine by me
+[11:09]	<manu1>	PROPOSAL: Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.
+[11:10]	<manu1>	+1
+[11:10]	<mlnt>	+1
+[11:10]	<tidoust>	+1
+[11:10]	<niklasl>	+1
+[11:10]	<manu1>	RESOLVED: Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.
+[11:11]	<manu1>	Markus: So, next question is whether or not we want to use the 'expansionContext' option, if it is specified, in the .compact() call (when expanding before compacting)
+[11:13]	<manu1>	Markus: If you add an 'expandContext' option, it would start as if there were a wrapper around the context that has the context... so the first context processed would be 'expandContext', then the input document contexts would be applied on top.
+[11:14]	<manu1>	dlongley - any input on this?
+[11:15]	<dlongley>	i guess it's fine, i think it's unnecessary
+[11:15]	<manu1>	Manu: So the proposal would be to use 'expandContext' if it is specified in the options to .compact() as the first context that is processed.
+[11:15]	<dlongley>	we'd have to deal with issues where the input document has another context
+[11:16]	<manu1>	Manu: ... when the .expand() method is called internally.
+[11:16]	<dlongley>	and specify how to handle that kind of behavior, etc ...
+[11:16]	<mlnt>	dlongley, the input document's context is used nevertheless
+[11:16]	<mlnt>	the expandContext is used to initialize the active context
+[11:16]	<mlnt>	just the way the context parameter in expand() works today
+[11:16]	<dlongley>	what if i want to apply the options context last?
+[11:16]	<dlongley>	not first?
+[11:17]	<mlnt>	doesn't work
+[11:17]	<mlnt>	:-)
+[11:17]	<manu1>	I think the answer is - too bad :)
+[11:17]	<dlongley>	:)
+[11:17]	<tidoust>	+1 to the proposal but make sure the option name is the same for "compact" and "expand".
+[11:17]	<dlongley>	seems like it would be more likely that you'd want to apply it last than first, but i don't know.
+[11:18]	<dlongley>	anyway, i'm not really in favor of that option because it feels like we're trying to do too much for the developer without knowing exactly what they want ... and then we just cover only some portion of the cases with the option, frustrating others....
+[11:19]	<dlongley>	that being said, i don't feel that strongly about it if people really want the option in there.
+[11:19]	<mlnt>	tidoust, the options are the same for all operations, they are defined in JsonLdOptions (http://json-ld.org/spec/latest/json-ld-api/#jsonldoptions)
+[11:19]	<dlongley>	i think the fact that you acquired the data externally means you should probably be combining it however you want to externally before passing it to the API
+[11:20]	<manu1>	Manu: I agree with Dave Longley, probably going to be a +0 on this.
+[11:20]	<dlongley>	i don't mind if we really believe that we're designing these options to cover the most common use cases though (i just don't know if that's true)
+[11:21]	<manu1>	Manu: I don't think this is a common use case?
+[11:21]	<manu1>	niklasl: Hard to determine, I've used a bunch of local data w/ an input context... but that's for testing things out. I've come across scenarios like this, can't say if it's common or not. If we have these options, it seems natural to add this to the API.
+[11:21]	<tidoust>	q+
+[11:21]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:21]	<tidoust>	voip: unmute me
+[11:21]	<voip-ld>	tidoust has been unmuted.
+[11:21]	<manu1>	niklasl: feels more uniform.
+[11:22]	<manu1>	tidoust: I agree with Niklas.
+[11:22]	<manu1>	tidoust: It makes the API more consistent.
+[11:22]	<manu1>	tidoust: Also, doesn't seem to add a great deal of complexity to implementations.
+[11:22]	<dlongley>	consistency isn't always better :)
+[11:22]	<dlongley>	it probably doesn't make things too much more complicated, no
+[11:22]	<tidoust>	voip: mute me
+[11:22]	<voip-ld>	tidoust has been muted.
+[11:23]	<manu1>	PROPOSAL: Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.
+[11:23]	<dlongley>	anyway, i'm +0 on it.
+[11:23]	<mlnt>	it's already implemented, just needs to be wired together
+[11:23]	<manu1>	+0
+[11:23]	<mlnt>	+1
+[11:23]	<niklasl>	+1
+[11:23]	<tidoust>	+1
+[11:23]	<manu1>	RESOLVED: Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.
+[11:24]	<manu1>	Topic: ISSUE-162: Base IRI used to expand @type
+[11:24]	<manu1>	https://github.com/json-ld/json-ld.org/issues/162
+[11:26]	<manu1>	niklasl: To be clear - two sub-issues - is @type resolved against @vocab? If there is no @vocab, do you resolve @type against BASE document IRI?
+[11:27]	<niklasl>	s/niklasl/markus/ ;)
+[11:27]	<niklasl>	.. answer for above: not resolve, use @type as string with concatenation
+[11:28]	<manu1>	Manu: Is @type special? Does @vocab apply to it?
+[11:29]	<manu1>	Markus: @vocab is special, not @type.
+[11:29]	<manu1>	Niklasl: Wouldn't you be able to achieve what you want via "@vocab": "" ?
+[11:29]	<manu1>	Niklasl: If you do that, you use the document base IRI? I guess you'd need a hash mark if you wanted something safe...
+[11:30]	<manu1>	markus: That would affect all the properties as well...
+[11:30]	<manu1>	Niklasl: If I wanted to use locally defined types, I'd use type coercion ...
+[11:31]	<manu1>	Niklasl: { "foo": {"@id": "http://foo.com/vocab"} }
+[11:31]	<manu1>	niklasl: Then use relative paths?
+[11:31]	<manu1>	Markus: I want a fallback to a relative IRI... I want to test locally and remotely - use relative IRIs everywhere - dependent on document base IRI... why shouldn't type allow relative IRIs?
+[11:32]	<manu1>	niklasl: It might confuse people - it's not thought of that way in most cases - RDF use cases, general practice, is not to have local types. You probably go out of the way to express that. Think of TURTLE - you'd use an explicit IRI values.
+[11:32]	<manu1>	Markus: I can't pass a relative IRI to type.
+[11:33]	<manu1>	Niklasl: There is a difference in syntax there.
+[11:33]	<manu1>	Markus: I can pass in an absolute IRI, why can't I pass in a relative IRI?
+[11:33]	<manu1>	Niklasl: Same value space as terms...
+[11:34]	<manu1>	Markus: Terms expand in @id...
+[11:34]	<manu1>	Niklasl: You could use './' or use a full base IRI there.
+[11:34]	<voip-ld>	David Lehn (SIP/192.168.0.55-0000004d) has joined the conference.
+[11:34]	<voip-ld>	David Lehn (SIP/192.168.0.55-0000004d) has left the conference.
+[11:35]	<voip-ld>	Dave Lehn (SIP/6003-0000004e) has joined the conference.
+[11:36]	<voip-ld>	Dave Lehn (SIP/6003-0000004e) has left the conference.
+[11:38]	<manu1>	PROPOSAL: When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.
+[11:39]	<mlnt>	+1
+[11:39]	<niklasl>	+0
+[11:39]	<taaz>	+0
+[11:39]	<manu1>	+1
+[11:39]	<tidoust>	+1 for consistency
+[11:39]	<manu1>	RESOLVED: When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.
+[11:41]	<tidoust>	q+
+[11:41]	<voip-ld>	Added tidoust to the speaker queue: tidoust, tidoust
+[11:41]	<tidoust>	voip: unmute me
+[11:41]	<manu1>	ack tidoust
+[11:41]	<voip-ld>	tidoust has been unmuted.
+[11:41]	<voip-ld>	tidoust has the floor. The next speaker is tidoust.
+[11:41]	<manu1>	ack tidoust
+[11:41]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[11:41]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/173
+[11:42]	<manu1>	tidoust: Just wanted to raise ISSUE-166 - provide feedback in written form.
+[11:42]	<tidoust>	voip: mute me
+[11:42]	<voip-ld>	tidoust has been muted.
+[11:42]	<mlnt>	PROPOSAL: Do not define @vocab as base IRI but as prefix.
+[11:43]	<niklasl>	+1
+[11:43]	<mlnt>	+1
+[11:43]	<manu1>	Manu: If you want to provide spec text for a conformance section, that would be great.
+[11:43]	<manu1>	+1
+[11:43]	<tidoust>	voip: unmute me
+[11:43]	<voip-ld>	tidoust has been unmuted.
+[11:43]	<niklasl>	.. to join @vocab with the suffix using textual concatenation..
+[11:43]	<mlnt>	@vocab: http://example.org/vocab#
+[11:44]	<tidoust>	+1
+[11:44]	<tidoust>	voip: mute me
+[11:44]	<voip-ld>	tidoust has been muted.
+[11:44]	<mlnt>	test -> http://example.org/test
+[11:44]	<manu1>	RESOLVED: Do not define @vocab as base IRI but as prefix.
+[11:44]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000004c) has left the conference.
+[11:44]	<niklasl>	note for the minutes: mlnt's last example was what we don't want :)

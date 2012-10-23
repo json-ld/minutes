@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-10-23</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0018.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Oct/0018.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-168: JSON-LD Syntax document MUST utilize the RDF definitions</a><li><a href="#topic-2">ISSUE-156: Compact API first expands without provided context</a><li><a href="#topic-3">ISSUE-162: Base IRI used to expand @type</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.</a><li><a href="#resolution-2">Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.</a><li><a href="#resolution-3">When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.</a><li><a href="#resolution-4">Do not define @vocab as base IRI but as prefix.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Richard Cyganiak, François Daoust, Niklas Lindström, Markus Lanthaler, Dave Longley, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything that should be added to the agenda?</div>
+<div class="information">No new additions to the agenda.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-168: JSON-LD Syntax document MUST utilize the RDF definitions</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/168">https://github.com/json-ld/json-ld.org/issues/168</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Michael Hausenblas and Peter Patel-Schneider have raised concerns that JSON-LD isn't aligned with RDF to a degree that they're comfortable with. They feel that the JSON-LD data model overlaps the RDF data model to a large degree and that keeping that overlap is going to create incompatibilities and confusion in the future. We have always held the position that JSON-LD can be used to round-trip to RDF and back, in fact, most of us use it that way. Several months ago, we had committed to adding a section, authored by Richard, that will outline exactly how the JSON-LD data model maps to RDF and back.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issues seem to be more editorial than technical. The change would limit what JSON-LD could express, and what would be considered valid, without a compelling technical reason for doing so. So, we need to figure out what we're going to propose to the RDF WG tomorrow during the call.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard, do you have any other insight into this issue?</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  There are two parts to this...</div>
+<div class="comment-continuation">... perception that JSON-LD is re-inventing the wheel - forking the RDF data model. That might decrease interoperability.</div>
+<div class="comment-continuation">... second part is a marketing issue - JSON-LD wouldn't work if it mentions RDF too much, people might be turned off. Not everybody disagrees with that view.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  So, there is the technical side and then there is a non-technical side.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  More comments from Peter. I agree they fall in those two categories. Danger of derailing the entire discussion in "should we define linked data?". Last time, your advice was to back up a bit, define linked data roughly in the spec. That's what we did, and we're relatively happy with that. We also agreed with you about the addition of an RDF appendix. Do you know what changes would be required now? [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  There really isn't anything they can look at right now that I've edited. They're just commenting on the drafts that don't have any changes. Peter reviewed an earlier draft - that didn't help as he came away with the wrong impression.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I'm not entirely sure why this discussion about Linked Data has flared up. It's beside the point at the end of the day. Since JSON-LD in it's latest version doesn't contain a normative statement about Linked Data, we should be fine... this may be just some of the WG members wrapping their mind around the concept.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  That part of the discussion can probably be ignored. There is no normative definition of Linked Data in JSON-LD anymore.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I expected a discussion like this to flare up anyway - if we had the normative Linked Data definition in there we'd have another problem... so it's good that we don't.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I've been thinking about what the appendix should contain. One problem that I have is that it seems that, in Section 3.1, that definition leaves a number of details open that might become clear once you read through the rest of the Syntax spec, or the API docs.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  For example, same ID in a document means the same node?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, it does.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  How do the datatypes and language types on literals work?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Same way as RDF...</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  How does ordering work?</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  Order doesn't matter, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, unordered unless it's a @list (via type coercion or expanded value form).</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  there are a couple of these things that might need to be cleared up. Maybe we need to make those more clear in the data model definition.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The group would have no problem with doing that... we should be precise in these cases.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  Fully aligning with RDF early in the spec, from a didactic point of view, wouldn't be so good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Deferring to RDF data model wouldn't solve the initial concerns, I think. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  One question: Has your position on this changed since last time? Do you feel that we've hit the right balance, from your standpoint? [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  In my opinion, Section 3.1 still needs some clarification - that's not necessarily a huge complication - might be things like having a statement along the lines of "what is a string?" "String can have a language tag", you can't have two nodes that are labeled with the same IRI, etc.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I don't have a strong opinion on how to do that editorially.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  From my point of view - and an editor of the RDF Concepts specs, I would be satisfied that the issue of the relationship of JSON-LD and RDF would be sufficiently addressed if those clarifications were made and if the RDF Appendix exists (which I'm planning on writing).</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  if others feel that the alignment should be even closer, Section 3.1 should defer to RDF Concepts directly, I'd be prepared to argue that JSON-LD defining it's own data model should be sufficient... we don't need changes that are that extreme.</div>
+<div class="comment"><span class="name">François Daoust</span>:  When I read the spec, I think 3.1 is pretty clear about the JSON-LD data model. I'm all in favor for it to be more precise.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I'm more on the developer side than the RDF side - I still can't find anywhere, something says the different between RDF data model and JSON-LD data model... maybe with properties allowed to be blank nodes and strings? That's all I can figure out that the differences. Could we add a section in here about that?</div>
+<div class="comment"><span class="name">François Daoust</span>:  I think that would resolve most of the concerns on the RDF WG mailing list.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  That's one of the goals of the appendix - how do the data models map to each other, where are the differences?</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I have an action to do this, have been traveling - will do it soon.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Appendix Relationship to RDF: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf">http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf</a></div>
+<div class="comment"><span class="name">François Daoust</span>:  Will we have a bit in there about differences between RDF data model and JSON-LD data model?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we will have that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Important to recognize right now that we have general agreement on the approach. There has never been any intent to deviate wildly from the abstract RDF data model. Maybe we should clarify that the JSON data model, given that it's using the JSON structure, is a concrete data model. It's explicitly intended to express everything that is defined by the abstract RDF data model.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The reason we don't want to add this into the document is that it's geared toward the developers. We want to define something that is closed in the document, we don't want to lead people astray... but we also don't want people to deviate from RDF.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Both Gregg and I use JSON-LD to work with RDF - we don't want to deviate from that in any way. I'm not really sure that we can express that in the relationship to RDF appendix. To explain our intent.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is not the first time this came to the table. On this call, we always come to the same conclusion, which is good. Second point, I don't think Peter and Michael picked up the spec with the history background that we already had discussed that in the group. The prose may need to be more clear about that, but we have thought this through quite deeply. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The third thing that are a bit worrisome to me is that both of them said that they have no interest or don't believe that JSON-LD is the right thing to do. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Fundamentally, people that use the spec in production environments should have more weight when opinions are gathered, I feel. Not to say that feedback is not good. But we've discussed this before, and came to the conclusion that a data model was needed because we're building on JSON and trying to bridge to RDF. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">François Daoust</span>: … Let's argue that we throw away the JSON-LD data model away for a second. If you take a JSON document with keys that don't have entries in the context, the JSON-LD document becomes invalid.</div>
+<div class="comment"><span class="name">François Daoust</span>: … That's something we didn't want. We don't want JSON developers to apply a context to half of their JSON-LD document and have an illegal JSON-LD document. Bits that are not recognized are ignored.</div>
+<div class="comment"><span class="name">François Daoust</span>: … We're re-discussing the issue but coming to the same conclusion. No one wants to remove the data model entirely because it is subtly different than the RDF data model. Is that a fair outline?</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I disagree slightly, but not suggesting that JSON-LD data model should be discarded and replaced with the RDF data model.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  However, if we do that, we'd have to find some way to deal with keys that are not mapped to URIs - one option is to pull them away, another is to stick them to the end of a base URI - we could do that, might be a good idea anyway - non-URI keys could be retained.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  We'd also have to change quite a bit of terminology throughout the specification - there aren't differences that are that large - property vs. predicate is a small one. Quite a few more occurrences of the letters "RDF" in the spec.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I'm not saying it should be done, but that's mostly for editorial reasons - the spec as it is at the moment is simpler to digest to the alternative version that would use RDF Concepts elsewhere. From a technical point of view, it would be possible to express the spec in terms of RDF Concepts, but we would lose the ability to do a few things.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You said that we could take keys and map them to some base IRI or ignore them. We're should ignore them instead so we don't cut ourselves off from a better model than RDF. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are things that you can do in JSON-LD today that you cannot do in RDF concepts, literals as property names, potentially literals as @ids, etc. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if a better data model than RDF comes along in the future (e.g., something like microdata, for instance), then we don't want to be forced to map literal keys to complicated URIS [scribe assist by Richard Cyganiak]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  From my point of view, my uses of JSON-LD, often represent information that, from a data perspective, is noise - either it's reified things or property paths, if you use pure RDF you'd use OWL or CONSTRUCT - JSON carries noisy information to provide easier access to data for Web developers. That's a good thing, and it doesn't always map to RDF.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When I annotate a JSON document with a context, turning it into JSON-LD - I say that certain keys are relevant and certain ones are not. It's handy to do that.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: I find that argument *somewhat* compelling.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard has an action to align JSON-LD data model and RDF data model. Expected outcome is that you can round-trip between data models. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">François Daoust</span>: … We'll outline differences between the JSON-LD data model and RDF data model. There aren't many but we don't feel comfortable removing the JSON-LD Data model entirely at this point.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  One more thing that we should state, which might be helpful to address some of these concerns, have a paragraph in the introduction that says "by the way, JSON-LD has a data model that is compatible with RDF, see appendix: RDF"</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  That might help address the concern that JSON-LD is not a serialization of RDF (even though it is)</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-156: Compact API first expands without provided context</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/156">https://github.com/json-ld/json-ld.org/issues/156</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can't specify a context to the .compact() API call.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we combine .expand() and .compact() to be one method?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you pass an empty context to .compact(), it's basically expansion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could do that. I'm a bit concerned that it's going to be difficult to pitch that to developers. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">François Daoust</span>: … A completely different type of operations would be happening depending on the arguments</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's already happening now. Parameters are enough to change the output completely. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Kind of. For compact, array removal, for instance. What you're getting back is still a compacted document even without context. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">François Daoust</span>: … Two different forms of document. That's why I'm not in favor of that. That would confuse early adopters.</div>
+<div class="comment"><span class="name">François Daoust</span>: … They're kind of polar opposite.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Basically, not an issue as you can already do that with the current spec. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I haven't read through all the comments, but Gregg's suggestion to detect whether there's an incoming context and skip expansion form seems reasonable. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but you have to loop through all the document as it could appear at the end of the document. [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Dave Longley</span>: there is value in explicitly naming functions after their intended use</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could move some of this stuff into the options.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could add 'expansionContext' to the options?</div>
+<div class="comment"><span class="name">Dave Longley</span>: if you skip expansion just because a context is missing you won't normalize things like @value</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: good point dlongley</div>
+<div class="comment"><span class="name">Dave Longley</span>: doing expansion before applying our other algorithms simplifies them</div>
+<div class="comment"><span class="name">François Daoust</span>:  I was reacting to the issue of having to parse the document twice before deciding what one should do with the document...</div>
+<div class="comment"><span class="name">François Daoust</span>:  If you start the incoming with an empty context, that turns the document into expanded form, and the document can't decide if it has to do the expansion?</div>
+<div class="comment"><span class="name">François Daoust</span>: { "@context": {}, "hello": "world" }</div>
+<div class="comment"><span class="name">Dave Longley</span>: the compaction algorithm (and others) assume the data will have been normalized</div>
+<div class="error">Error: (IRC nickname not recognized)[10:59]	&lt;dlongley&gt;	values like "world" =&gt; {"@value": "world"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we're going to do anything, we should avoid expanding twice by having an option.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i think we may be prematurely optimizing -- we always do expansion first because it simplifies everything else ... both in the algorithms that must be written and in understanding how they work</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dlongley, we will still be doing that</div>
+<div class="information">dlongley - concerned that you don't quite understand the issue? (having to do two expand-compact-expand-compact calls ... vs just one?)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: we are discussing to add a expandContext option which would be used as "initial context" for all expansion calls (also expand() itself)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. if the context needed for expansion is provided out-of-band</div>
+<div class="information">compact(doc) ?</div>
+<div class="comment"><span class="name">Dave Longley</span>: that will only do one expansion and compaction</div>
+<div class="information">not really, no... we're trying to figure out if it's that difficult.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: void expand (object or object[] or IRI input, object or IRI? context, JsonLdCallback callback, optional JsonLdOptions? options);</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What I'm proposing is that expand looks like this ^^^</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: to oid expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);</div>
+<div class="information">change the signature of expand to this: expand (object or object[] or IRI input, JsonLdCallback callback, optional JsonLdOptions? options);</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: context is moved into options</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: same option available for compact()</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: void compact (object or object[] or IRI input, object or IRI context, JsonLdCallback callback, optional JsonLdOptions? options);</div>
+<div class="comment"><span class="name">Dave Longley</span>: it seems to me that this option only saves a single line? (doc["@context"] = "&lt;result of link header&gt;";) ?</div>
+<div class="information">dlongley - not really what we're discussing...</div>
+<div class="comment"><span class="name">Dave Longley</span>: ok</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What we're discussing is this - specifying the context in .expand() is optional...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's not optional in .compact()</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, why not move the expansion context to options'</div>
+<div class="comment"><span class="name">Dave Longley</span>: fine by me</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, next question is whether or not we want to use the 'expansionContext' option, if it is specified, in the .compact() call (when expanding before compacting)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you add an 'expandContext' option, it would start as if there were a wrapper around the context that has the context... so the first context processed would be 'expandContext', then the input document contexts would be applied on top.</div>
+<div class="information">dlongley - any input on this?</div>
+<div class="comment"><span class="name">Dave Longley</span>: i guess it's fine, i think it's unnecessary</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So the proposal would be to use 'expandContext' if it is specified in the options to .compact() as the first context that is processed.</div>
+<div class="comment"><span class="name">Dave Longley</span>: we'd have to deal with issues where the input document has another context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ... when the .expand() method is called internally.</div>
+<div class="comment"><span class="name">Dave Longley</span>: and specify how to handle that kind of behavior, etc ...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dlongley, the input document's context is used nevertheless</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: the expandContext is used to initialize the active context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: just the way the context parameter in expand() works today</div>
+<div class="comment"><span class="name">Dave Longley</span>: what if i want to apply the options context last?</div>
+<div class="comment"><span class="name">Dave Longley</span>: not first?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: doesn't work</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: :-)</div>
+<div class="information">I think the answer is - too bad :)</div>
+<div class="comment"><span class="name">Dave Longley</span>: :)</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 to the proposal but make sure the option name is the same for "compact" and "expand".</div>
+<div class="comment"><span class="name">Dave Longley</span>: seems like it would be more likely that you'd want to apply it last than first, but i don't know.</div>
+<div class="comment"><span class="name">Dave Longley</span>: anyway, i'm not really in favor of that option because it feels like we're trying to do too much for the developer without knowing exactly what they want ... and then we just cover only some portion of the cases with the option, frustrating others....</div>
+<div class="comment"><span class="name">Dave Longley</span>: that being said, i don't feel that strongly about it if people really want the option in there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: tidoust, the options are the same for all operations, they are defined in JsonLdOptions (<a href="http://json-ld.org/spec/latest/json-ld-api/#jsonldoptions)">http://json-ld.org/spec/latest/json-ld-api/#jsonldoptions)</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: i think the fact that you acquired the data externally means you should probably be combining it however you want to externally before passing it to the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree with Dave Longley, probably going to be a +0 on this.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i don't mind if we really believe that we're designing these options to cover the most common use cases though (i just don't know if that's true)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think this is a common use case?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Hard to determine, I've used a bunch of local data w/ an input context... but that's for testing things out. I've come across scenarios like this, can't say if it's common or not. If we have these options, it seems natural to add this to the API.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  feels more uniform.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I agree with Niklas.</div>
+<div class="comment"><span class="name">François Daoust</span>:  It makes the API more consistent.</div>
+<div class="comment"><span class="name">François Daoust</span>:  Also, doesn't seem to add a great deal of complexity to implementations.</div>
+<div class="comment"><span class="name">Dave Longley</span>: consistency isn't always better :)</div>
+<div class="comment"><span class="name">Dave Longley</span>: it probably doesn't make things too much more complicated, no</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.</div>
+<div class="comment"><span class="name">Dave Longley</span>: anyway, i'm +0 on it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: it's already implemented, just needs to be wired together</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-162: Base IRI used to expand @type</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/162">https://github.com/json-ld/json-ld.org/issues/162</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  To be clear - two sub-issues - is @type resolved against @vocab? If there is no @vocab, do you resolve @type against BASE document IRI?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: s/niklasl/markus/ ;)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. answer for above: not resolve, use @type as string with concatenation</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is @type special? Does @vocab apply to it?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @vocab is special, not @type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Wouldn't you be able to achieve what you want via "@vocab": "" ?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you do that, you use the document base IRI? I guess you'd need a hash mark if you wanted something safe...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That would affect all the properties as well...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If I wanted to use locally defined types, I'd use type coercion ...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  { "foo": {"@id": "<a href="http://foo.com/vocab"}">http://foo.com/vocab"}</a> }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Then use relative paths?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I want a fallback to a relative IRI... I want to test locally and remotely - use relative IRIs everywhere - dependent on document base IRI... why shouldn't type allow relative IRIs?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It might confuse people - it's not thought of that way in most cases - RDF use cases, general practice, is not to have local types. You probably go out of the way to express that. Think of TURTLE - you'd use an explicit IRI values.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I can't pass a relative IRI to type.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There is a difference in syntax there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I can pass in an absolute IRI, why can't I pass in a relative IRI?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Same value space as terms...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Terms expand in @id...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You could use './' or use a full base IRI there.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 for consistency</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/173">https://github.com/json-ld/json-ld.org/issues/173</a></div>
+<div class="comment"><span class="name">François Daoust</span>:  Just wanted to raise ISSUE-166 - provide feedback in written form.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not define @vocab as base IRI but as prefix.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If you want to provide spec text for a conformance section, that would be great.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. to join @vocab with the suffix using textual concatenation..</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: @vocab: <a href="http://example.org/vocab#">http://example.org/vocab#</a></div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="information"><a href="http://example.org/test">http://example.org/test</a></div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Do not define @vocab as base IRI but as prefix.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: note for the minutes: mlnt's last example was what we don't want :)</div>
+</body>
+</html>
