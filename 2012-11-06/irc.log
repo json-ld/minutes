@@ -1,0 +1,330 @@
+[Tue 10:05]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0000.html
+[Tue 10:05]	<tidoust>	voip: unmute me
+[Tue 10:05]	<voip-ld>	tidoust has been unmuted.
+[Tue 10:06]	<manu-db>	tidoust: As part of the brief on the RDF WG F2F - I ran a session on JSON-LD, it would be good to review that.
+[Tue 10:06]	<voip-ld>	<unknown> (IAX2/diamondcard-1744) has joined the conference.
+[Tue 10:06]	* cygri	hello
+[Tue 10:06]	* manu-db	waves at cygri.
+[Tue 10:06]	<tidoust>	voip: mute me
+[Tue 10:06]	<voip-ld>	tidoust has been muted.
+[Tue 10:06]	<gkellogg>	scribe: gkellogg
+[Tue 10:06]	<gkellogg>	topic: Brief review of RDF WG Face-to-Face
+[Tue 10:06]	<mlnt>	François, did you perhaps create a diff for the changes you made? quite difficult to read it on github..
+[Tue 10:07]	<gkellogg>	manu: I'd like to briefly review discussions from the F2F. Try to keep comments fast.
+[Tue 10:07]	<manu-db>	http://www.w3.org/2011/rdf-wg/meeting/2012-10-30#JSON__2d_LD_Syntax_document
+[Tue 10:07]	<gkellogg>	… We had a fairly good discussion about JSON-LD last week. There have been several offline discussions prompted from this.
+[Tue 10:07]	<tidoust>	Markus, I haven't but will do.
+[Tue 10:07]	<gkellogg>	… I've added all issues that were raised in the RDF WG into the issue tracker.
+[Tue 10:08]	<mlnt>	thanks, just upload it somewhere.. no need to put it into the repo
+[Tue 10:08]	<gkellogg>	… The biggest concern comes down to the differences in the data models and potential miss-alignment between them.
+[Tue 10:08]	<gkellogg>	… The biggest concern that that there _was_ a difference. Once we discussed that it is a consequence of the spec approach, there is still a desire to align them.
+[Tue 10:09]	<cygri>	q+
+[Tue 10:09]	<voip-ld>	Added cygri to the speaker queue: cygri
+[Tue 10:09]	<manu-db>	gkellogg: I think basically, the question of "Is JSON-LD, RDF?" is the general push.
+[Tue 10:09]	<manu-db>	gkellogg: I think we have expressed a desire that everything in JSON-LD can be converted to RDF.
+[Tue 10:09]	<manu-db>	ack cygri
+[Tue 10:09]	<voip-ld>	cygri has the floor. The speaker queue is empty.
+[Tue 10:10]	<gkellogg>	cygri: There's a question of if JSON-LD is a graph syntax, a dataset syntax or both.
+[Tue 10:10]	<tidoust>	Markus, here is a diff: http://goo.gl/bUZPM (loses most styles, but text remains readable), will add the reference to the issue tracker
+[Tue 10:10]	<gkellogg>	… In the RDF WG there's been a consensus that graph and dataset syntaxes should be disjoint.
+[Tue 10:11]	<mlnt>	tidoust, thanks a lot!
+[Tue 10:11]	<gkellogg>	… If you think of JSON-LD as a graph syntax that can also serialize datasets, it goes against this assumption, but it hasn't been discussed yet.
+[Tue 10:11]	<gkellogg>	q+
+[Tue 10:11]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:11]	<manu-db>	ack gkellogg
+[Tue 10:11]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:12]	<manu-db>	gkellogg: This comes about from TRiG - are curly braces required for a 'default graph'?
+[Tue 10:13]	<mlnt>	q+
+[Tue 10:13]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:13]	<manu-db>	gkellogg: If you treat a document as if it is a graph, you could import the data from the default graph into a particular location. This was one of the reasons why it's not entirely resolved. Curly braces might still be required for the 'default set' in TRiG. In JSON-LD, there is no way to specify when you have something different than JSON-LD... maybe we need a new MIMEType for JSON-LD.
+[Tue 10:13]	<manu-db>	ack mlnt
+[Tue 10:13]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:14]	<gkellogg>	markus: it's just about what parsers are going to expect, and in JSON-LD it's clear that it may include named graphs in additional to the default graph.
+[Tue 10:14]	<gkellogg>	… I don't see it as a problem in JSON-LD.
+[Tue 10:14]	<gkellogg>	markus: also an issue if we should have a WebIDL API, or just processing rules.
+[Tue 10:15]	-->|	cygri (~cygri@140.203.154.5) has joined #json-ld
+[Tue 10:15]	<cygri>	q+
+[Tue 10:15]	<voip-ld>	Added cygri to the speaker queue: cygri
+[Tue 10:15]	<manu-db>	ack cygri
+[Tue 10:15]	<voip-ld>	cygri has the floor. The speaker queue is empty.
+[Tue 10:15]	|<--	cygri has left freenode (Read error: Connection reset by peer)
+[Tue 10:15]	=-=	cygri is now known as cygri
+[Tue 10:15]	<gkellogg>	cygri: There is a statement in the RDF WG that JSON-LD makes the same mistakes as RDF/XML.
+[Tue 10:16]	<gkellogg>	… Manu pointed out that this statement isn't useful, to be constructive it would need to be backed up with details on how it can be addressed.
+[Tue 10:16]	<gkellogg>	… I wanted to acknowledge that it is not a useful statement and needs to be backed up, but there probably is something that needs to be considered.
+[Tue 10:17]	<gkellogg>	manu: The problem with that statement is that we can't really respond to it as there are many mistakes made by RDF/XML, what is it that we need to address.
+[Tue 10:17]	<gkellogg>	q+
+[Tue 10:17]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:17]	<manu-db>	ack gkellogg
+[Tue 10:17]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:17]	<niklasl>	q+
+[Tue 10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:18]	<gkellogg>	markus: In an offline discussion with Sandra, he mentioned that JSON-LD is trying to be the master of multiple domains, and when you do this, you come up with something mediocre.
+[Tue 10:18]	<manu-db>	gkellogg: Once criticism I hear of RDF/XML is that there is many different ways to say the same thing - indeed that's true in JSON-LD... as it is in TURTLE.
+[Tue 10:18]	<gkellogg>	… We need to understand specific weaknesses, not broad statements.
+[Tue 10:18]	<manu-db>	ack niklasl
+[Tue 10:18]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:19]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000056) has joined the conference.
+[Tue 10:19]	<gkellogg>	niklasl: If you look at JSON-LD and through it into a templating system, you have a similar problem that you don't know the shape of the data. THe key difference is that JSON-LD has a context that allows you to remove these.
+[Tue 10:20]	<gkellogg>	… The key pieces missing are framing and graphiphy that are the key to being to finally address shape differences.
+[Tue 10:20]	<gkellogg>	… With connect, I've been able to do much more templating than before.
+[Tue 10:20]	<mlnt>	+1 to all what niklas just said
+[Tue 10:20]	<manu-db>	gkellogg: The 'flatten' option does allow you to get a consistent shape.
+[Tue 10:21]	<gkellogg>	niklas: after flatten, you can do connect in a few lines of code.
+[Tue 10:21]	<gkellogg>	manu: these are things that people in the RDF WG may not be aware of, because they didn't know about them, or are not programmers and can't appreciate the benefits.
+[Tue 10:21]	<tidoust>	voip: unmute me
+[Tue 10:21]	<voip-ld>	tidoust has been unmuted.
+[Tue 10:22]	<manu-db>	Topic: JSON-LD Breakout Session
+[Tue 10:22]	<gkellogg>	tidoust: I had a breakout session at the "BAR Camp" event at TPAC.
+[Tue 10:22]	<gkellogg>	… It's fair to say that most people were RDF/Linked Data guys.
+[Tue 10:22]	<tidoust>	http://www.w3.org/2012/10/31-ld-dev-minutes.html
+[Tue 10:22]	<gkellogg>	… I don't think there's much take away, it was more informal.
+[Tue 10:23]	<gkellogg>	… It was really interesting to have the Linked Data Platform WG folks.
+[Tue 10:23]	<gkellogg>	manu: Were the LDP WG folks interested, is it useful?
+[Tue 10:23]	<gkellogg>	tidoust: JSON-LD isn't their priority for the time being. Different people have different views.
+[Tue 10:24]	<gkellogg>	… I only attended the first day of the LDP WG F2F.
+[Tue 10:24]	<gkellogg>	… There was a question of relating JSON Schema with JSON-LD context?
+[Tue 10:24]	<gkellogg>	… There is overlap in the syntax, and this was probably the most interesting question.
+[Tue 10:25]	<gkellogg>	manu: in the Web Payments group, we use JSON Schema to validate input into the system, buy using our context and frame the data such that the structure is regular and then we apply JSON schema against that. It works extremely well.
+[Tue 10:26]	-->|	MacTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 10:27]	<gkellogg>	tidoust: the main point from "RDF guys" is that they want to work with the data model (triples) and don't necessarily like the way it approaches it.
+[Tue 10:27]	<gkellogg>	manu: you don't need JSON-LD if you have a triple store.
+[Tue 10:28]	<gkellogg>	cygri: I was surprised at how large the turnout was, it was by far the largest I attended.
+[Tue 10:28]	<tidoust>	voip: mute me
+[Tue 10:28]	<voip-ld>	tidoust has been muted.
+[Tue 10:28]	<gkellogg>	… It seems to hit the right memes that bring people in from different places.
+[Tue 10:28]	<gkellogg>	… At LDP WG, the question of format is relevant.
+[Tue 10:29]	<gkellogg>	… They used to say you need to use Turtle to be compliant, but they removed RDF/XML. You may support other formats.
+[Tue 10:29]	<gkellogg>	… JSON-LD wasn't specifically mentioned, but it probably should have been.
+[Tue 10:29]	<gkellogg>	q+
+[Tue 10:29]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:30]	<gkellogg>	manu: We should discuss this with the LDP WG, but it could be a multi-month discussion and reduce our ability to complete work.
+[Tue 10:30]	<gkellogg>	cygri: it might be helpful to bring it up sooner rather than later. It's a fresh issue; it's been resolved, but immediate push-back might make a difference.
+[Tue 10:30]	<tidoust>	[Link to the "closed for the time being" issue in the LDP WG: http://www.w3.org/2012/ldp/track/issues/22 ]
+[Tue 10:31]	<gkellogg>	… According to LDP charter is due in May 2013. I wouldn't be totally surprised if it's delayed.
+[Tue 10:31]	<manu-db>	ack gkellogg
+[Tue 10:31]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:31]	<manu-db>	gkellogg: I've noticed similar things come up on some outcomes from TPAC from WebID - normative use of TURTLE... many members of the group seem to object to that.
+[Tue 10:32]	<manu-db>	gkellogg: I think that LDP is using TURTLE normatively might align with the WebID work, although I think it's clear to the folks in this group that any Web-based format could benefit highly from JSON-LD.
+[Tue 10:33]	<gkellogg>	manu: I don't expect the WebID folks to turn away from turtle.
+[Tue 10:33]	<gkellogg>	… However, it doesn't mean we shouldn't try.
+[Tue 10:35]	<gkellogg>	ACTION: Manu to send a note to the LDP and WebID groups noting their selection of Turtle, and suggest they consider JSON-LD.
+[Tue 10:35]	<cygri>	resolution to use turtle in LDP is here: http://www.w3.org/2012/ldp/meeting/2012-11-01#resolution_3
+[Tue 10:36]	<gkellogg>	niklas: mention that with JSON-LD you can use RDF structures only using JSON.
+[Tue 10:36]	<manu-db>	Topic: Strategy for addressing pre-LC RDF WG issues
+[Tue 10:36]	<gkellogg>	manu: we've had a garage of issues over the last 2 weeks.
+[Tue 10:36]	<gkellogg>	… We signed up to have LC docs by the end of January, which means we need to resolve issues faster.
+[Tue 10:37]	<gkellogg>	… I propose that we deal with the issues purely in the issue tracker, with +/-1 in the issue and commit from there.
+[Tue 10:37]	<gkellogg>	… Reserve telecon time for contentious issues.
+[Tue 10:37]	<mlnt>	q+ to ask about feature freeze
+[Tue 10:37]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:38]	<manu-db>	ack mlnt
+[Tue 10:38]	<voip-ld>	mlnt has the floor (to ask about feature freeze). The speaker queue is empty.
+[Tue 10:38]	<gkellogg>	… we have a long cycle where it takes a while to commit text from resolutions.
+[Tue 10:38]	<gkellogg>	markus: perhaps we should note that we're freezing features.
+[Tue 10:39]	<gkellogg>	manu: A freeze is good, but we should note that we can do small things.
+[Tue 10:42]	<manu-db>	PROPOSAL: A feature freeze is in effect for JSON-LD 1.0 Syntax and JSON-LD 1.0 API effective November 06th 2012.
+[Tue 10:42]	<manu-db>	+1
+[Tue 10:42]	<gkellogg>	+1
+[Tue 10:42]	<mlnt>	+1
+[Tue 10:42]	<niklasl>	+0.9
+[Tue 10:42]	<cygri>	+1 (in case I get to vote :-)
+[Tue 10:42]	<tidoust>	+1
+[Tue 10:42]	<taaz>	+0
+[Tue 10:42]	<manu-db>	RESOLVED: A feature freeze is in effect for JSON-LD 1.0 Syntax and JSON-LD 1.0 API effective November 06th 2012.
+[Tue 10:43]	<gkellogg>	manu: is anyone opposed to using the issue tracker to close issues.
+[Tue 10:43]	<gkellogg>	cygri: I think that some issues may be best dealt with by pushing back rather than implementing.
+[Tue 10:44]	<gkellogg>	… There's a slight risk that if you do edits directly, they might not be necessary.
+[Tue 10:44]	<gkellogg>	manu: agreed. What would have to happen is that we would need consensus within the issues.
+[Tue 10:44]	<gkellogg>	… We could only make an edit if there is a consensus view (no -1's).
+[Tue 10:45]	<gkellogg>	cygri: I think it would be a good idea to do a quick call for consensus, or in the issue, giving a 24 hour period before it will take effect.
+[Tue 10:46]	<gkellogg>	manu: editors will check for consensus and resolve when there is.
+[Tue 10:47]	<gkellogg>	manu: when the editors note the resolution, they will send an email to the JSON-LD mailing list saying that the resolution has been made and will take effect within 24 hours.
+[Tue 10:47]	<cygri>	how about: send an email: "call for consensus on issues x, y, and z. if you have additional concerns not yet raised there, please do so before xxx"
+[Tue 10:48]	<gkellogg>	cygri: the assumption is that if no one raises a concern that discussion has completed.
+[Tue 10:48]	<tidoust>	q+
+[Tue 10:48]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[Tue 10:48]	<tidoust>	voip: unmute me
+[Tue 10:48]	<voip-ld>	tidoust has been unmuted.
+[Tue 10:49]	<gkellogg>	tidoust: do we need to raise issues for small editorial changes? no.
+[Tue 10:49]	<tidoust>	voip: mute me
+[Tue 10:49]	<voip-ld>	tidoust has been muted.
+[Tue 10:50]	<manu-db>	Topic: Review of new issues
+[Tue 10:50]	<manu-db>	Clarify sets and lists - https://github.com/json-ld/json-ld.org/issues/170
+[Tue 10:51]	<gkellogg>	manu: there was a concern that it wasn't clear if there was difference between sets and lists.
+[Tue 10:51]	<gkellogg>	… Ivan things having @set is confusing, Turtle doesn't have anything like that.
+[Tue 10:52]	<niklasl>	q+
+[Tue 10:52]	<voip-ld>	Added niklasl to the speaker queue: tidoust, niklasl
+[Tue 10:52]	<manu-db>	ack tidoust
+[Tue 10:52]	<voip-ld>	tidoust has the floor. The next speaker is niklasl.
+[Tue 10:52]	<manu-db>	ack niklasl
+[Tue 10:52]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[Tue 10:52]	<gkellogg>	niklasl: I agree, that @set is gratuitous.
+[Tue 10:52]	<cygri>	+1 to either
+[Tue 10:52]	<tidoust>	[I don't understand why "@set" creates a problem and like symmetry but am ok with removal as well]
+[Tue 10:53]	<manu-db>	JSON-LD data model clarifications - https://github.com/json-ld/json-ld.org/issues/174
+[Tue 10:53]	<gkellogg>	manu: a long thread with cygri on the data model. It has been productive.
+[Tue 10:53]	<gkellogg>	q+
+[Tue 10:53]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:54]	<gkellogg>	cygri: I plan to finish the mapping this week.
+[Tue 10:54]	<manu-db>	ack gkellogg
+[Tue 10:54]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:55]	<manu-db>	gkellogg: I think that there is the Graph/Dataset thing we're not very clear on - I think we describe JSON-LD as creating a graph, but it glosses over the Dataset aspect of it. There is something to be set about calling it a "Dataset model"
+[Tue 10:55]	<manu-db>	gkellogg: We should mention the Dataset aspect of it.
+[Tue 10:55]	<manu-db>	Markus: Isn't that what a JSON-LD document is?
+[Tue 10:56]	<manu-db>	gkellogg: Dataset is abstract, JSON-LD document is concrete syntax.
+[Tue 10:56]	<niklasl>	q+
+[Tue 10:56]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:56]	<manu-db>	q+ to ask about issue for this item?
+[Tue 10:56]	<voip-ld>	Added manu-db to the speaker queue: niklasl, manu-db
+[Tue 10:57]	<gkellogg>	manu: We need an issue to discuss this.
+[Tue 10:57]	<manu-db>	ack niklasl
+[Tue 10:57]	<voip-ld>	niklasl has the floor. The next speaker is manu-db.
+[Tue 10:57]	<manu-db>	ack manu-db
+[Tue 10:57]	<voip-ld>	niklasl has the floor (to ask about issue for this item?). The speaker queue is empty.
+[Tue 10:57]	<gkellogg>	ACTION: Gregg to create an issue to track the differences between graphs and datasets in JSON-LD.
+[Tue 10:57]	<gkellogg>	niklasl: We need to be sure we don't end up with something that only represents datasets.
+[Tue 10:58]	<gkellogg>	… It's important that a JSON-LD document be useable as a named graph, even if it describes a default graph.
+[Tue 10:58]	<manu-db>	Rephrase "adding meaning" in Syntax specification - https://github.com/json-ld/json-ld.org/issues/177
+[Tue 10:59]	<gkellogg>	manu: sandro things that "adding meaning" doesn't actually add meaning.
+[Tue 10:59]	<manu-db>	ack manu-db
+[Tue 10:59]	<niklasl>	.. sandro suggested: "it means adding information which enables disambiguating the relational structure and the identities of the elements of that structure"
+[Tue 10:59]	<gkellogg>	cygri: there might be some useful phrases that could come in if we push back.
+[Tue 11:00]	<manu-db>	Make link to RDF more apparent in the specification - https://github.com/json-ld/json-ld.org/issues/180
+[Tue 11:00]	<gkellogg>	niklas: something which captures the essence of this phrase in "normal speak".
+[Tue 11:01]	<gkellogg>	manu: david wood wants to see something more specific in the spec that JSON-LD is an RDF specification.
+[Tue 11:01]	<cygri>	+1 to a sentence in the introduction
+[Tue 11:01]	<gkellogg>	… I'm fine with putting something in the intro.
+[Tue 11:01]	<gkellogg>	+1
+[Tue 11:01]	<niklasl>	+1
+[Tue 11:01]	<tidoust>	+1 to adding a sentence.
+[Tue 11:01]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000056) has left the conference.
+[Tue 11:02]	<manu-db>	Consider renaming JSON-LD API to JSON-LD Core Processing - https://github.com/json-ld/json-ld.org/issues/178
+[Tue 11:02]	<gkellogg>	manu: Ivan brought this up. The concerns are that the RDF WG doesn't have the constituency to create WebID.
+[Tue 11:03]	<gkellogg>	… The other concern is that having WebIDL being normative is confusing.
+[Tue 11:03]	<gkellogg>	q+
+[Tue 11:03]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:03]	<cygri>	"JSON-LD Processing and Data Model"? And keep the API part in?
+[Tue 11:03]	<gkellogg>	manu: we could either split the WebIDL out or keep it in as an appendix.
+[Tue 11:03]	<manu-db>	ack gkellogg
+[Tue 11:03]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:04]	<manu-db>	gkellogg: Richard had a great e-mail earlier today regarding orthogonality in specs - particularly relating to strongly relating Syntax with Behavior. That orthogonality argument also relates to having a concrete WebIDL API as a part of the specification.
+[Tue 11:04]	<cygri>	q+
+[Tue 11:04]	<voip-ld>	Added cygri to the speaker queue: cygri
+[Tue 11:04]	<tidoust>	q+
+[Tue 11:04]	<voip-ld>	Added tidoust to the speaker queue: Richard, tidoust
+[Tue 11:04]	<manu-db>	gkellogg: Doing so tends to limit the appliciability of the specifications, it's crossing over in domains - it's not key in what they're trying to accomplish.
+[Tue 11:04]	<manu-db>	ack cygri
+[Tue 11:04]	<voip-ld>	cygri has the floor. The next speaker is tidoust.
+[Tue 11:05]	<gkellogg>	cygri: I didn't have JSON-LD in mind when sending this email; it really is about RDF Concepts. Anything you do there has consequences depending on how other specs depend on it.
+[Tue 11:06]	<gkellogg>	… If you have something new, that doesn't have such complicated interdependencies, it is not necessarily a bad thing, and there is a cost in separating things into multiple documents.
+[Tue 11:06]	<tidoust>	voip: unmute me
+[Tue 11:06]	<voip-ld>	tidoust has been unmuted.
+[Tue 11:06]	<manu-db>	ack tidoust
+[Tue 11:06]	<voip-ld>	cygri has the floor. The speaker queue is empty.
+[Tue 11:06]	<mlnt>	q+
+[Tue 11:06]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 11:06]	<manu-db>	q+
+[Tue 11:06]	<voip-ld>	Added manu-db to the speaker queue: Markus, manu-db
+[Tue 11:06]	<gkellogg>	tidoust: I would prefer that we leave the WebIDL in; if we move it, it could just disappear.
+[Tue 11:07]	<gkellogg>	… The syntax and the algorithm are tightly tied together, and right now, it's an informative reference.
+[Tue 11:08]	<gkellogg>	… I would have only a single document.
+[Tue 11:08]	<manu-db>	ack mlnt
+[Tue 11:08]	<voip-ld>	mlnt has the floor. The next speaker is manu-db.
+[Tue 11:08]	<gkellogg>	… It shouldn't be a problem to have each normatively reference the other.
+[Tue 11:08]	<tidoust>	voip: mute me
+[Tue 11:08]	<voip-ld>	tidoust has been muted.
+[Tue 11:09]	<gkellogg>	markus: we should keep in mind the different audiences for each document.
+[Tue 11:09]	<gkellogg>	… The RDF WG is more interested in the algorithms.
+[Tue 11:09]	<cygri>	q+
+[Tue 11:09]	<voip-ld>	Added cygri to the speaker queue: Markus, cygri
+[Tue 11:09]	<gkellogg>	… We should be clear on the audience.
+[Tue 11:09]	<manu-db>	ack mlnt
+[Tue 11:09]	<voip-ld>	mlnt has the floor. The next speaker is cygri.
+[Tue 11:09]	<gkellogg>	… I don't think we need a normative reference from the Syntax to the API, but it is just a minor edit.
+[Tue 11:10]	<gkellogg>	manu: one reason is that there are two specs is that we decided early on that we shouldn't tightly link them as it might make a problem going to REC.
+[Tue 11:10]	<gkellogg>	… We also tried to make sure there are no normative references from Syntax to API.
+[Tue 11:10]	<tidoust>	q+
+[Tue 11:10]	<voip-ld>	Added tidoust to the speaker queue: Markus, tidoust
+[Tue 11:11]	<gkellogg>	… I think the positive effect of splitting the two is that it makes the Syntax spec stand alone, and could allow us to go to rec at a different pace.
+[Tue 11:11]	<manu-db>	ack mlnt
+[Tue 11:11]	<voip-ld>	mlnt has the floor. The next speaker is tidoust.
+[Tue 11:11]	<manu-db>	ack cygri
+[Tue 11:11]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 11:11]	<gkellogg>	cygri: I think specs should be written with implementers in mind foremost.
+[Tue 11:11]	<gkellogg>	… In this case, it makes sense to focus on implementers of the algorithms; developers just need the API documentation.
+[Tue 11:12]	<gkellogg>	… It might be better communicated using documentation of a particular library.
+[Tue 11:12]	<tidoust>	q-
+[Tue 11:12]	* tidoust	will use issue tracker ;)
+[Tue 11:12]	<gkellogg>	… If you believe that the documentation can be provided differently, it makes less sense to keep them separate.
+[Tue 11:12]	* manu-db	thanks tidoust :)
+[Tue 11:13]	<gkellogg>	markus: it's more about the message if you call it "Core Processing" rather than "API".
+[Tue 11:13]	<gkellogg>	… I would say that developers are more likely to look at an API spec, rather than one which is focused around algorithms.
+[Tue 11:13]	<manu-db>	Consider moving WebIDL to Appendix or Note - https://github.com/json-ld/json-ld.org/issues/179
+[Tue 11:14]	<tidoust>	q+
+[Tue 11:14]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[Tue 11:14]	<tidoust>	voip: unmute me
+[Tue 11:14]	<voip-ld>	tidoust has been unmuted.
+[Tue 11:14]	<manu-db>	ack tidoust
+[Tue 11:14]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[Tue 11:14]	<manu-db>	q+ to discuss why it's the way it is.
+[Tue 11:14]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:14]	<gkellogg>	tidoust: moving to an appendix doesn't really change anything in practice.
+[Tue 11:14]	<gkellogg>	q+
+[Tue 11:14]	<voip-ld>	Added gkellogg to the speaker queue: manu-db, gkellogg
+[Tue 11:14]	<manu-db>	ack manu-db
+[Tue 11:14]	<voip-ld>	manu-db has the floor (to discuss why it's the way it is.). The next speaker is gkellogg.
+[Tue 11:14]	<tidoust>	voip: mute me
+[Tue 11:14]	<voip-ld>	tidoust has been muted.
+[Tue 11:15]	<gkellogg>	manu: we wanted to give the reader a gentle intro to the material. The WebIDLE seemed to be the easy way into the document.
+[Tue 11:15]	<manu-db>	ack manu-db
+[Tue 11:15]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 11:15]	<manu-db>	ack gkellogg
+[Tue 11:15]	<manu-db>	gkellogg: If we do rename it as Core Processing, it makes sense to move the WebIDL down to an appendix. This is an issue that was of big concern in the RDF WG.
+[Tue 11:16]	<gkellogg>	… Ivan's reading it differently, in that if you don't correspond exactly to the WebIDL.
+[Tue 11:16]	* gkellogg	hard stop in 15 minutes for me.
+[Tue 11:16]	* cygri	same here
+[Tue 11:16]	* manu-db	nods, will try to end it in 15 minutes.
+[Tue 11:17]	<gkellogg>	niklas: I agree with the change to "Core Processing".
+[Tue 11:17]	<gkellogg>	… It feels better.
+[Tue 11:17]	<gkellogg>	manu: two big issues: JSON-LD to RDF data model mapping.
+[Tue 11:17]	<manu-db>	Topic: ISSUE-159: Add specifying @language to expanded form
+[Tue 11:18]	<gkellogg>	… The other is the language container discussion.
+[Tue 11:18]	<gkellogg>	… We're still trying to figure out what we're going to do, BNodes or @language syntax, and just do in RDF.
+[Tue 11:19]	<manu-db>	gkellogg: I think I'm in the minority when I want to create bnodes for language maps in expanded form.
+[Tue 11:19]	<manu-db>	gkellogg: I did discuss this at length w/ Lin - she is concerned about this not being in the best interest of Drupal.
+[Tue 11:19]	<mlnt>	Richard, would be very interested hearing your opinion on this, e.g., introduction of jsonld vocab vs. dc:language
+[Tue 11:19]	<niklasl>	q+
+[Tue 11:19]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:20]	<manu-db>	gkellogg: I think differently, I think we're creating a divergence in the JSON-LD data model and the RDF data model - I'm not as sympathetic to the concerns in expanded form that there are some nodes represented there.
+[Tue 11:20]	<manu-db>	gkellogg: However, unless there is support for bnodes in expansion, I think we'll have to go the other way.
+[Tue 11:20]	<manu-db>	ack niklasl
+[Tue 11:20]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:20]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/133#issuecomment-10057742
+[Tue 11:20]	<gkellogg>	niklas: I also feel that BNodes in expanded form are a better way to go.
+[Tue 11:20]	<gkellogg>	… Perhaps we don't need an intermediate BNode if we fold @language into the resource, and relate it to dc:language, say.
+[Tue 11:21]	<manu-db>	q+
+[Tue 11:21]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:21]	<cygri>	Markus, I haven't fully followed the discussion so far I'm afraid
+[Tue 11:21]	<manu-db>	gkellogg: I need to look at it in more depth.
+[Tue 11:21]	<manu-db>	ack manu-db
+[Tue 11:21]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 11:21]	<mlnt>	Richard, basic question is how to "language-tag" resources
+[Tue 11:21]	<gkellogg>	niklasl: I am concerned about moving too far away from RDF.
+[Tue 11:22]	<gkellogg>	manu: I'm not so concerned about divergence between JSON-LD and RDF data models, but more concerned with the Drupal community.
+[Tue 11:22]	<gkellogg>	… If we do the translation to a BNode we're working against what the spec enables.
+[Tue 11:22]	<mlnt>	q+
+[Tue 11:22]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 11:22]	<manu-db>	ack mlnt
+[Tue 11:23]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 11:23]	<gkellogg>	… It seems like it will be more difficult for developers to work with expanded form.
+[Tue 11:23]	<gkellogg>	markus: Are we going to allow nodes to be language tagged or not. If we are, then we need to either introduce vocabulary or @language.
+[Tue 11:23]	<gkellogg>	… This allows us to split JSON-LD from RDF mapping.
+[Tue 11:24]	<gkellogg>	niklasl: I think the intermediate BNode might not be necessary, if we interpret @language to map to dc:language.
+[Tue 11:25]	<gkellogg>	manu: If we take Markus' points and separate @language being in expanded form, and taking the mapping to dc:language as being difference.
+[Tue 11:28]	<manu-db>	gkellogg: I think this approach is good - clear mapping to RDF (we use dc:language)
+[Tue 11:28]	<manu-db>	gkellogg: we also avoid bnodes in expanded form... we may want to mint a JSON-LD namespace property that has a link with dc:language?
+[Tue 11:28]	<manu-db>	gkellogg: Is there a similar property in RDF to dc:language?
+[Tue 11:28]	<manu-db>	gkellogg: I think binding to dc:language to it doesn't make it weaker.
+[Tue 11:29]	<gkellogg>	manu: let's just bind @language to dc:language in the spec.
+[Tue 11:30]	<gkellogg>	ACTION: Gregg to write up proposal in language maps.

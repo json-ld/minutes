@@ -1,0 +1,271 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-11-06</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0000.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0000.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Brief review of RDF WG Face-to-Face</a><li><a href="#topic-2">JSON-LD Breakout Session</a><li><a href="#topic-3">Strategy for addressing pre-LC RDF WG issues</a><li><a href="#topic-4">Review of new issues</a><li><a href="#topic-5">ISSUE-159: Add specifying @language to expanded form</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">A feature freeze is in effect for JSON-LD 1.0 Syntax and JSON-LD 1.0 API effective November 06th 2012.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to send a note to the LDP and WebID groups noting their selection of Turtle, and suggest they consider JSON-LD.</a><li><a href="#action-2">Gregg to create an issue to track the differences between graphs and datasets in JSON-LD.</a><li><a href="#action-3">Gregg to write up proposal in language maps.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>François Daoust, Gregg Kellogg, Markus Lanthaler, Manu Sporny, Richard Cyganiak, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">François Daoust</span>:  As part of the brief on the RDF WG F2F - I ran a session on JSON-LD, it would be good to review that. [scribe assist by Manu Sporny]</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Brief review of RDF WG Face-to-Face</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: François, did you perhaps create a diff for the changes you made? quite difficult to read it on github..</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'd like to briefly review discussions from the F2F. Try to keep comments fast.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/meeting/2012-10-30#JSON__2d_LD_Syntax_document">http://www.w3.org/2011/rdf-wg/meeting/2012-10-30#JSON__2d_LD_Syntax_document</a></div>
+<div class="comment-continuation">… We had a fairly good discussion about JSON-LD last week. There have been several offline discussions prompted from this.</div>
+<div class="comment"><span class="name">François Daoust</span>: Markus, I haven't but will do.</div>
+<div class="comment-continuation">… I've added all issues that were raised in the RDF WG into the issue tracker.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: thanks, just upload it somewhere.. no need to put it into the repo</div>
+<div class="comment-continuation">… The biggest concern comes down to the differences in the data models and potential miss-alignment between them.</div>
+<div class="comment-continuation">… The biggest concern that that there _was_ a difference. Once we discussed that it is a consequence of the spec approach, there is still a desire to align them.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think basically, the question of "Is JSON-LD, RDF?" is the general push. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we have expressed a desire that everything in JSON-LD can be converted to RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  There's a question of if JSON-LD is a graph syntax, a dataset syntax or both.</div>
+<div class="comment"><span class="name">François Daoust</span>: Markus, here is a diff: <a href="http://goo.gl/bUZPM">http://goo.gl/bUZPM</a> (loses most styles, but text remains readable), will add the reference to the issue tracker</div>
+<div class="comment-continuation">… In the RDF WG there's been a consensus that graph and dataset syntaxes should be disjoint.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: tidoust, thanks a lot!</div>
+<div class="comment-continuation">… If you think of JSON-LD as a graph syntax that can also serialize datasets, it goes against this assumption, but it hasn't been discussed yet.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This comes about from TRiG - are curly braces required for a 'default graph'? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you treat a document as if it is a graph, you could import the data from the default graph into a particular location. This was one of the reasons why it's not entirely resolved. Curly braces might still be required for the 'default set' in TRiG. In JSON-LD, there is no way to specify when you have something different than JSON-LD... maybe we need a new MIMEType for JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's just about what parsers are going to expect, and in JSON-LD it's clear that it may include named graphs in additional to the default graph.</div>
+<div class="comment-continuation">… I don't see it as a problem in JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  also an issue if we should have a WebIDL API, or just processing rules.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  There is a statement in the RDF WG that JSON-LD makes the same mistakes as RDF/XML.</div>
+<div class="comment-continuation">… Manu pointed out that this statement isn't useful, to be constructive it would need to be backed up with details on how it can be addressed.</div>
+<div class="comment-continuation">… I wanted to acknowledge that it is not a useful statement and needs to be backed up, but there probably is something that needs to be considered.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The problem with that statement is that we can't really respond to it as there are many mistakes made by RDF/XML, what is it that we need to address.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In an offline discussion with Sandra, he mentioned that JSON-LD is trying to be the master of multiple domains, and when you do this, you come up with something mediocre.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Once criticism I hear of RDF/XML is that there is many different ways to say the same thing - indeed that's true in JSON-LD... as it is in TURTLE. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… We need to understand specific weaknesses, not broad statements.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you look at JSON-LD and through it into a templating system, you have a similar problem that you don't know the shape of the data. THe key difference is that JSON-LD has a context that allows you to remove these.</div>
+<div class="comment-continuation">… The key pieces missing are framing and graphiphy that are the key to being to finally address shape differences.</div>
+<div class="comment-continuation">… With connect, I've been able to do much more templating than before.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 to all what niklas just said</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The 'flatten' option does allow you to get a consistent shape. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  after flatten, you can do connect in a few lines of code.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  these are things that people in the RDF WG may not be aware of, because they didn't know about them, or are not programmers and can't appreciate the benefits.</div>
+<h1 id="topic-2" class="topic">Topic: JSON-LD Breakout Session</h1>
+<div class="comment"><span class="name">François Daoust</span>:  I had a breakout session at the "BAR Camp" event at TPAC.</div>
+<div class="comment-continuation">… It's fair to say that most people were RDF/Linked Data guys.</div>
+<div class="comment"><span class="name">François Daoust</span>: <a href="http://www.w3.org/2012/10/31-ld-dev-minutes.html">http://www.w3.org/2012/10/31-ld-dev-minutes.html</a></div>
+<div class="comment-continuation">… I don't think there's much take away, it was more informal.</div>
+<div class="comment-continuation">… It was really interesting to have the Linked Data Platform WG folks.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Were the LDP WG folks interested, is it useful?</div>
+<div class="comment"><span class="name">François Daoust</span>:  JSON-LD isn't their priority for the time being. Different people have different views.</div>
+<div class="comment-continuation">… I only attended the first day of the LDP WG F2F.</div>
+<div class="comment-continuation">… There was a question of relating JSON Schema with JSON-LD context?</div>
+<div class="comment-continuation">… There is overlap in the syntax, and this was probably the most interesting question.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in the Web Payments group, we use JSON Schema to validate input into the system, buy using our context and frame the data such that the structure is regular and then we apply JSON schema against that. It works extremely well.</div>
+<div class="comment"><span class="name">François Daoust</span>:  the main point from "RDF guys" is that they want to work with the data model (triples) and don't necessarily like the way it approaches it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you don't need JSON-LD if you have a triple store.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I was surprised at how large the turnout was, it was by far the largest I attended.</div>
+<div class="comment-continuation">… It seems to hit the right memes that bring people in from different places.</div>
+<div class="comment-continuation">… At LDP WG, the question of format is relevant.</div>
+<div class="comment-continuation">… They used to say you need to use Turtle to be compliant, but they removed RDF/XML. You may support other formats.</div>
+<div class="comment-continuation">… JSON-LD wasn't specifically mentioned, but it probably should have been.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should discuss this with the LDP WG, but it could be a multi-month discussion and reduce our ability to complete work.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  it might be helpful to bring it up sooner rather than later. It's a fresh issue; it's been resolved, but immediate push-back might make a difference.</div>
+<div class="comment"><span class="name">François Daoust</span>: [Link to the "closed for the time being" issue in the LDP WG: <a href="http://www.w3.org/2012/ldp/track/issues/22">http://www.w3.org/2012/ldp/track/issues/22</a> ]</div>
+<div class="comment-continuation">… According to LDP charter is due in May 2013. I wouldn't be totally surprised if it's delayed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I've noticed similar things come up on some outcomes from TPAC from WebID - normative use of TURTLE... many members of the group seem to object to that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that LDP is using TURTLE normatively might align with the WebID work, although I think it's clear to the folks in this group that any Web-based format could benefit highly from JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't expect the WebID folks to turn away from turtle.</div>
+<div class="comment-continuation">… However, it doesn't mean we shouldn't try.</div>
+<div id="action-1" class="action">ACTION: Manu to send a note to the LDP and WebID groups noting their selection of Turtle, and suggest they consider JSON-LD.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: resolution to use turtle in LDP is here: <a href="http://www.w3.org/2012/ldp/meeting/2012-11-01#resolution_3">http://www.w3.org/2012/ldp/meeting/2012-11-01#resolution_3</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  mention that with JSON-LD you can use RDF structures only using JSON.</div>
+<h1 id="topic-3" class="topic">Topic: Strategy for addressing pre-LC RDF WG issues</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we've had a garage of issues over the last 2 weeks.</div>
+<div class="comment-continuation">… We signed up to have LC docs by the end of January, which means we need to resolve issues faster.</div>
+<div class="comment-continuation">… I propose that we deal with the issues purely in the issue tracker, with +/-1 in the issue and commit from there.</div>
+<div class="comment-continuation">… Reserve telecon time for contentious issues.</div>
+<div class="comment-continuation">… we have a long cycle where it takes a while to commit text from resolutions.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  perhaps we should note that we're freezing features.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A freeze is good, but we should note that we can do small things.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  A feature freeze is in effect for JSON-LD 1.0 Syntax and JSON-LD 1.0 API effective November 06th 2012.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.9</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: +1 (in case I get to vote :-)</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> A feature freeze is in effect for JSON-LD 1.0 Syntax and JSON-LD 1.0 API effective November 06th 2012.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is anyone opposed to using the issue tracker to close issues.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I think that some issues may be best dealt with by pushing back rather than implementing.</div>
+<div class="comment-continuation">… There's a slight risk that if you do edits directly, they might not be necessary.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agreed. What would have to happen is that we would need consensus within the issues.</div>
+<div class="comment-continuation">… We could only make an edit if there is a consensus view (no -1's).</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I think it would be a good idea to do a quick call for consensus, or in the issue, giving a 24 hour period before it will take effect.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  editors will check for consensus and resolve when there is.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  when the editors note the resolution, they will send an email to the JSON-LD mailing list saying that the resolution has been made and will take effect within 24 hours.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: how about: send an email: "call for consensus on issues x, y, and z. if you have additional concerns not yet raised there, please do so before xxx"</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  the assumption is that if no one raises a concern that discussion has completed.</div>
+<div class="comment"><span class="name">François Daoust</span>:  do we need to raise issues for small editorial changes? no.</div>
+<h1 id="topic-4" class="topic">Topic: Review of new issues</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: Clarify sets and lists - <a href="https://github.com/json-ld/json-ld.org/issues/170">https://github.com/json-ld/json-ld.org/issues/170</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there was a concern that it wasn't clear if there was difference between sets and lists.</div>
+<div class="comment-continuation">… Ivan things having @set is confusing, Turtle doesn't have anything like that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree, that @set is gratuitous.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: +1 to either</div>
+<div class="comment"><span class="name">François Daoust</span>: [I don't understand why "@set" creates a problem and like symmetry but am ok with removal as well]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: JSON-LD data model clarifications - <a href="https://github.com/json-ld/json-ld.org/issues/174">https://github.com/json-ld/json-ld.org/issues/174</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a long thread with cygri on the data model. It has been productive.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I plan to finish the mapping this week.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that there is the Graph/Dataset thing we're not very clear on - I think we describe JSON-LD as creating a graph, but it glosses over the Dataset aspect of it. There is something to be set about calling it a "Dataset model" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should mention the Dataset aspect of it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Isn't that what a JSON-LD document is? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Dataset is abstract, JSON-LD document is concrete syntax. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We need an issue to discuss this.</div>
+<div id="action-2" class="action">ACTION: Gregg to create an issue to track the differences between graphs and datasets in JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We need to be sure we don't end up with something that only represents datasets.</div>
+<div class="comment-continuation">… It's important that a JSON-LD document be useable as a named graph, even if it describes a default graph.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Rephrase "adding meaning" in Syntax specification - <a href="https://github.com/json-ld/json-ld.org/issues/177">https://github.com/json-ld/json-ld.org/issues/177</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sandro things that "adding meaning" doesn't actually add meaning.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. sandro suggested: "it means adding information which enables disambiguating the relational structure and the identities of the elements of that structure"</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  there might be some useful phrases that could come in if we push back.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Make link to RDF more apparent in the specification - <a href="https://github.com/json-ld/json-ld.org/issues/180">https://github.com/json-ld/json-ld.org/issues/180</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  something which captures the essence of this phrase in "normal speak".</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  david wood wants to see something more specific in the spec that JSON-LD is an RDF specification.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: +1 to a sentence in the introduction</div>
+<div class="comment-continuation">… I'm fine with putting something in the intro.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 to adding a sentence.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Consider renaming JSON-LD API to JSON-LD Core Processing - <a href="https://github.com/json-ld/json-ld.org/issues/178">https://github.com/json-ld/json-ld.org/issues/178</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ivan brought this up. The concerns are that the RDF WG doesn't have the constituency to create WebID.</div>
+<div class="comment-continuation">… The other concern is that having WebIDL being normative is confusing.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: "JSON-LD Processing and Data Model"? And keep the API part in?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could either split the WebIDL out or keep it in as an appendix.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Richard had a great e-mail earlier today regarding orthogonality in specs - particularly relating to strongly relating Syntax with Behavior. That orthogonality argument also relates to having a concrete WebIDL API as a part of the specification. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Doing so tends to limit the appliciability of the specifications, it's crossing over in domains - it's not key in what they're trying to accomplish. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I didn't have JSON-LD in mind when sending this email; it really is about RDF Concepts. Anything you do there has consequences depending on how other specs depend on it.</div>
+<div class="comment-continuation">… If you have something new, that doesn't have such complicated interdependencies, it is not necessarily a bad thing, and there is a cost in separating things into multiple documents.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I would prefer that we leave the WebIDL in; if we move it, it could just disappear.</div>
+<div class="comment-continuation">… The syntax and the algorithm are tightly tied together, and right now, it's an informative reference.</div>
+<div class="comment-continuation">… I would have only a single document.</div>
+<div class="comment-continuation">… It shouldn't be a problem to have each normatively reference the other.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we should keep in mind the different audiences for each document.</div>
+<div class="comment-continuation">… The RDF WG is more interested in the algorithms.</div>
+<div class="comment-continuation">… We should be clear on the audience.</div>
+<div class="comment-continuation">… I don't think we need a normative reference from the Syntax to the API, but it is just a minor edit.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one reason is that there are two specs is that we decided early on that we shouldn't tightly link them as it might make a problem going to REC.</div>
+<div class="comment-continuation">… We also tried to make sure there are no normative references from Syntax to API.</div>
+<div class="comment-continuation">… I think the positive effect of splitting the two is that it makes the Syntax spec stand alone, and could allow us to go to rec at a different pace.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  I think specs should be written with implementers in mind foremost.</div>
+<div class="comment-continuation">… In this case, it makes sense to focus on implementers of the algorithms; developers just need the API documentation.</div>
+<div class="comment-continuation">… It might be better communicated using documentation of a particular library.</div>
+<div class="comment-continuation">… If you believe that the documentation can be provided differently, it makes less sense to keep them separate.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's more about the message if you call it "Core Processing" rather than "API".</div>
+<div class="comment-continuation">… I would say that developers are more likely to look at an API spec, rather than one which is focused around algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Consider moving WebIDL to Appendix or Note - <a href="https://github.com/json-ld/json-ld.org/issues/179">https://github.com/json-ld/json-ld.org/issues/179</a></div>
+<div class="comment"><span class="name">François Daoust</span>:  moving to an appendix doesn't really change anything in practice.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we wanted to give the reader a gentle intro to the material. The WebIDLE seemed to be the easy way into the document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we do rename it as Core Processing, it makes sense to move the WebIDL down to an appendix. This is an issue that was of big concern in the RDF WG. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… Ivan's reading it differently, in that if you don't correspond exactly to the WebIDL.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree with the change to "Core Processing".</div>
+<div class="comment-continuation">… It feels better.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two big issues: JSON-LD to RDF data model mapping.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-159: Add specifying @language to expanded form</h1>
+<div class="comment-continuation">… The other is the language container discussion.</div>
+<div class="comment-continuation">… We're still trying to figure out what we're going to do, BNodes or @language syntax, and just do in RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think I'm in the minority when I want to create bnodes for language maps in expanded form. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I did discuss this at length w/ Lin - she is concerned about this not being in the best interest of Drupal. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Richard, would be very interested hearing your opinion on this, e.g., introduction of jsonld vocab vs. dc:language</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think differently, I think we're creating a divergence in the JSON-LD data model and the RDF data model - I'm not as sympathetic to the concerns in expanded form that there are some nodes represented there. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  However, unless there is support for bnodes in expansion, I think we'll have to go the other way. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/json-ld/json-ld.org/issues/133#issuecomment-10057742">https://github.com/json-ld/json-ld.org/issues/133#issuecomment-10057742</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I also feel that BNodes in expanded form are a better way to go.</div>
+<div class="comment-continuation">… Perhaps we don't need an intermediate BNode if we fold @language into the resource, and relate it to dc:language, say.</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>: Markus, I haven't fully followed the discussion so far I'm afraid</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I need to look at it in more depth. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Richard, basic question is how to "language-tag" resources</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I am concerned about moving too far away from RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not so concerned about divergence between JSON-LD and RDF data models, but more concerned with the Drupal community.</div>
+<div class="comment-continuation">… If we do the translation to a BNode we're working against what the spec enables.</div>
+<div class="comment-continuation">… It seems like it will be more difficult for developers to work with expanded form.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Are we going to allow nodes to be language tagged or not. If we are, then we need to either introduce vocabulary or @language.</div>
+<div class="comment-continuation">… This allows us to split JSON-LD from RDF mapping.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the intermediate BNode might not be necessary, if we interpret @language to map to dc:language.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If we take Markus' points and separate @language being in expanded form, and taking the mapping to dc:language as being difference.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think this approach is good - clear mapping to RDF (we use dc:language) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we also avoid bnodes in expanded form... we may want to mint a JSON-LD namespace property that has a link with dc:language? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is there a similar property in RDF to dc:language? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think binding to dc:language to it doesn't make it weaker. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's just bind @language to dc:language in the spec.</div>
+<div id="action-3" class="action">ACTION: Gregg to write up proposal in language maps.</div>
+</body>
+</html>
