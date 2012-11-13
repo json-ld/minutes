@@ -1,0 +1,330 @@
+[10:02]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0010.html
+[10:03]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000066) has joined the conference.
+[10:03]	<manu1>	scribe: niklasl
+[10:03]	<manu1>	Topic: ISSUE-196: Add '@annotation' container type
+[10:03]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/196
+[10:04]	<niklasl>	manu: came out of the discussion about the Drupal use cases; specifically the thing we've called language maps; which is about something else
+[10:04]	<niklasl>	… this proposal attempts to solve that, along with other aspects of the issues regarding mappings in JSON-LD
+[10:05]	<manu1>	niklasl: This proposal is sort of a unification of the various ideas we've had on how to use 'maps' to map certain keys to certain values where the keys do not represent actual properties of the object.
+[10:05]	<manu1>	This is a generalization of the @language map proposal - ISSUE-133
+[10:05]	* tidoust	mint, yes, replying to it…
+[10:06]	<manu1>	niklasl: This @annotation suggestion doesn't define the meaning of the key and does not bind it to anything - you specifically can't map it to RDF. The reason for that is that there are JSON "in-the-wild" cases where you index stuff in a JSON object in order to have easier access to it.
+[10:06]	<manu1>	niklasl: This seems to fit the Drupal use case.
+[10:07]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/196#issuecomment-10322466
+[10:07]	* mlnt	tidoust, great! btw. my nick is mLnt (for Markus LaNThaler)
+[10:07]	<manu1>	niklasl: There is a part on whether this should survive expansion. We could do it unobtrusively.
+[10:07]	* tidoust	I know, I just hit the wrong key ;)
+[10:07]	<manu1>	niklasl: This proposal does NOT, in the current shape, address the Microdata shape - I think we should first discuss the proposal, then we could discuss the shape of Microdata separately.
+[10:07]	* mlnt	no worries.. I know it's difficult to distinguish :-)
+[10:08]	<manu1>	niklasl: In the Microdata case, the term does not have a value... the keys do - it's an inverse of the general mapping situation.
+[10:08]	<niklasl>	gregg: changing the mechanism to put the annotation key in the values of the properties (the latter suggestion) is better. It preserves the shape.
+[10:09]	<niklasl>	… I'm still concerned about retaining information that does not map to RDF
+[10:09]	<manu1>	gkellogg: Changing the proposal to put the @annotation key in the property is much better and helps preserve the shape better. I'm still concerned that we're basically retaining information - creating a data model that is not an RDF data model. This is the shape of language maps, so I could go along with doing that.
+[10:09]	<manu1>	gkellogg: In terms of the last point that Niklas had made of applying this to Microdata. I think we could use the same mechanism to address the Microdata use case.
+[10:09]	* manu1	apologizes to niklasl - manu1 got carried away with scribing... back over to niklasl.
+[10:10]	* niklasl	;) ok, I was hoping you wouldn't notice ;D
+[10:10]	* mlnt	:-)
+[10:10]	* manu1	:P
+[10:11]	-->|	efoncubierta (~efoncubie@80.87.25.26) has joined #json-ld
+[10:11]	<niklasl>	lin: this proposal is actually what we originally expected, so it should work for us
+[10:11]	<niklasl>	… and it doesn't use any additional blank nodes
+[10:12]	<niklasl>	gregg: it requires to add container annotations, but not to declare language keys
+[10:12]	<niklasl>	manu: two parts of this proposal: 1) having the annotation properties, 2) making sure that this can round-trip
+[10:12]	<niklasl>	q+
+[10:12]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:13]	<manu1>	ack niklasl
+[10:13]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:14]	<manu1>	niklasl: I want to emphasize what I think works for the round-tripping - it seems to me that if round-tripping would work, you could add annotations by post-processing expanded form. Then you could use compaction to make sure this mapping just "happens". The corner-case with that is that given the example has 3 nodes w/ @ids, regular compaction would not frame them in any way - you would end...
+[10:14]	<manu1>	...up with a @graph keyword with the same nodes, unless the @annotation keyword is "scheduled" to be added.
+[10:15]	<niklasl>	manu: one other corner case: in expanded forms, you have three items with annotations and a fourth without: what happens then?
+[10:15]	<niklasl>	q+
+[10:15]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:15]	<niklasl>	mlnt: the term wouldn't match
+[10:15]	<niklasl>	q+ what marcus said
+[10:15]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:15]	<niklasl>	q-
+[10:15]	<voip-ld>	Removed niklasl from the speaker queue: niklasl
+[10:15]	<niklasl>	q-
+[10:15]	<voip-ld>	Removed niklasl from the speaker queue: (empty)
+[10:17]	<niklasl>	General discussion on the two proposals
+[10:17]	<niklasl>	mlnt: if we introduce this, we should make it roundtripplable
+[10:17]	<taaz>	will properties that are duplicated in multile annotations override each other or show up as multiple values for the same property?
+[10:18]	<manu1>	PROPOSAL: If '@container'; '@annotation' is added to the JSON-LD Syntax, the feature MUST be round-trippable from .compact() to .expand() back to .compact()
+[10:18]	<manu1>	+1
+[10:18]	<mlnt>	+1
+[10:18]	<gkellogg>	+0
+[10:19]	<linclark>	+1
+[10:19]	<tidoust>	0
+[10:19]	<niklasl>	+1 (knowing it's not the cleanest thing..)
+[10:19]	<taaz>	+0
+[10:19]	<tidoust>	(I like the idea but wouldn't mind if it's not round-trippable)
+[10:19]	<manu1>	RESOLVED: If '@container': '@annotation' is added to the JSON-LD Syntax, the feature MUST be round-trippable from .compact() to .expand() back to .compact()
+[10:19]	* niklasl	it enough syntax leverage for future features, I think
+[10:21]	<manu1>	PROPOSAL: Add '@container'; '@annotation' to the JSON-LD Syntax.
+[10:21]	<manu1>	+1
+[10:21]	<niklasl>	+1
+[10:21]	<gkellogg>	+0.8
+[10:21]	<tidoust>	+1
+[10:21]	<mlnt>	+0.8
+[10:21]	<linclark>	+1
+[10:21]	<taaz>	+1
+[10:21]	<manu1>	RESOLVED: Add '@container': '@annotation' to the JSON-LD Syntax.
+[10:22]	<niklasl>	lin: no outstanding concerns at the moment. Of course, need to test the implementation.
+[10:22]	<niklasl>	manu: any other concerns from Drupal?
+[10:23]	<niklasl>	lin: none at the moment
+[10:23]	<mlnt>	Lin, what about ISSUE-195? Still needed?
+[10:23]	<linclark>	Markus, not if this is supported
+[10:24]	<niklasl>	Markus: do you still the graph container?
+[10:24]	<niklasl>	lin: not necessary if this is implemented
+[10:24]	<niklasl>	Markus: I suggest to put 195 on hold then
+[10:24]	<niklasl>	General agreement to put issue 195 on hold.
+[10:24]	<manu1>	Topic: ISSUE-195: Add '@graph' container type
+[10:24]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/195
+[10:26]	<manu1>	PROPOSAL: Push the addition of '@container'; '@graph' to the JSON-LD Syntax specification off to a later version of JSON-LD.
+[10:26]	<gkellogg>	+1
+[10:26]	<manu1>	+1
+[10:26]	<mlnt>	+1
+[10:26]	<niklasl>	+1
+[10:26]	<tidoust>	+1
+[10:26]	<taaz>	+0
+[10:26]	<linclark>	+1
+[10:26]	<manu1>	RESOLVED: Push the addition of '@container': '@graph' to the JSON-LD Syntax specification off to a later version of JSON-LD.
+[10:27]	<manu1>	Topic: ISSUE-165: Allow @id: null to decouple a term from @vocab
+[10:27]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/165
+[10:28]	<mlnt>	PROPOSAL 1: Allow a term to be mapped to null (either directly or by setting @id to null). This mapping is stored in the active context and also overwrites a @vocab mapping meaning that the term does not expand to an IRI and will thus be dropped when expanding.
+[10:28]	<mlnt>	PROPOSAL 2: If a term is mapped to null (either directly or by setting @id to null) remove its definition from the active context. This means that when a @vocab mapping exists, the term is expanded using the @vocab IRI in expansion and will thus not be dropped.
+[10:29]	<tidoust>	q+
+[10:29]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[10:29]	<tidoust>	voip: unmute me
+[10:29]	<manu1>	ack tidoust
+[10:29]	<voip-ld>	tidoust has been unmuted.
+[10:29]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[10:30]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-00000063) has left the conference.
+[10:31]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/165
+[10:31]	<tidoust>	voip: mute me
+[10:31]	<voip-ld>	tidoust has been muted.
+[10:32]	<niklasl>	gregg: proposal 1 is to explicitly prevent a term from being expanded by @vocab by setting it to null
+[10:32]	<niklasl>	q+
+[10:32]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:33]	<niklasl>	gregg: some other options: we could use blank nodes as terms, since they are not allowed
+[10:33]	<manu1>	ack niklasl
+[10:33]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:33]	=-=	linclark is now known as linclark|afk
+[10:33]	<manu1>	niklasl: There might be a problem with that in the future, if RDF 2.0 allows properties to be blank nodes. I've seen N3 notation like that - poor mans reification by having a property inline as a blank node.
+[10:34]	<manu1>	manu: +0.5 (PROPOSAL 1) , + 0.4 (PROPOSAL 2)
+[10:34]	<gkellogg>	+0.1, +0.6
+[10:34]	<niklasl>	+1 (PROPOSAL 1), -1 (PROPOSAL 2)
+[10:34]	<mlnt>	+0 (PROPOSAL 1) , +0 (PROPOSAL 2)
+[10:35]	<tidoust>	+1 to proposal 1, 0 to proposal 2
+[10:35]	* niklasl	brings out the calculator
+[10:35]	<manu1>	niklasl: My @rev feature in my compact JSON needs this feature, it's based on a real-world use case.
+[10:36]	<manu1>	RESOLVED: Allow a term to be mapped to null (either directly or by setting @id to null). This mapping is stored in the active context and also overwrites a @vocab mapping meaning that the term does not expand to an IRI and will thus be dropped when expanding.
+[10:36]	<manu1>	Topic: ISSUE-166: Add a conformance section
+[10:36]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/166
+[10:37]	<tidoust>	Here's the pull request - https://github.com/json-ld/json-ld.org/issues/194
+[10:37]	<mlnt>	and the diff: https://github.com/json-ld/json-ld.org/pull/194/files
+[10:37]	<niklasl>	markus: we should add a conformance section, François has already written it (it's in a pull request)
+[10:37]	<niklasl>	… richard made a remark about removing one sentence; François has removed it, so we can merge it
+[10:37]	<manu1>	PROPOSAL: Add a conformance section to the JSON-LD Syntax specification by merging pull request 194.
+[10:38]	<manu1>	+1
+[10:38]	<mlnt>	+1
+[10:38]	<niklasl>	+1
+[10:38]	<gkellogg>	+1
+[10:38]	<tidoust>	+1
+[10:39]	<manu1>	RESOLVED: Add a conformance section to the JSON-LD Syntax specification by merging pull request 194.
+[10:39]	<manu1>	Topic: ISSUE-169: Clarify the meaning of multiple node definitions with the same @id
+[10:39]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/169
+[10:40]	<mlnt>	PROPOSAL 1: Remove the term node reference as it is not needed; one term (currently node definition) is sufficient.
+[10:41]	<mlnt>	PROPOSAL 2: Rename node definition to node object because 1. it doesn't actually “define” a node, and 2. to make more explicit that it is a kind of JSON object
+[10:41]	<gkellogg>	q+
+[10:41]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:41]	<manu1>	ack gkellogg
+[10:41]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:42]	<niklasl>	gregg: I hope that removing the notion of a node reference won't bite us
+[10:43]	<manu1>	q+
+[10:43]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:43]	<niklasl>	markus: an object with only an id still defines a node I think
+[10:43]	<niklasl>	gregg: when flattening, a node with just an id, with no references to it, is just saying there is a point, disconnected from the rest of the graph
+[10:44]	<niklasl>	manu: same concerns as gregg. the reason for the difference is because the terms are used in the algoritms
+[10:44]	<niklasl>	markus: only 7 occurrences
+[10:44]	* niklasl	are these 7 important? :)
+[10:45]	<niklasl>	markus: at least 5 of these are used together
+[10:45]	<niklasl>	markus: in the minor cases where it matters we can be explicit about there not being any other properties (in a node reference)
+[10:46]	<niklasl>	gregg: I wonder whether not having a concept for it may be a problem
+[10:46]	<niklasl>	gregg: sort of like the triple and iri in RDF concepts
+[10:46]	<niklasl>	gregg: the iri itself is not in the graph
+[10:46]	<niklasl>	(by itself)
+[10:47]	<niklasl>	manu: since this is editorial, we can always fix it if it becomes a problem
+[10:47]	<manu1>	manu: +0.5 (PROPOSAL 1), +0.5 (PROPOSAL 2)
+[10:47]	<mlnt>	+1 to both
+[10:47]	<gkellogg>	+0.5/+0.5
+[10:47]	<niklasl>	niklasl: +0.5/+0.5
+[10:47]	<tidoust>	+1 to both proposals (but wouldn't mind keeping the distinction between "node object" and "node reference" either)
+[10:47]	<manu1>	RESOLVED: Remove the term node reference as it is not needed; one term (currently node definition) is sufficient.
+[10:47]	<manu1>	RESOLVED: Rename node definition to node object because 1. it doesn't actually “define” a node, and 2. to make more explicit that it is a kind of JSON object
+[10:47]	<manu1>	Topic: ISSUE-180: Make link to RDF more apparent in the specification
+[10:47]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/180
+[10:48]	<niklasl>	markus: Editorial, mentioning RDF in the introduction of the spec: saying JSON-LD is a serialization of RDF
+[10:48]	<mlnt>	PROPOSAL: Add a statement in the introduction of the JSON-LD syntax specification saying that JSON-LD is a serialization of the RDF data model.
+[10:48]	<gkellogg>	+1
+[10:48]	<niklasl>	+1
+[10:48]	<manu1>	+1
+[10:48]	<mlnt>	+1
+[10:48]	<tidoust>	+1
+[10:48]	<manu1>	RESOLVED: Add a statement in the introduction of the JSON-LD syntax specification saying that JSON-LD is a serialization of the RDF data model.
+[10:49]	<manu1>	Topic: ISSUE-181: Limit divergence between JSON-LD and RDF data models
+[10:49]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/181
+[10:49]	<niklasl>	markus: we diverge where we allow unconnected nodes, so they don't form triples in the end
+[10:49]	<niklasl>	… proposal is a "SHOULD NOT" about their use
+[10:50]	<niklasl>	… and the same for blank nodes as properties; processors must lower-case language tags, and that blank nodes id:s are scoped to the document
+[10:51]	<mlnt>	from richard: With 1 and 2, I am unconvinced that having those features (blank edges and unconnected nodes) in the JSON-LD data model is actually useful, and would prefer if the algorithms would either remove them, or translate them into something that can be expressed in the RDF data model.
+[10:51]	<gkellogg>	q+
+[10:51]	<voip-ld>	Added gkellogg to the speaker queue: manu1, gkellogg
+[10:51]	<niklasl>	… richard also have some modifications (see issue comment https://github.com/json-ld/json-ld.org/issues/181#issuecomment-10327459)
+[10:51]	<manu1>	ack manu1
+[10:51]	<voip-ld>	manu1 has the floor. The next speaker is gkellogg.
+[10:51]	<manu1>	ack gkellogg
+[10:51]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:52]	<niklasl>	gregg: regarding blank edges, this *may* become part of RDF in the future, so I'd prefer the use of SHOULD NOT for those
+[10:53]	<niklasl>	… regarding unconnected nodes, it's algorithmically difficult to prevent those in expand and compact. It *is* done in the toRDF. We could also do the same in flatten, although that requires checking every node object to see if a node is used
+[10:53]	<niklasl>	... it is more complex, but allows us to remove these dangling references
+[10:53]	<niklasl>	… (just a thought)
+[10:54]	<niklasl>	manu: agrees with the reasoning. but the issue is complex; I think the language should address it sufficiently (plus making the algorithms explicit about what they support).
+[10:55]	<mlnt>	PROPOSAL: Add the following statements to the specs - a) "Authors SHOULD NOT use unconnected nodes (a node definition that does not contain any properties) in JSON-LD documents." b) "Authors SHOULD NOT use blank nodes as edge labels." c) "JSON-LD processors MUST normalize all language tags to lowercase when processing documents via the JSON-LD Algorithms." d) "Blank node labels are scoped to the JSON-LD document."
+[10:55]	<niklasl>	markus: it can still be said that the nodes exist (c.f. the open world assumption)
+[10:55]	<manu1>	+1
+[10:55]	<gkellogg>	+
+[10:55]	<gkellogg>	+1
+[10:55]	<niklasl>	+1
+[10:55]	<mlnt>	+1
+[10:55]	<tidoust>	+1 but note proposal c) is for API doc
+[10:55]	<manu1>	RESOLVED: Add the following statements to the specs: a) "Authors SHOULD NOT use unconnected nodes (a node definition that does not contain any properties) in JSON-LD documents." b) "Authors SHOULD NOT use blank nodes as edge labels." c) "JSON-LD processors MUST normalize all language tags to lowercase when processing documents via the JSON-LD Algorithms." d) "Blank node labels are scoped to the JSON-LD document."
+[10:56]	<niklasl>	markus: could be compared to e.g. rdf:Description rdf:about=""/ in RDF/XML.
+[10:56]	<manu1>	Topic: ISSUE-182: Graph vs DataSet
+[10:56]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/182
+[10:57]	<niklasl>	markus: about whether if json-ld is a serialization of a graph or a dataset
+[10:57]	<niklasl>	… a graph is a set of triples, a dataset is a set of graphs
+[10:57]	<niklasl>	… under consideration is if this distinction should be made by using different mime-types
+[10:57]	<niklasl>	… the proposal is that we should make clear what json-ld serializes
+[10:57]	<niklasl>	q+
+[10:57]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:58]	<manu1>	ack niklasl
+[10:58]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:58]	<mlnt>	PROPOSAL 1: normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.
+[10:58]	<mlnt>	PROPOSAL 2: define an alternate extension and mime-type for describing JSON-LD documents serializing Datasets, as distinct from the existing type which serializes a single graph. Named graphs used within a graph serialization are flattened into a single graph, and produce only a single graph when parsed.
+[10:58]	<mlnt>	PROPOSAL 3: Normatively define the concept of a "JSON-LD document".
+[10:58]	<mlnt>	PROPOSAL 4: Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)
+[10:58]	<mlnt>	PROPOSAL 5: Do not introduce additional mime types or file extensions to distinguish between JSON-LD documents containing only a default graph from documents containing multiple graphs.
+[10:58]	<mlnt>	PROPOSAL 6: A JSON-LD document which does no @graph, or containing @graph only as part of the top-level node definition without an @id property serializes a an RDF Graph.
+[10:58]	<mlnt>	PROPOSAL 7: A JSON-LD document containing any node definition having both @graph and @id serializes an RDF Dataset.
+[10:58]	<mlnt>	PROPOSAL 8: The @graph keyword may only be used in top-level node definitions, i.e., node definitions which are not the value of a property of another node definition.
+[10:58]	<manu1>	niklasl: Every other RDF format in use, apart from TRiG, only represent graphs... my concern is how this will be treated by SPARQL Read/Write APIs and perhaps other RW RDF approaches by Linked Data Platform.
+[10:59]	<mlnt>	Richard's votes:
+[10:59]	<mlnt>	PROPOSAL 1: +1
+[10:59]	<mlnt>	PROPOSAL 2: -1
+[10:59]	<mlnt>	PROPOSAL 3: +1
+[10:59]	<mlnt>	PROPOSAL 4: +1
+[10:59]	<mlnt>	PROPOSAL 5: +1
+[10:59]	<mlnt>	PROPOSAL 6: -1 because a dataset without named graphs is not an RDF graph.
+[10:59]	<mlnt>	PROPOSAL 7: a fact
+[10:59]	<mlnt>	PROPOSAL 8: no opinion
+[10:59]	<gkellogg>	q+
+[10:59]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:59]	<manu1>	niklasl: For instance, in SPARQL, you can put a document to a specific IRI, the Quad-store uses the IRI that the POST went to as the graph name. There are parts of this that I'm concerned about because we don't know how Datasets will be used in the future.
+[10:59]	<manu1>	ack gkellogg
+[11:00]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[11:00]	<niklasl>	gregg: my implementation deals with this by depending on the user
+[11:00]	<niklasl>	… if I put a JSON-LD document into a graph container (into a named graph), it is turned into a set of triples which are put into the destination graph
+[11:00]	<niklasl>	… the resolution is to let the behavior depend on this
+[11:02]	<niklasl>	… the container determines what happens: if it takes graphs, the graphs in the dataset are preserved, otherwise they are merged
+[11:02]	<niklasl>	manu: the web payments only use named graphs for digital signatures
+[11:03]	<niklasl>	manu: we don't use sparql or similar which cares about quads/datasets
+[11:03]	<mlnt>	my votes
+[11:03]	<mlnt>	PROPOSAL 1: -1, PROPOSAL 2: -1, PROPOSAL 3: +1, PROPOSAL 4: +1, PROPOSAL 5: +1, PROPOSAL 6: n/a, PROPOSAL 7: a fact, PROPOSAL 8: -1
+[11:04]	<manu1>	ack gkellogg
+[11:05]	<niklasl>	manu: can we consolidate this proposal and defer for now?
+[11:07]	<manu1>	ACTION: Gregg to create a unified proposal or two for ISSUE-182.
+[11:07]	<tidoust>	[OK to defer. Overall, I would prefer to stick to something as simple as "a JSON-LD document serializes a dataset" without exceptions based on the presence/absence of "@graph" at key positions in the document]
+[11:07]	<manu1>	Topic: ISSUE-189: Support of {@type:{@id:xxx}} constructs
+[11:08]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/189
+[11:08]	<mlnt>	Do we allow this? "@type":{"@id":"A"}
+[11:08]	<niklasl>	markus: The proposal is to disallow it
+[11:09]	<mlnt>	PROPOSAL: Do not support constructs like "@type";{"@id";"A"} in the spec as that would suggest to developers that they could include other properties of the type there as well.
+[11:09]	<gkellogg>	+1
+[11:09]	<manu1>	+1
+[11:09]	<niklasl>	+1
+[11:09]	<mlnt>	Richard: +1 to proposal
+[11:09]	<mlnt>	+1
+[11:09]	<tidoust>	+1 (I don't think that converts into any change in the syntax spec, as it's already forbidden by the grammar)
+[11:09]	<manu1>	RESOLVED: Do not support constructs like "@type":{"@id":"A"} in the spec as that would suggest to developers that they could include other properties of the type there as well.
+[11:10]	<manu1>	Topic: ISSUE-133: Add '@language' container type (related to ISSUE-159)
+[11:10]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/133
+[11:11]	<gkellogg>	PROPOSAL 3: The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.
+[11:11]	<niklasl>	markus: given that we have annotation, we can restrict to language-tagged strings
+[11:12]	<niklasl>	manu: one question: this decisions makes it so that only plain text strings can be used in language maps?
+[11:12]	<gkellogg>	For expansion, I would say that non-string (or array of string) values of a property with language maps are expanded to use the property, but loose the language association. That is, they don't round-trip.
+[11:12]	<tidoust>	q+
+[11:12]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:12]	<tidoust>	voip: unmute me
+[11:12]	<voip-ld>	tidoust has been unmuted.
+[11:12]	<manu1>	ack tidoust
+[11:12]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[11:13]	<niklasl>	tidoust: now with container: annotation, the container: language seems unneeded
+[11:13]	<niklasl>	q+
+[11:13]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:14]	<tidoust>	voip: mute me
+[11:14]	<voip-ld>	tidoust has been muted.
+[11:14]	<manu1>	ack niklasl
+[11:14]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:15]	<niklasl>	gregg: this does address the issue that values in different languages become convenient to reach; for instance in wikipedia, 10 different languages for a title become easy to access
+[11:16]	<mlnt>	"title" : { "en": 1 } doesn't round-trip since the value is not a string
+[11:16]	<niklasl>	… for consistency's sake, if we get data with bad shape, where non-regular strings aren't discarded, but not interpreted as having the language of the key
+[11:16]	<manu1>	PROPOSAL: The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.
+[11:18]	<mlnt>	+1 
+[11:18]	<manu1>	+1
+[11:18]	<niklasl>	+1
+[11:18]	<gkellogg>	+1
+[11:18]	<tidoust>	+1 (it's a bit confusing as similar to but less flexible than "@annotation" but I understand the need to support language in a special way)
+[11:18]	<manu1>	RESOLVED: The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.
+[11:19]	<manu1>	Topic: ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing
+[11:19]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/178
+[11:20]	<mlnt>	PROPOSAL 1: Do not rename the JSON-LD API spec
+[11:20]	<mlnt>	PROPOSAL 2: Rename the JSON-LD API spec to "JSON-LD Core Processing"
+[11:20]	<mlnt>	PROPOSAL 3: Rename the JSON-LD API spec to "JSON-LD Algorithms and API"
+[11:20]	<mlnt>	PROPOSAL 4: Move Data Model and Grammar to the JSON-LD API spec, and rename it to "JSON-LD: Definitions, Processing and API".
+[11:20]	<mlnt>	PROPOSAL 4b: Move Data Model and Grammar to the JSON-LD API spec, and rename it to "JSON-LD: Definitions, Processing and API". Rename "JSON-LD Syntax" to something generic like "JSON-LD: JSON for Linked Data".
+[11:20]	<mlnt>	Richard's votes:
+[11:20]	<mlnt>	PROPOSAL 1: -0.7 (The meat of the spec is not the API, so the current title is false advertising.)
+[11:20]	<mlnt>	PROPOSAL 2: -0.2 (Why “Core”? Seems to be brainless and inappropriate copying of the RDFa spec name.)
+[11:20]	<mlnt>	PROPOSAL 3: -0.2 (“Algorithms” is just the style used to define the processing. If the processing was spelled out in prose, you wouldn't call the spec “API and Prose”. Or “API and Diagrams”. What's the purpose of the algorithms? That needs to go into the title.)
+[11:20]	<mlnt>	PROPOSAL 4: +0.99
+[11:20]	<mlnt>	PROPOSAL 4b: +1
+[11:22]	<niklasl>	manu: web developers tend to go to the source - the core spec. not the primer
+[11:22]	<niklasl>	q+
+[11:22]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:23]	<niklasl>	… primers tend to be fairly high-level [not containing all the needed details]
+[11:23]	<niklasl>	… what document will they naturally hit (from e.g. google)
+[11:23]	<gkellogg>	q+
+[11:23]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[11:24]	<niklasl>	manu: what ever title is picked, has to convey the relevant message to the intended reader in a google hit
+[11:25]	<manu1>	ack niklasl
+[11:25]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[11:25]	<niklasl>	… for instance: "Introduction to JSON-LD" is better than 4b
+[11:26]	<manu1>	ack gkellogg
+[11:26]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:27]	<manu1>	niklasl: I think that the titles should convey to the audience that we want something that tells them to read the document.
+[11:27]	<niklasl>	gregg: best title aside, richard's intent is valuable
+[11:28]	<niklasl>	… regarding the case of someone getting to the wrong document, a good introduction should send them to the right place
+[11:28]	<niklasl>	… so one normative document and one more informative note(?) sounds good
+[11:28]	* manu1	notes - interestingly enough, searching for "rdfa" in Google points to the exact order that we'd want.
+[11:29]	* mlnt	my google results for rdfa are: Wikipedia, Primer, Core, rdfa.info
+[11:30]	<niklasl>	manu: this seems like bike shedding though
+[11:31]	<niklasl>	manu: thanks all for the fantastic session and for all of the hard work to close these issues! Great job everyone!
+[11:31]	* niklasl	agrees!
+[11:31]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000066) has left the conference.
+[11:31]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000005f) has left the conference.
+[11:31]	* tidoust	bye!
+[11:31]	<voip-ld>	Manu Sporny (SIP/6000-00000062) has left the conference.
+[11:31]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000064) has left the conference.
+[11:31]	<voip-ld>	tidoust (IAX2/diamondcard-8405) has left the conference.
+[11:31]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000065) has left the conference.

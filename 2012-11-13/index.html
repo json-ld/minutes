@@ -1,0 +1,322 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-11-13</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0010.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0010.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-196: Add '@annotation' container type</a><li><a href="#topic-2">ISSUE-195: Add '@graph' container type</a><li><a href="#topic-3">ISSUE-165: Allow @id: null to decouple a term from @vocab</a><li><a href="#topic-4">ISSUE-166: Add a conformance section</a><li><a href="#topic-5">ISSUE-169: Clarify the meaning of multiple node definitions with the same @id</a><li><a href="#topic-6">ISSUE-180: Make link to RDF more apparent in the specification</a><li><a href="#topic-7">ISSUE-181: Limit divergence between JSON-LD and RDF data models</a><li><a href="#topic-8">ISSUE-182: Graph vs DataSet</a><li><a href="#topic-9">ISSUE-189: Support of {@type:{@id:xxx}} constructs</a><li><a href="#topic-10">ISSUE-133: Add '@language' container type (related to ISSUE-159)</a><li><a href="#topic-11">ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">If '@container': '@annotation' is added to the JSON-LD Syntax, the feature MUST be round-trippable from .compact() to .expand() back to .compact()</a><li><a href="#resolution-2">Add '@container': '@annotation' to the JSON-LD Syntax.</a><li><a href="#resolution-3">Push the addition of '@container': '@graph' to the JSON-LD Syntax specification off to a later version of JSON-LD.</a><li><a href="#resolution-4">Allow a term to be mapped to null (either directly or by setting @id to null). This mapping is stored in the active context and also overwrites a @vocab mapping meaning that the term does not expand to an IRI and will thus be dropped when expanding.</a><li><a href="#resolution-5">Add a conformance section to the JSON-LD Syntax specification by merging pull request 194.</a><li><a href="#resolution-6">Remove the term node reference as it is not needed; one term (currently node definition) is sufficient.</a><li><a href="#resolution-7">Rename node definition to node object because 1. it doesn't actually “define” a node, and 2. to make more explicit that it is a kind of JSON object</a><li><a href="#resolution-8">Add a statement in the introduction of the JSON-LD syntax specification saying that JSON-LD is a serialization of the RDF data model.</a><li><a href="#resolution-9">Add the following statements to the specs: a) "Authors SHOULD NOT use unconnected nodes (a node definition that does not contain any properties) in JSON-LD documents." b) "Authors SHOULD NOT use blank nodes as edge labels." c) "JSON-LD processors MUST normalize all language tags to lowercase when processing documents via the JSON-LD Algorithms." d) "Blank node labels are scoped to the JSON-LD document."</a><li><a href="#resolution-10">Do not support constructs like "@type":{"@id":"A"} in the spec as that would suggest to developers that they could include other properties of the type there as well.</a><li><a href="#resolution-11">The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Gregg to create a unified proposal or two for ISSUE-182.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Gregg Kellogg, Lin Clark, Markus Lanthaler, David I. Lehn, François Daoust, Richard Cyganiak</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-196: Add '@annotation' container type</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/196">https://github.com/json-ld/json-ld.org/issues/196</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  came out of the discussion about the Drupal use cases; specifically the thing we've called language maps; which is about something else</div>
+<div class="comment-continuation">… this proposal attempts to solve that, along with other aspects of the issues regarding mappings in JSON-LD</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This proposal is sort of a unification of the various ideas we've had on how to use 'maps' to map certain keys to certain values where the keys do not represent actual properties of the object. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: This is a generalization of the @language map proposal - ISSUE-133</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This @annotation suggestion doesn't define the meaning of the key and does not bind it to anything - you specifically can't map it to RDF. The reason for that is that there are JSON "in-the-wild" cases where you index stuff in a JSON object in order to have easier access to it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This seems to fit the Drupal use case. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/196#issuecomment-10322466">https://github.com/json-ld/json-ld.org/issues/196#issuecomment-10322466</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There is a part on whether this should survive expansion. We could do it unobtrusively. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This proposal does NOT, in the current shape, address the Microdata shape - I think we should first discuss the proposal, then we could discuss the shape of Microdata separately. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In the Microdata case, the term does not have a value... the keys do - it's an inverse of the general mapping situation. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  changing the mechanism to put the annotation key in the values of the properties (the latter suggestion) is better. It preserves the shape.</div>
+<div class="comment-continuation">… I'm still concerned about retaining information that does not map to RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Changing the proposal to put the @annotation key in the property is much better and helps preserve the shape better. I'm still concerned that we're basically retaining information - creating a data model that is not an RDF data model. This is the shape of language maps, so I could go along with doing that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In terms of the last point that Niklas had made of applying this to Microdata. I think we could use the same mechanism to address the Microdata use case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Lin Clark</span>:  this proposal is actually what we originally expected, so it should work for us</div>
+<div class="comment-continuation">… and it doesn't use any additional blank nodes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it requires to add container annotations, but not to declare language keys</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two parts of this proposal: 1) having the annotation properties, 2) making sure that this can round-trip</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I want to emphasize what I think works for the round-tripping - it seems to me that if round-tripping would work, you could add annotations by post-processing expanded form. Then you could use compaction to make sure this mapping just "happens". The corner-case with that is that given the example has 3 nodes w/ @ids, regular compaction would not frame them in any way - you would end... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...up with a @graph keyword with the same nodes, unless the @annotation keyword is "scheduled" to be added.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one other corner case: in expanded forms, you have three items with annotations and a fourth without: what happens then?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the term wouldn't match</div>
+<div class="information">General discussion on the two proposals</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we introduce this, we should make it roundtripplable</div>
+<div class="comment"><span class="name">David I. Lehn</span>: will properties that are duplicated in multile annotations override each other or show up as multiple values for the same property?</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  If '@container'; '@annotation' is added to the JSON-LD Syntax, the feature MUST be round-trippable from .compact() to .expand() back to .compact()</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0</div>
+<div class="comment"><span class="name">Lin Clark</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: 0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (knowing it's not the cleanest thing..)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">François Daoust</span>: (I like the idea but wouldn't mind if it's not round-trippable)</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> If '@container': '@annotation' is added to the JSON-LD Syntax, the feature MUST be round-trippable from .compact() to .expand() back to .compact()</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add '@container'; '@annotation' to the JSON-LD Syntax.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.8</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.8</div>
+<div class="comment"><span class="name">Lin Clark</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Add '@container': '@annotation' to the JSON-LD Syntax.</div>
+<div class="comment"><span class="name">Lin Clark</span>:  no outstanding concerns at the moment. Of course, need to test the implementation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any other concerns from Drupal?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  none at the moment</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Lin, what about ISSUE-195? Still needed?</div>
+<div class="comment"><span class="name">Lin Clark</span>: Markus, not if this is supported</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do you still the graph container?</div>
+<div class="comment"><span class="name">Lin Clark</span>:  not necessary if this is implemented</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I suggest to put 195 on hold then</div>
+<div class="information">General agreement to put issue 195 on hold.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-195: Add '@graph' container type</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/195">https://github.com/json-ld/json-ld.org/issues/195</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Push the addition of '@container'; '@graph' to the JSON-LD Syntax specification off to a later version of JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Lin Clark</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Push the addition of '@container': '@graph' to the JSON-LD Syntax specification off to a later version of JSON-LD.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-165: Allow @id: null to decouple a term from @vocab</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/165">https://github.com/json-ld/json-ld.org/issues/165</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: Allow a term to be mapped to null (either directly or by setting @id to null). This mapping is stored in the active context and also overwrites a @vocab mapping meaning that the term does not expand to an IRI and will thus be dropped when expanding.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 2: If a term is mapped to null (either directly or by setting @id to null) remove its definition from the active context. This means that when a @vocab mapping exists, the term is expanded using the @vocab IRI in expansion and will thus not be dropped.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/165">https://github.com/json-ld/json-ld.org/issues/165</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  proposal 1 is to explicitly prevent a term from being expanded by @vocab by setting it to null</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  some other options: we could use blank nodes as terms, since they are not allowed</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  There might be a problem with that in the future, if RDF 2.0 allows properties to be blank nodes. I've seen N3 notation like that - poor mans reification by having a property inline as a blank node. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  +0.5 (PROPOSAL 1) , + 0.4 (PROPOSAL 2) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.1, +0.6</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (PROPOSAL 1), -1 (PROPOSAL 2)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0 (PROPOSAL 1) , +0 (PROPOSAL 2)</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 to proposal 1, 0 to proposal 2</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  My @rev feature in my compact JSON needs this feature, it's based on a real-world use case. [scribe assist by Manu Sporny]</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Allow a term to be mapped to null (either directly or by setting @id to null). This mapping is stored in the active context and also overwrites a @vocab mapping meaning that the term does not expand to an IRI and will thus be dropped when expanding.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-166: Add a conformance section</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/166">https://github.com/json-ld/json-ld.org/issues/166</a></div>
+<div class="comment"><span class="name">François Daoust</span>: Here's the pull request - <a href="https://github.com/json-ld/json-ld.org/issues/194">https://github.com/json-ld/json-ld.org/issues/194</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: and the diff: <a href="https://github.com/json-ld/json-ld.org/pull/194/files">https://github.com/json-ld/json-ld.org/pull/194/files</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we should add a conformance section, François has already written it (it's in a pull request)</div>
+<div class="comment-continuation">… richard made a remark about removing one sentence; François has removed it, so we can merge it</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add a conformance section to the JSON-LD Syntax specification by merging pull request 194.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Add a conformance section to the JSON-LD Syntax specification by merging pull request 194.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-169: Clarify the meaning of multiple node definitions with the same @id</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/169">https://github.com/json-ld/json-ld.org/issues/169</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: Remove the term node reference as it is not needed; one term (currently node definition) is sufficient.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 2: Rename node definition to node object because 1. it doesn't actually “define” a node, and 2. to make more explicit that it is a kind of JSON object</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I hope that removing the notion of a node reference won't bite us</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  an object with only an id still defines a node I think</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when flattening, a node with just an id, with no references to it, is just saying there is a point, disconnected from the rest of the graph</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  same concerns as gregg. the reason for the difference is because the terms are used in the algoritms</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  only 7 occurrences</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  at least 5 of these are used together</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in the minor cases where it matters we can be explicit about there not being any other properties (in a node reference)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I wonder whether not having a concept for it may be a problem</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  sort of like the triple and iri in RDF concepts</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the iri itself is not in the graph</div>
+<div class="information">(by itself)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  since this is editorial, we can always fix it if it becomes a problem</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  +0.5 (PROPOSAL 1), +0.5 (PROPOSAL 2) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 to both</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.5/+0.5</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  +0.5/+0.5</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 to both proposals (but wouldn't mind keeping the distinction between "node object" and "node reference" either)</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Remove the term node reference as it is not needed; one term (currently node definition) is sufficient.</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> Rename node definition to node object because 1. it doesn't actually “define” a node, and 2. to make more explicit that it is a kind of JSON object</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-180: Make link to RDF more apparent in the specification</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/180">https://github.com/json-ld/json-ld.org/issues/180</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Editorial, mentioning RDF in the introduction of the spec: saying JSON-LD is a serialization of RDF</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add a statement in the introduction of the JSON-LD syntax specification saying that JSON-LD is a serialization of the RDF data model.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> Add a statement in the introduction of the JSON-LD syntax specification saying that JSON-LD is a serialization of the RDF data model.</div>
+<h1 id="topic-7" class="topic">Topic: ISSUE-181: Limit divergence between JSON-LD and RDF data models</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/181">https://github.com/json-ld/json-ld.org/issues/181</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we diverge where we allow unconnected nodes, so they don't form triples in the end</div>
+<div class="comment-continuation">… proposal is a "SHOULD NOT" about their use</div>
+<div class="comment-continuation">… and the same for blank nodes as properties; processors must lower-case language tags, and that blank nodes id:s are scoped to the document</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: from richard: With 1 and 2, I am unconvinced that having those features (blank edges and unconnected nodes) in the JSON-LD data model is actually useful, and would prefer if the algorithms would either remove them, or translate them into something that can be expressed in the RDF data model.</div>
+<div class="comment-continuation">… richard also have some modifications (see issue comment <a href="https://github.com/json-ld/json-ld.org/issues/181#issuecomment-10327459)">https://github.com/json-ld/json-ld.org/issues/181#issuecomment-10327459)</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  regarding blank edges, this *may* become part of RDF in the future, so I'd prefer the use of SHOULD NOT for those</div>
+<div class="comment-continuation">… regarding unconnected nodes, it's algorithmically difficult to prevent those in expand and compact. It *is* done in the toRDF. We could also do the same in flatten, although that requires checking every node object to see if a node is used</div>
+<div class="comment-continuation">... it is more complex, but allows us to remove these dangling references</div>
+<div class="comment-continuation">… (just a thought)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  agrees with the reasoning. but the issue is complex; I think the language should address it sufficiently (plus making the algorithms explicit about what they support).</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add the following statements to the specs - a) "Authors SHOULD NOT use unconnected nodes (a node definition that does not contain any properties) in JSON-LD documents." b) "Authors SHOULD NOT use blank nodes as edge labels." c) "JSON-LD processors MUST normalize all language tags to lowercase when processing documents via the JSON-LD Algorithms." d) "Blank node labels are scoped to the JSON-LD document."</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it can still be said that the nodes exist (c.f. the open world assumption)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 but note proposal c) is for API doc</div>
+<div id="resolution-9" class="resolution"><strong>RESOLUTION:</strong> Add the following statements to the specs: a) "Authors SHOULD NOT use unconnected nodes (a node definition that does not contain any properties) in JSON-LD documents." b) "Authors SHOULD NOT use blank nodes as edge labels." c) "JSON-LD processors MUST normalize all language tags to lowercase when processing documents via the JSON-LD Algorithms." d) "Blank node labels are scoped to the JSON-LD document."</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could be compared to e.g. rdf:Description rdf:about=""/ in RDF/XML.</div>
+<h1 id="topic-8" class="topic">Topic: ISSUE-182: Graph vs DataSet</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/182">https://github.com/json-ld/json-ld.org/issues/182</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  about whether if json-ld is a serialization of a graph or a dataset</div>
+<div class="comment-continuation">… a graph is a set of triples, a dataset is a set of graphs</div>
+<div class="comment-continuation">… under consideration is if this distinction should be made by using different mime-types</div>
+<div class="comment-continuation">… the proposal is that we should make clear what json-ld serializes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 2: define an alternate extension and mime-type for describing JSON-LD documents serializing Datasets, as distinct from the existing type which serializes a single graph. Named graphs used within a graph serialization are flattened into a single graph, and produce only a single graph when parsed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 3: Normatively define the concept of a "JSON-LD document".</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 4: Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 5: Do not introduce additional mime types or file extensions to distinguish between JSON-LD documents containing only a default graph from documents containing multiple graphs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 6: A JSON-LD document which does no @graph, or containing @graph only as part of the top-level node definition without an @id property serializes a an RDF Graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 7: A JSON-LD document containing any node definition having both @graph and @id serializes an RDF Dataset.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 8: The @graph keyword may only be used in top-level node definitions, i.e., node definitions which are not the value of a property of another node definition.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Every other RDF format in use, apart from TRiG, only represent graphs... my concern is how this will be treated by SPARQL Read/Write APIs and perhaps other RW RDF approaches by Linked Data Platform. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Richard's votes:</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 2: -1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 3: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 4: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 5: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 6: -1 because a dataset without named graphs is not an RDF graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 7: a fact</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 8: no opinion</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  For instance, in SPARQL, you can put a document to a specific IRI, the Quad-store uses the IRI that the POST went to as the graph name. There are parts of this that I'm concerned about because we don't know how Datasets will be used in the future. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my implementation deals with this by depending on the user</div>
+<div class="comment-continuation">… if I put a JSON-LD document into a graph container (into a named graph), it is turned into a set of triples which are put into the destination graph</div>
+<div class="comment-continuation">… the resolution is to let the behavior depend on this</div>
+<div class="comment-continuation">… the container determines what happens: if it takes graphs, the graphs in the dataset are preserved, otherwise they are merged</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the web payments only use named graphs for digital signatures</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't use sparql or similar which cares about quads/datasets</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: my votes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: -1, PROPOSAL 2: -1, PROPOSAL 3: +1, PROPOSAL 4: +1, PROPOSAL 5: +1, PROPOSAL 6: n/a, PROPOSAL 7: a fact, PROPOSAL 8: -1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can we consolidate this proposal and defer for now?</div>
+<div id="action-1" class="action">ACTION: Gregg to create a unified proposal or two for ISSUE-182.</div>
+<div class="comment"><span class="name">François Daoust</span>: [OK to defer. Overall, I would prefer to stick to something as simple as "a JSON-LD document serializes a dataset" without exceptions based on the presence/absence of "@graph" at key positions in the document]</div>
+<h1 id="topic-9" class="topic">Topic: ISSUE-189: Support of {@type:{@id:xxx}} constructs</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/189">https://github.com/json-ld/json-ld.org/issues/189</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Do we allow this? "@type":{"@id":"A"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The proposal is to disallow it</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Do not support constructs like "@type";{"@id";"A"} in the spec as that would suggest to developers that they could include other properties of the type there as well.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Richard Cyganiak</span>:  +1 to proposal [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 (I don't think that converts into any change in the syntax spec, as it's already forbidden by the grammar)</div>
+<div id="resolution-10" class="resolution"><strong>RESOLUTION:</strong> Do not support constructs like "@type":{"@id":"A"} in the spec as that would suggest to developers that they could include other properties of the type there as well.</div>
+<h1 id="topic-10" class="topic">Topic: ISSUE-133: Add '@language' container type (related to ISSUE-159)</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/133">https://github.com/json-ld/json-ld.org/issues/133</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: PROPOSAL 3: The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  given that we have annotation, we can restrict to language-tagged strings</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one question: this decisions makes it so that only plain text strings can be used in language maps?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: For expansion, I would say that non-string (or array of string) values of a property with language maps are expanded to use the property, but loose the language association. That is, they don't round-trip.</div>
+<div class="comment"><span class="name">François Daoust</span>:  now with container: annotation, the container: language seems unneeded</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this does address the issue that values in different languages become convenient to reach; for instance in wikipedia, 10 different languages for a title become easy to access</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "title" : { "en": 1 } doesn't round-trip since the value is not a string</div>
+<div class="comment-continuation">… for consistency's sake, if we get data with bad shape, where non-regular strings aren't discarded, but not interpreted as having the language of the key</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 </div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 (it's a bit confusing as similar to but less flexible than "@annotation" but I understand the need to support language in a special way)</div>
+<div id="resolution-11" class="resolution"><strong>RESOLUTION:</strong> The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.</div>
+<h1 id="topic-11" class="topic">Topic: ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/178">https://github.com/json-ld/json-ld.org/issues/178</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: Do not rename the JSON-LD API spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 2: Rename the JSON-LD API spec to "JSON-LD Core Processing"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 3: Rename the JSON-LD API spec to "JSON-LD Algorithms and API"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 4: Move Data Model and Grammar to the JSON-LD API spec, and rename it to "JSON-LD: Definitions, Processing and API".</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 4b: Move Data Model and Grammar to the JSON-LD API spec, and rename it to "JSON-LD: Definitions, Processing and API". Rename "JSON-LD Syntax" to something generic like "JSON-LD: JSON for Linked Data".</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Richard's votes:</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: -0.7 (The meat of the spec is not the API, so the current title is false advertising.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 2: -0.2 (Why “Core”? Seems to be brainless and inappropriate copying of the RDFa spec name.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 3: -0.2 (“Algorithms” is just the style used to define the processing. If the processing was spelled out in prose, you wouldn't call the spec “API and Prose”. Or “API and Diagrams”. What's the purpose of the algorithms? That needs to go into the title.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 4: +0.99</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 4b: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  web developers tend to go to the source - the core spec. not the primer</div>
+<div class="comment-continuation">… primers tend to be fairly high-level [not containing all the needed details]</div>
+<div class="comment-continuation">… what document will they naturally hit (from e.g. google)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what ever title is picked, has to convey the relevant message to the intended reader in a google hit</div>
+<div class="comment-continuation">… for instance: "Introduction to JSON-LD" is better than 4b</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that the titles should convey to the audience that we want something that tells them to read the document. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  best title aside, richard's intent is valuable</div>
+<div class="comment-continuation">… regarding the case of someone getting to the wrong document, a good introduction should send them to the right place</div>
+<div class="comment-continuation">… so one normative document and one more informative note(?) sounds good</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this seems like bike shedding though</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  thanks all for the fantastic session and for all of the hard work to close these issues! Great job everyone!</div>
+</body>
+</html>
