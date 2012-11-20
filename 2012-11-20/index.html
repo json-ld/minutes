@@ -1,0 +1,247 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-11-20</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0016.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0016.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-159: Add specifying @language to expanded form</a><li><a href="#topic-2">ISSUE-170: Clarify sets and lists</a><li><a href="#topic-3">ISSUE-182: Graph vs DataSet</a><li><a href="#topic-4">ISSUE-197: Abuse of describedby relation in link header</a><li><a href="#topic-5">ISSUE-140: Consider objectify/link API method</a><li><a href="#topic-6">ISSUE-179: Consider moving WebIDL to Appendix or Note</a><li><a href="#topic-7">ISSUE-188: Numbers and booleans as @type</a><li><a href="#topic-8">ISSUE-184: Definition of JSON-LD processor in the API spec</a><li><a href="#topic-9">ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</a><li><a href="#topic-10">ISSUE-171: Value Compaction broken</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Close ISSUE-159 by referencing ISSUE-133: no further actions required.</a><li><a href="#resolution-2">Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form. For the avoidance of doubt, @set is allowed in the body of a JSON-LD document and the spec should explain it's use within the @context and the body of the document.</a><li><a href="#resolution-3">Normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.</a><li><a href="#resolution-4">Normatively define the concept of a "JSON-LD document", including description of the scope of blank nodes, which is the scope of the document.</a><li><a href="#resolution-5">Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)</a><li><a href="#resolution-6">Align with RDF WG ISSUE-105 (once there is a final decision from the RDF WG) regarding graphs, datasets, authoritative representations, and content negotiation.</a><li><a href="#resolution-7">Retain the ability to specify a JSON-LD context via the 'Link' HTTP header.</a><li><a href="#resolution-8">The rel=http://www.w3.org/ns/json-ld#context relationship replaces the 'describedby' relationship as the mechanism that is used to instruct the JSON-LD processor on which context it should use to interpret the document.</a><li><a href="#resolution-9">Defer creation of a .graphify() mechanism until after JSON-LD 1.0.</a><li><a href="#resolution-10">Place the Algorithms section in the JSON-LD API document before the API section. Make the API section normative, but clarify that implementers MAY provide their own API that is compliant with the Algorithms.</a><li><a href="#resolution-11">State in the definition of each applicable algorithm that the input is a (well-formed) JSON-LD document. State in the conformance section of theAPI/Algorithms/Proce ssing document that the spec does not constrain the behaviour of JSON-LD processors for JSON documents that are not (well-formed) JSON-LD documents.</a><li><a href="#resolution-12">Define "JSON-LD processor" in a Conformance section in the JSON-LD API.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, François Daoust, Niklas Lindström</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-159: Add specifying @language to expanded form</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/159">https://github.com/json-ld/json-ld.org/issues/159</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The proposal is to close this issue by referencing ISSUE-133</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Close ISSUE-159 by referencing ISSUE-133 - no further actions required.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Close ISSUE-159 by referencing ISSUE-133: no further actions required.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-170: Clarify sets and lists</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/170">https://github.com/json-ld/json-ld.org/issues/170</a></div>
+<div class="information">PROPOSAL 1: Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form.</div>
+<div class="information">PROPOSAL 2: Remove the @set keyword, as we have a compactArrays flag that allows the developer to specify that they always want property values to be placed into arrays.</div>
+<div class="information">that's me, unknown there. just listening</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: PROPOSAL 1: +1, PROPOSAL 2: -1</div>
+<div class="information">discussion about whether we talk about @set in context here or in document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Are we agreeing that we don't want to remove it from the body either Gregg?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I have no strong opinion</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  would it make the algorithms more complex if we remove it (from the body)?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  no</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: PROPOSAL 1: +1 (and add explanatory text explaining its effective use), PROPOSAL 2: -1</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form. For the avoidance of doubt, @set is allowed in the body of a JSON-LD document and the spec should explain it's use within the @context and the body of the document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form. For the avoidance of doubt, @set is allowed in the body of a JSON-LD document and the spec should explain it's use within the @context and the body of the document.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-182: Graph vs DataSet</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/182">https://github.com/json-ld/json-ld.org/issues/182</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In general I'm a bit worried putting Dataset so prominently in the spec</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the motivation for named graphs was provenance.. not really as a dump format</div>
+<div class="comment-continuation">... I also can see other formats such as RDFa supporting named graphs in the future</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In general I just need to see were the RDF WG is going with this</div>
+<div class="comment-continuation">... so far it was at the wrong level of abstraction IMO</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can't say a JSON-LD document represents a graph because that's just not true, so this is the only viable option.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Normatively define the concept of a "JSON-LD document", including description of the scope of blank nodes, which is the scope of the document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Normatively define the concept of a "JSON-LD document", including description of the scope of blank nodes, which is the scope of the document.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The RDF WG will have to discuss this - "encourage RDF concepts to consider that a dataset syntax (such as TriG, N-Quads or JSON-LD) may be used wherever a pure graph syntax is used, using only the default graph. Environments performing content negotiation for a graph may accept a dataset serialization, either using only the default graph, the name equivalent to the URI the document is retrieved from, or the union of all graphs within the dataset, or reject documents serializing more than just a default dataset (pick one)." [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Related RDF WG issue is <a href="http://www.w3.org/2011/rdf-wg/track/issues/105">http://www.w3.org/2011/rdf-wg/track/issues/105</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Align with RDF WG ISSUE-105 (once there is a final decision from the RDF WG) regarding graphs, datasets, authoritative representations, and content negotiation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0 - no opinion (haven't read the issue yet)</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Align with RDF WG ISSUE-105 (once there is a final decision from the RDF WG) regarding graphs, datasets, authoritative representations, and content negotiation.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-197: Abuse of describedby relation in link header</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/197">https://github.com/json-ld/json-ld.org/issues/197</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There's disagreement whether the "describedby" link header can be used the way we use it for JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The first question whether we should remove this feature</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Retain the ability to specify a JSON-LD context via the 'Link' HTTP header.</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> Retain the ability to specify a JSON-LD context via the 'Link' HTTP header.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The rel=http;//www.w3.org/ns/json-ld#context relationship replaces the 'describedby' relationship as the mechanism that is used to instruct the JSON-LD processor on which context it should use to interpret the document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5 (it shouldn't be tied to media-type)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0.5 if we can make that IRI to dereference to a JSON-LD context describing the feature</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: I we want to register "context" as a rel type with IANA, it should be general-purpose</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm a bit sad that this is so specific to JSON-LD and that neither transform, nor profile nor anything else seems to be usable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It might be too early to register something like this.. we might do this in JSON-LD 2.0 if other systems have a similar feature (e.g. RDFa)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: rel=<a href="http://www.w3.org/ns/json-ld#context">http://www.w3.org/ns/json-ld#context</a> should apply to any application/json, or sub-types</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm proposing that we use the IRI but define it without using the media type</div>
+<div class="information">Discussion about how to define <a href="http://www.w3.org/ns/json-ld#context">http://www.w3.org/ns/json-ld#context</a> ...</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> The rel=<a href="http://www.w3.org/ns/json-ld#context">http://www.w3.org/ns/json-ld#context</a> relationship replaces the 'describedby' relationship as the mechanism that is used to instruct the JSON-LD processor on which context it should use to interpret the document.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What's the process to set up such a namespace document?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should talk to Ivan and Sandro.. we did that for RDFa ... we might need to be in last call</div>
+<div class="comment-continuation">... but everything you mentioned (conneg) should work</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-140: Consider objectify/link API method</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/140">https://github.com/json-ld/json-ld.org/issues/140</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  niklas, I think you want this feature most.. any objections to defer it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  no, I wouldn't object but I wouldn't mind keeping it open till we really have no other issues open</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we wouldn't close it - we would move it to the JSON-LD.next milestone</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Defer creation of a .graphify() mechanism until after JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.95</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-9" class="resolution"><strong>RESOLUTION:</strong> Defer creation of a .graphify() mechanism until after JSON-LD 1.0.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-179: Consider moving WebIDL to Appendix or Note</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/179">https://github.com/json-ld/json-ld.org/issues/179</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It looks like the proposal with the least -1's is to not do anything</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it depends whether we rename the API spec or not</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the question is whether it is normative or non-normative</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  François made a good point by asking which specs have a non-normative API... not many, if any.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we make the API normative there should be a test suite for it</div>
+<div class="comment"><span class="name">François Daoust</span>:  I think the question is whether to keep the API or not</div>
+<div class="comment-continuation">... having a non-normative API in a REC track document seems very weird</div>
+<div class="comment-continuation">... an alternative would be to define two types of products (algorithms/API)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you voted -1 to move it to a normative appendix</div>
+<div class="comment"><span class="name">François Daoust</span>:  yes, that looks like a trick to just hide it but not changing anything</div>
+<div class="comment-continuation">... I would be fine with switching sections though</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I wouldn't mind but I'm not sure if this is enough for the RDF WG</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it might be.. especially considering to change the API spec's name</div>
+<div class="comment"><span class="name">François Daoust</span>:  another possibility would be to publish the API as an informative note</div>
+<div class="comment-continuation">... to not lose it completely</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Place the Algorithms section in the JSON-LD API document before the API section. Make the API section normative, but clarify that implementers MAY provide their own API that is compliant with the Algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0.8</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 (note that's more or less the "two classes of product" solution I was suggestion, meaning we may need to introduce that in the doc)</div>
+<div id="resolution-10" class="resolution"><strong>RESOLUTION:</strong> Place the Algorithms section in the JSON-LD API document before the API section. Make the API section normative, but clarify that implementers MAY provide their own API that is compliant with the Algorithms.</div>
+<h1 id="topic-7" class="topic">Topic: ISSUE-188: Numbers and booleans as @type</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/188">https://github.com/json-ld/json-ld.org/issues/188</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Richard seemed to have the most supported proposal on this...</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  State in the definition of each applicable algorithm that the input is a (well-formed) JSON-LD document. State in the conformance section of theAPI/Algorithms/Proce ssing document that the spec does not constrain the behaviour of JSON-LD processors for JSON documents that are not (well-formed) JSON-LD documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-11" class="resolution"><strong>RESOLUTION:</strong> State in the definition of each applicable algorithm that the input is a (well-formed) JSON-LD document. State in the conformance section of theAPI/Algorithms/Proce ssing document that the spec does not constrain the behaviour of JSON-LD processors for JSON documents that are not (well-formed) JSON-LD documents.</div>
+<h1 id="topic-8" class="topic">Topic: ISSUE-184: Definition of JSON-LD processor in the API spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/184">https://github.com/json-ld/json-ld.org/issues/184</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Define "JSON-LD processor" in a Conformance section in the JSON-LD API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-12" class="resolution"><strong>RESOLUTION:</strong> Define "JSON-LD processor" in a Conformance section in the JSON-LD API.</div>
+<h1 id="topic-9" class="topic">Topic: ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/178">https://github.com/json-ld/json-ld.org/issues/178</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Let's see if we can make any progress on this issue...</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Move Data Model and Grammar to the JSON-LD API spec, and rename it to "JSON-LD</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we move the grammar as well, the syntax spec isn't a syntax spec anymore</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I fear there are other normative statements as well, tidoust you checked that</div>
+<div class="comment"><span class="name">François Daoust</span>:  there are normative statements but they are referenced by the grammar section, there's also the link header section which stands on its own</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: How about "JSON-LD Concepts" or similar?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could move the definitions to the API spec and just reference them from the syntax</div>
+<div class="comment"><span class="name">François Daoust</span>:  you couldn't reference a non-norminative document from a norminative one</div>
+<div class="comment"><span class="name">François Daoust</span>:  maybe we should defer decision on this until after all other issues are resolved.</div>
+<h1 id="topic-10" class="topic">Topic: ISSUE-171: Value Compaction broken</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/171">https://github.com/json-ld/json-ld.org/issues/171</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We need to update all of the algorithms to take things like language maps and property generators into account. The value compaction algorithm assumes too much about the input and needs to be updated to take things like type coercion, language maps, and property generators into account. Not much else we can do on this issue right now.</div>
+</body>
+</html>

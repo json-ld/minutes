@@ -1,0 +1,239 @@
+[10:03]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0016.html
+[10:03]	<manu1>	scribe: mlnt
+[10:05]	<manu1>	Topic: ISSUE-159: Add specifying @language to expanded form
+[10:05]	<manu1>	https://github.com/json-ld/json-ld.org/issues/159
+[10:06]	<mlnt>	manu: The proposal is to close this issue by referencing ISSUE-133
+[10:06]	<voip-ld>	Niklas Lindström (SIP/192.168.3.19-0000006c) has joined the conference.
+[10:06]	<manu1>	PROPOSAL: Close ISSUE-159 by referencing ISSUE-133 - no further actions required.
+[10:06]	<manu1>	+1
+[10:06]	<mlnt>	+1
+[10:06]	<gkellogg>	+1
+[10:06]	<tidoust>	+1
+[10:07]	<niklasl>	+1
+[10:07]	<manu1>	RESOLVED: Close ISSUE-159 by referencing ISSUE-133: no further actions required.
+[10:07]	<manu1>	Topic: ISSUE-170: Clarify sets and lists
+[10:07]	<manu1>	https://github.com/json-ld/json-ld.org/issues/170
+[10:07]	<mlnt>	PROPOSAL 1: Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form.
+[10:07]	<mlnt>	PROPOSAL 2: Remove the @set keyword, as we have a compactArrays flag that allows the developer to specify that they always want property values to be placed into arrays.
+[10:08]	<voip-ld>	<unknown> (IAX2/diamondcard-3012) has joined the conference.
+[10:08]	<anarchist_>	that's me, unknown there. just listening
+[10:08]	<mlnt>	PROPOSAL 1: +1, PROPOSAL 2: -1
+[10:09]	<mlnt>	discussion about whether we talk about @set in context here or in document
+[10:09]	<niklasl>	q+
+[10:09]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:09]	<mlnt>	manu: Are we agreeing that we don't want to remove it from the body either Gregg?
+[10:09]	<mlnt>	gregg: I have no strong opinion
+[10:11]	<mlnt>	niklas: would it make the algorithms more complex if we remove it (from the body)?
+[10:11]	<mlnt>	gregg: no
+[10:12]	<niklasl>	PROPOSAL 1: +1 (and add explanatory text explaining its effective use), PROPOSAL 2: -1
+[10:12]	<manu1>	PROPOSAL: Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form. For the avoidance of doubt, @set is allowed in the body of a JSON-LD document and the spec should explain it's use within the @context and the body of the document.
+[10:13]	<manu1>	+1
+[10:13]	<gkellogg>	+1
+[10:13]	<niklasl>	+1
+[10:13]	<tidoust>	+1
+[10:13]	<mlnt>	+1
+[10:13]	<manu1>	RESOLVED: Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form. For the avoidance of doubt, @set is allowed in the body of a JSON-LD document and the spec should explain it's use within the @context and the body of the document.
+[10:14]	<manu1>	Topic: ISSUE-182: Graph vs DataSet
+[10:14]	<manu1>	https://github.com/json-ld/json-ld.org/issues/182
+[10:15]	<niklasl>	q+
+[10:15]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[10:15]	<manu1>	ack niklasl
+[10:15]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[10:15]	<manu1>	ack niklasl
+[10:15]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:16]	<gkellogg>	q+
+[10:16]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:16]	<manu1>	ack gkellogg
+[10:16]	<mlnt>	niklas: In general I'm a bit worried putting Dataset so prominently in the spec
+[10:16]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:17]	<mlnt>	gregg: the motivation for named graphs was provenance.. not really as a dump format
+[10:17]	<mlnt>	... I also can see other formats such as RDFa supporting named graphs in the future
+[10:19]	<mlnt>	niklas: In general I just need to see were the RDF WG is going with this
+[10:20]	<mlnt>	... so far it was at the wrong level of abstraction IMO
+[10:20]	<mlnt>	manu: We can't say a JSON-LD document represents a graph because that's just not true, so this is the only viable option.
+[10:21]	<manu1>	PROPOSAL: Normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.
+[10:21]	<manu1>	+1
+[10:21]	<gkellogg>	+1
+[10:21]	<tidoust>	+1
+[10:21]	<niklasl>	+0
+[10:21]	<mlnt>	+1
+[10:22]	<manu1>	RESOLVED: Normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.
+[10:22]	<manu1>	PROPOSAL: Normatively define the concept of a "JSON-LD document", including description of the scope of blank nodes, which is the scope of the document.
+[10:22]	<mlnt>	+1
+[10:22]	<niklasl>	+1
+[10:22]	<manu1>	+1
+[10:22]	<gkellogg>	+1
+[10:23]	<tidoust>	+1
+[10:23]	<manu1>	RESOLVED: Normatively define the concept of a "JSON-LD document", including description of the scope of blank nodes, which is the scope of the document.
+[10:23]	<manu1>	PROPOSAL: Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)
+[10:23]	<tidoust>	+1
+[10:23]	<gkellogg>	+1
+[10:23]	<manu1>	+1
+[10:23]	<niklasl>	+0
+[10:23]	<mlnt>	+1
+[10:23]	<manu1>	RESOLVED: Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)
+[10:25]	<manu1>	manu: The RDF WG will have to discuss this - "encourage RDF concepts to consider that a dataset syntax (such as TriG, N-Quads or JSON-LD) may be used wherever a pure graph syntax is used, using only the default graph. Environments performing content negotiation for a graph may accept a dataset serialization, either using only the default graph, the name equivalent to the URI the document is retrieved from, or the union of all graphs within the dataset, or reject documents serializing more than just a default dataset (pick one)."
+[10:25]	<niklasl>	q+
+[10:25]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:25]	<gkellogg>	Related RDF WG issue is http://www.w3.org/2011/rdf-wg/track/issues/105
+[10:27]	<manu1>	PROPOSAL: Align with RDF WG ISSUE-105 (once there is a final decision from the RDF WG) regarding graphs, datasets, authoritative representations, and content negotiation.
+[10:28]	<gkellogg>	+1
+[10:28]	<manu1>	+1
+[10:28]	* niklasl	wonders if graphs vs. datasets will be the new httpRange-14
+[10:28]	<niklasl>	+1
+[10:28]	<tidoust>	+1
+[10:28]	<mlnt>	mlnt: +0 - no opinion (haven't read the issue yet)
+[10:28]	<manu1>	RESOLVED: Align with RDF WG ISSUE-105 (once there is a final decision from the RDF WG) regarding graphs, datasets, authoritative representations, and content negotiation.
+[10:30]	<manu1>	Topic: ISSUE-197: Abuse of describedby relation in link header
+[10:31]	<manu1>	https://github.com/json-ld/json-ld.org/issues/197
+[10:31]	<mlnt>	manu: There's disagreement whether the "describedby" link header can be used the way we use it for JSON-LD
+[10:32]	<mlnt>	manu: The first question whether we should remove this feature
+[10:33]	|<--	anarchist_ has left freenode (Ping timeout: 240 seconds)
+[10:33]	<manu1>	PROPOSAL: Retain the ability to specify a JSON-LD context via the 'Link' HTTP header.
+[10:33]	<tidoust>	+1
+[10:33]	<gkellogg>	+1
+[10:33]	<manu1>	+1
+[10:33]	<niklasl>	+1
+[10:33]	<mlnt>	+1
+[10:34]	<manu1>	RESOLVED: Retain the ability to specify a JSON-LD context via the 'Link' HTTP header.
+[10:34]	<manu1>	PROPOSAL: The rel=http;//www.w3.org/ns/json-ld#context relationship replaces the 'describedby' relationship as the mechanism that is used to instruct the JSON-LD processor on which context it should use to interpret the document.
+[10:34]	<gkellogg>	+1
+[10:34]	<manu1>	+1
+[10:34]	<tidoust>	+1
+[10:34]	<niklasl>	+0.5 (it shouldn't be tied to media-type)
+[10:35]	<mlnt>	mlnt: +0.5 if we can make that IRI to dereference to a JSON-LD context describing the feature
+[10:37]	-->|	anarchist_ (~anarchist@cpe-66-108-8-27.nyc.res.rr.com) has joined #json-ld
+[10:37]	<gkellogg>	I we want to register "context" as a rel type with IANA, it should be general-purpose
+[10:38]	<mlnt>	niklas: I'm a bit sad that this is so specific to JSON-LD and that neither transform, nor profile nor anything else seems to be usable
+[10:39]	<mlnt>	manu: It might be too early to register something like this.. we might do this in JSON-LD 2.0 if other systems have a similar feature (e.g. RDFa)
+[10:39]	<gkellogg>	rel=http://www.w3.org/ns/json-ld#context should apply to any application/json, or sub-types
+[10:41]	<gkellogg>	q+
+[10:41]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:42]	<gkellogg>	ack niklasl
+[10:42]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:42]	<mlnt>	niklas: I'm proposing that we use the IRI but define it without using the media type
+[10:43]	<mlnt>	Discussion about how to define http://www.w3.org/ns/json-ld#context ...
+[10:44]	-->|	scor (~scor@31-34-188.wireless.csail.mit.edu) has joined #json-ld
+[10:44]	|<--	scor has left freenode (Changing host)
+[10:44]	-->|	scor (~scor@drupal.org/user/52142/view) has joined #json-ld
+[10:45]	<manu1>	RESOLVED: The rel=http://www.w3.org/ns/json-ld#context relationship replaces the 'describedby' relationship as the mechanism that is used to instruct the JSON-LD processor on which context it should use to interpret the document.
+[10:46]	<mlnt>	markus: What's the process to set up such a namespace document?
+[10:46]	* niklasl	wants us to be the change (semantic convergence) we want to see in the world ;)
+[10:46]	<mlnt>	manu: We should talk to Ivan and Sandro.. we did that for RDFa ... we might need to be in last call
+[10:47]	<mlnt>	... but everything you mentioned (conneg) should work
+[10:47]	<manu1>	Topic: ISSUE-140: Consider objectify/link API method
+[10:47]	<manu1>	https://github.com/json-ld/json-ld.org/issues/140
+[10:48]	* manu1	that feature doesn't exist, gkellogg - never got around to implementing it :(
+[10:49]	<mlnt>	manu: niklas, I think you want this feature most.. any objections to defer it
+[10:49]	<mlnt>	niklas: no, I wouldn't object but I wouldn't mind keeping it open till we really have no other issues open
+[10:49]	<mlnt>	manu: we wouldn't close it - we would move it to the JSON-LD.next milestone
+[10:49]	<manu1>	PROPOSAL: Defer creation of a .graphify() mechanism until after JSON-LD 1.0.
+[10:50]	<manu1>	+1
+[10:50]	<tidoust>	+1
+[10:50]	<gkellogg>	+1
+[10:50]	<niklasl>	+0.95
+[10:50]	<mlnt>	+1
+[10:50]	<manu1>	RESOLVED: Defer creation of a .graphify() mechanism until after JSON-LD 1.0.
+[10:50]	<manu1>	Topic: ISSUE-179: Consider moving WebIDL to Appendix or Note
+[10:50]	<manu1>	https://github.com/json-ld/json-ld.org/issues/179
+[10:51]	<voip-ld>	<unknown> (SIP/iptel.org-0000006d) has joined the conference.
+[10:51]	<voip-ld>	<unknown> (SIP/iptel.org-0000006d) has left the conference.
+[10:51]	<voip-ld>	<unknown> (SIP/iptel.org-0000006e) has joined the conference.
+[10:52]	<mlnt>	manu: It looks like the proposal with the least -1's is to not do anything
+[10:53]	<mlnt>	gregg: it depends whether we rename the API spec or not
+[10:53]	<tidoust>	q+ to wonder whether there are examples of spec with informative Web IDL
+[10:53]	<voip-ld>	Added tidoust to the speaker queue: niklasl, tidoust
+[10:53]	<niklasl>	q-
+[10:53]	<voip-ld>	Removed niklasl from the speaker queue: tidoust
+[10:53]	<voip-ld>	<unknown> (SIP/iptel.org-0000006e) has left the conference.
+[10:53]	<mlnt>	gregg: I think the question is whether it is normative or non-normative
+[10:54]	<mlnt>	manu: François made a good point by asking which specs have a non-normative API... not many, if any.
+[10:54]	<voip-ld>	<unknown> (SIP/iptel.org-0000006f) has joined the conference.
+[10:55]	<manu1>	ack niklasl
+[10:55]	<manu1>	ack tidoust
+[10:55]	<tidoust>	voip: unmute me
+[10:55]	<voip-ld>	tidoust has been unmuted.
+[10:55]	<voip-ld>	Speaker queue: tidoust
+[10:55]	<mlnt>	gregg: if we make the API normative there should be a test suite for it
+[10:55]	<voip-ld>	tidoust has the floor (to wonder whether there are examples of spec with informative Web IDL). The speaker queue is empty.
+[10:55]	<manu1>	ack tidoust
+[10:56]	<mlnt>	tidoust: I think the question is whether to keep the API or not
+[10:56]	<mlnt>	... having a non-normative API in a REC track document seems very weird
+[10:56]	<mlnt>	... an alternative would be to define two types of products (algorithms/API)
+[10:58]	<mlnt>	gregg: you voted -1 to move it to a normative appendix
+[10:58]	<mlnt>	tidoust: yes, that looks like a trick to just hide it but not changing anything
+[10:58]	<mlnt>	... I would be fine with switching sections though
+[10:59]	* niklasl	That's how I did it in http://json-ld.org/spec/latest/json-ld-connect/ :)
+[10:59]	<tidoust>	voip: mute me
+[10:59]	<voip-ld>	tidoust has been muted.
+[11:00]	<niklasl>	q+
+[11:00]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[11:00]	<manu1>	ack niklasl
+[11:00]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[11:01]	<mlnt>	markus: I wouldn't mind but I'm not sure if this is enough for the RDF WG
+[11:01]	<mlnt>	manu: it might be.. especially considering to change the API spec's name
+[11:01]	<tidoust>	q+ to mention (but not necessarily encourage) the possibility to push a Note with the API
+[11:01]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:02]	<manu1>	ack tidoust
+[11:02]	<tidoust>	voip: unmute me
+[11:02]	<voip-ld>	tidoust has the floor (to mention (but not necessarily encourage) the possibility to push a Note with the API). The speaker queue is empty.
+[11:02]	<voip-ld>	tidoust has been unmuted.
+[11:02]	<tidoust>	voip: mute me
+[11:02]	<voip-ld>	tidoust has been muted.
+[11:02]	<mlnt>	tidoust: another possibility would be to publish the API as an informative note
+[11:03]	<mlnt>	... to not lose it completely
+[11:03]	<manu1>	PROPOSAL: Place the Algorithms section in the JSON-LD API document before the API section. Make the API section normative, but clarify that implementers MAY provide their own API that is compliant with the Algorithms.
+[11:04]	<gkellogg>	+1
+[11:04]	<manu1>	+1
+[11:04]	<niklasl>	+1
+[11:04]	<mlnt>	mlnt: +0.8
+[11:04]	* gkellogg	need to go in ~ 10 minutes
+[11:05]	<tidoust>	+1 (note that's more or less the "two classes of product" solution I was suggestion, meaning we may need to introduce that in the doc)
+[11:05]	<manu1>	RESOLVED: Place the Algorithms section in the JSON-LD API document before the API section. Make the API section normative, but clarify that implementers MAY provide their own API that is compliant with the Algorithms.
+[11:06]	<manu1>	Topic: ISSUE-188: Numbers and booleans as @type
+[11:06]	<manu1>	https://github.com/json-ld/json-ld.org/issues/188
+[11:06]	<manu1>	Richard seemed to have the most supported proposal on this...
+[11:07]	<mlnt>	PROPOSAL: State in the definition of each applicable algorithm that the input is a (well-formed) JSON-LD document. State in the conformance section of theAPI/Algorithms/Proce ssing document that the spec does not constrain the behaviour of JSON-LD processors for JSON documents that are not (well-formed) JSON-LD documents.
+[11:07]	<manu1>	+1
+[11:07]	<gkellogg>	+1
+[11:07]	<mlnt>	+1
+[11:07]	<tidoust>	+1
+[11:07]	<niklasl>	+1
+[11:07]	<manu1>	RESOLVED: State in the definition of each applicable algorithm that the input is a (well-formed) JSON-LD document. State in the conformance section of theAPI/Algorithms/Proce ssing document that the spec does not constrain the behaviour of JSON-LD processors for JSON documents that are not (well-formed) JSON-LD documents.
+[11:08]	<manu1>	Topic: ISSUE-184: Definition of JSON-LD processor in the API spec
+[11:08]	<manu1>	https://github.com/json-ld/json-ld.org/issues/184
+[11:08]	<mlnt>	PROPOSAL: Define "JSON-LD processor" in a Conformance section in the JSON-LD API.
+[11:08]	<manu1>	+1
+[11:08]	<mlnt>	+1
+[11:08]	<niklasl>	+1
+[11:08]	<tidoust>	+1
+[11:08]	<gkellogg>	+1
+[11:08]	<manu1>	RESOLVED: Define "JSON-LD processor" in a Conformance section in the JSON-LD API.
+[11:08]	|<--	scor has left freenode (Ping timeout: 245 seconds)
+[11:09]	|<--	anarchist_ has left freenode (Ping timeout: 244 seconds)
+[11:09]	<manu1>	Topic: ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing
+[11:09]	<manu1>	https://github.com/json-ld/json-ld.org/issues/178
+[11:09]	<manu1>	Let's see if we can make any progress on this issue...
+[11:10]	<manu1>	PROPOSAL: Move Data Model and Grammar to the JSON-LD API spec, and rename it to "JSON-LD: Definitions, Processing and API".
+[11:11]	<tidoust>	q+
+[11:11]	-->|	anarchist_ (~anarchist@cpe-66-108-8-27.nyc.res.rr.com) has joined #json-ld
+[11:11]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:11]	<tidoust>	voip: unmute me
+[11:11]	<voip-ld>	tidoust has been unmuted.
+[11:12]	<mlnt>	markus: If we move the grammar as well, the syntax spec isn't a syntax spec anymore
+[11:12]	<mlnt>	manu: I fear there are other normative statements as well, tidoust you checked that
+[11:12]	<tidoust>	voip: mute me
+[11:12]	<voip-ld>	tidoust has been muted.
+[11:13]	<mlnt>	tidoust: there are normative statements but they are referenced by the grammar section, there's also the link header section which stands on its own
+[11:13]	<tidoust>	voip: unmute me
+[11:13]	<voip-ld>	tidoust has been unmuted.
+[11:14]	|<--	MacTed has left freenode (Quit: The computer fell asleep)
+[11:14]	<niklasl>	How about "JSON-LD Concepts" or similar?
+[11:14]	<mlnt>	gregg: we could move the definitions to the API spec and just reference them from the syntax
+[11:14]	<mlnt>	tidoust: you couldn't reference a non-norminative document from a norminative one
+[11:15]	<tidoust>	voip: mute me
+[11:15]	<voip-ld>	tidoust has been muted.
+[11:15]	<mlnt>	tidoust: maybe we should defer decision on this until after all other issues are resolved.
+[11:16]	<manu1>	Topic: ISSUE-171: Value Compaction broken
+[11:16]	<mlnt> https://github.com/json-ld/json-ld.org/issues/171
+[11:16]	<mlnt> manu1: We need to update all of the algorithms to take things like language maps and property generators into account. The value compaction algorithm assumes too much about the input and needs to be updated to take things like type coercion, language maps, and property generators into account. Not much else we can do on this issue right now.
