@@ -1,0 +1,223 @@
+[10:05]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0019.html
+[10:06]	* tidoust	ready to scribe
+[10:06]	<manu1>	scribe: tidoust
+[10:06]	<mlnt>	We should discuss https://github.com/json-ld/json-ld.org/issues/182 first, there was some discussion about it on last week's RDF WG telecon.
+[10:06]	<manu1>	Topic: ISSUE-182: Dataset vs. Graph
+[10:07]	<tidoust>	mlnt: I gave a quick update on JSON-LD during last week's RDF telecon
+[10:07]	<gkellogg>	http://www.w3.org/2011/rdf-wg/track/issues/105
+[10:07]	<tidoust>	… and we came across issue 105 about dataset syntaxes vs. graph syntaxes
+[10:08]	<tidoust>	… the issue is that if we dereference a URI and get a graph, it wouldn't be the same as getting a dataset even if the data is the same.
+[10:09]	<tidoust>	… One solution is that we put in JSON-LD spec that we treat the data in the default graph in the JSON-LD Dataset as the graph in a usual graph-based serialization.
+[10:09]	<tidoust>	Manu: That seems a reasonable way to address the issue.
+[10:09]	<tidoust>	… What you're saying is that the RDF WG wouldn't have a problem with that?
+[10:09]	<tidoust>	mlnt: The RDF WG does not say anything about these semantics.
+[10:10]	<gkellogg>	q+
+[10:10]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:10]	<manu1>	ack gkellogg
+[10:10]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:10]	<tidoust>	… Richard made the comment that this could be generalized. The idea would be that we come up with a proposal and push it to the RDF WG. They don't have a lot of interest in the issue otherwise and might just close it.
+[10:10]	<tidoust>	gkellogg: I wonder if default graph is really the right choice.
+[10:11]	<tidoust>	… Let's say that you have a datasource in Turtle that describes a book.
+[10:11]	<tidoust>	… It would be natural to put the metadata about the book in the default graph in JSON-LD.
+[10:11]	<tidoust>	… and you could put the description of the book in the named graph whose name is the location of the document.
+[10:12]	<tidoust>	… If the @graph keyword is used, then perhaps it makes things more explicit.
+[10:12]	<tidoust>	Manu: It seems that it would be more of a Best Practice thing.
+[10:12]	<tidoust>	… Does not seem to require any MUST or SHOULD.
+[10:12]	<tidoust>	… It seems that what Markus is proposing is easier.
+[10:13]	<tidoust>	gkellogg: I think it's less a JSON-LD issue than a dataset issue.
+[10:13]	<tidoust>	… If you use a dataset in a graph, you could use all the data, and it's not wrong. You'd have more data.
+[10:14]	<tidoust>	mlnt: also discussed during the telecom, but that would mean that you could not generically do content-negotiation with JSON-LD because it would be up to the application to decide where it puts the information.
+[10:15]	<tidoust>	… By default, if you put all info in a named graph that has the same URI, you end up with sort of two default graphs, which sounds weird.
+[10:15]	<tidoust>	gkellogg: that would be two named graphs.
+[10:15]	<tidoust>	… Question is what does the receiver do with the data it receives?
+[10:16]	<tidoust>	mlnt: problem is that there would be no way to interpret the data in a generic way.
+[10:16]	<tidoust>	gkellogg: we just need to describe what the behavior should be on the client side.
+[10:17]	<tidoust>	… I could see an argument for just flattening, basically just stripping off the named graphs.
+[10:17]	<tidoust>	Manu: concerned about data loss, meaning references to the named graph.
+[10:17]	<tidoust>	… We don't know where the triple originate from.
+[10:18]	<tidoust>	gkellogg: the only other solution would be to reify it. No, thank you.
+[10:18]	<tidoust>	Manu: most natural thing would be to use the default graph. If the server is mixing and matching datasets and graphs, the lowest denominator should be used, which means the default graph.
+[10:19]	<tidoust>	[discussion about Payswarm implementation]
+[10:19]	<tidoust>	gkellogg: it seems to me that there is a trend towards supporting named graphs.
+[10:20]	<tidoust>	… I can certainly see that happening. I think it would be natural to do things. Signing information is useful use case.
+[10:20]	* niklasl	the first rule about named graphs is: we don't talk about named graphs (that is, within the graph) ;D
+[10:20]	<tidoust>	… The source of the important info is likely to be in a named graph unless we add more semantics to the default graph.
+[10:20]	* mlnt	niklasl, did you watch fight club recently? :-)
+[10:21]	<tidoust>	Manu: in the use case where there is signature, the "default" graph is effectively going to be named.
+[10:21]	<tidoust>	gkellogg: yes, and the name could be the URI of the document.
+[10:21]	* niklasl	mlnt: well, web standardization is a kind of fight club ;)
+[10:22]	* mlnt	:-)
+[10:23]	<tidoust>	manu: In PaySwarm, we actually don't use named graphs yet because RDFa doesn't support them yet. We talk about the signature on the graph as another set of triples, which is a bit awkward, but it works.
+[10:24]	<tidoust>	gkellogg: We could support some of it in the RDF conversion algorithms. One of Robin's comment is about calling only one callback. We could do some magic there if we have that.
+[10:24]	<tidoust>	… I think we really want to push JSON-LD to the main frame of RDF, not to the fringe.
+[10:25]	<niklasl>	+1, this is the crucial part
+[10:26]	<tidoust>	gkellogg: It's not just JSON-LD. For JSON-LD, document is generally limited, but in quads, it can be gigabytes, and you cannot wait up until you have ingested the whole thing before asserting things.
+[10:26]	<niklasl>	q+
+[10:26]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:26]	<manu1>	ack niklasl
+[10:26]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:26]	<tidoust>	[scribe missed some of Gregg's comments]
+[10:27]	<tidoust>	Niklas: It would be good if we could formulate some concrete suggestion to the RDF WG.
+[10:27]	<tidoust>	… For one, if I understood correctly, the concept of datasets within RDF 1.1 does not allow to nest datasets.
+[10:28]	<tidoust>	gkellogg: correct.
+[10:28]	<gkellogg>	Basically, the argument is that if expecting a graph, a consumer should extract the graph with the name equivalent to the location.
+[10:28]	<gkellogg>	… We can change the to/from RDF algorithm to take a JSON-LD document with only a default graph and output it using a name based on the location.
+[10:29]	<tidoust>	Niklas: it's to me a clear indication, the grouping of triples is clearly outside the notion of graphs. It's just a way to group sets. There should no semantic between the the set of triples and the groups that contain these triples.
+[10:30]	<tidoust>	… The union of triples should be treated the same way as if they were together.
+[10:31]	<tidoust>	… If we make a difference, it's http-range-14 times 10.
+[10:31]	<tidoust>	Manu: So I'm having a hard time finding the difference between your two views. Could you formulate something?
+[10:32]	<tidoust>	gkellogg: I pasted my proposal on IRC: "Basically, the argument is that if expecting a graph, a consumer should extract the graph with the name equivalent to the location."
+[10:33]	<tidoust>	Manu: How does that translate to JSON-LD? Content-negotiating between Turtle and JSON-LD, what would the resulting JSON-LD graph contain?
+[10:33]	<tidoust>	gkellogg: with my proposal, if you have a named graph, you use that, otherwise you use the default graph.
+[10:33]	<tidoust>	Manu: How does that affect the JSON-LD document?
+[10:33]	<mlnt>	My proposal would be to say that you can use JSON-LD as a graph source. The consumer would just use the default graph in that case
+[10:34]	<tidoust>	gkellogg: It doesn't. If we're returning quads in JSON-LD. With no name, the intent is clear. If the name is the same-document relative URI, then that's the same thing.
+[10:35]	<mlnt>	The problem is (as I've found out last week) that graphs can be treated as logical expressions, but not datasets
+[10:35]	<mlnt>	see: http://www.w3.org/2011/rdf-wg/meeting/2012-11-21#line0244
+[10:35]	<tidoust>	gkellogg: It does not have implications on the JSON-LD syntax.
+[10:37]	<tidoust>	Manu: I guess I'm unclear about the differences between what you're proposing and what Markus is proposing.
+[10:38]	<tidoust>	… It seems that your proposals are parallel. Neither of them requires us to change JSON-LD at all.
+[10:38]	<tidoust>	mlnt: If I understood Gregg correctly, there would be no default graph when turning to RDF
+[10:39]	<tidoust>	gkellogg: when turning to RDF, that's correct. It would return quads that are named according to the document location. This would address the use case where the default graph is used to provide provenance information.
+[10:39]	<tidoust>	mlnt: You prevent another use case. You cannot put anything in the default graph.
+[10:40]	<tidoust>	gkellogg: No, you can! In JSON-LD, you can have an empty name graph. @graph with an empty object as a value. It doesn't put any triples in the graph.
+[10:40]	<tidoust>	mlnt: you would put the data in the named graph if there is no such named graph in the first place?
+[10:41]	<tidoust>	gkellogg: yes.
+[10:41]	<tidoust>	mlnt: I don't really like that. It means your data moves if you later decide to change the graph and add such a named graph.
+[10:43]	<tidoust>	Niklas: I think the problem here is that the notion of graph is the domain of the keeper of information. In Gregg's example, if you have an URI for the document, and you return a dataset with assertions with a named graph that uses that URI. From a consumer perspective, you would want to put provenance information in your default graph. There is a clash of two worlds. Conflict between default graph and source of each graph.
+[10:43]	<tidoust>	gkellogg: we could just say that provenance information should not be written in the default graph.
+[10:43]	<tidoust>	… That would allow us to use the default graph as now.
+[10:44]	<tidoust>	… We have examples that might be worth re-writing, in particular when we talk about signing information.
+[10:44]	<tidoust>	… Chicken-and-egg situation as a named graph needs to be included in the default graph in JSON-LD
+[10:45]	<tidoust>	Manu: I suggest to push the issue off to the issue tracker. Niklas, Gregg, Markus, please put some proposals there.
+[10:46]	<tidoust>	Niklas: named graph with provenance data. I have minted special URIs for Atom entries. Sort of similar to distinct named graph with provenance information as Gregg suggests.
+[10:46]	<tidoust>	… There may be something substantially useful there.
+[10:46]	<tidoust>	Manu: OK, let's see concrete proposals and get back to it next week.
+[10:46]	<niklasl>	http://www.w3.org/2011/rdf-wg/meeting/2012-11-21#line0285
+[10:46]	<niklasl>	Sandro: "you can treat this is as graph source, if you want, and when you do, you get the default graph"
+[10:47]	<tidoust>	Niklas: Sandro said something that looks like Markus proposal.
+[10:47]	<tidoust>	gkellogg: yes, but we need to think through the provenance issues.
+[10:47]	<manu1>	Topic: ISSUE-113: Define exactly how (IRI) compaction is supposed to work
+[10:47]	<manu1>	https://github.com/json-ld/json-ld.org/issues/113
+[10:48]	<tidoust>	Manu: two proposals on the table with concerns from Markus that we may be missing the point.
+[10:48]	<tidoust>	… This is the whole term-ranking discussion. Markus proposes updates to the algorithm. Gregg and Dave thought it would just be different, not necessarily better.
+[10:48]	<manu1>	PROPOSAL 1: Clarify parts of the IRI compaction algorithm that need to change, but do not change the algorithm in any large way as it works and has been implemented by two different people.
+[10:48]	<manu1>	PROPOSAL 2: Adopt Markus' proposed algorithm above for the IRI compaction algorithm.
+[10:49]	<tidoust>	Manu: It seems first proposal has the most amount of support.
+[10:49]	<tidoust>	… I guess Markus point is that clarification is not enough.
+[10:49]	<tidoust>	mlnt: It's not clear to me what this proposal means. It's too abstract for me.
+[10:50]	<gkellogg>	q+
+[10:50]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[10:50]	<manu1>	ack gkellogg
+[10:50]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[10:50]	<tidoust>	Manu: The main thing that proposal is trying to convey is that the algorithm is the one that is in the spec. So it's about clarifying the parts that are not clear.
+[10:50]	<tidoust>	gkellogg: This also intersects with possible changes we need to make to deal with property generators.
+[10:51]	<tidoust>	… and language maps. It's possible that the term ranking algorithm may need to be revisited in light of these. If it does, it could be good to improve it if we can.
+[10:51]	<tidoust>	Manu: If we work on it heavily, it could modify a number of test cases.
+[10:52]	<tidoust>	gkellogg: It's easy to find test cases that will be more appropriately dealt with by a given algorithm, but that's not the point of test cases which should test the actual algorithm that is in the spec.
+[10:52]	<tidoust>	… If you're abusing term ranking with lists.
+[10:52]	=-=	linclark|afk is now known as linclark
+[10:53]	<tidoust>	… I guess we should make things much simpler in such cases.
+[10:53]	<tidoust>	mlnt: but we never discussed that. It says something in between.
+[10:54]	<tidoust>	Manu: The best way to solve it might be to re-write the algorithm. If it addresses the compaction issues, I don't really care what it looks like. It needs to be simple and do the job. Someone just needs to do it.
+[10:55]	<tidoust>	mlnt: I don't care if it's my algorithm but I do care what the output of the algorithm is. That's why I would like to decide what the desired output is.
+[10:55]	<tidoust>	gkellogg: I think it's clear for everything but lists.
+[10:55]	<niklasl>	q+
+[10:55]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:55]	<tidoust>	… It's really when you get to what is the best term to use for a list that things get tricky.
+[10:56]	<manu1>	ack niklasl
+[10:56]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:56]	<manu1>	q+
+[10:56]	<voip-ld>	Added manu1 to the speaker queue: manu1
+[10:56]	<tidoust>	… I can certainly see that I might want to select a term to express that list. When you have a list with different languages, it's a bit nonsensical.
+[10:56]	<tidoust>	Niklas: The only applicable term with mixed content should be the one that has no type and language. You can't split the list. That's the simplest solution to me.
+[10:57]	<tidoust>	... If it's a mixed list, you must treat that data with lots of inline knowledge in your code.
+[10:58]	<manu1>	ack manu1
+[10:58]	<voip-ld>	manu1 has the floor. The speaker queue is empty.
+[10:58]	<tidoust>	gkellogg: That would alter the algorithm as it is written now to reject a term [scribe missed exact change, it's kind of hard to scribe algorithms expressed orally ;)]
+[11:00]	<tidoust>	Niklas: The only case where I used mixed lists was to report errors. I have to pick up the specific details of that, so no coercion.
+[11:00]	<tidoust>	Manu: Going back, I think we have agreement on how this should work. Someone needs to sit down re-writing the algorithm. Whoever does it first and implements it wins :)
+[11:01]	<tidoust>	… I'm fine with Markus re-writing the algorithm if he takes other people comments into account.
+[11:01]	<tidoust>	gkellogg: This should be the final version.
+[11:01]	<tidoust>	Manu: Right, it should include everything.
+[11:03]	<voip-ld>	Dave Lehn (SIP/6003-0000007c) has joined the conference.
+[11:03]	<manu1>	PROPOSAL: When compacting lists, the most specific term that matches all of the elements in the list, taking into account the default language, must be selected.
+[11:03]	<gkellogg>	+1
+[11:03]	<manu1>	+1
+[11:03]	<tidoust>	+1
+[11:03]	<niklasl>	+1
+[11:03]	<mlnt>	+1
+[11:04]	<manu1>	RESOLVED: When compacting lists, the most specific term that matches all of the elements in the list, taking into account the default language, must be selected.
+[11:05]	<tidoust>	Manu: do we need to do anything else to address this issue here?
+[11:05]	<tidoust>	… OK, moving on, then.
+[11:06]	<manu1>	Topic: ISSUE-172: Should each member in a list contribute to term rank?
+[11:06]	<manu1>	https://github.com/json-ld/json-ld.org/issues/172
+[11:07]	<tidoust>	Manu: Basically, that's what we just discussed. The answer is "yes" but not quite straightforward. Each member in the list is checked and the most specific term that matches all the elements in the list is taken.
+[11:07]	<manu1>	Topic: ISSUE-200: JSON-LD API Review by Robin Berjon
+[11:07]	<manu1>	https://github.com/json-ld/json-ld.org/issues/200
+[11:07]	<tidoust>	Manu: Review by Robin Berjon.
+[11:07]	<tidoust>	… Ivan felt that it would be good to have an API review by someone that has a lot of experience with WebIDL and Javascript APIs.
+[11:08]	<tidoust>	… I see that Markus has already responded.
+[11:08]	<tidoust>	gkellogg: I certainly think we should talk about the use of IRI vs. URL.
+[11:08]	* tidoust	there may be other inhabited planets!
+[11:09]	<tidoust>	Manu: Robin suggests we use URL instead of IRI, even though IRI is more correct.
+[11:09]	<tidoust>	gkellogg: HTML5 modifies what URL means, at least last time I checked, and we put some provision in RDFa I think about that.
+[11:10]	<tidoust>	Manu: The plan is to update the URL spec to absorb the IRI spec, but not positive about that.
+[11:10]	<tidoust>	q+
+[11:10]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[11:10]	<tidoust>	voip: unmute me
+[11:10]	<voip-ld>	tidoust has been unmuted.
+[11:10]	<manu1>	ack tidoust
+[11:10]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[11:11]	<manu1>	tidoust: One thing that wasn't said - we said we're using URL to mean IRI.
+[11:11]	<taaz>	can i vote for URI? :)
+[11:12]	<gkellogg>	http://dev.w3.org/html5/spec/single-page.html#resolving-urls
+[11:15]	<tidoust>	gkellogg: maybe URI, at it's most commonly understood than IRI. We could use URI and say that we conform to IRI spec.
+[11:15]	<tidoust>	voip: mute me
+[11:15]	<voip-ld>	tidoust has been muted.
+[11:16]	<tidoust>	niklas: The problem is that, technically, URI and IRI are not the same thing. I think we should stick to IRI until someone is really pushing for the change.
+[11:16]	<tidoust>	Manu: Agree, let's move on.
+[11:16]	<tidoust>	[Manu going over Robin's comments]
+[11:17]	<tidoust>	Manu: changing JSON Object to reference JSON spec?
+[11:17]	<tidoust>	Markus: yes, much clearer in Syntax spec.
+[11:18]	<tidoust>	[discussion on NoInterfaceObject on JsonLdProcessor]
+[11:18]	<tidoust>	Manu: I'm going to push back on that.
+[11:19]	<tidoust>	… that's how JSON works. JSON.parse, JSON.stringify.
+[11:19]	<tidoust>	… that's probably what we want to follow.
+[11:19]	<tidoust>	mlnt: You could have a private constructor.
+[11:20]	<tidoust>	Manu: we might want to ask the whatwg channel. I'm not convinced that constructors are the right way to go. That's what I did previously and received a lot of pushback.
+[11:21]	<tidoust>	Manu: ref. asynchronous/synchronous. We could say that this is an asynchronous API but that implementations in other languages may use a synchronous version.
+[11:21]	<voip-ld>	<unknown> (IAX2/diamondcard-1885) has left the conference.
+[11:21]	<tidoust>	… I don't think that adding a synchronous API buys us a lot of things.
+[11:22]	<tidoust>	Niklas: do we need to rephrase the note that it's only when you don't want to implement the API but want to follow the gist of it.
+[11:23]	<tidoust>	Manu: Yes, we should clarify the wording. I also think we should not specify a synchronous API and we should also not claim that the API is the only way to implement the algorithms.
+[11:23]	<mlnt>	I think the spec is quite clear on this: http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessor
+[11:23]	<tidoust>	Manu: ref. error constants, that's true, something we never have had time to review so far.
+[11:23]	* mlnt	manu1, forgot to mention that before.. I already changed JsonLdProcessor from NoInterfaceObject.. feel free to revert if you think that was wrong or start a discussion in the commit
+[11:24]	<tidoust>	Manu: ref. losing information, I'm pretty that's what we're doing.
+[11:24]	<tidoust>	gkellogg: we lose information for terms that are not defined.
+[11:25]	<tidoust>	mlnt: we still have a constant that is not used anywhere. That may have triggered the comment.
+[11:25]	<tidoust>	… "lossy compaction", let's remove that.
+[11:26]	<tidoust>	Manu: re. modification in place, it's true. We should be probably be modifying a copy of the provided input.
+[11:26]	<tidoust>	mlnt: yes.
+[11:26]	<tidoust>	Manu: re. "string" and "number" in WebIDL. OK, we'll have a look at WebIDL for numbers.
+[11:28]	<tidoust>	Manu: re. toRDF designed wrong, true for the final call. We wanted to provide feedback about how many triples has been generated. I'm afraid that if we call back with an array of quads, that would make a lot of data. That said, we'll need to keep that data in memory, so that memory is needed anyway. Does anyone have a feeling about one callback total vs. one callback per quad?
+[11:29]	<tidoust>	mlnt: It's much easier to pass all the quads at once.
+[11:29]	<tidoust>	gkellogg: Agree.
+[11:29]	<tidoust>	Niklas: any way to say that it's an enumerable of any kind in WebIDL?
+[11:29]	<tidoust>	Manu: I don't think so.
+[11:30]	<manu1>	PROPOSAL: The callback signature for the .toRDF() method should accept Quad[]. That is, the callback is called once after all processing has been completed.
+[11:30]	<gkellogg>	+1
+[11:30]	<manu1>	+1
+[11:30]	<tidoust>	+1
+[11:30]	<niklasl>	+1
+[11:30]	<mlnt>	+1
+[11:30]	<taaz>	+0
+[11:30]	* gkellogg	need to go now.
+[11:30]	<manu1>	RESOLVED: The callback signature for the .toRDF() method should accept Quad[]. That is, the callback is called once after all processing has been completed.
+[11:30]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000078) has left the conference.
+[11:31]	<tidoust>	mlnt: one quick question about error handler that Dave was to work on?
+[11:31]	<tidoust>	Manu: no news up until the end of the year, I think. Maybe we should simplify that. Markus, is that you would suggest?
+[11:31]	<tidoust>	mlnt: yes.
+[11:32]	<tidoust>	Manu: feel free to do that and let's see how it looks like after that. If fixing the data really ends up being necessary, we can always improve that later on, but I would expect people to lint the data before they pass it on to the processor.
+[11:32]	<tidoust>	[Call adjourned]

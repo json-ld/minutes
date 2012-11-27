@@ -1,0 +1,265 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-11-27</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0019.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Nov/0019.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-182: Dataset vs. Graph</a><li><a href="#topic-2">ISSUE-113: Define exactly how (IRI) compaction is supposed to work</a><li><a href="#topic-3">ISSUE-172: Should each member in a list contribute to term rank?</a><li><a href="#topic-4">ISSUE-200: JSON-LD API Review by Robin Berjon</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">When compacting lists, the most specific term that matches all of the elements in the list, taking into account the default language, must be selected.</a><li><a href="#resolution-2">The callback signature for the .toRDF() method should accept Quad[]. That is, the callback is called once after all processing has been completed.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>François Daoust, Markus Lanthaler, Manu Sporny, Gregg Kellogg, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">François Daoust is scribing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: We should discuss <a href="https://github.com/json-ld/json-ld.org/issues/182">https://github.com/json-ld/json-ld.org/issues/182</a> first, there was some discussion about it on last week's RDF WG telecon.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-182: Dataset vs. Graph</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I gave a quick update on JSON-LD during last week's RDF telecon</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://www.w3.org/2011/rdf-wg/track/issues/105">http://www.w3.org/2011/rdf-wg/track/issues/105</a></div>
+<div class="comment-continuation">… and we came across issue 105 about dataset syntaxes vs. graph syntaxes</div>
+<div class="comment-continuation">… the issue is that if we dereference a URI and get a graph, it wouldn't be the same as getting a dataset even if the data is the same.</div>
+<div class="comment-continuation">… One solution is that we put in JSON-LD spec that we treat the data in the default graph in the JSON-LD Dataset as the graph in a usual graph-based serialization.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That seems a reasonable way to address the issue.</div>
+<div class="comment-continuation">… What you're saying is that the RDF WG wouldn't have a problem with that?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The RDF WG does not say anything about these semantics.</div>
+<div class="comment-continuation">… Richard made the comment that this could be generalized. The idea would be that we come up with a proposal and push it to the RDF WG. They don't have a lot of interest in the issue otherwise and might just close it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I wonder if default graph is really the right choice.</div>
+<div class="comment-continuation">… Let's say that you have a datasource in Turtle that describes a book.</div>
+<div class="comment-continuation">… It would be natural to put the metadata about the book in the default graph in JSON-LD.</div>
+<div class="comment-continuation">… and you could put the description of the book in the named graph whose name is the location of the document.</div>
+<div class="comment-continuation">… If the @graph keyword is used, then perhaps it makes things more explicit.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It seems that it would be more of a Best Practice thing.</div>
+<div class="comment-continuation">… Does not seem to require any MUST or SHOULD.</div>
+<div class="comment-continuation">… It seems that what Markus is proposing is easier.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's less a JSON-LD issue than a dataset issue.</div>
+<div class="comment-continuation">… If you use a dataset in a graph, you could use all the data, and it's not wrong. You'd have more data.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  also discussed during the telecom, but that would mean that you could not generically do content-negotiation with JSON-LD because it would be up to the application to decide where it puts the information.</div>
+<div class="comment-continuation">… By default, if you put all info in a named graph that has the same URI, you end up with sort of two default graphs, which sounds weird.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that would be two named graphs.</div>
+<div class="comment-continuation">… Question is what does the receiver do with the data it receives?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  problem is that there would be no way to interpret the data in a generic way.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we just need to describe what the behavior should be on the client side.</div>
+<div class="comment-continuation">… I could see an argument for just flattening, basically just stripping off the named graphs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  concerned about data loss, meaning references to the named graph.</div>
+<div class="comment-continuation">… We don't know where the triple originate from.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the only other solution would be to reify it. No, thank you.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  most natural thing would be to use the default graph. If the server is mixing and matching datasets and graphs, the lowest denominator should be used, which means the default graph.</div>
+<div class="information">[discussion about Payswarm implementation]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it seems to me that there is a trend towards supporting named graphs.</div>
+<div class="comment-continuation">… I can certainly see that happening. I think it would be natural to do things. Signing information is useful use case.</div>
+<div class="comment-continuation">… The source of the important info is likely to be in a named graph unless we add more semantics to the default graph.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in the use case where there is signature, the "default" graph is effectively going to be named.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, and the name could be the URI of the document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  In PaySwarm, we actually don't use named graphs yet because RDFa doesn't support them yet. We talk about the signature on the graph as another set of triples, which is a bit awkward, but it works.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could support some of it in the RDF conversion algorithms. One of Robin's comment is about calling only one callback. We could do some magic there if we have that.</div>
+<div class="comment-continuation">… I think we really want to push JSON-LD to the main frame of RDF, not to the fringe.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1, this is the crucial part</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not just JSON-LD. For JSON-LD, document is generally limited, but in quads, it can be gigabytes, and you cannot wait up until you have ingested the whole thing before asserting things.</div>
+<div class="information">[scribe missed some of Gregg's comments]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It would be good if we could formulate some concrete suggestion to the RDF WG.</div>
+<div class="comment-continuation">… For one, if I understood correctly, the concept of datasets within RDF 1.1 does not allow to nest datasets.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  correct.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Basically, the argument is that if expecting a graph, a consumer should extract the graph with the name equivalent to the location.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: … We can change the to/from RDF algorithm to take a JSON-LD document with only a default graph and output it using a name based on the location.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it's to me a clear indication, the grouping of triples is clearly outside the notion of graphs. It's just a way to group sets. There should no semantic between the the set of triples and the groups that contain these triples.</div>
+<div class="comment-continuation">… The union of triples should be treated the same way as if they were together.</div>
+<div class="comment-continuation">… If we make a difference, it's http-range-14 times 10.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So I'm having a hard time finding the difference between your two views. Could you formulate something?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I pasted my proposal on IRC: "Basically, the argument is that if expecting a graph, a consumer should extract the graph with the name equivalent to the location."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  How does that translate to JSON-LD? Content-negotiating between Turtle and JSON-LD, what would the resulting JSON-LD graph contain?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  with my proposal, if you have a named graph, you use that, otherwise you use the default graph.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  How does that affect the JSON-LD document?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: My proposal would be to say that you can use JSON-LD as a graph source. The consumer would just use the default graph in that case</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It doesn't. If we're returning quads in JSON-LD. With no name, the intent is clear. If the name is the same-document relative URI, then that's the same thing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: The problem is (as I've found out last week) that graphs can be treated as logical expressions, but not datasets</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: see: <a href="http://www.w3.org/2011/rdf-wg/meeting/2012-11-21#line0244">http://www.w3.org/2011/rdf-wg/meeting/2012-11-21#line0244</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It does not have implications on the JSON-LD syntax.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I guess I'm unclear about the differences between what you're proposing and what Markus is proposing.</div>
+<div class="comment-continuation">… It seems that your proposals are parallel. Neither of them requires us to change JSON-LD at all.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If I understood Gregg correctly, there would be no default graph when turning to RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when turning to RDF, that's correct. It would return quads that are named according to the document location. This would address the use case where the default graph is used to provide provenance information.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You prevent another use case. You cannot put anything in the default graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No, you can! In JSON-LD, you can have an empty name graph. @graph with an empty object as a value. It doesn't put any triples in the graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you would put the data in the named graph if there is no such named graph in the first place?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't really like that. It means your data moves if you later decide to change the graph and add such a named graph.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the problem here is that the notion of graph is the domain of the keeper of information. In Gregg's example, if you have an URI for the document, and you return a dataset with assertions with a named graph that uses that URI. From a consumer perspective, you would want to put provenance information in your default graph. There is a clash of two worlds. Conflict between default graph and source of each graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could just say that provenance information should not be written in the default graph.</div>
+<div class="comment-continuation">… That would allow us to use the default graph as now.</div>
+<div class="comment-continuation">… We have examples that might be worth re-writing, in particular when we talk about signing information.</div>
+<div class="comment-continuation">… Chicken-and-egg situation as a named graph needs to be included in the default graph in JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I suggest to push the issue off to the issue tracker. Niklas, Gregg, Markus, please put some proposals there.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  named graph with provenance data. I have minted special URIs for Atom entries. Sort of similar to distinct named graph with provenance information as Gregg suggests.</div>
+<div class="comment-continuation">… There may be something substantially useful there.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, let's see concrete proposals and get back to it next week.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://www.w3.org/2011/rdf-wg/meeting/2012-11-21#line0285">http://www.w3.org/2011/rdf-wg/meeting/2012-11-21#line0285</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Sandro: "you can treat this is as graph source, if you want, and when you do, you get the default graph"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Sandro said something that looks like Markus proposal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, but we need to think through the provenance issues.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-113: Define exactly how (IRI) compaction is supposed to work</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/113">https://github.com/json-ld/json-ld.org/issues/113</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two proposals on the table with concerns from Markus that we may be missing the point.</div>
+<div class="comment-continuation">… This is the whole term-ranking discussion. Markus proposes updates to the algorithm. Gregg and Dave thought it would just be different, not necessarily better.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: PROPOSAL 1: Clarify parts of the IRI compaction algorithm that need to change, but do not change the algorithm in any large way as it works and has been implemented by two different people.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: PROPOSAL 2: Adopt Markus' proposed algorithm above for the IRI compaction algorithm.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It seems first proposal has the most amount of support.</div>
+<div class="comment-continuation">… I guess Markus point is that clarification is not enough.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's not clear to me what this proposal means. It's too abstract for me.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The main thing that proposal is trying to convey is that the algorithm is the one that is in the spec. So it's about clarifying the parts that are not clear.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This also intersects with possible changes we need to make to deal with property generators.</div>
+<div class="comment-continuation">… and language maps. It's possible that the term ranking algorithm may need to be revisited in light of these. If it does, it could be good to improve it if we can.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If we work on it heavily, it could modify a number of test cases.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's easy to find test cases that will be more appropriately dealt with by a given algorithm, but that's not the point of test cases which should test the actual algorithm that is in the spec.</div>
+<div class="comment-continuation">… If you're abusing term ranking with lists.</div>
+<div class="comment-continuation">… I guess we should make things much simpler in such cases.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but we never discussed that. It says something in between.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The best way to solve it might be to re-write the algorithm. If it addresses the compaction issues, I don't really care what it looks like. It needs to be simple and do the job. Someone just needs to do it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't care if it's my algorithm but I do care what the output of the algorithm is. That's why I would like to decide what the desired output is.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's clear for everything but lists.</div>
+<div class="comment-continuation">… It's really when you get to what is the best term to use for a list that things get tricky.</div>
+<div class="comment-continuation">… I can certainly see that I might want to select a term to express that list. When you have a list with different languages, it's a bit nonsensical.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The only applicable term with mixed content should be the one that has no type and language. You can't split the list. That's the simplest solution to me.</div>
+<div class="comment-continuation">... If it's a mixed list, you must treat that data with lots of inline knowledge in your code.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That would alter the algorithm as it is written now to reject a term [scribe missed exact change, it's kind of hard to scribe algorithms expressed orally ;)]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The only case where I used mixed lists was to report errors. I have to pick up the specific details of that, so no coercion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Going back, I think we have agreement on how this should work. Someone needs to sit down re-writing the algorithm. Whoever does it first and implements it wins :)</div>
+<div class="comment-continuation">… I'm fine with Markus re-writing the algorithm if he takes other people comments into account.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This should be the final version.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Right, it should include everything.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  When compacting lists, the most specific term that matches all of the elements in the list, taking into account the default language, must be selected.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> When compacting lists, the most specific term that matches all of the elements in the list, taking into account the default language, must be selected.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we need to do anything else to address this issue here?</div>
+<div class="comment-continuation">… OK, moving on, then.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-172: Should each member in a list contribute to term rank?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/172">https://github.com/json-ld/json-ld.org/issues/172</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Basically, that's what we just discussed. The answer is "yes" but not quite straightforward. Each member in the list is checked and the most specific term that matches all the elements in the list is taken.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-200: JSON-LD API Review by Robin Berjon</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/200">https://github.com/json-ld/json-ld.org/issues/200</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Review by Robin Berjon.</div>
+<div class="comment-continuation">… Ivan felt that it would be good to have an API review by someone that has a lot of experience with WebIDL and Javascript APIs.</div>
+<div class="comment-continuation">… I see that Markus has already responded.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I certainly think we should talk about the use of IRI vs. URL.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Robin suggests we use URL instead of IRI, even though IRI is more correct.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  HTML5 modifies what URL means, at least last time I checked, and we put some provision in RDFa I think about that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The plan is to update the URL spec to absorb the IRI spec, but not positive about that.</div>
+<div class="comment"><span class="name">François Daoust</span>:  One thing that wasn't said - we said we're using URL to mean IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>: can i vote for URI? :)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://dev.w3.org/html5/spec/single-page.html#resolving-urls">http://dev.w3.org/html5/spec/single-page.html#resolving-urls</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe URI, at it's most commonly understood than IRI. We could use URI and say that we conform to IRI spec.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The problem is that, technically, URI and IRI are not the same thing. I think we should stick to IRI until someone is really pushing for the change.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agree, let's move on.</div>
+<div class="information">[Manu going over Robin's comments]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  changing JSON Object to reference JSON spec?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, much clearer in Syntax spec.</div>
+<div class="information">[discussion on NoInterfaceObject on JsonLdProcessor]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm going to push back on that.</div>
+<div class="comment-continuation">… that's how JSON works. JSON.parse, JSON.stringify.</div>
+<div class="comment-continuation">… that's probably what we want to follow.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You could have a private constructor.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we might want to ask the whatwg channel. I'm not convinced that constructors are the right way to go. That's what I did previously and received a lot of pushback.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ref. asynchronous/synchronous. We could say that this is an asynchronous API but that implementations in other languages may use a synchronous version.</div>
+<div class="comment-continuation">… I don't think that adding a synchronous API buys us a lot of things.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  do we need to rephrase the note that it's only when you don't want to implement the API but want to follow the gist of it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we should clarify the wording. I also think we should not specify a synchronous API and we should also not claim that the API is the only way to implement the algorithms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I think the spec is quite clear on this: <a href="http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessor">http://json-ld.org/spec/latest/json-ld-api/#jsonldprocessor</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ref. error constants, that's true, something we never have had time to review so far.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ref. losing information, I'm pretty that's what we're doing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we lose information for terms that are not defined.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we still have a constant that is not used anywhere. That may have triggered the comment.</div>
+<div class="comment-continuation">… "lossy compaction", let's remove that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  re. modification in place, it's true. We should be probably be modifying a copy of the provided input.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  re. "string" and "number" in WebIDL. OK, we'll have a look at WebIDL for numbers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  re. toRDF designed wrong, true for the final call. We wanted to provide feedback about how many triples has been generated. I'm afraid that if we call back with an array of quads, that would make a lot of data. That said, we'll need to keep that data in memory, so that memory is needed anyway. Does anyone have a feeling about one callback total vs. one callback per quad?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's much easier to pass all the quads at once.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Agree.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  any way to say that it's an enumerable of any kind in WebIDL?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think so.</div>
+<div class="proposal"><strong>PROPOSAL:</strong>  The callback signature for the .toRDF() method should accept Quad[]. That is, the callback is called once after all processing has been completed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> The callback signature for the .toRDF() method should accept Quad[]. That is, the callback is called once after all processing has been completed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  one quick question about error handler that Dave was to work on?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no news up until the end of the year, I think. Maybe we should simplify that. Markus, is that you would suggest?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  feel free to do that and let's see how it looks like after that. If fixing the data really ends up being necessary, we can always improve that later on, but I would expect people to lint the data before they pass it on to the processor.</div>
+<div class="information">[Call adjourned]</div>
+</body>
+</html>
