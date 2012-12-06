@@ -1,0 +1,188 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-12-04</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0004.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0004.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Algorithm updates</a><li><a href="#topic-2">ISSUE-157: JSON-LD mapping to RDF terminology</a><li><a href="#topic-3">ISSUE-184: Definition of JSON-LD processor in the API spec</a><li><a href="#topic-4">ISSUE-153: Define error handler behavior</a><li><a href="#topic-5">ISSUE-182: Graph vs. DataSet</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">The JSON-LD API specification will define two products: 1) A JSON-LD Implementation, and 2) A JSON-LD Processor, which is dependent on a valid JSON-LD Implementation and implements the asynchronous API.</a><li><a href="#resolution-2">Simplify the error handling mechanism by passing an error object to the callbacks which only consists of an error code and an optional error message containing additional information for debugging.</a><li><a href="#resolution-3">State in the syntax spec that JSON-LD can be used as a RDF graph source. A consumer would just use the default graph and ignore all named graphs in that case. This would allow a server to use, e.g., both Turtle and JSON-LD in content negotiation.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Niklas Lindström, François Daoust, Gregg Kellogg</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Algorithm updates</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  The algorithms need to be revised.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley and I are going to go through and clean up the algorithms near Dec. 15th</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm going to update my JSON-LD processor this week, I hope to update the algorithms as well.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Hopefully, I'm going to have time to get back to the RDFa Labs stuff (which is JSON-LD under the hood)</div>
+<div class="comment"><span class="name">François Daoust</span>: [one thing to clean up: remove statements such as "If context is a string, it must have a lexical form of IRI" since that's a syntax consideration (and it's defined in the syntax spec), not a processing step]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I copied some of the JSON-LD implementation stuff as a result, if I have time I will be able to read through it and comment on it. I'd really like to be able to factor out the framing stuff.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-157: JSON-LD mapping to RDF terminology</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/157">https://github.com/json-ld/json-ld.org/issues/157</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Richard was going to write this section, was too busy, Markus is going to write this up.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#data-model">http://json-ld.org/spec/latest/json-ld-syntax/#data-model</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I took an action to take over the RDF re-write, I put something in the syntax spec which is more-or-less what Richard has in his draft. It has a few clarifications and some things he misunderstood.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf">http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That should explain the whole data model in all of it's detail and make it easy to map it to RDF. The relationship to RDF section is quite short at the moment, there are not many differences.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We need some reviews of those two sections, don't know if they're happy with it yet.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We strongly advise against using bnodes for properties, right?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes.</div>
+<div class="comment"><span class="name">François Daoust</span>:  Just one comment - we had removed MAY SHOULD or MUST from the data model. There should be constraints on the syntax itself, but not the data model.</div>
+<div class="comment"><span class="name">François Daoust</span>:  It's fine to say that the data model will be an IRI... but the grammar section should say SHOULD NOT use a bnode.</div>
+<div class="information">Discussion about data model section, relationship to RDF, and ensuring that we address all of the issues brought up by the RDF WG. The group believes that the changes will address everything raised by the RDF WG.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-184: Definition of JSON-LD processor in the API spec</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/184">https://github.com/json-ld/json-ld.org/issues/184</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In general, I introduced a product which is a JSON-LD processor, which is the only product that the spec defines.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I didn't say anything about parsing because a processor normally uses a JSON parser for parsing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I didn't say anything about transforming data to a dataset or anything else - it just transforms the document. I'm not sure if that's enough.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought we'd have two classes of product: A "JSON-LD processor" and a "JSON-LD API implementation" (or some other name). [scribe assist by François Daoust]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Could you say something like: your JSON-LD processor must be compliant with the algorithms, it can also be be compliant with the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we should have two products, seems like two different things.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why would you want to do one and not the other?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Some programming languages make it difficult to implement the asynchronous API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Some developers would rather have a synchronous API, which we're not going to spec out. We also want to leave room for people to innovate on the API portion, as we may not provide something that is the best API for certain use cases.</div>
+<div class="comment"><span class="name">François Daoust</span>:  This is a way to defend the API - it's a way to keep the API in the spec, having two products. Not having two products will create a wall in the RDF working group - only need algorithms, don't need the API. Not having the API tied to a product diminishes its value in the spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we have two levels of implementation? Level 1 and Level 2.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This is like having a processor supporting XML Infoset... and then having a DOM implementation on top of that.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The JSON-LD API specification will define two products: 1) A JSON-LD Processor, and 2) An Implementation of the JSON-LD API, which is dependent on a valid JSON-LD Processor implementation.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. 1) A JSON-LD Processor, and 2) A JSON-LD API compliant Processor…?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What about 1) A JSON-LD Processor, and 2) A JSON-LD Processor and API ?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: maybe, a "JSON-LD Processor conformant to the JSON-LD API" or a "JSON-LD Processor implementing the JSON-LD API"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: 1) A JSON-LD Processor, and 2) A JSON-LD API implementation, which is a JSON-LD Processor</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The JSON-LD API specification will define two products: 1) A JSON-LD Implementation, and 2) A JSON-LD Processor, which is dependent on a valid JSON-LD Implementation.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.5</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 (equally happy with other terms)</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> The JSON-LD API specification will define two products: 1) A JSON-LD Implementation, and 2) A JSON-LD Processor, which is dependent on a valid JSON-LD Implementation and implements the asynchronous API.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-153: Define error handler behavior</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/153">https://github.com/json-ld/json-ld.org/issues/153</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Initially I had wanted us to try and figure out a way that a developer could signal that they wanted certain recoverable errors to be recovered automatically, or they'd provide the proper interpretation, or they would signal that processing should stop. A number of folks felt that was overkill, so the proposal on the table is to simplify the error mechanism to just a simple error callback mechanism with an error code and a message.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Simplify the error handling by passing an error object to the callbacks which only consists of an error code and an optional error message containing additional information for debugging.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Simplify the error handling mechanism by passing an error object to the callbacks which only consists of an error code and an optional error message containing additional information for debugging.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we halt on recoverable errors?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if it's recoverable, is it an error?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, for example - list_of_lists is recoverable, but it's also an error.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I have a feature in my processor which is a 'validate' mode.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Should the processor stop processing the local object, but continue on error?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I feel like we should process as much as you can, so you can find as many errors as you can.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  A way to say 'stop processing' when you encounter an error is useful.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We can have a runtime flag to say "stop when you hit an error" or "continue if you can, on error"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have a problem if we're going to start halting on errors that should be recoverable. If the XHTML vs. HTML5 debate has taught us anything, it's that processors should try to go as far as they reasonably can, sometimes changing the output drastically in order to not throw an error and "fix" the input to be something reasonable.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, but if we do that, the algorithms are going to get far more complex... we have to cover every error case and how to recover from it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I see your point, but I think that would be better than halting.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we need at least two levels of errors - errors and fatal errors. We want to give folks warnings that their input is broken in some way and we "fixed" it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  At the moment, the algorithms are defined for well-formed documents only. It's up to the processors to produce warnings if they want to, but they can do that however they want to.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that we should use this error/issue mechanism to report both warnings and errors.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Then we risk having this issue drawn out for a much longer time - this issue has already taken a long time to deal with.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The reason this issue has been open for such a long time is that it's difficult to define error behavior for each of these cases.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the reason is the complexity of the API callback, not having error recovery conditions.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: We need something like: "it is an error to use @type and @language in the same element. If that happens, a processor should ignore [one of them] and issue a warning." I.e. that is a usage error but doesn't result in a processor error, only a warning? What are the fatal errors?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm wondering where we're going here - the second proposal seems like it may or may not prohibit "Processing MUST be stopped after an error is triggered".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in RDFa, we recently agreed to describe the redefinition of a prefix as a warning. This may come up in JSON-LD as a warning.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  malformed IRIs can also be warnings.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  A processor should be able to classify that as an error, but a non-fatal error.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm thinking of the two different situations, where you have a JSON-LD processor (one is during development - you may have odd data - raise a warning and continue on errors)... in production mode, you might want to halt on the first warning/error. I wouldn't want to define something in the spec where one of these cases is excluded.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In development, you want more debug output - it's not just about warnings/errors. I don't think we need to specify that in the spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's dependent on implementations - some might want to debug, do warnings and errors.</div>
+<div class="information">more discussion on how to get warnings to developers.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we need 'warnings', 'errors', and 'fatal errors'</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You could just deal with this in the error callback - throw an error if you want to stop, don't do it if you don't.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The issue here is we need some way of saying 'warnings', 'errors', or 'fatal errors'.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What would need to be added?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We just need a flag on the 'error', stating whether it's a 'warning', 'error', or 'fatal error'.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We've burned a lot of call time discussing this. Let's go back to the issue tracker and get some concrete proposals down, straw-poll those through the issue tracker, and revisit this issue when we have something solid we can propose.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-182: Graph vs. DataSet</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/182">https://github.com/json-ld/json-ld.org/issues/182</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The RDF WG has kicked this issue back to us and told us that we need to drive the issue. I think we're all in agreement here on what needs to be done. So, let's see if we have consensus here, and if we do, we'll tell the RDF WG that this is where we have consensus.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> State in the syntax spec that JSON-LD can be used as a RDF graph source. A consumer would just use the default graph and ignore all named graphs in that case. This would allow a server to use, e.g., both Turtle and JSON-LD in content negotiation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/182#issuecomment-10973315">https://github.com/json-ld/json-ld.org/issues/182#issuecomment-10973315</a></div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> State in the syntax spec that JSON-LD can be used as a RDF graph source. A consumer would just use the default graph and ignore all named graphs in that case. This would allow a server to use, e.g., both Turtle and JSON-LD in content negotiation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This resolution is still a bit problematic. For example, in many of the named graphs cases, the default graph would only contain provenance information... the actual data would be contained in a named graph. This is problematic, so maybe servers would have to serve their data in a different way.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The issue with named graphs is that you use them in a different way when you manage your data internally. That's how you handle the quoting of the dataset stuff...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When you ask the system for the JSON-LD document for a named graph, you would get the information from that back in a default graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Well, another proposal I put forward was [scribe missed]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the problem here is that there are many ways to use named graphs and we can't suggest something that is going to work across the board. What we might do is tell people the following: If the top-most JSON Object contains a '@graph' keyword, use that as the 'default graph', if it doesn't contain a '@graph' keyword, use the top-most JSON Object as the default graph. If we do that, then we don't hit the issue that Gregg mentions above.</div>
+</body>
+</html>

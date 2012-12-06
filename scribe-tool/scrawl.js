@@ -16,9 +16,9 @@
 
    /* Standard regular expressions to use when matching lines */
    var commentRx = /^\[(.*)\]\s+\<(.*)\>\s+(.*)$/;
-   var scribeRx = /^scribe:.*$/i;
+   var scribeRx = /^(scribe|scribenick):.*$/i;
    var chairRx = /^chair:.*$/i;
-   var proposalRx = /^(proposal|proposed):.*$/i;
+   var proposalRx = /^(proposal|proposed): ?(.*)$/i;
    var resolutionRx = /^(resolution|resolved): ?(.*)$/i;
    var topicRx = /^topic:\s*(.*)$/i;
    var actionRx = /^action:\s*(.*)$/i;
@@ -317,7 +317,7 @@
           // check for proposal line
           else if(msg.search(proposalRx) != -1)
           {
-             var proposal = msg.split(":")[1];
+             var proposal = msg.match(proposalRx)[2];
              rval = scrawl.proposal(proposal, textMode);
           }
           // check for resolution line
