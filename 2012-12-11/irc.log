@@ -1,0 +1,267 @@
+[Tue 10:09]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0017.html
+[Tue 10:09]	<manu-db>	Topic: JSON-LD .graphify() API
+[Tue 10:09]	<manu-db>	Niklas: I've been working on something - http://niklasl.github.com/rdfa-lab/examples/rdfa-api-comparisons.html
+[Tue 10:10]	<manu-db>	Gregg: looks interesting...
+[Tue 10:10]	<manu-db>	Niklas: The LD.connect() thing is my extension to the JSON-LD API. I'm going to work on it some over the holidays. I'm trying to use local names for everything... maybe raise an error if there are collisions.
+[Tue 10:11]	<manu-db>	Gregg: Ivan had JSON-LD output, he constructed a context on-the-fly based on what the RDFa processor had read.
+[Tue 10:11]	<manu-db>	Niklas: If you are computing things, you could try to figure out the most compact possible context. The JSON you'd get back would be very compact, but it would not work for the more advanced RDFa use cases. It would work for every schema.org use case in existence, which is 90% of every developer that wants this API.
+[Tue 10:11]	<mlnt>	linclark, just out of curiosity: why do you depend on the fact that empty arrays are preserved?
+[Tue 10:12]	<linclark>	mlnt: if you want to remove values from a field on PATCH
+[Tue 10:12]	<manu-db>	Niklas: The graph API may be interesting because you get access to things like property paths. It seems plausible that I could implement this with hooks back to the live DOM tree. Maybe with DOM mutation listeners. If you manipulated the DOM with JS, yo'd be able to see that live when you navigated the graph.
+[Tue 10:12]	<mlnt>	you mean to distinguish between not set vs.
+[Tue 10:12]	<mlnt>	set to empty array
+[Tue 10:13]	<manu-db>	Gregg: I think the first one for schema.org looks quite nice - the inverse of this we don't necessarily have a solution for.
+[Tue 10:13]	<linclark>	mlnt: not set in PATCH means do nothing to that field
+[Tue 10:13]	<linclark>	so if it already has values, you couldn't remove them
+[Tue 10:14]	<manu-db>	Niklas: I've thought a bit more about .connect() - maybe you can add custom indexes for it, the @context is one input... the next one might be definition of indexes and which key you want to use for inverses. Karl Dubost asked for an RDFa API, his example needed something to getByType(). You'd go with the Graph API or the Microdata API (for RDFa) or you'd need a .connect() implementation. I...
+[Tue 10:14]	<manu-db>	...think .connect() gives much more for a fairly cheap price.
+[Tue 10:14]	<mlnt>	linclark, I see.. but it seems to be a bit brittle
+[Tue 10:14]	<manu-db>	Gregg: Since we're not going to do .connect() in this version, we should look for another group to attach that work to.
+[Tue 10:14]	<linclark>	mlnt: what do you think is brittle there?
+[Tue 10:14]	<manu-db>	Niklas: Maybe we should start a CG focused on these sorts of APIs. The RWW group has so much on its schedule.
+[Tue 10:16]	<mlnt>	linclark, well the thing is that if you look at it from a graph perspective (abstract) both are equivalent.. you would have to set it to something likeowl:Nothing to clearly differentiate between the two cases
+[Tue 10:17]	<manu-db>	Niklas: I start a new job at Royal Swedish Library - they're interested in Linked Data, could use a lot of this work there.
+[Tue 10:17]	<mlnt>	linclark, just wanted to point that out.. if it works for you this way it's probably simpler to keep it as is
+[Tue 10:18]	<linclark>	mlnt: cool, thanks for pointing it out
+[Tue 10:18]	* niklasl	is on a shaky connection, I may drop out at times
+[Tue 10:18]	<manu-db>	Topic: ISSUE-200: JSON-LD API Review by Robin Berjon
+[Tue 10:19]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/200
+[Tue 10:19]	<gkellogg>	scribe: gkellogg
+[Tue 10:19]	<gkellogg>	manu: We left off when talking about asynchronous interfaces.
+[Tue 10:20]	<gkellogg>	… The async interface is probably the way to go.
+[Tue 10:20]	<gkellogg>	… We have previously discussed using just the async, but allowing people to use the sync if they like.
+[Tue 10:20]	<gkellogg>	… We also have different conformance levels, sot that implementations can be just processing, and do their own API.
+[Tue 10:21]	<gkellogg>	… Robin notes that we list errors, but don't define constants: we need to do that.
+[Tue 10:21]	<gkellogg>	… We don't need all UPPER CASE errors, we can just use strings.
+[Tue 10:21]	<gkellogg>	… For the API, people are moving away from numbers to text strings.
+[Tue 10:22]	<gkellogg>	markus: We need to collect the text strings or whatever, perhaps in an enum.
+[Tue 10:22]	<gkellogg>	manu: error codes that are numbers aren't too useful; strings are better.
+[Tue 10:22]	<gkellogg>	manu: next item, is loosing information an issue? Should we through an error?
+[Tue 10:23]	<gkellogg>	… Don't return a lossy compaction. If you would loose data, don't compact.
+[Tue 10:23]	<gkellogg>	markus: we don't do that, but we may fail (e.g., List of Lists).
+[Tue 10:24]	<gkellogg>	manu: resonse to robin is that we don't do lossy compaction.
+[Tue 10:24]	<gkellogg>	… robin doesn't want it to through an error, but there are problems if we keep everything around.
+[Tue 10:25]	<gkellogg>	… If you don't specify how a term expands, then it is dropped; typically in expansion.
+[Tue 10:25]	-->|	tidoust_ (~fd@AMontsouris-651-1-237-171.w86-212.abo.wanadoo.fr) has joined #json-ld
+[Tue 10:25]	<tidoust_>	q+
+[Tue 10:25]	<voip-ld>	Added tidoust_ to the speaker queue: tidoust_
+[Tue 10:25]	<manu-db>	ack tidoust_
+[Tue 10:25]	<voip-ld>	tidoust_ has the floor. The speaker queue is empty.
+[Tue 10:25]	<tidoust_>	voip: unmute me
+[Tue 10:25]	<voip-ld>	tidoust_ is not associated with an audio channel. You may specify the first or last name of a person's Caller ID. You may also specify the last 2 or more digits of the audio channel name. You can also map an IRC nickname to an audio channel. Use 'voip-ld: <CHANNEL> is me' to map yourself to an audio channel. Use 'voip-ld: <CHANNEL> is <NICK>' to map someone else to an audio channel.
+[Tue 10:26]	<manu-db>	voip: connections?
+[Tue 10:26]	<voip-ld>	Conference connections: Gregg Kellogg [SIP/10.0.1.18-00000089], getonsip_linclark [SIP/sip.onsip.com-00000087], Markus Lanthaler [SIP/sip.linphone.org-00000088], Manu Sporny [SIP/6000-0000008b], <no name> (tidoust) [IAX2/diamondcard-7580], Niklas Lindström [SIP/192.168.1.94-0000008a]
+[Tue 10:26]	* tidoust_	probably muted with tidiest ;)
+[Tue 10:26]	<manu-db>	voip: unmute 7580
+[Tue 10:26]	<voip-ld>	tidoust has been unmuted.
+[Tue 10:26]	* tidoust_	probably mute with tidoust, I mean
+[Tue 10:27]	<gkellogg>	tidoust: One of the use cases robin may have had in mind is being able to take an arbitrary JSON-LD document and apply a context then compact.
+[Tue 10:27]	<gkellogg>	… If you do that, there may still be problems in compaction. Are there workarounds? Keep it in expanded form?
+[Tue 10:27]	<gkellogg>	manu: if it expands correctly, it will stay expanded if you don't have a mapping when you comact.
+[Tue 10:28]	<gkellogg>	… you can get errors in either expansion or compaction. It depends on what you're doing, but in general, if you have a successful expansion, you will not loose data when compaction; it just may not completely compact.
+[Tue 10:29]	<tidoust_>	voip: mute me
+[Tue 10:29]	<voip-ld>	tidoust_ is not associated with an audio channel. You may specify the first or last name of a person's Caller ID. You may also specify the last 2 or more digits of the audio channel name. You can also map an IRC nickname to an audio channel. Use 'voip-ld: <CHANNEL> is me' to map yourself to an audio channel. Use 'voip-ld: <CHANNEL> is <NICK>' to map someone else to an audio channel.
+[Tue 10:29]	|<--	tidoust has left freenode (Ping timeout: 240 seconds)
+[Tue 10:29]	=-=	tidoust_ is now known as tidoust
+[Tue 10:30]	<gkellogg>	manu: next thing: you might want to be clear about "copying the input".
+[Tue 10:30]	<gkellogg>	… WebIDL doesn't have number, use one of the appropriate numeric types.
+[Tue 10:31]	<gkellogg>	markus: a JSON number depends on the form, either an integer or a float.
+[Tue 10:31]	<gkellogg>	manu: question is about WebIDL numeric version.
+[Tue 10:32]	<gkellogg>	… change "string" to DOMString, and numbers appropriately.
+[Tue 10:32]	<niklasl>	.. the unsigned long IDL type mapping to the Number type in ECMAScript (from http://www.w3.org/TR/WebIDL/)
+[Tue 10:32]	<manu-db>	voip: mute tidoust
+[Tue 10:32]	<voip-ld>	tidoust has been muted.
+[Tue 10:32]	<mlnt>	For the record, the sourceValue member of JsonLdProcessingError might be a number.. should be an integer but probably we will drop it anyway
+[Tue 10:33]	<gkellogg>	… toRDF is designed wrong; should be a single callback with a quad array.
+[Tue 10:33]	<gkellogg>	… ConformanceCallback: will remove; just not sure how to report "linting" errors through issue feedback.
+[Tue 10:34]	<gkellogg>	… what if the developer doesn't provide a callback?
+[Tue 10:34]	<gkellogg>	markus: question is what if it isn't ever called back?
+[Tue 10:35]	<gkellogg>	manu: issues with IRI definitions ...
+[Tue 10:36]	<gkellogg>	… Better to use dictionary with keys.
+[Tue 10:36]	<gkellogg>	… Basically, he's saying we shouldn't have interfaces, just dictionaries with keys.
+[Tue 10:37]	<gkellogg>	… We want objects to be easily used in developer code.
+[Tue 10:37]	<niklasl>	q+
+[Tue 10:37]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:37]	<gkellogg>	manu: the problem with passing back strings, is you need to do some magic, as you don't know the type of what you're dealing with. Some people will be unhappy no matter what we do.
+[Tue 10:38]	<gkellogg>	… If you do new IRI and new Node, it annoys web apps folks, because it should just be a dictionary.
+[Tue 10:38]	<manu-db>	ack niklasl
+[Tue 10:38]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:38]	<mlnt>	q+
+[Tue 10:38]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:38]	<gkellogg>	… if you use a dict, you're stuck with .type and .value, and it's less elegant.
+[Tue 10:39]	<gkellogg>	niklasl: is this just about to/from RDF?
+[Tue 10:39]	<gkellogg>	manu: this is a general problem, IMO.
+[Tue 10:39]	<gkellogg>	niklasl: until we know what the exact needs are, we're not doing ourselves a favor by defining them. It might be better to just use a dictionary.
+[Tue 10:40]	<gkellogg>	… to/from RDF would just translate one form into another (objects with keys from triples).
+[Tue 10:40]	<gkellogg>	… We also have this in SPARQL JSON output where they have dictionaries.
+[Tue 10:40]	<gkellogg>	… on the other hand, we might not have to define it at all, as the expanded form already references the RDF.
+[Tue 10:41]	<gkellogg>	… This is an argument for getting rid of type definitions, and maybe the to/from RDF API calls themselves.
+[Tue 10:41]	<gkellogg>	… In my work, I just expand JSON-LD or produce it directly.
+[Tue 10:42]	<gkellogg>	… Similarly, I've used expanded JSON-LD to create a graph. Otherwise, it's hard to know where the contract for the JSON-LD API ends. It might be better to just leave this to something else.
+[Tue 10:42]	<gkellogg>	q+
+[Tue 10:42]	<voip-ld>	Added gkellogg to the speaker queue: mlnt, gkellogg
+[Tue 10:42]	<manu-db>	ack mlnt
+[Tue 10:42]	<voip-ld>	mlnt has the floor. The next speaker is gkellogg.
+[Tue 10:42]	<gkellogg>	markus: why can't we just re-use our JSON-LD constructs, @iri, @value, etc.
+[Tue 10:43]	<manu-db>	ack gkellogg
+[Tue 10:43]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:43]	<gkellogg>	… We don't really need to define new structures.
+[Tue 10:43]	<manu-db>	gkellogg: I'm starting to feel like the API is beyond what we want to do. Once you get into the nuances of the API, it becomes a different conversation. Is this something that we should really be spending time on?
+[Tue 10:44]	<manu-db>	gkellogg: We're already postponing .connect() to another CG. Since we've separated the processing from the IDL interface, I'm coming around to that viewpoint.
+[Tue 10:44]	<manu-db>	q+
+[Tue 10:44]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:44]	<niklasl>	q+
+[Tue 10:44]	<voip-ld>	Added niklasl to the speaker queue: manu-db, niklasl
+[Tue 10:44]	<manu-db>	ack manu-db
+[Tue 10:44]	<voip-ld>	manu-db has the floor. The next speaker is niklasl.
+[Tue 10:44]	<gkellogg>	manu: as a data point, this is the exactly the same conversation we went through with the RDFa API.
+[Tue 10:44]	<gkellogg>	… One of the negatives that comes out is that the work doesn't get done, or is delayed.
+[Tue 10:45]	<gkellogg>	… For DB, the API is really important, without a solid API we don't have something to implement against. We'd just end up going off and doing our own thing, and wouldn't sync with an API.
+[Tue 10:46]	<gkellogg>	… If feel like if we through out the API, it's going too far. There are just a few tweaks we need with the API rather than doing wholesale changes.
+[Tue 10:46]	<manu-db>	ack niklasl
+[Tue 10:46]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 10:47]	<gkellogg>	niklasl: I am sympathetic to both positions. Regarding the RDFa API, although it's being asked for, I'm glad we didn't give them what we were originally looking on.
+[Tue 10:47]	<mlnt>	q+
+[Tue 10:47]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:47]	<gkellogg>	… In this case, i have the feeling that the good parts are expand and compact, which needs to be precicely defined. I think that expanded JSON-LD represents RDF.
+[Tue 10:47]	<gkellogg>	… I don't think it's necessary to define an API for that, as it's just data describing itself.
+[Tue 10:48]	<gkellogg>	… We could use those concepts to represent the data and the Nodes represent all we need semantically.
+[Tue 10:48]	<gkellogg>	… I don't see the need for to/from RDF API methods, as other tools can just work with expanded JSON-LD. Saying you need an API indicates that it's something that's hard.
+[Tue 10:49]	<gkellogg>	… we have an array of resource descriptions.
+[Tue 10:49]	<gkellogg>	manu: your argument is to remove the API from the spec?
+[Tue 10:49]	<manu-db>	q+
+[Tue 10:49]	<voip-ld>	Added manu-db to the speaker queue: mlnt, manu-db
+[Tue 10:50]	<gkellogg>	niklasl: not the entire API: keep expand and compact. to/from RDF do not seem necessary. We should have a precise definition of what the expanded JSON-LD form means as RDF.
+[Tue 10:50]	<manu-db>	ack mlnt
+[Tue 10:50]	<voip-ld>	mlnt has the floor. The next speaker is manu-db.
+[Tue 10:50]	<gkellogg>	markus: I kind of agree with niklas about dropping the RDF part.
+[Tue 10:50]	<gkellogg>	… It might be good to factor out flatting as a separate method, instead of hiding it behind a flag.
+[Tue 10:51]	<gkellogg>	… I agree that to/from RDF are not very useful as an API. You'd need adaptor code anyway.
+[Tue 10:51]	<gkellogg>	niklasl: from an RDF point of view, it would be easier to just look at flattened expanded JSON-LD as an RDF expression.
+[Tue 10:52]	<gkellogg>	markus: it's completely deterministic.
+[Tue 10:53]	<gkellogg>	markus: if we remove to/from RDF from WebIDL, we should make it clear that there's a way to get a deterministic shape out of an arbitrary document: expand with flatten.
+[Tue 10:54]	<gkellogg>	manu: I've always preferred having a flatten API method.
+[Tue 10:56]	<gkellogg>	niklasl: the IRI and Node interfaces are only needed for to/from RDF.
+[Tue 10:57]	<manu-db>	PROPOSAL: Remove .toRDF() and .fromRDF() into a separate document that will not be a part of the JSON-LD 1.0 work.
+[Tue 10:58]	<manu-db>	PROPOSAL: Remove the .toRDF() and .fromRDF() WebIDL API calls into a separate document that will not be a part of the JSON-LD 1.0 work. The to/from RDF algorithms will still be a part of the JSON-LD API 1.0 work.
+[Tue 10:58]	<gkellogg>	+1
+[Tue 10:58]	<niklasl>	+1
+[Tue 10:58]	<tidoust>	+1
+[Tue 10:58]	<manu-db>	-0.5
+[Tue 10:58]	<mlnt>	+1
+[Tue 10:58]	<manu-db>	RESOLVED: Remove the .toRDF() and .fromRDF() WebIDL API calls into a separate document that will not be a part of the JSON-LD 1.0 work. The to/from RDF algorithms will still be a part of the JSON-LD API 1.0 work.
+[Tue 10:59]	<mlnt>	s/Remove/move/
+[Tue 10:59]	<niklasl>	.. For a shape of the "just dictionary" RDF node representation, I suggest using http://www.w3.org/TR/rdf-sparql-json-res/#variable-binding-results verbatim
+[Tue 10:59]	<gkellogg>	manu: we might want to consider changing IRI to URL.
+[Tue 10:59]	<niklasl>	.. In that other document
+[Tue 11:00]	<gkellogg>	manu: the concern is that the API will be built on an HTML5 DOM, so we should align with that.
+[Tue 11:01]	<gkellogg>	… We could say that when we say URL we mean an internationalized resource identifier.
+[Tue 11:01]	<gkellogg>	… If we don't do that, we're in violation of the HTML5 DOM.
+[Tue 11:03]	<gkellogg>	markus: we don't have an IRI concept in the API, just in the algorithms.
+[Tue 11:04]	<gkellogg>	manu: we should just define URL in the API.
+[Tue 11:04]	<gkellogg>	manu: will the API users ask for to/from RDF.
+[Tue 11:05]	<gkellogg>	manu: developers work with APIs.
+[Tue 11:05]	<gkellogg>	niklasl: compact seems very useful for developers.
+[Tue 11:06]	<gkellogg>	manu: the URL/IRI thing is really just terminology.
+[Tue 11:07]	<gkellogg>	… If we talk about things in the prose, we need to draw the equivalence.
+[Tue 11:08]	<gkellogg>	We'll need to separate the WebIDL definitions used within the to/from RDF.
+[Tue 11:08]	<manu-db>	q?
+[Tue 11:08]	<voip-ld>	Speaker queue: mlnt
+[Tue 11:08]	<mlnt>	q-
+[Tue 11:08]	<voip-ld>	Removed mlnt from the speaker queue: (empty)
+[Tue 11:09]	<gkellogg>	manu: Robin's stuff is resolved now, after we make the editorial/design changes discussed.
+[Tue 11:09]	<manu-db>	ISSUE-182: Graph vs. DataSet
+[Tue 11:09]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/182
+[Tue 11:09]	<gkellogg>	topic: Graph vs DataSet
+[Tue 11:09]	<gkellogg>	manu: seems to be resolved in conformance with RDF WG.
+[Tue 11:10]	<gkellogg>	… I wonder if we should make a slight change the the language.
+[Tue 11:10]	<gkellogg>	… We might want to say that the client should look in the top-most object and use that value, or use the first item in the @graph.
+[Tue 11:10]	<gkellogg>	q+
+[Tue 11:10]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:11]	<gkellogg>	… I wonder if we could give some feedback to clients so they know where to look for the default graph.
+[Tue 11:11]	<gkellogg>	… Either the top-level object.
+[Tue 11:11]	<manu-db>	ack gkellogg
+[Tue 11:11]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:12]	<manu-db>	gkellogg: I think it's problematic to rely on the JSON-LD Syntax - in the cases that I was talking about, they're RDF consumers.
+[Tue 11:12]	<manu-db>	gkellogg: I'm sympathetic to the idea of being able to provide some indication of which graph to use from a dataset, if you're just using it - but something that relies on the JSON-LD syntax is not going to solve the types of problems I'm concerned about.
+[Tue 11:13]	<manu-db>	gkellogg: You might type a graph as something being the "jsonld:PrincipleGraph" - that's the item that contains the graph-like results.
+[Tue 11:13]	<gkellogg>	manu: I'm trying to get the concept of "the subject of" or "primary topic".
+[Tue 11:14]	<gkellogg>	… to RDF consumers you're saying that the primary topic is the default graph.
+[Tue 11:14]	<niklasl>	q+
+[Tue 11:14]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:15]	<mlnt>	q+
+[Tue 11:15]	<voip-ld>	Added mlnt to the speaker queue: niklasl, mlnt
+[Tue 11:16]	<manu-db>	gkellogg: I think that the best route would be sort of some for of type on a graph that allowed us to designate it as the one that is "most interesting"
+[Tue 11:16]	<manu-db>	ack nikasl
+[Tue 11:16]	<voip-ld>	niklasl has the floor. The next speaker is mlnt.
+[Tue 11:16]	<gkellogg>	niklasl: I'm confused of what we're trying to do. Are we defining standard rules for the consumption of datasets?
+[Tue 11:16]	<gkellogg>	… I think we're getting away from what JSON-LD can say.
+[Tue 11:16]	<gkellogg>	… Anything else is semantics and should be defined elsewhere.
+[Tue 11:17]	<manu-db>	ack mlnt
+[Tue 11:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:17]	<gkellogg>	markus: I agree with niklas.
+[Tue 11:17]	<gkellogg>	… To address the signature, both data should be in named graphs. The signature only makes sense if you can interpret the named graphs.
+[Tue 11:17]	<gkellogg>	… It makes no sense to assert something that you can't retrieve.
+[Tue 11:18]	<gkellogg>	manu: I'm concerned that we might need to serve the data in a different form than it is naturally served.
+[Tue 11:18]	<niklasl>	.. How about: <doc> payswarm:signedBy <iri>; where the data representing <iri> can be added to the payload (of the default graph) as a graph named by <iri>?
+[Tue 11:18]	<gkellogg>	… The top-most object is the signature information, and inside the @graph is the data that is primary, but it must be named.
+[Tue 11:20]	<manu-db>	gkellogg: [explains how this already works in PaySwarm]. The principle data is in a named graph, and you use the data to sign it - you have something that makes sense. The best alternative is take the graph that takes the name of it's location.
+[Tue 11:21]	<gkellogg>	manu: in web payments we have a default graph with the signature and a named graph with the asserted data.
+[Tue 11:21]	<gkellogg>	markus: it's a problem if you serve datasets with both.
+[Tue 11:22]	<tidoust>	[Looking at it from a syntax perspective, the example 50 discussed in issue 201 (which matches current discussion, AFAICT) does look much better when metadata is in the default graph and data in a named graph than on its possible update that puts metadata in a named graph and data back to the default graph]
+[Tue 11:23]	<manu-db>	gkellogg: [explains why this needs to be placed in a semantics document]
+[Tue 11:23]	<manu-db>	Topic: ISSUE-153: Define error handler behavior
+[Tue 11:23]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/153
+[Tue 11:23]	<gkellogg>	topic:issue 153
+[Tue 11:23]	<manu-db>	Topic: ISSUE-201: Update dataset examples
+[Tue 11:23]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/201
+[Tue 11:24]	<gkellogg>	manu: given our discussion, we should update the dataset examples.
+[Tue 11:24]	<gkellogg>	markus: it really just matters if you're a consumer that can just deal with graphs.
+[Tue 11:24]	<gkellogg>	q+
+[Tue 11:24]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 11:24]	<manu-db>	q+
+[Tue 11:24]	<voip-ld>	Added manu-db to the speaker queue: gkellogg, manu-db
+[Tue 11:24]	<manu-db>	ack gkellogg
+[Tue 11:24]	<voip-ld>	gkellogg has the floor. The next speaker is manu-db.
+[Tue 11:25]	<manu-db>	gkellogg: Yes, agree with Markus. We are conflating clients that understand datasets with ones that do not. We don't need to add this text.
+[Tue 11:25]	<manu-db>	ack manu-db
+[Tue 11:25]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 11:27]	<tidoust>	[I'm still at a loss as to how a provider can tell whether a client understands datasets or not. It needs that info to serve the appropriate form, right?]
+[Tue 11:27]	<manu-db>	PROPOSAL: Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that any named graph information should go in the default graph.
+[Tue 11:27]	<mlnt>	tidoust, the provider doesn't have to know
+[Tue 11:28]	<tidoust>	voip: unmute me
+[Tue 11:28]	<voip-ld>	tidoust has been unmuted.
+[Tue 11:28]	<gkellogg>	manu: a provider can provide multiple endpoints, or just always merge data into the default graph.
+[Tue 11:29]	<tidoust>	voip: mute me
+[Tue 11:29]	<voip-ld>	tidoust has been muted.
+[Tue 11:29]	<manu-db>	PROPOSAL: Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that the primary information should go in the default graph.
+[Tue 11:29]	<gkellogg>	+1
+[Tue 11:29]	<manu-db>	+1
+[Tue 11:29]	<niklasl>	+1
+[Tue 11:30]	<mlnt>	+1
+[Tue 11:30]	<tidoust>	+1
+[Tue 11:30]	<manu-db>	RESOLVED: Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that the primary information should go in the default graph.
+[Tue 11:31]	<manu-db>	Topic: ISSUE-202: Do not compact @graph arrays with one element
+[Tue 11:31]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/202
+[Tue 11:31]	<gkellogg>	markus: basically just make sure the value of @graph is always an array.
+[Tue 11:32]	<gkellogg>	manu: uniformity probably wins over the array access tax.
+[Tue 11:32]	<niklasl>	.. "Please note, this doesn't affect the fact that the default graph's @graph is optimized away."
+[Tue 11:32]	<manu-db>	PROPOSAL 1: Keep values of @graph that are arrays consisting of just one element as arrays.
+[Tue 11:32]	<mlnt>	+1
+[Tue 11:32]	<gkellogg>	+1
+[Tue 11:32]	<manu-db>	+1
+[Tue 11:32]	<tidoust>	+1
+[Tue 11:32]	<niklasl>	+1
+[Tue 11:32]	<manu-db>	RESOLVED: Keep values of @graph that are arrays consisting of just one element as arrays.
+[Tue 11:32]	<manu-db>	PROPOSAL 2: Do not compact "node references" that are values of @graph to strings.
+[Tue 11:33]	<manu-db>	+1
+[Tue 11:33]	<mlnt>	+1
+[Tue 11:33]	<tidoust>	+1
+[Tue 11:33]	<niklasl>	+1
+[Tue 11:33]	<gkellogg>	+1
+[Tue 11:33]	<manu-db>	RESOLVED: Do not compact "node references" that are values of @graph to strings.
+[Tue 11:35]	<niklasl>	.. http://niklasl.github.com/rdfa-lab/js/jsonld/core.js
+[Tue 11:36]	<gkellogg>	niklasl: this copy is a reduced version of my RDFa transformation, without framing.
+[Tue 11:36]	<gkellogg>	… It was easy to keep it up to date.
+[Tue 11:36]	<gkellogg>	manu: we're wondering how small we can get a minified version, but it's half the size without framing and to/from RDF adapting.
+

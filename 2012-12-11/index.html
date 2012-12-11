@@ -1,0 +1,268 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-12-11</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0017.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0017.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Ongoing research into JSON-LD .graphify() API</a><li><a href="#topic-2">ISSUE-200: JSON-LD API Review by Robin Berjon</a><li><a href="#topic-3">ISSUE-182: Graph vs. DataSet</a><li><a href="#topic-4">ISSUE-153: Define error handler behavior</a><li><a href="#topic-5">ISSUE-201: Update dataset examples</a><li><a href="#topic-6">ISSUE-202: Do not compact @graph arrays with one element</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Move the .toRDF() and .fromRDF() WebIDL API calls into a separate document that will not be a part of the JSON-LD 1.0 work. The to/from RDF algorithms will still be a part of the JSON-LD API 1.0 work.</a><li><a href="#resolution-2">Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that the primary information should go in the default graph.</a><li><a href="#resolution-3">Keep values of @graph that are arrays consisting of just one element as arrays.</a><li><a href="#resolution-4">Do not compact "node references" that are values of @graph to strings.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Gregg Kellogg, Lin Clark, Markus Lanthaler, François Daoust</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<h1 id="topic-1" class="topic">Topic: Ongoing research into JSON-LD .graphify() API</h1>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've been working on something - <a href="http://niklasl.github.com/rdfa-lab/examples/rdfa-api-comparisons.html">http://niklasl.github.com/rdfa-lab/examples/rdfa-api-comparisons.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  looks interesting...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The LD.connect() thing is my extension to the JSON-LD API. I'm going to work on it some over the holidays. I'm trying to use local names for everything... maybe raise an error if there are collisions.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Ivan had JSON-LD output, he constructed a context on-the-fly based on what the RDFa processor had read.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you are computing things, you could try to figure out the most compact possible context. The JSON you'd get back would be very compact, but it would not work for the more advanced RDFa use cases. It would work for every schema.org use case in existence, which is 90% of every developer that wants this API.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Lin, just out of curiosity: why do you depend on the fact that empty arrays are preserved (during compaction for the Drupal use case)?</div>
+<div class="comment"><span class="name">Lin Clark</span>: Markus, if you want to remove values from a field on PATCH</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The graph API may be interesting because you get access to things like property paths. It seems plausible that I could implement this with hooks back to the live DOM tree. Maybe with DOM mutation listeners. If you manipulated the DOM with JS, yo'd be able to see that live when you navigated the graph.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Lin, do you mean to distinguish between not set vs. set to empty array</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the first one for schema.org looks quite nice - the inverse of this we don't necessarily have a solution for.</div>
+<div class="comment"><span class="name">Lin Clark</span>: Markus, no, set in PATCH means do nothing to that field. So if it already has values, you couldn't remove them</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've thought a bit more about .connect() - maybe you can add custom indexes for it, the @context is one input... the next one might be definition of indexes and which key you want to use for inverses. Karl Dubost asked for an RDFa API, his example needed something to getByType(). You'd go with the Graph API or the Microdata API (for RDFa) or you'd need a .connect() implementation. I think .connect() gives much more for a fairly cheap price.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Lin, I see... but it seems to be a bit brittle</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Since we're not going to do .connect() in this version, we should look for another group to attach that work to.</div>
+<div class="comment"><span class="name">Lin Clark</span>: Markus, what do you think is brittle there?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we should start a CG focused on these sorts of APIs. The RWW group has so much on its schedule.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Lin, well the thing is that if you look at it from a graph perspective (abstract) both are equivalent... you would have to set it to something likeowl:Nothing to clearly differentiate between the two cases</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I start a new job at Royal Swedish Library - they're interested in Linked Data, could use a lot of this work there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Lin, just wanted to point that out.. if it works for you this way it's probably simpler to keep it as is</div>
+<div class="comment"><span class="name">Lin Clark</span>: Markus, cool, thanks for pointing it out</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-200: JSON-LD API Review by Robin Berjon</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/200">https://github.com/json-ld/json-ld.org/issues/200</a></div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We left off when talking about asynchronous interfaces.</div>
+<div class="comment-continuation">… The async interface is probably the way to go.</div>
+<div class="comment-continuation">… We have previously discussed using just the async, but allowing people to use the sync if they like.</div>
+<div class="comment-continuation">… We also have different conformance levels, sot that implementations can be just processing, and do their own API.</div>
+<div class="comment-continuation">… Robin notes that we list errors, but don't define constants: we need to do that.</div>
+<div class="comment-continuation">… We don't need all UPPER CASE errors, we can just use strings.</div>
+<div class="comment-continuation">… For the API, people are moving away from numbers to text strings.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We need to collect the text strings or whatever, perhaps in an enum.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  error codes that are numbers aren't too useful; strings are better.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  next item, is loosing information an issue? Should we throw an error?</div>
+<div class="comment-continuation">… Don't return a lossy compaction. If you would loose data, don't compact.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we don't do that, but we may fail (e.g., List of Lists).</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  resonse to robin is that we don't do lossy compaction.</div>
+<div class="comment-continuation">… robin doesn't want it to throw an error, but there are problems if we keep everything around.</div>
+<div class="comment-continuation">… If you don't specify how a term expands, then it is dropped; typically in expansion.</div>
+<div class="comment"><span class="name">François Daoust</span>:  One of the use cases robin may have had in mind is being able to take an arbitrary JSON-LD document and apply a context then compact.</div>
+<div class="comment-continuation">… If you do that, there may still be problems in compaction. Are there workarounds? Keep it in expanded form?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if it expands correctly, it will stay expanded if you don't have a mapping when you comact.</div>
+<div class="comment-continuation">… you can get errors in either expansion or compaction. It depends on what you're doing, but in general, if you have a successful expansion, you will not loose data when compaction; it just may not completely compact.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  next thing: you might want to be clear about "copying the input".</div>
+<div class="comment-continuation">… WebIDL doesn't have number, use one of the appropriate numeric types.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  a JSON number depends on the form, either an integer or a float.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  question is about WebIDL numeric version.</div>
+<div class="comment-continuation">… change "string" to DOMString, and numbers appropriately.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. the unsigned long IDL type mapping to the Number type in ECMAScript (from <a href="http://www.w3.org/TR/WebIDL/)">http://www.w3.org/TR/WebIDL/)</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: For the record, the sourceValue member of JsonLdProcessingError might be a number.. should be an integer but probably we will drop it anyway</div>
+<div class="comment-continuation">… toRDF is designed wrong; should be a single callback with a quad array.</div>
+<div class="comment-continuation">… ConformanceCallback: will remove; just not sure how to report "linting" errors through issue feedback.</div>
+<div class="comment-continuation">… what if the developer doesn't provide a callback?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  question is what if it isn't ever called back?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  issues with IRI definitions ...</div>
+<div class="comment-continuation">… Better to use dictionary with keys.</div>
+<div class="comment-continuation">… Basically, he's saying we shouldn't have interfaces, just dictionaries with keys.</div>
+<div class="comment-continuation">… We want objects to be easily used in developer code.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the problem with passing back strings, is you need to do some magic, as you don't know the type of what you're dealing with. Some people will be unhappy no matter what we do.</div>
+<div class="comment-continuation">… If you do new IRI and new Node, it annoys web apps folks, because it should just be a dictionary.</div>
+<div class="comment-continuation">… if you use a dict, you're stuck with .type and .value, and it's less elegant.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  is this just about to/from RDF?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this is a general problem, IMO.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  until we know what the exact needs are, we're not doing ourselves a favor by defining them. It might be better to just use a dictionary.</div>
+<div class="comment-continuation">… to/from RDF would just translate one form into another (objects with keys from triples).</div>
+<div class="comment-continuation">… We also have this in SPARQL JSON output where they have dictionaries.</div>
+<div class="comment-continuation">… on the other hand, we might not have to define it at all, as the expanded form already references the RDF.</div>
+<div class="comment-continuation">… This is an argument for getting rid of type definitions, and maybe the to/from RDF API calls themselves.</div>
+<div class="comment-continuation">… In my work, I just expand JSON-LD or produce it directly.</div>
+<div class="comment-continuation">… Similarly, I've used expanded JSON-LD to create a graph. Otherwise, it's hard to know where the contract for the JSON-LD API ends. It might be better to just leave this to something else.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  why can't we just re-use our JSON-LD constructs, @iri, @value, etc.</div>
+<div class="comment-continuation">… We don't really need to define new structures.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm starting to feel like the API is beyond what we want to do. Once you get into the nuances of the API, it becomes a different conversation. Is this something that we should really be spending time on? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We're already postponing .connect() to another CG. Since we've separated the processing from the IDL interface, I'm coming around to that viewpoint. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  as a data point, this is the exactly the same conversation we went through with the RDFa API.</div>
+<div class="comment-continuation">… One of the negatives that comes out is that the work doesn't get done, or is delayed.</div>
+<div class="comment-continuation">… For DB, the API is really important, without a solid API we don't have something to implement against. We'd just end up going off and doing our own thing, and wouldn't sync with an API.</div>
+<div class="comment-continuation">… If feel like if we through out the API, it's going too far. There are just a few tweaks we need with the API rather than doing wholesale changes.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I am sympathetic to both positions. Regarding the RDFa API, although it's being asked for, I'm glad we didn't give them what we were originally looking on.</div>
+<div class="comment-continuation">… In this case, i have the feeling that the good parts are expand and compact, which needs to be precicely defined. I think that expanded JSON-LD represents RDF.</div>
+<div class="comment-continuation">… I don't think it's necessary to define an API for that, as it's just data describing itself.</div>
+<div class="comment-continuation">… We could use those concepts to represent the data and the Nodes represent all we need semantically.</div>
+<div class="comment-continuation">… I don't see the need for to/from RDF API methods, as other tools can just work with expanded JSON-LD. Saying you need an API indicates that it's something that's hard.</div>
+<div class="comment-continuation">… we have an array of resource descriptions.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  your argument is to remove the API from the spec?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  not the entire API: keep expand and compact. to/from RDF do not seem necessary. We should have a precise definition of what the expanded JSON-LD form means as RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I kind of agree with niklas about dropping the RDF part.</div>
+<div class="comment-continuation">… It might be good to factor out flatting as a separate method, instead of hiding it behind a flag.</div>
+<div class="comment-continuation">… I agree that to/from RDF are not very useful as an API. You'd need adaptor code anyway.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  from an RDF point of view, it would be easier to just look at flattened expanded JSON-LD as an RDF expression.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's completely deterministic.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we remove to/from RDF from WebIDL, we should make it clear that there's a way to get a deterministic shape out of an arbitrary document: expand with flatten.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I've always preferred having a flatten API method.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the IRI and Node interfaces are only needed for to/from RDF.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Move the .toRDF() and .fromRDF() WebIDL API calls into a separate document that will not be a part of the JSON-LD 1.0 work. The to/from RDF algorithms will still be a part of the JSON-LD API 1.0 work.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -0.5</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Move the .toRDF() and .fromRDF() WebIDL API calls into a separate document that will not be a part of the JSON-LD 1.0 work. The to/from RDF algorithms will still be a part of the JSON-LD API 1.0 work.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: For a shape of the "just dictionary" RDF node representation, I suggest using <a href="http://www.w3.org/TR/rdf-sparql-json-res/#variable-binding-results">http://www.w3.org/TR/rdf-sparql-json-res/#variable-binding-results</a> verbatim</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we might want to consider changing IRI to URL.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. In that other document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the concern is that the API will be built on an HTML5 DOM, so we should align with that.</div>
+<div class="comment-continuation">… We could say that when we say URL we mean an internationalized resource identifier.</div>
+<div class="comment-continuation">… If we don't do that, we're in violation of the HTML5 DOM.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we don't have an IRI concept in the API, just in the algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should just define URL in the API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  will the API users ask for to/from RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  developers work with APIs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  compact seems very useful for developers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the URL/IRI thing is really just terminology.</div>
+<div class="comment-continuation">… If we talk about things in the prose, we need to draw the equivalence.</div>
+<div class="information">We'll need to separate the WebIDL definitions used within the to/from RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Robin's stuff is resolved now, after we make the editorial/design changes discussed.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-182: Graph vs. DataSet</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/182">https://github.com/json-ld/json-ld.org/issues/182</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  seems to be resolved in conformance with RDF WG.</div>
+<div class="comment-continuation">… I wonder if we should make a slight change the the language.</div>
+<div class="comment-continuation">… We might want to say that the client should look in the top-most object and use that value, or use the first item in the @graph.</div>
+<div class="comment-continuation">… I wonder if we could give some feedback to clients so they know where to look for the default graph.</div>
+<div class="comment-continuation">… Either the top-level object.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's problematic to rely on the JSON-LD Syntax - in the cases that I was talking about, they're RDF consumers. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm sympathetic to the idea of being able to provide some indication of which graph to use from a dataset, if you're just using it - but something that relies on the JSON-LD syntax is not going to solve the types of problems I'm concerned about. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You might type a graph as something being the "jsonld:PrincipleGraph" - that's the item that contains the graph-like results. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm trying to get the concept of "the subject of" or "primary topic".</div>
+<div class="comment-continuation">… to RDF consumers you're saying that the primary topic is the default graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that the best route would be sort of some for of type on a graph that allowed us to designate it as the one that is "most interesting" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm confused of what we're trying to do. Are we defining standard rules for the consumption of datasets?</div>
+<div class="comment-continuation">… I think we're getting away from what JSON-LD can say.</div>
+<div class="comment-continuation">… Anything else is semantics and should be defined elsewhere.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree with niklas.</div>
+<div class="comment-continuation">… To address the signature, both data should be in named graphs. The signature only makes sense if you can interpret the named graphs.</div>
+<div class="comment-continuation">… It makes no sense to assert something that you can't retrieve.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that we might need to serve the data in a different form than it is naturally served.</div>
+<div class="information">can be added to the payload (of the default graph) as a graph named by &lt;iri&gt;?</div>
+<div class="comment-continuation">… The top-most object is the signature information, and inside the @graph is the data that is primary, but it must be named.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  [explains how this already works in PaySwarm]. The principle data is in a named graph, and you use the data to sign it - you have something that makes sense. The best alternative is take the graph that takes the name of it's location. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in web payments we have a default graph with the signature and a named graph with the asserted data.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's a problem if you serve datasets with both.</div>
+<div class="comment"><span class="name">François Daoust</span>: [Looking at it from a syntax perspective, the example 50 discussed in issue 201 (which matches current discussion, AFAICT) does look much better when metadata is in the default graph and data in a named graph than on its possible update that puts metadata in a named graph and data back to the default graph]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  [explains why this needs to be placed in a semantics document] [scribe assist by Manu Sporny]</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-153: Define error handler behavior</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/153">https://github.com/json-ld/json-ld.org/issues/153</a></div>
+<div class="information">No progress on this issue.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-201: Update dataset examples</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/201">https://github.com/json-ld/json-ld.org/issues/201</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  given our discussion, we should update the dataset examples.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it really just matters if you're a consumer that can just deal with graphs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, agree with Markus. We are conflating clients that understand datasets with ones that do not. We don't need to add this text. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">François Daoust</span>: [I'm still at a loss as to how a provider can tell whether a client understands datasets or not. It needs that info to serve the appropriate form, right?]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: tidoust, the provider doesn't have to know</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a provider can provide multiple endpoints, or just always merge data into the default graph.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that the primary information should go in the default graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that the primary information should go in the default graph.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-202: Do not compact @graph arrays with one element</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/202">https://github.com/json-ld/json-ld.org/issues/202</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  basically just make sure the value of @graph is always an array.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  uniformity probably wins over the array access tax.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "Please note, this doesn't affect the fact that the default graph's @graph is optimized away."</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Keep values of @graph that are arrays consisting of just one element as arrays.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Keep values of @graph that are arrays consisting of just one element as arrays.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Do not compact "node references" that are values of @graph to strings.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Do not compact "node references" that are values of @graph to strings.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="http://niklasl.github.com/rdfa-lab/js/jsonld/core.js">http://niklasl.github.com/rdfa-lab/js/jsonld/core.js</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this copy is a reduced version of my RDFa transformation, without framing.</div>
+<div class="comment-continuation">… It was easy to keep it up to date.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're wondering how small we can get a minified version, but it's half the size without framing and to/from RDF adapting.</div>
+</body>
+</html>
