@@ -1,0 +1,217 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2012-12-18</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0030.html">http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0030.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Schedule for telecons and publication</a><li><a href="#topic-2">JSON-LD Test Suite</a><li><a href="#topic-3">Renaming of blank nodes</a><li><a href="#topic-4">ISSUE-203: Validate IRIs and language tags</a><li><a href="#topic-5">ISSUE-109: Add flatten() method to JSON-LD API</a><li><a href="#topic-6">ISSUE-206: Clarify that the algorithms operate a copy of the input</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Rename all blank node identifiers when doing expansion.</a><li><a href="#resolution-2">JSON-LD Processors MAY issue validation warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors.</a><li><a href="#resolution-3">Add a .flatten() method to the JSON-LD API, which returns all data in flattened, compact form. Remove the flatten flag from the .expand() and .compact() methods. Ensure that the .flatten() method preserves data in named graphs.</a><li><a href="#resolution-4">Any input to JSON-LD API methods MUST NOT be modified.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Manu Sporny, Gregg Kellogg, Markus Lanthaler, Dave Longley, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Niklas Lindström is scribing.</div>
+<div class="information">Two more Agenda items suggested by Gregg: the test suite and pervasive renaming of bnodes</div>
+<h1 id="topic-1" class="topic">Topic: Schedule for telecons and publication</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  next two telecons cancelled due to holidays. at least one telecon before last call at end of january</div>
+<div class="comment-continuation">… when we go to last call, we must include text to specify that the algorithms may need to change to address bugs and those changes may be significant based on the severity of the issue. We want to do this to ensure that an annoying corner-case bug won't make us have to go through another Last Call. We're fairly certain what these algorithms should be doing, and no matter how many times we've reviewed them, we'll find issues that we have to fix w/ the algorithm through LC and CR.</div>
+<h1 id="topic-2" class="topic">Topic: JSON-LD Test Suite</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a couple of things to do: how to deal with options and callback behavior</div>
+<div class="comment-continuation">… e.g. option for RDF to use native types</div>
+<div class="comment-continuation">… options for context given in option for use in expansion, etc.</div>
+<div class="comment-continuation">… more concerning: the granularity of tests</div>
+<div class="comment-continuation">… each test tests some particular aspect of an algorithm, but does so in many parallel ways</div>
+<div class="comment-continuation">… add as small a test as possible, to make it easy to detect what causes an error</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree</div>
+<div class="comment-continuation">… same problems in the early days of the RDFa test suite</div>
+<div class="comment-continuation">… we may want to different suites, one for the syntax, one for the api</div>
+<div class="comment-continuation">… the latter may benefit from a real JS test runner</div>
+<div class="comment-continuation">... or else we may end up with a meta language to control flags etc.</div>
+<div class="comment-continuation">... so we should simplify the tests to make them more atomic</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  for the RDFa tests we used (e.g.) query parameters to set options/flags</div>
+<div class="comment-continuation">... we might be able to use that</div>
+<div class="comment-continuation">... problem with js test framework is that it only works for js</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ok.. just a sec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree that we should define the tests to be independent of the implementation language</div>
+<div class="comment-continuation">... we could use JSON to set options</div>
+<div class="comment-continuation">… we should have minimal tests, but we also need some complex input data to test corner cases</div>
+<div class="comment-continuation">… sometimes things work in separation, but certain things only happen when combined</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, there is a need for those complex things as well. We might be able to separate them within the numbering of tests</div>
+<div class="comment-continuation">… if someone passes all the simple tests, we should attempt to find the smallest example which triggers a problem with combinations</div>
+<div class="comment-continuation">… we could put all the complex tests starting with 1000</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so more than one feature is an integration test, starting at 1000</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  even one feature, like IRI expansion, needs to test many variants</div>
+<div class="comment-continuation">… but we need to find the simplest possible input data for those as well</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  what are the requirements from W3C regarding tests?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what's needed is an implementation report showing at least two independent interoperable implementations</div>
+<div class="comment-continuation">… but test suites makes that much simpler to measure</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  not always though; automated test runners aren't always the best; it's useful to have independent test runners generating EARL reports, which we can collate and put into the report</div>
+<div class="comment-continuation">… I'm not against it, but it was a complicated setup for RDFa</div>
+<div class="information">Discussion about the balance between test suite runner implementation difficulties vs. getting reports from implementations in general.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  main reason for automated test runner is not to block us when implementations develop and need to be verified</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It would be very good to have it running completely in the browser</div>
+<div class="comment-continuation">… I'll make an attempt in the coming month</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  leveraging the rdfa runner may be feasible</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so, we want to make the test suite more atomic, and separate unit and integration tests (starting on 1000)</div>
+<div class="comment-continuation">… and attempt to make an online test runner</div>
+<h1 id="topic-3" class="topic">Topic: Renaming of blank nodes</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus wrote a test to verify that blank nodes are renamed.</div>
+<div class="comment-continuation">… the use of bnodes in expansion, for e.g. property generators and node defs not containing an id; so that duplication doesn't create a new node.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Discussion about this was here: <a href="https://github.com/json-ld/json-ld.org/issues/160#issuecomment-11046185">https://github.com/json-ld/json-ld.org/issues/160#issuecomment-11046185</a></div>
+<div class="comment-continuation">… problem is that if you pick a bnode identifier it mustn't collide with an existing one. one solution is to rename all of them.</div>
+<div class="comment-continuation">…. but that may create problems for implementations, e.g. it happens right now for the wikimedia stuff</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so you propose that we use a very unique prefix, which hopefully doesn't collide with an existing bnode id?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that, or scan through existing use and then pick something unique</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the scan through prevents stream-based processing, although that may already be out</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  reserving bnode id prefixes causes problems when expansion has been run; the input would use those at that point</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  not sure what the problem here is? bnode id:s are local/internal, so we should be able to change them if we want to.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so far, we try to keep the json form consistent with what is written; so that bnode id:s use some internal pattern</div>
+<div class="comment-continuation">… while it's formally very bad (especially from an RDF perspective), this can be useful for handing JSON</div>
+<div class="comment-continuation">… I wouldn't vote against renaming if it's necessary; but do we always need to do it?</div>
+<div class="comment-continuation">… it's a big change fairly late in the process</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could you use other identifiers?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a bit tricky with deployed code right now.</div>
+<div class="comment-continuation">… previously, we didn't change bnode ids on expansion/compaction</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  why can't we instead track already used bnodes, and ensure that generated ones aren't used?</div>
+<div class="comment-continuation">... ofcourse, subsequently encountered ones are problematic</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  keep track of both generated and encountered bnodes, and if an overlap occurs, start renaming only those that are already encountered/generated</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is this the final code for wikia?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the plan is to use URIs, but the scrum process hasn't gotten there; we currently use article id:s locally</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the flag for property generators could also disable bnode renaming</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we can ensure that only if property generators are used, renaming occurs..</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the property generators could be used for DoS attacks, I will support such a flag</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'd prefer to avoid renaming if property generators aren't used</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I sttil think bnodes are dangerous to preserve, since they should not be used</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's a good point. But some users don't want to change the raw data.</div>
+<div class="comment-continuation">… it is a large change, but it's still before LC, and makes a good point</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Rename all blank node identifiers when doing expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  +0.5</div>
+<div class="comment"><span class="name">Dave Longley</span>:  +0.3 [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Rename all blank node identifiers when doing expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: filed the resolution under ISSUE-160</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-203: Validate IRIs and language tags</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/203">https://github.com/json-ld/json-ld.org/issues/203</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the question is whether processors should validate IRIs and language tags fully, or just assume they work</div>
+<div class="comment-continuation">… Richard made the point that language tags have to be normalized, and validated(?)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  compare to Turtle, it includes a simplest form of BCP 47. A full validation needs much more logic.</div>
+<div class="comment-continuation">… it's complicated to get it exactly correct.</div>
+<div class="comment-continuation">… And normalization doesn't require full validation. Same thing with URIs. Most libraries detect simple problems, but full checking requires much more complexity.</div>
+<div class="comment-continuation">… it's better to not include in the core algorithm. As François said, there's a difference between a processor and a validator</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree with all of that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so, what do we say specifically?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we don't say should/must not; all we say is that it's not required to do full validation</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's strange to have a discussion about this but not say anything in the spec</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Could we say something to the effect of "it's not users of processors might not expect that all processors are fully validating processors"? That is, invalid input data might lead to different results depending on the level of validation for the processor. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  So, basically - the output may not be the same for corner cases. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  or we could say that processors may issue warnings about data which is not valid, but processors must not modify data to correct it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that might work. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree, no validation. And not include any language about it in the spec..</div>
+<div class="comment-continuation">… we already say that algorithms are only specified for well-formed input</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we do say that to be valid, these must be valid BCP 47 tags / IRIs</div>
+<div class="comment"><span class="name">Manu Sporny</span>: What about this for a proposal? JSON-LD Processors MAY issue validating warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors and MUST only perform normalization on IRIs and BCP47 language strings.</div>
+<div class="comment-continuation">… we shouldn't say whether processors should tolerate invalid values for that.. We need to compare with e.g. Turtle spec.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> JSON-LD Processors MAY issue validation warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5 (would also be fine with being silent about it)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  +0.9 (unless something much different is done in e.g. the turtle spec)</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> JSON-LD Processors MAY issue validation warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-109: Add flatten() method to JSON-LD API</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/109">https://github.com/json-ld/json-ld.org/issues/109</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're signaling that there's an easy way of flattening (apart from the flag)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'd suggest to drop the flags then</div>
+<div class="comment-continuation">… and that it should also return all the graphs (currently just the default graph?)</div>
+<div class="comment-continuation">… i.e. drop the 'merged'/'default' and return all graphs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we don't want lossy algorithms</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: so the signature would be flatten(input, context, callback, options)</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add a .flatten() method to the JSON-LD API, which returns all data in flattened, compact form. Remove the flatten flag from the .expand() and .compact() methods. Ensure that the .flatten() method preserves data in named graphs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  +0.75 (not entirely sure about how people not knowing this stuff in detail will get the meaning of "flatten")</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Add a .flatten() method to the JSON-LD API, which returns all data in flattened, compact form. Remove the flatten flag from the .expand() and .compact() methods. Ensure that the .flatten() method preserves data in named graphs.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-206: Clarify that the algorithms operate a copy of the input</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we want to clarify that implementors mustn't modify the input data in-place</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the fact that the algorithms speak of serializations does imply that there is no modification. It may be good to say that the algorithms operate of a live data structure, and hence need to create copies.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  implementations MAY operate on native data structures, and if so, they must generate new data structures</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Any input to JSON-LD API methods MUST NOT be modified.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Any input to JSON-LD API methods MUST NOT be modified.</div>
+</body>
+</html>

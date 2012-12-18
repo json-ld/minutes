@@ -1,0 +1,195 @@
+[Tue 10:06]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2012Dec/0030.html
+[Tue 10:07]	<niklasl>	scribe: niklasl
+[Tue 10:07]	<niklasl>	Two more Agenda items suggested by Gregg: the test suite and pervasive renaming of bnodes
+[Tue 10:08]	<manu-db>	Topic: Schedule for telecons and publication
+[Tue 10:08]	<niklasl>	manu: next two telecons cancelled due to holidays. at least one telecon before last call at end of january
+[Tue 10:10]	<niklasl>	… when we go to last call, we must include text to specify that the algorithms may need to change to address bugs and those changes may be significant based on the severity of the issue. We want to do this to ensure that an annoying corner-case bug won't make us have to go through another Last Call. We're fairly certain what these algorithms should be doing, and no matter how many times we've reviewed them, we'll find issues that we have to fix w/ the algorithm through LC and CR.
+[Tue 10:10]	<manu-db>	Topic: JSON-LD Test Suite
+[Tue 10:11]	<niklasl>	gregg: a couple of things to do: how to deal with options and callback behavior
+[Tue 10:11]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000091) has joined the conference.
+[Tue 10:11]	<niklasl>	… e.g. option for RDF to use native types
+[Tue 10:11]	<manu-db>	q+ to mention mocha testing framework for JavaScript API tests
+[Tue 10:11]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:12]	<niklasl>	… options for context given in option for use in expansion, etc.
+[Tue 10:12]	<niklasl>	… more concerning: the granularity of tests
+[Tue 10:12]	<niklasl>	… each test tests some particular aspect of an algorithm, but does so in many parallel ways
+[Tue 10:13]	<niklasl>	… add as small a test as possible, to make it easy to detect what causes an error
+[Tue 10:13]	<manu-db>	ack
+[Tue 10:13]	<voip-ld>	manu-db has the floor (to mention mocha testing framework for JavaScript API tests). The speaker queue is empty.
+[Tue 10:13]	<niklasl>	manu: I agree
+[Tue 10:13]	<niklasl>	… same problems in the early days of the RDFa test suite
+[Tue 10:14]	<niklasl>	… we may want to different suites, one for the syntax, one for the api
+[Tue 10:14]	<niklasl>	… the latter may benefit from a real JS test runner
+[Tue 10:15]	<niklasl>	... or else we may end up with a meta language to control flags etc.
+[Tue 10:15]	<gkellogg>	q+
+[Tue 10:15]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:15]	<niklasl>	... so we should simplify the tests to make them more atomic
+[Tue 10:15]	<mlnt>	q+
+[Tue 10:15]	<voip-ld>	Added mlnt to the speaker queue: gkellogg, mlnt
+[Tue 10:15]	<manu-db>	ack gkellogg
+[Tue 10:15]	<voip-ld>	gkellogg has the floor. The next speaker is mlnt.
+[Tue 10:15]	<niklasl>	gregg: for the RDFa tests we used (e.g.) query parameters to set options/flags
+[Tue 10:16]	<niklasl>	... we might be able to use that
+[Tue 10:16]	<niklasl>	... problem with js test framework is that it only works for js
+[Tue 10:16]	<manu-db>	ack
+[Tue 10:16]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:16]	-->|	anarchist (anarchist@cpe-74-66-25-137.nyc.res.rr.com) has joined #json-ld
+[Tue 10:16]	<mlnt>	ok.. just a sec
+[Tue 10:17]	<niklasl>	markus: I agree that we should define the tests to be independent of the implementation language
+[Tue 10:17]	<niklasl>	... we could use JSON to set options
+[Tue 10:17]	<niklasl>	… we should have minimal tests, but we also need some complex input data to test corner cases
+[Tue 10:18]	<manu-db>	q+ to say that we should split tests into unit tests and integration tests.
+[Tue 10:18]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:18]	<niklasl>	… sometimes things work in separation, but certain things only happen when combined
+[Tue 10:18]	<niklasl>	gregg: yes, there is a need for those complex things as well. We might be able to separate them within the numbering of tests
+[Tue 10:19]	<niklasl>	… if someone passes all the simple tests, we should attempt to find the smallest example which triggers a problem with combinations
+[Tue 10:19]	<manu-db>	ack
+[Tue 10:19]	<voip-ld>	manu-db has the floor (to say that we should split tests into unit tests and integration tests.). The speaker queue is empty.
+[Tue 10:19]	<niklasl>	… we could put all the complex tests starting with 1000
+[Tue 10:20]	<niklasl>	manu: so more than one feature is an integration test, starting at 1000
+[Tue 10:20]	<niklasl>	gregg: even one feature, like IRI expansion, needs to test many variants
+[Tue 10:20]	<mlnt>	q+
+[Tue 10:20]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:20]	<manu-db>	ack mlnt
+[Tue 10:20]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:21]	<niklasl>	… but we need to find the simplest possible input data for those as well
+[Tue 10:21]	<niklasl>	markus: what are the requirements from W3C regarding tests?
+[Tue 10:21]	<niklasl>	manu: what's needed is an implementation report showing at least two independent interoperable implementations
+[Tue 10:21]	<niklasl>	… but test suites makes that much simpler to measure
+[Tue 10:22]	<voip-ld>	<unknown> (IAX2/diamondcard-13206) has joined the conference.
+[Tue 10:22]	<niklasl>	gregg: not always though; automated test runners aren't always the best; it's useful to have independent test runners generating EARL reports, which we can collate and put into the report
+[Tue 10:23]	<niklasl>	… I'm not against it, but it was a complicated setup for RDFa
+[Tue 10:25]	<niklasl>	Discussion about the balance between test suite runner implementation difficulties vs. getting reports from implementations in general.
+[Tue 10:26]	<niklasl>	manu: main reason for automated test runner is not to block us when implementations develop and need to be verified
+[Tue 10:27]	<niklasl>	manu: It would be very good to have it running completely in the browser
+[Tue 10:27]	<niklasl>	… I'll make an attempt in the coming month
+[Tue 10:28]	<niklasl>	gregg: leveraging the rdfa runner may be feasible
+[Tue 10:29]	<niklasl>	manu: so, we want to make the test suite more atomic, and separate unit and integration tests (starting on 1000)
+[Tue 10:29]	<niklasl>	… and attempt to make an online test runner
+[Tue 10:29]	<manu-db>	Topic: Renaming of blank nodes
+[Tue 10:30]	<niklasl>	gregg: Markus wrote a test to verify that blank nodes are renamed.
+[Tue 10:30]	<niklasl>	… the use of bnodes in expansion, for e.g. property generators and node defs not containing an id; so that duplication doesn't create a new node.
+[Tue 10:31]	<mlnt>	Discussion about this was here: https://github.com/json-ld/json-ld.org/issues/160#issuecomment-11046185
+[Tue 10:31]	<niklasl>	… problem is that if you pick a bnode identifier it mustn't collide with an existing one. one solution is to rename all of them.
+[Tue 10:31]	<niklasl>	…. but that may create problems for implementations, e.g. it happens right now for the wikimedia stuff
+[Tue 10:32]	<niklasl>	manu: so you propose that we use a very unique prefix, which hopefully doesn't collide with an existing bnode id?
+[Tue 10:32]	<niklasl>	gregg: that, or scan through existing use and then pick something unique
+[Tue 10:33]	<niklasl>	manu: the scan through prevents stream-based processing, although that may already be out
+[Tue 10:33]	<niklasl>	q+
+[Tue 10:33]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:33]	<manu-db>	ack niklasl
+[Tue 10:33]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:34]	<mlnt>	q+
+[Tue 10:34]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:34]	<manu-db>	ack mlnt
+[Tue 10:34]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:34]	<niklasl>	niklas: reserving bnode id prefixes causes problems when expansion has been run; the input would use those at that point
+[Tue 10:35]	<niklasl>	markus: not sure what the problem here is? bnode id:s are local/internal, so we should be able to change them if we want to.
+[Tue 10:35]	<niklasl>	gregg: so far, we try to keep the json form consistent with what is written; so that bnode id:s use some internal pattern
+[Tue 10:36]	<niklasl>	… while it's formally very bad (especially from an RDF perspective), this can be useful for handing JSON
+[Tue 10:36]	<niklasl>	… I wouldn't vote against renaming if it's necessary; but do we always need to do it?
+[Tue 10:36]	<niklasl>	… it's a big change fairly late in the process
+[Tue 10:37]	<niklasl>	markus: could you use other identifiers?
+[Tue 10:37]	<niklasl>	gregg: a bit tricky with deployed code right now.
+[Tue 10:38]	<niklasl>	… previously, we didn't change bnode ids on expansion/compaction
+[Tue 10:38]	<niklasl>	manu: why can't we instead track already used bnodes, and ensure that generated ones aren't used?
+[Tue 10:38]	<niklasl>	... ofcourse, subsequently encountered ones are problematic
+[Tue 10:38]	<niklasl>	q+
+[Tue 10:38]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:39]	<manu-db>	ack niklasl
+[Tue 10:39]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:41]	<mlnt>	q+
+[Tue 10:41]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:42]	<niklasl>	manu: keep track of both generated and encountered bnodes, and if an overlap occurs, start renaming only those that are already encountered/generated
+[Tue 10:42]	* niklasl	that's my thought as well
+[Tue 10:42]	<manu-db>	ack mlnt
+[Tue 10:42]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:42]	<niklasl>	markus: is this the final code for wikia?
+[Tue 10:43]	<niklasl>	gregg: the plan is to use URIs, but the scrum process hasn't gotten there; we currently use article id:s locally
+[Tue 10:44]	<niklasl>	markus: the flag for property generators could also disable bnode renaming
+[Tue 10:45]	<niklasl>	manu: if we can ensure that only if property generators are used, renaming occurs..
+[Tue 10:46]	<niklasl>	markus: the property generators could be used for DoS attacks, I will support such a flag
+[Tue 10:46]	<niklasl>	gregg: I'd prefer to avoid renaming if property generators aren't used
+[Tue 10:47]	<niklasl>	markus: I sttil think bnodes are dangerous to preserve, since they should not be used
+[Tue 10:48]	<niklasl>	manu: it's a good point. But some users don't want to change the raw data.
+[Tue 10:49]	<niklasl>	… it is a large change, but it's still before LC, and makes a good point
+[Tue 10:52]	<manu-db>	PROPOSAL: Rename all blank node identifiers when doing expansion.
+[Tue 10:52]	<mlnt>	+1
+[Tue 10:52]	<gkellogg>	+0.1
+[Tue 10:52]	<manu-db>	+1
+[Tue 10:52]	<niklasl>	niklasl: +0.5
+[Tue 10:53]	<manu-db>	dlongley: +0.3
+[Tue 10:53]	<taaz>	+0
+[Tue 10:53]	<manu-db>	RESOLVED: Rename all blank node identifiers when doing expansion.
+[Tue 10:54]	<mlnt>	filed the resolution under ISSUE-160
+[Tue 10:54]	<manu-db>	Topic: ISSUE-203: Validate IRIs and language tags
+[Tue 10:54]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/203
+[Tue 10:54]	<gkellogg>	q+
+[Tue 10:54]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:54]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-00000091) has left the conference.
+[Tue 10:54]	<niklasl>	markus: the question is whether processors should validate IRIs and language tags fully, or just assume they work
+[Tue 10:55]	<manu-db>	q+ to propose that we don't do validation, but do normalize to lowercase for language strings.
+[Tue 10:55]	<voip-ld>	Added manu-db to the speaker queue: gkellogg, manu-db
+[Tue 10:55]	<niklasl>	… Richard made the point that language tags have to be normalized, and validated(?)
+[Tue 10:55]	<manu-db>	ack gkellogg
+[Tue 10:55]	<voip-ld>	gkellogg has the floor. The next speaker is manu-db.
+[Tue 10:56]	<niklasl>	gregg: compare to Turtle, it includes a simplest form of BCP 47. A full validation needs much more logic.
+[Tue 10:56]	|<--	advatar has left freenode (Quit: advatar)
+[Tue 10:57]	<niklasl>	… it's complicated to get it exactly correct.
+[Tue 10:57]	<niklasl>	… And normalization doesn't require full validation. Same thing with URIs. Most libraries detect simple problems, but full checking requires much more complexity.
+[Tue 10:58]	<manu-db>	ack
+[Tue 10:58]	<voip-ld>	gkellogg has the floor (to propose that we don't do validation, but do normalize to lowercase for language strings.). The speaker queue is empty.
+[Tue 10:58]	<niklasl>	… it's better to not include in the core algorithm. As François said, there's a difference between a processor and a validator
+[Tue 10:58]	<niklasl>	manu: I agree with all of that.
+[Tue 10:59]	<niklasl>	markus: so, what do we say specifically?
+[Tue 10:59]	<niklasl>	manu: we don't say should/must not; all we say is that it's not required to do full validation
+[Tue 11:00]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 11:00]	<niklasl>	manu: it's strange to have a discussion about this but not say anything in the spec
+[Tue 11:00]	<niklasl>	q+
+[Tue 11:00]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:01]	<manu-db>	niklasl: Could we say something to the effect of "it's not users of processors might not expect that all processors are fully validating processors"? That is, invalid input data might lead to different results depending on the level of validation for the processor.
+[Tue 11:02]	<manu-db>	ack niklasl
+[Tue 11:02]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:02]	<manu-db>	niklasl: So, basically - the output may not be the same for corner cases.
+[Tue 11:02]	<niklasl>	manu: or we could say that processors may issue warnings about data which is not valid, but processors must not modify data to correct it
+[Tue 11:03]	<manu-db>	niklasl: I think that might work.
+[Tue 11:04]	<niklasl>	markus: I agree, no validation. And not include any language about it in the spec..
+[Tue 11:04]	<niklasl>	… we already say that algorithms are only specified for well-formed input
+[Tue 11:04]	<niklasl>	gregg: we do say that to be valid, these must be valid BCP 47 tags / IRIs
+[Tue 11:05]	<manu-db>	What about this for a proposal? JSON-LD Processors MAY issue validating warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors and MUST only perform normalization on IRIs and BCP47 language strings.
+[Tue 11:05]	<niklasl>	… we shouldn't say whether processors should tolerate invalid values for that.. We need to compare with e.g. Turtle spec.
+[Tue 11:06]	<manu-db>	PROPOSAL: JSON-LD Processors MAY issue validation warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors.
+[Tue 11:06]	<manu-db>	+1
+[Tue 11:06]	<gkellogg>	+1
+[Tue 11:07]	<mlnt>	+0.5 (would also be fine with being silent about it)
+[Tue 11:07]	<niklasl>	niklasl: +0.9 (unless something much different is done in e.g. the turtle spec)
+[Tue 11:07]	<manu-db>	RESOLVED: JSON-LD Processors MAY issue validation warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors.
+[Tue 11:07]	<manu-db>	Topic: ISSUE-109: Add flatten() method to JSON-LD API
+[Tue 11:08]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/109
+[Tue 11:09]	<mlnt>	q+
+[Tue 11:09]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 11:09]	<manu-db>	ack mlnt
+[Tue 11:09]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 11:10]	<niklasl>	manu: we're signaling that there's an easy way of flattening (apart from the flag)
+[Tue 11:10]	<niklasl>	markus: I'd suggest to drop the flags then
+[Tue 11:10]	<niklasl>	… and that it should also return all the graphs (currently just the default graph?)
+[Tue 11:11]	<niklasl>	… i.e. drop the 'merged'/'default' and return all graphs
+[Tue 11:13]	<niklasl>	manu: yes, we don't want lossy algorithms
+[Tue 11:13]	<mlnt>	so the signature would be flatten(input, context, callback, options)
+[Tue 11:14]	<manu-db>	PROPOSAL: Add a .flatten() method to the JSON-LD API, which returns all data in flattened, compact form. Remove the flatten flag from the .expand() and .compact() methods. Ensure that the .flatten() method preserves data in named graphs.
+[Tue 11:14]	<manu-db>	+1
+[Tue 11:14]	<mlnt>	+1
+[Tue 11:15]	<gkellogg>	+1
+[Tue 11:15]	<niklasl>	niklasl: +0.75 (not entirely sure about how people not knowing this stuff in detail will get the meaning of "flatten")
+[Tue 11:16]	<manu-db>	RESOLVED: Add a .flatten() method to the JSON-LD API, which returns all data in flattened, compact form. Remove the flatten flag from the .expand() and .compact() methods. Ensure that the .flatten() method preserves data in named graphs.
+[Tue 11:17]	<manu-db>	Topic: ISSUE-206: Clarify that the algorithms operate a copy of the input
+[Tue 11:17]	<niklasl>	manu: we want to clarify that implementors mustn't modify the input data in-place
+[Tue 11:20]	<niklasl>	gregg: the fact that the algorithms speak of serializations does imply that there is no modification. It may be good to say that the algorithms operate of a live data structure, and hence need to create copies.
+[Tue 11:22]	* niklasl	how about "must generate a new data structure, separate from the input data"?
+[Tue 11:24]	<niklasl>	gregg: implementations MAY operate on native data structures, and if so, they must generate new data structures
+[Tue 11:35]	<manu-db>	PROPOSAL: Any input to JSON-LD API methods MUST NOT be modified.
+[Tue 11:35]	<mlnt>	+1
+[Tue 11:35]	<manu-db>	+1
+[Tue 11:35]	<niklasl>	+1
+[Tue 11:35]	<gkellogg>	+1
+[Tue 11:35]	<manu-db>	RESOLVED: Any input to JSON-LD API methods MUST NOT be modified.
