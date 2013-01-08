@@ -1,0 +1,267 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-01-08</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0006.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0006.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">State of JSON-LD Documents</a><li><a href="#topic-2">ISSUE-153: Define error handler behavior</a><li><a href="#topic-3">ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</a><li><a href="#topic-4">ISSUE-204: Compact @id's to relative IRIs</a><li><a href="#topic-5">ISSUE-205: Use the term URL instead of IRI in the (API) spec</a><li><a href="#topic-6">ISSUE-207: Handling of free-floating values in flattening/toRDF</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Accept the JSON-LD API spec text on error handling with a few modifications - remove the issueCallback mechanism from JsonLdOptions, remove severity fromJsonLdProcessorIssue, rename JsonLdProcessorIssue to JsonLdError.</a><li><a href="#resolution-2">Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API (no subtitle)"</a><li><a href="#resolution-3">Do not allow terms as values for @id.</a><li><a href="#resolution-4">The following value types are supported for @id - document relative IRIs, absolute IRIs, and CURIEs.</a><li><a href="#resolution-5">When compacting, attempt to compact absolute IRIs to document-relative IRIs.</a><li><a href="#resolution-6">Include the text "Throughout this specification, the term 'URL' means IRI as defined in RFC3987. The reason we use URL is because it is more familiar to Web developers." and use the term URL everywhere in both specifications.</a><li><a href="#resolution-7">JSON-LD Processors do not modify URLs other than to translate between relative and absolute URLs. Specifically, they do not implement the URL processing rules as outlined in the HTML5 specification.</a><li><a href="#resolution-8">Disallow free-floating values and IRIs in the JSON-LD Data model. If a free-floating value/IRI is detected during expansion, drop the value/IRI.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, François Daoust, Lin Clark</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: State of JSON-LD Documents</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Thanks to Markus and Gregg's editorial work, I think we're in really good shape for Last Call.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0000.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0000.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I still hope we can get to LC by the end of January</div>
+<div class="comment-continuation">... but there are some things we still need to discuss</div>
+<div class="comment-continuation">... for example the ABNF stuff Markus has send to the mailing list</div>
+<div class="comment-continuation">... I agree with Gregg's concerns.. for example we should not make people believe that documents violating the grammar will not be parsed.</div>
+<div class="comment-continuation">... the JSON-LD API doc is feature-complete - I think</div>
+<div class="comment-continuation">... the major discussion is around the algorithms</div>
+<div class="comment-continuation">... we should make them as easy as possible to read without introducing ambiguity, descriptive instead of proscriptive</div>
+<div class="comment-continuation">... seeing the discussion on the mailing list I think we just need to make a few more iterations to improve it</div>
+<div class="comment-continuation">... my first priority is to complete the syntax spec for last call</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/alternate.html">http://json-ld.org/spec/latest/json-ld-api/alternate.html</a></div>
+<div class="comment-continuation">... Gregg has been working on the algorithms, Dave Longley and myself probably will do another pass</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I finished my work on the algorithms, I published it here: <a href="http://json-ld.org/spec/latest/json-ld-api/alternate.html">http://json-ld.org/spec/latest/json-ld-api/alternate.html</a></div>
+<div class="comment-continuation">... I stick closer to the original algorithms</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I've looked at Gregg's algorithms - some of the stuff isn't properly spec'd, I think (don't know if I misunderstood some of the algorithms) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There are some MUST statements in there that I don't think are necessary - we shouldn't duplicate normative spec text that is in the Syntax spec. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I was attempting to replace a similar expression that said that it needed to raise an error - it acted as a hook for the API. "If the expectation was violated for 2.3, then raise this exception" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If there is some way to rephrase that, then that would be fine if it's not normative text. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is the reason I didn't put stuff in to raise an error - it's still separated from the API, you just specifically enumerate the errors. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's a strange issue.. we want to make it easy for implementers to know where which errors should be raised, at the same time we want to separate the algorithms from the API</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah, I didn't want to be explicit about an error. We could put something in there that points to the API. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg, from what I understand you took Markus' algorithms and tried to stick closer to the previous algorithms</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah.. expansion is more or less the same as Markus'</div>
+<div class="comment-continuation">... context processing is quite different I would say.. for example I don't use a vocabRelative flag</div>
+<div class="comment-continuation">... in IRI expansion e.g. I just said that there must not be a recursive term definition instead of exactly prescribing how to do it</div>
+<div class="comment-continuation">... most changes are in Compaction</div>
+<div class="comment-continuation">... and IRI Compaction continues to use Term Ranking with minor modifications</div>
+<div class="comment-continuation">... I think having term ranking is simpler than having an inverse context</div>
+<div class="comment-continuation">... it has been very difficult for me to understand the inverse context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could simplify toRDF/fromRDF if we flatten the document first, and then we run the toRDF() algorithm on it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's not too many steps, there might be some benefits to be gained by flattening. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The only changes I needed to make was to make sure that when we were creating new bnodes that it continues using the same bnode generator that we used during the expansion phase. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  One of the things we almost definitely will put in the document is that the outcome of the algorithms is not going to change in LC but they might be modified to be simpler to read</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  currently I don't pass any of the flattening tests whereas I passed them all before</div>
+<div class="comment-continuation">... I think that's mostly because I ignore property-less nodes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus did you change anything dramatically in the algorithm?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  No, the only fundamental change was that now all graphs will be in the flattened output whereas before there was always just one</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-153: Define error handler behavior</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/153">https://github.com/json-ld/json-ld.org/issues/153</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I went ahead and updated the spec with the error handler behavior</div>
+<div class="comment-continuation">... Markus had some concerns about the complexity of the implementation, he thinks it goes a bit too far</div>
+<div class="comment-continuation">... basically saying that non-fatal errors are just useful for validators/linters</div>
+<div class="comment-continuation">... and that standardizing all possible issue codes is time consuming</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We have two error handling mechanisms now, one for fatal errors, another for warnings and non-fatal errors. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is debug output - you can't really do anything useful with it. It might be nice to have the debug output, in the end, it wouldn't help you at all. The provided information is by no means enough to do anything useful with it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can't track the message back to a specific location in the document. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can't implement a validator that highlights the parts that caused an error or a problem. I don't think it makes sense to specify it. It is potentially more harmful than helpful. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I would propose that JsonLdOptions can be extended by concrete implementations - any implementation is free to add other debugging/monitoring functionality. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We just specify where JSON-LD processors stop, and the error conditions for those. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  One of the issues I always had with JavaScript is that you don't get such information</div>
+<div class="comment-continuation">... all you get is "processing failed"</div>
+<div class="comment-continuation">... you don't know why it failed</div>
+<div class="comment-continuation">... you don't get warnings - a lot of developers might want to have just that</div>
+<div class="comment-continuation">... I also don't think we need to standardize every issue code</div>
+<div class="comment-continuation">... we could let that organically grow. There wouldn't be that much of an implementation-burden for us as spec writers</div>
+<div class="comment-continuation">... yes, we don't have line numbers etc. because JSON parsers don't provide that</div>
+<div class="comment-continuation">... if the processor can get the line number somehow it should include that in the error</div>
+<div class="comment-continuation">... so we should implementers not only say they can extend jsonLdOptions but also JsonLdProcessingIssue</div>
+<div class="comment-continuation">... when we are developing systems we want to have this information</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's useful to have these things but it may get burdening when we need to enumerate all those errors</div>
+<div class="comment-continuation">... that would allow use to include even more debugging information</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would you be more happy with having more generic error codes for non-fatal errors</div>
+<div class="information">Discussion about whether non-fatal error reporting should be specified</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I agree that having debugging output is useful but I also agree that it might not be necessary to put this into the spec</div>
+<div class="comment-continuation">... for example in my Turtle processor it would have been much more difficult to include all the debugging information if the specs would have been very specific about it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Are you saying that we don't need to specify that callback?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In my case in Ruby, the more specific we get in the JSON-LD API the less similar my Ruby implementation looks to the API</div>
+<div class="comment-continuation">... because it's just not done that way in Ruby</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Right, one piece I updated in the spec is that this API is meant to be implemented in JavaScript</div>
+<div class="comment"><span class="name">François Daoust</span>:  I think I share the view that Markus has</div>
+<div class="comment-continuation">... but it doesn't really change the API</div>
+<div class="comment-continuation">... it's just a property in JsonLdOptions</div>
+<div class="comment-continuation">... but I think it that should be left to implementations</div>
+<div class="comment-continuation">... I would drop the issueCallback property</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  gregg, you were one of the people who wanted to have multiple levels of issues - any thoughts?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we can leave it up to the implementations.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Accept the JSON-LD API spec text on error handling with a few modifications - remove the issueCallback mechanism from JsonLdOptions, remove severity fromJsonLdProcessorIssue, rename JsonLdProcessorIssue to JsonLdError.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -0.3 (but I can live with it)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: markus: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Accept the JSON-LD API spec text on error handling with a few modifications - remove the issueCallback mechanism from JsonLdOptions, remove severity fromJsonLdProcessorIssue, rename JsonLdProcessorIssue to JsonLdError.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/178">https://github.com/json-ld/json-ld.org/issues/178</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus' PROPOSAL 6 seem to have broad agreement: Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API" (without subtitle)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not sure we are allowed to have no subtitle</div>
+<div class="comment"><span class="name">François Daoust</span>:  I think we don't need to have one</div>
+<div class="comment-continuation">... but rules might have changed</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API (no subtitle)"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API (no subtitle)"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  could we have the short name json-ld instead of json-ld-syntax</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, I think.. we would have to request it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we might also should change json-ld-api to something else as the emphasis is on the algorithms</div>
+<div class="comment"><span class="name">François Daoust</span>: [re. possibility not to have a subtitle, I note the "pub rules" and the sample document they provide do not even mention subtitles: <a href="http://www.w3.org/2005/07/pubrules?uimode=filter#sample-template">http://www.w3.org/2005/07/pubrules?uimode=filter#sample-template</a> ]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: shortname - 'json-ld'</div>
+<div class="comment"><span class="name">Manu Sporny</span>: title - "JSON-LD 1.0"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: subtitle - "A JSON-based Serialization for Linked Data"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: shortname - 'json-ld-processing'</div>
+<div class="comment"><span class="name">Manu Sporny</span>: title - "JSON-LD 1.0 Processing Algorithms"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: subtitle - "Processing Algorithms and API"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the only problem I see with this is that API wouldn't appear in search results as it's not in the title anymore</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg, would you be fine to keep what we resolved to?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, I think if we would do it again we put more emphasis on the algorithms</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-204: Compact @id's to relative IRIs</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/204">https://github.com/json-ld/json-ld.org/issues/204</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we have broad agreement to not allow terms as value for @id</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Do not allow terms as values for @id.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Do not allow terms as values for @id.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the question is also whether we allow CURIEs</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Lin, does Drupal need the use of CURIEs in @id? So, for example - "@id": "site1:/nodes/1"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought that was important for Drupal. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Lin Clark</span>:  I think we could switch to relative IRIs</div>
+<div class="comment-continuation">... but I honestly can't say it for sure</div>
+<div class="comment-continuation">... I would have to think more about it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We are getting rid of terms in @id</div>
+<div class="comment-continuation">... we might also get rid of CURIEs</div>
+<div class="comment"><span class="name">Lin Clark</span>:  that would be fine for us I think</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's not an issue with CURIEs though.. there's just a problem with terms</div>
+<div class="comment-continuation">... we don't have base so CURIEs could be used instead</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the issue is that sometimes a relative IRI becomes a CURIE after expanding-&gt;compacting</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that would certainly be surprising for developers. I think we should compact to the simplest thing, which probably is a relative IRI</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could compact to the shortest</div>
+<div class="comment-continuation">... the developer has control of the context.. so just don't define a term</div>
+<div class="comment"><span class="name">Manu Sporny</span>: order of operations when expanding for @id - CURIE, relative IRI, absolute IRI</div>
+<div class="information">it's CURIE, absolute IRI (colon), relative IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>: order of operations when compacting an @id - CURIE, relative IRI, absolute IRI</div>
+<div class="information">so... noprefix:something will end up being interpreted as absolute IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>: what about URLs like this - urn:foo:bar</div>
+<div class="comment"><span class="name">Manu Sporny</span>: where the developer uses a relative 'bar'</div>
+<div class="comment"><span class="name">Manu Sporny</span>: @id : "bar" where base = "foo:bar:" - will that roundtrip?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: The group believes that it will round-trip based on the current algorithms.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The following value types are supported for @id - document relative IRIs, absolute IRIs, and CURIEs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> The following value types are supported for @id - document relative IRIs, absolute IRIs, and CURIEs.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> When compacting, attempt to compact absolute IRIs to document-relative IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> When compacting, attempt to compact absolute IRIs to document-relative IRIs.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-205: Use the term URL instead of IRI in the (API) spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/205">https://github.com/json-ld/json-ld.org/issues/205</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This nomenclature discussion comes up every single time we try to put "IRI" into a specification. The problem is that the HTML5 spec uses URL, and Web developers are more familiar with URL instead of IRI. We are trying to build something useful for Web developers, so I think we should probably use 'URL'.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Include the text "Throughout this specification, the term 'URL' means IRI as defined in RFC3987. The reason we use URL is because it is more familiar to Web developers." and use the term URL everywhere in both specifications.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Include the text "Throughout this specification, the term 'URL' means IRI as defined in RFC3987. The reason we use URL is because it is more familiar to Web developers." and use the term URL everywhere in both specifications.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is what we currently have in the spec:</div>
+<div class="information">This specification does not define how JSON-LD Implementations or Processors handle non-conforming input documents. This implies that JSON-LD Implementations or Processors must not attempt to correct malformed IRIs or language tags; however, they may issue validation warnings.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> JSON-LD Processors do not modify URLs other than to translate between relative and absolute URLs. Specifically, they do not implement the URL processing rules as outlined in the HTML5 specification.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> JSON-LD Processors do not modify URLs other than to translate between relative and absolute URLs. Specifically, they do not implement the URL processing rules as outlined in the HTML5 specification.</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-207: Handling of free-floating values in flattening/toRDF</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/207">https://github.com/json-ld/json-ld.org/issues/207</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the question is, how do we handle free-floating values?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so, what should happen for @graph: { "@id": "/test" }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  @graph: { "@id": "/test", "doesntexpand": true } -- drop @id object?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yep, drop it [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Disallow free-floating values and IRIs in the JSON-LD Data model. If a free-floating value/IRI is detected during expansion, drop the value/IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-8" class="resolution"><strong>RESOLUTION:</strong> Disallow free-floating values and IRIs in the JSON-LD Data model. If a free-floating value/IRI is detected during expansion, drop the value/IRI.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I can't say this enough - you guys rock! Thank you for all of your great work - Markus, Gregg, Francois, Dave Longley, Dave Lehn, and all of the other folks that have contributed to the JSON-LD specs. We're in very good shape for Last Call, and the specs are in very good shape overall thanks to each of your hard work! Can't emphasize that enough. [scribe assist by Manu Sporny]</div>
+</body>
+</html>

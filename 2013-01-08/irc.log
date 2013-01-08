@@ -1,0 +1,238 @@
+[Tue 10:00]	<voip-ld>	Manu Sporny (SIP/6000-00000097) is in the conference.
+[Tue 10:00]	<voip-ld>	Manu Sporny (SIP/6000-00000097) has joined the conference.
+[Tue 10:01]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000098) has joined the conference.
+[Tue 10:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000099) has joined the conference.
+[Tue 10:07]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0006.html
+[Tue 10:08]	<manu-db>	scribe: mlnt
+[Tue 10:08]	<manu-db>	Topic: State of JSON-LD Documents
+[Tue 10:08]	-->|	linclark (~clark@c-67-186-35-246.hsd1.pa.comcast.net) has joined #json-ld
+[Tue 10:08]	<mlnt>	manu: Thanks to Markus and Gregg's editorial work, I think we're in really good shape for Last Call.
+[Tue 10:08]	<manu-db>	http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0000.html
+[Tue 10:08]	-->|	linclark_ (~linclark@mobile-198-228-196-208.mycingular.net) has joined #json-ld
+[Tue 10:08]	<mlnt>	manu: I still hope we can get to LC by the end of January
+[Tue 10:09]	<mlnt>	... but there are some things we still need to discuss
+[Tue 10:09]	-->|	tidoust (~fd@AMontsouris-651-1-235-163.w86-212.abo.wanadoo.fr) has joined #json-ld
+[Tue 10:09]	|<--	linclark_ has left freenode (Remote host closed the connection)
+[Tue 10:09]	<mlnt>	... for example the ABNF stuff Markus has send to the mailing list
+[Tue 10:09]	-->|	linclark_ (~linclark@mobile-198-228-196-208.mycingular.net) has joined #json-ld
+[Tue 10:10]	<voip-ld>	<unknown> (IAX2/diamondcard-9699) has joined the conference.
+[Tue 10:10]	<mlnt>	... I agree with Gregg's concerns.. for example we should not make people believe that documents violating the grammar will not be parsed.
+[Tue 10:10]	<tidoust>	voip: 9699 is me
+[Tue 10:10]	<voip-ld>	tidoust is now associated with IAX2/diamondcard-9699.
+[Tue 10:10]	<--|	linclark_ has left #json-ld
+[Tue 10:10]	* tidoust	apologies for being so late...
+[Tue 10:10]	<mlnt>	... the JSON-LD API doc is feature-complete - I think
+[Tue 10:11]	<mlnt>	... the major discussion is around the algorithms
+[Tue 10:11]	<mlnt>	... we should make them as easy as possible to read without introducing ambiguity, descriptive instead of proscriptive
+[Tue 10:11]	<mlnt>	... seeing the discussion on the mailing list I think we just need to make a few more iterations to improve it
+[Tue 10:12]	<mlnt>	... my first priority is to complete the syntax spec for last call
+[Tue 10:13]	<gkellogg>	http://json-ld.org/spec/latest/json-ld-api/alternate.html
+[Tue 10:13]	<mlnt>	... Gregg has been working on the algorithms, Dave Longley and myself probably will do another pass
+[Tue 10:13]	<mlnt>	gregg: I finished my work on the algorithms, I published it here: http://json-ld.org/spec/latest/json-ld-api/alternate.html
+[Tue 10:14]	<mlnt>	... I stick closer to the original algorithms
+[Tue 10:14]	<tidoust>	voip: mute me
+[Tue 10:14]	<voip-ld>	tidoust has been muted.
+[Tue 10:15]	<manu-db>	markus: I've looked at Gregg's algorithms - some of the stuff isn't properly spec'd, I think (don't know if I misunderstood some of the algorithms)
+[Tue 10:15]	<manu-db>	markus: There are some MUST statements in there that I don't think are necessary - we shouldn't duplicate normative spec text that is in the Syntax spec.
+[Tue 10:16]	<manu-db>	gregg: I was attempting to replace a similar expression that said that it needed to raise an error - it acted as a hook for the API. "If the expectation was violated for 2.3, then raise this exception"
+[Tue 10:17]	<manu-db>	gregg: If there is some way to rephrase that, then that would be fine if it's not normative text.
+[Tue 10:17]	<manu-db>	markus: This is the reason I didn't put stuff in to raise an error - it's still separated from the API, you just specifically enumerate the errors.
+[Tue 10:19]	<mlnt>	manu: it's a strange issue.. we want to make it easy for implementers to know where which errors should be raised, at the same time we want to separate the algorithms from the API
+[Tue 10:19]	<manu-db>	gregg: yeah, I didn't want to be explicit about an error. We could put something in there that points to the API.
+[Tue 10:21]	<mlnt>	manu: Gregg, from what I understand you took Markus' algorithms and tried to stick closer to the previous algorithms
+[Tue 10:21]	<mlnt>	gregg: Yeah.. expansion is more or less the same as Markus'
+[Tue 10:21]	<mlnt>	... context processing is quite different I would say.. for example I don't use a vocabRelative flag
+[Tue 10:23]	<mlnt>	... in IRI expansion e.g. I just said that there must not be a recursive term definition instead of exactly prescribing how to do it
+[Tue 10:23]	<mlnt>	... most changes are in Compaction
+[Tue 10:23]	<mlnt>	... and IRI Compaction continues to use Term Ranking with minor modifications
+[Tue 10:24]	<mlnt>	... I think having term ranking is simpler than having an inverse context
+[Tue 10:24]	<mlnt>	... it has been very difficult for me to understand the inverse context
+[Tue 10:25]	<manu-db>	mlnt: We could simplify toRDF/fromRDF if we flatten the document first, and then we run the toRDF() algorithm on it.
+[Tue 10:26]	<manu-db>	gregg: It's not too many steps, there might be some benefits to be gained by flattening.
+[Tue 10:26]	<manu-db>	gregg: The only changes I needed to make was to make sure that when we were creating new bnodes that it continues using the same bnode generator that we used during the expansion phase.
+[Tue 10:29]	<mlnt>	manu: One of the things we almost definitely will put in the document is that the outcome of the algorithms is not going to change in LC but they might be modified to be simpler to read
+[Tue 10:29]	<mlnt>	gregg: currently I don't pass any of the flattening tests whereas I passed them all before
+[Tue 10:30]	<mlnt>	... I think that's mostly because I ignore property-less nodes
+[Tue 10:31]	<mlnt>	gregg: Markus did you change anything dramatically in the algorithm?
+[Tue 10:32]	<mlnt>	markus: No, the only fundamental change was that now all graphs will be in the flattened output whereas before there was always just one
+[Tue 10:35]	<manu-db>	Topic: ISSUE-153: Define error handler behavior
+[Tue 10:35]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/153
+[Tue 10:36]	<mlnt>	manu: I went ahead and updated the spec with the error handler behavior
+[Tue 10:36]	<mlnt>	... Markus had some concerns about the complexity of the implementation, he thinks it goes a bit too far
+[Tue 10:37]	<mlnt>	... basically saying that non-fatal errors are just useful for validators/linters
+[Tue 10:37]	<mlnt>	... and that standardizing all possible issue codes is time consuming
+[Tue 10:37]	<manu-db>	mlnt: We have two error handling mechanisms now, one for fatal errors, another for warnings and non-fatal errors.
+[Tue 10:38]	<manu-db>	mlnt: This is debug output - you can't really do anything useful with it. It might be nice to have the debug output, in the end, it wouldn't help you at all. The provided information is by no means enough to do anything useful with it.
+[Tue 10:38]	<manu-db>	mlnt: You can't track the message back to a specific location in the document.
+[Tue 10:39]	<manu-db>	mlnt: You can't implement a validator that highlights the parts that caused an error or a problem. I don't think it makes sense to specify it. It is potentially more harmful than helpful.
+[Tue 10:39]	<manu-db>	mlnt: I would propose that JsonLdOptions can be extended by concrete implementations - any implementation is free to add other debugging/monitoring functionality.
+[Tue 10:40]	<manu-db>	mlnt: We just specify where JSON-LD processors stop, and the error conditions for those.
+[Tue 10:40]	<mlnt>	manu: One of the issues I always had with JavaScript is that you don't get such information
+[Tue 10:40]	<mlnt>	... all you get is "processing failed"
+[Tue 10:41]	<mlnt>	... you don't know why it failed
+[Tue 10:41]	<mlnt>	... you don't get warnings - a lot of developers might want to have just that
+[Tue 10:42]	<mlnt>	... I also don't think we need to standardize every issue code
+[Tue 10:42]	<mlnt>	... we could let that organically grow. There wouldn't be that much of an implementation-burden for us as spec writers
+[Tue 10:43]	<mlnt>	... yes, we don't have line numbers etc. because JSON parsers don't provide that
+[Tue 10:43]	<mlnt>	... if the processor can get the line number somehow it should include that in the error
+[Tue 10:44]	<mlnt>	... so we should implementers not only say they can extend jsonLdOptions but also JsonLdProcessingIssue
+[Tue 10:44]	<mlnt>	... when we are developing systems we want to have this information
+[Tue 10:45]	<mlnt>	gregg: I think it's useful to have these things but it may get burdening when we need to enumerate all those errors
+[Tue 10:46]	<mlnt>	... that would allow use to include even more debugging information
+[Tue 10:46]	<mlnt>	manu: would you be more happy with having more generic error codes for non-fatal errors
+[Tue 10:51]	<mlnt>	Discussion about whether non-fatal error reporting should be specified
+[Tue 10:55]	<mlnt>	gregg: I agree that having debugging output is useful but I also agree that it might not be necessary to put this into the spec
+[Tue 10:56]	<mlnt>	... for example in my Turtle processor it would have been much more difficult to include all the debugging information if the specs would have been very specific about it
+[Tue 10:57]	<mlnt>	manu: Are you saying that we don't need to specify that callback?
+[Tue 10:57]	<mlnt>	gregg: In my case in Ruby, the more specific we get in the JSON-LD API the less similar my Ruby implementation looks to the API
+[Tue 10:57]	<mlnt>	... because it's just not done that way in Ruby
+[Tue 10:58]	<tidoust>	q+
+[Tue 10:58]	<voip-ld>	Added tidoust to the speaker queue: tidoust
+[Tue 10:58]	<mlnt>	manu: Right, one piece I updated in the spec is that this API is meant to be implemented in JavaScript
+[Tue 10:58]	<tidoust>	voip: unmute me
+[Tue 10:58]	<voip-ld>	tidoust has been unmuted.
+[Tue 10:58]	<manu-db>	ack tidoust
+[Tue 10:58]	<voip-ld>	tidoust has the floor. The speaker queue is empty.
+[Tue 10:59]	<mlnt>	tidoust: I think I share the view that Markus has
+[Tue 11:00]	<mlnt>	... but it doesn't really change the API
+[Tue 11:00]	<mlnt>	... it's just a property in JsonLdOptions
+[Tue 11:01]	<mlnt>	... but I think it that should be left to implementations
+[Tue 11:01]	<mlnt>	... I would drop the issueCallback property
+[Tue 11:01]	<mlnt>	manu: gregg, you were one of the people who wanted to have multiple levels of issues - any thoughts?
+[Tue 11:01]	<mlnt>	gregg: I think we can leave it up to the implementations.
+[Tue 11:02]	* mlnt	tidoust, could you turn up your mic-volume a bit.. it's very difficult to understand you
+[Tue 11:02]	<tidoust>	voip: mute me
+[Tue 11:02]	<voip-ld>	tidoust has been muted.
+[Tue 11:03]	* tidoust	ok, will see what I can do
+[Tue 11:04]	<manu-db>	PROPOSAL: Accept the JSON-LD API spec text on error handling with a few modifications - remove the issueCallback mechanism from JsonLdOptions, remove severity fromJsonLdProcessorIssue, rename JsonLdProcessorIssue to JsonLdError.
+[Tue 11:05]	<gkellogg>	+1
+[Tue 11:05]	<manu-db>	-0.3 (but I can live with it)
+[Tue 11:05]	<mlnt>	markus: +1
+[Tue 11:05]	<tidoust>	+1
+[Tue 11:06]	<manu-db>	RESOLVED: Accept the JSON-LD API spec text on error handling with a few modifications - remove the issueCallback mechanism from JsonLdOptions, remove severity fromJsonLdProcessorIssue, rename JsonLdProcessorIssue to JsonLdError.
+[Tue 11:06]	<manu-db>	Topic: ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing
+[Tue 11:06]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/178
+[Tue 11:07]	* tidoust	do we?
+[Tue 11:07]	<mlnt>	manu: Markus' PROPOSAL 6 seem to have broad agreement: Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API" (without subtitle)
+[Tue 11:07]	<tidoust>	voip: unmute me
+[Tue 11:07]	<voip-ld>	tidoust has been unmuted.
+[Tue 11:07]	<mlnt>	manu: I'm not sure we are allowed to have no subtitle
+[Tue 11:07]	<mlnt>	tidoust: I think we don't need to have one
+[Tue 11:08]	<mlnt>	... but rules might have changed
+[Tue 11:07]	<tidoust>	voip: mute me
+[Tue 11:07]	<voip-ld>	tidoust has been muted.
+[Tue 11:08]	<manu-db>	PROPOSAL: Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API (no subtitle)"
+[Tue 11:08]	<manu-db>	+1
+[Tue 11:08]	<mlnt>	+1
+[Tue 11:08]	<gkellogg>	+1
+[Tue 11:08]	<tidoust>	+1
+[Tue 11:09]	<manu-db>	RESOLVED: Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API (no subtitle)"
+[Tue 11:11]	<mlnt>	markus: could we have the short name json-ld instead of json-ld-syntax
+[Tue 11:11]	<mlnt>	manu: yes, I think.. we would have to request it
+[Tue 11:11]	<mlnt>	gregg: I think we might also should change json-ld-api to something else as the emphasis is on the algorithms
+[Tue 11:11]	<tidoust>	[re. possibility not to have a subtitle, I note the "pub rules" and the sample document they provide do not even mention subtitles: http://www.w3.org/2005/07/pubrules?uimode=filter#sample-template ]
+[Tue 11:12]	* manu-db	thanks tidoust :)
+[Tue 11:12]	* mlnt	thanks!
+[Tue 11:12]	<manu-db>	shortname - 'json-ld'
+[Tue 11:13]	<manu-db>	title - "JSON-LD 1.0"
+[Tue 11:13]	<manu-db>	subtitle - "A JSON-based Serialization for Linked Data"
+[Tue 11:13]	<manu-db>	shortname - 'json-ld-processing'
+[Tue 11:13]	<manu-db>	title - "JSON-LD 1.0 Processing Algorithms"
+[Tue 11:14]	<manu-db>	subtitle - "Processing Algorithms and API"
+[Tue 11:15]	<mlnt>	markus: the only problem I see with this is that API wouldn't appear in search results as it's not in the title anymore
+[Tue 11:15]	<mlnt>	manu: Gregg, would you be fine to keep what we resolved to?
+[Tue 11:16]	<mlnt>	gregg: Yes, I think if we would do it again we put more emphasis on the algorithms
+[Tue 11:16]	<manu-db>	Topic: ISSUE-204: Compact @id's to relative IRIs
+[Tue 11:16]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/204
+[Tue 11:17]	<mlnt>	manu: I think we have broad agreement to not allow terms as value for @id
+[Tue 11:17]	<manu-db>	PROPOSAL: Do not allow terms as values for @id.
+[Tue 11:17]	<manu-db>	+1
+[Tue 11:17]	<gkellogg>	+1
+[Tue 11:17]	<tidoust>	+1
+[Tue 11:17]	<mlnt>	+1
+[Tue 11:17]	<manu-db>	RESOLVED: Do not allow terms as values for @id.
+[Tue 11:17]	<mlnt>	gregg: the question is also whether we allow CURIEs
+[Tue 11:20]	<manu-db>	Lin, does Drupal need the use of CURIEs in @id? So, for example - "@id": "site1:/nodes/1"
+[Tue 11:20]	<manu-db>	manu: I thought that was important for Drupal.
+[Tue 11:21]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000009a) has joined the conference.
+[Tue 11:23]	<mlnt>	linclark: I think we could switch to relative IRIs
+[Tue 11:24]	<mlnt>	... but I honestly can't say it for sure
+[Tue 11:24]	<mlnt>	... I would have to think more about it
+[Tue 11:24]	<mlnt>	manu: We are getting rid of terms in @id
+[Tue 11:25]	<mlnt>	... we might also get rid of CURIEs
+[Tue 11:26]	<mlnt>	linclark: that would be fine for us I think
+[Tue 11:28]	<mlnt>	gregg: there's not an issue with CURIEs though.. there's just a problem with terms
+[Tue 11:28]	<voip-ld>	tidoust (IAX2/diamondcard-9699) has left the conference.
+[Tue 11:28]	<mlnt>	... we don't have base so CURIEs could be used instead
+[Tue 11:29]	|<--	tidoust has left freenode (Read error: No route to host)
+[Tue 11:29]	-->|	tidoust (~fd@AMontsouris-651-1-235-163.w86-212.abo.wanadoo.fr) has joined #json-ld
+[Tue 11:29]	<voip-ld>	<unknown> (IAX2/diamondcard-6674) has joined the conference.
+[Tue 11:30]	<tidoust>	voip: 6674 is me
+[Tue 11:30]	<voip-ld>	tidoust is now associated with IAX2/diamondcard-6674.
+[Tue 11:30]	* mlnt	thanks linclark
+[Tue 11:31]	<mlnt>	markus: the issue is that sometimes a relative IRI becomes a CURIE after expanding->compacting
+[Tue 11:32]	<mlnt>	manu: that would certainly be surprising for developers. I think we should compact to the simplest thing, which probably is a relative IRI
+[Tue 11:32]	<mlnt>	gregg: we could compact to the shortest
+[Tue 11:33]	<mlnt>	... the developer has control of the context.. so just don't define a term
+[Tue 11:36]	<manu-db>	order of operations when expanding for @id - CURIE, relative IRI, absolute IRI
+[Tue 11:36]	<mlnt>	it's CURIE, absolute IRI (colon), relative IRI
+[Tue 11:37]	<manu-db>	order of operations when compacting an @id - CURIE, relative IRI, absolute IRI
+[Tue 11:40]	<mlnt>	so... noprefix:something will end up being interpreted as absolute IRI
+[Tue 11:41]	<manu-db>	what about URLs like this - urn:foo:bar
+[Tue 11:41]	<manu-db>	where the developer uses a relative 'bar'
+[Tue 11:42]	<manu-db>	@id : "bar" where base = "foo:bar:" - will that roundtrip?
+[Tue 11:42]	<manu-db>	The group believes that it will round-trip based on the current algorithms.
+[Tue 11:44]	<manu-db>	PROPOSAL: The following value types are supported for @id - document relative IRIs, absolute IRIs, and CURIEs.
+[Tue 11:44]	<mlnt>	+1
+[Tue 11:44]	<gkellogg>	+1
+[Tue 11:44]	<manu-db>	+1
+[Tue 11:45]	<tidoust>	+1
+[Tue 11:45]	<manu-db>	RESOLVED: The following value types are supported for @id - document relative IRIs, absolute IRIs, and CURIEs.
+[Tue 11:46]	<manu-db>	PROPOSAL: When compacting, attempt to compact absolute IRIs to document-relative IRIs.
+[Tue 11:46]	<gkellogg>	+1
+[Tue 11:46]	<manu-db>	+1
+[Tue 11:46]	<tidoust>	+1
+[Tue 11:46]	<mlnt>	+1
+[Tue 11:46]	<manu-db>	RESOLVED: When compacting, attempt to compact absolute IRIs to document-relative IRIs.
+[Tue 11:46]	<manu-db>	Topic: ISSUE-205: Use the term URL instead of IRI in the (API) spec
+[Tue 11:46]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/205
+[Tue 11:47]	<mlnt>	manu: This nomenclature discussion comes up every single time we try to put "IRI" into a specification. The problem is that the HTML5 spec uses URL, and Web developers are more familiar with URL instead of IRI. We are trying to build something useful for Web developers, so I think we should probably use 'URL'.
+[Tue 11:49]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000009a) has left the conference.
+[Tue 11:52]	<manu-db>	PROPOSAL: Include the text "Throughout this specification, the term 'URL' means IRI as defined in RFC3987. The reason we use URL is because it is more familiar to Web developers." and use the term URL everywhere in both specifications.
+[Tue 11:52]	<manu-db>	+1
+[Tue 11:52]	<tidoust>	+1
+[Tue 11:52]	<gkellogg>	+1
+[Tue 11:53]	<mlnt>	+1
+[Tue 11:53]	<manu-db>	RESOLVED: Include the text "Throughout this specification, the term 'URL' means IRI as defined in RFC3987. The reason we use URL is because it is more familiar to Web developers." and use the term URL everywhere in both specifications.
+[Tue 11:54]	<mlnt>	mlnt: This is what we currently have in the spec:
+[Tue 11:54]	<mlnt>	This specification does not define how JSON-LD Implementations or Processors handle non-conforming input documents. This implies that JSON-LD Implementations or Processors must not attempt to correct malformed IRIs or language tags; however, they may issue validation warnings.
+[Tue 11:54]	<manu-db>	PROPOSAL: JSON-LD Processors do not modify URLs other than to translate between relative and absolute URLs. Specifically, they do not implement the URL processing rules as outlined in the HTML5 specification.
+[Tue 11:55]	<gkellogg>	+1
+[Tue 11:55]	<manu-db>	+1
+[Tue 11:55]	<tidoust>	+1
+[Tue 11:55]	<mlnt>	+0
+[Tue 11:56]	<manu-db>	RESOLVED: JSON-LD Processors do not modify URLs other than to translate between relative and absolute URLs. Specifically, they do not implement the URL processing rules as outlined in the HTML5 specification.
+[Tue 11:56]	<manu-db>	Topic: ISSUE-207: Handling of free-floating values in flattening/toRDF
+[Tue 11:56]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/207
+[Tue 11:57]	<mlnt>	manu: the question is, how do we handle free-floating values?
+[Tue 12:00]	<voip-ld>	Manu Sporny (SIP/6000-00000097) has left the conference.
+[Tue 12:00]	<voip-ld>	Manu Sporny (SIP/6000-0000009b) has joined the conference.
+[Tue 12:00]	* manu-db	tries to dial back in quickly before everybody else is booted :P
+[Tue 12:01]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000098) has left the conference.
+[Tue 12:02]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000009c) has joined the conference.
+[Tue 12:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000099) has left the conference.
+[Tue 12:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000009d) has joined the conference.
+[Tue 12:03]	<mlnt>	mlnt: so, what should happen for @graph: { "@id": "/test" }
+[Tue 12:06]	<mlnt>	mlnt: @graph: { "@id": "/test", "doesntexpand": true } -- drop @id object?
+[Tue 12:07]	<manu-db>	manu: yep, drop it
+[Tue 12:05]	<manu-db>	PROPOSAL: Disallow free-floating values and IRIs in the JSON-LD Data model. If a free-floating value/IRI is detected during expansion, drop the value/IRI.
+[Tue 12:07]	<mlnt>	+1
+[Tue 12:07]	<manu-db>	+1
+[Tue 12:07]	<tidoust>	+1
+[Tue 12:07]	<gkellogg>	+1
+[Tue 12:07]	<manu-db>	RESOLVED: Disallow free-floating values and IRIs in the JSON-LD Data model. If a free-floating value/IRI is detected during expansion, drop the value/IRI.
+[Tue 12:09]	<manu-db>	manu: I can't say this enough - you guys rock! Thank you for all of your great work - Markus, Gregg, Francois, Dave Longley, Dave Lehn, and all of the other folks that have contributed to the JSON-LD specs. We're in very good shape for Last Call, and the specs are in very good shape overall thanks to each of your hard work! Can't emphasize that enough.
+[Tue 12:10]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000009c) has left the conference.
+[Tue 12:10]	<voip-ld>	Manu Sporny (SIP/6000-0000009b) has left the conference.
+[Tue 12:10]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000009d) has left the conference.
+[Tue 12:10]	<voip-ld>	tidoust (IAX2/diamondcard-6674) has left the conference.
