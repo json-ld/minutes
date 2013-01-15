@@ -1,0 +1,211 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-01-15</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0020.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0020.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-204: Compact @id's to relative IRIs</a><li><a href="#topic-2">ISSUE-205: Use the term URL instead of IRI in the (API) spec</a><li><a href="#topic-3">Approach to Algorithms</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Add an at-risk issue on compacting IRIs as relative.</a><li><a href="#resolution-2">Use IRI in the JSON-LD specifications instead of URL.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>François Daoust, Manu Sporny, Niklas Lindström, Markus Lanthaler, Gregg Kellogg, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">François Daoust is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two additions to the agenda: IRI vs. URL, and relative compaction of URLs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In the Royal Swedish National Library, where I'll be working starting in April, using JSON a lot, still some work to do to push forward on using RDF. Expect to be using JSON-LD explicitly and leverage the fact that JSON-LD can store non-mapped things, so this is good news for JSON-LD adoption.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is that public information?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, it's a project on github, people will see it when we start integrating JSON-LD.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-204: Compact @id's to relative IRIs</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/204">https://github.com/json-ld/json-ld.org/issues/204</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We did some implementation over the week-end. We do a lot of digital signature work. We end up storing that info in a MongoDB database. When you compact to a relative IRI, you end up losing the base, which is bad when you need to check the digital signature again.</div>
+<div class="comment-continuation">… Now it seems that we need to store the base somewhere (which could be bad for some that only store the JSON-LD document... because - where are you going to put the base?), or change the parameters so that the compaction does not create relative IRIs.</div>
+<div class="comment-continuation">… I raise this as a concern. In some cases, it's a nice feature, but in other cases, it may destroy stuff such as digital signatures.</div>
+<div class="comment-continuation">… Not a big issue, but a bit too aggressive for our use cases. </div>
+<div class="comment-continuation">… In our systems, we do not want relative URLs, but I understand others may have different views.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I sympathize with this concern.</div>
+<div class="comment-continuation">… I didn't really have time to check the API, but I see the risk that someone might forget about that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Normally, you'd set the base IRI as an option in the JSONLD document... it defaults to the document IRI - depends on how you pass the document into the API. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you don't do anything, there is text here that says it depends on the document IRI, but that depends on how you pass that IRI.</div>
+<div class="comment-continuation">… We may change things to pass the IRI explicitly and that would solve the problem</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The idea that this might happen in production is close to non existent</div>
+<div class="comment-continuation">… I don't know if we really need to do anything here. I'm leaning towards not doing anything.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Usually, to serialize, you need to pass a base in order to resolve relative IRIs.</div>
+<div class="comment-continuation">… Every other RDF serialization allows me to output a statement of what the base is.</div>
+<div class="comment-continuation">… The reason we rejected that in JSON-LD is that we thought you could do that with a term.</div>
+<div class="comment-continuation">… If we had a way to automatically define a term that would be the base of the document, we'd solve the problem.</div>
+<div class="comment-continuation">… But then there is value in using compact IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It sounds that there isn't a strong push towards changing current state of affairs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  what happens when you issue a compact call where the input is a compact JSON-LD with relative IRIs?</div>
+<div class="comment-continuation">… You'd need to pass the base URI and have no way to prevent that base IRI to be used in the output to generate new relative IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  [audio chopped]. I think you would get the result you wanted.</div>
+<div class="comment-continuation">… There is a danger of losing the base of the document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  bottom line is that there are lots of ways to work around these use cases, we're just optimizing for the "main" use case. We have to realize that we could be wrong about that main use case, that's it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Just recall something I saw on Twitter. General preferences in JSON APIs for relative IRIs? Responses were advocating in favor of absolute IRIs. You wanted to make things as simple as possible for consumers to follow links and resolving links is a (small) burden in the way of following links.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  data consumption is easier if you use absolute IRIs consistently.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's the only thing that makes me hesitant about this feature.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You generally want relative IRIs when you're debugging and do not want the base IRI of your staging/prod environment to bother you.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I disagree, but I think we'll just go back and forth on that if we go on.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add an at-risk issue on compacting IRIs as relative.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 adding that I'd prefer an option for generating relative IRIs (defaulting to false), "debug mode" should not be the default</div>
+<div class="comment"><span class="name">François Daoust</span>: +1 to using at-rist for that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Add an at-risk issue on compacting IRIs as relative.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that's all we can do at this point.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-205: Use the term URL instead of IRI in the (API) spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/205">https://github.com/json-ld/json-ld.org/issues/205</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I spoke with a few folks in the WHATWG shortly before the call.</div>
+<div class="comment-continuation">… Markus proposed to close the issue by using the term URL. Pat Hayes and Conal reacted against that, I expect others in the RDF WG to follow.</div>
+<div class="comment-continuation">… I do not think we can convince them that using URL for the sake of Web developers is going to work because it's not "correct" in the strictest sense.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. example of IRI used in non-RDF-contexts: <a href="http://tools.ietf.org/html/rfc5988">http://tools.ietf.org/html/rfc5988</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. (Web Linking by Mark Nottingham)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  greater danger is that using url is trying to serve two masters.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: There is this - <a href="http://url.spec.whatwg.org/">http://url.spec.whatwg.org/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the work on that is ongoing, the general feeling is that terminology will converge around "URL".</div>
+<div class="comment-continuation">… If we're looking towards the future, we'll see "urls", not "iris".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If URLs and IRIs are unified, then good, otherwise it looks like a political stand that we do not need to take.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: There's still an open issue for HTML5's URL: <a href="http://www.w3.org/html/wg/tracker/issues/56">http://www.w3.org/html/wg/tracker/issues/56</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We want the spec to be for Web developers. They don't understand the distinction between URLs and IRIs. We should use terminology that Web developers are used to because that's our primary audience for this spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is this an argument to be brought to the RDF WG to ask them to update on-going specs to use URLs. If you cannot convince the group to do that, then you should not take a different route for JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Rules are different for JSON-LD, the target audience is different for JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I know you've been pushing against this, but the most proper place to use URLs would be in a JSON-LD primer, directly targeted at developers.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Just raised concerns about creating an arbitrary terminology difference with other RDF specs, which use IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Serving two masters is never satisfying.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree with Gregg. IRI is the right term to use right now. I think I prefer a note saying that IRI is likely to become equivalent to URL in the future.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I disagree, I think using IRI misses the point, but I'm feeling that I'm in the minority here. We're not creating JSON-LD to align ourselves with RDF (at least, I'm not), we're doing it to provide a technology for expressing Linked Data that is easy for Web Developers to use. If we use the IRI terminology, then we're not using terminology that is familiar to our primary audience... especially if that terminology (IRI) is going to be replaced in the future with "URL".</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I would prefer to see URI actually but… anyway.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So the argument that is being made by you guys is this: If the merger between URL and IRI had already happened, we would use URL. Since that's not there in REC form, it's going to be difficult to convince the RDF WG to go away from IRI for the rest of their specs. If we can't convince the RDF WG to go away from IRI based on a more recent REC, since JSON-LD is under the purview of that group, we cannot do the change in JSON-LD.</div>
+<div class="comment-continuation">… Note that we've taken a stand on this sort of stuff before, first with the push to use JSON-LD as the JSON representation of RDF that the group works on, and then with named graphs. We have JSON-LD and named graphs because we pushed for these sorts of things.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  A bit different because named graphs were already in the RDF Concepts.</div>
+<div class="comment-continuation">… I expect many battles in the future about IRI vs. URL</div>
+<div class="comment-continuation">… I agree with Niklas that the invention of the term IRI is a bit of a pity, URI is much better.</div>
+<div class="comment-continuation">… The URL stand is coming from people involved with Web browsers, so it's not surprising. Anne's document is not a spec, more of an opinion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's an opinion that I happen to agree with strongly.</div>
+<div class="comment"><span class="name">François Daoust</span>:  This doesn't seem like it is an easy change - easy resolution is to use IRI in the end and not URL, let's stick to that. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Use IRI in the JSON-LD specifications instead of URL.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1</div>
+<div class="comment"><span class="name">François Daoust</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5 (don't like the term but it's currently the most correct one)</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Use IRI in the JSON-LD specifications instead of URL.</div>
+<h1 id="topic-3" class="topic">Topic: Approach to Algorithms</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/">http://json-ld.org/spec/latest/json-ld-api/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus went through and re-wrote the algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/alternate.html">http://json-ld.org/spec/latest/json-ld-api/alternate.html</a></div>
+<div class="comment-continuation">… Gregg also went in to try to make the algorithms more descriptive than prescriptive. The discussion is to decide what should end up in the spec.</div>
+<div class="comment-continuation">… Any updates to these algorithms? Quick overview?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I made use of Markus' work throughout my updates. I just updated it to remove the repetitive normative text. The biggest difference is sticking a bit closer to the original algorithms to try not to describe data structures that are useful in an implementation.</div>
+<div class="comment-continuation">… Other than IRI compaction, I think the algorithms are very similar</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gregg uses term ranking algorithm, whereas I use inverse context.</div>
+<div class="comment-continuation">… Mine has complete fallback rules.</div>
+<div class="comment-continuation">… It's trivial to understand which term gets selected if you read the algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could replace the numbers in term rank with something else if needed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In the one case, you calculate numbers, in the other case, you look at containers. Hard to compare algorithms. In the end, it boils down to how you describe it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Did not have time to sit down and read through this, and even less time to implement that. In general, I think that descriptive is better than prescriptive, as the spec is intended for humans.</div>
+<div class="comment-continuation">… My gut feeling is that I would probably do something akin to the inverse context.</div>
+<div class="comment-continuation">… When I read the ranking algorithm, I had trouble understanding it.</div>
+<div class="comment-continuation">… But I cannot really make an informed statement as to which is the better.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley had some time to read both of them. I find both of them moderately confusing, but term ranking a bit less so. I don't know how the rank gets computed but I understand how it works. With inverse context, it takes more place in the spec and feels more complex.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What do you mean by "it takes up so much space"?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You have to read a lot more to get the basic data in. With term rank, it's a bunch of "if" statements.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you just start from step 1 and go through steps.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  another thing to consider is locality. We could redefine term ranking to be less math, but we rely on it for IRI compaction.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 to make term ranking algorithm more about intent (less "number-oriented")</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  In the end, the alternative document looks clearer. Dave Longley read some parts of both documents and and decided to implement things his own way.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's a very sensitive thing to do. If Dave have clearer algorithms, it would be good to know.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The optimizations that Dave Longley is doing are because of benchmarking we're running on our servers. We found out that having to copy the context was very time consuming.</div>
+<div class="comment-continuation">… Many of these optimizations should not go in the spec because they are just too complex.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Instead of saying "copy context", we should simply say "use the context".</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we already do that in the spec.</div>
+<div class="comment-continuation">… It's simpler to say "make a copy" as people understand they can modify the copy without breaking the original, but implementers can optimize there.</div>
+<div class="comment-continuation">… Other parts of the algorithms that changed dramatically?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I haven't looked at "flatten". My updates were made to come to an agreement with Markus.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the result is a nice consensus between both views.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we could make it clear in the spec that the algorithms are very descriptive since we already know that they are suboptimal.</div>
+<div class="comment-continuation">… I'm convinced my way is not the fastest. Something to that effect in the spec would be good.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes. Putting implementation notes is a reasonable thing to do, either inline or as an appendix.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two things that we need to decide here. General approach and what bugs need to be fixed.</div>
+<div class="comment"><span class="name">François Daoust</span>:  I found a number of bugs by just quickly skimming over it. I know that the spec that I wrote almost exactly matches my code. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  For the most part, this is what I implement. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if there are bugs, we need to focus on those. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm very concerned about holding up the work waiting for a complete implementation of all algorithms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Then what's the point of a test suite if all of the algorithms haven't been impelemnted verbatim at least once? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The reason test suites exist is to ensure that implementations match the algorithms. The test suite doesn't exist to ensure that everybody implements the algorithms exactly as they are laid out in the spec. In fact, this almost never happens - everybody has their own twist on implementing the algorithms. With enough eyes on those algorithms, we'll get the right over the next few months. We're talking about minor bugs, not major design issues. I don't think we should hold up going to Last Call until we have a verbatim implementation of all algorithms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I disagree, I don't buy that argument. I think we need to make sure that somebody has implemented the algorithms verbatim, that way we'll know if they're correct. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That rarely happens when working on these specs. Typically, a few editors write the algorithms, verify that the intent is correct, then each may go off an do their own implementation. These algorithms are meant to be descriptive, not something somebody can take an implement verbatim (even though that is how you rewrote the algorithms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It doesn't look like we're going to get agreement on this topic this week.  [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll have Dave Longley send thoughts on to the mailing-list. Let's continue discussion on this topic next week.</div>
+</body>
+</html>
