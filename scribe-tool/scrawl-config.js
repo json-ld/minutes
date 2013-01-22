@@ -69,6 +69,11 @@
          "alias": "gkellogg",
          "homepage": "http://greggkellogg.net/pages/about"
       },
+      "Paul Kuykendall":
+      {
+         "alias": "pkuyken",
+         "homepage": "https://twitter.com/pkuyken"
+      },
       "Markus Lanthaler":
       {
          "alias": ["MarkusLanthaler", "mlnt"],

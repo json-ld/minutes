@@ -1,0 +1,218 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-01-22</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0052.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0052.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-204: Design Issue with Relative IRIs and Compaction</a><li><a href="#topic-2">ISSUE-211: Potential ambiguity when setting default language</a><li><a href="#topic-3">Approach to Algorithms</a><li><a href="#topic-4">Remaining Editorial Work for JSON-LD 1.0 Specification</a><li><a href="#topic-5">Editor/Author Attribution Order</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas Lindström, Markus Lanthaler, David I. Lehn, Paul Kuykendall</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-204: Design Issue with Relative IRIs and Compaction</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/204#issuecomment-12528503">https://github.com/json-ld/json-ld.org/issues/204#issuecomment-12528503</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Longley was implementing this feature and found that the decision we made last week keeps us from implementing something pretty important for PaySwarm. It prevents us from using terms for @ids, so something like this: "rateType": "FlatAmount" isn't allowed anymore, where FlatAmount should expand to <a href="http://purl.org/payswarm#FlatAmount">http://purl.org/payswarm#FlatAmount</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So, if it's a relative IRI, it's fine, right?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We'll it's not a relative IRI, it's a term. The decision we made on the call last week makes it impossible to use a term in @id.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Ah, I see. I don't agree that it doesn't allow it... we made a decision on syntax, not a decision about semantics.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think it's an issue, and I thought this might be an issue when we made the decision. We may want a new thing like @symbol (or @term) for this use case. I would not want to revert a decision on @id itself because of the problem with relative IRIs. We did that to stay aligned with the treatment of values in the resource attribute of RDFa. If you want something for type coercion, we need a new keyword that would have the lexical scope the same as what in RDFa is a term or CURIE or IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't see how this is any different from a CURIE, why doesn't it just expand?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We already support CURIEs, but we removed terms because of the potential to conflict with relative IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Niklas, I'm confused to how what you're proposing would solve the issue.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Right now, we can do this in the context - "@type": {"@id": "rdf:type", "@type": "@id"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: we could add a feature to do this: "@type": {"@id": "rdf:type", "@type": "@symbol"}</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  So, you would do something like this in @context: - "rateType": {"@type": "@symbol", "@id": "<a href="http://purl.org/payswarm#rateType"}">http://purl.org/payswarm#rateType"}</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yeah, downside being added complexity to terms. I think relative IRIs cause more harm than it helps, do we really need them?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think it's common practice to have IRIs and URLs as relative - they want to put that into JSON and add a context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is done in RDFa and TURTLE and most every other RDF serialization.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  RDFa is almost too close - processing terms in JSON-LD in @id is over-the-top for my acceptable-risk level.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  But you're okay with having relative IRIs, you might do resource="#this", that's fine?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is it a relative IRI that has a form of a term? Yes. Do we try to protect users from themselves or not? If we try to protect them, there is no end to it. The same argument goes for relative URIs.</div>
+<div class="error">Error: (IRC nickname not recognized)[Tue 10:18]	&lt;niklasl&gt;	In turtle, that'd be expressed like: &lt;…&gt; :rateType :FlatAmount .</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you use a context which defines terms like that, then the risk is there. People won't understand why things are not working until it's too late.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could do ./ for relative IRIs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: No, that's problematic as well - ./#fragment != #fragment if base is something like ../some/path/file</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ./ doesn't seem like it would fix all the corner cases. We really need this feature for PaySwarm because developers have said that having colons in things like rateType are confusing. Why can they use colon-less things on the left, but things on the right need colons? It doesn't lead to markup that's easy to understand for beginners. We want this stuff to look as close to the JSON folks use today as we can.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What about fragment identifiers? What about empty string for relative IRIs?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think ./ helps. There are a number of things that we can do ./#foo is wrong, "" expanding to "./" is wrong</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If there wasn't a heritage for relative IRIs, this would be easier. Web documents have been published with just words (relative IRIs) in href/src for ages. It would be bad to not support it.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The bottom-line is that IRIs are different from terms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This seems like a reasonable thing to do in JSON-LD, using relative IRIs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why couldn't you you do this? "rateType": "ps:FlatAmount"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Since we have a distinct lexical scope which we use for predicates and type references, I think a keyword representing that is useful. It's not more complex, it's just explicit.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Isn't the restriction on using terms just for the value of @id?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  They don't have to know the right-hand side is an IRI - it's an argument for CURIEs...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Terms are restricted to the value of an @id.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  No, that's not the problem I don't think. If we have this - "foo": "blah"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and we have this in the context: "blah": "<a href="http://example.org/vocab#blah",">http://example.org/vocab#blah",</a> "foo": {"@id": "http://example.org/vocab#foo", "@type": "@id" }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Keep in mind that "foo": "blah" is equivalent to "foo": { "@id": "blah" }</div>
+<div class="information">per our current rules.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That is illegal - the compacted form would be illegal if foo did not have a @type of @id.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think there is an issue here - you can compact it back down to "blah".</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's not the decision I thought we made last week.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you type coerce it to @id, isn't that equivalent?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: So, you're saying this is illegal if "blah" is a term? "foo": {"@id": "blah"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Semantically, they mean the same thing - syntactically, it's illegal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It'll compact back to just using "blah" if "foo" has a @type of @id. If it didn't have a @type of @id, it would compact back down to a node reference and you couldn't compact it back down to blah.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If foo was defined with xsd:integer, you wanted to use foo - you would have to use the long form - the object form for the IRI.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, two things going on here syntax vs. semantics. When we make the rule that a term cannot be put in the value of @id, we're talking about the syntax - not the semantic meaning.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think this solves this conundrum - there really isn't a problem. </div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I think we disabled it for @id because a relative IRI could be mistaken for a term or vice versa. I think the value of a property, even if it is type coerced to @id, when you process it you process it as @id, I don't think we can distinguish it when processing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I dont' think that's the decision we made.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: What's difference between "foo": {"@id": "blah"} versus "foo": "blah" where foo is coerced to @id ?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When I voted on this, I thought it was a syntactic restriction - if it wasn't, I would change my vote.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  When I voted for it, I didn't realize we were introducing this limitation.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Wouldn't a simple technical solution be to just compact to a relative IRI if there is no term that collides.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It might not be a good idea, but it would be easy to debug.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't know if I like that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'd be fine with it, Dave Longley didn't like that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is a short-hand for the same syntactic construct...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The problem remains... which is accidentally introducing bad data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two potential solutions here - what Niklas proposed, and adding 'term' back into the allowed types for @id (which could lead to uncompated IRIs). It doesn't seem like we're close to consensus and we've burned through 40 minutes of telecon time. Any objections to move on in our Agenda? We should discuss potential solutions in the issue tracker.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-211: Potential ambiguity when setting default language</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/211">https://github.com/json-ld/json-ld.org/issues/211</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We had general agreement that this isn't an issue.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question is whether or not we take the default language into account when applying a term - the algorithms are written this way. Perhaps we should add a sentence or two to the syntax spec to make this clear.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the spec is clear, let's close this issue.</div>
+<div class="information">General agreement in the group to close the issue with no change.</div>
+<h1 id="topic-3" class="topic">Topic: Approach to Algorithms</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't know how much headway we can make on this.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My concern is that things need to be easy to understand in the spec, so let's table this until Dave makes more progress.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave's been busy reading both Markus' and Gregg's updated algorithms. He is implementing most of it, but introducing his own algorithms for the things that could be simplified. He will update the spec text when he is done.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  general approach of dave's algorithms is to simplify and ensure that there is a prose header that accurately describes the inputs and outputs of the algorithms. [scribe assist by Gregg Kellogg]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: … He has a simplified version of reverse contexts that should be easy to use.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: … He also plans to run with Markus' restatement of term selection, which had broad support.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  probably not going to make Last Call (LC) by end of January for the JSON-LD Algorithms and API. [scribe assist by Gregg Kellogg]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  can we change the algorithms after we're in last call? [scribe assist by Gregg Kellogg]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's a gray area. We could enter into LC and then modify the algorithms, but if they change some corner-case that would make it a big change, causing us to go through another LC. [scribe assist by Gregg Kellogg]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  When can we go to LC?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  At any time, really - when we're ready. What we should make sure is that all of the editor's are on-board with the algorithms before going to LC. If we don't do that, we increase the risk of having to go through another LC. So, better to put off the LC than go into it prematurely.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the RDF WG was just concerned about making sure that we're really close to LC, for the extension of their charter. We're very close with the API spec, so let's wait for Dave's changes and go from there.</div>
+<h1 id="topic-4" class="topic">Topic: Remaining Editorial Work for JSON-LD 1.0 Specification</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I went through the spec with a fine-toothed comb and fixed a number of editorial issues. I've done Sections 1-5, Advanced section is next. There are a few problems with the spec at this point: 1) we use some terminology before we define it, 2) we introduce some concepts in the basic section that should be in the advanced section. Overall, I think the flow of the document has suffered by consolidating sections.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: after looking at recent commits, you all might want to coordinate a common whitespace, indentation, and html style.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that's the least of our worries. These documents go through so many edits that it's difficult to keep that stuff well organized. We can do a code-formatting run after the docs are out of Last Call or Candidate Rec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do want to be consistent with words - for flow, most of us are used to reading these things in a browser, so you can go back-and-forth easily enough for the terminology issue... unless there are people that print these specs out to read them.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The other problem is that sometimes we have to repeat things, so we should consolidate</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It would be simpler to combine certain sections into a single section.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I am strongly against combining some of the sections in the way they've been combined. It used to be that you would get a very gradual introduction to the JSON-LD, that is no longer true for the spec, and that's a very bad thing. There are some things in the basic section that need to be moved to the advanced section, they are too much for a first-time reader to grasp.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think there are two issues here - one is editorial coordination, a need for us to communicate before we make big changes unilaterally.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There might be a little more harmony if we discuss an approach together and proceed on that general approach. The second is the specifics of this, the form of the syntax document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it had a pretty nice flow before all the way up to advanced concepts, if that means simplifying examples, then that's good.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: I hope I'm not speaking out of turn, but as a newcomer to reading the JSON-LD specs, I agree with what Manu is saying regarding the spec hitting with advanced topics right off and explaining things far later in the document.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should leave the more nasty details to section 6.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Paul, that's good input.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One of the things we're trying to convey is that an important part of JSON-LD is that it's simple... we should keep it that way in the beginning of the spec.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I also don't like that we've chipped away at the Design Goals and Rationale section. We've gotten rid of the stream-based processing bit. That's a shame, we should try to say what it said before in a way that works for everybody.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Specifically, I think these examples need to move to the advanced section: example 1 should be simplified, that would simplify example 2. Example 6, 7, and 8 should all go in the advanced section. Section 5.1.1 should go to advanced.  Example 12, 13, and 16 should go to advanced. String Internationalization could go to advanced.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't want Link relationship example to be moved to advanced concepts.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I also don't want @vocab overriding moved to advanced.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't agree - overriding is more advanced of a concept.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Prefix expansion could be in Basic... but perhaps not - I could go either way.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the simple use of JSON-LD is using terms and not CURIEs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: true</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The advanced section is okay with the flow, I guess. Some of them are difficult to compare - how should we introduce them, in what order? </div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If it's hard to compare the relative difficulty of advanced concepts, then perhaps having to introduce them in the same order as the basic section would be good.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Should Data Model and JSON-LD Grammar be appendixes since they're normative?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I like them as an appendix.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, they could be a normal section.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the consensus was that there was no problem with having a normative appendix.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It looks weird if all normative statements are in an appendix.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is supposed to be the primary entry point for folks - that's why it's in an appendix, I think it works pretty well, other than having the issue of term definitions.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Some people may print this out and try read it.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: The Data Model and Grammar sections also end up having lots of definitions that are almost required to understand the concepts from the earlier sections. Having some reference in the terms section to point there would be helpful</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: By the way, I print the specs so can write on them.</div>
+<div class="information">Discussion Data mModel and Grammar not being in an appendix, end result is to keep it as an appendix unless we get feedback to the contrary from the LC reviews.</div>
+<h1 id="topic-5" class="topic">Topic: Editor/Author Attribution Order</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm always hesitant to have these sorts of discussions too often, but it came up because the Editor's agreed to move Mark Birbeck's name from the Author section to the Acknowledgements section and give him a few sentences thanking him for RDFj (which spurred the JSON-LD work, some of which is based on RDFj concepts). Markus also moved Dave Longley to the end of the Author's list for the Syntax spec, which was a big problem.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think Markus was looking at this when he made the decision: <a href="https://github.com/json-ld/json-ld.org/graphs/contributors">https://github.com/json-ld/json-ld.org/graphs/contributors</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think making authoring/editorial decisions based solely on number of commits is a good idea. I think all of us have a pretty good feeling for who contributed what and how much, so this discussion is to try and come to a consensus about that. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ownership over anything is always dicey and can create bad feelings. We want to be fair to everyone, most people value their contributions more than others because they know what went into their contributions. Some folks are better at asking for recognition than others, some are too generous, others not so much. So, that's why we need to have the discussion - to pick an order that is fair. This is the current order:</div>
+<div class="information"><a href="http://json-ld.org/spec/latest/json-ld-syntax/">http://json-ld.org/spec/latest/json-ld-syntax/</a></div>
+<div class="information"><a href="http://json-ld.org/spec/latest/json-ld-api/">http://json-ld.org/spec/latest/json-ld-api/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any thoughts before I present an ordering?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that Markus has done a great deal of work, and I'd be happy to switch with him on the list. I also want to make sure my contribution is recognized. There is more to putting these specs through the process than just writing them. You need to know what to write, what to change, what not to write, implement, manage expectations with other groups, coordinate, bug triage, think deeply about the problem, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Manu, you have the most spec experience. This is a charged thing, I want to be known for the contributions I made to this, but also want to be fair to all.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: there is always the fallback to alphabetical order</div>
+<div class="comment"><span class="name">Manu Sporny</span>: I abhor alphabetical order because I think it's about as unfair as you can get when listing contributions to a particular document. Many of us have put in hundreds of hours into this specification, to list people alphabetically is just wrong. We should identify who did the most work, gather consensus around it, and that should be the order. That is what's fair.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The proposal is to keep the authors in the JSON-LD 1.0 syntax as is, as that reflects reality.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The proposal for the JSON-LD Algorithms and API spec would be Editors: Markus, Gregg, and Manu. Authors: Dave, Gregg, Markus, Manu</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Then that's settled and wasn't nearly as painful as I was dreading. Good to know we're all on the same page. We have to make the acknowledgements section better - definitely for Mark. We need to add Ivan and Stephane as well (and Lin if she's not already on there).</div>
+</body>
+</html>
