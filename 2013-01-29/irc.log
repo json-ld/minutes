@@ -1,0 +1,199 @@
+[Tue 10:05]	<manu-db>	scribe: gkellogg
+[Tue 10:05]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jan/0055.html
+[Tue 10:06]	<gkellogg>	manu: Any additions to the agenda?
+[Tue 10:06]	<gkellogg>	markus: I raised another issue, but we'll discuss along with IANA parameters (ISSUE-214)
+[Tue 10:06]	<manu-db>	Topic: Remaining Editorial Work for JSON-LD 1.0 Specification
+[Tue 10:06]	<gkellogg>	manu: I've gone through and done a complete pass over the JSON-LD 1.0 spec.
+[Tue 10:06]	<gkellogg>	… I tried to be very thorough about grammar flow, syntax, and so forth.
+[Tue 10:07]	<gkellogg>	… As always, we'll need a couple of more people to go over the spec and agree to the changes.
+[Tue 10:07]	<gkellogg>	… The major changes we've already discussed last week.
+[Tue 10:07]	<gkellogg>	… There are some other minor changes that could impact other things.
+[Tue 10:08]	<gkellogg>	… The biggest changes were moving from beginning to advanced sections, to aide flow for people form whom the concepts are new.
+[Tue 10:08]	|<--	tilgovi has left freenode (Remote host closed the connection)
+[Tue 10:08]	<gkellogg>	markus: I had some comments.
+[Tue 10:08]	<gkellogg>	manu: In my inbox, haven't gotten to read it yet. We'll discuss them on this call.
+[Tue 10:09]	<manu-db>	http://json-ld.org/spec/latest/json-ld-syntax/#data-annotations
+[Tue 10:09]	<gkellogg>	manu: data annotations first.
+[Tue 10:10]	<gkellogg>	… markus, you put in a use of data annotations that I hadn't thought about, and we should discuss.
+[Tue 10:10]	<gkellogg>	… For example 51, we have annotations used like a comment, which is not what I was thinking they were about, but they can certainly be used for that.
+[Tue 10:11]	<gkellogg>	… It was primarily intended as a container type, and not a comment. In this case, it looks like it would be lost across expansion.
+[Tue 10:11]	<gkellogg>	markus: the reasoning was to describe it in a simpler way without relying on containers.
+[Tue 10:12]	<gkellogg>	… Basically, annotations are data which survive expansion/compaction, etc. It would, though, be lost when going to RDF.
+[Tue 10:12]	<gkellogg>	… This is the simplest way to describe the keyword.
+[Tue 10:12]	<gkellogg>	… The Annotation Maps (ex 52), is used to show more advanced usage.
+[Tue 10:13]	<niklasl>	q+
+[Tue 10:13]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:13]	<manu-db>	ack niklasl
+[Tue 10:13]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:13]	<gkellogg>	niklas: I wonder if the choice of the name of the keyword is unfortunate. Was @key suggested?
+[Tue 10:14]	<manu-db>	q+ to say I had proposed @index
+[Tue 10:14]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:14]	<gkellogg>	… I'm not sure if this is helpful, because the primary use case was ex 52, and other similar situations when there is a corresponding property on the object itself, such asdc:language, or the text value of the date or author.
+[Tue 10:14]	<manu-db>	ack manu-db
+[Tue 10:14]	<voip-ld>	manu-db has the floor (to say I had proposed @index). The speaker queue is empty.
+[Tue 10:14]	<gkellogg>	… It is primarily for artificial index keys which are necessary to allow the algorithms to work.
+[Tue 10:14]	<gkellogg>	manu: it was @index I had proposed, as I had looked at this as a way to allow indexes to survive.
+[Tue 10:15]	<gkellogg>	niklas: perhaps @key is even more appropriate; when you use @container, you can't hav several keys to confuse the mechanism.
+[Tue 10:15]	<gkellogg>	… For one object, you cannot have several keys, otherwise the @container annotation would be confused.
+[Tue 10:16]	<gkellogg>	… If a term were aliased to @annotation, and then use different terms, also aliased to @annotation, it would confuse the algorithms.
+[Tue 10:16]	<gkellogg>	… The keyword @key is more explicit.
+[Tue 10:16]	<gkellogg>	manu: two questions, name of the keyword, and do we want to support bare string annotations.
+[Tue 10:16]	<gkellogg>	markus: not a question of support, just documentation.
+[Tue 10:17]	<gkellogg>	manu: leaning towards not documenting this usage
+[Tue 10:17]	<gkellogg>	… This was not my intent when agreeing to use this mechanism. People could use things other than strings, which is not in the grammar, but people might think it follows.
+[Tue 10:18]	<gkellogg>	… now we're describing another usage, as a basic string annotation, but not intended for use with the annotation maps.
+[Tue 10:18]	<gkellogg>	… This becomes limiting.
+[Tue 10:18]	<gkellogg>	q+
+[Tue 10:18]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:19]	<gkellogg>	… I'd rather not have this in there, and have them create a new term.
+[Tue 10:19]	<manu-db>	ack gkellogg
+[Tue 10:19]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:19]	<manu-db>	gkellogg: I'm inclined to agree - this is promoting using JSON-LD markup features when it's more appropriate to use things like rdfs:comment.
+[Tue 10:20]	<manu-db>	gkellogg: By giving people a feature like this, we're giving people an excuse to not mark it up as Linked Data. Also, perhaps @annotation isn't a good name.
+[Tue 10:20]	<gkellogg>	markus: I'd be fine with removing the example.
+[Tue 10:20]	<gkellogg>	… Because the keyword is called annotation, the most natural thing is to use it for annotations. It's still there, but not L.D.
+[Tue 10:20]	-->|	tilgovi (~randall@couchdb/developer/tilgovi) has joined #json-ld
+[Tue 10:21]	<gkellogg>	manu: I'd say we could work on the intro, if needed.
+[Tue 10:21]	<niklasl>	Lin, would you mind if the keyword @annotation (which is used for the extended language map feature) is renamed? Suggested name is @key.
+[Tue 10:22]	<linclark>	We haven't implemented that yet, so that's fine
+[Tue 10:22]	<manu-db>	gkellogg: Maybe this indicates that the "@annotation" name is bad?
+[Tue 10:22]	<gkellogg>	manu: we want to show an equivalent of example 51, so people know how it round-trips.
+[Tue 10:23]	<gkellogg>	… The section needs a bit more work.
+[Tue 10:23]	<manu-db>	PROPOSAL: "Remove Example 51: Data annotations" and provide different examples showing how data annotations survive expansion/compaction.
+[Tue 10:23]	<gkellogg>	+1
+[Tue 10:23]	<manu-db>	+1
+[Tue 10:23]	<niklasl>	+1
+[Tue 10:23]	<mlnt>	+0
+[Tue 10:23]	<manu-db>	RESOLVED: "Remove Example 51: Data annotations" and provide different examples showing how data annotations survive expansion/compaction.
+[Tue 10:25]	<gkellogg>	manu: other ideas: @index, @map.
+[Tue 10:25]	<gkellogg>	niklas: it would look strange if looking at the expanded data.
+[Tue 10:25]	<manu-db>	gkellogg: @index is pretty descriptive of what's going on here.
+[Tue 10:26]	<manu-db>	gkellogg: It seems to make sense in expanded form and in the context.
+[Tue 10:26]	<gkellogg>	niklas: I think of this as the key in the map.
+[Tue 10:27]	<gkellogg>	… I like @key in and of itself, but when looked at along other keywords, it looks odd.
+[Tue 10:28]	<gkellogg>	manu: I feel strongly about changing it from annotations to something else. Maybe we can change to @index, and see how people feel about it.
+[Tue 10:29]	<gkellogg>	markus: the problem I have with @index, that looking at an array, all elements are indexed, as in a cardinal location.
+[Tue 10:30]	<mlnt>	What about something like @marker
+[Tue 10:30]	<manu-db>	gkellogg: I agree that data annotations are going in the wrong direction, it doesn't matter what we change it to as long as it's in a better direction.
+[Tue 10:30]	<manu-db>	gkellogg: "index into an object" works for most... I'd go w/ either @index or @key... @key is probably the most accurate, but @key next to @id and @type makes it not clear what it's used for.
+[Tue 10:31]	<gkellogg>	manu: Gregg just convinced me that @index is probably the best.
+[Tue 10:31]	<gkellogg>	niklas: from the thesaurus, it looks like a reasonable choice.
+[Tue 10:31]	<gkellogg>	manu: also, this is editorial, it doesn't really effect the semantics.
+[Tue 10:32]	<gkellogg>	markus: why change, to prevent the use case or not promote it.
+[Tue 10:32]	<gkellogg>	manu: to be clearer about what the feature does.
+[Tue 10:32]	<niklasl>	http://thesaurus.com/browse/index: "Definition: indication … Synonyms: clue, mark, symbol, token...
+[Tue 10:32]	<gkellogg>	manu: The keys in a database don't really have semantic meaning, and aren't typically exposed to the application layer.
+[Tue 10:33]	<gkellogg>	… This is effectively a database, and we are creating an index. The feature is easily comparable to a database index; not really an annotation mechanism.
+[Tue 10:33]	<gkellogg>	… My understanding was that developers needed to access the data quickly, which is the definition of what a database index is used for.
+[Tue 10:34]	<gkellogg>	… I think it's more accurate to say it's like a database index than an annotation.
+[Tue 10:35]	<manu-db>	PROPOSAL: Rename @annotation to @index and update the prose in section 6.14 to reflect the change.
+[Tue 10:35]	<gkellogg>	+1
+[Tue 10:35]	<manu-db>	+1
+[Tue 10:35]	<niklasl>	+1
+[Tue 10:35]	<mlnt>	+0.5
+[Tue 10:35]	<manu-db>	RESOLVED: Rename @annotation to @index and update the prose in section 6.14 to reflect the change.
+[Tue 10:35]	<niklasl>	Lin, we're going for @index. :)
+[Tue 10:35]	<linclark>	Thanks for the heads up :)
+[Tue 10:35]	<manu-db>	Topic: Update to JSON-LD Data Model
+[Tue 10:36]	<gkellogg>	manu: I was a bit concerned about these changes.
+[Tue 10:36]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/cc034077d5177f85fdccc69a5ac8062e66368e93
+[Tue 10:36]	<gkellogg>	manu: I modified what a node was in the JSON-LD data model, and Markus and I disagreed.
+[Tue 10:37]	<gkellogg>	… This comes out of something Richard Cyganiak said...
+[Tue 10:37]	<gkellogg>	… "Every node represents a resource or a value. Resources are labeled by a bnode or an IRI". Before it said that every node _is_ and IRI, etc.
+[Tue 10:37]	<niklasl>	q+
+[Tue 10:37]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:38]	<gkellogg>	Markus: Richard said they're not labeled, but they are IRIs.
+[Tue 10:38]	<manu-db>	ack niklasl
+[Tue 10:38]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:38]	<niklasl>	http://www.w3.org/TR/rdf11-concepts/#data-model
+[Tue 10:38]	<gkellogg>	niklas: the data model is just the abstract syntax, and looking at RDF 1.1 Concepts...
+[Tue 10:38]	<gkellogg>	… (quoting from data-model).
+[Tue 10:39]	<gkellogg>	… What might have through it up was that arcs were IRIs too, but in fact arcs are labeled, not nodes.
+[Tue 10:39]	<manu-db>	gkellogg: As I recall, there were some strong feelings about the node is an IRI. I agree with Niklas and Markus.
+[Tue 10:40]	<gkellogg>	… We've sometimes conflated the JSON object with the node, and the resource the node represents.
+[Tue 10:40]	<gkellogg>	manu: we should change it back then, but I'll check with cygri.
+[Tue 10:40]	<gkellogg>	niklas: we need to check our usage of node, but I think we're okay.
+[Tue 10:41]	<gkellogg>	… Just verify we don't use "node" and "resource" indistinguishably.
+[Tue 10:41]	<niklasl>	.. possible problems: http://json-ld.org/spec/latest/json-ld-syntax/#node-identifiers and http://json-ld.org/spec/latest/json-ld-syntax/#grammar-node-object
+[Tue 10:42]	<gkellogg>	markus: it MUST be either an IRI or BNode.
+[Tue 10:42]	<manu-db>	gkellogg: In RDF Concepts, it MUST be an IRI.
+[Tue 10:43]	<manu-db>	gkellogg: but that's where we deviate from it. In SPARQL, it's an existential variable.
+[Tue 10:43]	<manu-db>	niklasl: There is a difference between an existential variable and a bnode.
+[Tue 10:43]	<manu-db>	gkellogg: Not really, a bnode is a non-distinguished variable.
+[Tue 10:44]	<manu-db>	gkellogg: For JSON-LD - we are implicitly allowing bnodes to be used as graph labels.
+[Tue 10:45]	<gkellogg>	manu: the concern I had was that each named graph is a pair, but since an IRI and BNode are nodes, it because something more like a "node class" mapped to a graph.
+[Tue 10:47]	<gkellogg>	gregg: From Concepts: "Each named graph is a pair consisting of an IRI (the graph name), and an RDF graph"
+[Tue 10:48]	<gkellogg>	niklas: I talked with someone who thanked us for supporting BNode graph names.
+[Tue 10:49]	<gkellogg>	manu: for the spec, change "BNode" to "BNode identifier"
+[Tue 10:50]	<gkellogg>	markus: I'm worried about being inconsistent with the definition of node.
+[Tue 10:50]	<gkellogg>	manu: but this is a string to graph mapping. It is a pair of name (string) to graph. A node is not a string, but a bnode identifier is.
+[Tue 10:51]	<gkellogg>	markus: there's an issue of scopes then. The identifier is scoped to the document.
+[Tue 10:52]	<gkellogg>	niklas: in RDF, you can't have graphs within graphs, and BNodes only exist within a graph.
+[Tue 10:54]	<gkellogg>	manu: We're making use of BNOde identified graph, and need this in JSON-LD.
+[Tue 10:55]	<gkellogg>	… It's based on timestampping elements and using them to identify graphs, rather than pretending we're creating an IRI of the graph.
+[Tue 10:56]	<niklasl>	.. urn:uuid:....
+[Tue 10:56]	<gkellogg>	manu: we could use a hash identifier, but we tend to shy away from using new URNs when we can use a BNode.
+[Tue 10:57]	<gkellogg>	manu: we don't like UUIDs, because they look like garbage.
+[Tue 10:58]	<gkellogg>	niklas: I find BNodes useful, but BNode ids not so much.
+[Tue 10:58]	<gkellogg>	… I only use BNodes for compound values, and occasionally, when I _really_ don't know the ID.
+[Tue 10:59]	<voip-ld>	Dave Lehn (SIP/6003-000000b7) has joined the conference.
+[Tue 10:59]	<gkellogg>	manu: if we add them in here, we push the conversation forward.
+[Tue 11:00]	<gkellogg>	markus: we did discuss the differences already.
+[Tue 11:00]	<gkellogg>	niklas: if there's a good theoretical issue, it would be good to have in an explicit document.
+[Tue 11:01]	<gkellogg>	manu: so ask what the theoretical reason to not use BNode identifiers for graph names.
+[Tue 11:01]	<manu-db>	ACTION: Write e-mail to RDF WG asking why blank node identifiers can't be used for graph names and predicates.
+[Tue 11:02]	<gkellogg>	manu: the last change is terminology about saying a node is either a resource or a value.
+[Tue 11:02]	<gkellogg>	markus: I think we should remove "resource", as it confuses things.
+[Tue 11:04]	<manu-db>	Topic: Context via HTTP Link Header
+[Tue 11:04]	<gkellogg>	manu: Let's quickly bike-shed the name of this section.
+[Tue 11:04]	<mlnt>	Transforming JSON to JSON-LD
+[Tue 11:04]	<mlnt>	Referencing contexts from JSON documents
+[Tue 11:05]	<gkellogg>	markus: I think many people have JSON and would like to transform to JSON-LD if it doesn't require large changes.
+[Tue 11:05]	<manu-db>	manu: I really like Transforming JSON to JSON-LD
+[Tue 11:05]	<gkellogg>	niklas: is "transforming" the right idea?
+[Tue 11:06]	<gkellogg>	The group decides that "Interpreting JSON as JSON-LD" strikes the right balance.
+[Tue 11:07]	<manu-db>	Topic: IANA parameters
+[Tue 11:07]	<manu-db>	http://json-ld.org/spec/latest/json-ld-syntax/#iana-considerations
+[Tue 11:07]	<gkellogg>	manu: The major issues were the optional parameters. We had "form" and "profile"
+[Tue 11:08]	<gkellogg>	… We used to have compact, but it was non-deterministic. Now it is deterministic.
+[Tue 11:08]	<gkellogg>	… I think "form" needs to have values of "expanded" and "compacted".
+[Tue 11:08]	<gkellogg>	markus: we didn't have it, as it didn't really mean anything.
+[Tue 11:09]	<gkellogg>	… This is related to the issue I raised. Do we really need to parameter, or can we embed within the document.
+[Tue 11:09]	<gkellogg>	niklas: or for content negotiation.
+[Tue 11:10]	<gkellogg>	markus: you can do the same with profile, buy just minting a new IRI.
+[Tue 11:10]	<gkellogg>	niklas: should we then mint some IRIs for the forms we've mentioned?
+[Tue 11:10]	<manu-db>	gkellogg: The purpose for 'form' is so that people can know the format of the document w/o processing it.
+[Tue 11:11]	<mlnt>	We minted http://www.w3.org/ns/json-ld#context to reference a context
+[Tue 11:11]	<niklasl>	.. e.g. profile=http://json-ld.org/profile/expanded+flattened ...
+[Tue 11:11]	<gkellogg>	manu: proposal to get rid of form and encode within profile.
+[Tue 11:11]	<gkellogg>	… But, I think the prose around profile is confusing. I thought it was in case we had a schema which restricted the data.
+[Tue 11:12]	<gkellogg>	markus: the profile uses an identifier to describe some constraints or conventions used within the document, and mark the document with those conventions.
+[Tue 11:12]	<gkellogg>	manu: what about a link to a JSON schema?
+[Tue 11:12]	<gkellogg>	markus: the consumer must understand what the IRI means, so if the consumer knows about schemas, it could use it.
+[Tue 11:13]	<gkellogg>	niklas: I'm mostly thinking about content negotiation scenarios.
+[Tue 11:13]	<manu-db>	manu: So get rid of form? Then we'd need the following two IRIs: http://www.w3.org/ns/json-ld#expanded http://www.w3.org/ns/json-ld#expanded-flattened ?
+[Tue 11:13]	<gkellogg>	markus: you could specify in profile that you wanted a specific vocabulary.
+[Tue 11:13]	<gkellogg>	niklas: shouldn't the IRI be opaque?
+[Tue 11:13]	<gkellogg>	… You need to link to it or have it in another link header.
+[Tue 11:14]	<gkellogg>	… I wonder if it's good to define form to use the tokens "expand, compact", with or without "flattened".
+[Tue 11:14]	<gkellogg>	… Gives four variations.
+[Tue 11:15]	<manu-db>	okay, proposals then - http://www.w3.org/ns/json-ld#expanded http://www.w3.org/ns/json-ld#compacted http://www.w3.org/ns/json-ld#expanded-flattened http://www.w3.org/ns/json-ld#expanded-compacted
+[Tue 11:15]	<gkellogg>	manu: those four, with either using "-" or "+" as separators.
+[Tue 11:16]	<gkellogg>	niklas: they might not need to be IRIs.
+[Tue 11:16]	<gkellogg>	manu: using IRIs allows other people to add their own profiles. Otherwise, we'd need a registry.
+[Tue 11:16]	<gkellogg>	… The profile mechanism allows anyone to define their own.
+[Tue 11:17]	<gkellogg>	… If they want to add a JSON schema, they can mint a new IRI for every one they expose.
+[Tue 11:17]	<manu-db>	PROPOSAL: Remove 'form' from the optional parameters for application/ld+json. Add four URL values for 'profile': http://www.w3.org/ns/json-ld#expanded http://www.w3.org/ns/json-ld#compacted http://www.w3.org/ns/json-ld#expanded-flattened http://www.w3.org/ns/json-ld#compacted-flattened
+[Tue 11:17]	<manu-db>	+1
+[Tue 11:17]	<gkellogg>	+1
+[Tue 11:18]	<mlnt>	+1
+[Tue 11:18]	<niklasl>	+0 (probably +1 but I haven't really considered the uses so)
+[Tue 11:18]	<taaz>	+0
+[Tue 11:19]	<manu-db>	RESOLVED: Remove 'form' from the optional parameters for application/ld+json. Add four URL values for 'profile': http://www.w3.org/ns/json-ld#expanded http://www.w3.org/ns/json-ld#compacted http://www.w3.org/ns/json-ld#expanded-flattened http://www.w3.org/ns/json-ld#compacted-flattened
+[Tue 11:19]	<manu-db>	Topic: Update on Algorithms
+[Tue 11:20]	<manu-db>	manu: Dave Longley been working on his implementation, which is now complete. He is currently combining the text that Markus and Gregg wrote and expanding on the problem and general solution statements for each algorithm. Some of the algorithms are being re-written, but in a way that flows better and in a way that matches his implementation. So, once he's done, we should have a good middle-ground between what Markus and Gregg had, better prose outlining the algorithms, and some simpler algorithms.
+[Tue 11:20]	<niklasl>	.. "When @graph is used in a document's top-level object which has no other properties that are mapped to an IRI or a keyword it is considered to express the otherwise implicit default graph."
+[Tue 11:21]	<gkellogg>	niklas: my friend had a problem with this wording.
+[Tue 11:21]	<gkellogg>	… If I understand him, he wasn't sure it was enough to add @id; he wanted to make sure he had a named graph.
+[Tue 11:21]	<gkellogg>	manu: The text is wrong, but let's try to fix it now. I'll make a change right after the call.
+
