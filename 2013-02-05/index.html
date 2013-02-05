@@ -1,0 +1,247 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-02-05</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0003.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0003.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">New Alternate Algorithms Review</a><li><a href="#topic-2">RDF Algorithms Section</a><li><a href="#topic-3">ISSUE-217: Disallow BNode identifier as Graph Name</a><li><a href="#topic-4">JSON-LD 1.0 Final Community Group Specification</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Adopt the 'purpose' and 'general solution' language in Dave Longley's (alternate2.html) specification.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Gregg Kellogg, Dave Longley, Paul Kuykendall, Markus Lanthaler, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>: Any additions to the Agenda?</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We might want to discuss the reply and suggested change to Eric's recent mail regarding when a default graph is turned into a named graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If we have time, I'd like to describe some potential future needs when working with National Library of Sweden stuff. We're officially using JSON-LD there now, maybe some framing-like issues and @rev like stuff. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I may do a CG proposal for @ordered [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm probably going to do a community document regarding @list, like @ordered..</div>
+<h1 id="topic-1" class="topic">Topic: New Alternate Algorithms Review</h1>
+<div class="comment"><span class="name">Dave Longley</span>:  I have worked on merging the current and alternate texts for the algorithms, e.g. including the lookup table (inverse context) for term selection, also added examples and a visual description</div>
+<div class="comment-continuation">… my goal is also to have an implementation (the one used on the playground) is implementing this new spec text (alternate2)</div>
+<div class="comment-continuation">… I've also detected things that were missing, like keyword aliasing</div>
+<div class="comment-continuation">… we have heard of at least one processor that didn't work when impl. the described algorithms</div>
+<div class="comment-continuation">… I've left out the 2 or 3 controversial issues that we have left (like relative iris)</div>
+<div class="comment-continuation">… I've also added some sections to describe the general problem (or "purpose" as gregg suggested) in paragraph form, for people who do their own algorithms</div>
+<div class="comment-continuation">… it's difficult to wrap your mind how all the algorithms work together; so I've attempted to address that as well, e.g. by using the notion of a "subalgorithm"</div>
+<div class="comment-continuation">… not yet updated: the flattening and node mapping algorithms</div>
+<div class="comment-continuation">… also the mapping to rdf concepts may need more review</div>
+<div class="comment-continuation">… in summary: we have a working implementation of this, and it should be noted that it didn't really need that many updates</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I like the context processing; it's the term selection that seem problematic</div>
+<div class="comment"><span class="name">Dave Longley</span>:  re context processing: I reordered to put it first</div>
+<div class="comment-continuation">… we tailored the API to do async processing</div>
+<div class="comment-continuation">… but it may be better to retrieve all the contexts beforehand, and then do the processing</div>
+<div class="comment-continuation">… this is also much more beneficial for our payswarm work</div>
+<div class="comment-continuation">… caching processed contexts</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Thanks for the great summary and work - sounds awesome. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's interesting about the pre-loading the context stuff - it dawned on me a while ago, but didn't have the time to digest the idea. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Things we've talked about regarding asynchronous processing in general would be affected if you needed all the contexts beforehand. I wonder if there is something more to that idea that would affect the API as well. We've discussed async vs. sync approaches - maybe the API needs to be modified... maybe the transformation step is purely functional? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm not sure we can eliminate that, since someone might need to do something async during the processing</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't know if we can eliminate async entirely - there may be ways to make it simpler, but I don't think we can remove some of the stuff from the API. If anybody wanted to do anything that we don't think of in this group, we might cripple them. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I'm in the group implementing the C# impl. I'd like to note that this new layout of the spec looks very helpful.</div>
+<div class="comment-continuation">… e.g. putting context processing first, and the explanatory additions to each algorithm are valuable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so, the question is if we want to move forward with one of the three spec alternatives we have before us</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we should include the prose of this directly in the spec. We could agree on that and then discuss the algorithms separately.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sounds good</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I see value in being able to take some sample data, and walk through the algorithm step by step to see what's going on</div>
+<div class="comment-continuation">… there is something on term selection which seems to intentionally be similar to term ranking</div>
+<div class="comment-continuation">… and what's the relation to inverse contexts</div>
+<div class="comment"><span class="name">Dave Longley</span>:  so inverse contexts gives a lookup from iri to possible terms, and term selection goes through the alternatives; first building the container and then going through if there's a language, etc.</div>
+<div class="comment-continuation">… when doing compaction: get info for property IRI, then match values which apply; and then term selection looks for specificity to select the proper one</div>
+<div class="comment-continuation">… think of the new term selection algorithm as similar to markus' querying of inverse context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what might help is a picture or table to illustrate this</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yes, a table would be helpful, and show with arrows what is selected</div>
+<div class="comment"><span class="name">Dave Longley</span>:  i wanted to be clear that we're not going to modify the data, therefore I used the notion of a shallow copy</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we need to move forward with this, and dave's rewrite addresses or major issues with complexity. Compaction is still very complicated, but I think this is the path to go</div>
+<div class="comment"><span class="name">Dave Longley</span>:  there are also places where we explain over again local processing steps which we could probably explain the gist of and define them (and then link to them)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  like a micro-algorithm section, sounds good</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  my high level read-over gives me the same impression as gregg; the purpose and direction of this is where we want to go</div>
+<div class="comment-continuation">… the things fit together much better now</div>
+<div class="comment-continuation">… and the algorithm work has been very thorough</div>
+<div class="comment-continuation">… so no it's much easier to get an overview</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  was the error stuff removal a conscious decision?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I wanted to get away from a lot of MUST and SHOULD language</div>
+<div class="comment-continuation">… so I combined markus' and gregg's error description</div>
+<div class="comment-continuation">… but we should probably add technical (API) error text back</div>
+<div class="comment-continuation">… we should combine the MUST/SHOULD with that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  re. MUST text, if we use that, and we're duplicating normative text that should exist in the normative grammar, we should look for something better than repeating that</div>
+<div class="comment-continuation">… using an error code seemed incongruous with an algorithm which is much more mathematical in nature</div>
+<div class="comment-continuation">… it'd be better with a constant with a title</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org.local/spec/latest/json-ld-api/alternate2.html#idl-def-JsonLdErrorCode">http://json-ld.org.local/spec/latest/json-ld-api/alternate2.html#idl-def-JsonLdErrorCode</a></div>
+<div class="comment-continuation">… e.g. a "list-of-list error" (could be a tref)</div>
+<div class="comment-continuation">… I prefer something less prescriptive than "raise an error"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ups... local IRI</div>
+<div class="comment-continuation">… but we need to be explicit about what is an exceptional error, and leave to the API to define what that is</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: s/<a href="http://json-ld.org.local/spec/latest/json-ld-api/alternate2.html#idl-def-JsonLdErrorCode/http://json-ld.org/spec/latest/json-ld-api/#idl-def-JsonLdErrorCode/">http://json-ld.org.local/spec/latest/json-ld-api/alternate2.html#idl-def-JsonLdErrorCode/http://json-ld.org/spec/latest/json-ld-api/#idl-def-JsonLdErrorCode/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there is a circular dependency issue of letting the algorithm reference to the API, we need something separate, and let the API also refer to that</div>
+<div class="comment-continuation">… the algorithms should exist without the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so both could refer to the lookup table, defined in prose</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, and it could also be used to index back to the normative text describing this</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't see how the constants are coupling the algorithms with the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's take this part back to the list</div>
+<div class="comment-continuation">… can we do a proposal on the high level text, and next week propose on the algorithms?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I would like to come back also to the RDF algorithms</div>
+<div class="information">dave+manu: also include the feature definition language?</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Adopt the 'purpose' and 'general solution' language in Dave Longley's (alternate2.html) specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Adopt the 'purpose' and 'general solution' language in Dave Longley's (alternate2.html) specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus to review the algorithms; next week we'll handle whether or not we want to include Dave Longley's algorithm rewrites.</div>
+<h1 id="topic-2" class="topic">Topic: RDF Algorithms Section</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there has been some issues regarding aligning with the RDF concepts, we need to determine the status of that</div>
+<div class="comment-continuation">… also, to add explicit examples</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, would be good (using turtle)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  does it require to be expanded+flattened?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there' based upon expanded; there may be some recursion issue, but I'll look at if it would be simplified by flattnening</div>
+<div class="comment-continuation">… complexity on the order of turtle parsing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it might be easier to explain without recursion</div>
+<div class="comment-continuation">… looping over flattened input is probably easier to explain</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-217: Disallow BNode identifier as Graph Name</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/217">https://github.com/json-ld/json-ld.org/issues/217</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  about using blank node identifiers as a graph name. We raised this with the RDF group. Their response is that graph names can only be IRIs.</div>
+<div class="comment-continuation">… this is problematic when doing graph normalization. When you have two graphs, without bnode names, you have to generate a name</div>
+<div class="comment-continuation">… we can't use a hash of the content to name the graph, we could use fragment IDs, but we'd be specifying something new. Basically, if we invent a new mechanism, we're just re-inventing bnode identifiers.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  if you have two graphs without id but same values, you'd have to assume they're the same graph, which is not correct.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what if we say that if graphs occurs without an @id, it's a default graph?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  according to RDF concepts, you can't have two graphs that don't have names</div>
+<div class="comment-continuation">… when turning that into RDF, you cannot.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Well, if you named them with "blank graph names" you could. RDF Concepts states that you cant' have anonymous graph names that are local to the document, which is a mistake.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  fragment identifers do that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you can't process the same document twice and get the same bnode out</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we're setting ourselves up for problems if we diverge from RDF</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree with Gregg in principle - it'll just cause more problems if we diverge from RDF WG. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We support bnode names for properties, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yep. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Terms that don't have explicit @id of @null are dropped? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We support blank nodes for properties, but not graphs? Syntax for @id supports bnode @ids, maybe we should do a SHOULD NOT support bnode IDs for properties and graphs? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The reason to have two blank node identifiers is to say that there are two graphs that are not named. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, the problem is that the RDF model doesn't allow two different graphs to exist without having names, which is dumb because they allow two different nodes to exist without names. Seems like a completely arbitrary decision.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it seems the reason for disallowing this seems more political than logical - no consensus to do anything, so don't do anything. This has a real-world consequence in that it will break the RDF Dataset Normalization Algorithm.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if the name must be an IRI, there is no issue. What we need to to is note that it's a violation if it's a bnode id.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I haven't read RDF concepts in detail about this recently, one thing that strikes me as odd is that you never in any part of RDF Concepts, expect the IRI or bnode to be "different", apart from lists. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the current RDF 1.1 concepts spec doesn't say that node and graph are disjoint</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you can have two blank nodes that refer to each other. You cannot do that with two "blank" graphs. Why?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  are we really bound to the RDF data model and WG? I think we are.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg and I disagree here. We have done as much alignment as possible. There are minute differences where JSON-LD is explicitly more lax and accommodating. E.g. bnodeid's for properties.</div>
+<div class="comment-continuation">… and up to last week support for bnode id's for graph ids</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it doesn't help with normalization though, which is tied to quads, we need to be able to use /something/ in the graph position. We've been using a blank-node like identifier.</div>
+<div class="comment-continuation">… I think we need to say that if you're gonna use @graph other than as default; you need an @id</div>
+<div class="information">Discussion around the effect of bnode ids for graphs won't match since those ids aren't stable... though, identifiers will be internally stable (to the document or quad-store).</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  are you normalizing datasets or graphs?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Datasets</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but the algorithm is called graph normalization?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Datasets didn't exist when we wrote the first version of the spec.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  you normalize to quads</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is an issue for the RDF WG</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes. But it's important to understand that code we're deploying in two weeks use bnode ids for graphs. If the normalization algorithm changes that's a problem</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It could work for payswarm if we disallow it; we can adapt</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It'll be hard to convince the RDF WG that the RDF Concepts model is broken.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Disallow blank node identifiers for graph names.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1 (I think if we do this, we align with the RDF data model, which is broken - no reason to disallow blank-node-like identifiers for graph names)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: a sad -0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div class="comment"><span class="name">David I. Lehn</span>: -0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  +0.1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is there anything that would get more consensus that this?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yeah, what's in the spec right now.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we don't support it in the data model we have to throw an error</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  by sticking with SHOULD, you allow for usage to evolve which could affect future RDF</div>
+<div class="comment"><span class="name">Dave Longley</span>:  do we have feedback from RDF WG on SHOULD NOT vs MUST NOT?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not really...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my guess is they'd grudgingly go along with should not, but further convince them that JSON-LD is deviating from RDF unnecessarily.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: this is the current spec text: "Each named graph is a pair consisting of an IRI or blank node identifier (the graph name) and a JSON-LD graph. Whenever possible, the graph name should be an IRI."</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what would it mean to use the bnode-id as a subject in a description, and use the same bnode-id for the graph?</div>
+<div class="comment-continuation">… this should be brought up to the working group now.</div>
+<div class="comment-continuation">… it *may* result in a retreat of a MUST NOT</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We may want to discuss this with the Provenance WG about this. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Graph names SHOULD use IRIs. The JSON-LD Data model supports identifiers for graphs that are IRIs and identifiers that look like blank node identifiers, but instead identity graphs. The RDF Conversion algorithm SHOULD generate an error when a non-absolute IRI is detected when converting to RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Counter Proposal: Keep the current spec text: "Each named graph is a pair consisting of an IRI or blank node identifier (the graph name) and a JSON-LD graph. Whenever possible, the graph name should be an IRI."</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf">http://json-ld.org/spec/latest/json-ld-syntax/#relationship-to-rdf</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  with no change, we need an issue marker for bnode ids as graph ids</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: That's already in the spec: "In contrast to the RDF data model as defined in [RDF-CONCEPTS], JSON-LD allows blank nodes as property labels and graph names. This feature is controversial in the RDF WG and may be removed in the future."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can leave it open if we mark it as at risk (we can still go to LC)</div>
+<div class="comment-continuation">… we'll bring it up again in the RDF WG</div>
+<h1 id="topic-4" class="topic">Topic: JSON-LD 1.0 Final Community Group Specification</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/FCGS/json-ld-syntax/20130202/">http://json-ld.org/spec/FCGS/json-ld-syntax/20130202/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Should we publish the FCGS specification?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We still have outstanding issues, why now?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Because we want to get the Intellectual Property aggrements in place while RDF WG is reviewing a semi-finalized specification.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should wait a week, then try again.</div>
+<div class="information">JSON-LD 1.0 Community Group agrees to wait a week.</div>
+</body>
+</html>
