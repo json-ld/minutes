@@ -106,6 +106,11 @@
          "alias": ["webr3"],
          "homepage": "http://webr3.org/"
       },
+      "Nicholas Car":
+      {
+         "alias": ["NicholasCar"],
+         "homepage": "http://www.csiro.au/"
+      },
       "Manu Sporny":
       {
          "alias": ["manu-db", "manu1", "manu`"],

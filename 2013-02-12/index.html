@@ -1,0 +1,259 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-02-12</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0030.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0030.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Choosing the Algorithms Specification</a><li><a href="#topic-2">ISSUE-213: Vulnerability when loading HTTP-based JSON-LD Contexts</a><li><a href="#topic-3">ISSUE-204: Design Issue with Relative IRIs and compaction</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Base future JSON-LD Algorithms 1.0 specification work on Dave Longley's alternate2.html specification, keeping in mind that the group is not suggesting that all algorithms are finalized. Algorithms will need to be clarified further after the base document is picked.</a><li><a href="#resolution-2">Add a JsonLdUrlDereferencer option to the JSON-LD API calls. It can be a function that takes a URL and a callback, and calls the callback with an error or the result of dereferencing that URL. If the option is provided, then the implementation MUST use it to dereference remote contexts.</a><li><a href="#resolution-3">If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.</a><li><a href="#resolution-4">The value space for terms tagged with "@type": "@id" is compact IRI, absolute IRI, relative IRI, the value space for "@type": "@vocab" is term, compact IRI, absolute IRI, @vocab, relative IRI.</a><li><a href="#resolution-5">Within a term definition in the JSON-LD context, document-relative IRIs are not supported.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Nicholas Car, Manu Sporny, Dave Longley, Markus Lanthaler, Gregg Kellogg, Niklas Lindström, François Daoust, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Nicholas Car</span>: Hi, I am a researcher at Australia's CSIRO (Nat. Research Dept.)... calling in now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Move ISSUE-217 to the end, so we can get to the other items. [scribe assist by Manu Sporny]</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Choosing the Algorithms Specification</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/index.html">http://json-ld.org/spec/latest/json-ld-api/index.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/alternate.html">http://json-ld.org/spec/latest/json-ld-api/alternate.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/alternate2.html">http://json-ld.org/spec/latest/json-ld-api/alternate2.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus went through the algorithms and did a very thorough review</div>
+<div class="comment-continuation">... most of the comments weren't fundamental issue</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0027.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0027.html</a></div>
+<div class="comment-continuation">... the are a couple of comments that popped out as potential issues</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I haven't been able to look at the changes that Dave Longley has made based on my comments. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Dave's algorithms are more or less the same than I had in index.html, but overall, they're more or less the same. He uses an inverse context, looks like the one I wrote. Expansion looks fundamentally the same. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Algorithms were moved around a bit, one algorithm got split (term definition / creation) from context processing, which I'm not sure if it makes sense. Gregg seemed to like it, so I'm fine w/ it. Personal preference, don't like jumping between algorithms. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I found a few bugs w/ the algorithms, Dave has already fixed some of them. All of the bugs had to do w/ property generators and how they are processed. I think Dave tried to optimize some of the algorithms, but the optimizations didn't bring any advantage, they complicated the description, some bugs were introduced. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, some issues with property generator algorithms - if we want to keep the re-organization, then we need to decide. The algorithms are split out, moved around. It would make sense to keep things in that the same as before, would be my preference. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Expansion is okay. Compaction, we might want to have a closer look. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Flattening, node generation not changed so far... so good. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do you have a preference on which algorithms we should use? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  For expansion - we should pick Dave's. For compaction, we should pick mine. We need error code language, that's missing from Dave's spec, we have to agree on some language. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'm not entirely happy with splitting out the remote context processing</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I've started to go through and do some implementation. My comments are mostly focused on the evaluation context at this point. I found the eval context processing pretty logical. Not entirely comfortable with splitting out remote context processing since Ruby is not an asynchronous implementation. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">... I would prefer to process it inline</div>
+<div class="comment-continuation">... I think it was a premature optimization</div>
+<div class="comment-continuation">... I prefer to keep context processing, IRI expansion/compaction etc. closely together</div>
+<div class="comment-continuation">... there was a small comment that in some cases when you expand relative IRIs it might be in a remote context</div>
+<div class="comment-continuation">... markus had a comment doing the shorter bits at the top of the algorithm instead of at the very end where it might get lost</div>
+<div class="comment-continuation">... compaction: I found it easier to following the description dave was using for processing the inverse context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do you have a preference which spec text to take</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my version was a try to do minimal changes.. I don't think that's going to happen.. the preference goes to using an inv. context</div>
+<div class="comment-continuation">... I have to note that I have something similar than a inverse context</div>
+<div class="comment-continuation">... but typically being too specific inhibits implementers creating differing implementations</div>
+<div class="comment-continuation">... especially the naming of bnodes in the test suite might be problematic if you do things in different order (parallel)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  markus haven't seem my updates yet but I fixed most of the problems already</div>
+<div class="comment-continuation">... so prop. generator stuff works now</div>
+<div class="comment-continuation">... another problem was inheriting term definitions. I think what my new algorithm does is probably wrong</div>
+<div class="comment-continuation">... markus had a test case choosing a term with a null-language</div>
+<div class="comment-continuation">... question is whether choose the term with null-language or no language at all</div>
+<div class="comment-continuation">... for numbers</div>
+<div class="comment-continuation">... I think we need a quick discussion what should really happen</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If it was a string I think you would want the null-language term</div>
+<div class="comment-continuation">... I would go for the easier algorithm</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I consider 12.3 to be (syntactically) equivalent to {"@type": "xsd:double", "@value": "12.3"}</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we use strings to represent very small numbers</div>
+<div class="comment-continuation">... we don't want to have them to be language-tagged using the default language</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0048-in.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0048-in.jsonld</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0048-out.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0048-out.jsonld</a></div>
+<div class="comment-continuation">... question is, should propertyNoLang or propertyLanguageNull be choosen?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  quick question, if propertyLanguageNull wouldn't be there you would keep the complete IRI</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yes</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think I would choose propertyLanguageNull because it's most specific, then fall back to propertyNoLang</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I would be fine with that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, lets do that</div>
+<div class="comment"><span class="name">Dave Longley</span>:  markus and gregg said we should highlight the removal of the context in expansion and not switching between contexts</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Just to be clear - @language in the @context only applies to strings. For TC0048 output should pick the /more specific/ term definition 'propertyLanguageNull'.</div>
+<div class="comment-continuation">... I think switching between contexts is the most common use case</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  expansions use is not just compaction.. you also need to expand when converting to RDF</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we can re-purpose expansion for RDF because RDF has no context</div>
+<div class="comment-continuation">... I think it's confusing to say expansion just eliminates the context without saying why</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Is it really simpler to switch between contexts than to say that the context is removed? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  When compacting, I apply a context to compact it again. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  maybe a better way to reorganize it would be to add a section before expansion/compaction and describe it there</div>
+<div class="comment-continuation">... and then just say expansion eliminates context, compaction adds one</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  does anyone thinks there are some fundamental problems in any of the current spec versions?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't think so</div>
+<div class="comment-continuation">... my preference would be to use alternate2 but pull in a bit more from what markus had</div>
+<div class="comment-continuation">... we should also pull error constant</div>
+<div class="comment-continuation">... we could also reorder some stuff</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think I support alternate2 as well</div>
+<div class="comment-continuation">... I found the structure more accessible and especially the inverse context algorithm easier to understand</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Base future JSON-LD Algorithms 1.0 specification work on Dave Longley's alternate2.html specification, keeping in mind that the group is not suggesting that all algorithms are finalized. Algorithms will need to be clarified further after the base document is picked.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0.5</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (given my current partial knowledge, but I like the direction)</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Base future JSON-LD Algorithms 1.0 specification work on Dave Longley's alternate2.html specification, keeping in mind that the group is not suggesting that all algorithms are finalized. Algorithms will need to be clarified further after the base document is picked.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-213: Vulnerability when loading HTTP-based JSON-LD Contexts</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/213">https://github.com/json-ld/json-ld.org/issues/213</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we found a security vuln. in payswarm that you could reverse a transaction if a remote context was manipulated</div>
+<div class="comment-continuation">... dns poisoning is the main problem</div>
+<div class="comment-continuation">... proposal is to require remote context over https</div>
+<div class="comment-continuation">... or to let the API define a hook which is then used to load remote contexts</div>
+<div class="comment"><span class="name">Dave Longley</span>:  my implementation does that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I would be reluctant to require HTTPs</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add a JsonLdUrlDereferencer option to the JSON-LD API calls. It can be a function that takes a URL and a callback, and calls the callback with an error or the result of dereferencing that URL. If the option is provided, then the implementation MUST use it to dereference remote contexts.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0.1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.75</div>
+<div class="comment"><span class="name">François Daoust</span>: +0.1 (same arguments as Markus)</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Add a JsonLdUrlDereferencer option to the JSON-LD API calls. It can be a function that takes a URL and a callback, and calls the callback with an error or the result of dereferencing that URL. If the option is provided, then the implementation MUST use it to dereference remote contexts.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-204: Design Issue with Relative IRIs and compaction</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/204">https://github.com/json-ld/json-ld.org/issues/204</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The issue is that it requires us to use CURIEs at the RHS instead of terms</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  here are the options we discussed last time: 1) skips terms when doing the IRI compaction or 2) appends ./ to the name if it is an HTTP IRI or 3) exposes the risk that you may accidentally compact down to a term. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  there 2 options</div>
+<div class="comment-continuation">... if you use relative IRIs you should use ./</div>
+<div class="comment-continuation">... when we auto-generate relative IRIs</div>
+<div class="comment-continuation">... the danger is that people might use relative IRIs without "./" and their relative IRIs clash with a term</div>
+<div class="comment-continuation">... e.g. "license": "licence".. would end up being a property linking to itself</div>
+<div class="comment-continuation">... altough we don't like adding new keywords (and we had feature-freeze).. we might should add a keyword @url for type-coercions</div>
+<div class="comment-continuation">... just uses relative/absolute IRIs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't understand why we need @url if we use "./"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we don't need it.. but it would make it simpler for people to express their intent</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we are going to allow terms as values in @id, does it imply that @vocab is effective in @id? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we do that, then IRIs would be handled the same everywhere, which would be good. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Let's just use @vocab on the right, in @type and @id, and make it consistent everywhere. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in RDFa we have different rules for subjects, properties, objects</div>
+<div class="comment-continuation">... perhaps that doesn't make sense for JSON-LD</div>
+<div class="comment-continuation">... but "./" just makes sense for hierarchical IRIs.. what about all other cases?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe there is an argument here for just having relative and absolute IRIs in @id and @type... why is @type different? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there are 4 cases in RDF where IRIs are used: subj, pred, obj, data type</div>
+<div class="comment-continuation">... pred and data type it makes sense to be vocab relative, subj, obj should be document relative</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that makes sense</div>
+<div class="comment-continuation">... so @id wouldn't be vocab-relative</div>
+<div class="comment"><span class="name">Manu Sporny</span>: "foo": "PurchaseRequest"</div>
+<div class="comment-continuation">... is the vocab. every gonna be used to expand something on the right hand side of a statement</div>
+<div class="comment-continuation">... "@type": "PurchaseRequest"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we could do something like @type: @vocab</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I still wonder if @type: @symbol wouldn't be more useful</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. we need a keyword which says "expand terms and curies, or resolve against @vocab"</div>
+<div class="comment"><span class="name">Dave Longley</span>: @enum</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. "license": {"@type": "@id"}</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The minimal change we could make is to keep everything as it is currently, plus terms, but compact them to relative IRIs if they don't collide with a term. If it collides with a term, we just keep the full IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">... what happens with this? "foo": "not-defined"</div>
+<div class="comment-continuation">... discussing @type: @vocab</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we should also probably just allow absolute iris in context</div>
+<div class="comment"><span class="name">Dave Longley</span>: @enum is an alternative, but a new keyword.</div>
+<div class="comment-continuation">... proposal is to just allow absolute IRIs in the context, we introduce @type: @vocab, which would interpret values just as values of @type are currently processed</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If "@type": "@vocab" is specified for a term in the active context, then processing for @id attempts to resolve as a term first, then a CURIE, then an absolute IRI, then a document-relative IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: "term: {"@id": "…", "@type": "@vocab"}</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could require @vocab to be defined in that case</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  not necessarily, you might just wanna use terms defined in the context</div>
+<div class="proposal"><strong>PROPOSAL:</strong> If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Also, we can thus keep the resolution for Issue 204 (Do not allow terms as values for @id.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, that's the point I think</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  value space of @id: compact IRI, absolute IRI, relative IRI</div>
+<div class="comment"><span class="name">Dave Longley</span>: {"@context": {foo: {"@id": "<a href="http://bar.org/1",">http://bar.org/1",</a> "@type": "@vocab"}}, "http://bar.org/2": "foo"} expands to what?</div>
+<div class="comment"><span class="name">Dave Longley</span>: ["<a href="http://bar.org/2":">http://bar.org/2":</a> {"@id": "http://bar.org/1"}] ?</div>
+<div class="comment"><span class="name">Dave Longley</span>: [{"<a href="http://bar.org/2":">http://bar.org/2":</a> {"@id": "http://bar.org/1"}}] ?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: value space of @type: @id: compact IRI, absolute IRI, relative IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>: value space of @type: @vocab: term, compact IRI, absolute IRI, @vocab, relative IRI</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the difference of @type = @id and @type = @vocab is that @id isn't vocab-relative</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, and terms are not used</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The value space for terms tagged with "@type": "@id" is compact IRI, absolute IRI, relative IRI, the value space for "@type": "@vocab" is term, compact IRI, absolute IRI, @vocab, relative IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> The value space for terms tagged with "@type": "@id" is compact IRI, absolute IRI, relative IRI, the value space for "@type": "@vocab" is term, compact IRI, absolute IRI, @vocab, relative IRI.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  in compaction, if we have two terms just differing in @type.. what do we choose? @id or @vocab?</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Within a term definition in the JSON-LD context, document-relative IRIs are not supported.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Within a term definition in the JSON-LD context, document-relative IRIs are not supported.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  For the record, relative IRIs to reference external contexts are supported</div>
+</body>
+</html>

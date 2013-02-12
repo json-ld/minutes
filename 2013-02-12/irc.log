@@ -1,0 +1,205 @@
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0030.html
+[Tue 10:04]	<NicholasCar>	Hi, I am a researcher at Australia's CSIRO (Nat. Research Dept.)... calling in now.
+[Tue 10:05]	<manu-db>	Manu: Any changes to agenda?
+[Tue 10:05]	<manu-db>	dlongley: Move ISSUE-217 to the end, so we can get to the other items.
+[Tue 10:05]	<manu-db>	scribe: mlnt
+[Tue 10:05]	<manu-db>	Topic: Choosing the Algorithms Specification
+[Tue 10:06]	<manu-db>	http://json-ld.org/spec/latest/json-ld-api/index.html
+[Tue 10:06]	<manu-db>	http://json-ld.org/spec/latest/json-ld-api/alternate.html
+[Tue 10:06]	<manu-db>	http://json-ld.org/spec/latest/json-ld-api/alternate2.html
+[Tue 10:06]	<mlnt>	manu: markus went through the algorithms and did a very thorough review
+[Tue 10:06]	<voip-ld>	<unknown> (IAX2/diamondcard-8664) has joined the conference.
+[Tue 10:06]	<mlnt>	... most of the comments weren't fundamental issue
+[Tue 10:06]	<manu-db>	http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0027.html
+[Tue 10:07]	<mlnt>	... the are a couple of comments that popped out as potential issues
+[Tue 10:07]	<manu-db>	mlnt: I haven't been able to look at the changes that Dave Longley has made based on my comments.
+[Tue 10:08]	<manu-db>	mlnt: Dave's algorithms are more or less the same than I had in index.html, but overall, they're more or less the same. He uses an inverse context, looks like the one I wrote. Expansion looks fundamentally the same.
+[Tue 10:09]	<manu-db>	mlnt: Algorithms were moved around a bit, one algorithm got split (term definition / creation) from context processing, which I'm not sure if it makes sense. Gregg seemed to like it, so I'm fine w/ it. Personal preference, don't like jumping between algorithms.
+[Tue 10:10]	<manu-db>	mlnt: I found a few bugs w/ the algorithms, Dave has already fixed some of them. All of the bugs had to do w/ property generators and how they are processed. I think Dave tried to optimize some of the algorithms, but the optimizations didn't bring any advantage, they complicated the description, some bugs were introduced.
+[Tue 10:10]	-->|	niklasl (~neuron@193.10.249.131) has joined #json-ld
+[Tue 10:11]	<manu-db>	mlnt: So, some issues with property generator algorithms - if we want to keep the re-organization, then we need to decide. The algorithms are split out, moved around. It would make sense to keep things in that the same as before, would be my preference.
+[Tue 10:11]	<voip-ld>	Niklas Lindström (SIP/10.10.73.10-000000cd) has joined the conference.
+[Tue 10:11]	<manu-db>	mlnt: Expansion is okay. Compaction, we might want to have a closer look.
+[Tue 10:11]	<manu-db>	mlnt: Flattening, node generation not changed so far... so good.
+[Tue 10:11]	* niklasl	sorry for being late; malfunctional wifi..
+[Tue 10:12]	<manu-db>	manu: Do you have a preference on which algorithms we should use?
+[Tue 10:13]	<manu-db>	mlnt: For expansion - we should pick Dave's. For compaction, we should pick mine. We need error code language, that's missing from Dave's spec, we have to agree on some language.
+[Tue 10:13]	<mlnt>	gregg: I'm not entirely happy with splitting out the remote context processing
+[Tue 10:14]	<manu-db>	gregg: I've started to go through and do some implementation. My comments are mostly focused on the evaluation context at this point. I found the eval context processing pretty logical. Not entirely comfortable with splitting out remote context processing since Ruby is not an asynchronous implementation.
+[Tue 10:14]	<mlnt>	... I would prefer to process it inline
+[Tue 10:14]	* manu-db	stops scribing. :)
+[Tue 10:14]	<mlnt>	... I think it was a premature optimization
+[Tue 10:15]	<mlnt>	... I prefer to keep context processing, IRI expansion/compaction etc. closely together
+[Tue 10:15]	<mlnt>	... there was a small comment that in some cases when you expand relative IRIs it might be in a remote context
+[Tue 10:16]	<mlnt>	... markus had a comment doing the shorter bits at the top of the algorithm instead of at the very end where it might get lost
+[Tue 10:16]	<mlnt>	... compaction: I found it easier to following the description dave was using for processing the inverse context
+[Tue 10:17]	<mlnt>	manu: do you have a preference which spec text to take
+[Tue 10:17]	<mlnt>	gregg: my version was a try to do minimal changes.. I don't think that's going to happen.. the preference goes to using an inv. context
+[Tue 10:17]	<mlnt>	... I have to note that I have something similar than a inverse context
+[Tue 10:18]	<mlnt>	... but typically being too specific inhibits implementers creating differing implementations
+[Tue 10:18]	<mlnt>	... especially the naming of bnodes in the test suite might be problematic if you do things in different order (parallel)
+[Tue 10:19]	<voip-ld>	<unknown> (IAX2/diamondcard-8664) has left the conference.
+[Tue 10:19]	<mlnt>	dave: markus haven't seem my updates yet but I fixed most of the problems already
+[Tue 10:19]	<mlnt>	... so prop. generator stuff works now
+[Tue 10:20]	|<--	NicholasCar has left freenode (Quit: Page closed)
+[Tue 10:20]	<mlnt>	... another problem was inheriting term definitions. I think what my new algorithm does is probably wrong
+[Tue 10:20]	<mlnt>	... markus had a test case choosing a term with a null-language
+[Tue 10:21]	<mlnt>	... question is whether choose the term with null-language or no language at all
+[Tue 10:21]	<mlnt>	... for numbers
+[Tue 10:21]	<mlnt>	... I think we need a quick discussion what should really happen
+[Tue 10:22]	<mlnt>	gregg: If it was a string I think you would want the null-language term
+[Tue 10:24]	<mlnt>	... I would go for the easier algorithm
+[Tue 10:25]	<niklasl>	.. I consider 12.3 to be (syntactically) equivalent to {"@type": "xsd:double", "@value": "12.3"}
+[Tue 10:26]	<mlnt>	manu: we use strings to represent very small numbers
+[Tue 10:28]	<mlnt>	... we don't want to have them to be language-tagged using the default language
+[Tue 10:29]	<dlongley>	https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0048-in.jsonld
+[Tue 10:30]	<dlongley>	https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0048-out.jsonld
+[Tue 10:31]	<mlnt>	... question is, should propertyNoLang or propertyLanguageNull be choosen?
+[Tue 10:33]	<mlnt>	markus: quick question, if propertyLanguageNull wouldn't be there you would keep the complete IRI
+[Tue 10:33]	<mlnt>	dave: yes
+[Tue 10:34]	<mlnt>	niklas: I think I would choose propertyLanguageNull because it's most specific, then fall back to propertyNoLang
+[Tue 10:35]	<mlnt>	markus: I would be fine with that
+[Tue 10:35]	<mlnt>	gregg: yeah
+[Tue 10:35]	<mlnt>	manu: ok, lets do that
+[Tue 10:36]	<mlnt>	dave: markus and gregg said we should highlight the removal of the context in expansion and not switching between contexts
+[Tue 10:36]	<manu-db>	Just to be clear - @language in the @context only applies to strings. For TC0048 output should pick the /more specific/ term definition 'propertyLanguageNull'.
+[Tue 10:36]	<mlnt>	... I think switching between contexts is the most common use case
+[Tue 10:37]	<mlnt>	gregg: expansions use is not just compaction.. you also need to expand when converting to RDF
+[Tue 10:38]	<mlnt>	dave: I think we can re-purpose expansion for RDF because RDF has no context
+[Tue 10:39]	<mlnt>	... I think it's confusing to say expansion just eliminates the context without saying why
+[Tue 10:40]	<manu-db>	mlnt: Is it really simpler to switch between contexts than to say that the context is removed?
+[Tue 10:40]	<manu-db>	mlnt: When compacting, I apply a context to compact it again.
+[Tue 10:42]	<mlnt>	dave: maybe a better way to reorganize it would be to add a section before expansion/compaction and describe it there
+[Tue 10:42]	<mlnt>	... and then just say expansion eliminates context, compaction adds one
+[Tue 10:43]	<mlnt>	manu: does anyone thinks there are some fundamental problems in any of the current spec versions?
+[Tue 10:43]	<mlnt>	dave: I don't think so
+[Tue 10:44]	<mlnt>	... my preference would be to use alternate2 but pull in a bit more from what markus had
+[Tue 10:44]	<mlnt>	... we should also pull error constant
+[Tue 10:45]	<mlnt>	... we could also reorder some stuff
+[Tue 10:45]	<mlnt>	gregg: I think I support alternate2 as well
+[Tue 10:46]	<mlnt>	... I found the structure more accessible and especially the inverse context algorithm easier to understand
+[Tue 10:51]	<manu-db>	PROPOSAL: Base future JSON-LD Algorithms 1.0 specification work on Dave Longley's alternate2.html specification, keeping in mind that the group is not suggesting that all algorithms are finalized. Algorithms will need to be clarified further after the base document is picked.
+[Tue 10:51]	-->|	linclark|afk (~clark@c-67-186-35-246.hsd1.pa.comcast.net) has joined #json-ld
+[Tue 10:51]	<gkellogg>	+1
+[Tue 10:51]	<manu-db>	+1
+[Tue 10:51]	<dlongley>	+1
+[Tue 10:51]	<tidoust>	+1
+[Tue 10:52]	<mlnt>	mlnt: +0.5
+[Tue 10:52]	<niklasl>	+1 (given my current partial knowledge, but I like the direction)
+[Tue 10:52]	<manu-db>	RESOLVED: Base future JSON-LD Algorithms 1.0 specification work on Dave Longley's alternate2.html specification, keeping in mind that the group is not suggesting that all algorithms are finalized. Algorithms will need to be clarified further after the base document is picked.
+[Tue 10:53]	<manu-db>	Topic: ISSUE-213: Vulnerability when loading HTTP-based JSON-LD Contexts
+[Tue 10:53]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/213
+[Tue 10:53]	<mlnt>	manu: we found a security vuln. in payswarm that you could reverse a transaction if a remote context was manipulated
+[Tue 10:54]	<mlnt>	... dns poisoning is the main problem
+[Tue 10:54]	<mlnt>	... proposal is to require remote context over https
+[Tue 10:55]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 10:55]	<mlnt>	... or to let the API define a hook which is then used to load remote contexts
+[Tue 10:56]	<mlnt>	dave: my implementation does that
+[Tue 10:56]	<mlnt>	gregg: I would be reluctant to require HTTPs
+[Tue 11:01]	<manu-db>	PROPOSAL: Add a JsonLdUrlDereferencer option to the JSON-LD API calls. It can be a function that takes a URL and a callback, and calls the callback with an error or the result of dereferencing that URL. If the option is provided, then the implementation MUST use it to dereference remote contexts.
+[Tue 11:02]	<manu-db>	+1
+[Tue 11:02]	<gkellogg>	+1
+[Tue 11:02]	<dlongley>	+1
+[Tue 11:02]	<mlnt>	mlnt: +0.1
+[Tue 11:02]	<niklasl>	+0.75
+[Tue 11:02]	<tidoust>	+0.1 (same arguments as Markus)
+[Tue 11:02]	<manu-db>	RESOLVED: Add a JsonLdUrlDereferencer option to the JSON-LD API calls. It can be a function that takes a URL and a callback, and calls the callback with an error or the result of dereferencing that URL. If the option is provided, then the implementation MUST use it to dereference remote contexts.
+[Tue 11:03]	<manu-db>	Topic: ISSUE-204: Design Issue with Relative IRIs and compaction
+[Tue 11:03]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/204
+[Tue 11:04]	<mlnt>	manu: The issue is that it requires us to use CURIEs at the RHS instead of terms
+[Tue 11:04]	<niklasl>	q+
+[Tue 11:04]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:04]	<manu-db>	ack niklasl
+[Tue 11:04]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:04]	<manu-db>	manu: here are the options we discussed last time: 1) skips terms when doing the IRI compaction or 2) appends ./ to the name if it is an HTTP IRI or 3) exposes the risk that you may accidentally compact down to a term.
+[Tue 11:04]	<mlnt>	niklas: there 2 options
+[Tue 11:05]	<mlnt>	... if you use relative IRIs you should use ./
+[Tue 11:05]	<mlnt>	... when we auto-generate relative IRIs
+[Tue 11:06]	<mlnt>	... the danger is that people might use relative IRIs without "./" and their relative IRIs clash with a term
+[Tue 11:06]	<mlnt>	... e.g. "license": "licence".. would end up being a property linking to itself
+[Tue 11:08]	<mlnt>	... altough we don't like adding new keywords (and we had feature-freeze).. we might should add a keyword @url for type-coercions
+[Tue 11:08]	<mlnt>	... just uses relative/absolute IRIs
+[Tue 11:08]	<mlnt>	manu: I don't understand why we need @url if we use "./"
+[Tue 11:09]	<mlnt>	q+
+[Tue 11:09]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 11:09]	<gkellogg>	q+
+[Tue 11:09]	<voip-ld>	Added gkellogg to the speaker queue: mlnt, gkellogg
+[Tue 11:09]	<manu-db>	ack mlnt
+[Tue 11:09]	<voip-ld>	mlnt has the floor. The next speaker is gkellogg.
+[Tue 11:09]	<mlnt>	niklas: we don't need it.. but it would make it simpler for people to express their intent
+[Tue 11:09]	<manu-db>	mlnt: If we are going to allow terms as values in @id, does it imply that @vocab is effective in @id?
+[Tue 11:10]	<manu-db>	mlnt: If we do that, then IRIs would be handled the same everywhere, which would be good.
+[Tue 11:11]	<manu-db>	dave: Let's just use @vocab on the right, in @type and @id, and make it consistent everywhere.
+[Tue 11:11]	<mlnt>	gregg: in RDFa we have different rules for subjects, properties, objects
+[Tue 11:12]	<mlnt>	... perhaps that doesn't make sense for JSON-LD
+[Tue 11:12]	<mlnt>	... but "./" just makes sense for hierarchical IRIs.. what about all other cases?
+[Tue 11:15]	<manu-db>	mlnt: Maybe there is an argument here for just having relative and absolute IRIs in @id and @type... why is @type different?
+[Tue 11:16]	<mlnt>	gregg: there are 4 cases in RDF where IRIs are used: subj, pred, obj, data type
+[Tue 11:16]	<mlnt>	... pred and data type it makes sense to be vocab relative, subj, obj should be document relative
+[Tue 11:16]	<mlnt>	manu: that makes sense
+[Tue 11:17]	<mlnt>	... so @id wouldn't be vocab-relative
+[Tue 11:18]	<manu-db>	"foo": "PurchaseRequest"
+[Tue 11:18]	<mlnt>	... is the vocab. every gonna be used to expand something on the right hand side of a statement
+[Tue 11:18]	<mlnt>	... "@type": "PurchaseRequest"
+[Tue 11:20]	<mlnt>	dave: we could do something like @type: @vocab
+[Tue 11:21]	<niklasl>	.. I still wonder if @type: @symbol wouldn't be more useful
+[Tue 11:22]	<niklasl>	.. we need a keyword which says "expand terms and curies, or resolve against @vocab"
+[Tue 11:23]	<dlongley>	@enum
+[Tue 11:24]	<niklasl>	.. "license": {"@type": "@id"}
+[Tue 11:25]	<manu-db>	mlnt: The minimal change we could make is to keep everything as it is currently, plus terms, but compact them to relative IRIs if they don't collide with a term. If it collides with a term, we just keep the full IRI.
+[Tue 11:27]	<mlnt>	... what happens with this? "foo": "not-defined"
+[Tue 11:30]	<mlnt>	... discussing @type: @vocab
+[Tue 11:32]	<mlnt>	markus: we should also probably just allow absolute iris in context
+[Tue 11:32]	<dlongley>	@enum is an alternative, but a new keyword.
+[Tue 11:35]	<mlnt>	... proposal is to just allow absolute IRIs in the context, we introduce @type: @vocab, which would interpret values just as values of @type are currently processed
+[Tue 11:36]	<manu-db>	manu: If "@type": "@vocab" is specified for a term in the active context, then processing for @id attempts to resolve as a term first, then a CURIE, then an absolute IRI, then a document-relative IRI.
+[Tue 11:36]	<gkellogg>	"term: {"@id": "…", "@type": "@vocab"}
+[Tue 11:38]	<mlnt>	gregg: we could require @vocab to be defined in that case
+[Tue 11:38]	<manu-db>	manu: If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.
+[Tue 11:39]	<mlnt>	niklas: not necessarily, you might just wanna use terms defined in the context
+[Tue 11:39]	<mlnt>	PROPOSAL: If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.
+[Tue 11:39]	<manu-db>	+1
+[Tue 11:39]	<mlnt>	+1
+[Tue 11:39]	<niklasl>	+1
+[Tue 11:39]	<gkellogg>	+1
+[Tue 11:40]	<dlongley>	+1
+[Tue 11:40]	<tidoust>	+1
+[Tue 11:41]	<niklasl>	Also, we can thus keep the resolution for Issue 204 (Do not allow terms as values for @id.)
+[Tue 11:41]	<mlnt>	mlnt: yes, that's the point I think
+[Tue 11:41]	<manu-db>	RESOLVED: If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.
+[Tue 11:43]	<mlnt>	mlnt: value space of @id: compact IRI, absolute IRI, relative IRI
+[Tue 11:44]	<dlongley>	{"@context": {foo: {"@id": "http://bar.org/1", "@type": "@vocab"}}, "http://bar.org/2": "foo"} expands to what?
+[Tue 11:44]	<dlongley>	["http://bar.org/2": {"@id": "http://bar.org/1"}] ?
+[Tue 11:45]	<dlongley>	[{"http://bar.org/2": {"@id": "http://bar.org/1"}}] ?
+[Tue 11:45]	<manu-db>	value space of @type: @id: compact IRI, absolute IRI, relative IRI
+[Tue 11:45]	=-=	linclark|afk is now known as linclark
+[Tue 11:46]	<manu-db>	value space of @type: @vocab: term, compact IRI, absolute IRI, @vocab, relative IRI
+[Tue 11:46]	<niklasl>	yes
+[Tue 11:46]	<mlnt>	gregg: the difference of @type = @id and @type = @vocab is that @id isn't vocab-relative
+[Tue 11:46]	<mlnt>	markus: yes, and terms are not used
+[Tue 11:47]	<manu-db>	PROPOSAL: The value space for terms tagged with "@type": "@id" is compact IRI, absolute IRI, relative IRI, the value space for "@type": "@vocab" is term, compact IRI, absolute IRI, @vocab, relative IRI.
+[Tue 11:47]	<voip-ld>	Dave Lehn (SIP/6003-000000ce) has joined the conference.
+[Tue 11:47]	<gkellogg>	+1
+[Tue 11:47]	<dlongley>	+1
+[Tue 11:47]	<mlnt>	+1
+[Tue 11:47]	<niklasl>	+1
+[Tue 11:47]	<tidoust>	+1
+[Tue 11:48]	<manu-db>	+1
+[Tue 11:48]	<manu-db>	RESOLVED: The value space for terms tagged with "@type": "@id" is compact IRI, absolute IRI, relative IRI, the value space for "@type": "@vocab" is term, compact IRI, absolute IRI, @vocab, relative IRI.
+[Tue 11:49]	<mlnt>	dave: in compaction, if we have two terms just differing in @type.. what do we choose? @id or @vocab?
+[Tue 11:54]	<manu-db>	PROPOSAL: Within a term definition in the JSON-LD context, document-relative IRIs are not supported.
+[Tue 11:54]	<manu-db>	+1
+[Tue 11:54]	<dlongley>	+1
+[Tue 11:54]	<gkellogg>	+1
+[Tue 11:54]	<niklasl>	+1
+[Tue 11:54]	<mlnt>	+1
+[Tue 11:54]	<taaz>	+0
+[Tue 11:54]	<manu-db>	RESOLVED: Within a term definition in the JSON-LD context, document-relative IRIs are not supported.
+[Tue 11:54]	<mlnt>	mlnt: For the record, relative IRIs to reference external contexts are supported
+[Tue 11:55]	<voip-ld>	Gregg Kellogg (SIP/184.183.112.212-000000c9) has left the conference.
+[Tue 11:55]	<voip-ld>	Manu Sporny (SIP/6000-000000c7) has left the conference.
+[Tue 11:55]	<voip-ld>	Dave Lehn (SIP/6003-000000ce) has left the conference.
+[Tue 11:55]	<voip-ld>	Niklas Lindström (SIP/10.10.73.10-000000cd) has left the conference.
+[Tue 11:55]	<voip-ld>	Dave Longley (SIP/6002-000000c8) has left the conference.
+[Tue 11:55]	<voip-ld>	tidoust (IAX2/diamondcard-8391) has left the conference.
+[Tue 11:55]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000000ca) has left the conference.
