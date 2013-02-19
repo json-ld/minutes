@@ -1,0 +1,221 @@
+[Tue 10:11]	<manu-db>	scribe: tidoust
+[Tue 10:11]	<tidoust>	Discussion about graph BNode identifier as Graph Name permathread.
+[Tue 10:12]	<tidoust>	Mostly a summary of the discussion thread: http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0038.html
+[Tue 10:14]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0089.html
+[Tue 10:15]	* tidoust	will do his best to take minutes
+[Tue 10:15]	<manu-db>	Topic: ISSUE-217: Disallow BNode identifier as Graph Name
+[Tue 10:15]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/217
+[Tue 10:16]	<tidoust>	manu: A bit of a breakthrough in the RDF WG, which is great. We need to support BNodes identifier for graph names. I think that's all we need. We don't really need Pat Hayes suggestion, although it would be nice.
+[Tue 10:17]	<tidoust>	… I'd like for us to make the statement that the ID of a graph denotes the graph in JSON-LD.
+[Tue 10:17]	<tidoust>	niklas: Not comfortable if that deviates from what the RDF WG decides
+[Tue 10:18]	<tidoust>	Gregg: I agree. I don't think that's the way to do it.
+[Tue 10:18]	<tidoust>	manu: That's fine, I don't feel strongly about this being in the spec, but I do think strongly that it's the right thing to do.
+[Tue 10:19]	<tidoust>	Gregg: My update to the RDF algorithms was to note that this is an issue. We could say that it is at risk.
+[Tue 10:19]	<tidoust>	… I think that we need to wait for the RDF WG to come to a final decision and see here what that entails.
+[Tue 10:20]	<tidoust>	Manu: Markus, Gregg, and myself, let's make sure we show up on tomorrow's RDF call then.
+[Tue 10:21]	<tidoust>	[more discussion on blank nodes and base document IRI]
+[Tue 10:21]	<tidoust>	Manu: OK, then waiting for the RDF WG to come up with a resolution.
+[Tue 10:22]	<tidoust>	… Do we want to do any kind of proposals? To state the solution that we believe would be the right one?
+[Tue 10:22]	<tidoust>	Gregg: Yes, it would be useful
+[Tue 10:23]	<tidoust>	Niklas: maybe some informal recommendation that IRIs are preferred.
+[Tue 10:24]	<tidoust>	Gregg: Not so sure. Eric came up with a few examples where BNodes identifier are the best way forward.
+[Tue 10:24]	<tidoust>	Markus: isn't it enough to say that we don't change our current spec?
+[Tue 10:24]	<tidoust>	Gregg: the point of the proposal is to point to a decision of this group that strongly supports that position in order to get the concepts updated.
+[Tue 10:25]	<manu-db>	PROPOSAL: This group re-affirms that the common practice when naming a graph is to use either an IRI or a blank node identifier. The JSON-LD specification remains unchanged. When expressing graphs in Linked Data, the graph name SHOULD be an IRI.
+[Tue 10:26]	<gkellogg>	+1
+[Tue 10:26]	<manu-db>	+1
+[Tue 10:26]	<dlongley>	+1
+[Tue 10:26]	<tidoust>	+1
+[Tue 10:26]	<niklasl>	+1
+[Tue 10:26]	<mlnt>	+1
+[Tue 10:26]	<tidoust>	Niklas dreams aloud about an utopic world where something named RDF 2.0 would solve everyone's problems.
+[Tue 10:27]	* niklasl	:)
+[Tue 10:27]	<manu-db>	RESOLVED: This group re-affirms that the common practice when naming a graph is to use either an IRI or a blank node identifier. The JSON-LD specification remains unchanged. When expressing graphs in Linked Data, the graph name SHOULD be an IRI.
+[Tue 10:27]	<manu-db>	Topic: Publishing JSON-LD 1.0 as a FCGS
+[Tue 10:27]	* niklasl	as I say from time to time though: I am not a platonist ;)
+[Tue 10:27]	<tidoust>	Manu: The only thing that was blocking the publication was that graph name thing.
+[Tue 10:28]	<tidoust>	Gregg: I think we can publish it as an FCGS right now and have the RDF WG understand that one issue moving forward is the graph name discussion.
+[Tue 10:29]	<tidoust>	Manu: OK, so proposal is to publish the syntax spec as FCGS
+[Tue 10:29]	<manu-db>	PROPOSAL: Publish the JSON-LD 1.0 syntax specification as of February 19th 2013 as a Final Community Group Specification.
+[Tue 10:29]	<manu-db>	+1
+[Tue 10:29]	<mlnt>	+1
+[Tue 10:29]	<gkellogg>	+1
+[Tue 10:29]	<dlongley>	+1
+[Tue 10:29]	<tidoust>	+1
+[Tue 10:29]	<niklasl>	+1
+[Tue 10:30]	<manu-db>	RESOLVED: Publish the JSON-LD 1.0 syntax specification as of February 19th 2013 as a Final Community Group Specification.
+[Tue 10:30]	<manu-db>	Topic: ISSUE-218: Algorithm specification updates by editors
+[Tue 10:30]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/218
+[Tue 10:30]	<tidoust>	manu: Markus has done a fantastic job at getting all our comments as a checklist in the issue tracker.
+[Tue 10:31]	<tidoust>	… Markus, could you give us an overview of biggest concerns?
+[Tue 10:31]	<tidoust>	Markus: basically the same as last week.
+[Tue 10:31]	<tidoust>	… Some typos have changed but the algorithms in general have not really been updated.
+[Tue 10:31]	<tidoust>	… Dave fixed a couple of bugs.
+[Tue 10:32]	<tidoust>	… Other things haven't been done or at least I haven't seen them yet.
+[Tue 10:33]	<tidoust>	Dave: I'm looking at the list. There are a couple of things where we're still trying to figure out if we want to reorganize algorithms.
+[Tue 10:33]	<tidoust>	… Moving keywords processing around could be one such thing. It would be good to have feedback from others (Gregg?).
+[Tue 10:34]	<tidoust>	… Maybe folding keywords aliasing processing into IRI mapping. It would be fine with me as long as we make it clear that they are handled. Previous version did not seem to handle them at all.
+[Tue 10:34]	<tidoust>	Gregg: My previous implementation folded the keywords aliasing into the normal term processing.
+[Tue 10:34]	<tidoust>	… I ended up doing it as a reverse table
+[Tue 10:35]	<tidoust>	… I haven't progressed enough in updating compaction to see that it clarified things or not.
+[Tue 10:36]	<tidoust>	Manu: What might help is finding what things the editors need feedback about. One way is editors go ahead and discuss things among themselves. Or we go through the group for each and every point but that would be a disaster in terms of time.
+[Tue 10:36]	<tidoust>	… Could you isolate points that need feedback from the group?
+[Tue 10:37]	<tidoust>	… To the extent possible, the editors should fix the spec. If there's disagreement or if you don't really know which way to go, flag that for the group to look at. Does that seem like a reasonable way to proceed?
+[Tue 10:37]	<tidoust>	Markus: difficult to isolate what really needs to be talked about.
+[Tue 10:38]	<tidoust>	Manu: If both of you disagree, we can escalate to the group.
+[Tue 10:38]	<tidoust>	Gregg: It's worth spending time on this call going through the list.
+[Tue 10:38]	<tidoust>	… I think lots of things related to the context should be close to the context processing section.
+[Tue 10:39]	<tidoust>	… I feel there is no movement because we do not have a good overview of what we want as a group.
+[Tue 10:39]	<tidoust>	Markus: I agree. I haven't made some changes not to have to revert the changes afterwards.
+[Tue 10:40]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/218#issuecomment-13449440
+[Tue 10:40]	<tidoust>	Manu: OK, let's start from the top, then
+[Tue 10:40]	<tidoust>	Manu: About "folksy wording", I agree.
+[Tue 10:40]	<tidoust>	Gregg: agreement about this, it's just the work needs to be done.
+[Tue 10:41]	<tidoust>	Manu: It doesn't really need to be done for this version but the RDF WG will complain about it, for sure.
+[Tue 10:41]	<tidoust>	Gregg: It's important to prioritize things that change the algorithms.
+[Tue 10:42]	<tidoust>	Manu: So feedback on first one is "make the changes when algorithms are updated".
+[Tue 10:43]	<tidoust>	… Moving on to "we" being used quite a bit
+[Tue 10:43]	<tidoust>	Markus: note it also contains a note on relative IRIs.
+[Tue 10:44]	<tidoust>	Gregg: I'll edit the note to move the first part to the end of the "folksy" comment and keep the later part.
+[Tue 10:45]	<tidoust>	… The comment about the relative IRI is related to passing the base IRI in the options parameter of the expansion algorithm
+[Tue 10:45]	<tidoust>	Dave: Maybe add "relative IRI" to terminology to explain how it gets resolved.
+[Tue 10:46]	<tidoust>	Manu: I like the idea to be more general about it and put it in the terminology.
+[Tue 10:46]	<tidoust>	Dave: sort of micro-algorithms, that's one of these examples.
+[Tue 10:47]	<tidoust>	… We can probably link to RFC something for IRI resolution.
+[Tue 10:47]	<tidoust>	Markus: If the remote context includes another remote context, what base IRI to use? It's not that trivial.
+[Tue 10:47]	<tidoust>	Gregg: The main case is when you resolve the remote context IRI which is relative.
+[Tue 10:48]	<tidoust>	Markus: We don't allow relative IRIs for terms in context
+[Tue 10:48]	<tidoust>	Gregg: so maybe it's not an issue anymore.
+[Tue 10:49]	<tidoust>	Manu: we seem to be heading in the right direction for this one.
+[Tue 10:49]	<tidoust>	… Moving on to the "General solution" sub-section. I agree. Any disagreement?
+[Tue 10:49]	<tidoust>	[none heard]
+[Tue 10:50]	<tidoust>	Manu: comment on "xxx equals null" to be replaced by "xxx is null".
+[Tue 10:50]	<tidoust>	Gregg: It's an English usage. It just sounds unnecessary.
+[Tue 10:50]	<tidoust>	Dave: I agree. I just wanted to be consistent. I prefer the shorter version.
+[Tue 10:51]	<tidoust>	Manu: ok, skipping down to "Otherwise is awkward". What is the alternative?
+[Tue 10:51]	<tidoust>	Gregg: This was with respect to a statement that is perhaps not there anymore. I don't remember where it was.
+[Tue 10:52]	<tidoust>	Manu: ok, moving on to duplicate normative statments.
+[Tue 10:52]	<tidoust>	.
+[Tue 10:52]	<tidoust>	Gregg: that echoed Markus feedback on my alternative version where I had duplicated these statements.
+[Tue 10:53]	<tidoust>	… It's reasonable to use that language, but maybe add a note that says MUST, SHOULD and etc. do not mean the same thing there.
+[Tue 10:53]	<tidoust>	Dave: I would prefer avoiding using these terms.
+[Tue 10:54]	<tidoust>	Manu: Are we skipping this for now?
+[Tue 10:54]	<tidoust>	Markus: I think we all agree that it shouldn't duplicate normative statements.
+[Tue 10:54]	<tidoust>	Manu: I'm not too worried about that if that makes writing the algorithms easier.
+[Tue 10:55]	<tidoust>	Manu: ok, moving on to last point in Gregg's list.
+[Tue 10:56]	<tidoust>	… the note should go in Context Expansion. [no disagreement heard]
+[Tue 10:56]	<tidoust>	… Moving on to Dave's feedback.
+[Tue 10:57]	<tidoust>	… Point on audience is correct, indeed. Developers might want to have a look at the API in the spec.
+[Tue 10:57]	<tidoust>	… [no disagreement heard]
+[Tue 10:57]	<voip-ld>	tidoust (IAX2/diamondcard-12202) has left the conference.
+[Tue 10:58]	<tidoust>	… Moving on to the comment on features
+[Tue 10:58]	* niklasl	gotta leave in a minute (schemabibex telecon)
+[Tue 10:58]	<manu-db>	Dave: I think he's talking about the features section, let's add a link to the API section there.
+[Tue 10:58]	* tidoust	notes he got disconnected, trying to re-join
+[Tue 10:58]	<gkellogg>	dlongley: introduction should point to API as well.
+[Tue 10:59]	<voip-ld>	<unknown> (IAX2/diamondcard-16220) has joined the conference.
+[Tue 10:59]	<tidoust>	voip: 16220 is me
+[Tue 10:59]	<voip-ld>	tidoust is now associated with IAX2/diamondcard-16220.
+[Tue 10:59]	<tidoust>	voip: mute me
+[Tue 10:59]	<voip-ld>	tidoust has been muted.
+[Tue 11:00]	<voip-ld>	Niklas Lindström (SIP/192.168.3.34-000000de) has left the conference.
+[Tue 11:00]	<manu-db>	http://json-ld.org/test-suite/
+[Tue 11:00]	<tidoust>	Gregg: the test suite is referenced generically. We could get an EARL report in place to link tests and the spec.
+[Tue 11:01]	<gkellogg>	http://rdfa.info/earl-reports/
+[Tue 11:01]	<tidoust>	Gregg: [going through the earl reports example]
+[Tue 11:01]	<tidoust>	Manu: I would not be opposed to do that.
+[Tue 11:02]	<tidoust>	Gregg: I may volunteer to do a variation of the report that does the job for us.
+[Tue 11:02]	<tidoust>	Manu: this work needs to be done to get us out of CR.
+[Tue 11:02]	<tidoust>	Gregg: Something actionable right now would be adding a note pointing user to the test suite to provide more examples.
+[Tue 11:03]	<tidoust>	Manu: Fine with that. [no objection heard]
+[Tue 11:03]	|<--	TallTed has left freenode ()
+[Tue 11:03]	<tidoust>	Manu: Going through Markus' feedback now
+[Tue 11:05]	<tidoust>	Dave: Intro could explain how JSON-LD can be used to switch between different contexts.
+[Tue 11:05]	<tidoust>	[agreement]
+[Tue 11:05]	<tidoust>	Manu: Moving on on the "the difference is in their context information".
+[Tue 11:06]	<tidoust>	Dave: The example is not clear if you're not looking at details. Markus changed it. But that doesn't really highlight the primary function of expansion which is to remove the context.
+[Tue 11:07]	<tidoust>	… We should need to change the examples to show how very different contexts can be used with the same data.
+[Tue 11:07]	<tidoust>	Markus: right. At the moment, it's very confusing.
+[Tue 11:07]	<tidoust>	Dave: we may just need to pick up two different names for the "homepage" for instance.
+[Tue 11:07]	<tidoust>	Manu: Moving on to feedback on section 5.2
+[Tue 11:09]	<tidoust>	Markus: when you're processing the local context, it's more reasonable to process the remote context before you do anything else.
+[Tue 11:09]	<tidoust>	Dave: The separation of concepts is more about doing I/O vs. doing something that is JSON-LD related.
+[Tue 11:10]	<--|	niklasl has left #json-ld
+[Tue 11:10]	<tidoust>	Gregg: From an algorithmic point of view, it goes well to say that you dereference the context and use that inline. Pre-fetching is certainly a good idea but that does not make the algorithm any simpler in my view.
+[Tue 11:10]	<tidoust>	Manu: I feel the algorithm looks simpler if all remote resources get retrieved beforehand.
+[Tue 11:11]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 11:11]	<tidoust>	Dave: When someone tries to implement the algorithms, it makes more sense to process remote resources before. Perhaps not easier to read for an overview of the algorithms.
+[Tue 11:12]	<tidoust>	Gregg: I don't really see that it benefits my implementation in any way.
+[Tue 11:12]	<tidoust>	Dave: CPU vs. I/O issue.
+[Tue 11:13]	<tidoust>	Gregg: An algorithm is not the place to specify that.
+[Tue 11:14]	<tidoust>	Manu: Agreement that we're going to put a note in the spec to say that the contexts may be retrieved beforehand but the algorithms won't mention that.
+[Tue 11:14]	<tidoust>	Dave: [scribe missed the proposal]
+[Tue 11:15]	<tidoust>	Manu: Sections 5.2 and 5.3. now read well. Moving parts will make things very chunky.
+[Tue 11:16]	<tidoust>	Markus: that would just add a couple of steps to the algorithms and general solution.
+[Tue 11:16]	<tidoust>	Manu: OK, général agreement on 5.2 then.
+[Tue 11:16]	<tidoust>	… Moving on to 5.3.
+[Tue 11:17]	<tidoust>	Dave: I didn't find it confusing.
+[Tue 11:17]	<tidoust>	… to mark the keys as having been defined.
+[Tue 11:17]	|<--	fcodvpt has left freenode (Quit: WeeChat 0.3.7)
+[Tue 11:18]	<tidoust>	Markus: ok, fine for me if it's clear for everyone else. It's basically the first step so a bit confusing.
+[Tue 11:18]	<tidoust>	… It gets clearer when you read on.
+[Tue 11:19]	<tidoust>	Dave: Problem is about recursing. It may not actually happen anymore though. I'll take a look at that.
+[Tue 11:19]	|<--	elf-pavlik has left freenode (Ping timeout: 255 seconds)
+[Tue 11:20]	<tidoust>	Gregg: I can't have context that uses "language" as an alias for "@language". That's not a legitimate aliasing.
+[Tue 11:20]	<tidoust>	Dave: OK, if it's removable, let's remove it.
+[Tue 11:21]	<tidoust>	Manu: If it's not, we could clarify why we need to mark it as "defined"
+[Tue 11:21]	<tidoust>	… Moving on to section 5.4
+[Tue 11:22]	<tidoust>	Dave: The introduction was changed, so I thought this was checked.
+[Tue 11:22]	<tidoust>	Markus: I think the problem was about term definition inheritance.
+[Tue 11:22]	<tidoust>	Dave: That should be removed now.
+[Tue 11:22]	<tidoust>	Markus: I'll have a look after the call.
+[Tue 11:23]	<voip-ld>	Dave Lehn (SIP/6003-000000df) has joined the conference.
+[Tue 11:23]	<tidoust>	Manu: OK, moving on towards the bottom of section 5.4.
+[Tue 11:23]	<tidoust>	Dave: Gregg recommended re-ordering. I'm fine with that change.
+[Tue 11:24]	<tidoust>	Gregg: In my implementation, it's logical to have them under context evaluation.
+[Tue 11:25]	<tidoust>	Dave: OK, I would not introduce a new EvaluationContext term.
+[Tue 11:26]	<tidoust>	Gregg: No. I would reorganize under 5.3.
+[Tue 11:26]	<tidoust>	Markus: Then we will end up 5-6 level deep which would be annoying.
+[Tue 11:27]	<tidoust>	Manu: Top level content processing algorithms would be good as Markus suggested.
+[Tue 11:27]	<tidoust>	[agreement]
+[Tue 11:28]	<tidoust>	Manu: I propose to stop here for this week, to let the editors catch up. My assumption is that when the whole list is checked off, we'll be in good shape for an FCGS.
+[Tue 11:28]	<tidoust>	Markus: one big issue is error handling. Completely missing for the time being.
+[Tue 11:28]	<tidoust>	Dave: Markus, if you can take the error text that you had and add that to wherever we say "otherwise, it's an error", I'd be fine with that.
+[Tue 11:29]	<tidoust>	Markus: Just add that error constant?
+[Tue 11:29]	<tidoust>	Dave: In the previous version, you called out precise errors.
+[Tue 11:29]	<tidoust>	Markus: At least Gregg was not too happy about that.
+[Tue 11:29]	<tidoust>	Manu: Your issue, Gregg, was saying that the algorithms should raise an error.
+[Tue 11:30]	<tidoust>	Gregg: twofolds. Raise an error within an algorithm is not a pure algorithm. Other part is binding a specific token for the specific errors that were raised is also not a good idea.
+[Tue 11:30]	<tidoust>	… Since then, I think the errors are defined as phrases. I think it's fine to include these phrases in the algorithms.
+[Tue 11:31]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#idl-def-JsonLdErrorCode
+[Tue 11:31]	<tidoust>	Dave: Phrases instead of contents in the algorithms then
+[Tue 11:31]	<tidoust>	… Can we say that an "invalid syntax" has been detected?
+[Tue 11:31]	<tidoust>	Gregg: yes
+[Tue 11:32]	<tidoust>	Markus: I don't really see any difference to what we did last time.
+[Tue 11:32]	<tidoust>	Manu: It's one more level of indirection that I don't think we really need.
+[Tue 11:32]	<tidoust>	Dave: I don't think it adds any more level of indirection. It should be almost the same as what Markus did before except we're dropping the constants.
+[Tue 11:33]	<tidoust>	Markus: What do we do after detecting an error, then?
+[Tue 11:33]	<tidoust>	Gregg: That's a good question. There are cases where I raise errors and they are ignored, and vice versa.
+[Tue 11:34]	<tidoust>	Markus: I think all errors enumerated here are fatal errors.
+[Tue 11:34]	<tidoust>	Gregg: "invalid container mapping", I could go on.
+[Tue 11:34]	<tidoust>	Markus: then we can ignore everything.
+[Tue 11:35]	<tidoust>	Manu: I think we'll have to go down any single one of these errors and decide which ones are fatal.
+[Tue 11:35]	-->|	linclark (~clark@c-67-186-35-246.hsd1.pa.comcast.net) has joined #json-ld
+[Tue 11:36]	<tidoust>	Dave: In the meantime, I suggest pulling what Markus had and insert the appropriate term definition and link to this table.
+[Tue 11:36]	<tidoust>	Markus: ok.
+[Tue 11:36]	<manu-db>	Topic: Update to RDF Algorithms
+[Tue 11:37]	-->|	scor (scor@nat/acquia/x-roozlpnynwfgyxuu) has joined #json-ld
+[Tue 11:37]	|<--	scor has left freenode (Client Quit)
+[Tue 11:37]	<tidoust>	Gregg: Before we close, a little update on "tref".
+[Tue 11:37]	<tidoust>	… [scribe missed points]
+[Tue 11:38]	<tidoust>	Markus: just an update that reSpec does not run anymore for the time being.
+[Tue 11:39]	<manu-db>	Syntax spec is broken due to: Uncaught Reference to undefined term 'compact_iri'
+[Tue 11:39]	<tidoust>	Gregg: One other thing to the updated 2 RDF algorithms. One test fails for me.
+[Tue 11:39]	<tidoust>	… It's either a bug in my implementation or a bug in the flattening algorithm.
+[Tue 11:40]	<tidoust>	Dave: I'll probably re-implement what you've been doing.
+[Tue 11:41]	<tidoust>	Gregg: the convertFrom algorithm is not really different. The convertTo algorithm is substantially different.
+[Tue 11:41]	<tidoust>	Manu: Alright. Dave will have feedback when he implements it.
+[Tue 11:41]	<tidoust>	… Thanks for the call everyone. We'll chat again next week.
+[Tue 11:41]	<taaz> bye
+[Tue 11:41]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000000d9) has left the conference.
+[Tue 11:41]	<tidoust>	[call adjourned]

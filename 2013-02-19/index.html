@@ -1,0 +1,281 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-02-19</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0089.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0089.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-217: Disallow BNode identifier as Graph Name</a><li><a href="#topic-2">Publishing JSON-LD 1.0 as a FCGS</a><li><a href="#topic-3">ISSUE-218: Algorithm specification updates by editors</a><li><a href="#topic-4">Update to RDF Algorithms</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">This group re-affirms that the common practice when naming a graph is to use either an IRI or a blank node identifier. The JSON-LD specification remains unchanged. When expressing graphs in Linked Data, the graph name SHOULD be an IRI.</a><li><a href="#resolution-2">Publish the JSON-LD 1.0 syntax specification as of February 19th 2013 as a Final Community Group Specification.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>François Daoust</dd>
+<dt>Present</dt><dd>François Daoust, Manu Sporny, Niklas Lindström, Gregg Kellogg, Markus Lanthaler, Dave Longley, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">François Daoust is scribing.</div>
+<div class="information">Discussion about graph BNode identifier as Graph Name permathread.</div>
+<div class="information">Mostly a summary of the discussion thread: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0038.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0038.html</a></div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-217: Disallow BNode identifier as Graph Name</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/217">https://github.com/json-ld/json-ld.org/issues/217</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  A bit of a breakthrough in the RDF WG, which is great. We need to support BNodes identifier for graph names. I think that's all we need. We don't really need Pat Hayes suggestion, although it would be nice.</div>
+<div class="comment-continuation">… I'd like for us to make the statement that the ID of a graph denotes the graph in JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Not comfortable if that deviates from what the RDF WG decides</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I agree. I don't think that's the way to do it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's fine, I don't feel strongly about this being in the spec, but I do think strongly that it's the right thing to do.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My update to the RDF algorithms was to note that this is an issue. We could say that it is at risk.</div>
+<div class="comment-continuation">… I think that we need to wait for the RDF WG to come to a final decision and see here what that entails.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, Gregg, and myself, let's make sure we show up on tomorrow's RDF call then.</div>
+<div class="information">[more discussion on blank nodes and base document IRI]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, then waiting for the RDF WG to come up with a resolution.</div>
+<div class="comment-continuation">… Do we want to do any kind of proposals? To state the solution that we believe would be the right one?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, it would be useful</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  maybe some informal recommendation that IRIs are preferred.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Not so sure. Eric came up with a few examples where BNodes identifier are the best way forward.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  isn't it enough to say that we don't change our current spec?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the point of the proposal is to point to a decision of this group that strongly supports that position in order to get the concepts updated.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> This group re-affirms that the common practice when naming a graph is to use either an IRI or a blank node identifier. The JSON-LD specification remains unchanged. When expressing graphs in Linked Data, the graph name SHOULD be an IRI.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="information">Niklas dreams aloud about an utopic world where something named RDF 2.0 would solve everyone's problems.</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> This group re-affirms that the common practice when naming a graph is to use either an IRI or a blank node identifier. The JSON-LD specification remains unchanged. When expressing graphs in Linked Data, the graph name SHOULD be an IRI.</div>
+<h1 id="topic-2" class="topic">Topic: Publishing JSON-LD 1.0 as a FCGS</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  The only thing that was blocking the publication was that graph name thing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we can publish it as an FCGS right now and have the RDF WG understand that one issue moving forward is the graph name discussion.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, so proposal is to publish the syntax spec as FCGS</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Publish the JSON-LD 1.0 syntax specification as of February 19th 2013 as a Final Community Group Specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">François Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Publish the JSON-LD 1.0 syntax specification as of February 19th 2013 as a Final Community Group Specification.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-218: Algorithm specification updates by editors</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/218">https://github.com/json-ld/json-ld.org/issues/218</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus has done a fantastic job at getting all our comments as a checklist in the issue tracker.</div>
+<div class="comment-continuation">… Markus, could you give us an overview of biggest concerns?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  basically the same as last week.</div>
+<div class="comment-continuation">… Some typos have changed but the algorithms in general have not really been updated.</div>
+<div class="comment-continuation">… Dave fixed a couple of bugs.</div>
+<div class="comment-continuation">… Other things haven't been done or at least I haven't seen them yet.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm looking at the list. There are a couple of things where we're still trying to figure out if we want to reorganize algorithms.</div>
+<div class="comment-continuation">… Moving keywords processing around could be one such thing. It would be good to have feedback from others (Gregg?).</div>
+<div class="comment-continuation">… Maybe folding keywords aliasing processing into IRI mapping. It would be fine with me as long as we make it clear that they are handled. Previous version did not seem to handle them at all.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My previous implementation folded the keywords aliasing into the normal term processing.</div>
+<div class="comment-continuation">… I ended up doing it as a reverse table</div>
+<div class="comment-continuation">… I haven't progressed enough in updating compaction to see that it clarified things or not.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What might help is finding what things the editors need feedback about. One way is editors go ahead and discuss things among themselves. Or we go through the group for each and every point but that would be a disaster in terms of time.</div>
+<div class="comment-continuation">… Could you isolate points that need feedback from the group?</div>
+<div class="comment-continuation">… To the extent possible, the editors should fix the spec. If there's disagreement or if you don't really know which way to go, flag that for the group to look at. Does that seem like a reasonable way to proceed?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  difficult to isolate what really needs to be talked about.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If both of you disagree, we can escalate to the group.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's worth spending time on this call going through the list.</div>
+<div class="comment-continuation">… I think lots of things related to the context should be close to the context processing section.</div>
+<div class="comment-continuation">… I feel there is no movement because we do not have a good overview of what we want as a group.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree. I haven't made some changes not to have to revert the changes afterwards.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/218#issuecomment-13449440">https://github.com/json-ld/json-ld.org/issues/218#issuecomment-13449440</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, let's start from the top, then</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  About "folksy wording", I agree.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  agreement about this, it's just the work needs to be done.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It doesn't really need to be done for this version but the RDF WG will complain about it, for sure.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's important to prioritize things that change the algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So feedback on first one is "make the changes when algorithms are updated".</div>
+<div class="comment-continuation">… Moving on to "we" being used quite a bit</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  note it also contains a note on relative IRIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'll edit the note to move the first part to the end of the "folksy" comment and keep the later part.</div>
+<div class="comment-continuation">… The comment about the relative IRI is related to passing the base IRI in the options parameter of the expansion algorithm</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe add "relative IRI" to terminology to explain how it gets resolved.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I like the idea to be more general about it and put it in the terminology.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  sort of micro-algorithms, that's one of these examples.</div>
+<div class="comment-continuation">… We can probably link to RFC something for IRI resolution.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If the remote context includes another remote context, what base IRI to use? It's not that trivial.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The main case is when you resolve the remote context IRI which is relative.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We don't allow relative IRIs for terms in context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so maybe it's not an issue anymore.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we seem to be heading in the right direction for this one.</div>
+<div class="comment-continuation">… Moving on to the "General solution" sub-section. I agree. Any disagreement?</div>
+<div class="information">[none heard]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  comment on "xxx equals null" to be replaced by "xxx is null".</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's an English usage. It just sounds unnecessary.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I agree. I just wanted to be consistent. I prefer the shorter version.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, skipping down to "Otherwise is awkward". What is the alternative?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This was with respect to a statement that is perhaps not there anymore. I don't remember where it was.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, moving on to duplicate normative statments.</div>
+<div class="information">.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that echoed Markus feedback on my alternative version where I had duplicated these statements.</div>
+<div class="comment-continuation">… It's reasonable to use that language, but maybe add a note that says MUST, SHOULD and etc. do not mean the same thing there.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I would prefer avoiding using these terms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Are we skipping this for now?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we all agree that it shouldn't duplicate normative statements.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm not too worried about that if that makes writing the algorithms easier.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, moving on to last point in Gregg's list.</div>
+<div class="comment-continuation">… the note should go in Context Expansion. [no disagreement heard]</div>
+<div class="comment-continuation">… Moving on to Dave's feedback.</div>
+<div class="comment-continuation">… Point on audience is correct, indeed. Developers might want to have a look at the API in the spec.</div>
+<div class="comment-continuation">… [no disagreement heard]</div>
+<div class="comment-continuation">… Moving on to the comment on features</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think he's talking about the features section, let's add a link to the API section there. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  introduction should point to API as well. [scribe assist by Gregg Kellogg]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/test-suite/">http://json-ld.org/test-suite/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the test suite is referenced generically. We could get an EARL report in place to link tests and the spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://rdfa.info/earl-reports/">http://rdfa.info/earl-reports/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  [going through the earl reports example]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I would not be opposed to do that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I may volunteer to do a variation of the report that does the job for us.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this work needs to be done to get us out of CR.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Something actionable right now would be adding a note pointing user to the test suite to provide more examples.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Fine with that. [no objection heard]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Going through Markus' feedback now</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Intro could explain how JSON-LD can be used to switch between different contexts.</div>
+<div class="information">[agreement]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Moving on on the "the difference is in their context information".</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The example is not clear if you're not looking at details. Markus changed it. But that doesn't really highlight the primary function of expansion which is to remove the context.</div>
+<div class="comment-continuation">… We should need to change the examples to show how very different contexts can be used with the same data.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  right. At the moment, it's very confusing.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we may just need to pick up two different names for the "homepage" for instance.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Moving on to feedback on section 5.2</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  when you're processing the local context, it's more reasonable to process the remote context before you do anything else.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The separation of concepts is more about doing I/O vs. doing something that is JSON-LD related.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  From an algorithmic point of view, it goes well to say that you dereference the context and use that inline. Pre-fetching is certainly a good idea but that does not make the algorithm any simpler in my view.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I feel the algorithm looks simpler if all remote resources get retrieved beforehand.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  When someone tries to implement the algorithms, it makes more sense to process remote resources before. Perhaps not easier to read for an overview of the algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't really see that it benefits my implementation in any way.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  CPU vs. I/O issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  An algorithm is not the place to specify that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agreement that we're going to put a note in the spec to say that the contexts may be retrieved beforehand but the algorithms won't mention that.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  [scribe missed the proposal]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Sections 5.2 and 5.3. now read well. Moving parts will make things very chunky.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that would just add a couple of steps to the algorithms and general solution.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, général agreement on 5.2 then.</div>
+<div class="comment-continuation">… Moving on to 5.3.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I didn't find it confusing.</div>
+<div class="comment-continuation">… to mark the keys as having been defined.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok, fine for me if it's clear for everyone else. It's basically the first step so a bit confusing.</div>
+<div class="comment-continuation">… It gets clearer when you read on.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Problem is about recursing. It may not actually happen anymore though. I'll take a look at that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can't have context that uses "language" as an alias for "@language". That's not a legitimate aliasing.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  OK, if it's removable, let's remove it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If it's not, we could clarify why we need to mark it as "defined"</div>
+<div class="comment-continuation">… Moving on to section 5.4</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The introduction was changed, so I thought this was checked.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the problem was about term definition inheritance.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That should be removed now.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'll have a look after the call.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  OK, moving on towards the bottom of section 5.4.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Gregg recommended re-ordering. I'm fine with that change.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In my implementation, it's logical to have them under context evaluation.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  OK, I would not introduce a new EvaluationContext term.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No. I would reorganize under 5.3.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Then we will end up 5-6 level deep which would be annoying.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Top level content processing algorithms would be good as Markus suggested.</div>
+<div class="information">[agreement]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I propose to stop here for this week, to let the editors catch up. My assumption is that when the whole list is checked off, we'll be in good shape for an FCGS.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  one big issue is error handling. Completely missing for the time being.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Markus, if you can take the error text that you had and add that to wherever we say "otherwise, it's an error", I'd be fine with that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Just add that error constant?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  In the previous version, you called out precise errors.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  At least Gregg was not too happy about that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Your issue, Gregg, was saying that the algorithms should raise an error.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  twofolds. Raise an error within an algorithm is not a pure algorithm. Other part is binding a specific token for the specific errors that were raised is also not a good idea.</div>
+<div class="comment-continuation">… Since then, I think the errors are defined as phrases. I think it's fine to include these phrases in the algorithms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#idl-def-JsonLdErrorCode">http://json-ld.org/spec/latest/json-ld-api/#idl-def-JsonLdErrorCode</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  Phrases instead of contents in the algorithms then</div>
+<div class="comment-continuation">… Can we say that an "invalid syntax" has been detected?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't really see any difference to what we did last time.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's one more level of indirection that I don't think we really need.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't think it adds any more level of indirection. It should be almost the same as what Markus did before except we're dropping the constants.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What do we do after detecting an error, then?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's a good question. There are cases where I raise errors and they are ignored, and vice versa.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think all errors enumerated here are fatal errors.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  "invalid container mapping", I could go on.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  then we can ignore everything.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we'll have to go down any single one of these errors and decide which ones are fatal.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  In the meantime, I suggest pulling what Markus had and insert the appropriate term definition and link to this table.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok.</div>
+<h1 id="topic-4" class="topic">Topic: Update to RDF Algorithms</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Before we close, a little update on "tref".</div>
+<div class="comment-continuation">… [scribe missed points]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  just an update that reSpec does not run anymore for the time being.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Syntax spec is broken due to: Uncaught Reference to undefined term 'compact_iri'</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One other thing to the updated 2 RDF algorithms. One test fails for me.</div>
+<div class="comment-continuation">… It's either a bug in my implementation or a bug in the flattening algorithm.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'll probably re-implement what you've been doing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the convertFrom algorithm is not really different. The convertTo algorithm is substantially different.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Alright. Dave will have feedback when he implements it.</div>
+<div class="comment-continuation">… Thanks for the call everyone. We'll chat again next week.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: bye</div>
+<div class="information">[call adjourned]</div>
+</body>
+</html>
