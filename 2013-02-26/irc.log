@@ -1,0 +1,250 @@
+[10:03]	<voip-ld>	Dave Longley (SIP/6002-000000fb) has joined the conference.
+[10:03]	<voip-ld>	Niklas LindströSIP/10.10.73.99-000000fc) has joined the conference.
+[10:03]	-->|	niklasl_ (~neuron@193.10.249.131) has joined #json-ld
+[10:04]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0141.html
+[10:04]	<manu1>	scribe: manu1
+[10:04]	<voip-ld>	<unknown> (IAX2/diamondcard-16371) has joined the conference.
+[10:04]	<tidoust>	voip: 16371 is me
+[10:04]	<voip-ld>	tidoust is now associated with IAX2/diamondcard-16371.
+[10:05]	<tidoust>	voip: mute me
+[10:05]	<voip-ld>	tidoust has been muted.
+[10:05]	<manu1>	manu: Any updates/changes to the Agenda?
+[10:05]	-->|	niklasl__ (~neuron@gate.kb.se) has joined #json-ld
+[10:05]	<manu1>	gkellogg: Publishing schedule
+[10:05]	<manu1>	manu: Ok.
+[10:05]	<manu1>	Topic: JSON-LD Icons
+[10:06]	<manu1>	manu1: Dave Lehn put together a logo for JSON-LD. http://json-ld.org/images/
+[10:06]	<manu1>	General approval from the group on the icons.
+[10:05]	<manu1>	Topic: Jeremy Carroll's request for @base
+[10:05]	|<--	niklasl has left freenode (Read error: Connection reset by peer)
+[10:05]	=-=	niklasl__ is now known as niklasl
+[10:05]	<voip-ld>	Niklas LindströSIP/10.10.73.99-000000ff) has joined the conference.
+[10:05]	<manu1>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Feb/0044.html
+[10:06]	<niklasl>	q+
+[10:06]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:06]	<manu1>	manu1: Adding in @base might need to be done before LC and then marked as at-risk.
+[10:06]	<manu1>	ack niklasl
+[10:06]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:07]	<manu1>	niklasl: What's the alternative?
+[10:07]	<manu1>	manu1: You could create a term for the base IRI, and then append that to the beginning of an IRI.
+[10:07]	<manu1>	niklasl: I've always been pro @base, what you said is not the same thing.
+[10:08]	<manu1>	gkellogg: I agree - not having @base would require the document to be re-written.
+[10:08]	<manu1>	dlongley: I agree, easy feature to add.
+[10:08]	|<--	niklasl_ has left freenode (Ping timeout: 244 seconds)
+[10:08]	<manu1>	niklasl: It was missing from Turtle for a long time, and it was requested to add it.
+[10:09]	<manu1>	PROPOSAL: Add @base to the JSON-LD syntax as an at-risk feature.
+[10:09]	<manu1>	+1
+[10:09]	<dlongley>	+1
+[10:09]	<gkellogg>	+1
+[10:09]	<tidoust>	+1
+[10:09]	<niklasl>	+1
+[10:09]	<mlnt>	-0.5
+[10:09]	<manu1>	RESOLVED: Add @base to the JSON-LD syntax as an at-risk feature.
+[10:09]	* niklasl	btw, I like the logos (might want to make the triple black though to blend it in. ;)
+[10:09]	<manu1>	gkellogg: Is this limited to @context, or limited to the body? Can you use it in an object.
+[10:10]	<manu1>	manu: Two ways we go about this - @base is not allowed in the context and must be in the body - or @base should be in @context only.
+[10:11]	<manu1>	niklasl: I like @base in the body of the document, not in the @context. Maybe @language in context is an argument for @base in context.
+[10:11]	<manu1>	gkellogg: Maybe we should disallow it from being used in a remote context.
+[10:11]	<manu1>	gkellogg: maybe we should add the same restriction for @language used in a remote context.
+[10:12]	<manu1>	markus: The question is - do you trust the remote context? If you don't, you shouldn't use it.
+[10:12]	<manu1>	niklasl: That's true.
+[10:12]	<manu1>	niklasl: We could say that you SHOULD NOT use @base or @language in remote contexts.
+[10:12]	<manu1>	gkellogg: Maybe an organization only publishes in a certain language, so it makes sense to do so.
+[10:12]	<manu1>	manu1: Couldn't you just override the language in your document?
+[10:13]	<manu1>	dlongley: It could be null for transient messages...
+[10:13]	<manu1>	niklasl: Yes, you could set your @language and @base to null in your local context.
+[10:14]	<manu1>	gkellogg: if you set @base to null, you could just output relative IRIs... it's not legal in and of itself, anyone that is parsing the result can apply a base to it.
+[10:15]	<manu1>	manu: So, we're saying @language and @base can be used both inside and outside the @context. You SHOULD NOT use it in remote context,
+[10:16]	<manu1>	markus: normative statement about SHOULD NOT?
+[10:16]	<manu1>	gkellogg: I don't see a good reason to have @base or @language outside of @context. Putting it inside a local context ties everything up in one nice area in the document.
+[10:17]	<manu1>	manu: Don't we support @language outside of @context now?
+[10:17]	<manu1>	dlongley: Nope.
+[10:17]	<manu1>	manu: Ok, sound good.
+[10:18]	<manu1>	PROPOSAL: Support @base and @language declarations in the @context. Warn developers that JSON-LD contexts that are to be used as remote contexts probably shouldn't include @language or @base.
+[10:18]	<niklasl>	+1
+[10:18]	<gkellogg>	+1
+[10:18]	<manu1>	+1
+[10:18]	<dlongley>	+1
+[10:18]	<tidoust>	+1
+[10:18]	<mlnt>	-0.5
+[10:18]	<taaz>	+0
+[10:18]	<manu1>	RESOLVED: Support @base and @language declarations in the @context. Warn developers that JSON-LD contexts that are to be used as remote contexts probably shouldn't include @language or @base.
+[10:18]	<gkellogg>	Note, this does not represent a change for @language.
+[10:19]	<manu1>	Topic: ISSUE-217: Disallow BNode identifier as Graph Name
+[10:19]	<manu1>	https://github.com/json-ld/json-ld.org/issues/217
+[10:20]	<mlnt>	manu: it seems to be clear that the RDF WG won't make any change. Some people start to get annoyed
+[10:20]	<niklasl>	q+
+[10:20]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[10:20]	<mlnt>	... we might wanna propose to drop the feature
+[10:21]	<mlnt>	... or we will keep it and say that such data won't round-trip
+[10:21]	<voip-ld>	Speaker queue: niklasl
+[10:21]	<gkellogg>	q+
+[10:21]	<voip-ld>	Added gkellogg to the speaker queue: niklasl, gkellogg
+[10:22]	<mlnt>	... the alternative proposal in the blog post is so bad that we don't want to implement it. We think it will damage RDF in the long term
+[10:23]	<mlnt>	... our preference would be to keep support for bnodes in predicates and graph labels
+[10:24]	<manu1>	ack niklasl
+[10:24]	<voip-ld>	niklasl has the floor. The next speaker is gkellogg.
+[10:24]	<mlnt>	... we shouldn't throw an error when converting to RDF
+[10:24]	<manu1>	niklasl: I am in agreement with you - as long as the language is explicit about this not working for compliant RDF systems, we support it syntactically, stay silent on it in spirit. People that need it can use it, but we can't guarantee it will work w/ legacy RDF systems. If you use the feature you'll be violating RDF 1.1 Concepts.
+[10:25]	<manu1>	niklasl: I think it was good to air these things in the discussion. I sympathize with the problems. I think Pat Hayes insight was very enlightening. It was also frustrating to read. Yes, with appropriate notes, I wouldn't be against this.
+[10:26]	<manu1>	niklasl: There are systems that already support bnodes for graph names in the wild - rdflib already does. They will probably add an RDF 1.1 compliance level, but you can work around it and parse RDF datasets into rdflib. I understand the limitations on storage. The graph names are usually used in that aspect. I also understand why RDF 1.1 doesn't support it.
+[10:26]	<manu1>	ack gkellogg
+[10:26]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[10:27]	<mlnt>	q+
+[10:27]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[10:27]	<manu1>	gkellogg: The only concern is that the algorithm (node map algorithm and convert to RDF algorithm are written wrt to the abstract syntax). So, they're aligned w/ concepts... but we say we're composing a triple with a blank node as predicate? In convert to RDF algorithm we're converting to RDF using an algorithm for blank node as graph name.
+[10:27]	<manu1>	gkellogg: Maybe we can change it into a note for the narrow purpose of this algorithm... we can extend for blank node identifiers in this case. Hopefully it won't raise any hackles in the WG.
+[10:28]	<manu1>	markus: The cleanest solution would be to just drop it in the RDF conversion algorithms. We say clearly in the syntax spec stating that those features won't round-trip to RDF.
+[10:28]	<manu1>	markus: RDF conversion isn't an API call - just a description on how to convert to RDF.
+[10:28]	<manu1>	gkellogg: If we do that, we disallow the Digital Bazaar use case.
+[10:29]	<manu1>	manu: Yes, that's a problem.
+[10:30]	<manu1>	markus: Does NQuads support blank nodes for graph names?
+[10:30]	<manu1>	manu: No, but it's also not a REC.
+[10:31]	<manu1>	gkellogg: Yeah, there is no "official" NQuads spec.
+[10:31]	<manu1>	gkellogg: if you look at N3, it does specifically allow for bnodes in graph names and property locations.
+[10:31]	<manu1>	niklasl: Yes, it does.
+[10:32]	<manu1>	gkellogg: They manage to do that anyway, even though it does extend the data model.
+[10:33]	<manu1>	niklasl: Yes, I even went so far to leverage blank node properties and it became complex very quickly.
+[10:33]	<manu1>	manu1: Yes, there are issues with blank nodes as predicates, makes things algorithmically very complex.
+[10:33]	<manu1>	gkellogg: If you do this, you no longer depend on facilities for RDF... you're not really using RDF.
+[10:34]	* mlnt	hey taaz, seen N3's logo? http://www.w3.org/RDF/icons/n3_small that RDF graph looks even cooler IMO
+[10:37]	<taaz>	mlnt: i was thinking of changing the rdf bit just so it's clearly different. probably wouldn't want to use n3's version directly either in that case. open to suggestions for changes or anyone can fiddle with the svg.
+[10:37]	<manu1>	markus: Can we say nothing in the spec?
+[10:38]	<manu1>	dlongley: Could we say that it's an optional feature, to preserve this sort of thing?
+[10:38]	<manu1>	markus: Could we say the behavior is not specified in the specification. We don't check for it. It's up to the implementer to decide.
+[10:39]	<manu1>	dlongley: Yes, I agree.
+[10:39]	<manu1>	gkellogg: Agreed.
+[10:41]	-->|	lgierth (~lgierth@199.254.238.184) has joined #json-ld
+[10:41]	|<--	lgierth has left freenode (Client Quit)
+[10:42]	-->|	lgierth (~lgierth@199.254.238.184) has joined #json-ld
+[10:43]	<manu1>	PROPOSAL: JSON-LD will continue to support blank node identifiers for properties and graph names. When converting data to RDF 1.1, the specification will not introduce any special checks to handle these specific cases. It is up to the implementations to figure out how to convert this data to something conformant to RDF 1.1.
+[10:43]	<gkellogg>	+1
+[10:43]	<manu1>	+1
+[10:43]	<dlongley>	+1
+[10:43]	<tidoust>	+1
+[10:43]	<taaz>	+1
+[10:43]	<mlnt>	+1
+[10:43]	<niklasl>	+1
+[10:43]	<manu1>	RESOLVED: JSON-LD will continue to support blank node identifiers for properties and graph names. When converting data to RDF 1.1, the specification will not introduce any special checks to handle these specific cases. It is up to the implementations to figure out how to convert this data to something conformant to RDF 1.1.
+[10:44]	<manu1>	Topic: ISSUE-218: Algorithm specification updates by editors
+[10:44]	<manu1>	https://github.com/json-ld/json-ld.org/issues/218
+[10:45]	<manu1>	Manu: Starting at section 5.5
+[10:45]	<manu1>	markus: Step 3.2 - it's not needed, but I can't remember why.
+[10:46]	<manu1>	dlongley: Handling keyword aliasing for @graph - maybe for dropping free-floating nodes or some other check?
+[10:46]	<manu1>	dlongley: yeah, older spec text was checking the active property against @graph, but that didn't take into consideration aliases for @graph. The new spec text ensures that it's expanded.
+[10:47]	<manu1>	markus: Expanded active properties wouldn't be needed?
+[10:47]	<manu1>	dlongley: You can't check the active property against @graph because it could have been aliased.
+[10:48]	<manu1>	markus: You don't need to handle @graph here, right?
+[10:49]	<manu1>	markus: under the steps 8.4, validation is done there, but the keywords aren't handled there. You're not doing processing, you're just doing validation. While expanding the value of @graph or @id, instead of doing that in value expansion, the values would be simplified.
+[10:49]	<manu1>	dlongley: So, value expansion would be simplified?
+[10:49]	<manu1>	markus: The question is whether we want to split that validation part under 8.4 and the actual processing.
+[10:50]	<manu1>	dlongley: So you want to combine the validation and processing steps?
+[10:50]	<manu1>	markus: Yes, under 8.4 you check every keyword, but you don't do anything with it... then you actually do something with it in 8.7, 8.8, and 8.9
+[10:51]	<manu1>	dlongley: if you handle the list at the same place that you do the validation, you have to duplicate the code that you have to recurse through an array.
+[10:51]	<manu1>	dlongley: If you do the validation first and then the processing, you can have common code to do the recursion. If you don't do it that way, you can't share the recursive processing code.
+[10:52]	<manu1>	manu: let's move this to the mailing list discussion.
+[10:53]	<manu1>	markus: Step 3.4.2: ... or a bnode ID - we never validate IRIs, but we don't validate whether it's a valid IRI.
+[10:53]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[10:53]	<manu1>	dlongley: we need to do some kind of check to make sure something that has a colon or a keyword - we don't have a term for that, we should use that term throughout the specification.
+[10:54]	<manu1>	manu: RDFa does it by CURIEorAbsoluteIRI - maybe we can do something similar.
+[10:55]	<manu1>	markus: Maybe KeywordOrIRIOrBlankNode ?
+[10:55]	<manu1>	dlongley: It's like a JSON-LD Expanded Key?
+[10:56]	<mlnt>	If expanded property is either null or is: not an array, an absolute IRI or a keyword, then drop key by continuing to the next key.
+[10:56]	<manu1>	dlongley: So we say it must be a "valid ExpandedKey" and then we link to a place in the spec that states what "valid" means.
+[10:57]	<manu1>	dlongley: It's any keyword except for @context - you could be expanding an alias.
+[10:57]	<manu1>	gkellogg: In the context of a node, it can't be @value or @list?
+[10:57]	<manu1>	dlongley: it's not just in a node -it might be in a literal. We want to use the same word there.
+[10:57]	<manu1>	markus: "ValidProperty" ?
+[10:58]	<manu1>	manu: Why don't we bikeshed the name later, and structure the spec correctly now?
+[10:58]	<niklasl>	+1 for expanded key
+[10:58]	<manu1>	gkellogg: For right now "ExpandedKey" - we can change it later.
+[10:58]	<niklasl>	.. ExpandedKeyRightNow ;)
+[10:59]	<manu1>	markus: Steps 3.4.3.x: is basically the validation stuff we talked about before...
+[11:00]	<manu1>	markus: Step 3.4.4.2: "and value language value in value" is confusing
+[11:00]	<manu1>	dlongley: Yeah, that's really confusing, we need to do something else.
+[11:00]	<manu1>	markus: Maybe format variables in typeset courier.
+[11:00]	<manu1>	manu: We usually do "<em>"
+[11:00]	<manu1>	dlongley: Maybe we should also colorize it?
+[11:01]	<manu1>	markus: Yeah...
+[11:01]	<mlnt>	language value changes to languageValue ?
+[11:01]	<manu1>	manu: Maybe we just do class="variable" around the variable?
+[11:01]	<manu1>	markus: Camel case the variables?
+[11:01]	<manu1>	gkellogg: let's stay away from the religious debates about camel case...
+[11:02]	<manu1>	manu: I think if we mark it up in italic purple, we don't also need to camel case.
+[11:03]	<manu1>	markus: ok.
+[11:03]	<manu1>	markus: Step 3.4.6: might need some clarification. It might be easier to put it under 3.4.3 - this is now section 8.7 - 3 lines of handling @list and @set - maybe we want to separate this into a substep?
+[11:03]	<manu1>	dlongley: Yeah, maybe we just want to break this into a couple of sub-steps.
+[11:04]	<manu1>	markus: Can we break it up?
+[11:04]	<manu1>	dlongley: yes, looks possible - let's do it.
+[11:04]	<manu1>	dlongley: it'll just be 3 steps, it'll look a lot better.
+[11:05]	<manu1>	markus: 8.12 we handle keywords separately... if xyz, then set the key to something. I think it might be simpler to do this elsewhere, but let's discuss on the mailing list.
+[11:05]	<manu1>	dlongley: I think we'll just have to move this around and see if it looks better, if so, keep it, if not, don't.
+[11:06]	<manu1>	markus: Last point - insideList flag - do we need that flag? Would it be enough for current active property is @list or coerced to a list, instead of passing that flag around.
+[11:07]	<manu1>	dlongley: When I was working on this, I had a test case for this - once we get the API errors in the spec, I'll be able to check this one. If we can remove it, we should remove it, otherwise we should have a test that says why we need this flag.
+[11:08]	<manu1>	dlongley: I got all of the error phrases back in the spec last night. We have a phrase for the type of error now, I need Gregg and Markus to go in and figure out what needs to change to accomodate both of them. I tweaked some of the error lists, consolidated some, added some. Needs review.
+[11:08]	<manu1>	gkellogg: I think the changes are good, mostly what I was going for.
+[11:08]	<manu1>	gkellogg: maybe we should link to the error code section?
+[11:08]	<manu1>	dlongley: Should they become trefs?
+[11:09]	<manu1>	gkellogg: I like that they're styled differently, maybe done not as a tref, but a dtref?
+[11:09]	<manu1>	markus: Currently code w/ a special error class - we could pre-process in ReSpec.
+[11:09]	<manu1>	Discussion about how to make this work in ReSpec.
+[11:11]	<manu1>	markus: Gregg, you want the error in the algorithm to link down to the entry in the error table, right?
+[11:11]	<manu1>	gkellogg: Yes.
+[11:12]	* niklasl	aside; what's our current position on dropping property generators for 1.0? I.e. it's at risk, but how big a risk? ;)
+[11:12]	<manu1>	manu: Looks like 5.10 is the next thing that needs to be discussed.
+[11:13]	* manu1	niklasl: At risk - I don't think we should drop it, but that's a personal opinion.
+[11:13]	* tidoust	needs to step away for a few minutes...
+[11:13]	<manu1>	dlongley: Talking about compactArrays as an option is tying it to the API instead of the algorithm - I don't know if we want to handle this w/ another flag.
+[11:14]	<manu1>	gkellogg: I think what I was trying to say before - "if compacting arrays" vs. specifically talking about flags... flags are in there, I don't think they're going away. Options are less API-ish than flag.
+[11:14]	<manu1>	dlongley: What would your preference be for the language?
+[11:14]	<manu1>	dlongley: "If a choice has been made to compact arrays"?
+[11:15]	<manu1>	gkellogg: It was basically a feeling about being tied so closely to the API. Important take-away is to consider that when looking at algorithmic text, and you're doing that now.
+[11:15]	<manu1>	dlongley: I'll try to come up with something that is more prose-y
+[11:15]	<manu1>	gkellogg: great.
+[11:15]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/218#issuecomment-14118336
+[11:16]	<manu1>	markus: The link above is a proposal about how to re-order the algorithms.
+[11:16]	<manu1>	dlongley: Maybe we want to put context processing under it's own group entirely. Maybe they need their own grouping.
+[11:16]	<manu1>	markus: Like "IRI Processing", for example?
+[11:17]	<manu1>	gkellogg: It depends - these seem like they're tightly bound - when expanding IRI, I'm doing it relative to the context.
+[11:18]	<manu1>	dlongley: My only issue with that is that you could say this about every one of these algorithms. It seems somewhat arbitrary where you draw the line. It seems like some of these are subalgorithms, you don't call them on their own - maybe something like "IRI Processing" as Markus suggested, might be best.
+[11:18]	<manu1>	markus: Should we introduce a new group like "IRI Processing"?
+[11:18]	<manu1>	dlongley: We can call it that for now.
+[11:18]	<manu1>	gkellogg: They could also be bound together with various "Compaction/Expansion" algorithms?
+[11:19]	<manu1>	dlongley: That's fine with me. I think Markus wanted to move it up because it's a concept that is used generally...
+[11:19]	<manu1>	markus: IRI Expansion is so title bound to context processing, it doesn't make much sense to put it elsewhere.
+[11:19]	<manu1>	dlongley: Maybe "Utility sub-algorithms"
+[11:19]	<manu1>	Topic: Publication Timeline
+[11:21]	<manu1>	manu: We handed the JSON-LD 1.0 Final Community Group Specification over to RDF WG - we need some changes before it goes to LC - add at-risk for property generators, @base, clarify blank nodes as predicates/graph names.
+[11:23]	<manu1>	gkellogg: We may want to drop property generators entirely?
+[11:23]	<manu1>	manu: I don't know about taking out entirely - we need feedback from Lin and Stephane.
+[11:24]	<manu1>	niklasl: Compared to @rev, property generators are really complex and we only put it in for Drupal.
+[11:24]	<manu1>	dlongley: It also polluted the expansion algorithm. The feature on it's own is complicated and it made all the other algorithms more complicated.
+[11:25]	<manu1>	PROPOSAL: Mark property generators as an at-risk feature in JSON-LD 1.0
+[11:25]	<manu1>	+1
+[11:25]	<dlongley>	+1
+[11:25]	<mlnt>	+1
+[11:25]	<niklasl>	+1
+[11:26]	<gkellogg>	+1
+[11:27]	<manu1>	RESOLVED: Mark property generators as an at-risk feature in JSON-LD 1.0.
+[11:27]	* niklasl	for instance, I happliy checked that "data": {"@id": "@graph", "@container": "@index"} works in the playground 30 minutes ago :)
+[11:28]	* mlnt	yes, I really like that feature.. it's quite trivial to implement
+[11:29]	<manu1>	manu: Do we want a super-session to go through the rest of the API spec?
+[11:29]	<manu1>	markus: I'd be fine either way.
+[11:30]	<manu1>	manu: I don't think meeting before next Tuesday is necessary.
+[11:30]	<manu1>	markus: I think the JSON-LD Algorithm spec is very close, algorithms seem pretty solid.
+[11:31]	<manu1>	manu: End of the call, anything else?
+[11:31]	<manu1>	niklasl: Yeah, JSON-LD is being used very heavily at National Library of Sweden - we're ahead of Library of Congress in that respect!
+[11:31]	<manu1>	niklasl: What we do now is we have our JSON shapes in place, and we have two contexts we use for book-keeping - we can mutate the RDF at will depending on which vocabulary is willing.
+[11:32]	<manu1>	gkellogg: The BBC is giving a talk at SemTech on their use of JSON-LD in their Linked Data program.
+[11:32]	<manu1>	Manu: Go Sweden!
+[11:32]	<taaz>	we should have a page on the website linking to these sites and projects using json-ld
+[11:32]	* niklasl	manu: thanks! :)
+[11:32]	<manu1>	gkellogg: We do this at Wikia now - JSON-LD is working nicely for us.
+[11:33]	<voip-ld>	Dave Longley (SIP/6002-000000fb) has left the conference.
+[11:33]	<voip-ld>	Manu Sporny (SIP/6000-000000f6) has left the conference.
+[11:33]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000000f9) has left the conference.
+[11:33]	<voip-ld>	Niklas LindströSIP/10.10.73.99-000000ff) has left the conference.
+[11:34]	<voip-ld>	David I. Lehn (SIP/71.63.61.82-000000fa) has left the conference.
+[11:34]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000000f7) has left the conference.
+[11:34]	<manu1>	Happy birthday to Gregg! Well wishes all around for him.
+[11:34]	<gkellogg>	Thank's very much!

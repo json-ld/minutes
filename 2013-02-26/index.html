@@ -1,0 +1,286 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-02-26</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0141.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Feb/0141.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">JSON-LD Icons</a><li><a href="#topic-2">Jeremy Carroll's request for @base</a><li><a href="#topic-3">ISSUE-217: Disallow BNode identifier as Graph Name</a><li><a href="#topic-4">ISSUE-218: Algorithm specification updates by editors</a><li><a href="#topic-5">Publication Timeline</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Add @base to the JSON-LD syntax as an at-risk feature.</a><li><a href="#resolution-2">Support @base and @language declarations in the @context. Warn developers that JSON-LD contexts that are to be used as remote contexts probably shouldn't include @language or @base.</a><li><a href="#resolution-3">JSON-LD will continue to support blank node identifiers for properties and graph names. When converting data to RDF 1.1, the specification will not introduce any special checks to handle these specific cases. It is up to the implementations to figure out how to convert this data to something conformant to RDF 1.1.</a><li><a href="#resolution-4">Mark property generators as an at-risk feature in JSON-LD 1.0.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Niklas LindströDave Longley, Françs Daoust, Markus Lanthaler, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates/changes to the Agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Publishing schedule</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok.</div>
+<h1 id="topic-1" class="topic">Topic: JSON-LD Icons</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave Lehn put together a logo for JSON-LD. <a href="http://json-ld.org/images/">http://json-ld.org/images/</a></div>
+<div class="information">General approval from the group on the icons.</div>
+<h1 id="topic-2" class="topic">Topic: Jeremy Carroll's request for @base</h1>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Feb/0044.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Feb/0044.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Adding in @base might need to be done before LC and then marked as at-risk.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  What's the alternative?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You could create a term for the base IRI, and then append that to the beginning of an IRI.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  I've always been pro @base, what you said is not the same thing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I agree - not having @base would require the document to be re-written.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I agree, easy feature to add.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  It was missing from Turtle for a long time, and it was requested to add it.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add @base to the JSON-LD syntax as an at-risk feature.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Françs Daoust</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindströspan>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -0.5</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Add @base to the JSON-LD syntax as an at-risk feature.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Is this limited to @context, or limited to the body? Can you use it in an object.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Two ways we go about this - @base is not allowed in the context and must be in the body - or @base should be in @context only.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  I like @base in the body of the document, not in the @context. Maybe @language in context is an argument for @base in context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we should disallow it from being used in a remote context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe we should add the same restriction for @language used in a remote context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question is - do you trust the remote context? If you don't, you shouldn't use it.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  That's true.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  We could say that you SHOULD NOT use @base or @language in remote contexts.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe an organization only publishes in a certain language, so it makes sense to do so.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Couldn't you just override the language in your document?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It could be null for transient messages...</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  Yes, you could set your @language and @base to null in your local context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you set @base to null, you could just output relative IRIs... it's not legal in and of itself, anyone that is parsing the result can apply a base to it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, we're saying @language and @base can be used both inside and outside the @context. You SHOULD NOT use it in remote context,</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  normative statement about SHOULD NOT?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't see a good reason to have @base or @language outside of @context. Putting it inside a local context ties everything up in one nice area in the document.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Don't we support @language outside of @context now?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Nope.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, sound good.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Support @base and @language declarations in the @context. Warn developers that JSON-LD contexts that are to be used as remote contexts probably shouldn't include @language or @base.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Françs Daoust</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -0.5</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Support @base and @language declarations in the @context. Warn developers that JSON-LD contexts that are to be used as remote contexts probably shouldn't include @language or @base.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Note, this does not represent a change for @language.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-217: Disallow BNode identifier as Graph Name</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/217">https://github.com/json-ld/json-ld.org/issues/217</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it seems to be clear that the RDF WG won't make any change. Some people start to get annoyed [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ... we might wanna propose to drop the feature</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ... or we will keep it and say that such data won't round-trip</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ... the alternative proposal in the blog post is so bad that we don't want to implement it. We think it will damage RDF in the long term</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ... our preference would be to keep support for bnodes in predicates and graph labels</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ... we shouldn't throw an error when converting to RDF</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  I am in agreement with you - as long as the language is explicit about this not working for compliant RDF systems, we support it syntactically, stay silent on it in spirit. People that need it can use it, but we can't guarantee it will work w/ legacy RDF systems. If you use the feature you'll be violating RDF 1.1 Concepts.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  I think it was good to air these things in the discussion. I sympathize with the problems. I think Pat Hayes insight was very enlightening. It was also frustrating to read. Yes, with appropriate notes, I wouldn't be against this.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  There are systems that already support bnodes for graph names in the wild - rdflib already does. They will probably add an RDF 1.1 compliance level, but you can work around it and parse RDF datasets into rdflib. I understand the limitations on storage. The graph names are usually used in that aspect. I also understand why RDF 1.1 doesn't support it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The only concern is that the algorithm (node map algorithm and convert to RDF algorithm are written wrt to the abstract syntax). So, they're aligned w/ concepts... but we say we're composing a triple with a blank node as predicate? In convert to RDF algorithm we're converting to RDF using an algorithm for blank node as graph name.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we can change it into a note for the narrow purpose of this algorithm... we can extend for blank node identifiers in this case. Hopefully it won't raise any hackles in the WG.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The cleanest solution would be to just drop it in the RDF conversion algorithms. We say clearly in the syntax spec stating that those features won't round-trip to RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  RDF conversion isn't an API call - just a description on how to convert to RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we do that, we disallow the Digital Bazaar use case.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, that's a problem.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Does NQuads support blank nodes for graph names?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  No, but it's also not a REC.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, there is no "official" NQuads spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you look at N3, it does specifically allow for bnodes in graph names and property locations.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  Yes, it does.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  They manage to do that anyway, even though it does extend the data model.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  Yes, I even went so far to leverage blank node properties and it became complex very quickly.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, there are issues with blank nodes as predicates, makes things algorithmically very complex.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you do this, you no longer depend on facilities for RDF... you're not really using RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i was thinking of changing the rdf bit just so it's clearly different. probably wouldn't want to use n3's version directly either in that case. open to suggestions for changes or anyone can fiddle with the svg. [scribe assist by David I. Lehn]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Can we say nothing in the spec?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Could we say that it's an optional feature, to preserve this sort of thing?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Could we say the behavior is not specified in the specification. We don't check for it. It's up to the implementer to decide.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, I agree.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Agreed.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> JSON-LD will continue to support blank node identifiers for properties and graph names. When converting data to RDF 1.1, the specification will not introduce any special checks to handle these specific cases. It is up to the implementations to figure out how to convert this data to something conformant to RDF 1.1.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Françs Daoust</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindströspan>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> JSON-LD will continue to support blank node identifiers for properties and graph names. When converting data to RDF 1.1, the specification will not introduce any special checks to handle these specific cases. It is up to the implementations to figure out how to convert this data to something conformant to RDF 1.1.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-218: Algorithm specification updates by editors</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/218">https://github.com/json-ld/json-ld.org/issues/218</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Starting at section 5.5</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Step 3.2 - it's not needed, but I can't remember why.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Handling keyword aliasing for @graph - maybe for dropping free-floating nodes or some other check?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, older spec text was checking the active property against @graph, but that didn't take into consideration aliases for @graph. The new spec text ensures that it's expanded.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Expanded active properties wouldn't be needed?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  You can't check the active property against @graph because it could have been aliased.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You don't need to handle @graph here, right?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  under the steps 8.4, validation is done there, but the keywords aren't handled there. You're not doing processing, you're just doing validation. While expanding the value of @graph or @id, instead of doing that in value expansion, the values would be simplified.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  So, value expansion would be simplified?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question is whether we want to split that validation part under 8.4 and the actual processing.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  So you want to combine the validation and processing steps?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, under 8.4 you check every keyword, but you don't do anything with it... then you actually do something with it in 8.7, 8.8, and 8.9</div>
+<div class="comment"><span class="name">Dave Longley</span>:  if you handle the list at the same place that you do the validation, you have to duplicate the code that you have to recurse through an array.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you do the validation first and then the processing, you can have common code to do the recursion. If you don't do it that way, you can't share the recursive processing code.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's move this to the mailing list discussion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Step 3.4.2: ... or a bnode ID - we never validate IRIs, but we don't validate whether it's a valid IRI.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we need to do some kind of check to make sure something that has a colon or a keyword - we don't have a term for that, we should use that term throughout the specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  RDFa does it by CURIEorAbsoluteIRI - maybe we can do something similar.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe KeywordOrIRIOrBlankNode ?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's like a JSON-LD Expanded Key?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: If expanded property is either null or is: not an array, an absolute IRI or a keyword, then drop key by continuing to the next key.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  So we say it must be a "valid ExpandedKey" and then we link to a place in the spec that states what "valid" means.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's any keyword except for @context - you could be expanding an alias.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In the context of a node, it can't be @value or @list?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it's not just in a node -it might be in a literal. We want to use the same word there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  "ValidProperty" ?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Why don't we bikeshed the name later, and structure the spec correctly now?</div>
+<div class="comment"><span class="name">Niklas Lindströspan>: +1 for expanded key</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  For right now "ExpandedKey" - we can change it later.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>: .. ExpandedKeyRightNow ;)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Steps 3.4.3.x: is basically the validation stuff we talked about before...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Step 3.4.4.2: "and value language value in value" is confusing</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yeah, that's really confusing, we need to do something else.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe format variables in typeset courier.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We usually do "&lt;em&gt;"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe we should also colorize it?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yeah...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: language value changes to languageValue ?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe we just do class="variable" around the variable?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Camel case the variables?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  let's stay away from the religious debates about camel case...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think if we mark it up in italic purple, we don't also need to camel case.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Step 3.4.6: might need some clarification. It might be easier to put it under 3.4.3 - this is now section 8.7 - 3 lines of handling @list and @set - maybe we want to separate this into a substep?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yeah, maybe we just want to break this into a couple of sub-steps.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Can we break it up?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yes, looks possible - let's do it.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it'll just be 3 steps, it'll look a lot better.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  8.12 we handle keywords separately... if xyz, then set the key to something. I think it might be simpler to do this elsewhere, but let's discuss on the mailing list.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we'll just have to move this around and see if it looks better, if so, keep it, if not, don't.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Last point - insideList flag - do we need that flag? Would it be enough for current active property is @list or coerced to a list, instead of passing that flag around.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  When I was working on this, I had a test case for this - once we get the API errors in the spec, I'll be able to check this one. If we can remove it, we should remove it, otherwise we should have a test that says why we need this flag.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I got all of the error phrases back in the spec last night. We have a phrase for the type of error now, I need Gregg and Markus to go in and figure out what needs to change to accomodate both of them. I tweaked some of the error lists, consolidated some, added some. Needs review.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the changes are good, mostly what I was going for.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe we should link to the error code section?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Should they become trefs?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I like that they're styled differently, maybe done not as a tref, but a dtref?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Currently code w/ a special error class - we could pre-process in ReSpec.</div>
+<div class="information">Discussion about how to make this work in ReSpec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gregg, you want the error in the algorithm to link down to the entry in the error table, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Looks like 5.10 is the next thing that needs to be discussed.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Talking about compactArrays as an option is tying it to the API instead of the algorithm - I don't know if we want to handle this w/ another flag.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think what I was trying to say before - "if compacting arrays" vs. specifically talking about flags... flags are in there, I don't think they're going away. Options are less API-ish than flag.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  What would your preference be for the language?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  "If a choice has been made to compact arrays"?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It was basically a feeling about being tied so closely to the API. Important take-away is to consider that when looking at algorithmic text, and you're doing that now.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'll try to come up with something that is more prose-y</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  great.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/218#issuecomment-14118336">https://github.com/json-ld/json-ld.org/issues/218#issuecomment-14118336</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The link above is a proposal about how to re-order the algorithms.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe we want to put context processing under it's own group entirely. Maybe they need their own grouping.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Like "IRI Processing", for example?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It depends - these seem like they're tightly bound - when expanding IRI, I'm doing it relative to the context.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  My only issue with that is that you could say this about every one of these algorithms. It seems somewhat arbitrary where you draw the line. It seems like some of these are subalgorithms, you don't call them on their own - maybe something like "IRI Processing" as Markus suggested, might be best.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Should we introduce a new group like "IRI Processing"?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We can call it that for now.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  They could also be bound together with various "Compaction/Expansion" algorithms?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That's fine with me. I think Markus wanted to move it up because it's a concept that is used generally...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  IRI Expansion is so title bound to context processing, it doesn't make much sense to put it elsewhere.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe "Utility sub-algorithms"</div>
+<h1 id="topic-5" class="topic">Topic: Publication Timeline</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  We handed the JSON-LD 1.0 Final Community Group Specification over to RDF WG - we need some changes before it goes to LC - add at-risk for property generators, @base, clarify blank nodes as predicates/graph names.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We may want to drop property generators entirely?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't know about taking out entirely - we need feedback from Lin and Stephane.</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  Compared to @rev, property generators are really complex and we only put it in for Drupal.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It also polluted the expansion algorithm. The feature on it's own is complicated and it made all the other algorithms more complicated.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Mark property generators as an at-risk feature in JSON-LD 1.0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindströspan>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Mark property generators as an at-risk feature in JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we want a super-session to go through the rest of the API spec?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'd be fine either way.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think meeting before next Tuesday is necessary.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the JSON-LD Algorithm spec is very close, algorithms seem pretty solid.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  End of the call, anything else?</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  Yeah, JSON-LD is being used very heavily at National Library of Sweden - we're ahead of Library of Congress in that respect!</div>
+<div class="comment"><span class="name">Niklas Lindströspan>:  What we do now is we have our JSON shapes in place, and we have two contexts we use for book-keeping - we can mutate the RDF at will depending on which vocabulary is willing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The BBC is giving a talk at SemTech on their use of JSON-LD in their Linked Data program.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Go Sweden!</div>
+<div class="comment"><span class="name">David I. Lehn</span>: we should have a page on the website linking to these sites and projects using json-ld</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do this at Wikia now - JSON-LD is working nicely for us.</div>
+<div class="information">Happy birthday to Gregg! Well wishes all around for him.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Thank's very much!</div>
+</body>
+</html>
