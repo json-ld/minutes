@@ -1,0 +1,250 @@
+[Tue 10:02]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000106) is in the conference.
+[Tue 10:02]	<voip-ld>	Dave Longley (SIP/6002-00000108) is in the conference.
+[Tue 10:02]	<voip-ld>	Manu Sporny (SIP/6000-00000109) is in the conference.
+[Tue 10:02]	<voip-ld>	Manu Sporny (SIP/6000-00000109) has joined the conference.
+[Tue 10:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000010a) has joined the conference.
+[Tue 10:02]	-->|	niklasl (~neuron@193.10.249.131) has joined #json-ld
+[Tue 10:02]	<voip-ld>	Niklas Lindström (SIP/192.168.3.29-0000010b) has joined the conference.
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0006.html
+[Tue 10:04]	<gkellogg>	scribe: gkellogg
+[Tue 10:05]	<manu-db>	Topic: ISSUE-218: Algorithm specification updates by editors
+[Tue 10:05]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/218
+[Tue 10:05]	<manu-db>	Let's pick up at 5.10 Compaction Algorithm
+[Tue 10:06]	<gkellogg>	markus: should we use call time for this?
+[Tue 10:06]	<gkellogg>	manu: history shows that if we don't, it doesn't happen offline
+[Tue 10:07]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:07]	<gkellogg>	manu: most things are checked, we should be able to get through it in 30 minutes
+[Tue 10:08]	<gkellogg>	markus: the comment was if we need to describe how a shallow copy is made, as there is a lot of detail.
+[Tue 10:08]	<voip-ld>	<unknown> (IAX2/diamondcard-12379) has joined the conference.
+[Tue 10:08]	<gkellogg>	… Since properties can be added or deleteted, that shouldn't happen.
+[Tue 10:08]	<gkellogg>	… Do we need to explain in such detail? Or, just say "create a shallow copy".
+[Tue 10:09]	<gkellogg>	dlongley: people might implement it incorrectly. You can't just copy the properties and reference the array; it's actually two-level.
+[Tue 10:10]	<gkellogg>	manu: I think that's too vague. A "two-level shallow copy" raises more questions.
+[Tue 10:10]	<manu-db>	gkellogg: Perhaps we can say do a "two-level shallow copy"?
+[Tue 10:10]	<gkellogg>	markus: I think most languages would also copy arrays
+[Tue 10:11]	<gkellogg>	dlongley: I think just PHP does this, most other languages don't. Just the keys would be copied, and the arrays referenced.
+[Tue 10:11]	<manu-db>	5.12 Inverse Context Creation Subalgorithm
+[Tue 10:12]	<gkellogg>	markus: similar point; in some steps it is also overly explicit in how to do things.
+[Tue 10:13]	<gkellogg>	… As described, I wouldn't understand that it should be a pointer; we should be a bit more explicit that we mean a pointer.
+[Tue 10:13]	<gkellogg>	… In this case, it's not a shallow copy.
+[Tue 10:13]	<gkellogg>	dlongley: this happens a couple of places in the spec where we want to create a temporary variable. We also have the issue where gkellogg would like the algorithms to be described more "mathemetically".
+[Tue 10:14]	<gkellogg>	… Not sure what language we should use. We might say "set to a reference of a member".
+[Tue 10:15]	<gkellogg>	markus: it would be enough to say "set variable to a reference of the value of key".
+[Tue 10:16]	<gkellogg>	dlongley: we could say "reference the value of the key in the map", or "let this variable identify the value of the key in the map"
+[Tue 10:17]	<gkellogg>	manu: prefer the first form.
+[Tue 10:17]	<dlongley>	"reference the value of the key in the map using the variable foo"
+[Tue 10:17]	<gkellogg>	markus: makes sense.
+[Tue 10:17]	<mlnt>	+1
+[Tue 10:17]	<manu-db>	Next up is step 3.3.6
+[Tue 10:18]	<gkellogg>	markus: this is purely editorial. Checks are all negative, it would be easier to be positive ("if there is a type mapping, rather than if there is not a type mapping")
+[Tue 10:19]	<gkellogg>	Now on 5.11 IRI Compaction Algorithm
+[Tue 10:20]	<manu-db>	suggest dropping the “parent” parameter...
+[Tue 10:20]	<gkellogg>	manu: about dropping the parent parameter here, and in 5.13
+[Tue 10:20]	<gkellogg>	dlongley: this exists so that you don't remove things.
+[Tue 10:21]	<gkellogg>	markus: the question is if you remove the duplicates in term selection or inside the compaction algorithm itself.
+[Tue 10:21]	<gkellogg>	… Currently it's done in term selection, which also modifies data. I think it's cleaner to make term selection and IRI compaction to just return information, and leave modification to the compaction algorithm.
+[Tue 10:21]	<gkellogg>	… The first one where all duplicates are found is picked, and duplicates are removed.
+[Tue 10:22]	<gkellogg>	dlongley: my implementation doesn't remove data in term selection.
+[Tue 10:22]	<gkellogg>	... There is a flag for removing things, which is set to false when called from term selection.
+[Tue 10:22]	<gkellogg>	… The actual removal happens during compaction.
+[Tue 10:23]	<gkellogg>	markus: this means it loops over sub-trees twice.
+[Tue 10:23]	<gkellogg>	… My selection is to not pass any data, but just return candidates.
+[Tue 10:23]	<gkellogg>	… The final selection is done in compaction.
+[Tue 10:23]	<gkellogg>	… If there are property generators, you get back potential property generators and a fallback term.
+[Tue 10:24]	<gkellogg>	dlongley: this is less algorithmically correct, but seems odd that term-selection doesn't actually select a term.
+[Tue 10:24]	<gkellogg>	manu: it seems to me that term selection should give a single term.
+[Tue 10:25]	<gkellogg>	dlongley: if you pass the parent, it can do the work for you.
+[Tue 10:26]	<gkellogg>	manu: I'm wary of putting the feature at risk because we've done the work.
+[Tue 10:27]	<manu-db>	gkellogg: JSON-LD is a better spec w/o property generators, we should mark them as at-risk.
+[Tue 10:27]	<gkellogg>	niklas: the amount of work put into it is an indication of how complex it is.
+[Tue 10:28]	<gkellogg>	markus: implementing the algorithms doesn't mean that someone knows what's actually going on.
+[Tue 10:28]	<manu-db>	gkellogg: I'm concerned about removing such a big feature... we don't have a way of doing that if we remove the feature.
+[Tue 10:29]	<gkellogg>	manu: we need the correct text if we're going to take it to LC. If it's going to be dropped, we can just stop discussion.
+[Tue 10:29]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 10:30]	<gkellogg>	manu: the timing is the thing.
+[Tue 10:31]	<gkellogg>	… This would delay LC while we re-write the algorithms, after asking lin and scor.
+[Tue 10:32]	<gkellogg>	markus: perhaps just talk about things other than property generators?
+[Tue 10:32]	<manu-db>	5.13 Term Selection Subalgorithm, second checkbox
+[Tue 10:33]	<gkellogg>	markus: dave used this to say if it is explicitly set to null or something else. I think it would be easier to just use @null.
+[Tue 10:33]	<gkellogg>	dlongley: I think there was a test-case where the difference in language mattered; perhaps default language.
+[Tue 10:33]	<gkellogg>	markus: my algorithm is almost exactly the same, and I just use @null. I can't see where it would actually matter.
+[Tue 10:34]	<gkellogg>	dlongley: if there were two terms, one used a null language, and the other didn't, you'd need to be sure you didn't loose that.
+[Tue 10:34]	<gkellogg>	… It might be to simplify existence checks. We could change to check for existence of entries instead.
+[Tue 10:34]	<gkellogg>	… I'll take a look at it and try to clean it up.
+[Tue 10:36]	<gkellogg>	markus: next comment is if variables should be different.
+[Tue 10:37]	<gkellogg>	manu: to address your concern about copy/paste into comments, they should add quotes to make sure it's clear.
+[Tue 10:38]	<gkellogg>	dlongley: this was brought up by prototypo, I just want to be sure it's covered.
+[Tue 10:39]	<gkellogg>	manu: we could update ReSpec to add hidden back-ticks around variables, so that they show up when copy/pasting.
+[Tue 10:41]	<manu-db>	gkellogg: I'll look into supporting something that makes this simpler in ReSpec
+[Tue 10:41]	<gkellogg>	action: Gregg to look at adding support in ReSpec for auto-quoting variable names in algorithms.
+[Tue 10:41]	<gkellogg>	Next up: 5.14 Value Compaction
+[Tue 10:42]	<gkellogg>	dlongley: I think it was a difference of opinion on what the style should be.
+[Tue 10:42]	<gkellogg>	… One does a copy, the other doesn't and doesn't change things until it needs to.
+[Tue 10:43]	<gkellogg>	markus: let's just not discuss value compaction now.
+[Tue 10:43]	<manu-db>	Topic: JSON-LD Property Generators
+[Tue 10:43]	<gkellogg>	manu: it sounded like there was concensus to remove before LC.
+[Tue 10:44]	<gkellogg>	… We should discuss with scor and lin, but the group would like to remove it due to the great complexity added.
+[Tue 10:44]	<pkuyken>	q+
+[Tue 10:44]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:44]	<gkellogg>	paul: how would this affect the actual RDF being created? Is it just a shortcut to not have to repeat yourself.
+[Tue 10:45]	<gkellogg>	… I see that we have a use-case that could make use of this, for example, when building out ontologies so that we can merge.
+[Tue 10:49]	<gkellogg>	markus: use case has to do with transforming to RDF?
+[Tue 10:51]	<gkellogg>	paul: we're using JSON-LD more like JSON/RDF structure. We're generating some ontologies that define the business domain and trying to tie them to other existing ontologies (dc, schema, etc.).
+[Tue 10:51]	<gkellogg>	… to allow customers better access into the data.
+[Tue 10:52]	<gkellogg>	… For example, we have our own internal structure for "address", which has a lot of cominality, using sameProperty within the ontologies, that is expressed in the code.
+[Tue 10:52]	<gkellogg>	… To say that these are the same thing.
+[Tue 10:52]	<gkellogg>	… We to SPARQL inference in the client, and they then parse out what they need.
+[Tue 10:53]	<gkellogg>	dlongley: is it read-only?
+[Tue 10:53]	<gkellogg>	paul: they can write back. It may be SPARQL Update in the future.
+[Tue 10:54]	<manu-db>	gkellogg: Well, the support you're showing for it might mean we have to keep this feature... even if we don't like it that much.
+[Tue 10:54]	<gkellogg>	markus: you said you're defining ontologies, and mapping them to DC, Schema and so forth?
+[Tue 10:54]	<gkellogg>	paul: yes; However, the clients don't necessarily know about this mapping, as we can hide things behind the scene.
+[Tue 10:55]	<gkellogg>	… If it turns out that they're really a bad idea, it's early enough in our cycle that we could change.
+[Tue 10:55]	<gkellogg>	markus: the only change, if we drop property generators, you would have to be explicit about having three different properties.
+[Tue 10:56]	<gkellogg>	paul: the concern is that you have data-duplication that it populates all of them and reduces the chanse of programmer error.
+[Tue 10:56]	<gkellogg>	… Making sure that all copies are updated, rather than just one of three copies.
+[Tue 10:57]	<gkellogg>	markus: one of the problems with PG's is that if the client expands and only changes one of the values, it wouldn't compact back again.
+[Tue 10:57]	<gkellogg>	niklas: it is duplication, just hidden.
+[Tue 10:58]	<gkellogg>	paul: we use compacted form between client and server.
+[Tue 10:58]	<gkellogg>	… If I had the incorrect notion, maybe we should take this out, so we don't have a mis-interpretation.
+[Tue 10:59]	<gkellogg>	dlongley: there is nothing passed to tell how to re-compact, just the values need to be the same.
+[Tue 10:59]	|<--	TallTed has left freenode (Ping timeout: 240 seconds)
+[Tue 10:59]	<niklasl>	.. http://www.w3.org/TR/rdfa-syntax/#vocabulary-expansion
+[Tue 10:59]	<gkellogg>	paul: that sounds like a great reason to get rid of them, as it might be deceptively simple and create more problems later on.
+[Tue 11:00]	<gkellogg>	niklas: describes RDFa mechanism for vocabulary expansion.
+[Tue 11:01]	<gkellogg>	paul: My mis-understandings implies that other people might also be confused about property generators.
+[Tue 11:01]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000010e) has joined the conference.
+[Tue 11:01]	<gkellogg>	manu: there is no easy solution to your use-case. The alternatives might actually be worse than property generators.
+[Tue 11:01]	<mlnt>	hi lin
+[Tue 11:02]	<mlnt>	we are currently discussing whether to drop property generators for 1.0
+[Tue 11:02]	<gkellogg>	dlongley: either way, your application is going to have to keep track of what properties go together.
+[Tue 11:02]	<gkellogg>	manu: Wondering about possible future use of property-generators in Drupal.
+[Tue 11:03]	<gkellogg>	lin: at this point, I don't think they're a requirement for us.
+[Tue 11:03]	<gkellogg>	… We're focusing our use of JSON-LD to aligning ...
+[Tue 11:03]	* manu-db	your voice is breaking up pretty badly, can still understand you, but fairly jittery.
+[Tue 11:03]	<gkellogg>	… We're not necessarily optimizing for smaller size, so it should be okay from our stand-point.
+[Tue 11:03]	-->|	TallTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 11:04]	<gkellogg>	manu: seems like paul has a use case, but PGs don't fully express it, and there is a fair chance of making things worse.
+[Tue 11:04]	<gkellogg>	… Lin's use case has found a different solution.
+[Tue 11:04]	<gkellogg>	… At this point, it doesn't seem we have anyone that really needs them.
+[Tue 11:05]	<gkellogg>	markus: easier to remove now and re-introduce later than the other way around.
+[Tue 11:05]	* mlnt	thanks a lot lin
+[Tue 11:05]	<gkellogg>	niklas: they border so much on semantics, that people can use things like vocabulary expansion to do the same thing. It's not syntactic, but semantically, it's already defined.
+[Tue 11:06]	<gkellogg>	dlongley: I think the only way for them to work in the future if we allow updates would be to include something in expanded form, but for everyone converting to RDF, it wouldn't work.
+[Tue 11:06]	<gkellogg>	… People would have to program to understand the special relationships between properties.
+[Tue 11:06]	|<--	TallTed has left freenode (Client Quit)
+[Tue 11:06]	<manu-db>	PROPOSAL: Remove Property Generators from JSON-LD before Last Call due to no developers needing the feature, the feature having a high potential of misuse, and because of the complexity it adds to the specification.
+[Tue 11:06]	<gkellogg>	+1
+[Tue 11:06]	<manu-db>	+1
+[Tue 11:06]	<mlnt>	+1
+[Tue 11:06]	<dlongley>	+1
+[Tue 11:06]	<niklasl>	+1
+[Tue 11:06]	<pkuyken>	+1
+[Tue 11:07]	<manu-db>	RESOLVED: Remove Property Generators from JSON-LD before Last Call due to no developers needing the feature, the feature having a high potential of misuse, and because of the complexity it adds to the specification.
+[Tue 11:07]	-->|	TallTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 11:07]	<voip-ld>	getonsip_linclark (SIP/sip.onsip.com-0000010e) has left the conference.
+[Tue 11:07]	<manu-db>	Topic: ISSUE-221: Inverse properties in JSON-LD
+[Tue 11:07]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/221
+[Tue 11:08]	<gkellogg>	manu: a new feature requested, with a couple of implementations.
+[Tue 11:08]	<gkellogg>	... Of course, we're well past feature-freeze, even if they seem simple to add.
+[Tue 11:08]	<gkellogg>	niklas: I've been using it since 2011, and at the National Library I come across it all the time.
+[Tue 11:09]	<gkellogg>	… Today, we abstracted people for which there exist not descriptions, but we want to record the relationship anyway. For example createorOr. There are no such properties, so using ^creator allows us to express this.
+[Tue 11:10]	<gkellogg>	… Not all vocabularies define inverse properties, and certain disciplines frown on explicitly defining inverses of properties.
+[Tue 11:10]	<gkellogg>	q+
+[Tue 11:10]	<voip-ld>	Added gkellogg to the speaker queue: pkuyken, gkellogg
+[Tue 11:10]	<manu-db>	ack pkuyken
+[Tue 11:10]	<voip-ld>	pkuyken has the floor. The next speaker is gkellogg.
+[Tue 11:10]	<gkellogg>	… you naturally create things over time, you link a book to an author, and don't always update the author to link back to the book.
+[Tue 11:11]	<gkellogg>	… I've felt needs for links to objects, such as RDF/SPARQL Constructur results, or CBD's, where I want to root the description in the primary object, and have things that link to/from this.
+[Tue 11:12]	<manu-db>	ack gkellogg
+[Tue 11:12]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 11:12]	<gkellogg>	… Filter authors/works, and works/authors. In many expressions, it's useful to say the inversee.
+[Tue 11:12]	<manu-db>	gkellogg: Curious if you've implemented the round-tripping bits of this?
+[Tue 11:12]	<pkuyken>	q+
+[Tue 11:12]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 11:12]	<gkellogg>	… I haven't implemented round-tripping in the code I have so far. It's been a while, and I think I had something working in the past.
+[Tue 11:13]	<gkellogg>	… It seemed fairly simple to do, as long as you don't define both to and from forms.
+[Tue 11:13]	<mlnt>	http://bit.ly/Xfy5vO
+[Tue 11:13]	<gkellogg>	markus: I implementier compaction, and it's quite triveal.
+[Tue 11:13]	<gkellogg>	… (example provided.)
+[Tue 11:13]	<gkellogg>	… children expands to parent.
+[Tue 11:14]	<gkellogg>	… It also takes into consideration if there is @reverse in the data.
+[Tue 11:14]	<gkellogg>	niklas: this cleanly solves the two variants I had in the past, but this is cleaner.
+[Tue 11:14]	<manu-db>	ack pkuyken
+[Tue 11:14]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 11:14]	<gkellogg>	… I'd like to see it as you've implemented it.
+[Tue 11:15]	<gkellogg>	paul: we also have some use cases we're using on where we need support for inverse relationships.
+[Tue 11:15]	<gkellogg>	… We had to do a work around where we do inferencing on the client side to look for inverse relationships, so it can understand what properties to set.
+[Tue 11:15]	<gkellogg>	… We do have a way around it, but this would be a nice to have feature.
+[Tue 11:16]	<gkellogg>	… We have a (barley adequate) workaround, but we need something different.
+[Tue 11:16]	<gkellogg>	manu: would it be enough to create a description of how it works, not include in JSON-LD 1.0, but all implementations have the feature.
+[Tue 11:17]	<gkellogg>	… Or, we have an implementation, and Markus could put his algorithm in there, but we run a risk of standardizing something that doesn't work for everyone.
+[Tue 11:18]	<manu-db>	gkellogg: I'm concerned that we might be putting this into the spec before it's ready. I have some other feature additions that might need further thought. Trying to solve everything at this point is a recipe for disaster. I think we need to embrace an "open specification" approach, and close the door on JSON-LD 1.0 Core in order to allow in order for people to start using it.
+[Tue 11:18]	<manu-db>	gkellogg: We can start adding features after that... easier to put it in later than add it in now and possibly remove it later.
+[Tue 11:19]	<gkellogg>	niklas: it isn't new from my perspective, and is a very natural feature when you express graphs as trees.
+[Tue 11:19]	<gkellogg>	… We also have the BBC use, which is what brought this up.
+[Tue 11:19]	<gkellogg>	manu: would having it spec'd out elsewhere be enough?
+[Tue 11:19]	<gkellogg>	… How many years before JSON-LD 1.1?
+[Tue 11:20]	<gkellogg>	… If it's broadly implemented, it doesn't really matter if it's in the core spec.
+[Tue 11:21]	<gkellogg>	markus: other specs would not be compliant, as they must otherwise drop such properties or values.
+[Tue 11:22]	<gkellogg>	… There are some special cases (no @id and @reverse), but it's about an afternoon to make it solid.
+[Tue 11:23]	<manu-db>	PROPOSAL: Put JSON-LD Inverse Properties into the JSON-LD 1.0 specification as an at-risk feature.
+[Tue 11:23]	<manu-db>	-0.6
+[Tue 11:23]	<niklasl>	+1
+[Tue 11:23]	<mlnt>	+1
+[Tue 11:23]	<gkellogg>	gkellogg: +0.2
+[Tue 11:23]	<dlongley>	+0.5
+[Tue 11:23]	<pkuyken>	+.5
+[Tue 11:23]	<gkellogg>	RESOLVED: Put JSON-LD Inverse Properties into the JSON-LD 1.0 specification as an at-risk feature.
+[Tue 11:24]	<manu-db>	Topic: ISSUE-223: JsonLdOptions base vs. @base
+[Tue 11:24]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/223
+[Tue 11:24]	<gkellogg>	manu: since we have @base keyword, should we have something you can pass into the API?
+[Tue 11:24]	<gkellogg>	… I think so, but @base always overrides this.
+[Tue 11:25]	<gkellogg>	markus: what is @base used for in JSON-LD? Is it also used for compaction?
+[Tue 11:26]	<manu-db>	PROPOSAL: 'base' (passed in via the API) sets the document base, @base (in the document) overrides any value set by 'base' (passed in via the API).
+[Tue 11:27]	<gkellogg>	+1
+[Tue 11:27]	<manu-db>	+1
+[Tue 11:27]	<pkuyken>	+1
+[Tue 11:27]	<dlongley>	+1
+[Tue 11:27]	<niklasl>	+1
+[Tue 11:27]	<mlnt>	+1
+[Tue 11:27]	<manu-db>	RESOLVED: 'base' (passed in via the API) sets the document base, @base (in the document) overrides any value set by 'base' (passed in via the API).
+[Tue 11:27]	<gkellogg>	dlongley: I think we should allow the empty string ("") be specified, so that you can say there is no base.
+[Tue 11:28]	<manu-db>	gkellogg: I use stuff like that to specify that things should be able to be expressed via relative IRIs... it makes the document work if it's served via any location.
+[Tue 11:28]	<gkellogg>	… this would allow for the use of IRIs, so you'd keep relative IRIs.
+[Tue 11:29]	<gkellogg>	… (reverses scribe's understanding).
+[Tue 11:29]	<gkellogg>	… If you use @base "" it means to not change them, relative IRIs come in and go back out, for example in @id.
+[Tue 11:30]	<manu-db>	mlnt: What happens if you do this? '../test/.../hello' does it get compacted to this? '../hello' ?
+[Tue 11:31]	<gkellogg>	dlongley: should be no changes. If you specify @base: "", make no changes to IRIs on input.
+[Tue 11:32]	<gkellogg>	… This does not rule out using terms and @id.
+[Tue 11:32]	<gkellogg>	… My preference is to do no processing at all; a way of saying "don't touch my IDs"
+[Tue 11:33]	<gkellogg>	manu: I don't know how standard this is, how many other serializations say don't touch IRIs.
+[Tue 11:34]	<gkellogg>	… Not doing path normalization might be a problem.
+[Tue 11:34]	<gkellogg>	markus: can we stay silent?
+[Tue 11:34]	<gkellogg>	manu: we need a test-case for it.
+[Tue 11:34]	<niklasl>	.. "you can also pass an empty string and see what happens" ;)
+[Tue 11:34]	<gkellogg>	dlongley: if we do this sort of normalization, it will impact normalization algorithms.
+[Tue 11:35]	<mlnt>	http://tools.ietf.org/html/rfc3986#section-5.2.2
+[Tue 11:37]	<gkellogg>	markus: my read of the specs, is that paths would be resolved.
+[Tue 11:38]	<gkellogg>	dlongley: we link to the spec, and say that.
+[Tue 11:39]	<gkellogg>	markus: process them as they're always processed in JSON-LD.
+[Tue 11:39]	<manu-db>	PROPOSAL: Allow @base to be set to the empty string. If @base is set to the empty string, relative IRIs are processed according to RFC 3986 Section 5.2.2 (which is how they're always processed in JSON-LD).
+[Tue 11:39]	<gkellogg>	+1
+[Tue 11:39]	<dlongley>	+1
+[Tue 11:39]	<niklasl>	+1
+[Tue 11:39]	<manu-db>	+1
+[Tue 11:39]	<mlnt>	+1
+[Tue 11:40]	<pkuyken>	+1
+[Tue 11:40]	<manu-db>	RESOLVED: Allow @base to be set to the empty string. If @base is set to the empty string, relative IRIs are processed according to RFC 3986 Section 5.2.2 (which is how they're always processed in JSON-LD).
+[Tue 11:40]	<manu-db>	Topic: JSON-LD latest API issues
+[Tue 11:40]	<pkuyken>	Is the diff-marked version broken here? http://json-ld.org/spec/latest/json-ld-api/
+[Tue 11:40]	<manu>	The diff-marked version for the live spec is always broken, you can try using the 'diffmark tool' in the live version of the spec.
+[Tue 11:41]	<mlnt>	Try doing this: CTRL+SHIFT+ALT+S then click on 'diffmark'
+[Tue 11:42]	<gkellogg>	paul: we're fixing our APIs to be closer to the latest spec, would be nice to know what changed.
+[Tue 11:42]	<gkellogg>	manu: You're probably going to have to save a local copy and run the 'htmldiff.pl' script between the version you used to implement and the current version (saved as a static file via CTRL-SHIFT-ALT-S).
+[Tue 11:43]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000106) has left the conference.
+[Tue 11:43]	<voip-ld>	Manu Sporny (SIP/6000-0000010c) has left the conference.
+[Tue 11:43]	<voip-ld>	Dave Longley (SIP/6002-0000010d) has left the conference.
+[Tue 11:43]	<voip-ld>	<unknown> (IAX2/diamondcard-1064) has left the conference.
+[Tue 11:43]	<voip-ld>	Niklas Lindström (SIP/192.168.3.29-0000010b) has left the conference.
+[Tue 11:43]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000010a) has left the conference.
