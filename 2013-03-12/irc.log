@@ -1,0 +1,148 @@
+[10:08]	<manu1>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0012.html
+[10:08]	<manu1>	manu: Any updates or changes to the Agenda?
+[10:08]	<manu1>	scribe: mlnt
+[10:09]	<manu1>	Topic: ISSUE-224: Sandro Hawke's JSON-LD syntax spec review
+[10:09]	<manu1>	mlnt: Most of his feedback was just editorial, but there were a couple of points that we should discuss before we do any changes.
+[10:11]	<manu1>	mlnt: In introduction, we paraphrase linked data principles to explain what JSON-LD is about. Sandro didn't like that... maybe we should reference something or rephrase?
+[10:11]	<manu1>	manu: Let's rephrase it, we need to summarize what JSON-LD is about.
+[10:11]	<manu1>	gkellogg: I can see Sandro's perspective, there is no other serialization that needs to go into that kind of detail. Well, perhaps HTML+RDFa 1.1
+[10:12]	<mlnt>	manu: JSON-LD is kind of different because we talk about Linked Data first instead of RDF first.. otherwise you would have to read RDF Concepts first
+[10:12]	<mlnt>	... JSON developers are prob. not familiar with
+[10:13]	<mlnt>	gregg: my feeling is, if it is non-normative it shouldn't matter..
+[10:14]	<manu1>	markus: Next point was about design goals section - Sandro doesn't think the history is important. I changed it to use present tense. Do we want to keep that section?
+[10:15]	<voip-ld>	Dave Longley (SIP/6002-00000115) has joined the conference.
+[10:15]	<mlnt>	manu: I would be worried with removing it
+[10:16]	<mlnt>	... moving it to the introduction is also problematic because it makes the intro larger
+[10:16]	<mlnt>	... I think you did the right thing
+[10:16]	<manu1>	mlnt: Next up is Example 5 - Linked Header, Sandro was expecting an early example of it.
+[10:17]	<manu1>	mlnt: He thought it should be after remote contexts... under basic concepts.
+[10:17]	<manu1>	mlnt: Either we include it there or a subsection after that section.
+[10:17]	<manu1>	mlnt: I would like to include it in the beginning, important feature for adoption... they have JSON that could be transformed to JSON-LD with just that Link Header.
+[10:18]	<mlnt>	manu: I'm on the fence about this
+[10:18]	<mlnt>	... I think not many web devs know about Link headers
+[10:18]	<mlnt>	gregg: I think we can mention it there without mentioning HTTP Link headers
+[10:19]	<mlnt>	... you can apply a context to a JSON document
+[10:19]	<mlnt>	manu: Sandro mentioned explicit. the Link header
+[10:20]	<mlnt>	... we don't reference the API anywhere else in the document
+[10:20]	<mlnt>	gregg: we don't need to reference it.. just mention it
+[10:22]	<manu1>	manu: Perhaps a note explaining how you can assign a link header or a context via JSON-LD API
+[10:23]	<manu1>	gkellogg: maybe update the example to show with and w/o a context.
+[10:23]	<manu1>	mlnt: Next up - show an example about how a relative IRI is used. I thought this was trivial at first, but it isn't actually. We talk about absolute IRIs in the key position and using it via @id is an "expanded IRI definition". If we put in an example with relative IRIs, it's a problem.
+[10:24]	<manu1>	gkellogg: Maybe we can do this after example 9?
+[10:24]	<manu1>	gkellogg: maybe we could use a relative IRI to specify the homepage and the person?
+[10:24]	<manu1>	mlnt: We don't want to give the false impression that properties would be interpreted as relative IRIs.
+[10:26]	<manu1>	gkellogg: We can elaborate by providing a link to another section.
+[10:27]	<manu1>	dlongley: yeah, we can refer to the relative IRI section.
+[10:28]	<manu1>	mlnt: I don't know about referencing from an introduction to the grammar.
+[10:28]	<manu1>	manu: I think we need to explain relative IRIs a bit better somewhere in the document and reference that section.
+[10:29]	<manu1>	gkellogg: We should elaborate in this section and not refer to the Grammar.
+[10:30]	-->|	GitHub68 (~GitHub68@router1-ext.rs.github.com) has joined #json-ld
+[10:30]	<GitHub68>	[json-ld.org] dlongley pushed 1 new commit to master: https://github.com/json-ld/json-ld.org/commit/8a024cf5528dade0e8e2e07105fb06ce93906e95
+[10:30]	<GitHub68>	json-ld.org/master 8a024cf Dave Longley: Fix typo.
+[10:30]	<--|	GitHub68 has left #json-ld
+[10:31]	<manu1>	mlnt: ... "this is where we need a clear notion of a processor that reads JSON-LD and extracts all the triples and quads from it, it seems to me."
+[10:31]	<manu1>	mlnt: Sandro wanted to know exactly what results in triples/quads... what is removed, etc?
+[10:32]	<manu1>	mlnt: He seems to be concerned that we say that "in some cases things are removed", but we don't enumerate those cases.
+[10:33]	<manu1>	gkellogg: Well, it's any property that is a term that doesn't expand to an IRI.
+[10:33]	<manu1>	dlongley: I think we just need to re-order the way this is in the spec. Certain keys don't expand to unambiguous identifiers because they don't generate any triples.
+[10:33]	<manu1>	dlongley: We say there are keys that don't expand to an IRI and they're ignored... however they're valid - that's the problem.
+[10:37]	<manu1>	Discussion about how to state this more eloquently.
+[10:38]	<manu1>	dlongley: Can we say that data is ignored like comments are ignored?
+[10:39]	<manu1>	manu: Yeah, I think "ignore" is the right word here.
+[10:40]	<manu1>	mlnt: What if we say "properties that do not expand to IRIs are not Linked Data and are ignored when processed."
+[10:40]	<manu1>	manu: I like that.
+[10:41]	<manu1>	mlnt: Section 5.3 intro - drop the paragraph?
+[10:41]	<manu1>	gkellogg: I think this implies that there is something wrong with using bnodes. They are externally useful, but only in reference to something else.
+[10:42]	<manu1>	gkellogg: In Wikia - why can't we use bnodes? Because you can never get to it.
+[10:42]	<mlnt>	http://json-ld.org/spec/latest/json-ld-syntax/#node-identifiers
+[10:44]	<dlongley-db>	"IRIs are a fundamental concept of Linked Data, for nodes to be truly linked, de-referencing the identifier should result in a representation of that node."
+[10:44]	<mlnt>	more problematic is IMO "Associating an IRI with a node tells an application that it can fetch the resource associated with the IRI and get back a description of the node."
+[10:46]	<manu1>	mlnt: What about instead of saying "telling" vs. "may allowing"
+[10:46]	<mlnt>	--> Associating an IRI with a node may allows an application to fetch the resource associated with the IRI and get back a description of the node.
+[10:47]	<dlongley-db>	"may allow"
+[10:48]	<manu1>	mlnt: Section 5 marked as normative vs. non-normative - change in respect, this section should be normative... it just adds labels if the section is non-normative.
+[10:48]	<manu1>	mlnt: Sections not marked as 'normative' don't have anything at the top of the section... respec doesn't generate the markers anymore.
+[10:49]	<mlnt>	<em>This section is normative.</em>
+[10:50]	<manu1>	manu: So, we have to go through to figure out if there is a bug in ReSpec... if there isn't, we have to label all the sections as either 'normative' or 'informative'.
+[10:51]	<manu1>	mlnt: The only sections that are normative are: JSON-LD Grammar, interpreting JSON and JSON-LD (Link Header stuff) - those are the only two normative sections according to the conformance section.
+[10:53]	<manu1>	manu: So, all top-level sections should be marked as informative, including section 6. Section 6.8 should be marked as normative.
+[10:54]	<manu1>	manu: The Grammar should be marked as normative as well.
+[10:54]	<manu1>	manu: Conformance needs to be normative as well.
+[10:55]	<manu1>	manu: Data Model needs to be normative.
+[10:58]	<manu1>	mlnt: 6.1 Compact IRIs
+[11:00]	<manu1>	mlnt: Sandro thinks detecting "://" is too much
+[11:00]	<manu1>	gkellogg: I think it's an important safety mechanism - the suffix can't start with two slashes.
+[11:01]	<manu1>	dlongley: This is more about preventing http from being a prefix.
+[11:01]	<manu1>	gkellogg: somebody had defined 'http' as a prefix, so it changed.
+[11:02]	<manu1>	http://prefix.cc/http
+[11:02]	<manu1>	mlnt: There is only that single case, really.
+[11:05]	<manu1>	manu: No, we need this to protect all hierarchical IRIs... irc:// ftp:// http:// etc
+[11:05]	|<--	PaulCapestany has left freenode (Quit: Computer has gone to sleep.)
+[11:05]	<mlnt>	http://example.com/some//path
+[11:05]	<manu1>	manu: big -1 on removing this protection
+[11:06]	<manu1>	dlongley: We need to change the following sentence by saying there is a restriction on suffixes otherwise it will not cause the value to be interpreted as a compact IRI.
+[11:06]	<mlnt>	"some": "http://example.com/some" -> some://path --> http://example.com/some//path
+[11:07]	<manu1>	dlongley: Yes, you can't do that with this rule, but it's more important to protect against the common misinterpretation case.
+[11:08]	<manu1>	mlnt: Next up, Example 17 - Sandro was wondering if the order matters, then he realized that it doesn't matter... but maybe we should cover that in this particular example - explicitly state that order is not important.
+[11:09]	<manu1>	mlnt: "Okay, this overloading of @ keywords goes too far with @vocab serving a completely different purpose (from normal @vocab) in this situation."
+[11:09]	<manu1>	mlnt: he wants a table explaining how where it is used changes the meaning... there are really just two cases, it's going to be a pretty small table.
+[11:10]	<manu1>	dlongley: We should better describe it's use and maybe it wouldn't seem so foreign at that point.
+[11:10]	<manu1>	mlnt: This is about section 6.5 - intro describes that.
+[11:10]	<mlnt>	http://json-ld.org/spec/latest/json-ld-syntax/#type-coercion
+[11:11]	<mlnt>	"@type": "@vocab"
+[11:12]	<manu1>	That allows one to have a term on the right hand side and have it interpreted.
+[11:12]	<manu1>	dlongley: The value in @id can be interepreted as a term.
+[11:12]	<manu1>	dlongley: It removed ambiguity in that case...
+[11:13]	<manu1>	gkellogg: I understand the value, maybe we need an explanation that @vocab serves two purposes.
+[11:13]	<manu1>	gkellogg: Maybe we just need an example that uses this.
+[11:14]	<manu1>	dlongley: Yes, people need to understand how to use enumerated types.
+[11:14]	<manu1>	manu: Agree.
+[11:14]	<manu1>	mlnt: "It is a best practice to put the context definition at the top of the JSON-LD document."
+[11:15]	<manu1>	mlnt: Sandro disagrees, because it makes it seem like you shouldn't allow JavaScript to just serialize a JSON-LD document out - you can't influence the order in which it gets serialized.
+[11:15]	<manu1>	mlnt: That's true for some serializers, but certainly not all. Many JSON-LD documents will be generated by using templates. I'd like to keep this note, it makes reading the documents for a human far easier.
+[11:16]	<manu1>	dlongley: We can explain that some serializers don't allow you to do that.
+[11:17]	<manu1>	manu: We can explain that some serializers don't allow ordering and that's fine, they will still be valid JSON-LD documents.
+[11:17]	<manu1>	gkellogg: Yes, I had to implement a special hashing class to order @context at the beginning.
+[11:18]	<manu1>	gkellogg: Maybe instead of "best practice", we should say "when possible".
+[11:19]	<manu1>	markus: So, "when possible"?
+[11:19]	<manu1>	gkellogg: Keywords before properties is a good also
+[11:20]	<manu1>	dlongley: We could say "When possible, put the @context first, other JSON-LD keywords next, then the properties".
+[11:22]	<manu1>	dlongley: We should also say that if they don't do that, it's not a problem - it will still be a valid JSON-LD document.
+[11:22]	<dlongley-db>	and mention that outputting in another order won't break conformance
+[11:23]	<manu1>	mlnt: ".well-known/host-context.jsonld"
+[11:23]	<manu1>	manu: let's not do that
+[11:23]	<manu1>	dlongley: yeah, -1 on that
+[11:23]	<manu1>	mlnt: Don't like that feature.
+[11:24]	<manu1>	mlnt: "To avoid forward-compatibility issues, a term should not start with an @ character"
+[11:25]	<manu1>	manu: I think saying "MUST NOT" goes too far, we want some flexibility here.
+[11:26]	<manu1>	gkellogg: We could create an extension registry - maybe someone could request it over JSON-LD mailing list.
+[11:27]	<manu1>	gkellogg: I'd like to do "@ordered" instead of "@list" - and have my own note... if MUST NOT is there, I'd be violating the spec - that's not what we want to do, we don't want to prevent stuff like that.
+[11:27]	<manu1>	gkellogg: If we provide a keyword registry, we can do that easily.
+[11:28]	<manu1>	mlnt: who decides which keywords are allowed?
+[11:28]	<manu1>	gkellogg: The group decides...
+[11:28]	<manu1>	gkellogg: There is a process by which we decide to update it.
+[11:29]	<manu1>	dlongley: If we were to put MUST NOT in the spec, do we kick out an error?
+[11:29]	<manu1>	dlongley: If we put MUST NOT and don't kick out an error, people are going to put @mykeyword in their documents.
+[11:30]	<manu1>	gkellogg: Yes, so people will try to work around that.
+[11:30]	<manu1>	dlongley: Yeah, so people will "+mykeyword" - which is worse.
+[11:31]	<manu1>	dlongley: Two people are probably not going to pick the same words that do different things.
+[11:31]	<manu1>	gkellogg: I think we need a registry.
+[11:32]	<manu1>	dlongley: Can you change prefixes currently registered and change it to something else...
+[11:33]	<manu1>	dlongley: I don't understand how this is different from not having a registry?
+[11:35]	<manu1>	dlongley: I'm a little against a registry - I'd like the best feature to win, not the person that claimed the feature name first.
+[11:35]	<mlnt>	+1
+[11:35]	<manu1>	dlongley: It also avoids the 'domain squatter' issue.
+[11:36]	<manu1>	dlongley: I think it makes it more difficult to extend the language - I think it'll sort itself out. It's better to do that than restrict it strongly.
+[11:36]	* manu1	has a hard stop 6 minutes ago :P
+[11:36]	* mlnt	:-)
+[11:37]	<mlnt>	gregg: another way would be to have a mechanisms to claim a keyword in a context
+[11:37]	<mlnt>	... you should be able to "follow your nose" to find a specification describing how a keyword is intended to be used
+[11:38]	<mlnt>	manu: another option would be to allow multiple entries in the registry
+[11:38]	<mlnt>	dlongley: what's the point of the registry then?
+[11:39]	<mlnt>	manu: you could find all ext. in one place
+[11:43]	<manu1>	mlnt: You could introduce special processing for terms, but until we update the JSON-LD spec, no compliant processor would do the same thing. The algorithms are written in a way that they must drop things that don't expand to an IRI. We just need to make it clear that it's a bad idea.
+[11:43]	<manu1>	mlnt: Terms starting with '@' will be dropped.
+[11:45]	<mlnt>	dlongley: would processors keeping such keywords instead of dropping them non-conformant?
+[11:45]	<mlnt>	manu: no.. they might do that.. but processors not understanding it will ignore
+[11:45]	<manu1>	mlnt: Yes, this is the same as HTML's extensibility mechanism - you just ignore things you don't understand.
+[11:46]	<mlnt>	manu: yeah, exactly.. AngularJS uses this heavily
