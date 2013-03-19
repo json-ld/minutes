@@ -1,0 +1,234 @@
+[Tue 10:05]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0029.html
+[Tue 10:06]	<manu-db>	scribe: manu-db
+[Tue 10:06]	<manu-db>	Any changes to agenda?
+[Tue 10:06]	<manu-db>	Topic: ISSUE-224: Sandro Hawke's JSON-LD syntax spec review
+[Tue 10:06]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/224
+[Tue 10:07]	<manu-db>	manu: Markus, mind taking us through this issue?
+[Tue 10:08]	<manu-db>	markus: yep... Sandro thinks using @graph to specify the default graph is confusing. He thinks having an array where the first object is the context and all subsequent objects have the context applied.
+[Tue 10:09]	<manu-db>	gregg: that can have strange effects down the line, if you have multiple objects of a property, you'd think that context would apply to subsequent objects in an array. If you had an object that /only/ contained contexts.
+[Tue 10:09]	<manu-db>	dlongley: Yeah, we discussed this a long time ago. If you have data in compact form, you can't check links/arrays... you have to look through the entire array to see if there is a context there.
+[Tue 10:10]	<manu-db>	markus: We've had this question several times now... it's not that common that you have an array at the top-level. In some cases, it's a security vulnerability.
+[Tue 10:10]	<dlongley>	s/links\/arrays/lengths of arrays
+[Tue 10:10]	<manu-db>	markus: You can easily alias "@graph" to "data". When we expand, we always expand it to an array at the top level.
+[Tue 10:11]	<manu-db>	gkellogg: There is is interest in using a canonical JSON-LD representation as an array. In JSON-LD in HTML stuff, that's something the supporters see as happening... they think it's not well understood by their community. But an array of objects would.
+[Tue 10:11]	<manu-db>	markus: If you look at all web apis out there, there's always an object at the top level ... not an array.
+[Tue 10:12]	<dlongley>	manu: i agree with markus, there are very few examples of an array being at the top-level in APIs
+[Tue 10:12]	<manu-db>	gkellogg: Yeah, maybe if we show an example with @graph aliased to data'
+[Tue 10:12]	<manu-db>	markus: Maybe we can do that in that example.
+[Tue 10:13]	<dlongley>	manu: I think that sandro's comment may have more to do with unfamiliarity with how JSON is used in the wild, i haven't seen people use JSON in the wild all that much with arrays being at the top-level coming back from API calls, etc
+[Tue 10:13]	<dlongley>	manu: I don't think people that author JSON on a regular basis typically have objects at the top-level
+[Tue 10:14]	<dlongley>	manu: typically, i'd expect to see something like this in a search result
+[Tue 10:14]	<dlongley>	markus: but then you'd also see things like "how many results you got back", etc. and those would be top-level properties
+[Tue 10:14]	<dlongley>	markus: and then the array would be underneath another property
+[Tue 10:15]	<dlongley>	manu: yeah, we should create an alias example using "results" or something
+[Tue 10:15]	<dlongley>	manu: so people can see how that may work
+[Tue 10:15]	<dlongley>	markus: that would be dangerous because it would affect the default context
+[Tue 10:15]	<dlongley>	manu: i'm not saying do that, just do an example in the spec
+[Tue 10:15]	<dlongley>	manu: of using an alias here
+[Tue 10:15]	<dlongley>	gkellogg: maybe also add a note asking for feedback for this use case
+[Tue 10:16]	* manu-db	thanks dlongley for scribing that bit.
+[Tue 10:16]	<manu-db>	markus: Next up - data indexing.
+[Tue 10:16]	<manu-db>	markus: Sandro feels it's pretty weird but fairly harmless. He thinks we can index data by an arbitrary property?
+[Tue 10:17]	<manu-db>	markus: We've discussed this before, it adds a bunch of complexity. With Data indexing it's about representation of metadata... I would say we do nothing here.
+[Tue 10:17]	<manu-db>	markus: having arbitrary properties as indexes is too complex for 1.0.
+[Tue 10:17]	<manu-db>	dlongley: I agree as well.
+[Tue 10:17]	<manu-db>	gkellogg: Yeah, agree.
+[Tue 10:18]	<manu-db>	dlongley: One request for this feature didn't want the RDFa data in the index - it meets the use case that was there for it.
+[Tue 10:18]	<manu-db>	gkellogg: The only thing I worry that we're missing is the other pattern from these indexes where you have a top-level key in which the data contains an array of properties. The Microdata JSON is an example of this, where you have id at the top and then properties, and the value of properties is the value of all of the properties.
+[Tue 10:19]	<manu-db>	gkellogg: There is a case where you might fold these in, I've seen this in other places as well. I'm a bit concerned that we will wish we had that.
+[Tue 10:19]	<manu-db>	markus: I think the reason for that is because they don't have a way to namespace properties like JSON-LD...
+[Tue 10:20]	<manu-db>	gkellogg: Unless the identifier key could be re-used... My concern is that Microdata is something we thought we'd be able to handle at some point through these mechanisms, but we never came back to it.
+[Tue 10:21]	<manu-db>	markus: There is always the possibility of having a pre-processing step.
+[Tue 10:21]	<manu-db>	manu: So, we're doing nothing to change the spec in this case - the feature is good as designed.
+[Tue 10:22]	<manu-db>	markus: Sandro talking about the data model section, he found it very confusing even though he is familiar with RDF Concepts.
+[Tue 10:22]	<manu-db>	markus: It's a bit strange since most of these statements have been copied almost directly from RDF Concepts. He asked if we could drop this section, however, the RDF WG requested that we add this section in here.
+[Tue 10:22]	<manu-db>	markus: Instead of re-defining our own data model, we could just say that it's the RDF data model, but we don't place restrictions on where blank nodes are usable.
+[Tue 10:24]	<dlongley>	manu: it may be that sandro knows too much about the RDF data model and he may not be taking the text at face value, but that's just trying to get into his head which i shouldn't be trying to do
+[Tue 10:24]	<manu-db>	manu: Ok, so we're not changing this section because the RDF WG asked for it, it's clear, concise and nobody in this group thinks we should change it.
+[Tue 10:25]	<manu-db>	markus: Next up is normative non-normative labels are applied inconsistently.
+[Tue 10:26]	<manu-db>	markus: we discussed this, but in respec, we'll relabel as appropriate.
+[Tue 10:26]	<manu-db>	markus: Example 62
+[Tue 10:26]	<mlnt>	http://json-ld.org.local/spec/latest/json-ld-syntax/index.html#turtle
+[Tue 10:26]	<mlnt>	http://json-ld.org/spec/latest/json-ld-syntax/index.html#turtle
+[Tue 10:27]	<manu-db>	markus: The example is correct - it's what we say in the spec and it's quite obvious that we define a prefix in JSON-LD and Turtle. No change.
+[Tue 10:28]	<manu-db>	markus: In the IANA considerations we have the profile IRI... Sandro didn't apply what the profile IRI applies to. What does the 'SHOULD' Apply to? requests or responses?
+[Tue 10:29]	<manu-db>	markus: I think it works. He also said he thinks it should work like normal content negotiation. It's an optional parameter, if you can't expand it on the server, you return what you can do.
+[Tue 10:29]	<dlongley>	manu: i think it would help if we explained a little bit more in that section about what should happen
+[Tue 10:30]	<dlongley>	manu: basically put a note in with sandro's concern where we basically say "if you request expanded form and the server can't expand it then it doesn't have to"
+[Tue 10:31]	<manu-db>	markus: Some references are out of date, like TURTLE-TR and reference style isn't correct... we'll have to fix this before we go to LC. Especially since Turtle keeps changing state.
+[Tue 10:32]	<dlongley>	manu: let's just call it TURTLE-REC and make the change and assume it will go to REC before JSON-LD does
+[Tue 10:33]	<dlongley>	manu: these are very small editoral changes and i'm not that concerned about it
+[Tue 10:33]	<dlongley>	markus: they are even informal references
+[Tue 10:33]	<dlongley>	gkellogg: i think RDF-CONCEPTS is a normative link in the JSON-LD API spec
+[Tue 10:33]	<dlongley>	manu: i guess that's not too much of an issue since it's in the same working group
+[Tue 10:34]	<dlongley>	manu: in the worst case the JSON-LD API spec is held up while the RDF-CONCEPTS spec goes to REC
+[Tue 10:34]	<dlongley>	markus: next sandro suggests moving RDF conversion to the syntax spec
+[Tue 10:34]	<manu-db>	markus: He also sent a second e-mail about the conversion descriptions - he wants an informative description about the process of turning JSON-LD into RDF and vice versa.
+[Tue 10:35]	<manu-db>	gkellogg: We'd need to cover the expansion and flattening algorithms.
+[Tue 10:35]	<dlongley>	gkellogg: i don't think he wants to move the whole algorithm, but maybe a brief description of how they work
+[Tue 10:35]	<manu-db>	gkellogg: I think they want one place where you can go to figure out how JSON-LD can represent RDF and vice versa.
+[Tue 10:35]	<manu-db>	markus: The whole syntax spec is about that - how the context works, how nodes are expressed.
+[Tue 10:37]	<manu-db>	gkellogg: We could say something about the general process of transforming JSON-LD to RDF has to do w/ expanding/compacting the document... and then you can translate those statements to RDF.
+[Tue 10:37]	<manu-db>	markus: As soon as we do that, people are going to ask about the algorithms.
+[Tue 10:37]	<manu-db>	gkellogg: we refer to the API spec.
+[Tue 10:38]	<manu-db>	gkellogg: We can explain that expanding is the process of removing the context, flattening is ordering everything in a flat sequence, then you can easily go to RDF.
+[Tue 10:38]	<manu-db>	gkellogg: We can show how the transformation happens.
+[Tue 10:38]	<manu-db>	manu: As long as we can keep it short, that would be fine with me.
+[Tue 10:38]	<manu-db>	gkellogg: I'll write that section.
+[Tue 10:39]	<manu-db>	markus: Sandro wanted to add to the conformance section: a JSON-LD Expander, JSON-LD COmpacter, JSON-LD To-RDF-Converter, JSON-LD From-RDF-Converter.
+[Tue 10:40]	<manu-db>	markus: This is about the syntax specification, not the API specification.
+[Tue 10:40]	<manu-db>	manu: So, no change.
+[Tue 10:40]	<manu-db>	General agreement to no change to the conformance section.
+[Tue 10:41]	-->|	TallTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 10:41]	<dlongley>	markus: we can talk later about maybe adding that to the API spec instead, it doesn't belong in the syntax spec
+[Tue 10:41]	<manu-db>	The group feels it has addressed all of Sandro's comments.
+[Tue 10:41]	<manu-db>	Topic: ISSUE-222: David Booth's JSON-LD syntax spec review
+[Tue 10:41]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/222
+[Tue 10:42]	<manu-db>	Markus: His first point is that JSON-LD should be an RDF syntax - same data model, same semantics as other serializations.
+[Tue 10:43]	<manu-db>	Manu: We've had a very long discussion about the differences in the data model - the only distinction is blank nodes, right?
+[Tue 10:43]	<manu-db>	markus: Yes, only difference.
+[Tue 10:43]	<manu-db>	gkellogg: In this regard, we're not too different from notation 3 for properties. For graph labels, it has a different context.
+[Tue 10:44]	<manu-db>	dlongley: He effectively asks to change the RDF specs first, however, there is disagreement over where the future should go. We would prefer it to go into the RDF spec, but that's not happening right now.
+[Tue 10:45]	<manu-db>	markus: We've discussed all of this several times, not even the RDF WG has a clear position about the additions to the data model that JSON-LD has... re-opening the discussion again isn't productive at this point in time. It is a super-set, we discussed with the RDF WG, they accepted it, we clearly documented the differences, we can't do much more than that.
+[Tue 10:45]	<manu-db>	markus: We would like to keep JSON-LD as-is.
+[Tue 10:46]	<manu-db>	manu: I agree.
+[Tue 10:46]	<manu-db>	General agreement from the group that we're doing all we can to address this point.
+[Tue 10:46]	<manu-db>	markus: His second point is that JSON-LD should not require that IRIs are de-reference-able. I find this a bit odd since JSON-LD is about Linked Data and Linked Data is about dereferenceable IRIs.
+[Tue 10:47]	<manu-db>	markus: Besides, it's a SHOULD not a MUST, so it's not a hard requirement.
+[Tue 10:48]	<manu-db>	General agreement from the group - no change, IRIs should be dereferenceable.
+[Tue 10:48]	<manu-db>	gkellogg: We had these conversations a while ago, nothing has changed.
+[Tue 10:48]	<manu-db>	gkellogg: Regarding JSON-RDF - that name was already taken at the time.
+[Tue 10:49]	<manu-db>	manu: Besides - this is more about Linked Data than it is about RDF.
+[Tue 10:49]	<manu-db>	dlongley: This spec is about JSON in Linked Data... the name is fine.
+[Tue 10:49]	<manu-db>	gkellogg: JSON-RDF exists, and application/rdf+json exists - we can't re-use it.
+[Tue 10:51]	<manu-db>	Topic: ISSUE-230: Charles Greer's JSON-LD syntax spec review
+[Tue 10:51]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/230
+[Tue 10:51]	<manu-db>	Markus: I responded to his issues.
+[Tue 10:51]	<manu-db>	gkellogg: He seems to be happy with the changes.
+[Tue 10:52]	<manu-db>	markus: He did respond today about @base and @vocab and how they're used in relation to relative IRIs. He acknowledges that @base is marked as at-risk, he still sees the risk with trying to do too much with expansion.
+[Tue 10:52]	<manu-db>	markus: The other thing was mainly editorial, we characterize JSON-LD as a serialization of Linked Data in JSON.
+[Tue 10:53]	<manu-db>	markus: Not sure I understand him completely. He thinks that RDF/XML could have benefited from a distinction.
+[Tue 10:53]	<manu-db>	markus: So you could have multiple expressions of RDF in JSON (flattened, expanded, re-framed, etc.)
+[Tue 10:54]	<manu-db>	markus: One aspect of JSON-LD is serialization and the other is authoring.
+[Tue 10:55]	<manu-db>	markus: Before he realized that we had a flattened form, he thought that JSON-LD has many of the same problems as RDF/XML... but now that he knows about flattened form, you get the data in a deterministic form.
+[Tue 10:55]	<manu-db>	dlongley: he was worried that with all the ways of expressing the data, that it would be hard for an application to find out where the data is... but that only solves some of the "find the data" use cases.
+[Tue 10:56]	<manu-db>	dlongley: Unfortunately, some of this has to do with framing, because it's not in the spec.
+[Tue 10:57]	<manu-db>	gkellogg: I think it's useful to have someone that made a statement like this, some older RDF hats have said that we're making same mistakes that RDF/XML did... but we do allow the data to be modified and re-framed, which RDF/XML didn't do. That said, I don't think this comment is really action-able.
+[Tue 10:57]	<manu-db>	markus: I think the point he's trying to bring across is that this isn't as much about serializing data, just augmenting the data with a context so you can interpret it as RDF.
+[Tue 10:58]	<manu-db>	markus: You already have your JSON, you want to transform it to Linked Data, you just add your context and almost magically it can be interpreted as RDF.
+[Tue 10:58]	<manu-db>	manu: That's a very good, concise statement - we should say that in the spec.
+[Tue 10:58]	<manu-db>	dlongley: Yes, if it's not in the spec, it should be in there.
+[Tue 10:59]	<manu-db>	markus: We don't say that in the abstract/intro, we probably should.
+[Tue 11:00]	<manu-db>	markus: He's also worried about remote contexts. Remote contexts are important, we have plenty of use cases for them.
+[Tue 11:01]	-->|	niklasl (~neuron@gate.kb.se) has joined #json-ld
+[Tue 11:01]	<manu-db>	gkellogg: It's a bit different from RDFa - documents aren't meaningless w/o them. In JSON-LD, documents are meaningless w/o JSON-LD.
+[Tue 11:01]	<voip-ld>	Niklas Lindström (SIP/192.168.3.28-00000121) has joined the conference.
+[Tue 11:01]	<manu-db>	s/JSON-LD/remote contexts/
+[Tue 11:01]	<manu-db>	gkellogg: His point is that you don't know if the data that's represented hasn't changed...
+[Tue 11:02]	<manu-db>	dlongley: You could run it through the normalization algorithm to see if it's changed.
+[Tue 11:02]	<manu-db>	gkellogg: How would that work? Use E-Tags?
+[Tue 11:02]	* niklasl	just realized I'm off my one hour due to DST… :P
+[Tue 11:02]	<manu-db>	dlongley: It's gets pretty complicated. If the remote context going away is a problem, you should cache or embed the context.
+[Tue 11:03]	* manu-db	yep - happens at least twice a year - stupid DST. :P
+[Tue 11:03]	<manu-db>	markus: If you include external files, this is an issue on the Web. Like external javascript files.
+[Tue 11:04]	<manu-db>	dlongley: You could hash the external context and include that hash.
+[Tue 11:04]	* niklasl	at least that makes it easier for me to only attend 30 minutes ;]
+[Tue 11:04]	<manu-db>	Markus: Yes, there are lots of ways to avoid the problem. In many cases, you have control over your context and you can change it in lock-step. The advantages of having a remote context outweighs the drawbacks.
+[Tue 11:04]	<dlongley>	=)
+[Tue 11:05]	<manu-db>	Group agrees that it has responded to all Charles Greers comments.
+[Tue 11:05]	<manu-db>	Topic: ISSUE-223: JsonLdOptions base vs. @base
+[Tue 11:05]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/223
+[Tue 11:07]	<niklasl>	q+
+[Tue 11:07]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:08]	<manu-db>	markus: The question is what happens when the base is a relative IRI?
+[Tue 11:08]	<manu-db>	gkellogg: Doing something to allow relative IRIs w/in the document is useful, but otherwise, I can't think of why you'd want base to be a relative IRI. Why isn't it just an absolute IRI?
+[Tue 11:08]	<manu-db>	gkellogg: You can do this in Turtle, where statements become accumulative, we could do that w/in JSON-LD - don't know if that's an important paradigm.
+[Tue 11:09]	<manu-db>	markus: HTML and Turtle supports relative IRIs, having the empty string to say there is no base is a bit weird. It's something that should be done at the API level, if you don't want a base. The use case is to not change relative IRIs duringcompaction/expansion/ etc.
+[Tue 11:09]	<manu-db>	ack niklasl
+[Tue 11:09]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:10]	<niklasl>	.. http://www.w3.org/TR/xmlbase/
+[Tue 11:10]	<manu-db>	niklasl: Trying to think of a use case where relative base IRIs are useful.
+[Tue 11:10]	<manu-db>	niklasl: In general, what we should do is to make this work exactly in the same way as it's treated in HTML, Turtle, and XML - we should take care to do the same thing.
+[Tue 11:11]	<manu-db>	dlongley: So only difference between PROPOSAL 3 and PROPOSAL 4 - if PROPOSAL 3 is close to what we want, then PROPOSAL 4 enables two other features.
+[Tue 11:12]	<manu-db>	markus: I'm concerned where the empty string is used for base... in HTML you can have a relative base "" and in Turtle as well.
+[Tue 11:12]	<manu-db>	dlongley: Proposal 3 does not allow relative IRIs.
+[Tue 11:13]	<manu-db>	manu: It sounds like we agree that we should align with HTML, Turtle and XML, but we don't know what they do?
+[Tue 11:13]	<manu-db>	markus: Just checked HTML5 - it allows relative IRIs for base, previous versions didn't.
+[Tue 11:15]	<niklasl>	… json-ld fetched from "http://example.org/some/other" , with a @context containing @base: "/doc". I'd then expect base to be "http://example.org/doc"
+[Tue 11:16]	<manu-db>	dlongley: What's the behavior when you don't set the base in this case?
+[Tue 11:17]	<manu-db>	dlongley: If you have relative IRIs in the document and you have no base, and you get a relative IRI, how does "../.." change? Does it become just "/"?
+[Tue 11:17]	<manu-db>	gkellogg: I think it happens in the same way as any other RDF serialization. When you join IRI segments, it results in the IRIs being normalized, which includes removing dot-segments.
+[Tue 11:17]	<dlongley>	does "../../foo" become "/foo" ?
+[Tue 11:17]	<dlongley>	because i think that's unexpected when base is none
+[Tue 11:18]	<manu-db>	markus: You can't have relative IRIs in a RDF serialization.
+[Tue 11:18]	<manu-db>	gkellogg: Yes, but you can have it in a syntax.
+[Tue 11:18]	<manu-db>	markus: Yes.
+[Tue 11:18]	<manu-db>	markus: if you are not able to establish an absolute base, we shouldn't try to resolve relative IRIs in the document, you just leave them as-is.
+[Tue 11:18]	<manu-db>	gkellogg: if we do that, we'd be the only serialization format that tries to go this far to explain why this happens.
+[Tue 11:19]	<manu-db>	markus: We have to resolve this because we allow the base to be set.
+[Tue 11:19]	<manu-db>	dlongley: It also affects normalization.
+[Tue 11:19]	<manu-db>	manu: Yes, we need to resolve this issue.
+[Tue 11:19]	<manu-db>	gkellogg: Maybe this means that if you specify a base IRI in the API, it must be an absolute IRI... in the absence of it, you'd be left with a document that has relative IRIs in it.
+[Tue 11:20]	<manu-db>	dlongley: I think it's important that we say: If you do not specify a base... what happens? Base doesn't exist - leave relative IRIs alone? What happens if base is specified in the document and it's relative? What happens when it's specified in the API and it's relative? We need clear answers to these.
+[Tue 11:20]	<manu-db>	gkellogg: Maybe we should say it's unaltered.
+[Tue 11:22]	<manu-db>	manu: Let's take this back to the JSON-LD issue tracker and cover all corner cases and see if they apply to how HTML, Turtle, and XML deal with these corner cases.
+[Tue 11:23]	* niklasl	.. all the bases ;)
+[Tue 11:23]	<manu-db>	Topic: ISSUE-226: Expansion/Compaction explanation inaccurate/misleading
+[Tue 11:23]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/226
+[Tue 11:23]	<manu-db>	Topic: ISSUE-231: JSON-LD in HTML
+[Tue 11:24]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/231
+[Tue 11:24]	<manu-db>	gkellogg: There are cases where expressing metadata in HTML using either Microdata or RDFa is not feasible or has been shown to be error-prone.
+[Tue 11:25]	<manu-db>	gkellogg: As an alternative way of doing this, the idea is to put JSON-LD in HTML.
+[Tue 11:25]	<manu-db>	gkellogg: A process that conforms to this could extract the content of this script tag and run it through the JSON-LD algorithms. It could be used to easily extract anything - for Turtle, it's for extracting RDF.
+[Tue 11:26]	<manu-db>	gkellogg: In addition, there is a strong desire to not require boilerplate w/in the JSON - take JSON that came out of some JSON-LD database, without adding a context to the content of the script tag.
+[Tue 11:26]	<manu-db>	gkellogg: So, that's why @data-context is being proposed to be used for this purpose.
+[Tue 11:27]	<manu-db>	gkellogg: This is a way of specifying an external context, kind of like we do with link headers.
+[Tue 11:28]	<manu-db>	gkellogg: One of the advantages of @data-context is that you don't have to be very explicit - as long as you can de-reference it, if you can get to the context, you're going.
+[Tue 11:28]	<manu-db>	manu: Any opposition to putting this into the spec?
+[Tue 11:29]	<manu-db>	gkellogg: This is an informative addition.
+[Tue 11:29]	<manu-db>	niklasl: I've seen some possible uses for this, I'm still a bit uneasy about the feature, but it seems useful. Maybe instead of an RDFa API, we can just read JSON out of the page.
+[Tue 11:29]	<manu-db>	niklasl: It's a good thing to have. Since Turtle has it, it'll be nice to have this as well.
+[Tue 11:30]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 11:30]	<manu-db>	gkellogg: When I added support for this for Turtle in my processor, I did it generically.
+[Tue 11:30]	<manu-db>	gkellogg: My own system, if it saw this, it would extract the RDF and add it to the default graph.
+[Tue 11:30]	<manu-db>	gkellogg: I'd need to refine it, but it has some history.
+[Tue 11:30]	<manu-db>	dlongley: This would be useful for Web Applications, to get them some initial data to start up.
+[Tue 11:31]	<manu-db>	markus: Wouldn't you just assign it to a variable in that case? That's another way to do it. I don't like that the context is placed somewhere else.
+[Tue 11:33]	<manu-db>	markus: I don't like that you can't cut/paste that. Also, data-* isn't intended for that use. We also say in the spec that the context has to be in the document if you're usingapplication/ld+json.
+[Tue 11:34]	<manu-db>	gkellogg: I tried @vocab instead of @data-context - but got push-back on that.
+[Tue 11:34]	<manu-db>	gkellogg: @vocab has similar behavior to @context.
+[Tue 11:35]	<manu-db>	niklasl: I don't quite agree with that. We took out @profile in RDFa. They're not really isomorphic.
+[Tue 11:35]	<manu-db>	gkellogg: You're right, I'm not suggesting we use that.
+[Tue 11:36]	<manu-db>	markus: Why can't we use @context in JSON-LD?
+[Tue 11:37]	<manu-db>	gkellogg: The companies that want this don't want boilerplate - they feel very strongly about this. It's a small concession, it's in the spirit of how we specify it in a Link Header. I think it's reasonable for us to do. I have asked the people that have been promoting this to be more vocal, but they haven't done so yet.
+[Tue 11:37]	<manu-db>	gkellogg: if some of these issues are raised, maybe that'll provoke a response.
+[Tue 11:38]	<manu-db>	markus: My fear is that we now say that they should use the @data-context attribute - you end up having JSON that isn't JSON-LD, people may forget to create it. Then we get to the point where we might have to pre-define prefixes.
+[Tue 11:41]	* niklasl	in the library world, the phraze "vocabulary wars" has been used at times.. ;]
+[Tue 11:41]	<manu-db>	manu: Like Markus, I'm very concerned with people not using @data-context and us having to make that an initial context.
+[Tue 11:44]	<manu-db>	dlongley: I'm not too sure that boilerplate argument works here - I don't know if we're solving anything either way. They may not include the @context, they may not include @data-context.
+[Tue 11:44]	<manu-db>	markus: At least we wouldn't be implementing something new.
+[Tue 11:44]	<manu-db>	PROPOSAL: Add the JSON-LD in HTML feature to the JSON-LD Syntax specification without support for @data-context. We are still discussing @data-context and the danger of it forcing a JSON-LD initial context.
+[Tue 11:44]	<manu-db>	+1
+[Tue 11:44]	<gkellogg>	+1
+[Tue 11:44]	<dlongley>	+1
+[Tue 11:45]	<mlnt>	+1
+[Tue 11:45]	<niklasl>	+1
+[Tue 11:45]	<manu-db>	RESOLVED: Add the JSON-LD in HTML feature to the JSON-LD Syntax specification without support for @data-context. We are still discussing @data-context and the danger of it forcing a JSON-LD initial context.
+[Tue 11:46]	<niklasl>	q+
+[Tue 11:46]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:47]	<niklasl>	.. <script type="application/ld+json;context='http://example.org/context.jsonld'">
+[Tue 11:47]	<manu-db>	niklasl: We talked about allowing @context as an optional parameter to the MIME TYpe a long time ago?
+[Tue 11:47]	<manu-db>	niklasl: Maybe we can do the above.
+[Tue 11:47]	<manu-db>	manu: I think a lot of authors would mess that up.
+[Tue 11:47]	<manu-db>	gkellogg: It's worth discussing it in more depth.
+[Tue 11:48]	<manu-db>	gkellogg: Let me send that back to them and see what sort of response I get.
+[Tue 11:48]	<manu-db>	gkellogg: That would also serve the same effect. It's boilerplate, but maybe that would work.
+[Tue 11:49]	<manu-db>	Topic: Last Call timeline
+[Tue 11:50]	<voip-ld>	Manu Sporny (SIP/6000-0000011d) has left the conference.
+[Tue 11:50]	<voip-ld>	Dave Longley (SIP/6002-0000011e) has left the conference.
+[Tue 11:50]	<voip-ld>	Niklas Lindström (SIP/192.168.3.28-00000121) has left the conference.
+[Tue 11:50]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000011f) has left the conference.
+[Tue 11:50]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000120) has left the conference.
+[Tue 11:50]	<manu-db>	manu: We've finished all review comments, we'll fix up the spec with the decisions we've made on those comments.
+[Tue 11:50]	<--|	niklasl has left #json-ld
+[Tue 11:51]	<manu-db>	manu: We'll get the JSON-LD Syntax spec into Last Call after we get those changes in, hopefully there won't be a flurry of new comments in the mean time.

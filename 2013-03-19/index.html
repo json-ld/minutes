@@ -1,0 +1,289 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-03-19</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0029.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0029.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-224: Sandro Hawke's JSON-LD syntax spec review</a><li><a href="#topic-2">ISSUE-222: David Booth's JSON-LD syntax spec review</a><li><a href="#topic-3">ISSUE-230: Charles Greer's JSON-LD syntax spec review</a><li><a href="#topic-4">ISSUE-223: JsonLdOptions base vs. @base</a><li><a href="#topic-5">ISSUE-231: JSON-LD in HTML</a><li><a href="#topic-6">Last Call timeline</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Add the JSON-LD in HTML feature to the JSON-LD Syntax specification without support for @data-context. We are still discussing @data-context and the danger of it forcing a JSON-LD initial context.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Gregg Kellogg, Dave Longley, Niklas Lindström</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes to agenda?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Maybe we want to move the JSON-LD in HTML discussion to the end since Niklas isn't here yet.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-224: Sandro Hawke's JSON-LD syntax spec review</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/224">https://github.com/json-ld/json-ld.org/issues/224</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Markus, mind taking us through this issue?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yep... Sandro thinks using @graph to specify the default graph is confusing. He thinks having an array where the first object is the context and all subsequent objects have the context applied.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that can have strange effects down the line, if you have multiple objects of a property, you'd think that context would apply to subsequent objects in an array. If you had an object that /only/ contained contexts.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yeah, we discussed this a long time ago. If you have data in compact form, you can't check lengths of arrays... you have to look through the entire array to see if there is a context there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We've had this question several times now... it's not that common that you have an array at the top-level. In some cases, it's a security vulnerability.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can easily alias "@graph" to "data". When we expand, we always expand it to an array at the top level.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is is interest in using a canonical JSON-LD representation as an array. In JSON-LD in HTML stuff, that's something the supporters see as happening... they think it's not well understood by their community. But an array of objects would.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you look at all web apis out there, there's always an object at the top level ... not an array.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i agree with markus, there are very few examples of an array being at the top-level in APIs [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, maybe if we show an example with @graph aliased to data'</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Maybe we can do that in that example.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that sandro's comment may have more to do with unfamiliarity with how JSON is used in the wild, i haven't seen people use JSON in the wild all that much with arrays being at the top-level coming back from API calls, etc [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think people that author JSON on a regular basis typically have objects at the top-level [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  typically, i'd expect to see something like this in a search result [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but then you'd also see things like "how many results you got back", etc. and those would be top-level properties [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  and then the array would be underneath another property [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, we should create an alias example using "results" or something [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so people can see how that may work [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that would be dangerous because it would affect the default context [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm not saying do that, just do an example in the spec [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  of using an alias here [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe also add a note asking for feedback for this use case [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Next up - data indexing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sandro feels it's pretty weird but fairly harmless. He thinks we can index data by an arbitrary property?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We've discussed this before, it adds a bunch of complexity. With Data indexing it's about representation of metadata... I would say we do nothing here.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  having arbitrary properties as indexes is too complex for 1.0.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I agree as well.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, agree.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  One request for this feature didn't want the RDFa data in the index - it meets the use case that was there for it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The only thing I worry that we're missing is the other pattern from these indexes where you have a top-level key in which the data contains an array of properties. The Microdata JSON is an example of this, where you have id at the top and then properties, and the value of properties is the value of all of the properties.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a case where you might fold these in, I've seen this in other places as well. I'm a bit concerned that we will wish we had that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the reason for that is because they don't have a way to namespace properties like JSON-LD...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Unless the identifier key could be re-used... My concern is that Microdata is something we thought we'd be able to handle at some point through these mechanisms, but we never came back to it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There is always the possibility of having a pre-processing step.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, we're doing nothing to change the spec in this case - the feature is good as designed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sandro talking about the data model section, he found it very confusing even though he is familiar with RDF Concepts.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's a bit strange since most of these statements have been copied almost directly from RDF Concepts. He asked if we could drop this section, however, the RDF WG requested that we add this section in here.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Instead of re-defining our own data model, we could just say that it's the RDF data model, but we don't place restrictions on where blank nodes are usable.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it may be that sandro knows too much about the RDF data model and he may not be taking the text at face value, but that's just trying to get into his head which i shouldn't be trying to do [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so we're not changing this section because the RDF WG asked for it, it's clear, concise and nobody in this group thinks we should change it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Next up is normative non-normative labels are applied inconsistently.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we discussed this, but in respec, we'll relabel as appropriate.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Example 62: <a href="http://json-ld.org/spec/latest/json-ld-syntax/index.html#turtle">http://json-ld.org/spec/latest/json-ld-syntax/index.html#turtle</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The example is correct - it's what we say in the spec and it's quite obvious that we define a prefix in JSON-LD and Turtle. No change.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In the IANA considerations we have the profile IRI... Sandro didn't apply what the profile IRI applies to. What does the 'SHOULD' Apply to? requests or responses?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think it works. He also said he thinks it should work like normal content negotiation. It's an optional parameter, if you can't expand it on the server, you return what you can do.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it would help if we explained a little bit more in that section about what should happen [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  basically put a note in with sandro's concern where we basically say "if you request expanded form and the server can't expand it then it doesn't have to" [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Some references are out of date, like TURTLE-TR and reference style isn't correct... we'll have to fix this before we go to LC. Especially since Turtle keeps changing state.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's just call it TURTLE-REC and make the change and assume it will go to REC before JSON-LD does [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  these are very small editoral changes and i'm not that concerned about it [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  they are even informal references [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think RDF-CONCEPTS is a normative link in the JSON-LD API spec [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i guess that's not too much of an issue since it's in the same working group [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in the worst case the JSON-LD API spec is held up while the RDF-CONCEPTS spec goes to REC [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  next sandro suggests moving RDF conversion to the syntax spec [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  He also sent a second e-mail about the conversion descriptions - he wants an informative description about the process of turning JSON-LD into RDF and vice versa.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We'd need to cover the expansion and flattening algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i don't think he wants to move the whole algorithm, but maybe a brief description of how they work [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think they want one place where you can go to figure out how JSON-LD can represent RDF and vice versa.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The whole syntax spec is about that - how the context works, how nodes are expressed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could say something about the general process of transforming JSON-LD to RDF has to do w/ expanding/compacting the document... and then you can translate those statements to RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  As soon as we do that, people are going to ask about the algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we refer to the API spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We can explain that expanding is the process of removing the context, flattening is ordering everything in a flat sequence, then you can easily go to RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We can show how the transformation happens.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  As long as we can keep it short, that would be fine with me.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'll write that section.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sandro wanted to add to the conformance section: a JSON-LD Expander, JSON-LD COmpacter, JSON-LD To-RDF-Converter, JSON-LD From-RDF-Converter.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is about the syntax specification, not the API specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, no change.</div>
+<div class="information">General agreement to no change to the conformance section.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we can talk later about maybe adding that to the API spec instead, it doesn't belong in the syntax spec [scribe assist by Dave Longley]</div>
+<div class="information">The group feels it has addressed all of Sandro's comments.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-222: David Booth's JSON-LD syntax spec review</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/222">https://github.com/json-ld/json-ld.org/issues/222</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  His first point is that JSON-LD should be an RDF syntax - same data model, same semantics as other serializations.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We've had a very long discussion about the differences in the data model - the only distinction is blank nodes, right?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, only difference.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In this regard, we're not too different from notation 3 for properties. For graph labels, it has a different context.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  He effectively asks to change the RDF specs first, however, there is disagreement over where the future should go. We would prefer it to go into the RDF spec, but that's not happening right now.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We've discussed all of this several times, not even the RDF WG has a clear position about the additions to the data model that JSON-LD has... re-opening the discussion again isn't productive at this point in time. It is a super-set, we discussed with the RDF WG, they accepted it, we clearly documented the differences, we can't do much more than that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We would like to keep JSON-LD as-is.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree.</div>
+<div class="information">General agreement from the group that we're doing all we can to address this point.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  His second point is that JSON-LD should not require that IRIs are de-reference-able. I find this a bit odd since JSON-LD is about Linked Data and Linked Data is about dereferenceable IRIs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Besides, it's a SHOULD not a MUST, so it's not a hard requirement.</div>
+<div class="information">General agreement from the group - no change, IRIs should be dereferenceable.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We had these conversations a while ago, nothing has changed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Regarding JSON-RDF - that name was already taken at the time.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Besides - this is more about Linked Data than it is about RDF.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This spec is about JSON in Linked Data... the name is fine.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  JSON-RDF exists, and application/rdf+json exists - we can't re-use it.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-230: Charles Greer's JSON-LD syntax spec review</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/230">https://github.com/json-ld/json-ld.org/issues/230</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I responded to his issues.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  He seems to be happy with the changes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  He did respond today about @base and @vocab and how they're used in relation to relative IRIs. He acknowledges that @base is marked as at-risk, he still sees the risk with trying to do too much with expansion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The other thing was mainly editorial, we characterize JSON-LD as a serialization of Linked Data in JSON.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Not sure I understand him completely. He thinks that RDF/XML could have benefited from a distinction.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So you could have multiple expressions of RDF in JSON (flattened, expanded, re-framed, etc.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  One aspect of JSON-LD is serialization and the other is authoring.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Before he realized that we had a flattened form, he thought that JSON-LD has many of the same problems as RDF/XML... but now that he knows about flattened form, you get the data in a deterministic form.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  he was worried that with all the ways of expressing the data, that it would be hard for an application to find out where the data is... but that only solves some of the "find the data" use cases.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Unfortunately, some of this has to do with framing, because it's not in the spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's useful to have someone that made a statement like this, some older RDF hats have said that we're making same mistakes that RDF/XML did... but we do allow the data to be modified and re-framed, which RDF/XML didn't do. That said, I don't think this comment is really action-able.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the point he's trying to bring across is that this isn't as much about serializing data, just augmenting the data with a context so you can interpret it as RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You already have your JSON, you want to transform it to Linked Data, you just add your context and almost magically it can be interpreted as RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That's a very good, concise statement - we should say that in the spec.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, if it's not in the spec, it should be in there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We don't say that in the abstract/intro, we probably should.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  He's also worried about remote contexts. Remote contexts are important, we have plenty of use cases for them.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's a bit different from RDFa - documents aren't meaningless w/o them. In JSON-LD, documents are meaningless w/o being able to dereference the remote context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  His point is that you don't know if the data that's represented hasn't changed...</div>
+<div class="comment"><span class="name">Dave Longley</span>:  You could run it through the normalization algorithm to see if it's changed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  How would that work? Use E-Tags?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's gets pretty complicated. If the remote context going away is a problem, you should cache or embed the context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you include external files, this is an issue on the Web. Like external javascript files.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  You could hash the external context and include that hash.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, there are lots of ways to avoid the problem. In many cases, you have control over your context and you can change it in lock-step. The advantages of having a remote context outweighs the drawbacks.</div>
+<div class="comment"><span class="name">Dave Longley</span>: =)</div>
+<div class="information">Group agrees that it has responded to all Charles Greers comments.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-223: JsonLdOptions base vs. @base</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/223">https://github.com/json-ld/json-ld.org/issues/223</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question is what happens when the base is a relative IRI?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Doing something to allow relative IRIs w/in the document is useful, but otherwise, I can't think of why you'd want base to be a relative IRI. Why isn't it just an absolute IRI?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You can do this in Turtle, where statements become accumulative, we could do that w/in JSON-LD - don't know if that's an important paradigm.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  HTML and Turtle supports relative IRIs, having the empty string to say there is no base is a bit weird. It's something that should be done at the API level, if you don't want a base. The use case is to not change relative IRIs duringcompaction/expansion/ etc.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="http://www.w3.org/TR/xmlbase/">http://www.w3.org/TR/xmlbase/</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Trying to think of a use case where relative base IRIs are useful.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In general, what we should do is to make this work exactly in the same way as it's treated in HTML, Turtle, and XML - we should take care to do the same thing.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  So only difference between PROPOSAL 3 and PROPOSAL 4 - if PROPOSAL 3 is close to what we want, then PROPOSAL 4 enables two other features.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm concerned where the empty string is used for base... in HTML you can have a relative base "" and in Turtle as well.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Proposal 3 does not allow relative IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It sounds like we agree that we should align with HTML, Turtle and XML, but we don't know what they do?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Just checked HTML5 - it allows relative IRIs for base, previous versions didn't.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … json-ld fetched from "<a href="http://example.org/some/other"">http://example.org/some/other"</a> , with a @context containing @base: "/doc". I'd then expect base to be "http://example.org/doc"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  What's the behavior when you don't set the base in this case?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you have relative IRIs in the document and you have no base, and you get a relative IRI, how does "../.." change? Does it become just "/"?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it happens in the same way as any other RDF serialization. When you join IRI segments, it results in the IRIs being normalized, which includes removing dot-segments.</div>
+<div class="comment"><span class="name">Dave Longley</span>: does "../../foo" become "/foo" ?</div>
+<div class="comment"><span class="name">Dave Longley</span>: because i think that's unexpected when base is none</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You can't have relative IRIs in a RDF serialization.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, but you can have it in a syntax.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you are not able to establish an absolute base, we shouldn't try to resolve relative IRIs in the document, you just leave them as-is.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we do that, we'd be the only serialization format that tries to go this far to explain why this happens.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We have to resolve this because we allow the base to be set.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It also affects normalization.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, we need to resolve this issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe this means that if you specify a base IRI in the API, it must be an absolute IRI... in the absence of it, you'd be left with a document that has relative IRIs in it.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it's important that we say: If you do not specify a base... what happens? Base doesn't exist - leave relative IRIs alone? What happens if base is specified in the document and it's relative? What happens when it's specified in the API and it's relative? We need clear answers to these.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we should say it's unaltered.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's take this back to the JSON-LD issue tracker and cover all corner cases and see if they apply to how HTML, Turtle, and XML deal with these corner cases.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-231: JSON-LD in HTML</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/231">https://github.com/json-ld/json-ld.org/issues/231</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are cases where expressing metadata in HTML using either Microdata or RDFa is not feasible or has been shown to be error-prone.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  As an alternative way of doing this, the idea is to put JSON-LD in HTML.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  A process that conforms to this could extract the content of this script tag and run it through the JSON-LD algorithms. It could be used to easily extract anything - for Turtle, it's for extracting RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In addition, there is a strong desire to not require boilerplate w/in the JSON - take JSON that came out of some JSON-LD database, without adding a context to the content of the script tag.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So, that's why @data-context is being proposed to be used for this purpose.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is a way of specifying an external context, kind of like we do with link headers.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One of the advantages of @data-context is that you don't have to be very explicit - as long as you can de-reference it, if you can get to the context, you're going.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any opposition to putting this into the spec?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is an informative addition.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I've seen some possible uses for this, I'm still a bit uneasy about the feature, but it seems useful. Maybe instead of an RDFa API, we can just read JSON out of the page.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It's a good thing to have. Since Turtle has it, it'll be nice to have this as well.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When I added support for this for Turtle in my processor, I did it generically.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My own system, if it saw this, it would extract the RDF and add it to the default graph.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'd need to refine it, but it has some history.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This would be useful for Web Applications, to get them some initial data to start up.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Wouldn't you just assign it to a variable in that case? That's another way to do it. I don't like that the context is placed somewhere else.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't like that you can't cut/paste that. Also, data-* isn't intended for that use. We also say in the spec that the context has to be in the document if you're usingapplication/ld+json.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I tried @vocab instead of @data-context - but got push-back on that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  @vocab has similar behavior to @context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't quite agree with that. We took out @profile in RDFa. They're not really isomorphic.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You're right, I'm not suggesting we use that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Why can't we use @context in JSON-LD?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The companies that want this don't want boilerplate - they feel very strongly about this. It's a small concession, it's in the spirit of how we specify it in a Link Header. I think it's reasonable for us to do. I have asked the people that have been promoting this to be more vocal, but they haven't done so yet.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if some of these issues are raised, maybe that'll provoke a response.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  My fear is that we now say that they should use the @data-context attribute - you end up having JSON that isn't JSON-LD, people may forget to create it. Then we get to the point where we might have to pre-define prefixes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Like Markus, I'm very concerned with people not using @data-context and us having to make that an initial context.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm not too sure that boilerplate argument works here - I don't know if we're solving anything either way. They may not include the @context, they may not include @data-context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  At least we wouldn't be implementing something new.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add the JSON-LD in HTML feature to the JSON-LD Syntax specification without support for @data-context. We are still discussing @data-context and the danger of it forcing a JSON-LD initial context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Add the JSON-LD in HTML feature to the JSON-LD Syntax specification without support for @data-context. We are still discussing @data-context and the danger of it forcing a JSON-LD initial context.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: What about: &lt;script type="application/ld+json;context='<a href="http://example.org/context.jsonld'"&gt;">http://example.org/context.jsonld'"&gt;</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We talked about allowing @context as an optional parameter to the MIME TYpe a long time ago?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we can do the above.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think a lot of authors would mess that up.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's worth discussing it in more depth.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Let me send that back to them and see what sort of response I get.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That would also serve the same effect. It's boilerplate, but maybe that would work.</div>
+<h1 id="topic-6" class="topic">Topic: Last Call timeline</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  We've finished all review comments, we'll fix up the spec with the decisions we've made on those comments.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We'll get the JSON-LD Syntax spec into Last Call after we get those changes in, hopefully there won't be a flurry of new comments in the mean time.</div>
+</body>
+</html>
