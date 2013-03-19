@@ -1,0 +1,222 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-03-12</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0012.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0012.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-224: Sandro Hawke's JSON-LD syntax spec review</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Gregg Kellogg, Dave Longley</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates or changes to the Agenda? [scribe assist by Manu Sporny]</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-224: Sandro Hawke's JSON-LD syntax spec review</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Most of his feedback was just editorial, but there were a couple of points that we should discuss before we do any changes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In introduction, we paraphrase linked data principles to explain what JSON-LD is about. Sandro didn't like that... maybe we should reference something or rephrase? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's rephrase it, we need to summarize what JSON-LD is about. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can see Sandro's perspective, there is no other serialization that needs to go into that kind of detail. Well, perhaps HTML+RDFa 1.1 [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON-LD is kind of different because we talk about Linked Data first instead of RDF first.. otherwise you would have to read RDF Concepts first</div>
+<div class="comment-continuation">... JSON developers are prob. not familiar with</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my feeling is, if it is non-normative it shouldn't matter..</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Next point was about design goals section - Sandro doesn't think the history is important. I changed it to use present tense. Do we want to keep that section? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I would be worried with removing it</div>
+<div class="comment-continuation">... moving it to the introduction is also problematic because it makes the intro larger</div>
+<div class="comment-continuation">... I think you did the right thing</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Next up is Example 5 - Linked Header, Sandro was expecting an early example of it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  He thought it should be after remote contexts... under basic concepts. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Either we include it there or a subsection after that section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I would like to include it in the beginning, important feature for adoption... they have JSON that could be transformed to JSON-LD with just that Link Header. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm on the fence about this</div>
+<div class="comment-continuation">... I think not many web devs know about Link headers</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we can mention it there without mentioning HTTP Link headers</div>
+<div class="comment-continuation">... you can apply a context to a JSON document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Sandro mentioned explicit. the Link header</div>
+<div class="comment-continuation">... we don't reference the API anywhere else in the document</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we don't need to reference it.. just mention it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Perhaps a note explaining how you can assign a link header or a context via JSON-LD API [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe update the example to show with and w/o a context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Next up - show an example about how a relative IRI is used. I thought this was trivial at first, but it isn't actually. We talk about absolute IRIs in the key position and using it via @id is an "expanded IRI definition". If we put in an example with relative IRIs, it's a problem. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we can do this after example 9? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe we could use a relative IRI to specify the homepage and the person? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We don't want to give the false impression that properties would be interpreted as relative IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We can elaborate by providing a link to another section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, we can refer to the relative IRI section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't know about referencing from an introduction to the grammar. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we need to explain relative IRIs a bit better somewhere in the document and reference that section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should elaborate in this section and not refer to the Grammar. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ... "this is where we need a clear notion of a processor that reads JSON-LD and extracts all the triples and quads from it, it seems to me." [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sandro wanted to know exactly what results in triples/quads... what is removed, etc? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  He seems to be concerned that we say that "in some cases things are removed", but we don't enumerate those cases. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Well, it's any property that is a term that doesn't expand to an IRI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we just need to re-order the way this is in the spec. Certain keys don't expand to unambiguous identifiers because they don't generate any triples. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We say there are keys that don't expand to an IRI and they're ignored... however they're valid - that's the problem. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about how to state this more eloquently.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Can we say that data is ignored like comments are ignored? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yeah, I think "ignore" is the right word here. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What if we say "properties that do not expand to IRIs are not Linked Data and are ignored when processed." [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I like that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Section 5.3 intro - drop the paragraph? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think this implies that there is something wrong with using bnodes. They are externally useful, but only in reference to something else. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In Wikia - why can't we use bnodes? Because you can never get to it. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://json-ld.org/spec/latest/json-ld-syntax/#node-identifiers">http://json-ld.org/spec/latest/json-ld-syntax/#node-identifiers</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: "IRIs are a fundamental concept of Linked Data, for nodes to be truly linked, de-referencing the identifier should result in a representation of that node."</div>
+<div class="comment"><span class="name">Dave Longley</span>:  more problematic is IMO "Associating an IRI with a node tells an application that it can fetch the resource associated with the IRI and get back a description of the node."</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What about instead of saying "telling" vs. "may allowing" [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">... Associating an IRI with a node may allows an application to fetch the resource associated with the IRI and get back a description of the node.</div>
+<div class="comment"><span class="name">Dave Longley</span>: "may allow"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Section 5 marked as normative vs. non-normative - change in respect, this section should be normative... it just adds labels if the section is non-normative. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sections not marked as 'normative' don't have anything at the top of the section... respec doesn't generate the markers anymore. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We do this - &lt;em&gt;This section is normative.&lt;/em&gt;</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, we have to go through to figure out if there is a bug in ReSpec... if there isn't, we have to label all the sections as either 'normative' or 'informative'. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The only sections that are normative are: JSON-LD Grammar, interpreting JSON and JSON-LD (Link Header stuff) - those are the only two normative sections according to the conformance section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, all top-level sections should be marked as informative, including section 6. Section 6.8 should be marked as normative. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The Grammar should be marked as normative as well. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Conformance needs to be normative as well. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Data Model needs to be normative. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  6.1 Compact IRIs [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sandro thinks detecting "://" is too much [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's an important safety mechanism - the suffix can't start with two slashes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This is more about preventing http from being a prefix. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  somebody had defined 'http' as a prefix, so it changed. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://prefix.cc/http">http://prefix.cc/http</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There is only that single case, really. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  No, we need this to protect all hierarchical IRIs... irc:// ftp:// http:// etc [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://example.com/some//path">http://example.com/some//path</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  big -1 on removing this protection [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We need to change the following sentence by saying there is a restriction on suffixes otherwise it will not cause the value to be interpreted as a compact IRI. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://example.com/some//path">http://example.com/some//path</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, you can't do that with this rule, but it's more important to protect against the common misinterpretation case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Next up, Example 17 - Sandro was wondering if the order matters, then he realized that it doesn't matter... but maybe we should cover that in this particular example - explicitly state that order is not important. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  "Okay, this overloading of @ keywords goes too far with @vocab serving a completely different purpose (from normal @vocab) in this situation." [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  he wants a table explaining how where it is used changes the meaning... there are really just two cases, it's going to be a pretty small table. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We should better describe it's use and maybe it wouldn't seem so foreign at that point. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  This is about section 6.5 - intro describes that. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://json-ld.org/spec/latest/json-ld-syntax/#type-coercion">http://json-ld.org/spec/latest/json-ld-syntax/#type-coercion</a></div>
+<div class="information">"@type": "@vocab"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: That allows one to have a term on the right hand side and have it interpreted.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The value in @id can be interepreted as a term. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It removed ambiguity in that case... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I understand the value, maybe we need an explanation that @vocab serves two purposes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we just need an example that uses this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, people need to understand how to use enumerated types. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agree. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  "It is a best practice to put the context definition at the top of the JSON-LD document." [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Sandro disagrees, because it makes it seem like you shouldn't allow JavaScript to just serialize a JSON-LD document out - you can't influence the order in which it gets serialized. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That's true for some serializers, but certainly not all. Many JSON-LD documents will be generated by using templates. I'd like to keep this note, it makes reading the documents for a human far easier. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We can explain that some serializers don't allow you to do that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can explain that some serializers don't allow ordering and that's fine, they will still be valid JSON-LD documents. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, I had to implement a special hashing class to order @context at the beginning. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe instead of "best practice", we should say "when possible". [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  So, "when possible"? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Keywords before properties is a good also [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We could say "When possible, put the @context first, other JSON-LD keywords next, then the properties". [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We should also say that if they don't do that, it's not a problem - it will still be a valid JSON-LD document. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>: and mention that outputting in another order won't break conformance</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ".well-known/host-context.jsonld" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's not do that [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, -1 on that [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Don't like that feature. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  "To avoid forward-compatibility issues, a term should not start with an @ character" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think saying "MUST NOT" goes too far, we want some flexibility here. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could create an extension registry - maybe someone could request it over JSON-LD mailing list. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I'd like to do "@ordered" instead of "@list" - and have my own note... if MUST NOT is there, I'd be violating the spec - that's not what we want to do, we don't want to prevent stuff like that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we provide a keyword registry, we can do that easily. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  who decides which keywords are allowed? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The group decides... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a process by which we decide to update it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we were to put MUST NOT in the spec, do we kick out an error? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we put MUST NOT and don't kick out an error, people are going to put @mykeyword in their documents. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, so people will try to work around that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yeah, so people will "+mykeyword" - which is worse. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Two people are probably not going to pick the same words that do different things. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we need a registry. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Can you change prefixes currently registered and change it to something else... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't understand how this is different from not having a registry? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm a little against a registry - I'd like the best feature to win, not the person that claimed the feature name first. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It also avoids the 'domain squatter' issue. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it makes it more difficult to extend the language - I think it'll sort itself out. It's better to do that than restrict it strongly. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  another way would be to have a mechanisms to claim a keyword in a context</div>
+<div class="comment-continuation">... you should be able to "follow your nose" to find a specification describing how a keyword is intended to be used</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  another option would be to allow multiple entries in the registry</div>
+<div class="comment"><span class="name">Dave Longley</span>:  what's the point of the registry then?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you could find all ext. in one place</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You could introduce special processing for terms, but until we update the JSON-LD spec, no compliant processor would do the same thing. The algorithms are written in a way that they must drop things that don't expand to an IRI. We just need to make it clear that it's a bad idea. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Terms starting with '@' will be dropped. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  would processors keeping such keywords instead of dropping them non-conformant?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no.. they might do that.. but processors not understanding it will ignore</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, this is the same as HTML's extensibility mechanism - you just ignore things you don't understand. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, exactly.. AngularJS uses this heavily</div>
+</body>
+</html>
