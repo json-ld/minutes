@@ -1,0 +1,275 @@
+[10:00] -!- voip-ld [~voip-ld@216.252.204.51] has joined #json-ld
+[10:00]	<voip-ld> Manu Sporny (SIP/6000-00000138) is in the conference.
+[10:00]	<voip-ld> Manu Sporny (SIP/6000-00000138) has joined the conference.
+[10:01]	<voip-ld> Dave Longley (SIP/6002-00000139) has joined the conference.
+[10:02] -!- mlnt [~markus@84-115-182-43.dynamic.surfer.at] has joined #json-ld
+[10:02]	<voip-ld> Markus Lanthaler (SIP/sip.linphone.org-0000013a) has joined the conference.
+[10:02]	<voip-ld> Gregg Kellogg (SIP/10.0.1.18-0000013b) has joined the conference.
+[10:08]	<gkellogg> scribe: gkellogg
+[10:08]	<manu-db> Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0055.html
+[10:09]	<gkellogg> manu: final CG specs and LC specs on agenda
+[10:09]	<gkellogg> … expansion, compaction algorithms.
+[10:10]	<gkellogg> … issue-217 (bnode identifiers)
+[10:10]	<gkellogg> … issue-218 (algorithm updates)
+[10:10]	<gkellogg> … issue-220 (dropping arrays and lists in expansions)
+[10:10]	<gkellogg> … replace optimize option with strict option
+[10:10]	<gkellogg> dlongley: remove BNode renaming as part of expansion algorithm.
+[10:10]	<manu-db> Topic: Last Call and FCGS for Syntax and Algorithms
+[10:11]	<voip-ld> <unknown> (IAX2/diamondcard-8468) has joined the conference.
+[10:11]	<gkellogg> manu: unfortunately, issue queue not empty, so we may need to go through another LC.
+[10:11]	<gkellogg> … Group feels syntax is ready, but have had no substantial feedback on algorithms from the RDF WG. We have substantial feedback on algorithms from implementers.
+[10:12]	<gkellogg> … That said, we've been feature complete for some time.
+[10:12] -!- pkuyken [d83e1181@gateway/web/freenode/ip.216.62.17.129] has joined #json-ld
+[10:12]	<gkellogg> … Any reason not to go to LC?
+[10:13]	<gkellogg> … We can tell RDF WG we're not ready, but I think we are basically done, and can publish a LC depending on future feedback.
+[10:13]	<gkellogg> … We need to prep FCGS and LC for the RDF WG. They need to give us the pub date.
+[10:14]	<gkellogg> … If we do LC spec, pub has to happen Thursday to be out in March. That's not realistic.
+[10:15]	<gkellogg> … We'll tentatively timestamp for next Thursday, no static copies, but the Editor's drafts will be for next thursday, and integrate as many comments as we can.
+[10:16]	<gkellogg> markus: do we really need to do another FCGS?
+[10:17]	<gkellogg> manu: it would be good to do, only 2 non-contributors did a IP commitment on the test spec published at end of February.
+[10:17]	<manu-db> PROPOSAL: Publish the JSON-LD Syntax and Algorithms specifications as Final Community Group Specifications (FCGS) and prep the RDF WG Last Call (LC) documents for publication on April 4th 2013.
+[10:17]	<manu-db> +1
+[10:17]	<gkellogg> +1
+[10:17]	<mlnt> +1
+[10:17]	<dlongley> +0.5
+[10:17]	<manu-db> RESOLVED: Publish the JSON-LD Syntax and Algorithms specifications as Final Community Group Specifications (FCGS) and prep the RDF WG Last Call (LC) documents for publication on April 4th 2013.
+[10:19]	<manu-db> Topic: ISSUE-217: Disallow BNode identifier as Graph Name
+[10:19]	<manu-db> https://github.com/json-ld/json-ld.org/issues/217
+[10:19]	<mlnt> https://github.com/json-ld/json-ld.org/issues/222
+[10:19]	<gkellogg> markus: feedback from david, which we never replied to, raised it again (222)
+[10:20]	<gkellogg> … We discussed and agreed to keep, but just haven't sent out email.
+[10:20]	<gkellogg> manu: I think a took an action to respond, but didn't
+[10:22]	<gkellogg> dlongley: we decided it would be ideal for the RDF WG to resolve this, but we need to go forward with out decisions.
+[10:23]	<manu-db> ACTION: Respond to David Booth for ISSUE-222.
+[10:23]	<manu-db> Topic: ISSUE-218: Algorithm specification updates by editors
+[10:23]	<manu-db> https://github.com/json-ld/json-ld.org/issues/218
+[10:24]	<mlnt> https://github.com/json-ld/json-ld.org/issues/218#issuecomment-15460023
+[10:24]	<gkellogg> markus: I added a comment to the issue with a list of things to be done.
+[10:24]	<gkellogg> dlongley: I think we need to have more error cases in the test suite.
+[10:26]	<gkellogg> markus: in the inverse context, @null is used if it has a value of null or not specified.
+[10:26]	<gkellogg> … dlongley's uses @none if it's not specified. This is just for @language: null.
+[10:27]	<gkellogg> … my feeling is that it's difficult to see the difference between @none and @null. It does introduce a minor conflation, but it doesn't change the outcome (just a little, perhaps).
+[10:27]	<gkellogg> … niklasl proposed to change @none to @undefined, or just eliminate the difference.
+[10:28]	<gkellogg> … In IRI compaction, we create the criteria to query the inverse context. Some parts of that are in term selection, but we could move to IRI compaction.
+[10:28]	<gkellogg> … This just moves 2-3 steps from one altorighm to another.
+[10:29]	<gkellogg> manu: since this is a documented algorithm (regarding @null/@none), it's important that people understand the difference between @null and @none, although I like the use of @undefined.
+[10:30]	<gkellogg> markus: in JSON-lD @null is the same as @none, except if you set @language to null.
+[10:30]	<gkellogg> … I find it confusing and I don't think it makes it any clearer.
+[10:30]	<gkellogg> dlongley: I feel that using @none is a more natural way what is going on with the model.
+[10:31]	<gkellogg> … If we go with @null, it seems more like we're creating two separate tables, one where you have entries, and another when there is nothing in the reverse context.
+[10:31]	<mlnt> Here's a comment showing the resulting inverse context for the two proposals: https://github.com/json-ld/json-ld.org/issues/218#issuecomment-14833302
+[10:32]	<gkellogg> … I understand the desire to reduce the number of keys, but the solution requires more complexity in the algorithm.
+[10:33]	<pkuyken> +q
+[10:34]	<gkellogg> pkuyken: I'm not clear on the semantics, but from an implementors perspective, as long as their's a significant difference in meaning, then we shouldn't overload things. If they really have different meanings, then I'm okay with having multiple meanings.
+[10:34]	<manu-db> gkellogg: Don't have a strong preference one way or the other. I think having another keyword in there doesn't really help.
+[10:35]	<manu-db> gkellogg: If there is a difference, then we need to understand if it's a significant difference. If there isn't a significant difference, then we don't need it.
+[10:35]	<gkellogg> markus: the difference is if you have a default language, and a term which shouldn't use it, you would set it to @null.
+[10:35]	<gkellogg> … In one case, the entry would be under @null, in the other in @none.
+[10:36]	<gkellogg> … For @type, if you set it to null, or not at all, it would be set to @null. This is why it's specific to @language.
+[10:36]	<voip-ld> Dave Lehn (SIP/6003-0000013c) has joined the conference.
+[10:37]	<gkellogg> dlongley: I understand that just using @null can work, but if there are two terms, it may result in a difference in what term is selected.
+[10:37]	<mlnt>  So this is one possibility for the two choices: @language: @null / @null: @null
+[10:38]	<mlnt> This is the other possibility: @language: @null && @language: @none
+[10:38]	<dlongley> I think this makes more sense: term1: {"@language": null} and term2: {}
+[10:38]	<gkellogg> dlongley: pretend they have @iri too.
+[10:39]	<gkellogg> … The second case more naturally represents what should be in the reverse context. The first is trickier.
+[10:39]	<gkellogg> markus: the downside is you also need to add @type @none.
+[10:42]	<gkellogg> dlongley: If you don't put a container on a term, it's saying that there is no container.
+[10:42]	<manu-db> PROPOSAL: The term selection algorithm should use the '@null' token to specify both the null value and the none value.
+[10:42]	<mlnt> +1
+[10:42]	<manu-db> -1
+[10:42]	<dlongley> -1
+[10:42]	<gkellogg> gkellogg: +0.5
+[10:42]	<pkuyken> 0
+[10:42]	<manu-db> PROPOSAL: The term selection algorithm should use the '@null' token to specify the null value and the '@none' token to specify the none value.
+[10:42]	<manu-db> +1
+[10:42]	<dlongley> +1
+[10:42]	<mlnt> -1
+[10:42]	<gkellogg> gkellogg: -0.1
+[10:43]	<pkuyken> 0
+[10:44]	<gkellogg> markus: my issue is that only @language get's set to @none
+[10:44]	<gkellogg> dlongley: the fact that that case exists is why to separate them.
+[10:45]	<manu-db> RESOLVED: The term selection algorithm should use the '@null' token to specify the null value and the '@none' token to specify the none value.
+[10:46]	<gkellogg> manu: we should probably also fold list conversion into the RDF algorithms.
+[10:46]	<manu-db> gkellogg: This comes down to a different style - the list stuff is different enough that it makes sense to break it out. I prefer it the way it is.
+[10:47]	<manu-db> gkellogg: It's a set of very small algorithms, easier to understand.
+[10:47]	<manu-db> manu: I agree
+[10:47]	<manu-db> dlongley: I feel like it makes it less daunting if it's broken up into smaller pieces.
+[10:47]	<gkellogg> dlongley: I think it's less daunting to keep it as separate algorithms.
+[10:47]	<gkellogg> manu: sounds like we don't want to fold it in.
+[10:48]	<gkellogg> dlongley: we didn't finish talking about term selection.
+[10:48]	<gkellogg> … I'm fine with markus' suggested changes, hopefully it doesn't make it too heavy.
+[10:49]	<gkellogg> markus: I don't see a good ready to keep the two steps separate, then term selection just loops over the reverse context.
+[10:49]	<gkellogg> manu: sounds like we have agreement.
+[10:49]	<gkellogg> manu: how does API invoke the algorithms?
+[10:50]	<gkellogg> … sounds like a good idea, but if it's non-normative, it doesn't matter. Might be too much work.
+[10:50]	<gkellogg> markus: 2-3 steps for each algorithm.
+[10:51]	<gkellogg> manu: perhaps just in the method description for each call.
+[10:51]	<gkellogg> … that is the sense of the group, but it technically makes it normative.
+[10:51]	<gkellogg> … Put the explanation in the method description of what algorithms are called in what order.
+[10:52]	<gkellogg> manu: collapse purpose and general method into one section?
+[10:52]	<gkellogg> markus: there are some cases where the intro and the purpose are exactly the same. Effectively, they're saying the same thing. This seems redundant.
+[10:53]	<gkellogg> dlongley: we might want to just keep purpose and get rid of intro, fold intro into purpose.
+[10:53]	<gkellogg> … That would be better to just use purpose.
+[10:53]	<gkellogg> markus: it's odd to have two headers.
+[10:55]	<manu-db> gkellogg: I would prefer to fold everything into the introductory paragraph to the section. 
+[10:56]	<gkellogg> manu: I think it would be better to keep purpose as the introductory paragraph.
+[10:56]	<gkellogg> … Get rid of purpose sections and fold into introductory paragraph.
+[10:57]	<gkellogg> dlongley: we have algorithm terms, which describes what things mean. For "active property" the meaning has been repurposed to make the algorithm simpler.
+[10:57]	<gkellogg> … for example changes that remove validation in compaction. active context was repurposed to mean something slightly different.
+[10:58]	<gkellogg> … This means that "active property" is used for two different things.
+[10:58]	<gkellogg> manu: if it means two different things, we should have two different terms.
+[10:59]	<gkellogg> markus: I modified the algorithms a bit. It's true that it isn't any more the original lexical form, but in a sense, it is still the active property.
+[10:59  * manu-db on the phone.
+[10:59]	<gkellogg> … we use it like a variable in some cases.
+[10:59]	<gkellogg> dlongley: I think we were a little more strict.
+[11:00]	<mlnt> Current definition of active property: The currently active property that the processor should use when processing. The active property is represented in the original lexical form, which is used for finding type mappings in the active context.
+[11:00  * manu-db is back.
+[11:00]	<gkellogg> … One reason I rewrote the algorithms was that I kept getting confused about the meaning of active property, because the meaning was changing.
+[11:00]	<mlnt> maybe we should just drop the second sentence
+[11:01]	<gkellogg> … I intentionally made changes to make sure it wasn't confusing.
+[11:01]	<gkellogg> … I'd at least like us to address the fact that we're conflating the meaning of the algorithms.
+[11:01]	<gkellogg> markus: perhaps we can just update the definition and remove the second sentence.
+[11:02]	<gkellogg> … we mis-use it just for aliases, it's difficult to say otherwise.
+[11:02]	<gkellogg> dlongley: I don't think we should get rid of the 2nd sentence, but we should just say that sometimes we re-use the active property after it's been resolved.
+[11:02] -!- niklasl [~neuron@gate.kb.se] has joined #json-ld
+[11:02]	<voip-ld> Niklas Lindström (SIP/192.168.3.10-0000013d) has joined the conference.
+[11:03]	<gkellogg> manu: why not just introduce a new term "resolved active property"?
+[11:03]	<gkellogg> dlongley: because the algorithms are recursive, and sometimes it is the active property, and some times it is already expanded. I previously add "expanded active property" for this case.
+[11:04]	<gkellogg> markus: we could say that if a term is expanded to a keyword, then the keyword is added instead of the original lexical form.
+[11:04  * niklasl is off by one DST again; sorry about that. :( couldn't stay for 1,5 h anyway though
+[11:04  * gkellogg that's what we figured.
+[11:05]	<gkellogg> dlongley: the problem before was that I needed to understand the algorithms before I could understand the terms.
+[11:05]	<gkellogg> … I don't know what we could say to help explain this.
+[11:05]	<gkellogg> markus: we could say the active property is either term or the keyword being processed.
+[11:05]	<gkellogg> manu: that helps me a bit.
+[11:06]	<gkellogg> dlongley: that should work. I think that when there was no active property, you recursed and added @graph because it worked the same way.
+[11:06]	<gkellogg> markus: I think that we use null in that case.
+[11:07]	<manu-db> Topic: ISSUE-220: Drop empty arrays (sets) and empty lists in expansion
+[11:07]	<mlnt> active property: The currently active term or keyword that the processor should use when processing.
+[11:07]	<manu-db> https://github.com/json-ld/json-ld.org/issues/220
+[11:08]	<gkellogg> markus: we modified the algorithms to drop free-floating values so that you would drop them silently when expanding.
+[11:08]	<gkellogg> … However, we keep empty arrays and empty sets. I could consider dropping them, as they'd be lost in RDF round-tripping.
+[11:08]	<gkellogg> … Empty lists are different, as they can be used in RDF.
+[11:09]	<gkellogg> … If the property has a value of null, it is dropped, if it as an array, it's kept.
+[11:10]	<gkellogg> … In our own data model there is no way to represent an empty array.
+[11:11]	<gkellogg> … it would be consistent to say that empty arrays are dropped, but keep lists.
+[11:11]	<gkellogg> dlongley: in practice, it's either annoying or confusing, or both.
+[11:12]	<gkellogg> … From a JSON perspective, it means that they need to add something to guard against this case. I found it annoying to have arrays I was using to go away.
+[11:12]	<gkellogg> … null values are different. When you set them up to be arrays, we're expecting that they will always be arrays.
+[11:13]	<gkellogg> manu: I think that that's the strongest argument for not removing this kind of data.
+[11:13]	<gkellogg> … I think our primary audience is JSON developers, such as removing empty arrays, that's a real problem.
+[11:14]	<gkellogg> … The RDF developers are capable of writing code to modify data, and we should optimize for JSON developers.
+[11:15]	<gkellogg> dlongley: it's important to note that RDF developers don't need to do anything at all.
+[11:15]	<gkellogg> … It would only impact JSON developers.
+[11:15]	<niklasl> q+
+[11:15]	<voip-ld> Added niklasl to the speaker queue: niklasl
+[11:15]	<gkellogg> manu: It would be a problem if we needed to update code to see if it exists and then if it's empty.
+[11:16]	<gkellogg> markus: it depends on where the data comes from. If it's your own data, why would you re-compact? It could also be set to null and then it would disapear.
+[11:16]	<manu-db> ack niklasl
+[11:16]	<voip-ld> niklasl has the floor. The speaker queue is empty.
+[11:16]	<gkellogg> niklasl: I'd like to know an example use case. I have a hard time deciding on bits and pieces of the scenario.
+[11:17]	<gkellogg> … Someone receives expanded JSON-LD and then want's to compact it.
+[11:17] -!- linclark [~clark@c-67-186-35-246.hsd1.pa.comcast.net] has joined #json-ld
+[11:17]	<gkellogg> dlongley: you build your own data and need to expand it to digitally sign it and re-compact it.
+[11:17]	<gkellogg> … If someone wants to work against the data after it's been re-compact, it's going to be annoying.
+[11:18]	<gkellogg> markus: if you sign it, there is no data.
+[11:19]	<gkellogg> markus: we just recently started to drop free-floating values, so this is consistent with that.
+[11:20]	<gkellogg> manu: this change would negatively affect us. By trying to be consistent, we're going to cause headaches for JSON developers.
+[11:21]	<gkellogg> niklasl: it does make it more consistent.
+[11:21]	<gkellogg> dlongley: note that normalization works on a hash of N-Quads.
+[11:22]	<gkellogg> niklasl: we preserve index keys in expand/compact. These are also just syntactic elements; it's also an argument for preserving null values.
+[11:23]	<gkellogg> manu: if we need to preserve null values, we can put that in JSON-LD 1.1
+[11:23]	<gkellogg> dlongley: we did originally preserve them, but it made sense to remove them.
+[11:24]	<manu-db> PROPOSAL: Do not drop empty arrays (sets) and empty lists in expansion and compaction.
+[11:24]	<manu-db> (maintain current behavior in JSON-LD 1.0 Algorithms)
+[11:24]	<manu-db> +1
+[11:24]	<gkellogg> +1
+[11:24]	<dlongley> +1
+[11:24]	<niklasl> +0.5
+[11:24]	<pkuyken> +1
+[11:24]	<gkellogg> dlongley: I think they're preserved in flattening.
+[11:25]	<mlnt> +0
+[11:25]	<manu-db> RESOLVED: Do not drop empty arrays (sets) and empty lists in expansion and compaction.
+[11:26]	<manu-db> Topic: Remove re-labeling blank nodes during expansion
+[11:26]	<gkellogg> dlongley: after removing property generator support, we don't have any reason to relable BNodes during expansion.
+[11:26]	<gkellogg> … I support removing it, because it's an unnecessary complexity, I don't see a reason to do it.
+[11:27]	<gkellogg> … We already do generation during flattening.
+[11:27]	<gkellogg> manu: I agree. I think the counter argument is to show developers that they can't depend on the identifiers. If we always relabel, they'll know they can't depend on them.
+[11:28]	<dlongley> gkellogg: it makes testing difficult
+[11:28]	<dlongley> gkellogg: some people do ascribe meaning to their bnode labels and as long as their used internally there's nothing wrong with that
+[11:28]	<dlongley> gkellogg: i don't think we're being consistent by changing them, and in the spirit of not messing with data i think we should leave them alone
+[11:28]	<dlongley> gkellogg: with someone who just wants to work within the JSON domain there's not a good reason to relabel them here
+[11:29]	<gkellogg> dlongley: I think it only happens in expansion. Also be explicit that it doesn't change flattening.
+[11:30]	<gkellogg> … I'm pretty sure that they way the flattening algorithm is written it works. The previous algorithm did.
+[11:30]	<manu-db> PROPOSAL: Remove blank node re-labeling during expansion since it is no longer required. The flattening algorithm must still re-label blank nodes.
+[11:30]	<gkellogg> +1
+[11:30]	<manu-db> +1
+[11:30]	<niklasl> +1
+[11:30]	<pkuyken> +1
+[11:30]	<dlongley> +1
+[11:30]	<mlnt> +0.5
+[11:30]	<manu-db> RESOLVED: Remove blank node re-labeling during expansion since it is no longer required. The flattening algorithm must still re-label blank nodes.
+[11:30]	<gkellogg> dlongley: it happens in node-map generation algorithm.
+[11:31]	<dlongley> "If id is a blank node identifier, replace it with a newly generated blank node identifier passing id for identifier."
+[11:31]	<manu-db> Topic: ISSUE-232: Replace "optimize" option with "strict" option
+[11:31]	<dlongley> from node map generation^
+[11:31]	<manu-db> https://github.com/json-ld/json-ld.org/issues/232
+[11:32]	<gkellogg> markus: we currently have an optimize option to allow JSON-LD processors to do even more work. I think it would make sense to generalize the flag further, so that if it is true, it must be like the algorithms describe, or have a processing more defaulting to "JSON-LD 1.0", so that you could do things that are different.
+[11:33]	<gkellogg> manu: I think the processing mode change is better, and we should provide some specific values.
+[11:33]	<gkellogg> … Implementors can create their own flags, as long as they're not prefixed with "JSON-LD"
+[11:33]	<gkellogg> markus: hat's what I wrote.
+[11:33]	<pkuyken> q+
+[11:33]	<voip-ld> Added pkuyken to the speaker queue: pkuyken
+[11:33] -!- manu-db [~msporny@216.252.204.51] has left #json-ld []
+[11:34]	<gkellogg> pkuyken: I'm general in favor, but I"m concerned about fragmentation.
+[11:34] -!- manu-db [~msporny@216.252.204.51] has joined #json-ld
+[11:34]	<gkellogg> … if it's too wide open, then it doesn't do anything that can be counted on.
+[11:35  * manu-db accidentially killed the channel - if somebody could send me the IRC log after the call, that would be great.
+[11:35]	<gkellogg> markus: nothing we can really do with that anyway.
+[11:36]	<gkellogg> dlongley: better to give some direction on how to extend then nothing at all.
+[11:36]	<gkellogg> manu: historically, this hasn't lead to horrible divergence.
+[11:36]	<gkellogg> markus: we could add something to conformance section.
+[11:37]	<mlnt> json-ld-1.0
+[11:38]	<manu-db> PROPOSAL: Change 'optimize' flag to be a 'processingMode' option. The default value for JSON-LD 1.0 processors is 'json-ld-1.0'. Implementers may accept other values, but must ensure that those values are not prefixed with the string 'json-ld'.
+[11:38]	<manu-db> +1
+[11:38]	<dlongley> +1
+[11:38]	<gkellogg> +1
+[11:38]	<mlnt> +1
+[11:38]	<niklasl> +1
+[11:38]	<pkuyken> +1
+[11:38]	<taaz> +0
+[11:39]	<gkellogg> markus: if mode is set to json-ld-1.0, the output MUST be the same.
+[11:39]	<manu-db> Minor addition: If the processingMode is set to 'json-ld-1.0', the outcome MUST be the same as the algorithms.
+[11:39]	<manu-db> No objections by the group to the addition.
+[11:40]	<manu-db> RESOLVED: Change 'optimize' flag to be a 'processingMode' option. The default value for JSON-LD 1.0 processors is 'json-ld-1.0'. Implementers may accept other values, but must ensure that those values are not prefixed with the string 'json-ld'. If the processingMode is set to 'json-ld-1.0', the outcome must be the same as the algorithms.
+[11:40]	<manu-db> Topic: Any other issues before Last Call?
+[11:40]	<manu-db> Scanning through - https://github.com/json-ld/json-ld.org/issues?milestone=2&page=1&state=open - looks good, we've covered all of them
+[11:43]	<manu-db> Scanning through https://github.com/json-ld/json-ld.org/issues?milestone=1&page=1&state=open ...
+[11:45]	<gkellogg> manu: on use of base vs @base, we should specify both modes and describe as at risk.
+[11:45]	<gkellogg> markus: the section is already marked at risk.
+[11:45]	<gkellogg> manu: even though we marked @base as at risk, doesn't mean that passing an option through the API is the same thing.
+[11:46]	<gkellogg> … If we don't mention anything about it in the spec, that could easily force us to a second LC.
+[11:47]	<gkellogg> … We should mark this as at risk in the spec.
+[11:47]	<gkellogg> markus: the whole @base is marked as at risk, but we never say how "" is treated, as we didn't agree.
+[11:47]	<gkellogg> manu: that is what needs to go in the spec as at risk.
+[11:48]	<gkellogg> dlongley: do we need to mention in the API spec what happens when @base is null?
+[11:48]	<gkellogg> … We should mention there as well that it's being debated.
+[11:50]	<gkellogg> markus: we discussed clarifying @graph as being the default graph, but that's editorial.
+[11:51]	<gkellogg> manu: four docs to prep: two JSON-LD 1.0 and API FCGS static version.
+[11:51]	<gkellogg> … The other two are the latest specs for the RDF WG LC version.
+[11:52]	<gkellogg> … We need to do this before the call tomorrow, so that they can reference the document.
+[11:52] -!- scor [scor@drupal.org/user/52142/view] has quit [Quit: scor]
+[11:52]	<gkellogg> … We can always update the static spec in place.
+[11:53]	<gkellogg> … Timestamp should be for 2013-04-04
+[11:54]	<gkellogg> … They'll need to copy the docs into place.
+[11:56]	<gkellogg> … We'll need another pass next week to be sure they pass pub-rules.
+[11:56]	<gkellogg> … We'll make a new set of specs and a new call for commitments.
+[11:56]	<gkellogg> … The previous messages were really just W3C tests.
+[11:56]	<voip-ld> Gregg Kellogg (SIP/10.0.1.18-0000013b) has left the conference.
+[11:56]	<voip-ld> Manu Sporny (SIP/6000-00000138) has left the conference.
+[11:56]	<voip-ld> Dave Lehn (SIP/6003-0000013c) has left the conference.
+[11:56]	<voip-ld> <unknown> (IAX2/diamondcard-8468) has left the conference.
+[11:56]	<voip-ld> Dave Longley (SIP/6002-00000139) has left the conference.
+[11:56]	<voip-ld> Niklas Lindström (SIP/192.168.3.10-0000013d) has left the conference.
+[11:57]	<voip-ld> Markus Lanthaler (SIP/sip.linphone.org-0000013a) has left the conference.

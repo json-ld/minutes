@@ -1,0 +1,323 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-03-26</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0055.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Mar/0055.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Last Call and FCGS for Syntax and Algorithms</a><li><a href="#topic-2">ISSUE-217: Disallow BNode identifier as Graph Name</a><li><a href="#topic-3">ISSUE-218: Algorithm specification updates by editors</a><li><a href="#topic-4">ISSUE-220: Drop empty arrays (sets) and empty lists in expansion</a><li><a href="#topic-5">Remove re-labeling blank nodes during expansion</a><li><a href="#topic-6">ISSUE-232: Replace "optimize" option with "strict" option</a><li><a href="#topic-7">Any other issues before Last Call?</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Publish the JSON-LD Syntax and Algorithms specifications as Final Community Group Specifications (FCGS) and prep the RDF WG Last Call (LC) documents for publication on April 4th 2013.</a><li><a href="#resolution-2">The term selection algorithm should use the '@null' token to specify the null value and the '@none' token to specify the none value.</a><li><a href="#resolution-3">Do not drop empty arrays (sets) and empty lists in expansion and compaction.</a><li><a href="#resolution-4">Remove blank node re-labeling during expansion since it is no longer required. The flattening algorithm must still re-label blank nodes.</a><li><a href="#resolution-5">Change 'optimize' flag to be a 'processingMode' option. The default value for JSON-LD 1.0 processors is 'json-ld-1.0'. Implementers may accept other values, but must ensure that those values are not prefixed with the string 'json-ld'. If the processingMode is set to 'json-ld-1.0', the outcome must be the same as the algorithms.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Respond to David Booth for ISSUE-222.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Manu Sporny, Dave Longley, Markus Lanthaler, Paul Kuykendall, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  final CG specs and LC specs on agenda</div>
+<div class="comment-continuation">… expansion, compaction algorithms.</div>
+<div class="comment-continuation">… issue-217 (bnode identifiers)</div>
+<div class="comment-continuation">… issue-218 (algorithm updates)</div>
+<div class="comment-continuation">… issue-220 (dropping arrays and lists in expansions)</div>
+<div class="comment-continuation">… replace optimize option with strict option</div>
+<div class="comment"><span class="name">Dave Longley</span>:  remove BNode renaming as part of expansion algorithm.</div>
+<h1 id="topic-1" class="topic">Topic: Last Call and FCGS for Syntax and Algorithms</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  unfortunately, issue queue not empty, so we may need to go through another LC.</div>
+<div class="comment-continuation">… Group feels syntax is ready, but have had no substantial feedback on algorithms from the RDF WG. We have substantial feedback on algorithms from implementers.</div>
+<div class="comment-continuation">… That said, we've been feature complete for some time.</div>
+<div class="comment-continuation">… Any reason not to go to LC?</div>
+<div class="comment-continuation">… We can tell RDF WG we're not ready, but I think we are basically done, and can publish a LC depending on future feedback.</div>
+<div class="comment-continuation">… We need to prep FCGS and LC for the RDF WG. They need to give us the pub date.</div>
+<div class="comment-continuation">… If we do LC spec, pub has to happen Thursday to be out in March. That's not realistic.</div>
+<div class="comment-continuation">… We'll tentatively timestamp for next Thursday, no static copies, but the Editor's drafts will be for next thursday, and integrate as many comments as we can.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we really need to do another FCGS?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it would be good to do, only 2 non-contributors did a IP commitment on the test spec published at end of February.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Publish the JSON-LD Syntax and Algorithms specifications as Final Community Group Specifications (FCGS) and prep the RDF WG Last Call (LC) documents for publication on April 4th 2013.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +0.5</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Publish the JSON-LD Syntax and Algorithms specifications as Final Community Group Specifications (FCGS) and prep the RDF WG Last Call (LC) documents for publication on April 4th 2013.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-217: Disallow BNode identifier as Graph Name</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/217">https://github.com/json-ld/json-ld.org/issues/217</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/222">https://github.com/json-ld/json-ld.org/issues/222</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  feedback from david, which we never replied to, raised it again (222)</div>
+<div class="comment-continuation">… We discussed and agreed to keep, but just haven't sent out email.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think a took an action to respond, but didn't</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we decided it would be ideal for the RDF WG to resolve this, but we need to go forward with out decisions.</div>
+<div id="action-1" class="action">ACTION: Respond to David Booth for ISSUE-222.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-218: Algorithm specification updates by editors</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/218">https://github.com/json-ld/json-ld.org/issues/218</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/218#issuecomment-15460023">https://github.com/json-ld/json-ld.org/issues/218#issuecomment-15460023</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I added a comment to the issue with a list of things to be done.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we need to have more error cases in the test suite.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in the inverse context, @null is used if it has a value of null or not specified.</div>
+<div class="comment-continuation">… dlongley's uses @none if it's not specified. This is just for @language: null.</div>
+<div class="comment-continuation">… my feeling is that it's difficult to see the difference between @none and @null. It does introduce a minor conflation, but it doesn't change the outcome (just a little, perhaps).</div>
+<div class="comment-continuation">… niklasl proposed to change @none to @undefined, or just eliminate the difference.</div>
+<div class="comment-continuation">… In IRI compaction, we create the criteria to query the inverse context. Some parts of that are in term selection, but we could move to IRI compaction.</div>
+<div class="comment-continuation">… This just moves 2-3 steps from one altorighm to another.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  since this is a documented algorithm (regarding @null/@none), it's important that people understand the difference between @null and @none, although I like the use of @undefined.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in JSON-lD @null is the same as @none, except if you set @language to null.</div>
+<div class="comment-continuation">… I find it confusing and I don't think it makes it any clearer.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I feel that using @none is a more natural way what is going on with the model.</div>
+<div class="comment-continuation">… If we go with @null, it seems more like we're creating two separate tables, one where you have entries, and another when there is nothing in the reverse context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Here's a comment showing the resulting inverse context for the two proposals: <a href="https://github.com/json-ld/json-ld.org/issues/218#issuecomment-14833302">https://github.com/json-ld/json-ld.org/issues/218#issuecomment-14833302</a></div>
+<div class="comment-continuation">… I understand the desire to reduce the number of keys, but the solution requires more complexity in the algorithm.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +q</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I'm not clear on the semantics, but from an implementors perspective, as long as their's a significant difference in meaning, then we shouldn't overload things. If they really have different meanings, then I'm okay with having multiple meanings.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Don't have a strong preference one way or the other. I think having another keyword in there doesn't really help. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If there is a difference, then we need to understand if it's a significant difference. If there isn't a significant difference, then we don't need it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the difference is if you have a default language, and a term which shouldn't use it, you would set it to @null.</div>
+<div class="comment-continuation">… In one case, the entry would be under @null, in the other in @none.</div>
+<div class="comment-continuation">… For @type, if you set it to null, or not at all, it would be set to @null. This is why it's specific to @language.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I understand that just using @null can work, but if there are two terms, it may result in a difference in what term is selected.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: So this is one possibility for the two choices: @language: @null / @null: @null</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: This is the other possibility: @language: @null &amp;&amp; @language: @none</div>
+<div class="comment"><span class="name">Dave Longley</span>: I think this makes more sense: term1: {"@language": null} and term2: {}</div>
+<div class="comment"><span class="name">Dave Longley</span>:  pretend they have @iri too.</div>
+<div class="comment-continuation">… The second case more naturally represents what should be in the reverse context. The first is trickier.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the downside is you also need to add @type @none.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you don't put a container on a term, it's saying that there is no container.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The term selection algorithm should use the '@null' token to specify both the null value and the none value.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1</div>
+<div class="comment"><span class="name">Dave Longley</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  +0.5</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: 0</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The term selection algorithm should use the '@null' token to specify the null value and the '@none' token to specify the none value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  -0.1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: 0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  my issue is that only @language get's set to @none</div>
+<div class="comment"><span class="name">Dave Longley</span>:  the fact that that case exists is why to separate them.</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> The term selection algorithm should use the '@null' token to specify the null value and the '@none' token to specify the none value.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should probably also fold list conversion into the RDF algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This comes down to a different style - the list stuff is different enough that it makes sense to break it out. I prefer it the way it is. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's a set of very small algorithms, easier to understand. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I feel like it makes it less daunting if it's broken up into smaller pieces. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it's less daunting to keep it as separate algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sounds like we don't want to fold it in.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we didn't finish talking about term selection.</div>
+<div class="comment-continuation">… I'm fine with markus' suggested changes, hopefully it doesn't make it too heavy.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't see a good ready to keep the two steps separate, then term selection just loops over the reverse context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sounds like we have agreement.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  how does API invoke the algorithms?</div>
+<div class="comment-continuation">… sounds like a good idea, but if it's non-normative, it doesn't matter. Might be too much work.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  2-3 steps for each algorithm.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  perhaps just in the method description for each call.</div>
+<div class="comment-continuation">… that is the sense of the group, but it technically makes it normative.</div>
+<div class="comment-continuation">… Put the explanation in the method description of what algorithms are called in what order.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  collapse purpose and general method into one section?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  there are some cases where the intro and the purpose are exactly the same. Effectively, they're saying the same thing. This seems redundant.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we might want to just keep purpose and get rid of intro, fold intro into purpose.</div>
+<div class="comment-continuation">… That would be better to just use purpose.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's odd to have two headers.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I would prefer to fold everything into the introductory paragraph to the section.  [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think it would be better to keep purpose as the introductory paragraph.</div>
+<div class="comment-continuation">… Get rid of purpose sections and fold into introductory paragraph.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we have algorithm terms, which describes what things mean. For "active property" the meaning has been repurposed to make the algorithm simpler.</div>
+<div class="comment-continuation">… for example changes that remove validation in compaction. active context was repurposed to mean something slightly different.</div>
+<div class="comment-continuation">… This means that "active property" is used for two different things.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if it means two different things, we should have two different terms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I modified the algorithms a bit. It's true that it isn't any more the original lexical form, but in a sense, it is still the active property.</div>
+<div class="comment-continuation">… we use it like a variable in some cases.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we were a little more strict.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Current definition of active property: The currently active property that the processor should use when processing. The active property is represented in the original lexical form, which is used for finding type mappings in the active context.</div>
+<div class="comment-continuation">… One reason I rewrote the algorithms was that I kept getting confused about the meaning of active property, because the meaning was changing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: maybe we should just drop the second sentence</div>
+<div class="comment-continuation">… I intentionally made changes to make sure it wasn't confusing.</div>
+<div class="comment-continuation">… I'd at least like us to address the fact that we're conflating the meaning of the algorithms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  perhaps we can just update the definition and remove the second sentence.</div>
+<div class="comment-continuation">… we mis-use it just for aliases, it's difficult to say otherwise.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't think we should get rid of the 2nd sentence, but we should just say that sometimes we re-use the active property after it's been resolved.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  why not just introduce a new term "resolved active property"?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  because the algorithms are recursive, and sometimes it is the active property, and some times it is already expanded. I previously add "expanded active property" for this case.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we could say that if a term is expanded to a keyword, then the keyword is added instead of the original lexical form.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  the problem before was that I needed to understand the algorithms before I could understand the terms.</div>
+<div class="comment-continuation">… I don't know what we could say to help explain this.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we could say the active property is either term or the keyword being processed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that helps me a bit.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  that should work. I think that when there was no active property, you recursed and added @graph because it worked the same way.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think that we use null in that case.</div>
+<h1 id="topic-4" class="topic">Topic: ISSUE-220: Drop empty arrays (sets) and empty lists in expansion</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: active property: The currently active term or keyword that the processor should use when processing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/220">https://github.com/json-ld/json-ld.org/issues/220</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we modified the algorithms to drop free-floating values so that you would drop them silently when expanding.</div>
+<div class="comment-continuation">… However, we keep empty arrays and empty sets. I could consider dropping them, as they'd be lost in RDF round-tripping.</div>
+<div class="comment-continuation">… Empty lists are different, as they can be used in RDF.</div>
+<div class="comment-continuation">… If the property has a value of null, it is dropped, if it as an array, it's kept.</div>
+<div class="comment-continuation">… In our own data model there is no way to represent an empty array.</div>
+<div class="comment-continuation">… it would be consistent to say that empty arrays are dropped, but keep lists.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  in practice, it's either annoying or confusing, or both.</div>
+<div class="comment-continuation">… From a JSON perspective, it means that they need to add something to guard against this case. I found it annoying to have arrays I was using to go away.</div>
+<div class="comment-continuation">… null values are different. When you set them up to be arrays, we're expecting that they will always be arrays.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that that's the strongest argument for not removing this kind of data.</div>
+<div class="comment-continuation">… I think our primary audience is JSON developers, such as removing empty arrays, that's a real problem.</div>
+<div class="comment-continuation">… The RDF developers are capable of writing code to modify data, and we should optimize for JSON developers.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it's important to note that RDF developers don't need to do anything at all.</div>
+<div class="comment-continuation">… It would only impact JSON developers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It would be a problem if we needed to update code to see if it exists and then if it's empty.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it depends on where the data comes from. If it's your own data, why would you re-compact? It could also be set to null and then it would disapear.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'd like to know an example use case. I have a hard time deciding on bits and pieces of the scenario.</div>
+<div class="comment-continuation">… Someone receives expanded JSON-LD and then want's to compact it.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  you build your own data and need to expand it to digitally sign it and re-compact it.</div>
+<div class="comment-continuation">… If someone wants to work against the data after it's been re-compact, it's going to be annoying.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you sign it, there is no data.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we just recently started to drop free-floating values, so this is consistent with that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this change would negatively affect us. By trying to be consistent, we're going to cause headaches for JSON developers.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it does make it more consistent.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  note that normalization works on a hash of N-Quads.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we preserve index keys in expand/compact. These are also just syntactic elements; it's also an argument for preserving null values.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we need to preserve null values, we can put that in JSON-LD 1.1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we did originally preserve them, but it made sense to remove them.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Do not drop empty arrays (sets) and empty lists in expansion and compaction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: (maintain current behavior in JSON-LD 1.0 Algorithms)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think they're preserved in flattening.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Do not drop empty arrays (sets) and empty lists in expansion and compaction.</div>
+<h1 id="topic-5" class="topic">Topic: Remove re-labeling blank nodes during expansion</h1>
+<div class="comment"><span class="name">Dave Longley</span>:  after removing property generator support, we don't have any reason to relable BNodes during expansion.</div>
+<div class="comment-continuation">… I support removing it, because it's an unnecessary complexity, I don't see a reason to do it.</div>
+<div class="comment-continuation">… We already do generation during flattening.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree. I think the counter argument is to show developers that they can't depend on the identifiers. If we always relabel, they'll know they can't depend on them.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it makes testing difficult [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  some people do ascribe meaning to their bnode labels and as long as their used internally there's nothing wrong with that [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i don't think we're being consistent by changing them, and in the spirit of not messing with data i think we should leave them alone [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  with someone who just wants to work within the JSON domain there's not a good reason to relabel them here [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it only happens in expansion. Also be explicit that it doesn't change flattening.</div>
+<div class="comment-continuation">… I'm pretty sure that they way the flattening algorithm is written it works. The previous algorithm did.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Remove blank node re-labeling during expansion since it is no longer required. The flattening algorithm must still re-label blank nodes.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Remove blank node re-labeling during expansion since it is no longer required. The flattening algorithm must still re-label blank nodes.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it happens in node-map generation algorithm.</div>
+<div class="comment"><span class="name">Dave Longley</span>: "If id is a blank node identifier, replace it with a newly generated blank node identifier passing id for identifier."</div>
+<h1 id="topic-6" class="topic">Topic: ISSUE-232: Replace "optimize" option with "strict" option</h1>
+<div class="comment"><span class="name">Dave Longley</span>: from node map generation^</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/232">https://github.com/json-ld/json-ld.org/issues/232</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we currently have an optimize option to allow JSON-LD processors to do even more work. I think it would make sense to generalize the flag further, so that if it is true, it must be like the algorithms describe, or have a processing more defaulting to "JSON-LD 1.0", so that you could do things that are different.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the processing mode change is better, and we should provide some specific values.</div>
+<div class="comment-continuation">… Implementors can create their own flags, as long as they're not prefixed with "JSON-LD"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  hat's what I wrote.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I'm general in favor, but I"m concerned about fragmentation.</div>
+<div class="comment-continuation">… if it's too wide open, then it doesn't do anything that can be counted on.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  nothing we can really do with that anyway.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  better to give some direction on how to extend then nothing at all.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  historically, this hasn't lead to horrible divergence.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we could add something to conformance section.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: json-ld-1.0</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Change 'optimize' flag to be a 'processingMode' option. The default value for JSON-LD 1.0 processors is 'json-ld-1.0'. Implementers may accept other values, but must ensure that those values are not prefixed with the string 'json-ld'.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if mode is set to json-ld-1.0, the output MUST be the same.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Minor addition: If the processingMode is set to 'json-ld-1.0', the outcome MUST be the same as the algorithms.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: No objections by the group to the addition.</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Change 'optimize' flag to be a 'processingMode' option. The default value for JSON-LD 1.0 processors is 'json-ld-1.0'. Implementers may accept other values, but must ensure that those values are not prefixed with the string 'json-ld'. If the processingMode is set to 'json-ld-1.0', the outcome must be the same as the algorithms.</div>
+<h1 id="topic-7" class="topic">Topic: Any other issues before Last Call?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: Scanning through - <a href="https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;state=open</a> - looks good, we've covered all of them</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Scanning through <a href="https://github.com/json-ld/json-ld.org/issues?milestone=1&amp;page=1&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=1&amp;page=1&amp;state=open</a> ...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  on use of base vs @base, we should specify both modes and describe as at risk.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the section is already marked at risk.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  even though we marked @base as at risk, doesn't mean that passing an option through the API is the same thing.</div>
+<div class="comment-continuation">… If we don't mention anything about it in the spec, that could easily force us to a second LC.</div>
+<div class="comment-continuation">… We should mark this as at risk in the spec.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the whole @base is marked as at risk, but we never say how "" is treated, as we didn't agree.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that is what needs to go in the spec as at risk.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  do we need to mention in the API spec what happens when @base is null?</div>
+<div class="comment-continuation">… We should mention there as well that it's being debated.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we discussed clarifying @graph as being the default graph, but that's editorial.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  four docs to prep: two JSON-LD 1.0 and API FCGS static version.</div>
+<div class="comment-continuation">… The other two are the latest specs for the RDF WG LC version.</div>
+<div class="comment-continuation">… We need to do this before the call tomorrow, so that they can reference the document.</div>
+<div class="comment-continuation">… We can always update the static spec in place.</div>
+<div class="comment-continuation">… Timestamp should be for 2013-04-04</div>
+<div class="comment-continuation">… They'll need to copy the docs into place.</div>
+<div class="comment-continuation">… We'll need another pass next week to be sure they pass pub-rules.</div>
+<div class="comment-continuation">… We'll make a new set of specs and a new call for commitments.</div>
+<div class="comment-continuation">… The previous messages were really just W3C tests.</div>
+</body>
+</html>
