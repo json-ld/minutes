@@ -1,0 +1,228 @@
+[Tue 10:03]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0000.html
+[Tue 10:03]	<voip-ld>	Niklas Lindström (SIP/192.168.3.10-00000145) has joined the conference.
+[Tue 10:03]	<manu-db>	scribe: dlongley
+[Tue 10:04]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 10:04]	<niklasl>	q+
+[Tue 10:04]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:04]	<dlongley>	manu: on the agenda today we have going over sandro's syntax feedback, the @vocab precedence issue, sandro's api spec review, zhu's review, roundtripping concerns
+[Tue 10:04]	<manu-db>	ack niklasl
+[Tue 10:04]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:04]	<dlongley>	manu: any changes?
+[Tue 10:05]	<dlongley>	niklas: let's do the @vocab issue first, not sure if it's feasible to consider, we cannot change the syntax i believe, but we say that a "term has a type of @vocab" (because @id doesn't support terms as values), i was wondering if we could consider using type: "@context" instead
+[Tue 10:05]	<dlongley>	manu: we should discuss it
+[Tue 10:05]	<manu-db>	Topic: Web Payments Launch (PaySwarm / Meritora)
+[Tue 10:06]	<manu-db>	http://blog.meritora.com/launch/
+[Tue 10:06]	<dlongley>	manu: our company launched Meritora, which is built on top of JSON-LD
+[Tue 10:06]	* niklasl	Congrats!
+[Tue 10:06]	<dlongley>	manu: the whole protocol is powered by JSON-LD, real money is flowing through Meritora, so hopefully JSON-LD is well-designed where it matters!
+[Tue 10:06]	<dlongley>	niklas: btw, i'm now an employee of the national library of sweden so i'm representing them, not just myself
+[Tue 10:07]	<dlongley>	manu: you'll want to change your status in the CG, btw.
+[Tue 10:07]	<manu-db>	Topic: ISSUE-235: Let @vocab take precedence over compact IRIs in compaction
+[Tue 10:07]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/235
+[Tue 10:08]	<dlongley>	niklas: basically, the fact that, when compacting, even if a @vocab is defined in the context, if there is a prefix defined with the same value, the prefix will take precedence over @vocab
+[Tue 10:08]	<dlongley>	niklas: if you, for instance, inherit a context with that prefix defined, even if you set @vocab, you won't get vocab terms when compacting
+[Tue 10:08]	<dlongley>	niklas: i think that other serializations work differently (@vocab having precedence instead)
+[Tue 10:09]	<dlongley>	niklas: i think that compaction should make things as small as possible, using @vocab over CURIEs does that
+[Tue 10:09]	<dlongley>	niklas: i think it would be sometimes unexpected if the behavior is to give precedence to CURIEs over @vocab, if you have a lot of prefixes defined w/various dependencies you might get undesirable compaction results
+[Tue 10:10]	<voip-ld>	dlehn (SIP/192.168.1.149:5060-00000147) has joined the conference.
+[Tue 10:10]	<dlongley>	niklas: if the precedence order went the other way, it wouldn't be so bad
+[Tue 10:10]	<trj>	Hi, does anyone know of any examples of JSON-LD being used with IoT sensors? Perhaps with http://purl.oclc.org/NET/ssnx/ssn
+[Tue 10:10]	<manu-db>	dlongley: I tried to break out some of the reasons in the issue tracker, the issue that is going to be the strangest is when you have prefixes in a previous chained context.
+[Tue 10:10]	<manu-db>	dlongley: That might be an issue - @vocab trumps everything.
+[Tue 10:12]	<manu-db>	dlongley: So, this is a question of what we think the default case is... if you are using @vocab to catch terms that aren't there, then it's going to override too many of the prefixes that are defined.
+[Tue 10:12]	<manu-db>	dlongley: If you want CURIEs in the output, you probably don't use @vocab.
+[Tue 10:12]	<manu-db>	dlongley: If you want to use @vocab in compaction, and you don't want CURIEs in the output, it's been suggested by niklas, and I think he's right, that you're much more likely to have used prefixes in the context, not the data.
+[Tue 10:13]	<manu-db>	dlongley: It's going to be a lot more complicated to get the output you want, you have to undefine all the prefixes, that's not good for developers.
+[Tue 10:13]	<gkellogg>	q+
+[Tue 10:13]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:13]	<manu-db>	dlongley: As far as I can tell, that is going to be the more common case, and we should probably support it (unless there is a reason that someone can see why we should prefer CUREs over @vocab)
+[Tue 10:14]	<manu-db>	ack gkellogg
+[Tue 10:14]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:14]	<dlongley>	gkellogg: i can easily imagine a number of cases where you get an initial context that does define schema as a prefix but the document does say @vocab is schema
+[Tue 10:14]	<dlongley>	gkellogg: i can see how you'd end up in precisely this case here so preferring @vocab makes sense
+[Tue 10:15]	<dlongley>	gkellogg: if a CURIE is more like a term then we have to continue to use that (it's defined explicitly on the LHS w/types and containers on the right)
+[Tue 10:15]	<dlongley>	gkellogg: that's more like using a term in that case
+[Tue 10:15]	<dlongley>	dlongley: i agree, it's a term at that point
+[Tue 10:15]	<dlongley>	niklas: yes, i don't think this change would affect that
+[Tue 10:16]	<dlongley>	manu: do you disagree with changing this?
+[Tue 10:16]	<dlongley>	markus: no, i tried implementing it and it was easy
+[Tue 10:16]	<dlongley>	manu: sounds like broad agreement here to make the change, anyone disagree? this is just for [Tue 10:16]	<dlongley>	markus: as long as it's just for compaction
+[Tue 10:16]	<dlongley>	niklas: if someone changed expansion that would be bad
+[Tue 10:17]	<manu-db>	PROPOSAL: When compacting IRIs @vocab should take precedence over Compact IRIs. This reverses the previous order of precedence.
+[Tue 10:18]	<niklasl>	+1
+[Tue 10:18]	<dlongley>	+1
+[Tue 10:18]	<manu-db>	+1
+[Tue 10:18]	<gkellogg>	+1
+[Tue 10:18]	<pkuyken>	+1
+[Tue 10:18]	<mlnt>	+1
+[Tue 10:18]	<manu-db>	RESOLVED: When compacting IRIs @vocab should take precedence over Compact IRIs. This reverses the previous order of precedence.
+[Tue 10:18]	<--|	linclark has left #json-ld
+[Tue 10:19]	<manu-db>	Topic: Rename '@type': '@vocab' to '@type': '@context'
+[Tue 10:19]	<niklasl>	.. "category": "Film"
+[Tue 10:19]	<niklasl>	.. "category": {"@type": "@vocab"}
+[Tue 10:19]	<dlongley>	niklas: right now, if the content in your document, you want to have a syntax expression like what's in IRC, and the value there is a term which is defined either, you want it to be looked up in the context, either you will find a defined term for it and expand it, or you want to resolve it against @vocab
+[Tue 10:19]	<niklasl>	.. "category": {"@type": "@context"}
+[Tue 10:19]	<dlongley>	niklas: a recent addition was to use "@type": "@vocab"
+[Tue 10:20]	<dlongley>	niklas: given that it only resolves against @vocab in one of the cases (it can use terms otherwise)
+[Tue 10:20]	<dlongley>	manu: i don't think that @vocab is idea, but i also don't think @context is better
+[Tue 10:20]	<niklasl>	.. "category": {"@type": "@symbol"}
+[Tue 10:21]	<dlongley>	manu: but adding another keyword fights against our desire to keep the number of keywords limited
+[Tue 10:21]	<dlongley>	gkellogg: i think they are both unfortunate, but it's one minute to midnight w/the spec, so we need to raise the bar with making changes
+[Tue 10:22]	<manu-db>	dlongley: I think part of the confusion is that the meaning of @vocab is being overloaded. I think that looking at @context would be more confusing.
+[Tue 10:22]	<manu-db>	dlongley: One way to look at @type: @vocab is to think "Oh, the type of the term is also a vocabulary term"
+[Tue 10:23]	<manu-db>	dlongley: The type of data that goes with this term is a 'vocabulary thing' - which means anything in the @context.
+[Tue 10:23]	<manu-db>	dlongley: if we had @context there, I'd be more confused - I would expect a context to be there.
+[Tue 10:23]	<dlongley>	markus: i agree with dave on this
+[Tue 10:23]	<dlongley>	niklas: i thought about this, if we see @context there we get confused
+[Tue 10:24]	<dlongley>	niklas: when i did the explanation to myself, i reasoned like dave, like dave said, the value is looked up in the @context, and i said, in my head, @context more than @vocab, so i thought maybe it would better explain it
+[Tue 10:24]	<manu-db>	dlongley: We're either going to overload what @type means, or we're going to overload the value of @type to get the explanation right. We already overload @type for datatype and regular type.
+[Tue 10:27]	<pkuyken>	q+
+[Tue 10:27]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:27]	<manu-db>	niklasl: Yeah, maybe we need to document this clearly...
+[Tue 10:28]	<manu-db>	dlongley: Yes, explaining that @vocab has a different meaning is probably easier to explain than putting @context there and explain it.
+[Tue 10:28]	<manu-db>	ack pkuyken
+[Tue 10:28]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 10:28]	<dlongley>	pkuyken: i just wanted to chime in, i'm more of an outsider so maybe i can help
+[Tue 10:28]	<dlongley>	pkuyken: i do think that @vocab is easier to understand, just from listening to the discussions
+[Tue 10:28]	<dlongley>	pkuyken: using JSON-LD you're already used to a little bit of overloading
+[Tue 10:29]	<dlongley>	niklas: ok, that's what i needed to hear, i withdraw any proposal here
+[Tue 10:29]	<dlongley>	manu: yes that was helpful, thank you, paul
+[Tue 10:29]	<dlongley>	manu: ok, then no change, let's just close the issue
+[Tue 10:29]	<manu-db>	Topic: ISSUE-224: Sandro Hawke's Feedback
+[Tue 10:29]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/224
+[Tue 10:30]	<dlongley>	manu: sandro had even more feedback for markus, can we get through this quickly, is there much to be dealt with, it seemed like you mostly had it under control
+[Tue 10:30]	<dlongley>	markus: not really much to discuss, the most critical thing is whether we normatively reference RDF-CONCEPTS and RDF-SCHEMA
+[Tue 10:30]	<dlongley>	markus: we'll be discussing that tomorrow in the RDF WG too
+[Tue 10:30]	<dlongley>	markus: sandro is happy with the other changes i made
+[Tue 10:30]	<dlongley>	markus: the only thing left is data roundtripping issues
+[Tue 10:31]	<dlongley>	manu: ok, that's good, let's focus on just the syntax spec
+[Tue 10:31]	<dlongley>	manu: it looks like it was mostly editorial
+[Tue 10:31]	<dlongley>	markus: i'll double check that... yeah, it was just mostly editorial
+[Tue 10:31]	<dlongley>	markus: i'll send an email to sandro later to ensure everything has been addressed
+[Tue 10:32]	<dlongley>	gkellogg: there are some check boxes to check in the issue tracker
+[Tue 10:32]	<dlongley>	markus: those are some things that i think we shouldn't change, which i explained in emails, i just need sandro's feedback on us not changing it.
+[Tue 10:32]	<dlongley>	markus: i think there's no change required for those things
+[Tue 10:32]	<dlongley>	pkuyken: the only ones that i see that might be of interest is where the overloading of @vocab is mentioned as confusing/silly
+[Tue 10:33]	<dlongley>	markus: yeah, that's one we already discussed in the past
+[Tue 10:33]	<dlongley>	pkuyken: yeah, just want to make sure we're in agreement there
+[Tue 10:33]	<dlongley>	manu: yes, i think we're sure about the keywords and the meaning we overload and we made tradeoffs to do that
+[Tue 10:33]	<dlongley>	manu: and it isn't perfect but we aren't going to change it without some really good feedback/lots of people making big mistakes with it for us to change it
+[Tue 10:34]	<manu-db>	Topic: ISSUE-234: Sandro Hawke's JSON-LD API spec review
+[Tue 10:34]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/234
+[Tue 10:34]	<dlongley>	markus: mostly editorial, sandro didn't review the algorithms himself, but had a number of other comments, which i already addressed, and sandro agrees we can close the issue
+[Tue 10:35]	<dlongley>	markus: the only thing remaining is data roundtripping which i split out into a separate issue so we can better focus
+[Tue 10:35]	<manu-db>	Topic: ISSUE-236: Zhe Wu's JSON-LD API spec review
+[Tue 10:35]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/236
+[Tue 10:35]	<dlongley>	manu: zhu basically didn't review the algorithms either because he found them too complicated to read through
+[Tue 10:35]	<dlongley>	manu: he asked us to reorganize the document fairly heavily
+[Tue 10:36]	<dlongley>	manu: but i think it's a bad idea, but we'll see what the group thinks
+[Tue 10:36]	<dlongley>	manu: i think it would take a lot of time but not buy us much, we attempted to do what he wanted earlier
+[Tue 10:36]	<dlongley>	manu: we are where we are now with the spec because that previous attempt didn't work as well, we made changes that we thought made it easier to read the spec today than that alternative approach
+[Tue 10:36]	<dlongley>	markus: he didn't say that the algorithms were too complex, that they were instead too long
+[Tue 10:37]	<dlongley>	manu: well, we're doing that for a reason, we want to be very explicit about what happens
+[Tue 10:37]	<dlongley>	pkuyken: the comments i've gotten from my colleague who has been implementing the various algorithms, starting before the algorithm split, he said the new ones are much easier to follow and easier to understand what's going on
+[Tue 10:38]	<dlongley>	gkellogg: there's a certain stylistic issue with what you see in programming (eg: taking large algorithms and breaking them into smaller sections so that each sub step fits on a screen)
+[Tue 10:38]	<dlongley>	gkellogg: i took some of zhu's comments in that light, and some of the algorithms would perhaps be more useful if they were broken out into smaller subsections
+[Tue 10:38]	<dlongley>	gkellogg: i take markus' point that it might be difficult with going back and forth (jumping around) to figure out what's going on then
+[Tue 10:39]	<dlongley>	gkellogg: i'll use the same razor i did before though, we're getting close to the end, i don't think we need to change this, it's stylistic change, that is left to the purview of the editors, we should leave it alone
+[Tue 10:39]	<dlongley>	manu: i agree, the rest seemed like editorial changes, is that true?
+[Tue 10:39]	<dlongley>	markus: yes, i got back to him, he didn't get back to me yet to let me know if the changes were enough or if he really really wanted the algorithms split up
+[Tue 10:40]	<dlongley>	pkuyken: i do agree that shorter algorithms are easier to read, but you don't want to lose the context of where you are and how the algorithms work, i think we struck a good balance where we mostly broke the algorithms into sub parts where they could be reused, and implementations might break them up more, but that's an implementation detail, not for the algorithms
+[Tue 10:42]	<dlongley>	markus: he also raised the point that he would prefer numbers for errors not strings
+[Tue 10:42]	<manu-db>	dlongley: I don't think we need to convert the string values to numbers, we're not programming on a Commodore 64 - we have much more modern programming environments available to us
+[Tue 10:42]	<dlongley>	pkuyken: string processing does suck in some languages, but what we've done internally is use numbers
+[Tue 10:43]	<dlongley>	gkellogg: i don't think the purpose of the spec is to explain how to implement this in every way
+[Tue 10:43]	<manu-db>	ISSUE-237: Sandro's Data Round Tripping Concerns
+[Tue 10:43]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/237
+[Tue 10:44]	<dlongley>	markus: he doesn't understand most of this section
+[Tue 10:44]	<dlongley>	markus: if we keep this section, why don't we only convert canonical lexical form values to native types, leaving the rest alone
+[Tue 10:45]	<dlongley>	markus: the other thing we didn't discuss here, is the potential precision loss you experience when converting to JSON-numbers
+[Tue 10:45]	<dlongley>	markus: so i think the question here is whether we keep the requirement that implementations must use canonical lexical form
+[Tue 10:45]	<manu-db>	q+
+[Tue 10:45]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:45]	<manu-db>	ack manu-d
+[Tue 10:45]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 10:45]	<dlongley>	markus: and if we do keep it, if we only convert to native types when the values are in canonical lexical form
+[Tue 10:46]	<dlongley>	manu: so the reason that we say this sort of thing in the spec, is because if we don't say anything about it, people will be surprised when their numbers start having rounding errors ... they take their space probe and crash it into mars because they weren't expecting the behavior
+[Tue 10:46]	<dlongley>	manu: we also want to be very clear about what they do with those numbers to round trip
+[Tue 10:47]	<dlongley>	dlongley: testing becomes far more difficult if we dont' specify this
+[Tue 10:47]	<dlongley>	markus: well, rounding errors dont' have to do with canonical lexical form
+[Tue 10:47]	<dlongley>	dlongley: but testing does
+[Tue 10:47]	<dlongley>	manu: it seems like an interoperability issue if we don't specify this
+[Tue 10:47]	<dlongley>	manu: if we specify it, it's very clear how to interoperate
+[Tue 10:47]	<dlongley>	gkellogg: i guess the alternative would be to defer to XSD where possible for the definition of canonical lexical form
+[Tue 10:48]	<mlnt>	sandro's response to my argumente "we do it to simplify testing" was "I don't think simplifying testing merits a MUST..... Or, if it does, then say that, instead of saying it's because of round-tripping...."
+[Tue 10:48]	<dlongley>	gkellogg: or at least to say "this is the same as" or "as defined by"
+[Tue 10:49]	<dlongley>	markus: i think he's saying it might be enough to say something is a certain type (xsd:integer/xsd:double)
+[Tue 10:49]	<dlongley>	markus: and not care about the lexical value
+[Tue 10:50]	<manu-db>	dlongley: There was a specification where something was specified in canonical lexical form, we changed it from it originally was a lowercase 'e', to what it is now, based on some specification. Maybe we should've been referencing that specification.
+[Tue 10:50]	<dlongley>	markus: there are differences between what languages/JSON serializers and 'e'/'E' for canonical representation
+[Tue 10:50]	<dlongley>	gkellogg: i do recall that we eliminated some rounding issues w/ruby w/decimal precision length
+[Tue 10:51]	|<--	TallTed has left freenode (Quit: The computer fell asleep)
+[Tue 10:51]	<dlongley>	markus: i think that string format we used previously also ensured that something was 64-bit for JSON which doesn't define the value space
+[Tue 10:51]	<mlnt>	That was the issue about precision https://github.com/json-ld/json-ld.org/issues/81
+[Tue 10:51]	<dlongley>	manu: we should reference the XSD spec to be very clear about this or reference which spec we based this off of
+[Tue 10:52]	<dlongley>	(missed scribing a bit here)
+[Tue 10:52]	<dlongley>	pkuyken: i'm looking at the xml-schema second edition under data types and it does define quite a bit there
+[Tue 10:52]	<mlnt>	Here's our current data round tripping section: http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping
+[Tue 10:52]	<dlongley>	pkuyken: someone should look there
+[Tue 10:53]	-->|	TallTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 10:53]	<dlongley>	manu: the spec was xml-schema part 2 data types
+[Tue 10:53]	<dlongley>	manu: let's make sure it matches what we have in the spec and let's just refer to the spec
+[Tue 10:53]	<dlongley>	manu: instead of paraphrasing
+[Tue 10:53]	<gkellogg>	[XMLSCHEMA11-2]
+[Tue 10:53]	<dlongley>	manu: but we still make very clear what the canonical lexical form is
+[Tue 10:54]	<dlongley>	gkellogg: yes, RDF-CONCEPTS references this and we should sync up
+[Tue 10:54]	<dlongley>	markus: do we require canonical lexical form then?
+[Tue 10:54]	<dlongley>	gkellogg: we shouldn't restrict the input
+[Tue 10:54]	<dlongley>	gkellogg: but we should be able to transform into that form to allow for lexical comparison
+[Tue 10:55]	<dlongley>	gkellogg: in my serializers i have an option for canonicalization, but if that were always supplied i would fail some specs
+[Tue 10:55]	<dlongley>	gkellogg: JSON of course has its own restrictions when dealing with numbres because it's a native restriction, not a strictly lexical representation
+[Tue 10:55]	<dlongley>	gkellogg: you can't ensure that the input looks exactly the same as the output
+[Tue 10:56]	<dlongley>	pkuyken: are we talking about maintaining the mapping between JSON native types and xsd types?
+[Tue 10:57]	<manu-db>	dlongley: To be clear, we're not talking about changing the mapping - for a number in JSON, it's either going to be an xsd:integer or an xsd:double. We should tell implementations what these lexical forms should look like if you convert the number to a string.
+[Tue 10:58]	<mlnt>	all these are valid 1.4 = 14E-1 = 14e-1.. but there's only one canonical lexical form: 1.4E0
+[Tue 10:58]	<dlongley>	pkuyken: i just wanted to make clear that we weren't changing the mappings here, it sounds good to me that we're just talking about mapping things to an external spec
+[Tue 10:58]	<dlongley>	manu: it's really important that we have the flag in the algorithm for converting/not converting to native types
+[Tue 10:59]	<dlongley>	markus: we aren't defining an API so we don't need to define the flag because there's no operation there
+[Tue 11:00]	<manu-db>	dlongley: All we have to do is revert a change we made - if a flag is set, change to native types, if it is not set, don't change to native types.
+[Tue 11:02]	<dlongley>	(more missed scribing)
+[Tue 11:03]	<dlongley>	manu: so i think we have one solid proposal then
+[Tue 11:03]	<dlongley>	manu: to put the flag for convert to/from native types when doing RDF conversion back into the algorithm
+[Tue 11:03]	<dlongley>	markus: and deciding if we should require canonical lexical form
+[Tue 11:05]	<dlongley>	niklas: i think the rdf type flag is important because it's just a relation like anything else
+[Tue 11:05]	<dlongley>	niklas: i'm a bit wary about removing that flag
+[Tue 11:06]	<dlongley>	gkellogg: as i recall the reason we had it was so that we could do other mapping during compaction/expansion
+[Tue 11:06]	<dlongley>	gkellogg: there's nothing to prevent you from navigating
+[Tue 11:08]	<gkellogg>	http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/
+[Tue 11:14]	<dlongley>	Discussion about whether the exact lexical form for literals in RDF (converted from JSON-LD) must be specified at all)
+[Tue 11:14]	<gkellogg>	https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-concepts/index.html#section-Graph-Literal
+[Tue 11:16]	<mlnt>	http://www.w3.org/TR/rdf11-concepts/#dfn-lexical-to-value-mapping
+[Tue 11:16]	<dlongley>	manu: the only way to compare literals in the abstract model is to jump into lexical space to do the comparison, if we don't specify the lexical form for this data, you can't do a comparision, we don't have interoperability
+[Tue 11:17]	<dlongley>	markus: i don't think we need to be specifying this, it should be in an RDF spec
+[Tue 11:17]	<dlongley>	gkellogg: we're dealing with native representations so we are losing the lexical form, so we need to be able to convert back
+[Tue 11:20]	<dlongley>	Discussion about deferring the current issue to the RDF WG
+[Tue 11:20]	<dlongley>	manu: if we take a position in this group we can take that position to the group, instead of not taking one and making it an open-ended discussion
+[Tue 11:21]	<dlongley>	markus: the whole reason we're having this discussion is because sandro, from the RDF WG, has an issue with it
+[Tue 11:21]	<manu-db>	PROPOSAL: Specify what canonical lexical form is for xsd:integer and xsd:double by referencing the XML Schema 1.1 Datatypes specification. When processors are generating output, they are required to use this form.
+[Tue 11:23]	<manu-db>	+1
+[Tue 11:23]	<pkuyken>	+1
+[Tue 11:23]	<dlongley>	+1
+[Tue 11:23]	<gkellogg>	+1
+[Tue 11:23]	<mlnt>	+0
+[Tue 11:23]	<niklasl>	+1
+[Tue 11:23]	<taaz>	+0
+[Tue 11:23]	<manu-db>	RESOLVED: Specify what canonical lexical form is for xsd:integer and xsd:double by referencing the XML Schema 1.1 Datatypes specification. When processors are generating output, they are required to use this form.
+[Tue 11:24]	<dlongley>	gkellogg: the last issue we can talk about is changing the RDF-CONCEPTS reference to be normative
+[Tue 11:25]	<dlongley>	gkellogg: David Wood said that if we don't normatively reference our own documents (this is a RDF WG doc) that's a problem
+[Tue 11:25]	<dlongley>	manu: why don't we reference other W3C documents
+[Tue 11:26]	<dlongley>	manu: normatively
+[Tue 11:26]	<dlongley>	gkellogg: JSON-LD is an RDF serialization format, so every other RDF serialization format has a normative reference to RDF-CONCEPTS
+[Tue 11:26]	<dlongley>	gkellogg: it's not clear that we're being an RDF syntax if we don't normatively reference RDF-CONCEPTS
+[Tue 11:29]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000140) has left the conference.
+[Tue 11:29]	<voip-ld>	Manu Sporny (SIP/6000-00000141) has left the conference.
+[Tue 11:29]	<voip-ld>	pkuyken (IAX2/diamondcard-14519) has left the conference.
+[Tue 11:29]	<voip-ld>	Dave Longley (SIP/6002-00000144) has left the conference.
+[Tue 11:29]	<voip-ld>	Niklas Lindström (SIP/192.168.3.10-00000145) has left the conference.
+[Tue 11:29]	<voip-ld>	dlehn (SIP/192.168.1.149:5060-00000147) has left the conference.
+[Tue 11:29]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000143) has left the conference.
