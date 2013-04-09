@@ -1,0 +1,227 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-04-09</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0009.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0009.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Last Call Documents for RDF WG</a><li><a href="#topic-2">ISSUE-238: WebIDL dependency</a><li><a href="#topic-3">ISSUE-223: JsonLdOptions base vs. @base</a><li><a href="#topic-4">Compaction corner cases</a><li><a href="#topic-5">ISSUE-229: Test Suite</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Express the WebIDL for functions with optional parameters using the method overloading WebIDL pattern.</a><li><a href="#resolution-2">If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.</a><li><a href="#resolution-3">When a context is passed into the .compact() function call, it MUST NOT be the 'null' value. If a null value is detected, an error must be thrown.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Manu Sporny, Dave Longley, Markus Lanthaler, Gregg Kellogg, Paul Kuykendall, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates/additions to the Agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/commit/ddca14bcff5e28491ac1eb0c16414dfc3a5270f2">https://github.com/json-ld/json-ld.org/commit/ddca14bcff5e28491ac1eb0c16414dfc3a5270f2</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  There is a proposal there, we should cover that. [scribe assist by Manu Sporny]</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Last Call Documents for RDF WG</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Last Call documents are ready and have been put in place, we have minor issues to deal with regarding the documents.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Lets send a mail to the pubrules team for the publication on Thursday</div>
+<div class="comment-continuation">... has the transition request been made?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't know</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  typically the RDF WG chairs need to do that.. not sure they did it</div>
+<div class="comment-continuation">... I will send them an  email. We also need to make sure to tell the W3C Chairs that this is happening.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-238: WebIDL dependency</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/238">https://github.com/json-ld/json-ld.org/issues/238</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this has to do with the reference that we make to WebIDL</div>
+<div class="comment-continuation">... I was surprised that we are required to do that idlharness thing</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  All sorts of specs use this, I think. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dave, you said you try to get this working but there were some issues!?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah... some things can't be implemented in JavaScript.. for example the stringify</div>
+<div class="comment-continuation">... non-writeable/non-enumerable could probably be fixed with the newest ECMAScript</div>
+<div class="comment-continuation">... the other thing was the order of parameters. The optional parameters have to come last</div>
+<div class="comment-continuation">... this breaks most existing JavaScript libraries</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we need to change the interface</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://www.w3.org/TR/WebIDL/#dfn-optional-argument">http://www.w3.org/TR/WebIDL/#dfn-optional-argument</a></div>
+<div class="comment-continuation">... we need to do what most JavaScript do not what the idltest requires</div>
+<div class="information"><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=21640">https://www.w3.org/Bugs/Public/show_bug.cgi?id=21640</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  One option would be to use method overloading [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ... but that wouldn't work either in WebIDL, a callback isn't distinguishable from a dictionary. That is a bug in WebIDL.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ... he advocated to use futures instead of callbacks.</div>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/238#issuecomment-16113774">https://github.com/json-ld/json-ld.org/issues/238#issuecomment-16113774</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Here's what a future looks like: proc.expand(input).then(successCB, errorCB);</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Future expand (JsonLdInput input, optional JsonLdOptions options);</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That would make a dependency on DOM4, which we can't do because that's not a REC? [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://www.w3.org/TR/geolocation-API/#geolocation">http://www.w3.org/TR/geolocation-API/#geolocation</a></div>
+<div class="information"><a href="http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCPeerConnection">http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCPeerConnection</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I asked Robin for his preference - he said futures, but we are not going to do that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The next thing would be to just use method overloading and ship it even though that means we're shipping it ... (MISSED) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  He said that we should probably just keep what we had. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we do method overloading, we'd be depending on a bug in WebIDL. [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="http://www.w3.org/TR/WebIDL/#dfn-distinguishable">http://www.w3.org/TR/WebIDL/#dfn-distinguishable</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  dictionaries and callbacks are not distinguishable</div>
+<div class="information">Discussion about WebIDL and how to specify the parameters.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think the right way to mark it up is to do overloading. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That sounds reasonable to me. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Express the WebIDL for functions with optional parameters using the method overloading WebIDL pattern.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Express the WebIDL for functions with optional parameters using the method overloading WebIDL pattern.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  when will the javascript implementation will be ready?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  should take 10 minutes? Should be rather straightforward (not all is fixable in JS though)</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-223: JsonLdOptions base vs. @base</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/223">https://github.com/json-ld/json-ld.org/issues/223</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We were going to talk about this on the issue tracker, nobody seems to have had time to do it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I disallowed @base to take relative IRIs as value</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we have issue markers for this in the spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, we do</div>
+<h1 id="topic-4" class="topic">Topic: Compaction corner cases</h1>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/commit/ddca14bcff5e28491ac1eb0c16414dfc3a5270f2">https://github.com/json-ld/json-ld.org/commit/ddca14bcff5e28491ac1eb0c16414dfc3a5270f2</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: PROPOSAL 1: If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: PROPOSAL 2: If the result of compaction is an array at the top level, only wrap it in @graph (default graph) if a context has been passed. This means that if compaction was called without passing a context (or a null context), the result might be an array or an object, depending on the number of nodes at the top level.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  the question is: if you compact an array, will the result always be an object or just if a context has been passed</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think avoiding @graph when possible might be a good thing</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You don't always get an object back. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we really allow passing 'null' for the context parameter in the compaction call? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We use the same thing in flatten [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The flattening result is in expanded form, would it be simpler to say that you can't pass 'null' for a context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I wonder if people would prefer to pass an empty context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the other problem is that if we pass null for context to flatten the result will be in expanded form</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think empty contexts are already a corner case.. but if they use it with arrays they might wanna just get back arrays</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Typically, JSON developers want an object at the top level and not an array. I know @graph isn't the simplest feature we have, but at least it's consistent. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That's regardless of what kind of context you pass. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I prefer PROPOSAL 1 [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  me too [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't feel too strongly about it, it's a corner case, it would simplify the code. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't feel strongly about it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't feel strongly about it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm just a bit concerned if this turns out to become a popular feature (using empty contexts with arrays)</div>
+<div class="proposal"><strong>PROPOSAL:</strong> If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.8</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +0.3</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We need to get a resolution down for null being passed as a context to .compact() [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> When a context is passed into the .compact() function call, it MUST NOT be the 'null' value. If a null value is detected, an error must be thrown.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> When a context is passed into the .compact() function call, it MUST NOT be the 'null' value. If a null value is detected, an error must be thrown.</div>
+<h1 id="topic-5" class="topic">Topic: ISSUE-229: Test Suite</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/229">https://github.com/json-ld/json-ld.org/issues/229</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg did quite some work on it already</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/test-suite/reports/">http://json-ld.org/test-suite/reports/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I made changes to the test suite to allow it to be used as a normal RDF-style suite</div>
+<div class="comment-continuation">... EARL reports are then automatically converted to HTML reports</div>
+<div class="comment"><span class="name">Dave Longley</span>: maybe use @type: @vocab for the manifest types</div>
+<div class="comment-continuation">... markus requested test numbers to be included which is simply enough to do</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/test-suite/">http://json-ld.org/test-suite/</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: jld:PositiveEvaluationTest - PositiveEvaluationTest (via {"@id": "jld:PositiveEvaluationTest", "@type": "@vocab"})</div>
+<div class="comment-continuation">... secondly I did a simple jQuery + Mustache plugin to list the tests in the manifest</div>
+<div class="comment-continuation">... we can improve the output by CSS and adding stuff to the manifest</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite">http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite</a></div>
+<div class="comment-continuation">... we need to be sure to describe everything a developer needs to run the tests</div>
+<div class="comment-continuation">... Turtle does this using a wiki page</div>
+<div class="comment-continuation">... we don't have any syntax tests</div>
+<div class="comment-continuation">... we have 2 or 3 classes of tests</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to tell people how to run it etc. do you think we have most stuff in place?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the base should be consistent with where the tests are living in the long place</div>
+<div class="comment-continuation">... sandro also suggested to add an "approved test" class</div>
+<div class="comment-continuation">... I had to add a hash-URI to each test so that someone can reference it</div>
+<div class="comment-continuation">... I don't know if we have enough information in the test-suite index.html to run the tests</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the tests return a 404</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the "tests" subdirectory is missing</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could do some ajax stuff to display the test</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we should use the @type: @vocab feature for marking up the test type</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What do we do with error tests and tests of the API flags? Variations of the existing tests. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need a generic way of saying: "When something is run, expect an error" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We may want to specify the type of detail we expect in the error. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I saw an error test where the result was a string</div>
+<div class="comment"><span class="name">Dave Longley</span>: use some kind of "exception" property</div>
+<div class="comment"><span class="name">Dave Longley</span>: rather than "result"</div>
+<div class="comment-continuation">... we should probably use a separate property for that</div>
+<div class="comment-continuation">... using different options could either be done with a single property serializing all options or a property for each option</div>
+<div class="comment-continuation">... nevertheless we should separate API tests from algorithm tests</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think most APIs are tested in-browser</div>
+<div class="comment-continuation">... what we have is mostly for libraries not browsers</div>
+<div class="comment-continuation">... we need kind of a endpoint to invoke the tests</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  we are only implementing very small portions of the API at the moment</div>
+<div class="comment-continuation">... we've implemented expand and will be working on compact</div>
+<div class="comment-continuation">... on the client side everything will be turned in to RDF triples anyway</div>
+<div class="comment-continuation">... we use it just as a simple serialization format</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  "@type": ["jld:PositiveEvaluationTest", "jld:CompactTest"]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I will change it to "@type": [ "PositiveEvaluationTest", "CompactTest" ],</div>
+<div class="comment-continuation">... this vocabulary is not defined anywhere</div>
+<div class="comment-continuation">... we will probably define the vocabulary in the test description file</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are a lot of things to discuss regarding the test suite</div>
+<div class="comment-continuation">... but maybe not today.. perhaps we should open a few issues against the test suite</div>
+<div class="comment-continuation">... and discuss it next week</div>
+</body>
+</html>

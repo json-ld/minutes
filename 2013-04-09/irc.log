@@ -1,0 +1,153 @@
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0009.html
+[Tue 10:05]	<manu-db>	manu: Any updates/additions to the Agenda?
+[Tue 10:05]	<dlongley>	https://github.com/json-ld/json-ld.org/commit/ddca14bcff5e28491ac1eb0c16414dfc3a5270f2
+[Tue 10:06]	<manu-db>	dlongley: There is a proposal there, we should cover that.
+[Tue 10:07]	<manu-db>	scribe: mlnt
+[Tue 10:07]	<manu-db>	Topic: Last Call Documents for RDF WG
+[Tue 10:09]	<mlnt>	markus: Last Call documents are ready and have been put in place, we have minor issues to deal with regarding the documents.
+[Tue 10:09]	<mlnt>	manu: Lets send a mail to the pubrules team for the publication on Thursday
+[Tue 10:11]	<mlnt>	... has the transition request been made?
+[Tue 10:11]	<mlnt>	markus: I don't know
+[Tue 10:14]	<mlnt>	manu: typically the RDF WG chairs need to do that.. not sure they did it
+[Tue 10:14]	<mlnt>	... I will send them an  email. We also need to make sure to tell the W3C Chairs that this is happening.
+[Tue 10:16]	<manu-db>	Topic: ISSUE-238: WebIDL dependency
+[Tue 10:17]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/238
+[Tue 10:17]	<mlnt>	manu: this has to do with the reference that we make to WebIDL
+[Tue 10:18]	<mlnt>	... I was surprised that we are required to do that idlharness thing
+[Tue 10:18]	<manu-db>	markus: All sorts of specs use this, I think.
+[Tue 10:18]	<mlnt>	manu: Dave, you said you try to get this working but there were some issues!?
+[Tue 10:19]	<mlnt>	dave: yeah... some things can't be implemented in JavaScript.. for example the stringify
+[Tue 10:20]	<mlnt>	... non-writeable/non-enumerable could probably be fixed with the newest ECMAScript
+[Tue 10:20]	<mlnt>	... the other thing was the order of parameters. The optional parameters have to come last
+[Tue 10:20]	<mlnt>	... this breaks most existing JavaScript libraries
+[Tue 10:21]	<mlnt>	manu: I don't think we need to change the interface
+[Tue 10:21]	<dlongley>	http://www.w3.org/TR/WebIDL/#dfn-optional-argument
+[Tue 10:21]	<mlnt>	... we need to do what most JavaScript do not what the idltest requires
+[Tue 10:22]	<mlnt>	https://www.w3.org/Bugs/Public/show_bug.cgi?id=21640
+[Tue 10:22]	<manu-db>	mlnt: One option would be to use method overloading
+[Tue 10:23]	<manu-db>	... but that wouldn't work either in WebIDL, a callback isn't distinguishable from a dictionary. That is a bug in WebIDL.
+[Tue 10:23]	<manu-db>	... he advocated to use futures instead of callbacks.
+[Tue 10:23]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/238#issuecomment-16113774
+[Tue 10:23]	<mlnt>	mlnt: Here's what a future looks like: proc.expand(input).then(successCB, errorCB);
+[Tue 10:23]	<mlnt>	mlnt: Future expand (JsonLdInput input, optional JsonLdOptions options);
+[Tue 10:24]	<manu-db>	mlnt: That would make a dependency on DOM4, which we can't do because that's not a REC?
+[Tue 10:24]	<mlnt>	http://www.w3.org/TR/geolocation-API/#geolocation
+[Tue 10:24]	<mlnt>	http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCPeerConnection
+[Tue 10:25]	<manu-db>	mlnt: I asked Robin for his preference - he said futures, but we are not going to do that.
+[Tue 10:26]	<manu-db>	mlnt: The next thing would be to just use method overloading and ship it even though that means we're shipping it ... (MISSED)
+[Tue 10:26]	<manu-db>	mlnt: He said that we should probably just keep what we had.
+[Tue 10:27]	<manu-db>	mlnt: If we do method overloading, we'd be depending on a bug in WebIDL.
+[Tue 10:27]	<mlnt>	http://www.w3.org/TR/WebIDL/#dfn-distinguishable
+[Tue 10:27]	<mlnt>	mlnt: dictionaries and callbacks are not distinguishable
+[Tue 10:30]	<mlnt>	Discussion about WebIDL and how to specify the parameters.
+[Tue 10:31]	<manu-db>	dlongley: I think the right way to mark it up is to do overloading.
+[Tue 10:31]	<manu-db>	gkellogg: That sounds reasonable to me.
+[Tue 10:31]	<manu-db>	PROPOSAL: Express the WebIDL for functions with optional parameters using the method overloading WebIDL pattern.
+[Tue 10:32]	<manu-db>	+1
+[Tue 10:32]	<dlongley>	+1
+[Tue 10:32]	<gkellogg>	+1
+[Tue 10:32]	<pkuyken>	+1
+[Tue 10:32]	<mlnt>	+1
+[Tue 10:32]	<manu-db>	RESOLVED: Express the WebIDL for functions with optional parameters using the method overloading WebIDL pattern.
+[Tue 10:33]	<mlnt>	markus: when will the javascript implementation will be ready?
+[Tue 10:35]	<mlnt>	dave: should take 10 minutes? Should be rather straightforward (not all is fixable in JS though)
+[Tue 10:35]	<manu-db>	Topic: ISSUE-223: JsonLdOptions base vs. @base
+[Tue 10:35]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/223
+[Tue 10:36]	<manu-db>	manu: We were going to talk about this on the issue tracker, nobody seems to have had time to do it.
+[Tue 10:36]	<mlnt>	markus: I disallowed @base to take relative IRIs as value
+[Tue 10:37]	<mlnt>	manu: Do we have issue markers for this in the spec
+[Tue 10:37]	<mlnt>	markus: Yes, we do
+[Tue 10:37]	<manu-db>	Topic: Compaction corner cases
+[Tue 10:37]	<dlongley>	https://github.com/json-ld/json-ld.org/commit/ddca14bcff5e28491ac1eb0c16414dfc3a5270f2
+[Tue 10:37]	<manu-db>	PROPOSAL 1: If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.
+[Tue 10:37]	<manu-db>	PROPOSAL 2: If the result of compaction is an array at the top level, only wrap it in @graph (default graph) if a context has been passed. This means that if compaction was called without passing a context (or a null context), the result might be an array or an object, depending on the number of nodes at the top level.
+[Tue 10:38]	<mlnt>	dave: the question is: if you compact an array, will the result always be an object or just if a context has been passed
+[Tue 10:39]	<mlnt>	gregg: I think avoiding @graph when possible might be a good thing
+[Tue 10:39]	<manu-db>	mlnt: You don't always get an object back.
+[Tue 10:40]	<manu-db>	mlnt: Do we really allow passing 'null' for the context parameter in the compaction call?
+[Tue 10:40]	<manu-db>	mlnt: We use the same thing in flatten
+[Tue 10:40]	<manu-db>	mlnt: The flattening result is in expanded form, would it be simpler to say that you can't pass 'null' for a context.
+[Tue 10:40]	<manu-db>	dlongley: I wonder if people would prefer to pass an empty context.
+[Tue 10:41]	<mlnt>	markus: the other problem is that if we pass null for context to flatten the result will be in expanded form
+[Tue 10:47]	<mlnt>	dave: I think empty contexts are already a corner case.. but if they use it with arrays they might wanna just get back arrays
+[Tue 10:48]	<manu-db>	markus: Typically, JSON developers want an object at the top level and not an array. I know @graph isn't the simplest feature we have, but at least it's consistent.
+[Tue 10:48]	<manu-db>	markus: That's regardless of what kind of context you pass.
+[Tue 10:49]	<voip-ld>	Dave Lehn (SIP/6003-0000014f) has joined the conference.
+[Tue 10:50]	<manu-db>	manu: I prefer PROPOSAL 1
+[Tue 10:50]	<manu-db>	markus: me too
+[Tue 10:50]	<manu-db>	dlongley: I don't feel too strongly about it, it's a corner case, it would simplify the code.
+[Tue 10:50]	<mlnt>	gregg: I don't feel strongly about it
+[Tue 10:50]	<manu-db>	gkellogg: I don't feel strongly about it.
+[Tue 10:51]	<mlnt>	dave: I'm just a bit concerned if this turns out to become a popular feature (using empty contexts with arrays)
+[Tue 10:51]	<manu-db>	PROPOSAL: If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.
+[Tue 10:51]	<manu-db>	+0.8
+[Tue 10:51]	<gkellogg>	+0
+[Tue 10:51]	<mlnt>	+1
+[Tue 10:51]	<dlongley>	+0.3
+[Tue 10:52]	<pkuyken>	+0
+[Tue 10:52]	<manu-db>	RESOLVED: If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.
+[Tue 10:52]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 10:52]	<manu-db>	markus: We need to get a resolution down for null being passed as a context to .compact()
+[Tue 10:52]	<manu-db>	PROPOSAL: When a context is passed into the .compact() function call, it MUST NOT be the 'null' value. If a null value is detected, an error must be thrown.
+[Tue 10:53]	<mlnt>	+1
+[Tue 10:53]	<manu-db>	+1
+[Tue 10:53]	<dlongley>	+1
+[Tue 10:53]	<gkellogg>	+1
+[Tue 10:53]	<pkuyken>	+1
+[Tue 10:53]	<taaz>	+0
+[Tue 10:53]	<manu-db>	RESOLVED: When a context is passed into the .compact() function call, it MUST NOT be the 'null' value. If a null value is detected, an error must be thrown.
+[Tue 10:53]	<manu-db>	Topic: ISSUE-229: Test Suite
+[Tue 10:53]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/229
+[Tue 10:53]	<mlnt>	manu: Gregg did quite some work on it already
+[Tue 10:54]	<gkellogg>	http://json-ld.org/test-suite/reports/
+[Tue 10:54]	<mlnt>	gregg: I made changes to the test suite to allow it to be used as a normal RDF-style suite
+[Tue 10:54]	<mlnt>	... EARL reports are then automatically converted to HTML reports
+[Tue 10:55]	<dlongley>	maybe use @type: @vocab for the manifest types
+[Tue 10:55]	<mlnt>	... markus requested test numbers to be included which is simply enough to do
+[Tue 10:56]	<gkellogg>	http://json-ld.org/test-suite/
+[Tue 10:56]	<dlongley>	jld:PositiveEvaluationTest - PositiveEvaluationTest (via {"@id": "jld:PositiveEvaluationTest", "@type": "@vocab"})
+[Tue 10:56]	<mlnt>	... secondly I did a simple jQuery + Mustache plugin to list the tests in the manifest
+[Tue 10:57]	<mlnt>	... we can improve the output by CSS and adding stuff to the manifest
+[Tue 10:57]	<gkellogg>	http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite
+[Tue 10:58]	<mlnt>	... we need to be sure to describe everything a developer needs to run the tests
+[Tue 10:58]	<mlnt>	... Turtle does this using a wiki page
+[Tue 10:58]	<mlnt>	... we don't have any syntax tests
+[Tue 10:59]	<mlnt>	... we have 2 or 3 classes of tests
+[Tue 10:59]	<mlnt>	manu: we need to tell people how to run it etc. do you think we have most stuff in place?
+[Tue 11:00]	<mlnt>	gregg: the base should be consistent with where the tests are living in the long place
+[Tue 11:01]	<mlnt>	... sandro also suggested to add an "approved test" class
+[Tue 11:01]	<mlnt>	... I had to add a hash-URI to each test so that someone can reference it
+[Tue 11:02]	<mlnt>	... I don't know if we have enough information in the test-suite index.html to run the tests
+[Tue 11:03]	<mlnt>	manu: the tests return a 404
+[Tue 11:03]	<mlnt>	markus: the "tests" subdirectory is missing
+[Tue 11:04]	<mlnt>	gregg: we could do some ajax stuff to display the test
+[Tue 11:05]	<mlnt>	dave: we should use the @type: @vocab feature for marking up the test type
+[Tue 11:06]	<manu-db>	markus: What do we do with error tests and tests of the API flags? Variations of the existing tests.
+[Tue 11:06]	<manu-db>	gkellogg: We need a generic way of saying: "When something is run, expect an error"
+[Tue 11:06]	<manu-db>	gkellogg: We may want to specify the type of detail we expect in the error.
+[Tue 11:06]	<mlnt>	gregg: I saw an error test where the result was a string
+[Tue 11:07]	<dlongley>	use some kind of "exception" property
+[Tue 11:07]	<dlongley>	rather than "result"
+[Tue 11:07]	<mlnt>	... we should probably use a separate property for that
+[Tue 11:07]	<mlnt>	... using different options could either be done with a single property serializing all options or a property for each option
+[Tue 11:08]	<mlnt>	... nevertheless we should separate API tests from algorithm tests
+[Tue 11:08]	<mlnt>	manu: I think most APIs are tested in-browser
+[Tue 11:09]	<mlnt>	... what we have is mostly for libraries not browsers
+[Tue 11:09]	<mlnt>	... we need kind of a endpoint to invoke the tests
+[Tue 11:10]	<mlnt>	paul: we are only implementing very small portions of the API at the moment
+[Tue 11:10]	<mlnt>	... we've implemented expand and will be working on compact
+[Tue 11:11]	<mlnt>	... on the client side everything will be turned in to RDF triples anyway
+[Tue 11:11]	<mlnt>	... we use it just as a simple serialization format
+[Tue 11:14]	<mlnt>	mlnt: "@type": ["jld:PositiveEvaluationTest", "jld:CompactTest"]
+[Tue 11:16]	<mlnt>	gregg: I will change it to "@type": [ "PositiveEvaluationTest", "CompactTest" ],
+[Tue 11:16]	<mlnt>	... this vocabulary is not defined anywhere
+[Tue 11:17]	<mlnt>	... we will probably define the vocabulary in the test description file
+[Tue 11:17]	<mlnt>	manu: There are a lot of things to discuss regarding the test suite
+[Tue 11:18]	<mlnt>	... but maybe not today.. perhaps we should open a few issues against the test suite
+[Tue 11:18]	<mlnt>	... and discuss it next week
+[Tue 11:18]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000014c) has left the conference.
+[Tue 11:18]	<voip-ld>	Dave Longley (SIP/6002-0000014b) has left the conference.
+[Tue 11:18]	<voip-ld>	Manu Sporny (SIP/6000-0000014d) has left the conference.
+[Tue 11:18]	<voip-ld>	pkuyken (IAX2/diamondcard-10688) has left the conference.
+[Tue 11:18]	<voip-ld>	Dave Lehn (SIP/6003-0000014f) has left the conference.
+[Tue 11:18]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000014e) has left the conference.
