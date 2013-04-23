@@ -1,0 +1,169 @@
+[Tue 10:02]	<voip-ld>	Niklas Lindström (SIP/192.168.3.14-0000016f) is in the conference.
+[Tue 10:02]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000170) has joined the conference.
+[Tue 10:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000171) has joined the conference.
+[Tue 10:03]	<voip-ld>	Dave Longley (SIP/6002-00000172) has joined the conference.
+[Tue 10:04]	<voip-ld>	Manu Sporny (SIP/6000-00000174) has joined the conference.
+[Tue 10:05]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0023.html
+[Tue 10:06]	<manu-db>	manu: Anything else we need to discuss today?
+[Tue 10:06]	<manu-db>	dlongley: We need to discuss terms and term redefinition.
+[Tue 10:06]	<voip-ld>	<unknown> (IAX2/diamondcard-1117) has joined the conference.
+[Tue 10:06]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:06]	<manu-db>	scribe: niklasl
+[Tue 10:07]	<manu-db>	Topic: JSON-LD API and Futures
+[Tue 10:07]	<niklasl>	manu: this came out of a discussion re. node-callback style vs. future (and web spec) callback style
+[Tue 10:08]	<niklasl>	…: it seems possible to ref. a spec outside of the w3c (whatwg futures)
+[Tue 10:08]	<niklasl>	… most browser vendors intend to use that Future API
+[Tue 10:08]	<niklasl>	... so using nodejs callback style would deviate from this
+[Tue 10:09]	<niklasl>	… dave and Markus have worked on impl. and spec changes to see what switching to Futures entails
+[Tue 10:09]	<mlnt>	http://www.markus-lanthaler.com/tmp-futures/json-ld-api/#the-application-programming-interface
+[Tue 10:09]	<niklasl>	markus: not that many changes that had to be made
+[Tue 10:10]	<niklasl>	… dropped the callback signatures and changed the void return type to Future
+[Tue 10:10]	<niklasl>	… the algorithm didn't change at all
+[Tue 10:10]	<niklasl>	… only how the methods are linked to the algorithms
+[Tue 10:10]	<niklasl>	… now you create a future and return it, and then the caller resolves or handles error
+[Tue 10:11]	<niklasl>	…I didn't include much details on Futures, instead decouple that from here and allow the referenced spec to describe the details
+[Tue 10:12]	<niklasl>	manu: although anne wanted us to mention some details, but that is now be expressed in this futures-adaptation
+[Tue 10:12]	<niklasl>	gregg: an example could illustrate how this is used
+[Tue 10:12]	<niklasl>	dave: a danger with that would be that an example would be invalid if the Futures API changes
+[Tue 10:13]	<niklasl>	markus: the good thing is that that isn't normative though
+[Tue 10:13]	<niklasl>	manu: that would be a nice tradeoff; and we can to some extent change examples even after REC
+[Tue 10:13]	<niklasl>	manu: and we don't have to to the overloading anymore?
+[Tue 10:13]	<niklasl>	markus: true
+[Tue 10:14]	<niklasl>	…. error callback also returns a Future; overall no fundamental changes
+[Tue 10:15]	<niklasl>	dave: what does the load context cb resolve to? the return value used to include final url and data
+[Tue 10:15]	<niklasl>	markus: now either string error or dictionary with url + context
+[Tue 10:16]	<dlongley>	http://promises-aplus.github.io/promises-spec/
+[Tue 10:16]	<niklasl>	dave: futures, based on Promises/A+
+[Tue 10:16]	<niklasl>	… I've looked at something implementing this in JS
+[Tue 10:16]	<niklasl>	… the API is similar to Futures, but not identical
+[Tue 10:17]	<niklasl>	… I went ahead and implemented Futures. Some changes is that previously we could just call the callback, now we have to pass an object [niklasl: did I get that correctly?]
+[Tue 10:18]	* manu-db	isn't hearing any feedback...
+[Tue 10:18]	* gkellogg	neither am I, but perhaps if people mute unless talking, it might help.
+[Tue 10:19]	<niklasl>	… [dave describes details on the implementation, regarding input and return values]
+[Tue 10:20]	<niklasl>	... I did complete an implementation of Promises/A+; I need to wrap that to make it compliant to the Futures spec. However, it may be that that spec changes to become closer to Promises/A+
+[Tue 10:20]	<manu-db>	dlongley: I found it more difficult to use Futures than the node.js continuation-style, but that may be a part of the learning curve. It seems like the Futures spec may be changing and it may be changing closer to the Promises API.
+[Tue 10:21]	<niklasl>	… it's unclear right now. Noone uses this incarnation of Futures yet, apart from us...
+[Tue 10:22]	<niklasl>	markus: create/fulfil and reject are missing from Promies/A+, need to be added for Futures
+[Tue 10:23]	<niklasl>	manu: is this the right direction? It seems clear that we can add this, and that the Futures spec can evolve independently
+[Tue 10:23]	<niklasl>	dave: from what I can tell, I'd expect that more people with experience will look at the Futures API and demand changes. But it will probably become what ends up in web browsers.
+[Tue 10:24]	<gkellogg>	q+
+[Tue 10:24]	<voip-ld>	Added gkellogg to the speaker queue: manu-db, gkellogg
+[Tue 10:24]	<manu-db>	q-
+[Tue 10:24]	<voip-ld>	Removed manu-db from the speaker queue: gkellogg
+[Tue 10:24]	<manu-db>	ack gkellogg
+[Tue 10:24]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:24]	<niklasl>	… I don't think people will give up and go with the node callback style. It will end up different from now, but people are used to having a framework for this.
+[Tue 10:24]	|<--	scor has left freenode (Quit: scor)
+[Tue 10:24]	<pkuyken>	q+
+[Tue 10:24]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:25]	<niklasl>	gregg: it seems like a very elegant way of doing things. I'm nervous about using this at this early stage, but it seems like the right direction.
+[Tue 10:25]	<manu-db>	ack pkuyken
+[Tue 10:25]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 10:25]	<niklasl>	… we seem to be able to handle spec changes of that , unless radical. The test suite must be adapted, but the spec text is ok.
+[Tue 10:26]	<niklasl>	paul: adding these changes this late in the game, using a spec in such an early stage, is somewhat worrying
+[Tue 10:27]	<niklasl>	manu: if we choose to take a path that goes away from the web platform (the browser vendor's POV), it may very well cause problems (with uptake..)
+[Tue 10:28]	<niklasl>	… since this API is targeted to JS impl.s in the browser, this is important
+[Tue 10:28]	<niklasl>	paul: decoupling this would be good to get further along with the specs
+[Tue 10:28]	<niklasl>	… it would be good to not bind the algorithms to the API
+[Tue 10:28]	<niklasl>	manu: that's done now
+[Tue 10:28]	<niklasl>	gregg: but they are bound – they're in the same spec
+[Tue 10:29]	<niklasl>	gregg: if we fail to get to LC due to API instability, the algorithms fail along with that
+[Tue 10:29]	<niklasl>	manu: we could split the API out, we need to go to another LC; if we move to futures, same thing
+[Tue 10:30]	<niklasl>	… we don't seem to want to take the no-change route
+[Tue 10:30]	<niklasl>	markus: also, the current callback style isn't like the callback-style done in browsers
+[Tue 10:30]	<niklasl>	dave: we also need two independent implementations
+[Tue 10:31]	<niklasl>	manu: it could be fairly easy: use the core js impl. . of the algorithms but implement your own Futures on top
+[Tue 10:33]	<niklasl>	markus: most important to have impls implement the features/algorithms
+[Tue 10:33]	<niklasl>	gregg: it doesn't seem to be required that futures are implemented async.
+[Tue 10:33]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 10:34]	<niklasl>	q+
+[Tue 10:34]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:34]	<manu-db>	ack niklasl
+[Tue 10:34]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:35]	<manu-db>	niklasl: Regarding any other options - is it possible to have some parts of the API by demanding that the data passed in has previously resolved any fetching of any entities?
+[Tue 10:35]	<manu-db>	niklasl: This would be a two-pass approach, where every external reference would be resolved.
+[Tue 10:36]	<manu-db>	manu: I think we tried to think about that approach, it would be a lot of cognitive load on the developers.
+[Tue 10:36]	<manu-db>	niklasl: It would be nice to have a mathematically pure transformation that is synchronous... it's sort of beside the point at this stage.
+[Tue 10:38]	<niklasl>	… [it would still have to be async to do the initial loading of external resources]
+[Tue 10:39]	<manu-db>	PROPOSAL: Address ISSUE-125 by adopting a Futures-based approach for the JSON-LD API.
+[Tue 10:39]	<manu-db>	+1
+[Tue 10:39]	<gkellogg>	+1
+[Tue 10:39]	<niklasl>	+1
+[Tue 10:39]	<mlnt>	+1
+[Tue 10:39]	<dlongley>	+1
+[Tue 10:39]	<pkuyken>	+1
+[Tue 10:39]	<manu-db>	RESOLVED: Address ISSUE-125 by adopting a Futures-based approach for the JSON-LD API.
+[Tue 10:40]	<niklasl>	manu: This decision requires that the JSON-LD Algorithms and API spec must go through a second Last Call.
+[Tue 10:40]	<manu-db>	ISSUE-124 is resolved as a result of this resolution - http://www.w3.org/2011/rdf-wg/track/issues/124
+[Tue 10:40]	<pkuyken>	q+
+[Tue 10:40]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:40]	<niklasl>	manu: thus the optionals parameter can be the last, and optional
+[Tue 10:40]	<niklasl>	… I all respond to the interested parties
+[Tue 10:40]	<niklasl>	markus: do we want to include an example or more prose?
+[Tue 10:41]	<niklasl>	manu: both would help
+[Tue 10:41]	<niklasl>	paul: will both specs go through LC or only algorithms and API?
+[Tue 10:41]	<niklasl>	manu: I believe only this; we can continue with Syntax to CR
+[Tue 10:42]	<niklasl>	…. but the test suite uses the algorithms+API; so the Syntax would wait for that
+[Tue 10:42]	<niklasl>	… after LC we could probably go to PR, once we have implementations reports etc.
+[Tue 10:43]	<niklasl>	paul: just checking the state of things when we base our future on something which is a draft...
+[Tue 10:44]	<niklasl>	manu: we do this to increase the chances of browser vendors of adopting this API
+[Tue 10:44]	<pkuyken>	q-
+[Tue 10:44]	<voip-ld>	Removed pkuyken from the speaker queue: (empty)
+[Tue 10:44]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/4751e057970d3ca3161cb43c37cd6f7f5c0ef57d
+[Tue 10:45]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049
+[Tue 10:45]	<manu-db>	Topic: Term re-definition behavior
+[Tue 10:46]	<niklasl>	dave: to recap: this issue is about what the behavior is if you in a new context use a term in the RHS which is already defined. Should it remove the old term def before interpreting of the RHS
+[Tue 10:46]	<niklasl>	… recursion would fail with recursion if the term is completely new...
+[Tue 10:46]	<gkellogg>	[{"term": "a"}, {"@vocab": "b"; "term": "term"}]
+[Tue 10:47]	<niklasl>	manu: the last time, a bunch of us seemed to agree that the definition should be reset before the interpretation is done
+[Tue 10:47]	<niklasl>	markus: it's not a partial redefinition if you just use a term for expansion
+[Tue 10:47]	<niklasl>	… if you delete a term as soon as it is defined you introduce an asymmetry
+[Tue 10:48]	<niklasl>	gregg: re. the above example, this illuminates the choice
+[Tue 10:48]	<niklasl>	dave: the cognitive load is reduced if we reset the term as soon as it is defined
+[Tue 10:49]	<niklasl>	markus: do we need to change anything in the algorithms?
+[Tue 10:49]	<niklasl>	dave: just fix a bug and put some clarification in text in the algorithm
+[Tue 10:50]	<manu-db>	PROPOSAL: When re-defining a term 'A', any previous definition for term 'A' is removed before the right hand side for the new re-definition is evaluated.
+[Tue 10:50]	<gkellogg>	+1
+[Tue 10:50]	<manu-db>	+1
+[Tue 10:50]	<niklasl>	+1
+[Tue 10:50]	<mlnt>	+1
+[Tue 10:50]	<dlongley>	+1
+[Tue 10:50]	<pkuyken>	+1
+[Tue 10:50]	<manu-db>	RESOLVED: When re-defining a term 'A', any previous definition for term 'A' is removed before the right hand side for the new re-definition is evaluated.
+[Tue 10:51]	<niklasl>	dave: the only change in the algorithm is if you redefine a term which looks like a curie (which was brought up initially)
+[Tue 10:51]	<manu-db>	Topic: Test Suite Design
+[Tue 10:51]	<niklasl>	manu: basically we're keeping the test suite the same
+[Tue 10:52]	<niklasl>	… for the api, we're going to have developers point to the test harness they use for the api
+[Tue 10:53]	<niklasl>	… we have the approach for both the main syntax-focused suite and the API test suite
+[Tue 10:53]	<niklasl>	gregg: EARL reports for the different manifests is enough to produce the report (in turtle or json-ld)
+[Tue 10:54]	<niklasl>	gregg: the driving manifest will determine the absolute IRIs for the tests
+[Tue 10:55]	<niklasl>	markus: but locally hosted manifests will then resolve to different IRIs
+[Tue 10:55]	<niklasl>	gregg: perhaps a base would be enough
+[Tue 10:55]	<niklasl>	… the turtle test suite manifest has this problem currently
+[Tue 10:56]	<voip-ld>	David Lehn (SIP/192.168.0.55-00000175) has joined the conference.
+[Tue 10:56]	<voip-ld>	David Lehn (SIP/192.168.0.55-00000175) has left the conference.
+[Tue 10:56]	<niklasl>	Markus, Gregg, and Dave Longley will submit implementation reports for a total of 5 implementations.
+[Tue 10:56]	* mlnt	taaz.. too early to scribe :-P
+[Tue 10:57]	<voip-ld>	Dave Lehn (SIP/6003-00000176) has joined the conference.
+[Tue 10:58]	<niklasl>	… digital bazaar will have implementations in js, php and python
+[Tue 10:59]	<niklasl>	... [gregg on negative tests, datatypes, syntax tests]
+[Tue 11:00]	<niklasl>	manu: next stage is getting some reports done
+[Tue 11:00]	<niklasl>	... it would be good to get EARL reports from implementors
+[Tue 11:01]	<niklasl>	… the format will be like the turtle reports
+[Tue 11:01]	<gkellogg>	https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/rdf.rb-earl.ttl
+[Tue 11:01]	<niklasl>	gregg: this is the earl report for the turtle tests; the form will be the same
+[Tue 11:02]	<niklasl>	dave: are we going to generate these reports in json-ld?
+[Tue 11:02]	<gkellogg>	https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html
+[Tue 11:02]	<niklasl>	gregg: the report I use takes test manifests and individual reports; processes as RDF, runs sparql to extract results; and generates a json-ld file from that
+[Tue 11:03]	<niklasl>	manu: can each implementation produce JSON-LD?
+[Tue 11:03]	<niklasl>	gregg: yes; it can take any RDF format, including JSON-LD
+[Tue 11:04]	<niklasl>	manu: better to send a report, or publish it?
+[Tue 11:04]	<niklasl>	gregg: best to submit them through rdf-comments mailing list
+[Tue 11:05]	<niklasl>	... need to identify the specific processor used
+[Tue 11:06]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000170) has left the conference.
+[Tue 11:06]	<voip-ld>	Dave Longley (SIP/6002-00000172) has left the conference.
+[Tue 11:06]	<voip-ld>	Dave Lehn (SIP/6003-00000176) has left the conference.
+[Tue 11:06]	<voip-ld>	Manu Sporny (SIP/6000-00000174) has left the conference.
+[Tue 11:06]	<voip-ld>	Niklas Lindström (SIP/192.168.3.14-0000016f) has left the conference.
+[Tue 11:06]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000171) has left the conference.
+[Tue 11:06]	<voip-ld>	<unknown> (IAX2/diamondcard-1117) has left the conference.

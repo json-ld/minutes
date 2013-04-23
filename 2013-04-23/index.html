@@ -1,0 +1,211 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-04-23</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0023.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0023.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">JSON-LD API and Futures</a><li><a href="#topic-2">Term re-definition behavior</a><li><a href="#topic-3">Test Suite Design</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Address ISSUE-125 by adopting a Futures-based approach for the JSON-LD API.</a><li><a href="#resolution-2">When re-defining a term 'A', any previous definition for term 'A' is removed before the right hand side for the new re-definition is evaluated.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Dave Longley, Niklas Lindström, Markus Lanthaler, Gregg Kellogg, Paul Kuykendall</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything else we need to discuss today? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We need to discuss terms and term redefinition. [scribe assist by Manu Sporny]</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: JSON-LD API and Futures</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  this came out of a discussion re. node-callback style vs. future (and web spec) callback style</div>
+<div class="comment-continuation">…: it seems possible to ref. a spec outside of the w3c (whatwg futures)</div>
+<div class="comment-continuation">… most browser vendors intend to use that Future API</div>
+<div class="comment-continuation">... so using nodejs callback style would deviate from this</div>
+<div class="comment-continuation">… dave and Markus have worked on impl. and spec changes to see what switching to Futures entails</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.markus-lanthaler.com/tmp-futures/json-ld-api/#the-application-programming-interface">http://www.markus-lanthaler.com/tmp-futures/json-ld-api/#the-application-programming-interface</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  not that many changes that had to be made</div>
+<div class="comment-continuation">… dropped the callback signatures and changed the void return type to Future</div>
+<div class="comment-continuation">… the algorithm didn't change at all</div>
+<div class="comment-continuation">… only how the methods are linked to the algorithms</div>
+<div class="comment-continuation">… now you create a future and return it, and then the caller resolves or handles error</div>
+<div class="comment-continuation">…I didn't include much details on Futures, instead decouple that from here and allow the referenced spec to describe the details</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  although anne wanted us to mention some details, but that is now be expressed in this futures-adaptation</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an example could illustrate how this is used</div>
+<div class="comment"><span class="name">Dave Longley</span>:  a danger with that would be that an example would be invalid if the Futures API changes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the good thing is that that isn't normative though</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that would be a nice tradeoff; and we can to some extent change examples even after REC</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and we don't have to to the overloading anymore?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  true</div>
+<div class="comment-continuation">…. error callback also returns a Future; overall no fundamental changes</div>
+<div class="comment"><span class="name">Dave Longley</span>:  what does the load context cb resolve to? the return value used to include final url and data</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  now either string error or dictionary with url + context</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://promises-aplus.github.io/promises-spec/">http://promises-aplus.github.io/promises-spec/</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  futures, based on Promises/A+</div>
+<div class="comment-continuation">… I've looked at something implementing this in JS</div>
+<div class="comment-continuation">… the API is similar to Futures, but not identical</div>
+<div class="comment-continuation">… I went ahead and implemented Futures. Some changes is that previously we could just call the callback, now we have to pass an object [niklasl: did I get that correctly?]</div>
+<div class="comment-continuation">… [dave describes details on the implementation, regarding input and return values]</div>
+<div class="comment-continuation">... I did complete an implementation of Promises/A+; I need to wrap that to make it compliant to the Futures spec. However, it may be that that spec changes to become closer to Promises/A+</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I found it more difficult to use Futures than the node.js continuation-style, but that may be a part of the learning curve. It seems like the Futures spec may be changing and it may be changing closer to the Promises API. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… it's unclear right now. Noone uses this incarnation of Futures yet, apart from us...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  create/fulfil and reject are missing from Promies/A+, need to be added for Futures</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is this the right direction? It seems clear that we can add this, and that the Futures spec can evolve independently</div>
+<div class="comment"><span class="name">Dave Longley</span>:  from what I can tell, I'd expect that more people with experience will look at the Futures API and demand changes. But it will probably become what ends up in web browsers.</div>
+<div class="comment-continuation">… I don't think people will give up and go with the node callback style. It will end up different from now, but people are used to having a framework for this.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it seems like a very elegant way of doing things. I'm nervous about using this at this early stage, but it seems like the right direction.</div>
+<div class="comment-continuation">… we seem to be able to handle spec changes of that , unless radical. The test suite must be adapted, but the spec text is ok.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  adding these changes this late in the game, using a spec in such an early stage, is somewhat worrying</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we choose to take a path that goes away from the web platform (the browser vendor's POV), it may very well cause problems (with uptake..)</div>
+<div class="comment-continuation">… since this API is targeted to JS impl.s in the browser, this is important</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  decoupling this would be good to get further along with the specs</div>
+<div class="comment-continuation">… it would be good to not bind the algorithms to the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's done now</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but they are bound – they're in the same spec</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we fail to get to LC due to API instability, the algorithms fail along with that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could split the API out, we need to go to another LC; if we move to futures, same thing</div>
+<div class="comment-continuation">… we don't seem to want to take the no-change route</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  also, the current callback style isn't like the callback-style done in browsers</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we also need two independent implementations</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it could be fairly easy: use the core js impl. . of the algorithms but implement your own Futures on top</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  most important to have impls implement the features/algorithms</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it doesn't seem to be required that futures are implemented async.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Regarding any other options - is it possible to have some parts of the API by demanding that the data passed in has previously resolved any fetching of any entities? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This would be a two-pass approach, where every external reference would be resolved. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we tried to think about that approach, it would be a lot of cognitive load on the developers. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It would be nice to have a mathematically pure transformation that is synchronous... it's sort of beside the point at this stage. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… [it would still have to be async to do the initial loading of external resources]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Address ISSUE-125 by adopting a Futures-based approach for the JSON-LD API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Address ISSUE-125 by adopting a Futures-based approach for the JSON-LD API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This decision requires that the JSON-LD Algorithms and API spec must go through a second Last Call.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ISSUE-124 is resolved as a result of this resolution - <a href="http://www.w3.org/2011/rdf-wg/track/issues/124">http://www.w3.org/2011/rdf-wg/track/issues/124</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  thus the optionals parameter can be the last, and optional</div>
+<div class="comment-continuation">… I all respond to the interested parties</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we want to include an example or more prose?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  both would help</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  will both specs go through LC or only algorithms and API?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I believe only this; we can continue with Syntax to CR</div>
+<div class="comment-continuation">…. but the test suite uses the algorithms+API; so the Syntax would wait for that</div>
+<div class="comment-continuation">… after LC we could probably go to PR, once we have implementations reports etc.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  just checking the state of things when we base our future on something which is a draft...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we do this to increase the chances of browser vendors of adopting this API</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/4751e057970d3ca3161cb43c37cd6f7f5c0ef57d">https://github.com/json-ld/json-ld.org/commit/4751e057970d3ca3161cb43c37cd6f7f5c0ef57d</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049">https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049</a></div>
+<h1 id="topic-2" class="topic">Topic: Term re-definition behavior</h1>
+<div class="comment"><span class="name">Dave Longley</span>:  to recap: this issue is about what the behavior is if you in a new context use a term in the RHS which is already defined. Should it remove the old term def before interpreting of the RHS</div>
+<div class="comment-continuation">… recursion would fail with recursion if the term is completely new...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: [{"term": "a"}, {"@vocab": "b"; "term": "term"}]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the last time, a bunch of us seemed to agree that the definition should be reset before the interpretation is done</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's not a partial redefinition if you just use a term for expansion</div>
+<div class="comment-continuation">… if you delete a term as soon as it is defined you introduce an asymmetry</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  re. the above example, this illuminates the choice</div>
+<div class="comment"><span class="name">Dave Longley</span>:  the cognitive load is reduced if we reset the term as soon as it is defined</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we need to change anything in the algorithms?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  just fix a bug and put some clarification in text in the algorithm</div>
+<div class="proposal"><strong>PROPOSAL:</strong> When re-defining a term 'A', any previous definition for term 'A' is removed before the right hand side for the new re-definition is evaluated.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> When re-defining a term 'A', any previous definition for term 'A' is removed before the right hand side for the new re-definition is evaluated.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  the only change in the algorithm is if you redefine a term which looks like a curie (which was brought up initially)</div>
+<h1 id="topic-3" class="topic">Topic: Test Suite Design</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  basically we're keeping the test suite the same</div>
+<div class="comment-continuation">… for the api, we're going to have developers point to the test harness they use for the api</div>
+<div class="comment-continuation">… we have the approach for both the main syntax-focused suite and the API test suite</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  EARL reports for the different manifests is enough to produce the report (in turtle or json-ld)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the driving manifest will determine the absolute IRIs for the tests</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but locally hosted manifests will then resolve to different IRIs</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  perhaps a base would be enough</div>
+<div class="comment-continuation">… the turtle test suite manifest has this problem currently</div>
+<div class="information">Markus, Gregg, and Dave Longley will submit implementation reports for a total of 5 implementations.</div>
+<div class="comment-continuation">… digital bazaar will have implementations in js, php and python</div>
+<div class="comment-continuation">... [gregg on negative tests, datatypes, syntax tests]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  next stage is getting some reports done</div>
+<div class="comment-continuation">... it would be good to get EARL reports from implementors</div>
+<div class="comment-continuation">… the format will be like the turtle reports</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/rdf.rb-earl.ttl">https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/rdf.rb-earl.ttl</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is the earl report for the turtle tests; the form will be the same</div>
+<div class="comment"><span class="name">Dave Longley</span>:  are we going to generate these reports in json-ld?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html">https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the report I use takes test manifests and individual reports; processes as RDF, runs sparql to extract results; and generates a json-ld file from that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can each implementation produce JSON-LD?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes; it can take any RDF format, including JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  better to send a report, or publish it?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  best to submit them through rdf-comments mailing list</div>
+<div class="comment-continuation">... need to identify the specific processor used</div>
+</body>
+</html>
