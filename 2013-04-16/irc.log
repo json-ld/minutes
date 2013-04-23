@@ -1,0 +1,135 @@
+[Tue 10:07]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0014.html
+[Tue 10:08]	<manu-db>	scribe: manu-db
+[Tue 10:08]	<manu-db>	Manu: Any updates/changes to the agenda?
+[Tue 10:08]	<manu-db>	markus: Do we want to discuss the comment from Boris about the API?
+[Tue 10:09]	<mlnt>	here's the link
+[Tue 10:09]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Apr/0022.html
+[Tue 10:09]	<mlnt>	and the issue I created: https://github.com/json-ld/json-ld.org/issues/240
+[Tue 10:10]	<manu-db>	Topic: Last Call Issues
+[Tue 10:11]	<manu-db>	manu: We're going to want to track all issues using the W3C RDF WG issue tracker.
+[Tue 10:11]	<gkellogg>	http://www.w3.org/2011/rdf-wg/track/
+[Tue 10:11]	<manu-db>	manu: We should have something called JSON-LD Last Call 1
+[Tue 10:11]	<manu-db>	mlnt: Does it pick up comments in public-rdf-comments ?
+[Tue 10:12]	<manu-db>	manu: It should if it doesn't already.
+[Tue 10:13]	<manu-db>	mlnt: It would be nice to track in github.
+[Tue 10:14]	<gkellogg>	https://www.w3.org/2011/rdf-wg/track/products/11
+[Tue 10:14]	<manu-db>	manu: yes, but it doesn't track e-mails to the mailing list.
+[Tue 10:15]	<manu-db>	manu: We probably want to discuss this with RDF WG, seeing if it would be ok for us to handle these issues in an official capacity in this group.
+[Tue 10:17]	<mlnt>	https://www.w3.org/2011/rdf-wg/track/issues/124
+[Tue 10:17]	<manu-db>	Topic: Last Call Issue: Order of parameters (options or callback last) - by Boris Zbarsky
+[Tue 10:18]	<manu-db>	mlnt: The issue is rather simple, stylistic issue. The callback parameter is usually the last item.
+[Tue 10:18]	<manu-db>	mlnt: Boris is saying that the options parameter should come last.
+[Tue 10:19]	<manu-db>	mlnt: A couple of people are trying to push futures for such things, that was part of the discussion we had with the WebIDL bug we filed. There are 2-3 people that said we should do it with futures instead.
+[Tue 10:19]	<mlnt>	https://www.w3.org/Bugs/Public/show_bug.cgi?id=21640
+[Tue 10:20]	<manu-db>	manu: Is there an example where the options are last?
+[Tue 10:20]	<manu-db>	mlnt: WebRTC and Geolocation are two
+[Tue 10:20]	<dlongley>	http://en.wikipedia.org/wiki/Continuation-passing_style
+[Tue 10:20]	<manu-db>	manu: I don't quite agree with Boris here.
+[Tue 10:21]	<mlnt>	http://www.w3.org/TR/geolocation-API/#geolocation
+[Tue 10:21]	<manu-db>	dlongley: If you're using continuation passing style, typically control is passed using the last parameter. I don't know what Web APIs he's talking about that do what he's saying. I'm unaware of APIs that have the options parameter after the callback. After doing some research, I couldn't find any that did that.
+[Tue 10:21]	<mlnt>	http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCPeerConnection
+[Tue 10:22]	<manu-db>	dlongley: It is very consistent to have the callback as last. There are a number of libraries that assume the callback as the last parameter.
+[Tue 10:23]	<manu-db>	manu: Doesn't it mess the async library up in browsers/node.js if you don't have the callback parameter as the last parameter?
+[Tue 10:23]	<manu-db>	dlongley: I think it would be unusual to pass options last.
+[Tue 10:23]	<manu-db>	pkuyken: Doing some random google searches on this, even jquery and other popular libraries, most of the functions have the callback as the last parameter.
+[Tue 10:24]	<manu-db>	manu: How about we find a good set of APIs as examples and see what they do.
+[Tue 10:24]	<pkuyken>	http://stackoverflow.com/questions/2534436/jquery-plugin-adding-callback-functionality
+[Tue 10:25]	<manu-db>	dlongley: It's well established in Node.js that the callback is the last parameter. We need to find Web APIs that pass option as the last callback.
+[Tue 10:25]	<manu-db>	markus: Yes, we should find examples.
+[Tue 10:26]	<manu-db>	mlnt: The group that is standardizing JavaScript has asked for closer coordination with W3C. We should ask them to review the JSON-LD API.
+[Tue 10:26]	<manu-db>	manu: Agreed, please do that Markus.
+[Tue 10:26]	<mlnt>	public-script-coord@w3.org
+[Tue 10:26]	<gkellogg>	https://www.w3.org/Bugs/Public/describecomponents.cgi?product=WebAppsWG
+[Tue 10:27]	<manu-db>	ACTION: Markus to contact public-script-coord@w3.org asking for review of JSON-LD API.
+[Tue 10:28]	<manu-db>	dlongley: It's going to be unfortunate if everything that uses WebIDL goes against what most developers are doing out in the wild.
+[Tue 10:28]	<manu-db>	gkellogg: Ruby allows you to callback as last parameter as a block, so easy to do.
+[Tue 10:28]	<manu-db>	dlongley: WebIDL probably does it this way to support languages like C++ and Java.
+[Tue 10:30]	<manu-db>	dlongley: If we don't have this as the last parameter, we may want to just go with futures instead of going w/ something that's unconventional.
+[Tue 10:30]	<mlnt>	http://dom.spec.whatwg.org/#future
+[Tue 10:30]	<manu-db>	manu: We can't reference a spec that isn't in LC.
+[Tue 10:31]	<manu-db>	manu: Any volunteers?
+[Tue 10:31]	<dlongley>	http://stackoverflow.com/questions/2534436/jquery-plugin-adding-callback-functionality
+[Tue 10:32]	<manu-db>	pkuyken: One of our developers said callback before options.
+[Tue 10:33]	<manu-db>	dlongley: We need to be clear about what we're looking for. If the WebIDL spec calls for options after callbacks, it's a mistake.
+[Tue 10:33]	-->|	niklasl (~neuron@c-216-128.netlogon.liu.se) has joined #json-ld
+[Tue 10:33]	<manu-db>	mlnt: Well, we need to figure out which direction we're going.
+[Tue 10:34]	<voip-ld>	Niklas Lindström (SIP/130.236.216.128-0000015a) has joined the conference.
+[Tue 10:35]	<manu-db>	gkellogg: Maybe we should ask the TAG?
+[Tue 10:35]	<manu-db>	gkellogg: Anne, Yehuda, etc. Feedback from them would be good.
+[Tue 10:36]	<manu-db>	ACTION: Manu to ping WHATWG on the issue of where the callback parameter should go. Ask the TAG if the WHATWG doesn't have a strong opinion.
+[Tue 10:37]	<mlnt>	niklas, see http://lists.w3.org/Archives/Public/public-rdf-comments/2013Apr/0022.html%29:
+[Tue 10:37]	<mlnt>	of course without the %29; at the end
+[Tue 10:38]	<manu-db>	niklas: What about futures? We don't have the time to do anything with that. Could that influence our position in any way? Futures are returned as a callback? Could that influence the decision?
+[Tue 10:39]	<manu-db>	niklasl: If the callback was omitted, you should have the results returned, maybe? I don't know where Node.js / Web APIs stand on this.
+[Tue 10:40]	<mlnt>	futures are returned as return value, not as a callback
+[Tue 10:40]	<manu-db>	dlongley: Maybe we could say that the callback is optional as well, and it returns the issue synchronously?
+[Tue 10:40]	<manu-db>	s/issue/result/
+[Tue 10:41]	<manu-db>	niklasl: Maybe we can return a proto-future - it's not a DOM4 future, then we're not bound by that.
+[Tue 10:42]	<manu-db>	Topic: JSON-LD Specification Bugs
+[Tue 10:42]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049
+[Tue 10:43]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/4751e057970d3ca3161cb43c37cd6f7f5c0ef57d
+[Tue 10:43]	<manu-db>	dlongley: Effectively, we've realized that there is a situation where if you have a @context and you want to define a term to point to itself, we want to figure out what the processor should do.
+[Tue 10:43]	<manu-db>	dlongley: Look at the examples above.
+[Tue 10:44]	<manu-db>	dlongley: The first example uses rdfs: which is fine.
+[Tue 10:44]	<dlongley>	https://github.com/json-ld/json-ld.org/commit/7cd5b8006be86e3ab4c1cd6e33b4ea39a171e616
+[Tue 10:44]	<manu-db>	dlongley: The second example uses 'term' and removes previous definition of the term immediately. That's what I think should happen.
+[Tue 10:45]	<manu-db>	dlongley: If you look at the 3rd link, in that case @vocab is messed up if we don't reset the 'term' if it is redefined.
+[Tue 10:45]	<manu-db>	dlongley: If you re-use anything on the left hand side on the definition in the right-hand side, you should define it somewhere in the local context.
+[Tue 10:46]	<manu-db>	dlongley: Markus thinks that you could use something that's previously defined.
+[Tue 10:46]	<manu-db>	dlongley: When you start defining a term, that immediately removes any previously defined definition. It's a simple and consistent rule.
+[Tue 10:46]	<manu-db>	dlongley: Markus think that if you can re-use it, do that. That decision results in two different outputs.
+[Tue 10:46]	<manu-db>	manu: What does the spec say right now?
+[Tue 10:47]	<manu-db>	dlongley: It's ambiguous.
+[Tue 10:47]	<manu-db>	gkellogg: We do have checks for circular dependencies, right?
+[Tue 10:47]	<manu-db>	dlongley: Yes, but is this a circular dependency?
+[Tue 10:47]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049#commitcomment-3020250
+[Tue 10:48]	<niklasl>	I'm a +1 on "when a term is defined, remove it (set it to null?) if it already exists"
+[Tue 10:48]	<manu-db>	mlnt: Dave's approach doesn't seem very consistent to me.
+[Tue 10:48]	<manu-db>	dlongley: It doesn't seem strange to me to do that.
+[Tue 10:48]	<niklasl>	.. i.e. before interpreting the RHS
+[Tue 10:48]	<manu-db>	manu: I'm a +1 on completely removing a definition of a term when it's defined as well (agree with niklasl, and dlongley)
+[Tue 10:49]	<manu-db>	q+
+[Tue 10:49]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:49]	<manu-db>	mlnt: You still overwrite the entire definition when you're done using my approach.
+[Tue 10:49]	<manu-db>	ack manu-db
+[Tue 10:49]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 10:49]	<niklasl>	.. I'd find that consistent with the "no partial redefinition" design
+[Tue 10:51]	<dlongley>	if you have: "term": {"@id": "v:foo", "@type": "v:bar"} and then you add another context with "term": "term" ... does it keep @type? will authors understand that?
+[Tue 10:52]	<manu-db>	dlongley: I'm concerned that a partial re-definition might confuse web authors.
+[Tue 10:52]	<manu-db>	mlnt: It's not a partial re-definition, I don't think.
+[Tue 10:53]	<mlnt>	"term": {"@id" : "term", "@type": "@id" }
+[Tue 10:53]	<manu-db>	dlongley: Isn't what you're doing at that point kinda doing a partial re-definition? Addend your definition? If we introduce that concept couldn't it be confusing?
+[Tue 10:53]	<manu-db>	q+
+[Tue 10:53]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:53]	<manu-db>	mlnt: It's confusing sometimes, but it's not confusing at other times.
+[Tue 10:53]	<pkuyken>	FYI: Timebox has been exceeded
+[Tue 10:53]	* manu-db	nods.
+[Tue 10:53]	<mlnt>	"otherTerm": "term"
+[Tue 10:54]	<niklasl>	.. never allow partial redefinition! :)
+[Tue 10:54]	<manu-db>	Topic: Test Suite Design
+[Tue 10:54]	<manu-db>	manu: Any changes that need to be made to the test suite?
+[Tue 10:54]	<manu-db>	gkellogg: We have a rough design so far. Do we need to have different classes of tests?
+[Tue 10:55]	<manu-db>	gkellogg: The value range of the properties we're using - what do we expect? Typically it's a URL where there is a fine to look at? We do have cases where it's a string value - an exception text string. We shouldn't have the same property used for two totally different types of data.
+[Tue 10:55]	<manu-db>	gkellogg: In terms of a basic description, using the manifest definition, it works - been doing that all along. Reporting against that is fairly straightforward.
+[Tue 10:56]	<manu-db>	gkellogg: Either we're describing algorithmic behavior, if there are options to the algorithms, how do you specify that?
+[Tue 10:57]	<manu-db>	manu: This is the same problem that we had in the RDFa 1.1 test suite?
+[Tue 10:57]	<manu-db>	gkellogg: Yes, more or less. This is more complicated because some of these parameters are not scalar parameters.
+[Tue 10:58]	<manu-db>	gkellogg: There is also the whole behavior of the callback.
+[Tue 10:58]	<mlnt>	compact(..., function(err, result) { if(err) then test.failed else if (result == expected) then test.success) }
+[Tue 10:58]	<niklasl>	.. {"@context": {"@options": {…}} ;]
+[Tue 11:00]	<manu-db>	manu: If we were doing this in Javascript, we'd just implement a mocha test suite.
+[Tue 11:00]	<manu-db>	gkellogg: Maybe we just want to test on an algorithmic basis - just test input and output.
+[Tue 11:00]	<manu-db>	mlnt: We could expand the IDL harness, or create a JavaScript test suite.
+[Tue 11:01]	* manu-db	has to go.
+[Tue 11:02]	<manu-db>	manu: Yes, let's do that - upload our PHP, Ruby, and JavaScript test harnesses and tell people in other languages to match that sort of behavior.
+[Tue 11:02]	<manu-db>	pkuyken: Yeah, that's what we did for our C# implementation.
+[Tue 11:02]	<manu-db>	gkellogg: Yeah, I think that's what's easiest for developers.
+[Tue 11:02]	<niklasl>	.. re. Futures, for reference: here is the CommonJS Promises proposal: http://wiki.commonjs.org/wiki/Promises/A
+[Tue 11:03]	<voip-ld>	David Lehn (SIP/192.168.0.55-0000015b) has joined the conference.
+[Tue 11:03]	<voip-ld>	David Lehn (SIP/192.168.0.55-0000015b) has left the conference.
+[Tue 11:03]	<voip-ld>	pkuyken (IAX2/diamondcard-2048) has left the conference.
+[Tue 11:03]	<voip-ld>	Manu Sporny (SIP/6000-00000157) has left the conference.
+[Tue 11:03]	<voip-ld>	Dave Longley (SIP/6002-00000158) has left the conference.
+[Tue 11:03]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000156) has left the conference.
+[Tue 11:03]	<voip-ld>	Niklas Lindström (SIP/130.236.216.128-0000015a) has left the conference.
+[Tue 11:03]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000159) has left the conference.

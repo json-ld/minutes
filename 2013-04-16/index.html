@@ -1,0 +1,199 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-04-16</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0014.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0014.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Last Call Issues</a><li><a href="#topic-2">Last Call Issue: Order of parameters (options or callback last) - by Boris Zbarsky</a><li><a href="#topic-3">JSON-LD Specification Bugs</a><li><a href="#topic-4">Test Suite Design</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Markus to contact public-script-coord@w3.org asking for review of JSON-LD API.</a><li><a href="#action-2">Manu to ping WHATWG on the issue of where the callback parameter should go. Ask the TAG if the WHATWG doesn't have a strong opinion.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Markus Lanthaler, Dave Longley, Paul Kuykendall, Gregg Kellogg, Niklas Lindström</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates/changes to the agenda?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we want to discuss the comment from Boris about the API?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: here's the link</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Apr/0022.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Apr/0022.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: and the issue I created: <a href="https://github.com/json-ld/json-ld.org/issues/240">https://github.com/json-ld/json-ld.org/issues/240</a></div>
+<h1 id="topic-1" class="topic">Topic: Last Call Issues</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  We're going to want to track all issues using the W3C RDF WG issue tracker.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://www.w3.org/2011/rdf-wg/track/">http://www.w3.org/2011/rdf-wg/track/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should have something called JSON-LD Last Call 1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Does it pick up comments in public-rdf-comments ?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It should if it doesn't already.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It would be nice to track in github.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://www.w3.org/2011/rdf-wg/track/products/11">https://www.w3.org/2011/rdf-wg/track/products/11</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, but it doesn't track e-mails to the mailing list.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We probably want to discuss this with RDF WG, seeing if it would be ok for us to handle these issues in an official capacity in this group.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://www.w3.org/2011/rdf-wg/track/issues/124">https://www.w3.org/2011/rdf-wg/track/issues/124</a></div>
+<h1 id="topic-2" class="topic">Topic: Last Call Issue: Order of parameters (options or callback last) - by Boris Zbarsky</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The issue is rather simple, stylistic issue. The callback parameter is usually the last item.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Boris is saying that the options parameter should come last.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  A couple of people are trying to push futures for such things, that was part of the discussion we had with the WebIDL bug we filed. There are 2-3 people that said we should do it with futures instead.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=21640">https://www.w3.org/Bugs/Public/show_bug.cgi?id=21640</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is there an example where the options are last?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  WebRTC and Geolocation are two</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://en.wikipedia.org/wiki/Continuation-passing_style">http://en.wikipedia.org/wiki/Continuation-passing_style</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't quite agree with Boris here.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.w3.org/TR/geolocation-API/#geolocation">http://www.w3.org/TR/geolocation-API/#geolocation</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you're using continuation passing style, typically control is passed using the last parameter. I don't know what Web APIs he's talking about that do what he's saying. I'm unaware of APIs that have the options parameter after the callback. After doing some research, I couldn't find any that did that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCPeerConnection">http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCPeerConnection</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  It is very consistent to have the callback as last. There are a number of libraries that assume the callback as the last parameter.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Doesn't it mess the async library up in browsers/node.js if you don't have the callback parameter as the last parameter?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it would be unusual to pass options last.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Doing some random google searches on this, even jquery and other popular libraries, most of the functions have the callback as the last parameter.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  How about we find a good set of APIs as examples and see what they do.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: <a href="http://stackoverflow.com/questions/2534436/jquery-plugin-adding-callback-functionality">http://stackoverflow.com/questions/2534436/jquery-plugin-adding-callback-functionality</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's well established in Node.js that the callback is the last parameter. We need to find Web APIs that pass option as the last callback.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, we should find examples.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The group that is standardizing JavaScript has asked for closer coordination with W3C. We should ask them to review the JSON-LD API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agreed, please do that Markus.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: public-script-coord@w3.org</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://www.w3.org/Bugs/Public/describecomponents.cgi?product=WebAppsWG">https://www.w3.org/Bugs/Public/describecomponents.cgi?product=WebAppsWG</a></div>
+<div id="action-1" class="action">ACTION: Markus to contact public-script-coord@w3.org asking for review of JSON-LD API.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's going to be unfortunate if everything that uses WebIDL goes against what most developers are doing out in the wild.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Ruby allows you to callback as last parameter as a block, so easy to do.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  WebIDL probably does it this way to support languages like C++ and Java.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we don't have this as the last parameter, we may want to just go with futures instead of going w/ something that's unconventional.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://dom.spec.whatwg.org/#future">http://dom.spec.whatwg.org/#future</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We can't reference a spec that isn't in LC.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any volunteers?</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://stackoverflow.com/questions/2534436/jquery-plugin-adding-callback-functionality">http://stackoverflow.com/questions/2534436/jquery-plugin-adding-callback-functionality</a></div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  One of our developers said callback before options.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We need to be clear about what we're looking for. If the WebIDL spec calls for options after callbacks, it's a mistake.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Well, we need to figure out which direction we're going.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we should ask the TAG?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Anne, Yehuda, etc. Feedback from them would be good.</div>
+<div id="action-2" class="action">ACTION: Manu to ping WHATWG on the issue of where the callback parameter should go. Ask the TAG if the WHATWG doesn't have a strong opinion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: niklas, see <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Apr/0022.html%29:">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Apr/0022.html%29:</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: of course without the %29; at the end</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  What about futures? We don't have the time to do anything with that. Could that influence our position in any way? Futures are returned as a callback? Could that influence the decision?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If the callback was omitted, you should have the results returned, maybe? I don't know where Node.js / Web APIs stand on this.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: futures are returned as return value, not as a callback</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe we could say that the callback is optional as well, and it returns the issue synchronously?</div>
+<div class="information">s/issue/result/</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we can return a proto-future - it's not a DOM4 future, then we're not bound by that.</div>
+<h1 id="topic-3" class="topic">Topic: JSON-LD Specification Bugs</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049">https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/4751e057970d3ca3161cb43c37cd6f7f5c0ef57d">https://github.com/json-ld/json-ld.org/commit/4751e057970d3ca3161cb43c37cd6f7f5c0ef57d</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  Effectively, we've realized that there is a situation where if you have a @context and you want to define a term to point to itself, we want to figure out what the processor should do.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Look at the examples above.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The first example uses rdfs: which is fine.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/commit/7cd5b8006be86e3ab4c1cd6e33b4ea39a171e616">https://github.com/json-ld/json-ld.org/commit/7cd5b8006be86e3ab4c1cd6e33b4ea39a171e616</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  The second example uses 'term' and removes previous definition of the term immediately. That's what I think should happen.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you look at the 3rd link, in that case @vocab is messed up if we don't reset the 'term' if it is redefined.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you re-use anything on the left hand side on the definition in the right-hand side, you should define it somewhere in the local context.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Markus thinks that you could use something that's previously defined.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  When you start defining a term, that immediately removes any previously defined definition. It's a simple and consistent rule.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Markus think that if you can re-use it, do that. That decision results in two different outputs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What does the spec say right now?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's ambiguous.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do have checks for circular dependencies, right?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, but is this a circular dependency?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049#commitcomment-3020250">https://github.com/json-ld/json-ld.org/commit/657c90f3fc4050fce006fa11a2a420e7e4efe049#commitcomment-3020250</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I'm a +1 on "when a term is defined, remove it (set it to null?) if it already exists"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Dave's approach doesn't seem very consistent to me.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It doesn't seem strange to me to do that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. i.e. before interpreting the RHS</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm a +1 on completely removing a definition of a term when it's defined as well (agree with niklasl, and dlongley)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You still overwrite the entire definition when you're done using my approach.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I'd find that consistent with the "no partial redefinition" design</div>
+<div class="comment"><span class="name">Dave Longley</span>: if you have: "term": {"@id": "v:foo", "@type": "v:bar"} and then you add another context with "term": "term" ... does it keep @type? will authors understand that?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm concerned that a partial re-definition might confuse web authors.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's not a partial re-definition, I don't think.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "term": {"@id" : "term", "@type": "@id" }</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Isn't what you're doing at that point kinda doing a partial re-definition? Addend your definition? If we introduce that concept couldn't it be confusing?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's confusing sometimes, but it's not confusing at other times.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: FYI: Timebox has been exceeded</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "otherTerm": "term"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. never allow partial redefinition! :)</div>
+<h1 id="topic-4" class="topic">Topic: Test Suite Design</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any changes that need to be made to the test suite?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have a rough design so far. Do we need to have different classes of tests?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The value range of the properties we're using - what do we expect? Typically it's a URL where there is a fine to look at? We do have cases where it's a string value - an exception text string. We shouldn't have the same property used for two totally different types of data.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In terms of a basic description, using the manifest definition, it works - been doing that all along. Reporting against that is fairly straightforward.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Either we're describing algorithmic behavior, if there are options to the algorithms, how do you specify that?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  This is the same problem that we had in the RDFa 1.1 test suite?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, more or less. This is more complicated because some of these parameters are not scalar parameters.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is also the whole behavior of the callback.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: compact(..., function(err, result) { if(err) then test.failed else if (result == expected) then test.success) }</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. {"@context": {"@options": {…}} ;]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  If we were doing this in Javascript, we'd just implement a mocha test suite.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Maybe we just want to test on an algorithmic basis - just test input and output.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could expand the IDL harness, or create a JavaScript test suite.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes, let's do that - upload our PHP, Ruby, and JavaScript test harnesses and tell people in other languages to match that sort of behavior.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Yeah, that's what we did for our C# implementation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, I think that's what's easiest for developers.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. re. Futures, for reference: here is the CommonJS Promises proposal: <a href="http://wiki.commonjs.org/wiki/Promises/A">http://wiki.commonjs.org/wiki/Promises/A</a></div>
+</body>
+</html>
