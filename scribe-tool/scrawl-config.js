@@ -130,6 +130,11 @@
       {
          "alias": ["macted"],
          "homepage": "http://www.linkedin.com/in/macted"
+      },
+      "Vikash Agrawal":
+      {
+         "alias": ["vikash"],
+         "homepage": "https://github.com/ivikash/"
       }
    };
 
