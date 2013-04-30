@@ -1,0 +1,198 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-04-30</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0046.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0046.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Google Summer of Code 2013</a><li><a href="#topic-2">JSON-LD API and Futures</a><li><a href="#topic-3">Implementation Report Submissions</a><li><a href="#topic-4">2nd Last Call for JSON-LD API</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Manu Sporny, Vikash Agrawal, Dave Longley, Niklas Lindström, Markus Lanthaler, Paul Kuykendall, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Welcome to Vikash, who is one of the potential Google Summer of Code students</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Thank-You :)</div>
+<h1 id="topic-1" class="topic">Topic: Google Summer of Code 2013</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Vikash is one of the proposal writers. there are around 40 people interested, but just about 10 proposals so far.</div>
+<div class="comment-continuation">… Deadline is May 3rd.</div>
+<div class="comment-continuation">… There's usually a big rush of comments coming in; trying to stay on top.</div>
+<div class="comment-continuation">… Vikash has one of the stronger proposals, and it speaks well that he's on the call today.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I've started through the implementation last week. Depending on what's going on, I'll do more updates.</div>
+<div class="comment-continuation">… I'm also looking forward more criticism and ideas on where I can improve.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you're probably not getting too much feedback, as it's a pretty good proposal. If we go forward, we might end up changing some small things.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I watched most of the discussions on IRC, and thought the plan was good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://dl.dropboxusercontent.com/u/5278881/GSoC/Proposal.html">https://dl.dropboxusercontent.com/u/5278881/GSoC/Proposal.html</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I've updated the proposal with drop-box links.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's a pretty solid proposal, and I don't think you need to improve anything right now.</div>
+<div class="comment-continuation">… He's going to update the json-ld.org website, and then create a tool to allow easy creation of input.</div>
+<div class="comment-continuation">… Once he's finished "json-ld creator", he's going to start converting LinkedIn API data to JSON-LD.</div>
+<div class="comment-continuation">… Lastly, writing documentation and tutorials.</div>
+<div class="comment"><span class="name">Dave Longley</span>: yup</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  as I said, my task is to understand the schema now, so that I can save time in GSoC.</div>
+<div class="comment-continuation">… I'll need some help as I start working with schema.org.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... {"@context": {"@vocab": "<a href="http://schema.org/"}}">http://schema.org/"}}</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  hopefully, the context won't much much more than that example.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It might be worth having a full-blown context, so that it can be mixed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You could either write it as a simple @vocab, or you could specify each vocabulary element in schema.org explicitly in the context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: You can leverage <a href="http://schema.rdfs.org/">http://schema.rdfs.org/</a> should be fairly trivial to generate a context out of that</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: there's even a JSON version</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Just using @vocab might make it hard to mix in other vocabularies, and not have them be confused with schema.org.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I still think the first option is better, in principle. The other one may be a bit to overzealous.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: vikash, you might look at this as well: <a href="https://w3id.org/payswarm/v1">https://w3id.org/payswarm/v1</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do need to consider that there might be IRI range properties that vocab might not capture properly. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">… If your goal was to do this, I'd write a script to transform schema.org (or schema.rdfs.org) to JSON-LD.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Clearly, this will require some discussion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  wanted to ask what programming languages he knows. Perhaps he'd be interested in writing a FireFox plugin.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Python, JS, HTML, CSS.</div>
+<div class="comment-continuation">… I plan to work entirely client-side in JavaScript.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Would you be interested in implementing a JSON-LD processor.</div>
+<div class="comment-continuation">… It would be interesting to see if it's easy for you to implement in another language.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we should think about how to best use GSoC student's time. While implementing another processor would be useful, maybe not as useful as some of these other tools.</div>
+<div class="comment-continuation">… An implementation of an API in a browser is something we can already do via jsonld.js. Doing it again would not be too efficient.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could swap out the LinkedIN project for work on another API implementation in JS.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it would be pretty valuable to get input from someone not as familiar with the algorithms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: for the LinkedIn API you should look at <a href="https://github.com/antoniogarrote/json-ld-macros">https://github.com/antoniogarrote/json-ld-macros</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  We could try to make the LinkedIN JSON converter generic, so that we could convert anything to JSON-LD, or specific, which might be easier.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: that should make it quite generic (and declarative)</div>
+<div class="comment-continuation">… I'd start with a specific implementation, and then go on to make it more generic.</div>
+<div class="comment-continuation">… Starting out to make something generic might take too much time.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: there's an example transforming GitHub's API to JSON-LD</div>
+<h1 id="topic-2" class="topic">Topic: JSON-LD API and Futures</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  dlongley has implemented the API, markus the spec-text.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/slightlyoff/DOMFuture/">https://github.com/slightlyoff/DOMFuture/</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  I talked on whatwg channel and found this futures implementation.</div>
+<div class="comment-continuation">… I took this and made a dependency of jsonld.js, if you're using the API. It allows you two different ways to use the API, one with futures, one with traditional callbacks.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/test-suite/idltest/">http://json-ld.org/test-suite/idltest/</a></div>
+<div class="comment-continuation">… The WebIDL harness now passes the tests.</div>
+<div class="comment-continuation">… Everything passes except for one that I don't think it's possible to pass.</div>
+<div class="comment-continuation">… I also re-wired the playground to use futures, and everything works okay.</div>
+<div class="comment-continuation">… Markus was talking about changing this to output an EARL report.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It struck me that by looking at the IDL framework, it should output EARL. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  having EARL reporting in the test harness would be good for everyone!</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I had a problem with the playground implementation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can update what you've done later on.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  some of the down-sides are that they still seem to be debating what futures should be done.</div>
+<div class="comment-continuation">… It's unclear when things should be asynchronous, and when not.</div>
+<div class="comment-continuation">… As far as we're concerned, we've written a spec such that those details are abstracted away.</div>
+<div class="comment-continuation">… They're also debating how to handle progress events. If you construct a future, if it can begin before you attach handlers, you might miss something.</div>
+<div class="comment-continuation">… There'a also general debate over how to join futures together and handle other asynchronous events.</div>
+<div class="comment-continuation">… The stuff that does affect us is chaining code together; that's fairly complex, compared to simple callbacks.</div>
+<div class="comment-continuation">… When using futures, it's not clear when to use "then" or "done", and takes generally more cognitive load.</div>
+<div class="comment-continuation">… All that being said, all these problems might go away when ES6 is adopted, as they have a new "yield" keyword, that makes all the extra stuff go away.</div>
+<div class="comment-continuation">… Yield would halt the stack frame; this makes asynchronous programming look like synchronous programming.</div>
+<div class="comment-continuation">… Writing the code looks a lot messier then custom code, however it might not be there for web programming.</div>
+<div class="comment-continuation">… The end result might be elegant, but I'm not sure it's where I'd go.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The biggest concern I had is that in the short-term it's going to be more work than the node-style callbacks. The idea is that this would be invoked through a generic mechanism.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://blog.izs.me/page/7">http://blog.izs.me/page/7</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: :-)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think this stuff is really half-baked. We might want to do callback style now, and then do a NOTE on Future style. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: pkuyken.... it's at WHATWG... it's a living standard :-P</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  any indication on when future's supposed to be fully baked? We're getting push back because we're not using a spec, but that's not fully baked.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it's a living standard and will never be truly "stable".</div>
+<div class="comment-continuation">… My problem is that I don't see the node.js people embracing this.</div>
+<div class="comment-continuation">… But, if browser vendors are going this way, this is the direction we're going to have to take.</div>
+<div class="comment-continuation">… People working on futures should be looking more at how node.js works.</div>
+<div class="comment-continuation">… If promises were first-class citizens and could be optimized, then he'd be "all about" them.</div>
+<div class="comment-continuation">... The general feeling I best is that everyone's going to be pushing for people who write Web APIs to use futures.</div>
+<div class="comment-continuation">… If you're going to be on the web, futures is where things are going. Otherwise, probably not.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the API is really just for the browsers, we shouldn't pretend it's for anything else.</div>
+<div class="comment-continuation">… If we break ranks with that, we're not doing ourselves any favors.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  the end goal is tighter integration with JS, and that seem like the way things are going.</div>
+<div class="comment-continuation">… Python is going in a different way, probably not so much in other languages.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I basically agree with dlongley; the API is coming part of an upcoming W3C spec. If it was a node spec, then node-style API would be suitable. Futures is very much the way the W3C specs are going.</div>
+<div class="comment-continuation">… My impression is that Futures should be the way to go.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: ... <a href="http://www.python.org/dev/peps/pep-3156/">http://www.python.org/dev/peps/pep-3156/</a></div>
+<div class="comment-continuation">… In Python, they will likely adopt web API interfaces, such as already done with the DOM API.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's pretty stable; I only needed to write a couple of sentences.</div>
+<div class="comment-continuation">… We talked about adding examples, but I don't actually think we should do this, as they would have to change if the living spec changes.</div>
+<h1 id="topic-3" class="topic">Topic: Implementation Report Submissions</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  People should be submitting implementation reports over the next few weeks. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, just make sure that you output in the EARL report format we covered last week. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  As soon as we start getting those, I'll push out versions of the consolidated EARL report in HTML, JSON-LD, and TURTLE. I'm trying to update my own version. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I've hit a minor problem with the test suite. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I've started implementing a test harness based on PHP-unit. The problem is that if you can't do expansion, you can't expand the hash URIs.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I propose we keep the hash-based URIs. Those that can submit EARL reports can do some processing (they know how to do it). [scribe assist by Manu Sporny]</div>
+<h1 id="topic-4" class="topic">Topic: 2nd Last Call for JSON-LD API</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll need a 2nd last call because of the Futures change. We don't need to do one for syntax, so we could move it to CR.</div>
+<div class="comment-continuation">… By moving syntax to CR we can ask for implementations.</div>
+<div class="comment-continuation">… The proposal is to be able to enter CR, and have them both come out of CR at the same time.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  How does someone claim conformance of the syntax. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're a subset of JSON, it's the processor that determines that what you have turns into JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  similar question, do we need to resolve features at risk for CR (maybe not).</div>
+<div class="comment-continuation">… secondly, how to we establish exit criteria.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm proposing we go to CR and say that the exit criteria is passing the test suite.</div>
+<div class="comment-continuation">… In fact, the JSON-LD API might not go to CR at all.</div>
+<div class="comment-continuation">… I'll send details to the list.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: [END OF TELECON]</div>
+</body>
+</html>

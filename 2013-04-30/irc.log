@@ -1,0 +1,182 @@
+[Tue 10:04]	<gkellogg>	scribe: gkellogg
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Apr/0046.html
+[Tue 10:05]	<gkellogg>	manu: Welcome to Vikash, who is one of the potential Google Summer of Code students
+[Tue 10:06]	<vikash>	Thank-You :)
+[Tue 10:06]	<manu-db>	Topic: Google Summer of Code 2013
+[Tue 10:06]	<gkellogg>	manu: Vikash is one of the proposal writers. there are around 40 people interested, but just about 10 proposals so far.
+[Tue 10:07]	<gkellogg>	… Deadline is May 3rd.
+[Tue 10:07]	<gkellogg>	… There's usually a big rush of comments coming in; trying to stay on top.
+[Tue 10:07]	<gkellogg>	… Vikash has one of the stronger proposals, and it speaks well that he's on the call today.
+[Tue 10:08]	<gkellogg>	vikash: I've started through the implementation last week. Depending on what's going on, I'll do more updates.
+[Tue 10:09]	* mlnt	sorry for being late
+[Tue 10:09]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000017e) has joined the conference.
+[Tue 10:09]	<gkellogg>	… I'm also looking forward more criticism and ideas on where I can improve.
+[Tue 10:10]	<gkellogg>	manu: you're probably not getting too much feedback, as it's a pretty good proposal. If we go forward, we might end up changing some small things.
+[Tue 10:10]	<gkellogg>	dlongley: I watched most of the discussions on IRC, and thought the plan was good.
+[Tue 10:11]	<manu-db>	https://dl.dropboxusercontent.com/u/5278881/GSoC/Proposal.html
+[Tue 10:11]	<gkellogg>	vikash: I've updated the proposal with drop-box links.
+[Tue 10:12]	<gkellogg>	manu: it's a pretty solid proposal, and I don't think you need to improve anything right now.
+[Tue 10:12]	<gkellogg>	… He's going to update the json-ld.org website, and then create a tool to allow easy creation of input.
+[Tue 10:13]	<gkellogg>	… Once he's finished "json-ld creator", he's going to start converting LinkedIn API data to JSON-LD.
+[Tue 10:13]	<gkellogg>	… Lastly, writing documentation and tutorials.
+[Tue 10:13]	* mlnt	better now?
+[Tue 10:13]	<dlongley>	yup
+[Tue 10:13]	* manu-db	much better
+[Tue 10:14]	<gkellogg>	vikash: as I said, my task is to understand the schema now, so that I can save time in GSoC.
+[Tue 10:14]	<niklasl>	q+
+[Tue 10:14]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:14]	<voip-ld>	<unknown> (IAX2/diamondcard-757) has joined the conference.
+[Tue 10:14]	<gkellogg>	… I'll need some help as I start working with schema.org.
+[Tue 10:14]	<manu-db>	ack niklasl
+[Tue 10:14]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:15]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:15]	<niklasl>	... {"@context": {"@vocab": "http://schema.org/"}}
+[Tue 10:15]	<gkellogg>	niklasl: hopefully, the context won't much much more than that example.
+[Tue 10:15]	<gkellogg>	manu: It might be worth having a full-blown context, so that it can be mixed.
+[Tue 10:16]	<gkellogg>	manu: You could either write it as a simple @vocab, or you could specify each vocabulary element in schema.org explicitly in the context.
+[Tue 10:16]	<mlnt>	You can leverage http://schema.rdfs.org/ should be fairly trivial to generate a context out of that
+[Tue 10:17]	<mlnt>	there's even a JSON version
+[Tue 10:17]	<gkellogg>	manu: Just using @vocab might make it hard to mix in other vocabularies, and not have them be confused with schema.org.
+[Tue 10:17]	<gkellogg>	niklasl: I still think the first option is better, in principle. The other one may be a bit to overzealous.
+[Tue 10:18]	<manu-db>	vikash, you might look at this as well: https://w3id.org/payswarm/v1
+[Tue 10:18]	<manu-db>	gkellogg: We do need to consider that there might be IRI range properties that vocab might not capture properly.
+[Tue 10:18]	<gkellogg>	… If your goal was to do this, I'd write a script to transform schema.org (or schema.rdfs.org) to JSON-LD.
+[Tue 10:19]	<mlnt>	q+
+[Tue 10:19]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:19]	<gkellogg>	manu: Clearly, this will require some discussion.
+[Tue 10:19]	<manu-db>	ack mlnt
+[Tue 10:19]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:19]	<gkellogg>	mlnt: wanted to ask what programming languages he knows. Perhaps he'd be interested in writing a FireFox plugin.
+[Tue 10:19]	<gkellogg>	vikash: Python, JS, HTML, CSS.
+[Tue 10:20]	<gkellogg>	… I plan to work entirely client-side in JavaScript.
+[Tue 10:20]	<gkellogg>	markus: Would you be interested in implementing a JSON-LD processor.
+[Tue 10:21]	<manu-db>	q+ about JSON-LD processor implementation.
+[Tue 10:21]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:21]	<gkellogg>	… It would be interesting to see if it's easy for you to implement in another language.
+[Tue 10:22]	<gkellogg>	manu: we should think about how to best use GSoC student's time. While implementing another processor would be useful, maybe not as useful as some of these other tools.
+[Tue 10:23]	<gkellogg>	… An implementation of an API in a browser is something we can already do via jsonld.js. Doing it again would not be too efficient.
+[Tue 10:24]	<gkellogg>	manu: We could swap out the LinkedIN project for work on another API implementation in JS.
+[Tue 10:24]	<manu-db>	ack manu-db
+[Tue 10:24]	<voip-ld>	manu-db has the floor (about JSON-LD processor implementation.). The speaker queue is empty.
+[Tue 10:24]	<gkellogg>	markus: it would be pretty valuable to get input from someone not as familiar with the algorithms.
+[Tue 10:25]	<mlnt>	for the LinkedIn API you should look at https://github.com/antoniogarrote/json-ld-macros
+[Tue 10:25]	<gkellogg>	vikash: We could try to make the LinkedIN JSON converter generic, so that we could convert anything to JSON-LD, or specific, which might be easier.
+[Tue 10:25]	<mlnt>	that should make it quite generic (and declarative)
+[Tue 10:26]	<gkellogg>	… I'd start with a specific implementation, and then go on to make it more generic.
+[Tue 10:26]	<gkellogg>	… Starting out to make something generic might take too much time.
+[Tue 10:26]	<mlnt>	there's an example transforming GitHub's API to JSON-LD
+[Tue 10:26]	<voip-ld>	Dave Lehn (SIP/6003-0000017f) has joined the conference.
+[Tue 10:27]	<manu-db>	Topic: JSON-LD API and Futures
+[Tue 10:27]	<gkellogg>	manu: dlongley has implemented the API, markus the spec-text.
+[Tue 10:28]	<dlongley>	https://github.com/slightlyoff/DOMFuture/
+[Tue 10:28]	<gkellogg>	dlongley: I talked on whatwg channel and found this futures implementation.
+[Tue 10:29]	<gkellogg>	… I took this and made a dependency of jsonld.js, if you're using the API. It allows you two different ways to use the API, one with futures, one with traditional callbacks.
+[Tue 10:29]	<mlnt>	http://json-ld.org/test-suite/idltest/
+[Tue 10:29]	<gkellogg>	… The WebIDL harness now passes the tests.
+[Tue 10:29]	<gkellogg>	… Everything passes except for one that I don't think it's possible to pass.
+[Tue 10:29]	<gkellogg>	… I also re-wired the playground to use futures, and everything works okay.
+[Tue 10:30]	<gkellogg>	… Markus was talking about changing this to output an EARL report.
+[Tue 10:30]	<manu-db>	gkellogg: It struck me that by looking at the IDL framework, it should output EARL.
+[Tue 10:30]	<vikash>	q+
+[Tue 10:30]	<voip-ld>	Added vikash to the speaker queue: vikash
+[Tue 10:31]	<gkellogg>	gkellogg: having EARL reporting in the test harness would be good for everyone!
+[Tue 10:31]	<manu-db>	ack vikash
+[Tue 10:31]	<voip-ld>	vikash has the floor. The speaker queue is empty.
+[Tue 10:32]	<gkellogg>	vikash: I had a problem with the playground implementation.
+[Tue 10:32]	<gkellogg>	manu: we can update what you've done later on.
+[Tue 10:32]	<gkellogg>	dlongley: some of the down-sides are that they still seem to be debating what futures should be done.
+[Tue 10:33]	<gkellogg>	… It's unclear when things should be asynchronous, and when not.
+[Tue 10:33]	* mlnt	is there some problem with the SIP bridge today or is it my connection?
+[Tue 10:33]	* manu-db	my audio is fine?
+[Tue 10:33]	<gkellogg>	… As far as we're concerned, we've written a spec such that those details are abstracted away.
+[Tue 10:33]	* manu-db	then again, I'm sitting right beside the SIP bridge.
+[Tue 10:33]	* mlnt	ok... then's probably my connection... had problems the whole day
+[Tue 10:34]	<gkellogg>	… They're also debating how to handle progress events. If you construct a future, if it can begin before you attach handlers, you might miss something.
+[Tue 10:34]	<gkellogg>	… There'a also general debate over how to join futures together and handle other asynchronous events.
+[Tue 10:34]	<gkellogg>	… The stuff that does affect us is chaining code together; that's fairly complex, compared to simple callbacks.
+[Tue 10:35]	<gkellogg>	… When using futures, it's not clear when to use "then" or "done", and takes generally more cognitive load.
+[Tue 10:35]	<manu-db>	q+ to comment on Futures.
+[Tue 10:35]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:36]	<gkellogg>	… All that being said, all these problems might go away when ES6 is adopted, as they have a new "yield" keyword, that makes all the extra stuff go away.
+[Tue 10:36]	<gkellogg>	… Yield would halt the stack frame; this makes asynchronous programming look like synchronous programming.
+[Tue 10:37]	<gkellogg>	… Writing the code looks a lot messier then custom code, however it might not be there for web programming.
+[Tue 10:37]	<manu-db>	ack manu-db
+[Tue 10:37]	<voip-ld>	manu-db has the floor (to comment on Futures.). The speaker queue is empty.
+[Tue 10:37]	<gkellogg>	… The end result might be elegant, but I'm not sure it's where I'd go.
+[Tue 10:38]	<gkellogg>	manu: The biggest concern I had is that in the short-term it's going to be more work than the node-style callbacks. The idea is that this would be invoked through a generic mechanism.
+[Tue 10:38]	<gkellogg>	q+
+[Tue 10:38]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:38]	<manu-db>	ack gkellogg
+[Tue 10:38]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:39]	<dlongley>	http://blog.izs.me/page/7
+[Tue 10:40]	<mlnt>	:-)
+[Tue 10:40]	<pkuyken>	q+
+[Tue 10:40]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:41]	<manu-db>	ack pkuyken
+[Tue 10:41]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 10:41]	<manu-db>	gkellogg: I think this stuff is really half-baked. We might want to do callback style now, and then do a NOTE on Future style.
+[Tue 10:41]	<mlnt>	pkuyken.... it's at WHATWG... it's a living standard :-P
+[Tue 10:41]	<gkellogg>	paul: any indication on when future's supposed to be fully baked? We're getting push back because we're not using a spec, but that's not fully baked.
+[Tue 10:42]	<niklasl>	q+
+[Tue 10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:42]	<gkellogg>	dlongley: it's a living standard and will never be truly "stable".
+[Tue 10:42]	<gkellogg>	… My problem is that I don't see the node.js people embracing this.
+[Tue 10:42]	<gkellogg>	… But, if browser vendors are going this way, this is the direction we're going to have to take.
+[Tue 10:43]	<gkellogg>	… People working on futures should be looking more at how node.js works.
+[Tue 10:43]	<gkellogg>	… If promises were first-class citizens and could be optimized, then he'd be "all about" them.
+[Tue 10:43]	<gkellogg>	... The general feeling I best is that everyone's going to be pushing for people who write Web APIs to use futures.
+[Tue 10:44]	<gkellogg>	… If you're going to be on the web, futures is where things are going. Otherwise, probably not.
+[Tue 10:44]	<gkellogg>	manu: the API is really just for the browsers, we shouldn't pretend it's for anything else.
+[Tue 10:44]	<gkellogg>	… If we break ranks with that, we're not doing ourselves any favors.
+[Tue 10:45]	* manu-db	has a hard stop at the top of the hour.
+[Tue 10:45]	<gkellogg>	dlongley: the end goal is tighter integration with JS, and that seem like the way things are going.
+[Tue 10:45]	<gkellogg>	… Python is going in a different way, probably not so much in other languages.
+[Tue 10:46]	<gkellogg>	niklasl: I basically agree with dlongley; the API is coming part of an upcoming W3C spec. If it was a node spec, then node-style API would be suitable. Futures is very much the way the W3C specs are going.
+[Tue 10:47]	<gkellogg>	… My impression is that Futures should be the way to go.
+[Tue 10:47]	<niklasl>	... http://www.python.org/dev/peps/pep-3156/
+[Tue 10:47]	<gkellogg>	… In Python, they will likely adopt web API interfaces, such as already done with the DOM API.
+[Tue 10:48]	<gkellogg>	markus: it's pretty stable; I only needed to write a couple of sentences.
+[Tue 10:49]	<gkellogg>	… We talked about adding examples, but I don't actually think we should do this, as they would have to change if the living spec changes.
+[Tue 10:49]	<manu-db>	Topic: Implementation Report Submissions
+[Tue 10:50]	<manu-db>	manu: People should be submitting implementation reports over the next few weeks.
+[Tue 10:51]	<manu-db>	gkellogg: Yes, just make sure that you output in the EARL report format we covered last week.
+[Tue 10:51]	<mlnt>	q+
+[Tue 10:51]	<voip-ld>	Added mlnt to the speaker queue: niklasl, mlnt
+[Tue 10:51]	<manu-db>	gkellogg: As soon as we start getting those, I'll push out versions of the consolidated EARL report in HTML, JSON-LD, and TURTLE. I'm trying to update my own version.
+[Tue 10:51]	<manu-db>	ack mlnt
+[Tue 10:51]	<voip-ld>	niklasl has the floor. The next speaker is mlnt.
+[Tue 10:52]	<manu-db>	ack niklasl
+[Tue 10:52]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:53]	<manu-db>	mlnt: I've hit a minor problem with the test suite.
+[Tue 10:53]	<gkellogg>	markus: I've started implementing a test harness based on PHP-unit. The problem is that if you can't do expansion, you can't expand the hash URIs.
+[Tue 10:54]	<manu-db>	gkellogg: I propose we keep the hash-based URIs. Those that can submit EARL reports can do some processing (they know how to do it).
+[Tue 10:55]	<--|	linclark has left #json-ld
+[Tue 10:55]	<manu-db>	Topic: 2nd Last Call for JSON-LD API
+[Tue 10:55]	<gkellogg>	manu: we'll need a 2nd last call because of the Futures change. We don't need to do one for syntax, so we could move it to CR.
+[Tue 10:56]	<gkellogg>	… By moving syntax to CR we can ask for implementations.
+[Tue 10:56]	<gkellogg>	q+
+[Tue 10:56]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:56]	<manu-db>	ack gkellogg
+[Tue 10:56]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:56]	<mlnt>	q+
+[Tue 10:56]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:56]	<gkellogg>	… The proposal is to be able to enter CR, and have them both come out of CR at the same time.
+[Tue 10:56]	<manu-db>	gkellogg: How does someone claim conformance of the syntax.
+[Tue 10:57]	<gkellogg>	manu: we're a subset of JSON, it's the processor that determines that what you have turns into JSON-LD.
+[Tue 10:57]	<manu-db>	ack mlnt
+[Tue 10:57]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:58]	<gkellogg>	markus: similar question, do we need to resolve features at risk for CR (maybe not).
+[Tue 10:58]	<gkellogg>	… secondly, how to we establish exit criteria.
+[Tue 10:58]	<gkellogg>	manu: I'm proposing we go to CR and say that the exit criteria is passing the test suite.
+[Tue 10:59]	<gkellogg>	… In fact, the JSON-LD API might not go to CR at all.
+[Tue 10:59]	-->|	pkuyken_ (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 11:00]	<gkellogg>	… I'll send details to the list.
+[Tue 11:00]	<taaz>	[END OF TELECON]
+[Tue 11:00]	<voip-ld>	Manu Sporny (SIP/6000-0000017a) has left the conference.
+[Tue 11:00]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-00000179) has left the conference.
+[Tue 11:00]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000017e) has left the conference.
+[Tue 11:00]	<voip-ld>	Dave Longley (SIP/6002-0000017d) has left the conference.
+[Tue 11:00]	<voip-ld>	<unknown> (IAX2/diamondcard-757) has left the conference.
+[Tue 11:00]	<voip-ld>	ivikash (SIP/sip2sip.info-0000017c) has left the conference.
+[Tue 11:00]	<voip-ld>	Niklas Lindström (SIP/192.168.3.14-0000017b) has left the conference.
+[Tue 11:00]	<voip-ld>	Dave Lehn (SIP/6003-0000017f) has left the conference.
