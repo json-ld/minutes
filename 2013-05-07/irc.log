@@ -1,0 +1,273 @@
+[Tue 10:05]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013May/0029.html
+[Tue 10:06]	<manu-db>	scribe: dlongley
+[Tue 10:06]	<manu-db>	Manu: Any updates to the agenda?
+[Tue 10:06]	<dlongley>	mlnt: quick question, i think i caught up on the @base discussion, but was there any thing controversial there?
+[Tue 10:07]	<dlongley>	mlnt: the question was whether or not we allowed relative urls in base?
+[Tue 10:08]	<dlongley>	gkellogg: other rdf serializations allow relative urls for base, even RDFa does, so long as it resolves to an absolute url in the end
+[Tue 10:09]	<dlongley>	manu-db: i thought we did something different with RDFa, let's discuss now.
+[Tue 10:09]	<manu-db>	Topic: JsonLdOptions base vs. @base
+[Tue 10:09]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/223
+[Tue 10:10]	<dlongley>	manu-db: two issues to resolve, whether relative IRIs can be used with base and what the empty string does
+[Tue 10:10]	<dlongley>	mlnt: i think that relative IRIs can get very messy
+[Tue 10:11]	<dlongley>	mlnt: the spec is a bit fussy about @base anyway, we're not really explicit about how it handles it, we just say that you expand against the document base, we never say how that base is established
+[Tue 10:11]	<dlongley>	mlnt: if you have a remote context with a base and it has a nested remote base context which one do you use?
+[Tue 10:11]	<dlongley>	manu-db: i thought we decided that you use the one in the local document
+[Tue 10:11]	<dlongley>	gkellogg: i think if base is resolved to an external remote document it causes lots of problems
+[Tue 10:12]	<dlongley>	manu-db: i think devs could understand if base just resolved to the local documnet
+[Tue 10:12]	<dlongley>	gkellogg: it complicates processing slightly but we could consider using @base in an external context illegal
+[Tue 10:12]	<dlongley>	manu-db: we wouldn't even need to make it illegal if it just applies to the local document
+[Tue 10:12]	<dlongley>	gkellogg: if we do @base: ".." how does that behave?
+[Tue 10:13]	<dlongley>	mlnt: if you define a term and then you use that base and that base is different from anywhere else it gets weird, right now if you take your external context and put it in your document it just works
+[Tue 10:14]	<dlongley>	manu-db: yeah, but if we allow @base in remote contexts then your local document doesn't have the right base
+[Tue 10:14]	<dlongley>	mlnt: what's the use case, for a relative @base, why not just use relative IRIs in your document?
+[Tue 10:14]	<dlongley>	manu-db: the use case (we've had two people bring this up) is for packaging
+[Tue 10:15]	<dlongley>	manu-db: if files exist in directories further up in the tree that need to be referred to in a package that has no real absolute iri
+[Tue 10:15]	<dlongley>	manu-db: how do you reference things like that easily?
+[Tue 10:15]	<dlongley>	manu-db: one approach is to use relative IRIs everywhere the other is to set @base and use cleaner relative IRIs
+[Tue 10:15]	<pkuyken>	q+
+[Tue 10:15]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:15]	<dlongley>	manu-db: i agree that it's not necessarily the best use case, but that's what it is
+[Tue 10:16]	<dlongley>	mlnt: the other case is using @base in the test suite
+[Tue 10:16]	<manu-db>	ack pkuyken
+[Tue 10:16]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 10:16]	<dlongley>	gkellogg: we talked about doing that, we don't currently, but we want to move the test suite to a location that people report against
+[Tue 10:16]	<dlongley>	mlnt: but it would be an absolute IRI there
+[Tue 10:16]	<dlongley>	pkuyken: we have been using @base to build up widgets, etc. and we haven't had a problem with just using absolute IRIs
+[Tue 10:17]	<niklasl>	q+
+[Tue 10:17]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:17]	<manu-db>	ack niklasl
+[Tue 10:17]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:17]	<dlongley>	pkuyken: it doesn't seem very compelling to us, we haven't had a problem, it seems more compelling to come in line with other serializations, but to support widget stuff, i'm dubious
+[Tue 10:18]	<voip-ld>	Dave Lehn (SIP/6003-00000192) has joined the conference.
+[Tue 10:19]	<dlongley>	niklasl: i think, firstly, it would be good to have the same resolution as RDFa, we're kind of similar to turtle w/vocab space vs. document space, but we're mostly in line with RDFa, with vocabulary space we really don't need relative IRIs, when you have lots of data in JSON files that are statically generated and you don't yet know for sure what the domain name for the publication of these it's very useful to be able to ha
+[Tue 10:19]	<dlongley>	ve relative IRIs to be able to relocate your entire dataset
+[Tue 10:19]	<manu-db>	PROPOSAL: Do not support relative IRIs in @base.
+[Tue 10:20]	<manu-db>	-1
+[Tue 10:20]	<gkellogg>	0
+[Tue 10:20]	<mlnt>	+1
+[Tue 10:20]	<dlongley>	dlongley: 0
+[Tue 10:20]	<pkuyken>	0
+[Tue 10:20]	<niklasl>	-0.5
+[Tue 10:20]	<manu-db>	PROPOSAL: Support relative IRIs in @base.
+[Tue 10:20]	<manu-db>	+1
+[Tue 10:20]	<mlnt>	-1
+[Tue 10:20]	<gkellogg>	0
+[Tue 10:20]	<dlongley>	dlongley: 0
+[Tue 10:20]	<niklasl>	+0.5
+[Tue 10:20]	<pkuyken>	+.2
+[Tue 10:21]	<dlongley>	mlnt: another problem if we support relative IRIs is that we don't support it in @vocab and in other term definitions
+[Tue 10:21]	<dlongley>	niklasl: i disagree, that's what the case is in RDFa already
+[Tue 10:21]	<dlongley>	gkellogg: yeah, that behavior is very similar to RDFa
+[Tue 10:21]	<dlongley>	niklasl: for the reasons i discussed just now regarding the conceptual vocabulary space where it's very rare to need to relocate that
+[Tue 10:22]	<dlongley>	mlnt: but just looking at the keywords they do very similar things but not quite, so it's strange to support in one and not the other
+[Tue 10:22]	<dlongley>	niklasl: they serve very different purposes
+[Tue 10:22]	<dlongley>	manu-db: i don't think it would be that strange
+[Tue 10:22]	<dlongley>	niklasl: we don't have what Turtle does to make distinctions, but it's the same distinction of vocab vs document space
+[Tue 10:23]	<dlongley>	manu-db: i think there's very slightly more support for relative IRIs for base than not, so i'll say we resolved that wya
+[Tue 10:23]	<dlongley>	manu-db: then we'll have to deal with having a blank @base IRI
+[Tue 10:23]	<dlongley>	manu-db: any objections?
+[Tue 10:23]	<dlongley>	mlnt: yeah, i objected already
+[Tue 10:23]	<dlongley>	manu-db: are we making a catastrophic error by supporting this?
+[Tue 10:23]	<dlongley>	mlnt: are we going to support these in external contexts as well?
+[Tue 10:24]	<dlongley>	mlnt: for example, the widget case, discussed on the mailing list, he used a relative term which was then resolved at runtime, he had a bundle prefix which was a relative IRI that wouldn't work
+[Tue 10:24]	<dlongley>	manu-db: i was referring to a use case from about a year ago with people working with web widgets, which had to do with that spec
+[Tue 10:25]	<dlongley>	pkuyken: my main concern the change here, i'm more in favor of consistency amongst JSON-LD, RDFa, turtle, and the like
+[Tue 10:25]	<dlongley>	manu-db: i agree that that is the most compelling argument
+[Tue 10:25]	<dlongley>	pkuyken: my hesitation again is to avoid adding too much additional complexity right at the end
+[Tue 10:25]	<dlongley>	manu-db: i think @base isn't used too often (relatively speaking), the majority of documents out there don't use it
+[Tue 10:26]	<dlongley>	manu-db: i think being in the minority may mean that requiring them to really understand it is an acceptable hurdle
+[Tue 10:26]	<dlongley>	manu-db: we may want to elaborate on the spec to make that clear
+[Tue 10:26]	<dlongley>	mlnt: we don't have much time to do that
+[Tue 10:26]	<dlongley>	manu-db: yeah, we have one more iteration and then that's it
+[Tue 10:26]	<dlongley>	manu-db: but it's informative (the warning part)
+[Tue 10:26]	<dlongley>	gkellogg: just one issue, is in the syntax document, in the context definitions, we do say that it must be an absolute IRI or null
+[Tue 10:27]	<dlongley>	gkellogg: what does this mean about the stability of the syntax document
+[Tue 10:27]	<dlongley>	manu-db: did we have an issue marker on that?
+[Tue 10:27]	<dlongley>	gkellogg: i don't think so, i think B is normative, which it says there .... oh, there is an issue marker, nevermind, we're good
+[Tue 10:27]	<manu-db>	RESOLVED: Support relative IRIs in @base.
+[Tue 10:28]	<dlongley>	manu-db: now, is @base included from external contexts?
+[Tue 10:28]	<dlongley>	manu-db: we might want to just do the simple thing and say that it is
+[Tue 10:28]	<dlongley>	manu-db: if you have a context that includes an external context, and you have a whole chain of them, the first @base is set in the parent document, and then each new context overrides the @base
+[Tue 10:29]	<dlongley>	manu-db: i think that's the complicated case we were trying to avoid by saying that @base only applies to the local document, but people are saying that makes it complicated, so maybe we just want to make it simple and people who generate external contexts should really understand that @base will effect all external documents that use that @base
+[Tue 10:29]	<dlongley>	manu-db: that use that context
+[Tue 10:29]	<dlongley>	niklasl: if your context is intended for wider use, don't use @base
+[Tue 10:30]	<dlongley>	niklasl: (or be careful)
+[Tue 10:30]	<manu-db>	PROPOSAL: When @base is specified in an external context, that @base is applied to the document including the external context.
+[Tue 10:30]	<manu-db>	+1
+[Tue 10:30]	<gkellogg>	+1
+[Tue 10:30]	<pkuyken>	+1
+[Tue 10:30]	<dlongley>	+1
+[Tue 10:30]	<mlnt>	+1
+[Tue 10:30]	<niklasl>	+1
+[Tue 10:32]	<dlongley>	mlnt: wait, I think there is a problem with this. let's say we have two external remote contexts, the first one establishes @base, the second one uses a relative @base, is the second @base resolved against the previous absolute base or against the remote context
+[Tue 10:33]	<dlongley>	manu-db: if your previous @base is to example.org and in the second context it's "../", having "../" apply to the document vs. the base that's already been set would be strange
+[Tue 10:33]	<dlongley>	mlnt: i think it's less strange
+[Tue 10:33]	<dlongley>	mlnt: you can include the same remote context in multiple documents, but i think the term definitions in there should expand to the same URLs
+[Tue 10:34]	<niklasl>	{@context: "/some/path"} /some/path contains {@context: {@base: "./other"}}, the base is "/some/other
+[Tue 10:34]	<dlongley>	mlnt: so i think the remote context "../" should expand against the previous context @base
+[Tue 10:35]	<dlongley>	gkellogg: you could use something that composes remote contexts that uses other remote contexts and weird stuff could happen, but maybe we should just resolve that by cautioning people from doing that because it can lead to unexpected results
+[Tue 10:35]	* manu-db	audio is good for me again.
+[Tue 10:35]	<dlongley>	mlnt: if you have a document and you set the base in that document, it should not change the @base in that remote context
+[Tue 10:35]	<dlongley>	mlnt: otherwise you would break that remote context without noticing
+[Tue 10:35]	<dlongley>	gkellogg: so when you load the remote context...
+[Tue 10:36]	<dlongley>	mlnt: you use the remote context URL to expand every base statement in there
+[Tue 10:36]	<dlongley>	gkellogg: what if you have a remote context that is using a relative IRI, do i resolve it using a base declaration that is in scope or do i resolve it using the document's actual location
+[Tue 10:36]	<dlongley>	gkellogg: base is entirely a semantic concept used for resolving properties, it doesn't affect the way that you retrieve documents
+[Tue 10:37]	<niklasl>	.. it should work like base works going from an html document to a CSS or an SVG (and from them to other css or sag)
+[Tue 10:37]	<dlongley>	manu-db: if you're looking at @base as it's used in html, if you include like a CSS file or some other ... trying to think if there's a way to include other html-like files ... in all of these cases the @base only applies to the document, actually in CSS you can do that right? the @base only applies to the document itself
+[Tue 10:38]	<dlongley>	manu-db: so when you import one CSS file into another, all of the path resolutions happen happen based on the @base for that file, we don't have this weird chaining thing that happens like it does with the JSON-LD context
+[Tue 10:38]	<dlongley>	manu-db: i'm not arguing one way or the other, just food for thought, i think it's a little strange the way we're doing this i think
+[Tue 10:38]	<pkuyken>	Do we need to timebox this, or continue on, pushing out other agenda items?
+[Tue 10:38]	<mlnt>	[ { "@base": "http://example.com/" }, "/dir/remote-context.jsonld" ] - remote-context.jsonld: { "@base": "./" } (1) what's the base here | (2) what's the final base in the doc?
+[Tue 10:38]	<dlongley>	manu-db: the problem here is that we need to resolve this if we're going to get another LC doc out next week
+[Tue 10:38]	<dlongley>	manu-db: we can't go to LC2 if we don't resolve this
+[Tue 10:38]	<dlongley>	gkellogg: this becomes simpler if base is only allowed locally and not within a remote context
+[Tue 10:39]	<dlongley>	mlnt: every document can be used as a remote context
+[Tue 10:39]	<dlongley>	gkellogg: in which case it would be ignored
+[Tue 10:39]	<niklasl>	1: the base in remote-context is "http://example.com/dir/"; the base in the document is "http://example.com/"
+[Tue 10:41]	<dlongley>	mlnt: so base is always established locally (local to the document), never changed by a remote context
+[Tue 10:41]	<dlongley>	gkellogg: when we start evaluating a remote context, we pass a flag that says "ignore base"
+[Tue 10:42]	<dlongley>	niklasl: if there is a base in the local document
+[Tue 10:42]	<dlongley>	gkellogg: when we process a remote context, we always ignore @base
+[Tue 10:42]	<dlongley>	gkellogg: it's as if the @base declaration does not exist when processing a remote context
+[Tue 10:43]	<dlongley>	niklasl: so @base is intransitive
+[Tue 10:43]	<dlongley>	gkellogg: yeah
+[Tue 10:43]	<dlongley>	niklasl: meaning not-inherited
+[Tue 10:43]	<dlongley>	niklasl: the drawback is that you can never define @base in an external context
+[Tue 10:43]	<dlongley>	mlnt: is that something that we want to prevent?
+[Tue 10:43]	<dlongley>	niklasl: i'm not sure
+[Tue 10:43]	<dlongley>	pkuyken: does RDFa/turtle have anything equivalent
+[Tue 10:43]	<dlongley>	niklasl: i cannot think of any web based technology that would inherit @base
+[Tue 10:44]	<dlongley>	niklasl: if you have xml base in an xml doc, and you include another xml doc, base in that document would never apply
+[Tue 10:44]	<dlongley>	mlnt: there is really no tech that changes namespaces like we do with remote contexts
+[Tue 10:44]	<dlongley>	mlnt: we expand properties to urls using an external doc
+[Tue 10:44]	<dlongley>	niklasl: external dtds can do that, to some extent
+[Tue 10:45]	<dlongley>	niklasl: i'm not sure what having xml base defined in that dtd would add it to the local document, i think it would, that's the closes analogy i can think of right now
+[Tue 10:45]	<dlongley>	mlnt: the spec would stay the same, but @base would always be resolved against the current document url
+[Tue 10:45]	<manu-db>	PROPOSAL: @base is always resolved against the current documents URL. @base when set in a remote context document does not apply to the document that imports the remote context.
+[Tue 10:45]	<manu-db>	+1
+[Tue 10:45]	<mlnt>	+1
+[Tue 10:46]	<gkellogg>	+1
+[Tue 10:46]	<dlongley>	dlongley: 0, can't both follow and scribe this crazy conversation! :)
+[Tue 10:46]	<pkuyken>	+1
+[Tue 10:46]	<niklasl>	+1, with resolution inconsistency caveat ;]
+[Tue 10:47]	<manu-db>	RESOLVED: @base is always resolved against the current documents URL. @base when set in a remote context document does not apply to the document that imports the remote context.
+[Tue 10:47]	<niklasl>	q+
+[Tue 10:47]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:47]	<dlongley>	manu-db: what does the blank string do? does it clear @base?
+[Tue 10:47]	<manu-db>	ack niklasl
+[Tue 10:47]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:47]	<dlongley>	manu-db: or is it like saying current document URL?
+[Tue 10:47]	<dlongley>	niklasl: it should use the current document url
+[Tue 10:48]	<dlongley>	q+
+[Tue 10:48]	<voip-ld>	Added dlongley to the speaker queue: dlongley
+[Tue 10:48]	<manu-db>	ack dlongley
+[Tue 10:48]	<voip-ld>	dlongley has the floor. The speaker queue is empty.
+[Tue 10:48]	<manu-db>	scribe: manu-db
+[Tue 10:48]	<manu-db>	dlongley: I believe this had to do with a use case where people wanted to preserve relative IRIs in their documents where @base: "" meant "keep it relative"
+[Tue 10:49]	<manu-db>	dlongley: null would mean "don't set the base to nothing, but revert to previous options base value.
+[Tue 10:49]	<manu-db>	dlongley: I think there was a case that was not supported where we were looking at was the "leave the IRIs alone - there is no base associated with the document"
+[Tue 10:50]	<manu-db>	markus: Shouldn't we change the default value for options to make that happen?
+[Tue 10:50]	<manu-db>	markus: We could say if you just put in JSON, there is no base.
+[Tue 10:50]	<manu-db>	dlongley: yeah, that seems like a good idea.
+[Tue 10:50]	<manu-db>	markus: Yes, so change the 'default base' to 'null'
+[Tue 10:50]	<manu-db>	dlongley: Yes.
+[Tue 10:52]	<manu-db>	dlongley: @base: null means "fall back to whatever the previous options were" - either base of the document, or the base option passed into the API.
+[Tue 10:53]	<manu-db>	niklas: Can we have @base: null , null out the base?
+[Tue 10:53]	<manu-db>	markus: If you read the RFC that explains how you expand a relative IRI - the last thing that expansion falls back to is the application-defined space - which is the JSON-LD options. I don't think we need to do anything else to have the same behavior in the document itself.
+[Tue 10:54]	<manu-db>	dlongley: Two possible use cases - 1) you want to enforce leaving URls alon, 2) You want to set @base to revert back to null. Two different cases, but we don't have two different values.
+[Tue 10:54]	<manu-db>	niklas: We could do "empty string means revert", and "null means none"
+[Tue 10:54]	<manu-db>	dlongley: I said the reversed...
+[Tue 10:55]	<manu-db>	dlongley: We were going to say empty string meant "no base"
+[Tue 10:55]	<manu-db>	dlongley: null meant revert
+[Tue 10:56]	<manu-db>	Discussion surrounding benefits drawbacks for either approach.
+[Tue 10:57]	<manu-db>	Confusion about what is meant by "revert to the previous value, null, resetting, etc."... group working out definitions.
+[Tue 10:57]	<mlnt>	Document at http://example.com: { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": "./" } ... }
+[Tue 10:58]	<mlnt>	Document at http://example.com: { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": "" } ... }
+[Tue 10:59]	<dlongley>	there is "previous" and "original"
+[Tue 11:01]	<dlongley>	1. original document location (may be null for just data)
+[Tue 11:01]	<dlongley>	2. API base option
+[Tue 11:01]	<dlongley>	3. base as set by processed contexts
+[Tue 11:01]	<dlongley>	what does "@base": null set @base to?
+[Tue 11:02]	<manu-db>	gkellogg: Yes, I think that's correct.
+[Tue 11:02]	<manu-db>	gkellogg: If you set @base: null, you fallback to 2.
+[Tue 11:04]	<manu-db>	Discussion about various pros/cons to @base: null setting API base option.
+[Tue 11:06]	<manu-db>	Discussion about what the publisher meant by "@base": null
+[Tue 11:07]	<niklasl>	Q: Document at "http://example.com/doc": { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": "" } ... } - base is "http://example.com/dir/" or "http://example.org/doc" ?
+[Tue 11:08]	<manu-db>	Discussion about the use case for relative-only IRIs
+[Tue 11:11]	<manu-db>	Discussion of merits of digital signatures on graphs that contain purely relative IRIs.
+[Tue 11:15]	<manu-db>	Discussion about variations that we could use to resolve the issue.
+[Tue 11:15]	|<--	pkuyken has left freenode (Ping timeout: 245 seconds)
+[Tue 11:15]	<niklasl>	.. we should write down numbered concrete examples (seems to be 4-6), and vote on the desired effect in each
+[Tue 11:16]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 11:17]	<niklasl>	Q 2: Document at "http://example.com/doc": { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": null } ]… } - base is either "http://example.com/doc" or null (if that is even legal)..
+[Tue 11:18]	<manu-db>	pkuyken: There seem to be several different alternatives - could you write up a simple example and dissect each example?
+[Tue 11:18]	<mlnt>	http://piratepad.net/GjJt14kUlA
+[Tue 11:18]	<manu-db>	gkellogg: To summarize @base is ignored if it's in a remote context.
+[Tue 11:19]	<manu-db>	gkellogg: Only issue that's open is what happens when @base: null ?
+[Tue 11:19]	<manu-db>	gkellogg: It falls back to API base and then document base.
+[Tue 11:21]	<dlongley>	Document at "http://example.com/asset", it is a bundle with relative IRIs
+[Tue 11:18]	<manu-db>	Hour-long discussion about definitions, approaches, etc.
+[Tue 11:43]	* niklasl	gotta run; thanks, and good luck!
+[Tue 11:43]	* manu-db	waves to niklasl.
+[Tue 11:44]	<voip-ld>	Niklas Lindström (SIP/192.168.3.14-0000018d) has left the conference.
+[Tue 11:45]	* mlnt	bye niklas!
+[Tue 11:45]	* niklasl	waves; bye
+[Tue 11:45]	<--|	niklasl has left #json-ld
+[Tue 11:48]	|<--	scor has left freenode (Read error: Connection reset by peer)
+as @index, e.g. in the example above: "titles": "@index" (in @context definition)
+[Tue 11:59]	<voip-ld>	pkuyken (IAX2/diamondcard-15271) has left the conference.
+[Tue 12:00]	<voip-ld>	<unknown> (IAX2/diamondcard-8236) has joined the conference.
+[Tue 12:12]	-->|	vikash (~vikash@unaffiliated/vikash) has joined #json-ld
+[Tue 12:21]	<manu-db>	Result of the discussion is a new Base Resolution Algorithm, described here:
+[Tue 12:21]	<manu-db>	  1. initialize base to null
+[Tue 12:21]	<manu-db>	  2. if document URL exists, initialize base to document URL
+[Tue 12:21]	<manu-db>	  3. If API option is set, override base with base API option.
+[Tue 12:21]	<manu-db>	  4. @base overwrites base
+[Tue 12:21]	<manu-db>	  Rule #1: remote context, @base doesn't overwrite base
+[Tue 12:21]	<manu-db>	  Rule #2: @base: null, when used in the local document, sets base to null (no base)
+[Tue 12:21]	<manu-db>	  Rule #3: If you try to set a relative base, and your existing base is null, throw an error.
+[Tue 12:23]	<manu-db>	PROPOSAL: Accept the new Base Resolution Algorithm, which supports setting @base: null (no base value).
+[Tue 12:23]	<manu-db>	+1
+[Tue 12:23]	<mlnt>	+1
+[Tue 12:23]	<pkuyken>	+1
+[Tue 12:23]	<dlongley>	+1
+[Tue 12:23]	<gkellogg>	+1
+[Tue 12:23]	<manu-db>	RESOLVED: Accept the new Base Resolution Algorithm, which supports setting @base: null (no base value).
+[Tue 12:24]	<manu-db>	PROPOSAL: The API option for 'base' is not set by default.
+[Tue 12:25]	<manu-db>	+1
+[Tue 12:25]	<gkellogg>	+1
+[Tue 12:25]	<dlongley>	+1
+[Tue 12:25]	<mlnt>	+1
+[Tue 12:25]	<pkuyken>	+1
+[Tue 12:25]	<manu-db>	RESOLVED: The API option for 'base' is not set by default.
+[Tue 12:25]	<dlongley>	(this means that if the document location is not set (it is null), base will be null)
+[Tue 12:27]	<manu-db>	markus: What happens when you compact?
+[Tue 12:27]	<manu-db>	manu: you use the same algorithm as above.
+[Tue 12:28]	<voip-ld>	pkuyken (IAX2/diamondcard-8236) has left the conference.
+[Tue 12:28]	<taaz>	should i mention spec bugs now or wait until you all get off the telecon? :)
+[Tue 12:29]	* manu-db	are they non-editorial spec bugs?
+[Tue 12:29]	<taaz>	https://github.com/json-ld/json-ld.org/issues/245
+[Tue 12:29]	<manu-db>	taaz: That's a spec bug, it's a non-substantive change. We should make it, but can be made at any point.
+[Tue 12:29]	<mlnt>	JsonLdOptions.base: http://example.com/ compact(http://example.com/subdir/doc.jsond, somecontext);
+[Tue 12:29]	<mlnt>	{ "@id": "me" 0
+[Tue 12:29]	<mlnt>	- expands to: { "@id": "http://example.com/me" }
+[Tue 12:30]	<mlnt>	JsonLdOptions.base: n/a compact(http://example.com/subdir/doc.jsond, somecontext);
+[Tue 12:35]	<manu-db>	Topic: Implementation Report Submissions
+[Tue 12:35]	<dlongley>	scribe: dlongley
+[Tue 12:35]	<dlongley>	manu-db: so the plan for the RDF WG meeting tomorrow, so we have implementation reports
+[Tue 12:35]	<dlongley>	manu-db: Gregg you said your implementation will be done within a week
+[Tue 12:35]	<manu-db>	http://json-ld.org/test-suite/reports/
+[Tue 12:36]	<dlongley>	gkellogg: my implementation is pretty virgin since i haven't been too involved in the changes to the algorithms
+[Tue 12:36]	<dlongley>	manu-db: once gregg's implementation is in, we'll give the test suite a permanent url. So, we're good to go as far as CR-criteria and implementation reports are concerned.
+[Tue 12:37]	<manu-db>	Topic: Path forward for JSON-LD CR/PR
+[Tue 12:37]	<dlongley>	manu-db: the question is: how are we going to take this stuff forward in the RDF WG?
+[Tue 12:37]	<dlongley>	manu-db: what's the proposal we're putting forward?
+[Tue 12:37]	<dlongley>	manu-db: i put together a proposal yesterday that says we could go to candidate rec with the syntax spec, we have to take the API spec into LC2
+[Tue 12:37]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0052.html
+[Tue 12:44]	<manu-db>	Ivan had issues with it. So, I think the plan is to take JSON-LD API through a 2nd Last Call. We'll leave JSON-LD Syntax 1.0 alone until we get through the 2nd LC for JSON-LD API. We more-or-less meet all of the CR exit criteria already, so once JSON-LD API is out of LC, we will proceed directly to PR. We'll get RDF WG's input on the plan tomorrow.
+[Tue 12:45]	<manu-db>	Thanks for the super-long 3 hour call today everyone!
+[Tue 12:48]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-00000193) has left the conference.
+[Tue 12:48]	<voip-ld>	Manu Sporny (SIP/6000-00000194) has left the conference.
+[Tue 12:48]	<voip-ld>	Dave Longley (SIP/6002-00000196) has left the conference.
+[Tue 12:48]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000197) has left the conference.

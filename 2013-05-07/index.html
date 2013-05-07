@@ -1,0 +1,318 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-05-07</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013May/0029.html">http://lists.w3.org/Archives/Public/public-linked-json/2013May/0029.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">JsonLdOptions base vs. @base</a><li><a href="#topic-2">Implementation Report Submissions</a><li><a href="#topic-3">Path forward for JSON-LD CR/PR</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Support relative IRIs in @base.</a><li><a href="#resolution-2">@base is always resolved against the current documents URL. @base when set in a remote context document does not apply to the document that imports the remote context.</a><li><a href="#resolution-3">Accept the new Base Resolution Algorithm, which supports setting @base: null (no base value).</a><li><a href="#resolution-4">The API option for 'base' is not set by default.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Dave Longley</dd>
+<dt>Present</dt><dd>Dave Longley, Manu Sporny, Markus Lanthaler, Gregg Kellogg, Paul Kuykendall, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Dave Longley is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates to the agenda? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  quick question, i think i caught up on the @base discussion, but was there any thing controversial there?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the question was whether or not we allowed relative urls in base?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  other rdf serializations allow relative urls for base, even RDFa does, so long as it resolves to an absolute url in the end</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i thought we did something different with RDFa, let's discuss now.</div>
+<h1 id="topic-1" class="topic">Topic: JsonLdOptions base vs. @base</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/223">https://github.com/json-ld/json-ld.org/issues/223</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  two issues to resolve, whether relative IRIs can be used with base and what the empty string does</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i think that relative IRIs can get very messy</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the spec is a bit fussy about @base anyway, we're not really explicit about how it handles it, we just say that you expand against the document base, we never say how that base is established</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you have a remote context with a base and it has a nested remote base context which one do you use?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i thought we decided that you use the one in the local document</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think if base is resolved to an external remote document it causes lots of problems</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think devs could understand if base just resolved to the local documnet</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it complicates processing slightly but we could consider using @base in an external context illegal</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we wouldn't even need to make it illegal if it just applies to the local document</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we do @base: ".." how does that behave?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you define a term and then you use that base and that base is different from anywhere else it gets weird, right now if you take your external context and put it in your document it just works</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, but if we allow @base in remote contexts then your local document doesn't have the right base</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  what's the use case, for a relative @base, why not just use relative IRIs in your document?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the use case (we've had two people bring this up) is for packaging</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if files exist in directories further up in the tree that need to be referred to in a package that has no real absolute iri</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  how do you reference things like that easily?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  one approach is to use relative IRIs everywhere the other is to set @base and use cleaner relative IRIs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i agree that it's not necessarily the best use case, but that's what it is</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the other case is using @base in the test suite</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we talked about doing that, we don't currently, but we want to move the test suite to a location that people report against</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but it would be an absolute IRI there</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  we have been using @base to build up widgets, etc. and we haven't had a problem with just using absolute IRIs</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  it doesn't seem very compelling to us, we haven't had a problem, it seems more compelling to come in line with other serializations, but to support widget stuff, i'm dubious</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i think, firstly, it would be good to have the same resolution as RDFa, we're kind of similar to turtle w/vocab space vs. document space, but we're mostly in line with RDFa, with vocabulary space we really don't need relative IRIs, when you have lots of data in JSON files that are statically generated and you don't yet know for sure what the domain name for the publication of these it's very useful to be able to ha</div>
+<div class="information">ve relative IRIs to be able to relocate your entire dataset</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Do not support relative IRIs in @base.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: 0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  0</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: 0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: -0.5</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Support relative IRIs in @base.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: 0</div>
+<div class="comment"><span class="name">Dave Longley</span>:  0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +.2</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  another problem if we support relative IRIs is that we don't support it in @vocab and in other term definitions</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i disagree, that's what the case is in RDFa already</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah, that behavior is very similar to RDFa</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  for the reasons i discussed just now regarding the conceptual vocabulary space where it's very rare to need to relocate that</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but just looking at the keywords they do very similar things but not quite, so it's strange to support in one and not the other</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  they serve very different purposes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i don't think it would be that strange</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we don't have what Turtle does to make distinctions, but it's the same distinction of vocab vs document space</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think there's very slightly more support for relative IRIs for base than not, so i'll say we resolved that wya</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  then we'll have to deal with having a blank @base IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any objections?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yeah, i objected already</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  are we making a catastrophic error by supporting this?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  are we going to support these in external contexts as well?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  for example, the widget case, discussed on the mailing list, he used a relative term which was then resolved at runtime, he had a bundle prefix which was a relative IRI that wouldn't work</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i was referring to a use case from about a year ago with people working with web widgets, which had to do with that spec</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  my main concern the change here, i'm more in favor of consistency amongst JSON-LD, RDFa, turtle, and the like</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i agree that that is the most compelling argument</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  my hesitation again is to avoid adding too much additional complexity right at the end</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think @base isn't used too often (relatively speaking), the majority of documents out there don't use it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think being in the minority may mean that requiring them to really understand it is an acceptable hurdle</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we may want to elaborate on the spec to make that clear</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we don't have much time to do that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, we have one more iteration and then that's it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but it's informative (the warning part)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  just one issue, is in the syntax document, in the context definitions, we do say that it must be an absolute IRI or null</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what does this mean about the stability of the syntax document</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  did we have an issue marker on that?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i don't think so, i think B is normative, which it says there .... oh, there is an issue marker, nevermind, we're good</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Support relative IRIs in @base.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  now, is @base included from external contexts?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we might want to just do the simple thing and say that it is</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you have a context that includes an external context, and you have a whole chain of them, the first @base is set in the parent document, and then each new context overrides the @base</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think that's the complicated case we were trying to avoid by saying that @base only applies to the local document, but people are saying that makes it complicated, so maybe we just want to make it simple and people who generate external contexts should really understand that @base will effect all external documents that use that @base</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that use that context</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if your context is intended for wider use, don't use @base</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  (or be careful)</div>
+<div class="proposal"><strong>PROPOSAL:</strong> When @base is specified in an external context, that @base is applied to the document including the external context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  wait, I think there is a problem with this. let's say we have two external remote contexts, the first one establishes @base, the second one uses a relative @base, is the second @base resolved against the previous absolute base or against the remote context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if your previous @base is to example.org and in the second context it's "../", having "../" apply to the document vs. the base that's already been set would be strange</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i think it's less strange</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you can include the same remote context in multiple documents, but i think the term definitions in there should expand to the same URLs</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: {@context: "/some/path"} /some/path contains {@context: {@base: "./other"}}, the base is "/some/other</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so i think the remote context "../" should expand against the previous context @base</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you could use something that composes remote contexts that uses other remote contexts and weird stuff could happen, but maybe we should just resolve that by cautioning people from doing that because it can lead to unexpected results</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you have a document and you set the base in that document, it should not change the @base in that remote context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  otherwise you would break that remote context without noticing</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so when you load the remote context...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you use the remote context URL to expand every base statement in there</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what if you have a remote context that is using a relative IRI, do i resolve it using a base declaration that is in scope or do i resolve it using the document's actual location</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  base is entirely a semantic concept used for resolving properties, it doesn't affect the way that you retrieve documents</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. it should work like base works going from an html document to a CSS or an SVG (and from them to other css or sag)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you're looking at @base as it's used in html, if you include like a CSS file or some other ... trying to think if there's a way to include other html-like files ... in all of these cases the @base only applies to the document, actually in CSS you can do that right? the @base only applies to the document itself</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so when you import one CSS file into another, all of the path resolutions happen happen based on the @base for that file, we don't have this weird chaining thing that happens like it does with the JSON-LD context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm not arguing one way or the other, just food for thought, i think it's a little strange the way we're doing this i think</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: Do we need to timebox this, or continue on, pushing out other agenda items?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: [ { "@base": "<a href="http://example.com/"">http://example.com/"</a> }, "/dir/remote-context.jsonld" ] - remote-context.jsonld: { "@base": "./" } (1) what's the base here | (2) what's the final base in the doc?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the problem here is that we need to resolve this if we're going to get another LC doc out next week</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can't go to LC2 if we don't resolve this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this becomes simpler if base is only allowed locally and not within a remote context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  every document can be used as a remote context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in which case it would be ignored</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: 1: the base in remote-context is "<a href="http://example.com/dir/";">http://example.com/dir/";</a> the base in the document is "http://example.com/"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so base is always established locally (local to the document), never changed by a remote context</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when we start evaluating a remote context, we pass a flag that says "ignore base"</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if there is a base in the local document</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when we process a remote context, we always ignore @base</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's as if the @base declaration does not exist when processing a remote context</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  so @base is intransitive</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  meaning not-inherited</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the drawback is that you can never define @base in an external context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is that something that we want to prevent?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i'm not sure</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  does RDFa/turtle have anything equivalent</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i cannot think of any web based technology that would inherit @base</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if you have xml base in an xml doc, and you include another xml doc, base in that document would never apply</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  there is really no tech that changes namespaces like we do with remote contexts</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we expand properties to urls using an external doc</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  external dtds can do that, to some extent</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i'm not sure what having xml base defined in that dtd would add it to the local document, i think it would, that's the closes analogy i can think of right now</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the spec would stay the same, but @base would always be resolved against the current document url</div>
+<div class="proposal"><strong>PROPOSAL:</strong> @base is always resolved against the current documents URL. @base when set in a remote context document does not apply to the document that imports the remote context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  0, can't both follow and scribe this crazy conversation! :)</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1, with resolution inconsistency caveat ;]</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> @base is always resolved against the current documents URL. @base when set in a remote context document does not apply to the document that imports the remote context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what does the blank string do? does it clear @base?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  or is it like saying current document URL?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it should use the current document url</div>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I believe this had to do with a use case where people wanted to preserve relative IRIs in their documents where @base: "" meant "keep it relative"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  null would mean "don't set the base to nothing, but revert to previous options base value.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think there was a case that was not supported where we were looking at was the "leave the IRIs alone - there is no base associated with the document"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Shouldn't we change the default value for options to make that happen?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could say if you just put in JSON, there is no base.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, that seems like a good idea.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, so change the 'default base' to 'null'</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  @base: null means "fall back to whatever the previous options were" - either base of the document, or the base option passed into the API.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Can we have @base: null , null out the base?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you read the RFC that explains how you expand a relative IRI - the last thing that expansion falls back to is the application-defined space - which is the JSON-LD options. I don't think we need to do anything else to have the same behavior in the document itself.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Two possible use cases - 1) you want to enforce leaving URls alon, 2) You want to set @base to revert back to null. Two different cases, but we don't have two different values.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We could do "empty string means revert", and "null means none"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I said the reversed...</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We were going to say empty string meant "no base"</div>
+<div class="comment"><span class="name">Dave Longley</span>:  null meant revert</div>
+<div class="information">Discussion surrounding benefits drawbacks for either approach.</div>
+<div class="information">Confusion about what is meant by "revert to the previous value, null, resetting, etc."... group working out definitions.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Document at <a href="http://example.com:">http://example.com:</a> { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": "./" } ... }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Document at <a href="http://example.com:">http://example.com:</a> { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": "" } ... }</div>
+<div class="comment"><span class="name">Dave Longley</span>: there is "previous" and "original"</div>
+<div class="comment"><span class="name">Dave Longley</span>: 1. original document location (may be null for just data)</div>
+<div class="comment"><span class="name">Dave Longley</span>: 2. API base option</div>
+<div class="comment"><span class="name">Dave Longley</span>: 3. base as set by processed contexts</div>
+<div class="comment"><span class="name">Dave Longley</span>: what does "@base": null set @base to?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, I think that's correct.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If you set @base: null, you fallback to 2.</div>
+<div class="information">Discussion about various pros/cons to @base: null setting API base option.</div>
+<div class="information">Discussion about what the publisher meant by "@base": null</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Q: Document at "<a href="http://example.com/doc":">http://example.com/doc":</a> { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": "" } ... } - base is "http://example.com/dir/" or "http://example.org/doc" ?</div>
+<div class="information">Discussion about the use case for relative-only IRIs</div>
+<div class="information">Discussion of merits of digital signatures on graphs that contain purely relative IRIs.</div>
+<div class="information">Discussion about variations that we could use to resolve the issue.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. we should write down numbered concrete examples (seems to be 4-6), and vote on the desired effect in each</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Q 2: Document at "<a href="http://example.com/doc":">http://example.com/doc":</a> { "@context": [ { "@base": "http://example.com/dir/" }, { "@base": null } ]… } - base is either "http://example.com/doc" or null (if that is even legal)..</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  There seem to be several different alternatives - could you write up a simple example and dissect each example?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://piratepad.net/GjJt14kUlA">http://piratepad.net/GjJt14kUlA</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  To summarize @base is ignored if it's in a remote context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Only issue that's open is what happens when @base: null ?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It falls back to API base and then document base.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Document at "<a href="http://example.com/asset",">http://example.com/asset",</a> it is a bundle with relative IRIs</div>
+<div class="information">Hour-long discussion about definitions, approaches, etc.</div>
+<div class="information">Result of the discussion is a new Base Resolution Algorithm, described here:</div>
+<div class="information">1. initialize base to null</div>
+<div class="information">2. if document URL exists, initialize base to document URL</div>
+<div class="information">3. If API option is set, override base with base API option.</div>
+<div class="information">4. @base overwrites base</div>
+<div class="information">Rule #1: remote context, @base doesn't overwrite base</div>
+<div class="information">Rule #2: @base: null, when used in the local document, sets base to null (no base)</div>
+<div class="information">Rule #3: If you try to set a relative base, and your existing base is null, throw an error.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Accept the new Base Resolution Algorithm, which supports setting @base: null (no base value).</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Accept the new Base Resolution Algorithm, which supports setting @base: null (no base value).</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The API option for 'base' is not set by default.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> The API option for 'base' is not set by default.</div>
+<div class="comment"><span class="name">Dave Longley</span>: (this means that if the document location is not set (it is null), base will be null)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What happens when you compact?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you use the same algorithm as above.</div>
+<div class="comment"><span class="name">David I. Lehn</span>: should i mention spec bugs now or wait until you all get off the telecon? :)</div>
+<div class="comment"><span class="name">David I. Lehn</span>: <a href="https://github.com/json-ld/json-ld.org/issues/245">https://github.com/json-ld/json-ld.org/issues/245</a></div>
+<div class="comment"><span class="name">David I. Lehn</span>:  That's a spec bug, it's a non-substantive change. We should make it, but can be made at any point.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: JsonLdOptions.base: <a href="http://example.com/">http://example.com/</a> compact(http://example.com/subdir/doc.jsond, somecontext);</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: { "@id": "me" 0</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: - expands to: { "@id": "<a href="http://example.com/me"">http://example.com/me"</a> }</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: JsonLdOptions.base: n/a compact(<a href="http://example.com/subdir/doc.jsond,">http://example.com/subdir/doc.jsond,</a> somecontext);</div>
+<h1 id="topic-2" class="topic">Topic: Implementation Report Submissions</h1>
+<div class="information">Dave Longley is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so the plan for the RDF WG meeting tomorrow, so we have implementation reports</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Gregg you said your implementation will be done within a week</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/test-suite/reports/">http://json-ld.org/test-suite/reports/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my implementation is pretty virgin since i haven't been too involved in the changes to the algorithms</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  once gregg's implementation is in, we'll give the test suite a permanent url. So, we're good to go as far as CR-criteria and implementation reports are concerned.</div>
+<h1 id="topic-3" class="topic">Topic: Path forward for JSON-LD CR/PR</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  the question is: how are we going to take this stuff forward in the RDF WG?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what's the proposal we're putting forward?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i put together a proposal yesterday that says we could go to candidate rec with the syntax spec, we have to take the API spec into LC2</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0052.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0052.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Ivan had issues with it. So, I think the plan is to take JSON-LD API through a 2nd Last Call. We'll leave JSON-LD Syntax 1.0 alone until we get through the 2nd LC for JSON-LD API. We more-or-less meet all of the CR exit criteria already, so once JSON-LD API is out of LC, we will proceed directly to PR. We'll get RDF WG's input on the plan tomorrow.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Thanks for the super-long 3 hour call today everyone!</div>
+</body>
+</html>
