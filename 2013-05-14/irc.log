@@ -1,0 +1,147 @@
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013May/0044.html
+[Tue 10:05]	<voip-ld>	<unknown> (IAX2/diamondcard-12301) has joined the conference.
+[Tue 10:05]	<pkuyken>	voip: 12301 is pkuyken
+[Tue 10:05]	<voip-ld>	pkuyken is now associated with IAX2/diamondcard-12301.
+[Tue 10:06]	<manu-db>	manu: Any updates to the agenda?
+[Tue 10:06]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/246#issuecomment-17773737
+[Tue 10:06]	<manu-db>	scribe: pkuyken
+[Tue 10:06]	<pkuyken>	gkellogg: new issue brought up from link above
+[Tue 10:07]	<manu-db>	voip: 12301 is pkuyken
+[Tue 10:07]	<voip-ld>	pkuyken is now associated with IAX2/diamondcard-12301.
+[Tue 10:07]	<manu-db>	voip: mute pkuyken
+[Tue 10:07]	<voip-ld>	pkuyken has been muted.
+[Tue 10:07]	<manu-db>	Topic: Implementation Updates
+[Tue 10:08]	<pkuyken>	gregg: ruby implementation released some minor problems fixed (typos and missing steps)
+[Tue 10:08]	<pkuyken>	... waiting to fix missing steps for talking with markus and others
+[Tue 10:09]	<pkuyken>	gregg: more tests need to be added to look for errors
+[Tue 10:10]	<pkuyken>	... sandro put out some additional tests as well
+[Tue 10:10]	<pkuyken>	manu: freeze test suite before going to CR
+[Tue 10:11]	<pkuyken>	sandro : can add tests after we go to CR
+[Tue 10:11]	<pkuyken>	sandro: we need to get people running the test suite
+[Tue 10:12]	<pkuyken>	gregg: important for json-ld to be handled by most important implementations, jenna, etc.
+[Tue 10:12]	<stain>	https://github.com/jsonld-java/jsonld-java has been receiving minor patches recently by ansell and tristan
+[Tue 10:12]	<pkuyken>	niklasl: no major movement on our part, mainly working with turtle
+[Tue 10:13]	<niklasl>	his original source: https://github.com/tristan/jsonld-java
+[Tue 10:13]	<pkuyken>	manu: Andy stopped working on the processor about 6 months ago because the spec was in too much flux. Tristan is working on getting it in shape in the near future
+[Tue 10:14]	<pkuyken>	manu: Working on the JSON-LD normalization now. Should be in good shape for a Java implementation in the next few months
+[Tue 10:14]	<manu-db>	Topic: RDF-ISSUE-129: Lossless conversion
+[Tue 10:14]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/129
+[Tue 10:15]	<pkuyken>	sandro: Working on some RDF issues in patch, such as when literals match case, etc. We were losing information such that triples don't match themselves often. example in email.
+[Tue 10:16]	<pkuyken>	... Challenge with JSON being underspecified in numbers, different parsers have different parsing mechanisms.
+[Tue 10:16]	|<--	PaulCapestany has left freenode (Quit: Computer has gone to sleep.)
+[Tue 10:17]	<pkuyken>	... Basically, we might as well convert all native number types to json numbers
+[Tue 10:17]	<pkuyken>	... don't convert decimal as most people use it to flag they care about exact precision
+[Tue 10:18]	<pkuyken>	manu: we had a lot of conversations regarding round-tripping with json-ld
+[Tue 10:18]	<pkuyken>	... idea of round tripping issues is well known. Don't use use datatypes flag in order to ensure proper data round-tripping.
+[Tue 10:19]	<pkuyken>	sandro: add editorial comment to highlight the warning about round-tripping data issues.
+[Tue 10:20]	<pkuyken>	manu: there are some comments, but they could be highlighted better. We need to be careful to not to overly restrict data conversion 32/64 bit conversions, etc.
+[Tue 10:20]	<pkuyken>	sandro: don't pass around json-ld with native numbers unless you really don't care about your integrity
+[Tue 10:21]	<pkuyken>	manu: we tried to be specific in guidance. It needs to be added to the spec. This situation is very application specific
+[Tue 10:21]	<pkuyken>	q+
+[Tue 10:21]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:22]	<pkuyken>	manu: when data is published on the web today many assume that machine is 32bit capable.
+[Tue 10:23]	<pkuyken>	manu: most web developers won't convert numbers by converting to int, etc. and marking it with the xml type
+[Tue 10:24]	* manu-db	apologiezes to pkuyken - will move you out of the queue next.
+[Tue 10:24]	<pkuyken>	sandro: if you use native forms then clients may get the wrong data, should use expanded form.
+[Tue 10:24]	<manu-db>	ack pkuyken
+[Tue 10:24]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 10:24]	<manu-db>	voip: unmute pkuyken
+[Tue 10:24]	<voip-ld>	pkuyken has been unmuted.
+[Tue 10:25]	<manu-db>	pkuyken: I do think it's important that we say something in the spec, it might get lost - we're doing banking/financial apps - datatypes are very important wrt. numbers.
+[Tue 10:25]	<manu-db>	pkuyken: It'll be good for our data consumers to know that this is an issue.
+[Tue 10:25]	<manu-db>	voip: mute pkuyken
+[Tue 10:25]	<voip-ld>	pkuyken has been muted.
+[Tue 10:26]	-->|	digikim (~digikim@cs181158134.pp.htv.fi) has joined #json-ld
+[Tue 10:26]	<pkuyken>	sandro: 2 parts of proposal. first part is editorial. Use native types is "do what I mean, but I accept errors"
+[Tue 10:26]	<gkellogg>	q+
+[Tue 10:26]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:26]	<manu-db>	ack gkellogg
+[Tue 10:26]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:26]	<pkuyken>	... turn them into native numbers.
+[Tue 10:27]	<pkuyken>	sandro: the other part would be it alwas comes back as a double
+[Tue 10:27]	<pkuyken>	gregg: I wonder if the flag is in the wrong place
+[Tue 10:28]	<manu-db>	q+ to ask about data roundtripping.
+[Tue 10:28]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:28]	<pkuyken>	gregg: perhaps there should be an expansion flag such that when we expand we turn all numeric data types into ? data types so that the consumers can choose how data is handled
+[Tue 10:28]	<pkuyken>	sandro: I like that
+[Tue 10:29]	<pkuyken>	gregg: it is possible to use numerical representation and not loose type/precision information on conversion.
+[Tue 10:29]	<pkuyken>	manu: I have a concern about if it is round-tripable between rdf->jsonld->rdf
+[Tue 10:29]	-->|	jmv_ (~jmvanel@113.212.139.88.rev.sfr.net) has joined #json-ld
+[Tue 10:30]	<pkuyken>	... you will loose information when transforming back and forth to json-ld
+[Tue 10:30]	<pkuyken>	sandro: if you don't want to lose info, don't use native
+[Tue 10:30]	|<--	jmv has left freenode (Ping timeout: 245 seconds)
+[Tue 10:30]	<pkuyken>	manu: you never lose type information if you round-trip.
+[Tue 10:30]	<pkuyken>	sandro: yes you do, <missed example>
+[Tue 10:31]	<gkellogg>	Turtle 1 = {"@value": 1, "@type": "xsd:int"}
+[Tue 10:31]	<pkuyken>	gregg: you can do a transformation and retain the type
+[Tue 10:31]	<pkuyken>	... the precision could be changed, but the type is retained
+[Tue 10:32]	<pkuyken>	... rdf - json is always using expanded form
+[Tue 10:32]	<pkuyken>	... only on compaction will the type information be lost
+[Tue 10:33]	<pkuyken>	manu: I don't like that we lose type information between different types. It's a non-starter
+[Tue 10:33]	<pkuyken>	sandro: Wait, I thought you were saying that type information is preserved, isn't that what I'm proposing?
+[Tue 10:34]	<pkuyken>	manu: What I mean is that it is possible for the developers to better manage type conversion with the current approach. Markus' changes lose some of that fidelity.
+[Tue 10:35]	<pkuyken>	gregg: add option so that the developer can choose if string representation or native form is used via an option flag if the types match.
+[Tue 10:36]	|<--	digikim_ has left freenode (*.net *.split)
+[Tue 10:36]	<pkuyken>	... current spec has converting to string that are missing the data type.
+[Tue 10:37]	<pkuyken>	manu: we need to discuss this more with Markus and Dave on the call to talk about the changes being made. The changes have cascading effects
+[Tue 10:37]	<pkuyken>	manu: if we do make this change it would have a non-trivial change forcing another last-call
+[Tue 10:37]	<pkuyken>	gregg: we haven't already entered 2nd last call
+[Tue 10:38]	<pkuyken>	manu: we can add an additional at-risk marker to keep us from having to enter a 3rd last call
+[Tue 10:38]	<pkuyken>	gregg: I'll make sure it is brought up
+[Tue 10:38]	<pkuyken>	manu: need to mark it as "needs community input"
+[Tue 10:39]	<pkuyken>	sandro: I haven't seen that reference, but it makes sense. please look for that reference
+[Tue 10:39]	<pkuyken>	manu: We will try and fix these issues and add an issue marker highlighting the issue, and bring it up at the RDF working group
+[Tue 10:40]	<pkuyken>	sandro: we many need to refer to a different spec regarding futures - the DOM WHATWG one might change.
+[Tue 10:40]	<pkuyken>	sandro: hard requirement is to refer to stable things. it is hard to argue that the "living spec" is stable
+[Tue 10:40]	<pkuyken>	... not saying we change the reference, but change how we use the reference
+[Tue 10:41]	<pkuyken>	manu: We don't actually reference the Futures spec directly. We only use the Future concept in our spec, not the API itself.
+[Tue 10:42]	<pkuyken>	sandro: if they change Futures, then every piece of software using futures would be broken and have to change
+[Tue 10:42]	<pkuyken>	manu: Being pedantic, but the spec wouldn't change, just the implementation.
+[Tue 10:43]	<pkuyken>	sandro: The director probably won't be okay with that. You shouldn't build on specs that are not stable
+[Tue 10:43]	<pkuyken>	... We have to hard-code it with the current view of futures so that if it changes, we use the old version of futures
+[Tue 10:44]	<pkuyken>	manu: adding two issues to the spec and will publish next tuesday
+[Tue 10:44]	<pkuyken>	... that gives us the chance to avoid al 3rd last-call
+[Tue 10:45]	<manu-db>	PROPOSAL: Add issue markers to the 2nd Last Call for JSON-LD Algorithms and API to warn about how the useNativeTypes flag and algorithm might change, and to also warn about the details of referencing the DOM-WHATWG spec wrt. Futures may change.
+[Tue 10:45]	<manu-db>	+1
+[Tue 10:45]	<gkellogg>	+1
+[Tue 10:45]	<pkuyken>	+1
+[Tue 10:45]	<sandro>	+1
+[Tue 10:45]	<niklasl>	+1
+[Tue 10:45]	<stain>	+1
+[Tue 10:45]	<manu-db>	RESOLVED: Add issue markers to the 2nd Last Call for JSON-LD Algorithms and API to warn about how the useNativeTypes flag and algorithm might change, and to also warn about the details of referencing the DOM-WHATWG spec wrt. Futures may change.
+[Tue 10:46]	<pkuyken>	gregg: I think this should include how the useNativeType flag impacts the misuse of type conversion.
+[Tue 10:46]	<manu-db>	Topic: RDF-ISSUE-128: Mandatory profiles
+[Tue 10:47]	<pkuyken>	manu: Peter Ansell is asking us to make certain profiles mandatory on the server and client. He is saying that this is an inter-operability issue, which it is. We also can't force people into interop, and we do want people to be able to dip their toes into JSON-LD w/o being hit over the head by a requirement like this.
+[Tue 10:47]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/128
+[Tue 10:48]	<pkuyken>	manu: There is a thought that Peter might have missed the fact that we can't force people to do things they don't want to do by requiring a certain set of operations.
+[Tue 10:49]	<pkuyken>	... if we require expanded, flattened, and compacted, then we increase the burden of server developers such that they may not want to implement the spec
+[Tue 10:49]	<pkuyken>	q+
+[Tue 10:49]	<voip-ld>	Added pkuyken to the speaker queue: manu-db, pkuyken
+[Tue 10:49]	<manu-db>	ack manu-db
+[Tue 10:49]	<voip-ld>	manu-db has the floor (to ask about data roundtripping.). The next speaker is pkuyken.
+[Tue 10:50]	<pkuyken>	manu: we don't want the community to come along and say you're doing it wrong by not supporting everything in the spec
+[Tue 10:51]	<pkuyken>	... there are good intentions but it could hinder large corporations from dipping their toes into json-ld
+[Tue 10:51]	<pkuyken>	... it hurts incremental conformance of the spec
+[Tue 10:52]	<manu-db>	ack pkuyken
+[Tue 10:52]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 10:52]	<pkuyken>	gregg: the proposal uses should instead of must
+[Tue 10:52]	<manu-db>	voip: unmute pkuyken
+[Tue 10:52]	<voip-ld>	pkuyken has been unmuted.
+[Tue 10:53]	<manu-db>	pkuyken: I think it's important that profiles are not mandatory - we're just implementing just enough to get us going. At this point, we don't need mandatory profiles. We'd like to be able to say we're using JSON-LD in our marketing docs, but at this point, we don't have the need to do anything more than expand (we don't support compact / flattened). Having that club out there would be a...
+[Tue 10:53]	<manu-db>	...detriment to us.
+[Tue 10:53]	<manu-db>	pkuyken: We intend to use the other formats, but at this point, we're trying to just get it done.
+[Tue 10:54]	<manu-db>	pkuyken: While expand was a pretty big undertaking, compact and flatten really add a lot of extra overhead that doesn't buy us any real business value. It will in the future, but right now it doesn't provide us anything. Having that club out there wouldn't be good to us.
+[Tue 10:54]	<manu-db>	voip: mute pkuyken
+[Tue 10:54]	<voip-ld>	pkuyken has been muted.
+[Tue 10:55]	<pkuyken>	manu: what Paul just said is the same feedback as what the we've gotten from larger companies in private
+[Tue 10:56]	<pkuyken>	... 'should' is fine verbiage rather than 'must' for implementation of spec
+[Tue 10:57]	<pkuyken>	gregg: <<< pk/ I missed gregg's comment>>>
+[Tue 10:57]	<pkuyken>	manu: if we're in a case where Apache and Express don't follow the spec, then there is a bigger disconnect.
+[Tue 10:58]	<gkellogg>	question is, can a server respond with any time, even if it doesn't match what's in the ACCEPT header.
+[Tue 10:58]	<gkellogg>	… This includes type parameters, needs research.
+[Tue 10:58]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013May/0038.html
+[Tue 10:59]	<pkuyken>	manu: if the above satisfies Peter's comments then we should use that.
+[Tue 10:59]	<niklasl>	http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+[Tue 10:59]	<pkuyken>	niklasl: it sounds like we're restating the rules of content negotiiation
+[Tue 11:00]	<stain>	I don't think you need to do 406 if it's just the profile parameter that can't be satisfied (it might be satisfied, the server just don't know that)
+[Tue 11:00]	<pkuyken>	manu: we need to make sure we're not duplicating spec text

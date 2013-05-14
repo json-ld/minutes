@@ -131,6 +131,16 @@
          "alias": ["macted"],
          "homepage": "http://www.linkedin.com/in/macted"
       },
+      "Sandro Hawke":
+      {
+         "alias": ["sandro_"],
+         "homepage": "http://www.linkedin.com/in/hawke"
+      },
+      "Stian Soiland-Reyes":
+      {
+         "alias": ["stain", "stain_"],
+         "homepage": "http://soiland-reyes.com/stian/work/"
+      },
       "Vikash Agrawal":
       {
          "alias": ["vikash"],
