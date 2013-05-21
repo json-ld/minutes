@@ -1,0 +1,159 @@
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013May/0072.html
+[Tue 10:04]	<manu-db>	scribe: manu-db
+[Tue 10:05]	<manu-db>	Manu: any changes to the agenda?
+[Tue 10:05]	<manu-db>	gkellogg: We should talk about David Booth's issue: JSON-LD/RDF Alignment
+[Tue 10:05]	<manu-db>	Topic: RDF-ISSUE-132: JSON-LD/RDF Alignment
+[Tue 10:05]	<manu-db>	https://www.w3.org/2011/rdf-wg/track/issues/132
+[Tue 10:05]	<gkellogg>	Conversation here: http://lists.w3.org/Archives/Public/public-rdf-comments/2013May/0143.html
+[Tue 10:06]	<manu-db>	gregg: I think he's not entirely satisfied to define JSON-LD as an RDF syntax. In particular, we were going to normatively reference RDF Concepts.
+[Tue 10:06]	<manu-db>	gregg: I think he was looking for something like that, and a series of other suggestions, including referencing RDF when we're describing Linked Data.
+[Tue 10:06]	<manu-db>	Manu: It's been difficult for me to understand what he wants, exactly. Many of his points are philosophical vs. technical. In general, I don't see what technical problems we address by making the changes he is requesting.
+[Tue 10:07]	<voip-ld>	stain (SIP/192.168.1.195-000001af) has joined the conference.
+[Tue 10:07]	<manu-db>	gregg: He's got some very specific changes in the e-mail. Some of his concerns I don't quite understand.
+[Tue 10:07]	<voip-ld>	Luca Matteis (SIP/digitalbazaar.com-000001b0) has joined the conference.
+[Tue 10:08]	<manu-db>	dlongley: yeah, let's go down the list he has, maybe that will help.
+[Tue 10:08]	<manu-db>	1. Insert "based on RDF" to the definition of Linked Data, as explained above.
+[Tue 10:08]	<manu-db>	dlongley: This is at odds with all of the other discussions we've had. Maybe there is another way to satisfy #1 w/o deviating with all of the other fixes we've had to do w/ that definition.
+[Tue 10:10]	<manu-db>	manu: Yeah, we have a problem with #1 - we've worked on that definition a lot. We have considered the text he wants before. If we add it, they'll be backlash from the folks that didn't want to conflate Linked Data with RDF. 
+[Tue 10:10]	<manu-db>	manu: Making a normative reference to RDF Concepts would be problematic - going to REC at a different time than JSON-LD.
+[Tue 10:11]	<manu-db>	gregg: I thought we had agreed to do that?
+[Tue 10:12]	<manu-db>	manu: I don't think we agreed to do that - we don't want to be blocked by RDF Concepts.
+[Tue 10:13]	<dlongley>	manu: My general concern with david booth's comments are that he's taking a hard line stance with JSON-LD having to fall in line with RDF ... in that his arguments seem to be philosophical arguments, not technical, it's more about messaging. I don't want to get this group stuck in the mud when the changes to the spec that are mostly philosophical, not technical, in nature.
+[Tue 10:14]	<voip-ld>	Kuno Woudt (SIP/190.10.148.24-000001b1) has joined the conference.
+[Tue 10:14]	<manu-db>	gregg: What about the skolemization concerns? Those are technical, right?
+[Tue 10:15]	<manu-db>	gregg: The other place would be bnodes as properties.
+[Tue 10:16]	<manu-db>	manu: I thought those issues were things that processors need to deal with those sorts of things when translating to RDF.
+[Tue 10:16]	<manu-db>	gregg: I think David Wood wants this to be a WG resolution.
+[Tue 10:16]	<manu-db>	manu: So, JSON-LD CG has made these resolutions, we need RDF WG to do the same.
+[Tue 10:16]	|<--	jmvanel has left freenode (Ping timeout: 252 seconds)
+[Tue 10:17]	<voip-ld>	Clay (SIP/sip2sip.info-000001b2) has joined the conference.
+[Tue 10:17]	<voip-ld>	clayball (IAX2/diamondcard-11462) has left the conference.
+[Tue 10:18]	<manu-db>	voip: mute 1b1
+[Tue 10:18]	<voip-ld>	SIP/190.10.148.24-000001b1 has been muted.
+[Tue 10:20]	<manu-db>	manu: I'm concerned that we are going to work on these secondary issues, thinking that it's what David Booth wants, and they're not going to resolve David Booth's concerns.
+[Tue 10:21]	<voip-ld>	Dave Lehn (SIP/6003-000001b4) has joined the conference.
+[Tue 10:21]	<manu-db>	gregg: Then we should point to the decision on the Linked Data definition. If he still doesn't agree, we need a papertrail to validate the decision that we've made in the event that there is a Formal Objection to the definition of Linked Data.
+[Tue 10:21]	<manu-db>	manu: Does anybody want to include RDF language in the introduction?
+[Tue 10:21]	<lmatteis>	Why not have intro on RDF? Seem the lingua franca of Linked Data. Yes, I think there should.
+[Tue 10:22]	<manu-db>	dlongley: We already had this discussion - let's point to it.
+[Tue 10:22]	<dlongley>	Luca, we already had a long discussion about this a while back... we're going to link to that discussion
+[Tue 10:22]	<manu-db>	gregg: The issue of whether RDF Concepts is normative/informative was something that I thought we had resolved to do that.
+[Tue 10:22]	<lmatteis>	ok but what's the outcome of that discussion?
+[Tue 10:23]	<dlongley>	Luca, the outcome of that discussion was to mention RDF a little as possible to avoid bringing in baggage/false equivalency/conflation of RDF w/Linked Data
+[Tue 10:23]	<lmatteis>	If you're calling it Linked Data, seems weird not to have RDF - since LD is strictly about RDF
+[Tue 10:23]	<voip-ld>	Luca Matteis (SIP/digitalbazaar.com-000001b0) has left the conference.
+[Tue 10:23]	<manu-db>	gkellogg: Regarding our use of bnodes - which could have been resolved w/ the RDF WG to have bnodes in graphs, we need a resolution on this as well from the RDF WG.
+[Tue 10:23]	<dlongley>	Luca, that's just it, it's not strictly about RDF, we'll link to the discussion.
+[Tue 10:23]	<gkellogg>	http://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk#Allow_blank_nodes_to_be_used_as_graph_name_or_property
+[Tue 10:24]	<lmatteis>	Dave, it isn't strictly RDF?
+[Tue 10:24]	<dlongley>	Luca, no, but we do think it's important to mention JSON-LD is a syntax for RDF
+[Tue 10:24]	<manu-db>	2. Define a *normative* bi-directional mapping of a JSON profile to and from the RDF abstract syntax, so that the JSON profile *is* a serialization of RDF, and is fully grounded in the RDF data model and semantics.
+[Tue 10:24]	<dlongley>	Luca, Linked Data is just URI/URLs for identifiers that can be dereferenced to get more data, etc.
+[Tue 10:25]	<manu-db>	gkellogg: The only issue there is the ability to create things that are not RDF, for which these are at-risk issues.
+[Tue 10:25]	<lmatteis>	Yikes. Dave, that's just the Web.
+[Tue 10:25]	<dlongley>	Luca, it's a bit "higher level" than RDF
+[Tue 10:25]	<manu-db>	manu: We have a normative mapping, does he want something more?
+[Tue 10:26]	<manu-db>	gkellogg: We do have a mapping, but it allows graphs that are not RDF to be created. These features are at-risk that relates to that, and the RDF WG needs to resolve those at-risk features.
+[Tue 10:26]	<manu-db>	gkellogg: It leaves open the resolution of those at risk features.
+[Tue 10:26]	<lmatteis>	dlongley: i doubt that it's "high level". the Linked Data Platform strictly mentions RDF.
+[Tue 10:26]	<manu-db>	3. Use skolemized URIs in the normative mapping to prevent mapping JSON syntax to illegal RDF.
+[Tue 10:27]	<lmatteis>	alright well i don't wanna jump into the argument
+[Tue 10:27]	<lmatteis>	but it seems like a rash decision to not mention RDF - the foundation of LD
+[Tue 10:27]	<manu-db>	gregg: My concern with this is that skolemized URIs are for a server to do - it's not meant for encoding/transport bnodes between two different systems. I don't see skolemn IDs as being appropriate for doing that.
+[Tue 10:27]	<manu-db>	manu: I agree.
+[Tue 10:28]	<manu-db>	4. Make editorial changes to avoid implying that JSON-LD is not RDF. For example, change "Convert to RDF" to "Convert to Turtle" or perhaps "Convert to RDF Abstract Syntax".
+[Tue 10:28]	<dlongley>	Luca, we had a very detailed debate about this a while back... we'll have to link to it, there were objections over what "LD" means/should mean/how it shouldn't be conflated with RDF itself but how RDF relates to it, etc.
+[Tue 10:28]	<dlongley>	Luca, can't rehash right now.
+[Tue 10:28]	<lmatteis>	hrm ok
+[Tue 10:28]	<manu-db>	gregg: I think this is reasonable since it implies it's not already RDF, that's not intended to be the case.
+[Tue 10:28]	<lmatteis>	would be nice to share the outcomes with a larger audience though before making a decision that could impact this formats future, such as public-lod@w3.org
+[Tue 10:29]	<manu-db>	manu: yeah, change to "Convert to RDF Abstract Syntax"?
+[Tue 10:29]	<manu-db>	dlongley: Yeah, let's do that.
+[Tue 10:29]	<dlongley>	Luca, it shouldn't technically have any impact.
+[Tue 10:29]	<gkellogg>	Luca, typically, rdf-concepts is used for communicating discussions within the RDF WG to the outside community.
+[Tue 10:29]	<manu-db>	5. Define normative names for, and clearly differentiate between, the JSON serialization of RDF and JSON-LD, such that JSON-LD *is* a JSON serialization of RDF, with additional constraints for Linked Data (such as URIs use "http:" prefix, etc.). They do not necessarily have to be defined in two separate documents. They could be defined in a single document called "JSON-RDF and JSON-LD", for example. People that use the JSON RDF serialization for purposes other than Linked Data need to be able to easily and clearly talk about that serialization *without* wrongly implying adherence to the additional Linked Data requirements imposed by JSON-LD, and *without* having to explain that those requirements can be ignored in this case.
+[Tue 10:29]	<dlongley>	Luca, it's all about messaging/philosophy/etc. (or rather, the actual technical impact is meant to be minimal)
+[Tue 10:30]	<lmatteis>	the initial question was whether to have intro text about RDF.
+[Tue 10:30]	<lmatteis>	it's not technical i know
+[Tue 10:30]	<lmatteis>	but why not?
+[Tue 10:30]	<lmatteis>	why not have intro about RDF?
+[Tue 10:30]	<lmatteis>	or just mention RDF
+[Tue 10:30]	<lmatteis>	it's RDF compatible... it's only positive!
+[Tue 10:31]	<manu-db>	manu: Luca, You are distracting the group from talking about the things on the Agenda. We have already talked this issue to death. Telecon time is precious, please take this up after the telecon, and after reading about the previous discussions we've had on the topic.
+[Tue 10:31]	<lmatteis>	I can't join the conversation anymore. guess I was banened? ;)
+[Tue 10:32]	<manu-db>	manu: Luca, no, you're not banned. You're free to participate at any time, you just have to be respectful to the time of the group and not re-raise issues that have been resolved without providing new arguments that we had not previously considered.
+[Tue 10:31]	<--|	lmatteis has left #json-ld
+[Tue 10:32]	<manu-db>	dlongley: I think he's taking issue w/ the SHOULDs
+[Tue 10:32]	<manu-db>	dlongley: I don't see why this doesn't cover his issue...
+[Tue 10:32]	* gkellogg	lmatteis: we're in the middle of a conference call; you're not being ignored, it's just not appropriate to the conversation.
+[Tue 10:33]	*pkuyken*	gotta wonder about some people (reference lmatteis's last comments)
+[Tue 10:33]	* gkellogg	the calls are open, and you're welcome to join in.
+[Tue 10:33]	* manu-db	gkellogg - lmatteis left. :/
+[Tue 10:33]	* gkellogg	:(
+[Tue 10:34]	<clayball>	yes, what you just said
+[Tue 10:34]	<manu-db>	dlongley: I think he means that there should be some basic serialization of RDF in JSON - pure RDF in JSON.
+[Tue 10:35]	<clayball>	makes sense from my perspective
+[Tue 10:35]	<manu-db>	gregg: This doesn't accomplish anything, it's busy work.
+[Tue 10:35]	<manu-db>	dlongley: We don't prohibit people from using the subset, we don't do that anywhere in the spec, so it already exists. It's easier for people to consume/understand than if there are two different formats. Which format are you supposed to use as a newbie?
+[Tue 10:36]	<manu-db>	dlongley: Is the JSON-LD format always JSON-RDF, what's the subset? It would be more confusing to publish two different syntaxes.
+[Tue 10:36]	<manu-db>	manu: Agreed.
+[Tue 10:37]	<manu-db>	dlongley: Someone was worried about having to ask for a specific kind of data that is serialized. So the client would have to say "I want JSON-LD, but with particular restraints."
+[Tue 10:38]	<manu-db>	dlongley: I don't even know if this would solve this problem if JSON-RDF is a subset of JSON-LD.
+[Tue 10:38]	<manu-db>	dlongley: I don't understand how David Booth's #5 proposal solves any technical issue.
+[Tue 10:39]	<manu-db>	gregg: There is a big problem with bifurcation of the spec as well. Some processors may decide to do one and not the other.
+[Tue 10:39]	<manu-db>	gregg: If we did that for RDFa 1.1 Lite, it would've been a big problem.
+[Tue 10:39]	<manu-db>	dlongley: Do we want to create another mimetype? I don't see how what David Booth's proposing is a better solution.
+[Tue 10:41]	<manu-db>	manu: What about his editorial changes?
+[Tue 10:41]	<manu-db>	dlongley: We want to get the concept across that any JSON document can be Linked Data via JSON-LD... but you don't need to move all your data over all at once.
+[Tue 10:42]	<manu-db>	dlongley: maybe we need to change that entire sentence... something like "JSON-LD allows you to mark parts of your JSON as Linked Data"... or something like that.
+[Tue 10:42]	|<--	stain has left freenode (Ping timeout: 252 seconds)
+[Tue 10:42]	-->|	stain (~stain@stain.s11.no) has joined #json-ld
+[Tue 10:43]	<manu-db>	ACTION: Manu to officially respond to David Booth.
+[Tue 10:43]	<manu-db>	Topic: RDF-ISSUE-128: Mandatory profiles
+[Tue 10:43]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/128
+[Tue 10:44]	<manu-db>	manu: Peter and Markus seem to agree on the change: http://lists.w3.org/Archives/Public/public-linked-json/2013May/0045.html
+[Tue 10:45]	<manu-db>	manu: We need to do some reading on it.
+[Tue 10:46]	<manu-db>	gregg: Markus' response was that we were using SHOULD language, requests are advisory to the server. If the server doesn't have it, it could return a "similar" format.
+[Tue 10:46]	<stain>	> HTTP/1.1 includes the following request-header fields for enabling server-driven negotiation through description of user agent capabilities and user preferences: Accept (section 14.1), Accept- Charset (section 14.2), Accept-Encoding (section 14.3), Accept- Language (section 14.4), and User-Agent (section 14.43). However, an origin server is not limited to these dimensions and MAY vary the response based on any aspect of the request, including ...
+[Tue 10:47]	<stain>	... information outside the request-header fields or within extension header fields not defined by this specification.
+[Tue 10:47]	<stain>	> http://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html
+[Tue 10:47]	<manu-db>	Group discusses modifying the text in the JSON-LD spec to: "The profile parameter MAY be used by clients to express their preferences in the content negotiation process. If the profile parameter is given a server SHOULD return a document that is structured based on the profiles in the list which are recognized by the server."
+[Tue 10:47]	<dlongley>	"If the profile parameter is given, " <-- insert comma
+[Tue 10:47]	<stain>	> http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+[Tue 10:48]	<voip-ld>	Kuno Woudt (SIP/190.10.148.24-000001b5) has joined the conference.
+[Tue 10:48]	<dlongley>	voip-ld: mute 1b5
+[Tue 10:48]	<voip-ld>	SIP/190.10.148.24-000001b5 has been muted.
+[Tue 10:50]	<manu-db>	PROPOSAL: Adopt the language for content negotiation above where the server should try to comply with the request MIME type and profile from the client.
+[Tue 10:51]	<manu-db>	+1
+[Tue 10:51]	<dlongley>	+1
+[Tue 10:51]	<pkuyken>	+1
+[Tue 10:51]	<gkellogg>	+1
+[Tue 10:51]	<stain>	+1
+[Tue 10:51]	<manu-db>	RESOLVED: Adopt the language for content negotiation above where the server should try to comply with the request MIME type and profile from the client.
+[Tue 10:52]	<manu-db>	Topic: Gmail JSON-LD Implementation Concerns
+[Tue 10:53]	<manu-db>	manu: Google has added JSON-LD support to Gmail, Search, and Google Now. I blogged about it here:
+[Tue 10:53]	<manu-db>	http://manu.sporny.org/2013/gmail-json-ld/
+[Tue 10:54]	<manu-db>	http://manu.sporny.org/2013/json-ld-google-search/
+[Tue 10:54]	<manu-db>	gregg: The main issue is that that they've used 'schema.org' instead of a valid @context. We could support it, but it's not clear why they chose to do that as adding http:// to the front of schema.org seems like a fairly easy thing to do.
+[Tue 10:55]	<stain>	they manage http:// in the microdata-version
+[Tue 10:55]	<manu-db>	gregg: It's often difficult for them to be consistent with marking things up - they're used to using heuristics for data that's provided for them. Maybe that's why they did this?
+[Tue 10:56]	<manu-db>	gregg: We could hack in the same sort of heuristics to the spec... if you type see "schema.org" - the developer probably meant http://schema.org/
+[Tue 10:53]	<manu-db>	gregg: Then there is this relative URI concern, how do we support this?
+[Tue 10:53]	<manu-db>	manu: We could do something like the RDFa initial context for the @context keyword, but again, it's a big hack. This is pretty typical of Google - launch first, ask questions later. It would have been nice if they had run this by us before releasing this sort of thing on developers. It's going to be a decent bit of work for us to clean this up.
+[Tue 10:57]	<manu-db>	dlongley: What about the actual JSON-LD context? Do they serve one?
+[Tue 10:58]	<manu-db>	manu: Nope. There are plans to do it, but they don't have a timeframe... which is bad, because that means that developers are going to do their own thing in the meantime, leading to incompatabilities.
+[Tue 10:59]	<manu-db>	dlongley: The fear is that some people are going to create their own context... we need to talk them and make sure they realize the downsides to what they're doing.
+[Tue 11:00]	<manu-db>	gregg: The fact that Google is adopting this so broadly, alleviates some of the concerns we had about turning developers off from JSON-LD being too much like RDF. Developers will be interested in it because Google is using it.
+[Tue 11:00]	<manu-db>	manu: We hope to have someone from Google on the call next week to discuss these issues.
+[Tue 11:03]	<manu-db>	Topic: RDF WG resolutions
+[Tue 11:03]	<manu-db>	gregg: What do we want to accomplish there?
+[Tue 11:04]	<manu-db>	manu: Anything that has an issue marker in the JSON-LD specs needs to have a final resolution in the RDF WG. Do you mind taking that work on, Gregg?
+[Tue 11:03]	<manu-db>	gregg: Sure.
+[Tue 11:03]	<manu-db>	ACTION: Gregg to convert all issue markers in the JSON-LD specs into RDF WG issues and request that the RDF WG resolves the issues so that we can go to CR/PR/REC.
+[Tue 11:04]	<voip-ld>	pkuyken (IAX2/diamondcard-9440) has left the conference.
+[Tue 11:04]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000001ae) has left the conference.
+[Tue 11:04]	<voip-ld>	Manu Sporny (SIP/6000-000001ac) has left the conference.
+[Tue 11:04]	<voip-ld>	Dave Longley (SIP/6002-000001ad) has left the conference.
+[Tue 11:04]	<voip-ld>	Clay (SIP/sip2sip.info-000001b2) has left the conference.
+[Tue 11:04]	<voip-ld>	Dave Lehn (SIP/6003-000001b4) has left the conference.
+[Tue 11:04]	<voip-ld>	stain (SIP/192.168.1.195-000001af) has left the conference.

@@ -1,0 +1,213 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-05-21</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013May/0072.html">http://lists.w3.org/Archives/Public/public-linked-json/2013May/0072.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">RDF-ISSUE-132: JSON-LD/RDF Alignment</a><li><a href="#topic-2">RDF-ISSUE-128: Mandatory profiles</a><li><a href="#topic-3">Gmail JSON-LD Implementation Concerns</a><li><a href="#topic-4">RDF WG resolutions</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Adopt the language for content negotiation above where the server should try to comply with the request MIME type and profile from the client.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to officially respond to David Booth.</a><li><a href="#action-2">Gregg to convert all issue markers in the JSON-LD specs into RDF WG issues and request that the RDF WG resolves the issues so that we can go to CR/PR/REC.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Gregg Kellogg, Dave Longley, Luca Matteis, Clay Wells, Stian Soiland-Reyes, Paul Kuykendall</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any changes to the agenda?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We should talk about David Booth's issue: JSON-LD/RDF Alignment</div>
+<h1 id="topic-1" class="topic">Topic: RDF-ISSUE-132: JSON-LD/RDF Alignment</h1>
+<div class="information"><a href="https://www.w3.org/2011/rdf-wg/track/issues/132">https://www.w3.org/2011/rdf-wg/track/issues/132</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Conversation here: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013May/0143.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013May/0143.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think he's not entirely satisfied to define JSON-LD as an RDF syntax. In particular, we were going to normatively reference RDF Concepts.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think he was looking for something like that, and a series of other suggestions, including referencing RDF when we're describing Linked Data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's been difficult for me to understand what he wants, exactly. Many of his points are philosophical vs. technical. In general, I don't see what technical problems we address by making the changes he is requesting.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  He's got some very specific changes in the e-mail. Some of his concerns I don't quite understand.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, let's go down the list he has, maybe that will help.</div>
+<div class="information">1. Insert "based on RDF" to the definition of Linked Data, as explained above.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This is at odds with all of the other discussions we've had. Maybe there is another way to satisfy #1 w/o deviating with all of the other fixes we've had to do w/ that definition.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yeah, we have a problem with #1 - we've worked on that definition a lot. We have considered the text he wants before. If we add it, they'll be backlash from the folks that didn't want to conflate Linked Data with RDF. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Making a normative reference to RDF Concepts would be problematic - going to REC at a different time than JSON-LD.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I thought we had agreed to do that?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think we agreed to do that - we don't want to be blocked by RDF Concepts.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My general concern with david booth's comments are that he's taking a hard line stance with JSON-LD having to fall in line with RDF ... in that his arguments seem to be philosophical arguments, not technical, it's more about messaging. I don't want to get this group stuck in the mud when the changes to the spec that are mostly philosophical, not technical, in nature. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What about the skolemization concerns? Those are technical, right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The other place would be bnodes as properties.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought those issues were things that processors need to deal with those sorts of things when translating to RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think David Wood wants this to be a WG resolution.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, JSON-LD CG has made these resolutions, we need RDF WG to do the same.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm concerned that we are going to work on these secondary issues, thinking that it's what David Booth wants, and they're not going to resolve David Booth's concerns.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Then we should point to the decision on the Linked Data definition. If he still doesn't agree, we need a papertrail to validate the decision that we've made in the event that there is a Formal Objection to the definition of Linked Data.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does anybody want to include RDF language in the introduction?</div>
+<div class="comment"><span class="name">Luca Matteis</span>: Why not have intro on RDF? Seem the lingua franca of Linked Data. Yes, I think there should.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We already had this discussion - let's point to it.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, we already had a long discussion about this a while back... we're going to link to that discussion</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The issue of whether RDF Concepts is normative/informative was something that I thought we had resolved to do that.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: ok but what's the outcome of that discussion?</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, the outcome of that discussion was to mention RDF a little as possible to avoid bringing in baggage/false equivalency/conflation of RDF w/Linked Data</div>
+<div class="comment"><span class="name">Luca Matteis</span>: If you're calling it Linked Data, seems weird not to have RDF - since LD is strictly about RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Regarding our use of bnodes - which could have been resolved w/ the RDF WG to have bnodes in graphs, we need a resolution on this as well from the RDF WG.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, that's just it, it's not strictly about RDF, we'll link to the discussion.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk#Allow_blank_nodes_to_be_used_as_graph_name_or_property">http://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk#Allow_blank_nodes_to_be_used_as_graph_name_or_property</a></div>
+<div class="comment"><span class="name">Luca Matteis</span>: Dave, it isn't strictly RDF?</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, no, but we do think it's important to mention JSON-LD is a syntax for RDF</div>
+<div class="information">2. Define a *normative* bi-directional mapping of a JSON profile to and from the RDF abstract syntax, so that the JSON profile *is* a serialization of RDF, and is fully grounded in the RDF data model and semantics.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, Linked Data is just URI/URLs for identifiers that can be dereferenced to get more data, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The only issue there is the ability to create things that are not RDF, for which these are at-risk issues.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: Yikes. Dave, that's just the Web.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, it's a bit "higher level" than RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have a normative mapping, does he want something more?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do have a mapping, but it allows graphs that are not RDF to be created. These features are at-risk that relates to that, and the RDF WG needs to resolve those at-risk features.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It leaves open the resolution of those at risk features.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  i doubt that it's "high level". the Linked Data Platform strictly mentions RDF. [scribe assist by Luca Matteis]</div>
+<div class="information">3. Use skolemized URIs in the normative mapping to prevent mapping JSON syntax to illegal RDF.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: alright well i don't wanna jump into the argument</div>
+<div class="comment"><span class="name">Luca Matteis</span>: but it seems like a rash decision to not mention RDF - the foundation of LD</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  My concern with this is that skolemized URIs are for a server to do - it's not meant for encoding/transport bnodes between two different systems. I don't see skolemn IDs as being appropriate for doing that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree.</div>
+<div class="information">4. Make editorial changes to avoid implying that JSON-LD is not RDF. For example, change "Convert to RDF" to "Convert to Turtle" or perhaps "Convert to RDF Abstract Syntax".</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, we had a very detailed debate about this a while back... we'll have to link to it, there were objections over what "LD" means/should mean/how it shouldn't be conflated with RDF itself but how RDF relates to it, etc.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, can't rehash right now.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: hrm ok</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think this is reasonable since it implies it's not already RDF, that's not intended to be the case.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: would be nice to share the outcomes with a larger audience though before making a decision that could impact this formats future, such as public-lod@w3.org</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, change to "Convert to RDF Abstract Syntax"?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yeah, let's do that.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, it shouldn't technically have any impact.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Luca, typically, rdf-concepts is used for communicating discussions within the RDF WG to the outside community.</div>
+<div class="information">5. Define normative names for, and clearly differentiate between, the JSON serialization of RDF and JSON-LD, such that JSON-LD *is* a JSON serialization of RDF, with additional constraints for Linked Data (such as URIs use "http:" prefix, etc.). They do not necessarily have to be defined in two separate documents. They could be defined in a single document called "JSON-RDF and JSON-LD", for example. People that use the JSON RDF serialization for purposes other than Linked Data need to be able to easily and clearly talk about that serialization *without* wrongly implying adherence to the additional Linked Data requirements imposed by JSON-LD, and *without* having to explain that those requirements can be ignored in this case.</div>
+<div class="comment"><span class="name">Dave Longley</span>: Luca, it's all about messaging/philosophy/etc. (or rather, the actual technical impact is meant to be minimal)</div>
+<div class="comment"><span class="name">Luca Matteis</span>: the initial question was whether to have intro text about RDF.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: it's not technical i know</div>
+<div class="comment"><span class="name">Luca Matteis</span>: but why not?</div>
+<div class="comment"><span class="name">Luca Matteis</span>: why not have intro about RDF?</div>
+<div class="comment"><span class="name">Luca Matteis</span>: or just mention RDF</div>
+<div class="comment"><span class="name">Luca Matteis</span>: it's RDF compatible... it's only positive!</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Luca, You are distracting the group from talking about the things on the Agenda. We have already talked this issue to death. Telecon time is precious, please take this up after the telecon, and after reading about the previous discussions we've had on the topic.</div>
+<div class="comment"><span class="name">Luca Matteis</span>: I can't join the conversation anymore. guess I was banened? ;)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Luca, no, you're not banned. You're free to participate at any time, you just have to be respectful to the time of the group and not re-raise issues that have been resolved without providing new arguments that we had not previously considered.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think he's taking issue w/ the SHOULDs</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't see why this doesn't cover his issue...</div>
+<div class="comment"><span class="name">Clay Wells</span>: yes, what you just said</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think he means that there should be some basic serialization of RDF in JSON - pure RDF in JSON.</div>
+<div class="comment"><span class="name">Clay Wells</span>: makes sense from my perspective</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This doesn't accomplish anything, it's busy work.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We don't prohibit people from using the subset, we don't do that anywhere in the spec, so it already exists. It's easier for people to consume/understand than if there are two different formats. Which format are you supposed to use as a newbie?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Is the JSON-LD format always JSON-RDF, what's the subset? It would be more confusing to publish two different syntaxes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agreed.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Someone was worried about having to ask for a specific kind of data that is serialized. So the client would have to say "I want JSON-LD, but with particular restraints."</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't even know if this would solve this problem if JSON-RDF is a subset of JSON-LD.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't understand how David Booth's #5 proposal solves any technical issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a big problem with bifurcation of the spec as well. Some processors may decide to do one and not the other.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If we did that for RDFa 1.1 Lite, it would've been a big problem.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Do we want to create another mimetype? I don't see how what David Booth's proposing is a better solution.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What about his editorial changes?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We want to get the concept across that any JSON document can be Linked Data via JSON-LD... but you don't need to move all your data over all at once.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  maybe we need to change that entire sentence... something like "JSON-LD allows you to mark parts of your JSON as Linked Data"... or something like that.</div>
+<div id="action-1" class="action">ACTION: Manu to officially respond to David Booth.</div>
+<h1 id="topic-2" class="topic">Topic: RDF-ISSUE-128: Mandatory profiles</h1>
+<div class="information"><a href="http://www.w3.org/2011/rdf-wg/track/issues/128">http://www.w3.org/2011/rdf-wg/track/issues/128</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Peter and Markus seem to agree on the change: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013May/0045.html">http://lists.w3.org/Archives/Public/public-linked-json/2013May/0045.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We need to do some reading on it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus' response was that we were using SHOULD language, requests are advisory to the server. If the server doesn't have it, it could return a "similar" format.</div>
+<div class="information">HTTP/1.1 includes the following request-header fields for enabling server-driven negotiation through description of user agent capabilities and user preferences: Accept (section 14.1), Accept- Charset (section 14.2), Accept-Encoding (section 14.3), Accept- Language (section 14.4), and User-Agent (section 14.43). However, an origin server is not limited to these dimensions and MAY vary the response based on any aspect of the request, including ...</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: ... information outside the request-header fields or within extension header fields not defined by this specification.</div>
+<div class="information"><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html</a></div>
+<div class="information">Group discusses modifying the text in the JSON-LD spec to: "The profile parameter MAY be used by clients to express their preferences in the content negotiation process. If the profile parameter is given a server SHOULD return a document that is structured based on the profiles in the list which are recognized by the server."</div>
+<div class="comment"><span class="name">Dave Longley</span>: "If the profile parameter is given, " &lt;-- insert comma</div>
+<div class="information"><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong> Adopt the language for content negotiation above where the server should try to comply with the request MIME type and profile from the client.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Adopt the language for content negotiation above where the server should try to comply with the request MIME type and profile from the client.</div>
+<h1 id="topic-3" class="topic">Topic: Gmail JSON-LD Implementation Concerns</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Google has added JSON-LD support to Gmail, Search, and Google Now. I blogged about it here:</div>
+<div class="information"><a href="http://manu.sporny.org/2013/gmail-json-ld/">http://manu.sporny.org/2013/gmail-json-ld/</a></div>
+<div class="information"><a href="http://manu.sporny.org/2013/json-ld-google-search/">http://manu.sporny.org/2013/json-ld-google-search/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The main issue is that that they've used 'schema.org' instead of a valid @context. We could support it, but it's not clear why they chose to do that as adding http:// to the front of schema.org seems like a fairly easy thing to do.</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: they manage http:// in the microdata-version</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's often difficult for them to be consistent with marking things up - they're used to using heuristics for data that's provided for them. Maybe that's why they did this?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could hack in the same sort of heuristics to the spec... if you type see "schema.org" - the developer probably meant <a href="http://schema.org/">http://schema.org/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Then there is this relative URI concern, how do we support this?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We could do something like the RDFa initial context for the @context keyword, but again, it's a big hack. This is pretty typical of Google - launch first, ask questions later. It would have been nice if they had run this by us before releasing this sort of thing on developers. It's going to be a decent bit of work for us to clean this up.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  What about the actual JSON-LD context? Do they serve one?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Nope. There are plans to do it, but they don't have a timeframe... which is bad, because that means that developers are going to do their own thing in the meantime, leading to incompatabilities.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The fear is that some people are going to create their own context... we need to talk them and make sure they realize the downsides to what they're doing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The fact that Google is adopting this so broadly, alleviates some of the concerns we had about turning developers off from JSON-LD being too much like RDF. Developers will be interested in it because Google is using it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We hope to have someone from Google on the call next week to discuss these issues.</div>
+<h1 id="topic-4" class="topic">Topic: RDF WG resolutions</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What do we want to accomplish there?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Anything that has an issue marker in the JSON-LD specs needs to have a final resolution in the RDF WG. Do you mind taking that work on, Gregg?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Sure.</div>
+<div id="action-2" class="action">ACTION: Gregg to convert all issue markers in the JSON-LD specs into RDF WG issues and request that the RDF WG resolves the issues so that we can go to CR/PR/REC.</div>
+</body>
+</html>

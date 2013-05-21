@@ -141,6 +141,21 @@
          "alias": ["stain", "stain_"],
          "homepage": "http://soiland-reyes.com/stian/work/"
       },
+      "Luca Matteis":
+      {
+         "alias": ["lmatteis"],
+         "homepage": "http://lucaa.org/"
+      },
+      "Clay Wells":
+      {
+         "alias": ["clayball"],
+         "homepage": "http://www.cwells.org/"
+      },
+      "Kuno Woudt":
+      {
+         "alias": ["warp"],
+         "homepage": "https://frob.nl/"
+      },
       "Vikash Agrawal":
       {
          "alias": ["vikash"],
