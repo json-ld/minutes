@@ -151,6 +151,16 @@
          "alias": ["clayball"],
          "homepage": "http://www.cwells.org/"
       },
+      "Dan Brickley":
+      {
+         "alias": ["danbri"],
+         "homepage": "http://danbri.org/‎"
+      },
+      "Radu Marian":
+      {
+         "alias": ["rmarian"],
+         "homepage": "http://www.linkedin.com/pub/radu-marian/3/a94/6a9"
+      },
       "Kuno Woudt":
       {
          "alias": ["warp"],

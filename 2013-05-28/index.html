@@ -1,0 +1,194 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-05-28</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013May/0086.html">http://lists.w3.org/Archives/Public/public-linked-json/2013May/0086.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">RDF-ISSUE-130: Properly referencing the DOM Futures spec</a><li><a href="#topic-2">Discussion with Google about JSON-LD usage</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to summarize rationale for proposed Gmail/JSON-LD changes and send it to Dan Brickley and the rest of the Google teams using JSON-LD.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Manu Sporny, Radu Marian, Gregg Kellogg, Sandro Hawke, Dan Brickley, Dave Longley, Paul Kuykendall</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Dan Brickley</span>: (re: Google's use of JSON-LD Agenda item) I can join, but not right now, that'd be ideal. Sorry, this caught me unawares - in catchup mode after getting sick.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Dan, yes, please join when you can, we'll go along w/ the rest of the agenda in the meantime.</div>
+<div class="comment"><span class="name">Radu Marian</span>:  I'm just listening in today. I asked a question via the mailing list - got a half-answer, looking forward to getting the rest of my answer eventually. I know you folks are busy. [scribe assist by Manu Sporny]</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: RDF-ISSUE-130: Properly referencing the DOM Futures spec</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://www.w3.org/2011/rdf-wg/track/issues/130">https://www.w3.org/2011/rdf-wg/track/issues/130</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Question is, how to properly reference DOM spec in the way that provides the most stability to the JSON-LD API spec?</div>
+<div class="comment-continuation">… It's not illegal from W3C process to reference an external document that's being developed, but we should try to be sure that it is as stable as possible.</div>
+<div class="comment-continuation">… Concern that DOM futures will change in next 1-2 years and we have to make it clear that the features we're using do not plan to change.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  The heart is to be sure our spec is clear what it means if futures changes. Hopefully it won't, but if it does, we need to be clear if we change with it as well, or not.</div>
+<div class="comment-continuation">… Or we say that it is frozen as we understand it now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we are telling implementors that we will track changes to the referenced spec.</div>
+<div class="comment-continuation">… We don't want to fork the spec. editors of both specifications do not want to see a fork. This always leaves an "out of left field" change in the future, and we'll need to discuss that if it happens, but right now, we don't believe there will be such a change.</div>
+<div class="comment-continuation">… If there is such a change, the JSON-LD group should do their best to align JSON-LD with that direction.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  what you're talking about is not a W3C recommendation; it's not the way that any other recs have changed in the past.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  except for the entire set of HTML specs.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  a particular spec cannot change based on what someone else does in the future. Once you write a conforming piece of code, it must always be conforming in the future.</div>
+<div class="comment-continuation">… Pretty odd to say that a conforming implementation may no longer be conformant.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are two discussions, what implementors will do in the future, and what constitutes a convofmring implementation.</div>
+<div class="comment-continuation">… If you're conformant with JSON-LD 1.0 spec, implementors can always count on being conformat with that.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  you can't call it a test suite and not have it use a future.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what's in the API is the future object, what that object exposes is not part of the API.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I don't think that's wise, but you'll need to convince the director.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can also say what is the worst thing that could happen if some DOM API mechanism changes? In that case, implementors could provide a patch to support both old and new mechanisms.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  in practice, implementors would need to provide both old and new versions.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  those are known unknowns. We highly doubt they're going to make such changes.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  it doesn't matter what we think, but what they think. When will it be frozen?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have a statement from the DOM group, but it's the standard WHATWG line: it's implementable now and will be harder to change once there are enough implementations in the wild. They'll never say it's frozen.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we need to put this in front of the director and get a ruling on this.</div>
+<div class="comment-continuation">… Normally, the W3C doesn't put implementors in that position, but the whole WHATWG thing is a changing position.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is this enough to address your issue so we can take it to the director?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  normally, this is done at CR transition.</div>
+<div class="comment-continuation">… We could let this wait until that transition meeting.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Is there anything more we can discuss on this now, or just put out the line of argumentation to the director.</div>
+<h1 id="topic-2" class="topic">Topic: Discussion with Google about JSON-LD usage</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Dan, can you give a bit of a background?</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  I'll talk about how we ended up with JSON-LD instead of RDFa.</div>
+<div class="comment-continuation">… There are many ways of putting SD in HTML, and tried microdata, but developers were confused with HTML markup (MD or RDFa).</div>
+<div class="comment-continuation">… An engineer tried a flatter implementation in JSON, and it turned out to be very close to JSON-LD.</div>
+<div class="comment-continuation">… The context header was scaring some of the guys, but we've been working through that.</div>
+<div class="comment-continuation">… The main difference now seems to be the use of schema.org instead of <a href="http://schema.org.">http://schema.org.</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's one issue, the other concern is that Google isn't providing a JSON-LD context file at <a href="http://schema.org.">http://schema.org.</a> We have a GSoC student who may help with this.</div>
+<div class="comment-continuation">… We'd just like to understand Google's position on these things.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  Google's not the only relevant party. If it was just Google, we could just stick up a JSON-LD context file, but this affects other parnters.</div>
+<div class="comment-continuation">… Microsoft had an O-Data implementation, and were concerned that it would shut down discussions of other possible directions.</div>
+<div class="comment-continuation">… I think it should be straightforward to publish one, but there are some hosting issues that are currently complicating this. It's on my todo list.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would be nice to have the JSON-LD context file generated automatically. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You want to make sure to setup types correctly (numbers, dates, URLs, etc.) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You will also want multiple values being in a list - for example, MusicTracks - makes sense that when you're listing tracks, they are ordered. Breadcrumbs are another place where this might be important. We made some arbitrary decisions when we did the Microdata to RDF translation. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't know if you maintain any information like that in the schema, it would be useful if you did. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Datetime might be an issue, you're more flexible with dates / times. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  There is a part of this where we think that any property in schema.org might have really bad data - we find a way to deal with those cases. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  there's a level at which schema.org expects to see a certain type of property, and we find a way to figure out what it should be.</div>
+<div class="comment-continuation">… I don't believe Google has any plans to dynamically fetch and parse such a context. As far as dealing with a JSON-LD payload, the engineers have done a good job.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I want to make it clear that you don't really need to. Just because you publish a context, doesn't mean that you need to dynamically read it.</div>
+<div class="comment-continuation">… This is done in the Web Payments schema; you just want to be sure they're no conflict in how things are parsed.</div>
+<div class="comment-continuation">… We should probably try to be minimal in what is specified right now. For example, for right now it could assume strings for everything, and later on start narrowing it down to ids, dates and so forth.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  can the context be agnostic about the values for a given property.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you can always be unambiguous in the data by using expanded values.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ideally, the group would like to at have shema.org say that things should be URLs or dates.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  something minimal is more likely to be agreed upon.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  for right now with RDFa, is everything a string? How does schema.org treat things that may be URLs or strings?</div>
+<div class="comment"><span class="name">Dan Brickley</span>: <a href="http://schema.org/docs/datamodel.html">http://schema.org/docs/datamodel.html</a> has our rdfa schema</div>
+<div class="information"><a href="http://schema.org/docs/schema_org_rdfa.html">http://schema.org/docs/schema_org_rdfa.html</a></div>
+<div class="comment"><span class="name">Dan Brickley</span>:  it's pretty conventional RDFa if you use it with schema.org.</div>
+<div class="comment-continuation">… The RDFa definition of the schema.org schema is pretty conventional except for a few changes for ranges and domains.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's a data model behind schema.org that is well typed, but as Dan said before, they get a lot of garbage, so they try to interpret values based on the vocabulary.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  it's more like if you use the "actor" property with a string, it infers that there is an object having that string as it's label.</div>
+<div class="comment-continuation">... The other issues is the HTTP Range-14 issue. schema.org doesn't worry to much about the distinction of the web page about a thing and the thing itself.</div>
+<div class="comment-continuation">… For example, links between pages are simple links without re-direction, or the use of fragment indirections.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  back to the two issues, do you think that the @context: schema.org, vs @context: <a href="http://schema.org">http://schema.org</a> is going to be a problem?</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  I think it should be okay. Remember that the schema.org partners haven't seen what Google's announced yet. We've had some discussions, but Google doesn't share product plans with competitors.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  sounds like you might expect the partners to push back and demand the use of http://</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  we can see what's actually coming in from partners to see what's being used in the wild.</div>
+<div class="comment-continuation">… It was news to me that there's a relative-link interpretation, in which case the http:// makes a lot of sense.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're in LC, and based on the direction of schema.org, we may need to go into another LC, plus the design work needed.</div>
+<div class="comment-continuation">… It would be nice to know which direction we need to go fairly soon, as we come out of LC in a couple of weeks.</div>
+<div class="comment-continuation">… Best for the spec and the web would be to require <a href="http://.">http://.</a> Sound's like you'll talk with the parties and see if that's okay.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  At google, people seemed to be skeptical.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The short of the argument is this: people are going to use relative URIs for publishing documents on their site. If you use 'schema.org' - that means, relative to URL [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  it's also that you want to have several off of a same context - you want to use a URL if you want to provide multiple contexts in a single domain.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  also, people may want to use a secure context and use https:// - this is very important for product data, legal data, financial data, etc. (there are attacks if you don't serve vocab data from HTTPS URLs).</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  There is also an issue with needing to reference files - don't use just a domain name. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  Is anyone publishing anything using relative URLs?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think many people are using relative URLs for contexts; most people have just used <a href="http://.">http://.</a></div>
+<div class="comment-continuation">… If people are publishing data, and using http:// is such a problem, you're going to see many other problems, such as image locations and so forth. This didn't seem like such a stretch.</div>
+<div class="comment-continuation">… The argument that it's difficult for developers to put "<a href="https://"">https://"</a> in front of their URLs doesn't hold, as you're going to require it in the data anyway.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  I think that people won't read the field as a link, it's a piece of boilerplate.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in which case, they'll just copy from the examples.</div>
+<div class="comment-continuation">… If the examples use <a href="http://schema.org,">http://schema.org,</a> they'll just do that.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  I think if you use <a href="http://domain,">http://domain,</a> you're re-directed to http://domain/, so it's a bit like that.</div>
+<div class="comment"><span class="name">Dan Brickley</span>: (or http clients fix that up)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the opinion of the group is the best course of action is to use: <a href="https://schema.org/">https://schema.org/</a> for the context [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the right thing to do would be to do <a href="https://schema.org/,">https://schema.org/,</a> and if you don't, then you're redirected to get the proper context. If you use http instead of https, you'll be redirected to https, so that you get the proper version.</div>
+<div class="comment-continuation">… The core is that JSON-LD expects a proper URL for that value. Either schama.org puts https:// in front, of we write up that this is a special case.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  You could also say there's not context, and the gmail application could define it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  true, but then it's no longer interoperable.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  good time to establish best practices.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  I'm pretty sure that the product team didn't realize that relative URIs were possible. I'll go back and see what they think.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We'll get an email out to clarify why this is important.</div>
+<div id="action-1" class="action">ACTION: Manu to summarize rationale for proposed Gmail/JSON-LD changes and send it to Dan Brickley and the rest of the Google teams using JSON-LD.</div>
+<div class="comment-continuation">… Good to know sooner than later.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  big mistake to think of Google as a monolith. different groups have their own priorities, and we look to minimize boilerplate.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it sounds like the context document isn't an issue, and the only remaining issue is making the context value an absolute IRI.</div>
+<div class="comment-continuation">… Then we have a really good story about Google adopting JSON-LD, which is good for the web.</div>
+<div class="comment-continuation">… Bottom line, we're here to help however we can.</div>
+<div class="comment"><span class="name">Dan Brickley</span>:  Just to be clear, a fetchable context will require some configuration changes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'd like to start with something simple, rather than trying to do the most correct thing.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: Yep.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could start with something like {"@vocab": "<a href="http://schema.org/"}">http://schema.org/"}</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll discuss lossless conversion next week.</div>
+</body>
+</html>

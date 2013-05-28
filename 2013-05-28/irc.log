@@ -1,0 +1,150 @@
+[Tue 10:03]	<danbri>	(re: Google's use of JSON-LD Agenda item) I can join, but not right now, that'd be ideal. Sorry, this caught me unawares - in catchup mode after getting sick.
+[Tue 10:04]	<manu-db>	voip: mute 7936
+[Tue 10:04]	<voip-ld>	Radu has been muted.
+[Tue 10:04]	<manu-db>	Dan, yes, please join when you can, we'll go along w/ the rest of the agenda in the meantime.
+[Tue 10:04]	<manu-db>	Radu: I'm just listening in today. I asked a question via the mailing list - got a half-answer, looking forward to getting the rest of my answer eventually. I know you folks are busy.
+[Tue 10:05]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013May/0086.html
+[Tue 10:05]	<gkellogg>	scribe: gkellogg
+[Tue 10:06]	<manu-db>	Topic: RDF-ISSUE-130: Properly referencing the DOM Futures spec
+[Tue 10:06]	<manu-db>	https://www.w3.org/2011/rdf-wg/track/issues/130
+[Tue 10:06]	<gkellogg>	manu: Question is, how to properly reference DOM spec in the way that provides the most stability to the JSON-LD API spec?
+[Tue 10:07]	<gkellogg>	… It's not illegal from W3C process to reference an external document that's being developed, but we should try to be sure that it is as stable as possible.
+[Tue 10:07]	<gkellogg>	… Concern that DOM futures will change in next 1-2 years and we have to make it clear that the features we're using do not plan to change.
+[Tue 10:08]	<gkellogg>	sandro: The heart is to be sure our spec is clear what it means if futures changes. Hopefully it won't, but if it does, we need to be clear if we change with it as well, or not.
+[Tue 10:09]	<gkellogg>	… Or we say that it is frozen as we understand it now.
+[Tue 10:09]	<gkellogg>	manu: I think we are telling implementors that we will track changes to the referenced spec.
+[Tue 10:10]	<gkellogg>	… We don't want to fork the spec. editors of both specifications do not want to see a fork. This always leaves an "out of left field" change in the future, and we'll need to discuss that if it happens, but right now, we don't believe there will be such a change.
+[Tue 10:10]	* dbs	assumes danbri caught something at I/O
+[Tue 10:11]	<gkellogg>	… If there is such a change, the JSON-LD group should do their best to align JSON-LD with that direction.
+[Tue 10:11]	<gkellogg>	sandro: what you're talking about is not a W3C recommendation; it's not the way that any other recs have changed in the past.
+[Tue 10:11]	<gkellogg>	manu: except for the entire set of HTML specs.
+[Tue 10:12]	<gkellogg>	sandro: a particular spec cannot change based on what someone else does in the future. Once you write a conforming piece of code, it must always be conforming in the future.
+[Tue 10:12]	<gkellogg>	… Pretty odd to say that a conforming implementation may no longer be conformant.
+[Tue 10:13]	<gkellogg>	manu: there are two discussions, what implementors will do in the future, and what constitutes a convofmring implementation.
+[Tue 10:13]	<gkellogg>	… If you're conformant with JSON-LD 1.0 spec, implementors can always count on being conformat with that.
+[Tue 10:14]	<gkellogg>	sandro: you can't call it a test suite and not have it use a future.
+[Tue 10:14]	* danbri	caught something flying too much I think
+[Tue 10:14]	* danbri	can someone give me the dial-in details? I'll skype...
+[Tue 10:15]	<gkellogg>	manu: what's in the API is the future object, what that object exposes is not part of the API.
+[Tue 10:15]	* gkellogg	danbri: SIP: json-ld@digitalbazaar.com
+[Tue 10:15]	* gkellogg	Phone US: +1.540.961.4469 x6303
+[Tue 10:15]	* danbri	oh, is it not Zakim?
+[Tue 10:15]	<gkellogg>	sandro: I don't think that's wise, but you'll need to convince the director.
+[Tue 10:15]	* gkellogg	no, on DB's VOIP.
+[Tue 10:17]	<gkellogg>	manu: we can also say what is the worst thing that could happen if some DOM API mechanism changes? In that case, implementors could provide a patch to support both old and new mechanisms.
+[Tue 10:17]	<gkellogg>	sandro: in practice, implementors would need to provide both old and new versions.
+[Tue 10:18]	|<--	digikim has left freenode (Ping timeout: 249 seconds)
+[Tue 10:18]	|<--	sandro_ has left freenode (Ping timeout: 249 seconds)
+[Tue 10:18]	<gkellogg>	manu: those are known unknowns. We highly doubt they're going to make such changes.
+[Tue 10:18]	-->|	digikim_ (~digikim@cs181158134.pp.htv.fi) has joined #json-ld
+[Tue 10:18]	<gkellogg>	sandro: it doesn't matter what we think, but what they think. When will it be frozen?
+[Tue 10:18]	-->|	sandro_ (~sandro@ssh.w3.org) has joined #json-ld
+[Tue 10:19]	<gkellogg>	manu: we have a statement from the DOM group, but it's the standard WHATWG line: it's implementable now and will be harder to change once there are enough implementations in the wild. They'll never say it's frozen.
+[Tue 10:19]	<gkellogg>	sandro: we need to put this in front of the director and get a ruling on this.
+[Tue 10:19]	<voip-ld>	<unknown> (IAX2/diamondcard-1466) has joined the conference.
+[Tue 10:19]	* danbri	joined <-
+[Tue 10:20]	<dlongley>	voip-ld: 1466 is danbri
+[Tue 10:20]	<voip-ld>	danbri is now associated with IAX2/diamondcard-1466.
+[Tue 10:20]	<manu-db>	voip: danbri is 1466
+[Tue 10:20]	<voip-ld>	Failed to associate 1466 with an audio channel ending in 'danbri'
+[Tue 10:20]	<gkellogg>	… Normally, the W3C doesn't put implementors in that position, but the whole WHATWG thing is a changing position.
+[Tue 10:20]	<manu-db>	voip: 1466 is danbri
+[Tue 10:20]	<voip-ld>	danbri is now associated with IAX2/diamondcard-1466.
+[Tue 10:20]	<gkellogg>	manu: Is this enough to address your issue so we can take it to the director?
+[Tue 10:20]	<gkellogg>	sandro: normally, this is done at CR transition.
+[Tue 10:20]	<gkellogg>	… We could let this wait until that transition meeting.
+[Tue 10:21]	<gkellogg>	manu: Is there anything more we can discuss on this now, or just put out the line of argumentation to the director.
+[Tue 10:22]	<gkellogg>	Topic: Discussion with Google about JSON-LD usage
+[Tue 10:22]	<gkellogg>	manu: Dan, can you give a bit of a background?
+[Tue 10:23]	<voip-ld>	Dave Lehn (SIP/6003-000001d3) has joined the conference.
+[Tue 10:23]	<gkellogg>	danbri: I'll talk about how we ended up with JSON-LD instead of RDFa.
+[Tue 10:23]	<gkellogg>	… There are many ways of putting SD in HTML, and tried microdata, but developers were confused with HTML markup (MD or RDFa).
+[Tue 10:24]	<gkellogg>	… An engineer tried a flatter implementation in JSON, and it turned out to be very close to JSON-LD.
+[Tue 10:24]	<gkellogg>	… The context header was scaring some of the guys, but we've been working through that.
+[Tue 10:24]	<gkellogg>	… The main difference now seems to be the use of schema.org instead of http://schema.org.
+[Tue 10:25]	<gkellogg>	manu: that's one issue, the other concern is that Google isn't providing a JSON-LD context file at http://schema.org. We have a GSoC student who may help with this.
+[Tue 10:25]	<gkellogg>	… We'd just like to understand Google's position on these things.
+[Tue 10:26]	<gkellogg>	danbri: Google's not the only relevant party. If it was just Google, we could just stick up a JSON-LD context file, but this affects other parnters.
+[Tue 10:27]	<gkellogg>	… Microsoft had an O-Data implementation, and were concerned that it would shut down discussions of other possible directions.
+[Tue 10:27]	<gkellogg>	… I think it should be straightforward to publish one, but there are some hosting issues that are currently complicating this. It's on my todo list.
+[Tue 10:27]	|<--	vikash_ has left freenode (Quit: Leaving)
+[Tue 10:28]	<manu-db>	gkellogg: It would be nice to have the JSON-LD context file generated automatically.
+[Tue 10:28]	<manu-db>	gkellogg: You want to make sure to setup types correctly (numbers, dates, URLs, etc.)
+[Tue 10:29]	<manu-db>	gkellogg: You will also want multiple values being in a list - for example, MusicTracks - makes sense that when you're listing tracks, they are ordered. Breadcrumbs are another place where this might be important. We made some arbitrary decisions when we did the Microdata to RDF translation.
+[Tue 10:29]	<manu-db>	gkellogg: I don't know if you maintain any information like that in the schema, it would be useful if you did.
+[Tue 10:29]	<manu-db>	gkellogg: Datetime might be an issue, you're more flexible with dates / times.
+[Tue 10:30]	<manu-db>	danbri: There is a part of this where we think that any property in schema.org might have really bad data - we find a way to deal with those cases.
+[Tue 10:30]	<gkellogg>	danbri: there's a level at which schema.org expects to see a certain type of property, and we find a way to figure out what it should be.
+[Tue 10:30]	<gkellogg>	… I don't believe Google has any plans to dynamically fetch and parse such a context. As far as dealing with a JSON-LD payload, the engineers have done a good job.
+[Tue 10:31]	<gkellogg>	manu: I want to make it clear that you don't really need to. Just because you publish a context, doesn't mean that you need to dynamically read it.
+[Tue 10:31]	<gkellogg>	… This is done in the Web Payments schema; you just want to be sure they're no conflict in how things are parsed.
+[Tue 10:32]	<gkellogg>	… We should probably try to be minimal in what is specified right now. For example, for right now it could assume strings for everything, and later on start narrowing it down to ids, dates and so forth.
+[Tue 10:32]	<gkellogg>	danbri: can the context be agnostic about the values for a given property.
+[Tue 10:33]	<gkellogg>	gkellogg: you can always be unambiguous in the data by using expanded values.
+[Tue 10:33]	<gkellogg>	manu: ideally, the group would like to at have shema.org say that things should be URLs or dates.
+[Tue 10:34]	<gkellogg>	danbri: something minimal is more likely to be agreed upon.
+[Tue 10:34]	<gkellogg>	sandro: for right now with RDFa, is everything a string? How does schema.org treat things that may be URLs or strings?
+[Tue 10:34]	<danbri>	http://schema.org/docs/datamodel.html has our rdfa schema
+[Tue 10:34]	<danbri>	-> http://schema.org/docs/schema_org_rdfa.html
+[Tue 10:35]	<gkellogg>	danbri: it's pretty conventional RDFa if you use it with schema.org.
+[Tue 10:35]	<gkellogg>	… The RDFa definition of the schema.org schema is pretty conventional except for a few changes for ranges and domains.
+[Tue 10:36]	<gkellogg>	manu: there's a data model behind schema.org that is well typed, but as Dan said before, they get a lot of garbage, so they try to interpret values based on the vocabulary.
+[Tue 10:36]	-->|	vikash (~vikash@unaffiliated/vikash) has joined #json-ld
+[Tue 10:37]	<gkellogg>	danbri: it's more like if you use the "actor" property with a string, it infers that there is an object having that string as it's label.
+[Tue 10:38]	<gkellogg>	... The other issues is the HTTP Range-14 issue. schema.org doesn't worry to much about the distinction of the web page about a thing and the thing itself.
+[Tue 10:39]	<gkellogg>	… For example, links between pages are simple links without re-direction, or the use of fragment indirections.
+[Tue 10:40]	<gkellogg>	manu: back to the two issues, do you think that the @context: schema.org, vs @context: http://schema.org is going to be a problem?
+[Tue 10:40]	<gkellogg>	danbri: I think it should be okay. Remember that the schema.org partners haven't seen what Google's announced yet. We've had some discussions, but Google doesn't share product plans with competitors.
+[Tue 10:41]	<gkellogg>	sandro: sounds like you might expect the partners to push back and demand the use of http://
+[Tue 10:41]	<gkellogg>	danbri: we can see what's actually coming in from partners to see what's being used in the wild.
+[Tue 10:42]	<gkellogg>	… It was news to me that there's a relative-link interpretation, in which case the http:// makes a lot of sense.
+[Tue 10:42]	|<--	vikash has left freenode (Ping timeout: 276 seconds)
+[Tue 10:42]	<gkellogg>	manu: we're in LC, and based on the direction of schema.org, we may need to go into another LC, plus the design work needed.
+[Tue 10:42]	<gkellogg>	… It would be nice to know which direction we need to go fairly soon, as we come out of LC in a couple of weeks.
+[Tue 10:43]	<gkellogg>	… Best for the spec and the web would be to require http://. Sound's like you'll talk with the parties and see if that's okay.
+[Tue 10:43]	<gkellogg>	danbri: At google, people seemed to be skeptical.
+[Tue 10:44]	<manu-db>	gkellogg: The short of the argument is this: people are going to use relative URIs for publishing documents on their site. If you use 'schema.org' - that means, relative to URL
+[Tue 10:44]	<gkellogg>	sandro: it's also that you want to have several off of a same context - you want to use a URL if you want to provide multiple contexts in a single domain.
+[Tue 10:45]	<gkellogg>	dlongley: also, people may want to use a secure context and use https:// - this is very important for product data, legal data, financial data, etc. (there are attacks if you don't serve vocab data from HTTPS URLs).
+[Tue 10:45]	<manu-db>	sandro: There is also an issue with needing to reference files - don't use just a domain name.
+[Tue 10:46]	<gkellogg>	danbri: Is anyone publishing anything using relative URLs?
+[Tue 10:46]	<gkellogg>	manu: I don't think many people are using relative URLs for contexts; most people have just used http://.
+[Tue 10:47]	<gkellogg>	… If people are publishing data, and using http:// is such a problem, you're going to see many other problems, such as image locations and so forth. This didn't seem like such a stretch.
+[Tue 10:47]	<gkellogg>	… The argument that it's difficult for developers to put "https://" in front of their URLs doesn't hold, as you're going to require it in the data anyway.
+[Tue 10:47]	<gkellogg>	danbri: I think that people won't read the field as a link, it's a piece of boilerplate.
+[Tue 10:48]	<gkellogg>	manu: in which case, they'll just copy from the examples.
+[Tue 10:48]	<gkellogg>	… If the examples use http://schema.org, they'll just do that.
+[Tue 10:48]	* manu-db	danbri - still here
+[Tue 10:48]	<voip-ld>	danbri (IAX2/diamondcard-1466) has left the conference.
+[Tue 10:49]	<voip-ld>	<unknown> (IAX2/diamondcard-8596) has joined the conference.
+[Tue 10:49]	<manu-db>	voip: 8596 is danbri
+[Tue 10:49]	<voip-ld>	danbri is now associated with IAX2/diamondcard-8596.
+[Tue 10:50]	<gkellogg>	danbri: I think if you use http://domain, you're re-directed to http://domain/, so it's a bit like that.
+[Tue 10:50]	<danbri>	(or http clients fix that up)
+[Tue 10:51]	<dlongley>	manu-db: the opinion of the group is the best course of action is to use: https://schema.org/ for the context
+[Tue 10:51]	<gkellogg>	manu: the right thing to do would be to do https://schema.org/, and if you don't, then you're redirected to get the proper context. If you use http instead of https, you'll be redirected to https, so that you get the proper version.
+[Tue 10:51]	<gkellogg>	… The core is that JSON-LD expects a proper URL for that value. Either schama.org puts https:// in front, of we write up that this is a special case.
+[Tue 10:52]	<gkellogg>	sandro: You could also say there's not context, and the gmail application could define it.
+[Tue 10:52]	<gkellogg>	manu: true, but then it's no longer interoperable.
+[Tue 10:53]	<gkellogg>	manu: good time to establish best practices.
+[Tue 10:53]	<gkellogg>	danbri: I'm pretty sure that the product team didn't realize that relative URIs were possible. I'll go back and see what they think.
+[Tue 10:54]	<gkellogg>	manu: We'll get an email out to clarify why this is important.
+[Tue 10:54]	<gkellogg>	ACTION: Manu to summarize rationale for proposed Gmail/JSON-LD changes and send it to Dan Brickley and the rest of the Google teams using JSON-LD.
+[Tue 10:54]	<gkellogg>	… Good to know sooner than later.
+[Tue 10:55]	<gkellogg>	danbri: big mistake to think of Google as a monolith. different groups have their own priorities, and we look to minimize boilerplate.
+[Tue 10:55]	<gkellogg>	manu: it sounds like the context document isn't an issue, and the only remaining issue is making the context value an absolute IRI.
+[Tue 10:56]	<gkellogg>	… Then we have a really good story about Google adopting JSON-LD, which is good for the web.
+[Tue 10:56]	<gkellogg>	… Bottom line, we're here to help however we can.
+[Tue 10:57]	<gkellogg>	danbri: Just to be clear, a fetchable context will require some configuration changes.
+[Tue 10:59]	<gkellogg>	manu: I'd like to start with something simple, rather than trying to do the most correct thing.
+[Tue 10:59]	<pkuyken>	Yep.
+[Tue 10:59]	<gkellogg>	gkellogg: We could start with something like {"@vocab": "http://schema.org/"}
+[Tue 11:00]	<gkellogg>	manu: we'll discuss lossless conversion next week.
+[Tue 11:00]	<voip-ld>	danbri (IAX2/diamondcard-8596) has left the conference.
+[Tue 11:00]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000001d2) has left the conference.
+[Tue 11:00]	<voip-ld>	Manu Sporny (SIP/6000-000001d0) has left the conference.
+[Tue 11:00]	<voip-ld>	pkuyken (SIP/sip2sip.info-000001cf) has left the conference.
+[Tue 11:00]	<voip-ld>	Dave Longley (SIP/6002-000001d1) has left the conference.
+[Tue 11:00]	<voip-ld>	sandro_ (IAX2/diamondcard-13344) has left the conference.
+[Tue 11:00]	<voip-ld>	Radu (IAX2/diamondcard-7936) has left the conference.
+[Tue 11:00]	<voip-ld>	Dave Lehn (SIP/6003-000001d3) has left the conference.
