@@ -1,0 +1,249 @@
+[Tue 10:00]	<voip-ld>	Manu Sporny (SIP/6000-000001e9) has joined the conference.
+[Tue 10:00]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000001ea) has joined the conference.
+[Tue 10:01]	<voip-ld>	Dave Longley (SIP/6002-000001eb) has joined the conference.
+[Tue 10:01]	<voip-ld>	ivikash (SIP/sip2sip.info-000001ec) has joined the conference.
+[Tue 10:01]	<manu-db>	voip: pkuyken is 10037
+[Tue 10:01]	<voip-ld>	Failed to associate 10037 with an audio channel ending in 'pkuyken'
+[Tue 10:01]	-->|	niklasl (~nlm@gate.kb.se) has joined #json-ld
+[Tue 10:01]	<manu-db>	voip: 10037 is pkuyken
+[Tue 10:01]	<voip-ld>	pkuyken is now associated with IAX2/diamondcard-10037.
+[Tue 10:01]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-000001ed) has joined the conference.
+[Tue 10:03]	-->|	mlnt (~markus@84-115-182-43.dynamic.surfer.at) has joined #json-ld
+[Tue 10:03]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000001ee) has joined the conference.
+[Tue 10:04]	<manu-db>	scribe: mlnt
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0005.html
+[Tue 10:05]	<manu-db>	Topic: Vikash's Summer of Code
+[Tue 10:06]	<mlnt>	manu: Vikash, could you outline your plan for the summer & what you need from the group
+[Tue 10:06]	<mlnt>	vikash: I'm starting with the redesign of the page
+[Tue 10:07]	<mlnt>	... there are some problems with IE
+[Tue 10:07]	<dlongley>	http://www.modern.ie/en-us
+[Tue 10:08]	<dlongley>	https://github.com/json-ld/json-ld.org/issues/242
+[Tue 10:09]	<mlnt>	... next I'll create the schema.org data generator (form to enter data which is converted to json-ld)
+[Tue 10:09]	<voip-ld>	soilandreyes (SIP/sip2sip.info-000001ef) has joined the conference.
+[Tue 10:09]	<voip-ld>	soilandreyes (SIP/sip2sip.info-000001ef) has left the conference.
+[Tue 10:09]	<mlnt>	... shouldn't take much time
+[Tue 10:09]	<mlnt>	manu: do you need any help?
+[Tue 10:10]	<mlnt>	vikash: how do I push?
+[Tue 10:10]	<mlnt>	manu: we'll start of with pull requests
+[Tue 10:10]	<voip-ld>	soilandreyes (SIP/sip2sip.info-000001f2) has joined the conference.
+[Tue 10:10]	<mlnt>	... someone with commit access will merge them in a timely manner
+[Tue 10:11]	<mlnt>	... and then the changes will go live immediately
+[Tue 10:11]	<voip-ld>	<unknown> (IAX2/diamondcard-8888) has joined the conference.
+[Tue 10:11]	<vikash>	Two pull requests for - http://dl.dropboxusercontent.com/u/5278881/GSoC/json-ld/index2.html
+[Tue 10:11]	<vikash>	https://dl.dropboxusercontent.com/u/5278881/GSoC/json-ld/playground/index2.html
+[Tue 10:12]	<vikash>	https://github.com/json-ld/json-ld.org/issues/242
+[Tue 10:12]	<mlnt>	pkuyken: how should comments be made?
+[Tue 10:12]	<mlnt>	manu: best is to use GitHub... just raise issues. We'll assign them to Vikash.
+[Tue 10:12]	<manu-db>	Topic: RDF-ISSUE-133: Reverse properties
+[Tue 10:12]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/133
+[Tue 10:13]	<mlnt>	... We more or less came to an agreement that we'll keep support for reverse properties
+[Tue 10:13]	<mlnt>	... we got feedback from people that it is an important feature for them
+[Tue 10:13]	<mlnt>	... no requests to take it out
+[Tue 10:14]	-->|	clayball (~clayball@blknt.cceb.upenn.edu) has joined #json-ld
+[Tue 10:14]	<mlnt>	gregg: this is a very useful feature as danbri showed on the mailing list
+[Tue 10:14]	<gkellogg>	https://gist.github.com/gkellogg/5691913
+[Tue 10:15]	<dlongley>	http://lists.w3.org/Archives/Public/public-linked-json/2013May/0093.html
+[Tue 10:15]	* niklasl	can you hear me?
+[Tue 10:15]	<dlongley>	manu-db: looking for that email?
+[Tue 10:15]	<manu-db>	PROPOSAL: Support reverse properties in JSON-LD 1.0.
+[Tue 10:15]	<manu-db>	+1
+[Tue 10:15]	<mlnt>	+1
+[Tue 10:15]	<niklasl>	+1
+[Tue 10:15]	<dlongley>	+1
+[Tue 10:15]	<gkellogg>	+1
+[Tue 10:15]	<stain>	+1
+[Tue 10:15]	<pkuyken>	+1
+[Tue 10:15]	<vikash>	+1
+[Tue 10:15]	<manu-db>	RESOLVED: Support reverse properties in JSON-LD 1.0.
+[Tue 10:15]	* mlnt	don't -1 :-P
+[Tue 10:15]	* gkellogg	:)
+[Tue 10:15]	<manu-db>	Topic: RDF-ISSUE-134: Blank node labeling
+[Tue 10:16]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/134
+[Tue 10:16]	<mlnt>	markus: the discussion about this restarted in the RDF WG
+[Tue 10:16]	<mlnt>	manu: our position didn't change
+[Tue 10:17]	<mlnt>	gregg: there's a meta-discussion about how to deal with bnode predicates
+[Tue 10:17]	<mlnt>	... do we need a flag in toRDF algorithm to only produce valid triples
+[Tue 10:18]	<mlnt>	manu: someone on Twitter mapped GeoJSON to JSON-LD
+[Tue 10:18]	<mlnt>	... most predicates are mapped to bnodes
+[Tue 10:18]	<mlnt>	... this is a nice use-case
+[Tue 10:19]	<mlnt>	mlnt: here's the tweet: https://twitter.com/sgillies/status/341612872683622400
+[Tue 10:19]	<mlnt>	mlnt: and the JSON file: http://pleiades.stoa.org/places/628932/json
+[Tue 10:20]	<mlnt>	gregg: nevertheless a flag to control whether only standardized RDF is outputed would be helpful
+[Tue 10:20]	<mlnt>	paul: absolutely
+[Tue 10:20]	<mlnt>	q+
+[Tue 10:20]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:20]	<mlnt>	gregg: the problem with skolemization is that it happens by using the server's address which might be problematic in some cases
+[Tue 10:21]	<manu-db>	ack mlnt
+[Tue 10:21]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:21]	<mlnt>	sandro: I think it is fine to skolemize with a fixed URL e.g. w3.org
+[Tue 10:21]	<manu-db>	mlnt: Since we just specify it quite generically, isn't this something that has to be done at a layer above the algorithm?
+[Tue 10:21]	<manu-db>	gregg: good point.
+[Tue 10:22]	<mlnt>	manu: Yes. This is also true for things that have to do with normalization etc.
+[Tue 10:22]	<mlnt>	gregg: Agreed, but we should probably add a note
+[Tue 10:23]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f3) has joined the conference.
+[Tue 10:23]	<manu-db>	PROPOSAL: Add a note to the toRDF() algorithm warning developers that blank node predicates and graph labels will have to be translated before the toRDF() algorithm is run in order to ensure compatability with RDF Concepts 1.1.
+[Tue 10:23]	* mlnt	echo.. echo
+[Tue 10:23]	<mlnt>	mlnt: We currently have this in the spec:
+[Tue 10:23]	<mlnt>	"This algorithms converts a JSON-LD document to an RDF dataset. Please note that RDF does not allow a blank node to be used as a graph name or property, while JSON-LD does. JSON-LD-RDF Converters can work around this restriction, when converting JSON-LD to RDF, by converting such blank nodes to IRIs, minting new "Skolem IRIs" as per Replacing Blank Nodes with IRIs of [RDF11-CONCEPTS]."
+[Tue 10:24]	<mlnt>	isn't that enough?
+[Tue 10:24]	<mlnt>	dlongley: we may wanna use "may" instead
+[Tue 10:24]	<voip-ld>	<unknown> (IAX2/diamondcard-8888) has left the conference.
+[Tue 10:24]	<mlnt>	manu: I think what Markus just put in IRC is enough
+[Tue 10:24]	<voip-ld>	pkuyken (IAX2/diamondcard-10037) has left the conference.
+[Tue 10:25]	<mlnt>	sandro: ok, I would be fine with that
+[Tue 10:25]	* mlnt	was that sandro?
+[Tue 10:26]	<mlnt>	... if you have some arguments please join the discussion in the RDF WG
+[Tue 10:26]	<mlnt>	manu: I have problems seeing us making the same points over and over again
+[Tue 10:27]	* pkuyken	call just dropped and unable to dial back in (busy tone)
+[Tue 10:27]	<mlnt>	... we made our arguments quite clear I think
+[Tue 10:27]	<mlnt>	... no convincing technical argument against it has been raised so far
+[Tue 10:28]	<mlnt>	... So Sandro, I don't know what you want us to say. I feel like we are repeating ourselves
+[Tue 10:28]	-->|	Rich_Morin_ (~rdm@cfcl.com) has joined #json-ld
+[Tue 10:28]	<mlnt>	sandro: maybe some people didn't see the points you made before so repeating them might help
+[Tue 10:28]	<mlnt>	manu: I just find it slightly frustrating
+[Tue 10:29]	<mlnt>	sandro: are you guys willing give up bnode predicates if you get bnode graph labels
+[Tue 10:29]	<mlnt>	manu: seems like negotiation which is dangerous if there are technical arguments for features
+[Tue 10:30]	<mlnt>	... the outcome should not be based on politics
+[Tue 10:30]	|<--	Rich_Morin has left freenode (Ping timeout: 260 seconds)
+[Tue 10:30]	=-=	Rich_Morin_ is now known as Rich_Morin
+[Tue 10:30]	<voip-ld>	Dave Lehn (SIP/6003-000001f5) has joined the conference.
+[Tue 10:31]	<manu-db>	Topic: RDF-ISSUE-129: Lossless conversion
+[Tue 10:31]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f3) has left the conference.
+[Tue 10:31]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/129
+[Tue 10:31]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f6) has joined the conference.
+[Tue 10:32]	<manu-db>	mlnt: The discussion here is around two positions - 1) move conversion from fromRDF to compaction/expansion, 2) keep it in to/from RDF conversion algorithm.
+[Tue 10:32]	<manu-db>	mlnt: We don't need to add complexity to JSON-LD processors.
+[Tue 10:33]	<manu-db>	mlnt: We also need to outline how this works in detail... xsd:integer vs. xsd:double, there are details we need to work out. All integers are floats in JavaScript... in certain cases, such as a xsd:double, it would become an integer.
+[Tue 10:33]	<sandro>	q+
+[Tue 10:33]	<voip-ld>	Added sandro to the speaker queue: sandro
+[Tue 10:33]	<manu-db>	gkellogg: There is another argument, if it's done as part of compaction, it could make use of typecasting as a part of a property to get the appropriate format.
+[Tue 10:34]	<manu-db>	mlnt: Type coercion only applies to strings, it doesn't apply to numbers of booleans.
+[Tue 10:34]	<manu-db>	sandro: If it was a string, type conversion could convert it to a number - it could be converted into a JSON Number.
+[Tue 10:34]	<dlongley>	q+
+[Tue 10:34]	<voip-ld>	Added dlongley to the speaker queue: sandro, dlongley
+[Tue 10:34]	<manu-db>	mlnt: Are we talking about literal to native types.
+[Tue 10:34]	<manu-db>	gkellogg: Native types don't matter, you could easily do that in RDF transformation phase... it could be integer, double, etc. The problem is the other way arond - going from a number to a stirng.
+[Tue 10:35]	<manu-db>	gkellogg: In order to get appropriate output form. if you had xsd:decimal, and a string "0.2323" - then transformation could generate xsd:decimal in output.
+[Tue 10:35]	<manu-db>	mlnt: Yes, but that would change our algorithms quite dramatically. Type coercion/language tagging is only used if it's a string.
+[Tue 10:35]	<manu-db>	ack sandro
+[Tue 10:35]	<sandro>	+1 move conversion to expansion/compaction, +1 convert all numeric types to Number
+[Tue 10:35]	<voip-ld>	sandro has the floor. The next speaker is dlongley.
+[Tue 10:36]	<mlnt>	sandro: I haven't used the JSON-LD API
+[Tue 10:36]	<mlnt>	... but my feeling is you want that in expansion/compaction
+[Tue 10:36]	<manu-db>	sandro: I had not used the JSON-LD API ever, so I don't have a lot of weight. My feeling is that you'd want this in expansion/compaction. Even if I'm not going anywhere near RDF, if I get some JSOn-LD from across the net, and my code just wants to deal w/ numbers, it might come in with xsd types on numeric things. I'd want to be able to convert those to numbers.
+[Tue 10:37]	<mlnt>	sandro: the other way I would expect all numbers to go to just xsd:double
+[Tue 10:37]	<manu-db>	sandro: I'd also want something going the other way too, I think. I'd expect all numbers to go to double. Anything else is going to be fuzzy. It's going to be lossy, whatever you do.
+[Tue 10:37]	<manu-db>	sandro: Unless you have more type information.
+[Tue 10:38]	<manu-db>	sandro: One more argument for putting it in expansion/compaction - I want to dissuade people doing this when they convert to RDF. I think it's bad to do this before sending this to some place unknown.
+[Tue 10:38]	<manu-db>	ack dlongley
+[Tue 10:38]	<voip-ld>	sandro has the floor. The speaker queue is empty.
+[Tue 10:38]	<mlnt>	dlongley: what we want here is probably something more fine-grained
+[Tue 10:38]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f6) has left the conference.
+[Tue 10:39]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f7) has joined the conference.
+[Tue 10:39]	<mlnt>	... you might want to be able to convert just certain things based on your context
+[Tue 10:39]	<niklasl>	q+
+[Tue 10:39]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:39]	<dlongley>	compaction option? convertToNativeNumbers: ['xsd:integer', 'foo:bar']
+[Tue 10:39]	<mlnt>	... so we might wanna do it in expansion and compaction
+[Tue 10:39]	<sandro>	How about another routine? NativizeNumbers
+[Tue 10:40]	<stain>	you can't put all as xsd:double - 9223372036854775807 (max of xsd:long) would become 9223372036854775808 after a trip through xsd:double
+[Tue 10:40]	<mlnt>	... only type-coerced properties would be converted to native types then
+[Tue 10:40]	<manu-db>	ack niklasl
+[Tue 10:40]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:41]	<mlnt>	niklas: I don't have strong opinions here
+[Tue 10:41]	<mlnt>	... I think putting it in both places makes sense
+[Tue 10:42]	<mlnt>	... and it also makes sense to be able to control what to convert (e.g. just integers)
+[Tue 10:42]	<sandro>	Grrrrr. Can't connect via VOIP or Telco. Telco gets me a fast busy. VOIP call times out.
+[Tue 10:42]	<mlnt>	... if you get JSON-LD you might wanna re-compact it to get native types
+[Tue 10:44]	<mlnt>	markus: What Dave said certainly makes sense
+[Tue 10:44]	<mlnt>	... but I think that could be done as a proprietary extension to JSON-LD processors
+[Tue 10:44]	<mlnt>	... do we really need to standardize this?
+[Tue 10:45]	<mlnt>	... This would probably mean that we need through another LC
+[Tue 10:45]	<mlnt>	gregg: I liked Markus proposal to go through RDF conversion to convert literals to native types
+[Tue 10:46]	<mlnt>	... you loose the structure of the document but the use case here is really for data coming from RDF so it shouldn't matter much in practice
+[Tue 10:46]	<mlnt>	dave: The downside of this is that there isn't any fine-grainded control
+[Tue 10:46]	<mlnt>	... you could potentially loose data
+[Tue 10:47]	<mlnt>	gregg: yeah, but we dealt with this issue for such a long time and this is what we decided to do
+[Tue 10:47]	<mlnt>	... there's not really new information suggesting that we need to change it
+[Tue 10:47]	<mlnt>	... I think following a minimalistic approach is the way to go here
+[Tue 10:48]	* dlongley	sandro can you get back in yet?
+[Tue 10:48]	<mlnt>	manu: the initial concern was raised by Sandro
+[Tue 10:48]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f8) has joined the conference.
+[Tue 10:48]	<mlnt>	... it was about data fidelity
+[Tue 10:48]	<mlnt>	... in that case just don't convert to native types
+[Tue 10:49]	<mlnt>	... if we change the default value so that there's no data loss that concern should be addressed
+[Tue 10:49]	<mlnt>	... of course there are other options with some advantages but they make the algorithms more complex and probably mean another LC
+[Tue 10:50]	<mlnt>	... so, if we would change the default value of useNativeTypes would that address your concerns Sandro?
+[Tue 10:50]	<mlnt>	sandro: it is not my desired outcome but I could live with it. Also just adding a note making it clear to not send native types over the wire may work
+[Tue 10:51]	<mlnt>	manu: this buys us time to gain experience how this will be used
+[Tue 10:51]	<mlnt>	... otherwise we might risk introducing other issues in the last minute
+[Tue 10:52]	<mlnt>	gregg: but that doesn't give developers a tool which don't care about RDF to convert literals to native types now
+[Tue 10:52]	<voip-ld>	soilandreyes (SIP/sip2sip.info-000001f2) has left the conference.
+[Tue 10:52]	<mlnt>	dave: I think what Manu says is that we extend it in the future
+[Tue 10:52]	<dlongley>	s/dave/sandro
+[Tue 10:53]	<mlnt>	gregg: we should at least add a note explaining that RDF roundtripping can be used for this
+[Tue 10:53]	* vikash	No Idea :/
+[Tue 10:53]	<mlnt>	... I also liked Markus proposal about adding a function wrapping that round-tripping in a simple call
+[Tue 10:54]	<mlnt>	manu: So the proposal is to change the default value of useNativeTypes to false and add a note explaining the use of RDF round-tripping
+[Tue 10:54]	<manu-db>	PROPOSAL: The default value of the useNativeTypes flag should be set to 'false' in the JSON-LD API.
+[Tue 10:55]	<gkellogg>	+1
+[Tue 10:55]	<manu-db>	+1
+[Tue 10:55]	<dlongley>	+1
+[Tue 10:55]	<clayball>	+1
+[Tue 10:55]	<mlnt>	+1
+[Tue 10:55]	<stain>	+1
+[Tue 10:55]	<niklasl>	+1
+[Tue 10:55]	<sandro>	+1
+[Tue 10:55]	<vikash>	+1 (take one from me)
+[Tue 10:55]	<manu-db>	RESOLVED: The default value of the useNativeTypes flag should be set to 'false' in the JSON-LD API.
+[Tue 10:56]	<manu-db>	PROPOSAL: Add explanatory text to the JSON-LD API specification explaining the risks of the useNativeTypes flag and how to do proper conversion to/from native types using the to/from RDF method call.
+[Tue 10:57]	<manu-db>	mlnt: We could add it to the data round-tripping section.
+[Tue 10:57]	<gkellogg>	+1
+[Tue 10:57]	<dlongley>	+1
+[Tue 10:57]	<manu-db>	+1
+[Tue 10:57]	<vikash>	+1
+[Tue 10:57]	<niklasl>	+1
+[Tue 10:57]	<mlnt>	+1
+[Tue 10:57]	<stain>	+1
+[Tue 10:57]	<clayball>	+1
+[Tue 10:57]	<manu-db>	RESOLVED: Add explanatory text to the JSON-LD API specification explaining the risks of the useNativeTypes flag and how to do proper conversion to/from native types using the to/from RDF method call.
+[Tue 11:00]	<manu-db>	Topic: The Candidate Recommendation Phase
+[Tue 11:00]	<manu-db>	mlnt: When are we going to CR?
+[Tue 11:00]	<manu-db>	manu: We need to do some updates to the spec, maybe in 2-3 weeks.
+[Tue 11:01]	<mlnt>	gregg: we also need to stabilize the test suite
+[Tue 11:01]	<mlnt>	dave: we didn't talk about the other XSD data types
+[Tue 11:02]	<mlnt>	... we currently just support xsd:double and xsd:integer
+[Tue 11:03]	<mlnt>	... what about the other numeric types
+[Tue 11:03]	<mlnt>	markus: that was something that Pierre-Antoine (or Sandro, can't remember) proposed
+[Tue 11:05]	* niklasl	hear choppy sound (i still hear you though)
+[Tue 11:05]	* dlongley	yeah, that's feedback from sandro i think
+[Tue 11:07]	<manu-db>	Topic: Other concerns and news
+[Tue 11:07]	<manu-db>	Currenty, fromRDF creates nodes for things that are only in the object position.
+[Tue 11:08]	<manu-db>	We may want to discuss support for xsd:short and other integer types.
+[Tue 11:09]	<manu-db>	We should also discuss issue 253
+[Tue 11:09]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-000001ea) has left the conference.
+[Tue 11:09]	<voip-ld>	Manu Sporny (SIP/6000-000001e9) has left the conference.
+[Tue 11:09]	<voip-ld>	Dave Longley (SIP/6002-000001eb) has left the conference.
+[Tue 11:09]	<voip-ld>	ivikash (SIP/sip2sip.info-000001ec) has left the conference.
+[Tue 11:09]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000001ee) has left the conference.
+[Tue 11:09]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-000001ed) has left the conference.
+[Tue 11:09]	<voip-ld>	Dave Lehn (SIP/6003-000001f5) has left the conference.
+[Tue 11:09]	<vikash>	manu-db, I just have one question as I wanted to know how Google is using JSON-LD in GMail?
+[Tue 11:10]	<voip-ld>	Sandro Hawke (SIP/w3.org-000001f8) has left the conference.
+[Tue 11:10]	<manu-db>	vikash, here you go: http://manu.sporny.org/2013/gmail-json-ld/ 
+[Tue 11:10]	<manu-db>	and here http://manu.sporny.org/2013/json-ld-google-search/
+[Tue 11:10]	<vikash>	thanks :)
+[Tue 11:10]	<niklasl>	.. just a note: I held a quick lightning talk last week on JSON-LD at ELAG 2013. Slides here: http://www.slideshare.net/niklal/something-specificandsimpleniklaslelag2013
+[Tue 11:11]	<manu-db>	niklasl: I saw people talking about JSON-LD at #elag2013 and wondered: "How in the hell did they hear about it?!" :P
+[Tue 11:11]	<manu-db>	now I know.
+[Tue 11:12]	<manu-db>	niklasl: saw a number of very nice comments from the audience during your talk.. lots of "ooh, JSON-LD, gonna have to check it out"
+[Tue 11:12]	<niklasl>	manu-db: :) I think the first mention was from Herbert van de Sompel in the keynote though; and it was mentioned in some other talks as well. Which was really nice (and prompted me to talk about it).
+[Tue 11:13]	<manu-db>	niklasl: Did you plan to talk about it? Or did you just decide while you were there?
+[Tue 11:14]	<niklasl>	manu-db: while I was there. I wrote up the title before I'd decided on the topic. ;)
+[Tue 11:16]	<niklasl>	.. needed to assess what the crowd was interested in. JSON-LD is quite great for library data, which is internally rather minutely detailed and "feels local", but has to be mashable and coordinated with the "wilder" web.
+[Tue 11:17]	<manu-db>	niklasl: it's a really good slide deck - concise, cuts right to the point.
+[Tue 11:18]	<niklasl>	manu-db: thanks! I aimed to make it true to the title. ;)
+[Tue 11:19]	-->|	linclark (~clark@c-67-186-35-246.hsd1.pa.comcast.net) has joined #json-ld
+[Tue 11:22]	<manu-db>	For those that didn't see it yet, schema.org just announced that they're adding JSON-LD as an official format: http://blog.schema.org/2013/06/schemaorg-and-json-ld.html
+[Tue 11:24]	<warp>	nice!
+[Tue 11:27]	<niklasl>	Nice indeed!

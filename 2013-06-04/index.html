@@ -1,0 +1,266 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-06-04</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0005.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0005.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Vikash's Summer of Code</a><li><a href="#topic-2">RDF-ISSUE-133: Reverse properties</a><li><a href="#topic-3">RDF-ISSUE-134: Blank node labeling</a><li><a href="#topic-4">RDF-ISSUE-129: Lossless conversion</a><li><a href="#topic-5">The Candidate Recommendation Phase</a><li><a href="#topic-6">Other concerns and news</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Support reverse properties in JSON-LD 1.0.</a><li><a href="#resolution-2">The default value of the useNativeTypes flag should be set to 'false' in the JSON-LD API.</a><li><a href="#resolution-3">Add explanatory text to the JSON-LD API specification explaining the risks of the useNativeTypes flag and how to do proper conversion to/from native types using the to/from RDF method call.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Vikash Agrawal, Paul Kuykendall, Gregg Kellogg, Niklas Lindström, Dave Longley, Stian Soiland-Reyes, Sandro Hawke, Clay Wells, Kuno Woudt</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Vikash's Summer of Code</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  Vikash, could you outline your plan for the summer &amp; what you need from the group</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I'm starting with the redesign of the page</div>
+<div class="comment-continuation">... there are some problems with IE</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://www.modern.ie/en-us">http://www.modern.ie/en-us</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/issues/242">https://github.com/json-ld/json-ld.org/issues/242</a></div>
+<div class="comment-continuation">... next I'll create the schema.org data generator (form to enter data which is converted to json-ld)</div>
+<div class="comment-continuation">... shouldn't take much time</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do you need any help?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  how do I push?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll start of with pull requests</div>
+<div class="comment-continuation">... someone with commit access will merge them in a timely manner</div>
+<div class="comment-continuation">... and then the changes will go live immediately</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Two pull requests for - <a href="http://dl.dropboxusercontent.com/u/5278881/GSoC/json-ld/index2.html">http://dl.dropboxusercontent.com/u/5278881/GSoC/json-ld/index2.html</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: <a href="https://dl.dropboxusercontent.com/u/5278881/GSoC/json-ld/playground/index2.html">https://dl.dropboxusercontent.com/u/5278881/GSoC/json-ld/playground/index2.html</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: <a href="https://github.com/json-ld/json-ld.org/issues/242">https://github.com/json-ld/json-ld.org/issues/242</a></div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  how should comments be made?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  best is to use GitHub... just raise issues. We'll assign them to Vikash.</div>
+<h1 id="topic-2" class="topic">Topic: RDF-ISSUE-133: Reverse properties</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/issues/133">http://www.w3.org/2011/rdf-wg/track/issues/133</a></div>
+<div class="comment-continuation">... We more or less came to an agreement that we'll keep support for reverse properties</div>
+<div class="comment-continuation">... we got feedback from people that it is an important feature for them</div>
+<div class="comment-continuation">... no requests to take it out</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is a very useful feature as danbri showed on the mailing list</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://gist.github.com/gkellogg/5691913">https://gist.github.com/gkellogg/5691913</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013May/0093.html">http://lists.w3.org/Archives/Public/public-linked-json/2013May/0093.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  looking for that email? [scribe assist by Dave Longley]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Support reverse properties in JSON-LD 1.0.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Support reverse properties in JSON-LD 1.0.</div>
+<h1 id="topic-3" class="topic">Topic: RDF-ISSUE-134: Blank node labeling</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/issues/134">http://www.w3.org/2011/rdf-wg/track/issues/134</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the discussion about this restarted in the RDF WG</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  our position didn't change</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's a meta-discussion about how to deal with bnode predicates</div>
+<div class="comment-continuation">... do we need a flag in toRDF algorithm to only produce valid triples</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  someone on Twitter mapped GeoJSON to JSON-LD</div>
+<div class="comment-continuation">... most predicates are mapped to bnodes</div>
+<div class="comment-continuation">... this is a nice use-case</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  here's the tweet: <a href="https://twitter.com/sgillies/status/341612872683622400">https://twitter.com/sgillies/status/341612872683622400</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  and the JSON file: <a href="http://pleiades.stoa.org/places/628932/json">http://pleiades.stoa.org/places/628932/json</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  nevertheless a flag to control whether only standardized RDF is outputed would be helpful</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  absolutely</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the problem with skolemization is that it happens by using the server's address which might be problematic in some cases</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I think it is fine to skolemize with a fixed URL e.g. w3.org</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Since we just specify it quite generically, isn't this something that has to be done at a layer above the algorithm? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  good point. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes. This is also true for things that have to do with normalization etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Agreed, but we should probably add a note</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add a note to the toRDF() algorithm warning developers that blank node predicates and graph labels will have to be translated before the toRDF() algorithm is run in order to ensure compatability with RDF Concepts 1.1.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We currently have this in the spec:</div>
+<div class="information">"This algorithms converts a JSON-LD document to an RDF dataset. Please note that RDF does not allow a blank node to be used as a graph name or property, while JSON-LD does. JSON-LD-RDF Converters can work around this restriction, when converting JSON-LD to RDF, by converting such blank nodes to IRIs, minting new "Skolem IRIs" as per Replacing Blank Nodes with IRIs of [RDF11-CONCEPTS]."</div>
+<div class="information">isn't that enough?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we may wanna use "may" instead</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think what Markus just put in IRC is enough</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  ok, I would be fine with that</div>
+<div class="comment-continuation">... if you have some arguments please join the discussion in the RDF WG</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have problems seeing us making the same points over and over again</div>
+<div class="comment-continuation">... we made our arguments quite clear I think</div>
+<div class="comment-continuation">... no convincing technical argument against it has been raised so far</div>
+<div class="comment-continuation">... So Sandro, I don't know what you want us to say. I feel like we are repeating ourselves</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  maybe some people didn't see the points you made before so repeating them might help</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I just find it slightly frustrating</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  are you guys willing give up bnode predicates if you get bnode graph labels</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  seems like negotiation which is dangerous if there are technical arguments for features</div>
+<div class="comment-continuation">... the outcome should not be based on politics</div>
+<h1 id="topic-4" class="topic">Topic: RDF-ISSUE-129: Lossless conversion</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/issues/129">http://www.w3.org/2011/rdf-wg/track/issues/129</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The discussion here is around two positions - 1) move conversion from fromRDF to compaction/expansion, 2) keep it in to/from RDF conversion algorithm. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We don't need to add complexity to JSON-LD processors. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We also need to outline how this works in detail... xsd:integer vs. xsd:double, there are details we need to work out. All integers are floats in JavaScript... in certain cases, such as a xsd:double, it would become an integer. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is another argument, if it's done as part of compaction, it could make use of typecasting as a part of a property to get the appropriate format. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Type coercion only applies to strings, it doesn't apply to numbers of booleans. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  If it was a string, type conversion could convert it to a number - it could be converted into a JSON Number. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Are we talking about literal to native types. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Native types don't matter, you could easily do that in RDF transformation phase... it could be integer, double, etc. The problem is the other way arond - going from a number to a stirng. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In order to get appropriate output form. if you had xsd:decimal, and a string "0.2323" - then transformation could generate xsd:decimal in output. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, but that would change our algorithms quite dramatically. Type coercion/language tagging is only used if it's a string. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1 move conversion to expansion/compaction, +1 convert all numeric types to Number</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I haven't used the JSON-LD API</div>
+<div class="comment-continuation">... but my feeling is you want that in expansion/compaction</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I had not used the JSON-LD API ever, so I don't have a lot of weight. My feeling is that you'd want this in expansion/compaction. Even if I'm not going anywhere near RDF, if I get some JSOn-LD from across the net, and my code just wants to deal w/ numbers, it might come in with xsd types on numeric things. I'd want to be able to convert those to numbers. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  the other way I would expect all numbers to go to just xsd:double</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I'd also want something going the other way too, I think. I'd expect all numbers to go to double. Anything else is going to be fuzzy. It's going to be lossy, whatever you do. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  Unless you have more type information. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  One more argument for putting it in expansion/compaction - I want to dissuade people doing this when they convert to RDF. I think it's bad to do this before sending this to some place unknown. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  what we want here is probably something more fine-grained</div>
+<div class="comment-continuation">... you might want to be able to convert just certain things based on your context</div>
+<div class="comment"><span class="name">Dave Longley</span>: compaction option? convertToNativeNumbers: ['xsd:integer', 'foo:bar']</div>
+<div class="comment-continuation">... so we might wanna do it in expansion and compaction</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: How about another routine? NativizeNumbers</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: you can't put all as xsd:double - 9223372036854775807 (max of xsd:long) would become 9223372036854775808 after a trip through xsd:double</div>
+<div class="comment-continuation">... only type-coerced properties would be converted to native types then</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't have strong opinions here</div>
+<div class="comment-continuation">... I think putting it in both places makes sense</div>
+<div class="comment-continuation">... and it also makes sense to be able to control what to convert (e.g. just integers)</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: Grrrrr. Can't connect via VOIP or Telco. Telco gets me a fast busy. VOIP call times out.</div>
+<div class="comment-continuation">... if you get JSON-LD you might wanna re-compact it to get native types</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What Dave said certainly makes sense</div>
+<div class="comment-continuation">... but I think that could be done as a proprietary extension to JSON-LD processors</div>
+<div class="comment-continuation">... do we really need to standardize this?</div>
+<div class="comment-continuation">... This would probably mean that we need through another LC</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I liked Markus proposal to go through RDF conversion to convert literals to native types</div>
+<div class="comment-continuation">... you loose the structure of the document but the use case here is really for data coming from RDF so it shouldn't matter much in practice</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The downside of this is that there isn't any fine-grainded control</div>
+<div class="comment-continuation">... you could potentially loose data</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yeah, but we dealt with this issue for such a long time and this is what we decided to do</div>
+<div class="comment-continuation">... there's not really new information suggesting that we need to change it</div>
+<div class="comment-continuation">... I think following a minimalistic approach is the way to go here</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the initial concern was raised by Sandro</div>
+<div class="comment-continuation">... it was about data fidelity</div>
+<div class="comment-continuation">... in that case just don't convert to native types</div>
+<div class="comment-continuation">... if we change the default value so that there's no data loss that concern should be addressed</div>
+<div class="comment-continuation">... of course there are other options with some advantages but they make the algorithms more complex and probably mean another LC</div>
+<div class="comment-continuation">... so, if we would change the default value of useNativeTypes would that address your concerns Sandro?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  it is not my desired outcome but I could live with it. Also just adding a note making it clear to not send native types over the wire may work</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this buys us time to gain experience how this will be used</div>
+<div class="comment-continuation">... otherwise we might risk introducing other issues in the last minute</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but that doesn't give developers a tool which don't care about RDF to convert literals to native types now</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think what Manu says is that we extend it in the future</div>
+<div class="comment"><span class="name">Dave Longley</span>: s/dave/sandro</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we should at least add a note explaining that RDF roundtripping can be used for this</div>
+<div class="comment-continuation">... I also liked Markus proposal about adding a function wrapping that round-tripping in a simple call</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So the proposal is to change the default value of useNativeTypes to false and add a note explaining the use of RDF round-tripping</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The default value of the useNativeTypes flag should be set to 'false' in the JSON-LD API.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1 (take one from me)</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> The default value of the useNativeTypes flag should be set to 'false' in the JSON-LD API.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add explanatory text to the JSON-LD API specification explaining the risks of the useNativeTypes flag and how to do proper conversion to/from native types using the to/from RDF method call.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could add it to the data round-tripping section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Add explanatory text to the JSON-LD API specification explaining the risks of the useNativeTypes flag and how to do proper conversion to/from native types using the to/from RDF method call.</div>
+<h1 id="topic-5" class="topic">Topic: The Candidate Recommendation Phase</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  When are we going to CR? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We need to do some updates to the spec, maybe in 2-3 weeks. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we also need to stabilize the test suite</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we didn't talk about the other XSD data types</div>
+<div class="comment-continuation">... we currently just support xsd:double and xsd:integer</div>
+<div class="comment-continuation">... what about the other numeric types</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that was something that Pierre-Antoine (or Sandro, can't remember) proposed</div>
+<h1 id="topic-6" class="topic">Topic: Other concerns and news</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: Currenty, fromRDF creates nodes for things that are only in the object position.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We may want to discuss support for xsd:short and other integer types.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We should also discuss issue 253</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: manu-db, I just have one question as I wanted to know how Google is using JSON-LD in GMail?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: vikash, here you go: <a href="http://manu.sporny.org/2013/gmail-json-ld/">http://manu.sporny.org/2013/gmail-json-ld/</a> </div>
+<div class="comment"><span class="name">Manu Sporny</span>: and here <a href="http://manu.sporny.org/2013/json-ld-google-search/">http://manu.sporny.org/2013/json-ld-google-search/</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: thanks :)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. just a note: I held a quick lightning talk last week on JSON-LD at ELAG 2013. Slides here: <a href="http://www.slideshare.net/niklal/something-specificandsimpleniklaslelag2013">http://www.slideshare.net/niklal/something-specificandsimpleniklaslelag2013</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I saw people talking about JSON-LD at #elag2013 and wondered: "How in the hell did they hear about it?!" :P [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: now I know.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  saw a number of very nice comments from the audience during your talk.. lots of "ooh, JSON-LD, gonna have to check it out" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  :) I think the first mention was from Herbert van de Sompel in the keynote though; and it was mentioned in some other talks as well. Which was really nice (and prompted me to talk about it). [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Did you plan to talk about it? Or did you just decide while you were there? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  while I was there. I wrote up the title before I'd decided on the topic. ;) [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. needed to assess what the crowd was interested in. JSON-LD is quite great for library data, which is internally rather minutely detailed and "feels local", but has to be mashable and coordinated with the "wilder" web.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it's a really good slide deck - concise, cuts right to the point. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  thanks! I aimed to make it true to the title. ;) [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: For those that didn't see it yet, schema.org just announced that they're adding JSON-LD as an official format: <a href="http://blog.schema.org/2013/06/schemaorg-and-json-ld.html">http://blog.schema.org/2013/06/schemaorg-and-json-ld.html</a></div>
+<div class="comment"><span class="name">Kuno Woudt</span>: nice!</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: Nice indeed!</div>
+</body>
+</html>
