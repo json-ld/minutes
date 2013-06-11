@@ -1,0 +1,320 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-06-11</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0026.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0026.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">json-ld.org updates</a><li><a href="#topic-2">RDF-ISSUE-135: Government Linked Data (GLD) Working Group Feedback</a><li><a href="#topic-3">ISSUE-253: Reverse term definition modifications</a><li><a href="#topic-4">RDF and JSON-LD Alignment issue.</a><li><a href="#topic-5">Relationship to RDF model in syntax spec should be normative</a><li><a href="#topic-6">Editorial changes to JSON-LD Syntax</a><li><a href="#topic-7">Conversion of blank nodes to Skolemization IDs when going to RDF</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Allow "@container": "@set" for reverse properties.</a><li><a href="#resolution-2">Remove the @type restriction for reverse properties. This also means that a reverse property won't be implicitly type-coerced to @id anymore.</a><li><a href="#resolution-3">Add the following normative text to the JSON-LD Syntax specification: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].</a><li><a href="#resolution-4">Make David Booth's bullet-point addition to the JSON-LD Syntax spec: " * Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."</a><li><a href="#resolution-5">Add spec text to the following effect into the JSON-LD Syntax specification: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</a><li><a href="#resolution-6">Make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF.</a><li><a href="#resolution-7">Add spec text to JSON-LD Syntax. Appendix C: JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Vikash Agrawal, Markus Lanthaler, David Booth, Dave Longley, Gregg Kellogg, Paul Kuykendall, Sandro Hawke</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>: Any updates to the Agenda?</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We need to discuss RDF/JSON-LD alignment</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Need to do a GSoC update :-)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: We have a datatype bug - <a href="https://github.com/json-ld/json-ld.org/issues/257">https://github.com/json-ld/json-ld.org/issues/257</a></div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: json-ld.org updates</h1>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  thanks to markus for help with github etc.</div>
+<div class="comment-continuation">... good web page progress, moving on to the playground. I should be able to integrate my github pull requests soon.</div>
+<h1 id="topic-2" class="topic">Topic: RDF-ISSUE-135: Government Linked Data (GLD) Working Group Feedback</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/issues/135">http://www.w3.org/2011/rdf-wg/track/issues/135</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/254">https://github.com/json-ld/json-ld.org/issues/254</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus has reviewed, fixed and given feedback to GLD on most issues</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  some issues left in the tracker which we need to go through</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ... first point will fold into our next topic (json-ld in relation to rdf)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/254#issuecomment-19156384">https://github.com/json-ld/json-ld.org/issues/254#issuecomment-19156384</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  1.S3 IRI vs. URI/URL</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we've decided upon IRI, since its technically correct</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  changing toRDF algorithm to drop BNodes where not allowed (instead of skolemizing)</div>
+<div class="comment"><span class="name">David Booth</span>: -1 to dropping the data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anyone else for dropping?</div>
+<div class="information">No responses in favor of dropping.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  all the remaining issues are mainly editorial</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can discuss the rest on the mailing list or issue tracker, then</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-253: Reverse term definition modifications</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/253">https://github.com/json-ld/json-ld.org/issues/253</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  when reverse properties were introduced, we did that in a minimal way, restricting e.g. @container to @index</div>
+<div class="comment-continuation">... this is problematic for deterministic compaction, by e.g. ensuring @set</div>
+<div class="comment-continuation">... also, @type: @id makes sense since only IRIs/bnodes are valid subjects – but the form would not be deterministic if mixed references and objects with other values are used</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/253#issuecomment-19168635">https://github.com/json-ld/json-ld.org/issues/253#issuecomment-19168635</a></div>
+<div class="comment-continuation">... I've checked the spec and there are only four minor points which need to be altered, to be considered a bug fix in order to support deterministic shapes</div>
+<div class="comment-continuation">... these to proposals will make this consistent with how other properties work</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  are there downsides other than no automatic type coercion?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  only that the context becomes a bit larger if you only use references, since with this change you have to specify @type: @id explicitly</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Allow "@container": "@set" for reverse properties.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Allow "@container": "@set" for reverse properties.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Remove the @type restriction for reverse properties. This also means that a reverse property won't be implicitly type-coerced to @id anymore.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  was this marked as at risk?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the entire feature was it, yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this fix is in response to LC feedback</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and this is considered a bug fix for an inconsistency</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Remove the @type restriction for reverse properties. This also means that a reverse property won't be implicitly type-coerced to @id anymore.</div>
+<h1 id="topic-4" class="topic">Topic: RDF and JSON-LD Alignment issue.</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we've had a number of RDF/JSON-LD alignment discussions throughout this work</div>
+<div class="comment"><span class="name">David Booth</span>: Can we separate the issues of the re-definition of "Linked Data" from other alignment issues, to eat the elephant one piece at a time?</div>
+<div class="comment-continuation">... we've tried to find an acceptable balance, but the last days” discussion show this is not the case</div>
+<div class="comment-continuation">... let's focus on specific proposals to +1/-1 on</div>
+<div class="comment-continuation">... there are some editorial and some normative suggestions. Maybe we can start with background on your major concerns, David (Booth)?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: yes</div>
+<div class="comment"><span class="name">David Booth</span>:  let's focus on the (re)definition of Linked Data separately</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: (leaving IRC)</div>
+<div class="comment-continuation">... that term is very important in the semweb community, and it's important to not redefine it</div>
+<div class="comment-continuation">... With respect to the normative stuff; based on discussions with gregg, the WG intended the RDF alignment to be normative originally..</div>
+<div class="comment-continuation">... i.e. the mapping to the RDF model</div>
+<div class="comment-continuation">... this is not apparent by reading the syntax spec</div>
+<div class="comment-continuation">... it explicitly says that it is not normative. This sounds like an editorial issue.</div>
+<div class="comment-continuation">... Separately, I also suggest that the skolemization of graph/predicate bnodes is made normative</div>
+<div class="comment"><span class="name">Dave Longley</span>: three issues: 1. linked data redefinition, 2. relationship to RDF model in syntax spec should be normative (editorial), 3. skolemization should be normative</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so three issues in total: 1) Linked Data definition, 2) normative relation to the RDF model 3) normative skolemization [correct?]</div>
+<h1 id="topic-5" class="topic">Topic: Relationship to RDF model in syntax spec should be normative</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think the CG agrees in principle</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  as I recall, we tried to avoid circular dependencies</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we did it since the API spec might not progress at the same rate</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I think david's wording from yesterday is that the mapping is provided normatively in the other spec; but the syntax spec doesn't reference it normatively</div>
+<div class="comment"><span class="name">David Booth</span>:  making this reference normative would address my issue</div>
+<div class="comment"><span class="name">David Booth</span>:  a question regarding the conformance statement, is that complete? let's leave that for now, to avoid confusiin</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  since we are on separate timelines, the RDF 1.1 is behind us, possibly slowing JSON-LD down [correct?]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so if we make the statement normative, that this is now to map to RDF, that is enough?</div>
+<div class="comment"><span class="name">David Booth</span>:  yes</div>
+<div class="comment"><span class="name">David Booth</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0074.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0074.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld/#relationship-to-rdf">http://json-ld.org/spec/latest/json-ld/#relationship-to-rdf</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we also need to reference to the RDF 1.1 concepts in this statement, in the syntax spec?</div>
+<div class="comment"><span class="name">David Booth</span>: I'm proposing we make this change: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I would be fine with that change</div>
+<div class="comment"><span class="name">David Booth</span>:  interpreting as RDF, and serializing as JSON-LD</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  think of how this would read if it were turtle: we don't want to paint a difference that's not there</div>
+<div class="comment"><span class="name">David Booth</span>:  agreed</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  in turtle and rdf/xml, we can just say parsing as RDF, but jn JSON-LD, it's more about converting to..</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add the following normative text to the JSON-LD Syntax specification: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: could you add "in section C. Relationship to RDF"?</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1 (but should align the language with the changes requested in the JSON-LD API spec)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1, if this goes into section C. Relationship to RDF</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we divided this up like this because we wanted to explain the tech clearly, and the best place for conversion is in the algorithms spec, because it is very detailed</div>
+<div class="comment"><span class="name">David Booth</span>:  put pat hayes' point in an appendix?</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Add the following normative text to the JSON-LD Syntax specification: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  though those details are not for the intended audience</div>
+<div class="comment"><span class="name">David Booth</span>:  I'm fine with this change</div>
+<h1 id="topic-6" class="topic">Topic: Editorial changes to JSON-LD Syntax</h1>
+<div class="comment"><span class="name">David Booth</span>: What about this change, in section 1</div>
+<div class="comment"><span class="name">David Booth</span>: <a href="https://dvcs.w3.org/hg/json-ld/raw-file/default/spec/latest/json-ld/index.html#introduction">https://dvcs.w3.org/hg/json-ld/raw-file/default/spec/latest/json-ld/index.html#introduction</a></div>
+<div class="comment"><span class="name">David Booth</span>: Make the following editorial change to clarify and move the mention of RDF slightly later in the document. Delete the sentence: "Developers that require any of the facilities listed above or need to serialize anRDF graph or dataset [RDF11-CONCEPTS] in a JSON-based syntax will find JSON-LD of interest.". Instead, add the following bullet item to the existing bullet list in section 1.1:</div>
+<div class="comment"><span class="name">David Booth</span>: - "Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a parallell proposal is sandro's proposal</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Sandro proposed: JSON-LD was designed to be compatible with Semantic Web technologies like RDF and SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I think I prefer david's proposal</div>
+<div class="comment"><span class="name">David Booth</span>: I would be fine with either one. I like Sandro's mention of Appendix C though.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I like both, sando's could go elsewhere</div>
+<div class="comment"><span class="name">David Booth</span>: +1 to using both, with sandro's later</div>
+<div class="comment"><span class="name">Dave Longley</span>:  though "compatible with" might send the wrong signal about a difference that's not there</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  good to note that also JSON usage is taken into account</div>
+<div class="comment"><span class="name">David Booth</span>: yes, tweak sandro's to change "compatible with"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the note should be crystal clear that these are not considered as alternative technologies</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  JSON-LD allows you to write idiomatic JSON, but have it interpreted as RDF [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  spell out that JSON-LD allows you to write idiomatic JSON, *and* to interpret it as RDF (c.f. RDFa allowing you to write HTML..)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  david wood asked us to add that sentence at the end of the introduction (suggested to be deleted)</div>
+<div class="comment-continuation">... we should not do that without consulting David Wood.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Make David Booth's bullet-point addition to the JSON-LD Syntax spec: " * Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Make David Booth's bullet-point addition to the JSON-LD Syntax spec: " * Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."</div>
+<div class="comment"><span class="name">David Booth</span>: Proposed revision of Sandro's text: JSON-LD was designed to be usable directly as JSON, but also as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  making it clear that neither RDF nor SPARQL is needed to use JSON-LD, but also that it is designed to work as RDF</div>
+<div class="comment"><span class="name">David Booth</span>: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add spec text to the following effect into the JSON-LD Syntax specification: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 to that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1... could probably go into design goals</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Add spec text to the following effect into the JSON-LD Syntax specification: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</div>
+<div class="comment"><span class="name">David Booth</span>: What about this change? 4. Without adding any earlier mention of RDF than the JSON-LD spec already contains, make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF. (However it is fine to say that JSON-LD does not need to be *processed* as RDF.)</div>
+<div class="comment"><span class="name">David Booth</span>: Example: Change "Converting JSON-LD to RDF" to either "Interpreting JSON-LD as RDF" or "Converting a JSON-LD model to an RDF model".</div>
+<div class="comment"><span class="name">David Booth</span>:  not say "converted to", but rather "interpreted as"</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: fine with "interpreting"</div>
+<div class="comment"><span class="name">Dave Longley</span>: yeah, that's fine</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1 to interpreting ...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: algorithm names would sound a bit weird though</div>
+<div class="comment"><span class="name">Dave Longley</span>: For algorithms, maybe "produce RDF abstract syntax from JSON-LD"?</div>
+<div class="comment"><span class="name">David Booth</span>: What about making other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF. (However it is fine to say that JSON-LD does not need to be *processed* as RDF.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dlongley, who understands what an abstract syntax is?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: :-)</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dbooth, pull requests are welcome :-P</div>
+<div class="comment"><span class="name">David Booth</span>: And this change? 5. At the beginning of appendix C insert: "JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  though that hinges on the difference on bnode usage and native datatypes basically you can do those 4 bullet points in appendix c in JSON-LD, but not according RDF 1.1 concepts.</div>
+<div class="comment"><span class="name">David Booth</span>:  so this is tied to the other topic</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there are other differences, like the @ındex feature which are purely syntactical stuff</div>
+<div class="comment"><span class="name">David Booth</span>:  but that's ok</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  though those could be considered part of the json-ld data model</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  like the native list and native numbers</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but turtle has syntactically "native" lists</div>
+<div class="comment"><span class="name">Dave Longley</span>: can we just say: "JSON-LD can be interpreted as a concrete RDF syntax" ?</div>
+<div class="comment"><span class="name">Dave Longley</span>: since there's a mapping?</div>
+<div class="comment"><span class="name">David Booth</span>:  but that's an effect of the syntactic form, which isn't a problem in relation to the abstract syntax</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't see a problem either, but others in the RDF WG had...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the option to transform numbers to native json numbers could change this (to enable this interpretation of the model relationship)</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I think they complained because it wasn't true at the time. But I think we've just about fixed this, except maybe for skolemization.</div>
+<div class="comment"><span class="name">David Booth</span>: My understanding is that this wording does reflect the intent of the working group, and just makes it clearer.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0086.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0086.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: So we got already a first response</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add spec text to JSON-LD Syntax. Appendix C: JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.5</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div class="comment"><span class="name">Manu Sporny</span>: sandro: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> Add spec text to JSON-LD Syntax. Appendix C: JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model.</div>
+<h1 id="topic-7" class="topic">Topic: Conversion of blank nodes to Skolemization IDs when going to RDF</h1>
+<div class="comment"><span class="name">David Booth</span>: This proposal? 1. In RDF conversion algorithms in JSON-LD 1.0 Processing Algorithms and API, <a href="http://json-ld.org/spec/latest/json-ld-api/#rdf-conversion-algorithms">http://json-ld.org/spec/latest/json-ld-api/#rdf-conversion-algorithms</a></div>
+<div class="comment"><span class="name">David Booth</span>: specify that **when JSON-LD is interpreted as RDF,** (i.e., when the JSON-LD model is converted to the RDF model) skolem IRIs MUST be generated using the well-known URI suffix "json-ld-genid" for any JSON-LD blank node that would otherwise be mapped to an RDF blank node in a position where an RDF blank node is not permitted. Conversely, when RDF is serialized as JSON-LD (or when an RDF model is converted to a JSON-LD model), skolem IRIs having the well-known URI suffix "json-ld-genid" SHOULD be serialized as JSON-LD blank nodes. Finally, register the well-known URI suffix "json-ld-genid", in accordance with RFC5785: <a href="http://tools.ietf.org/html/rfc5785">http://tools.ietf.org/html/rfc5785</a></div>
+<div class="comment"><span class="name">David Booth</span>: BACKGROUND NOTE: The existing well-known URI suffix "genid" is for converting to/from RDF blank nodes (in positions where blank nodes are *permitted* in RDF), whereas "json-ld-genid" will be used for *avoiding* blank nodes (in positions where they are not allowed in RDF).</div>
+<div class="comment"><span class="name">David Booth</span>:  some discussion about the well-known suffix name (sandro suggested another one I'm fine with), or use the existing name gen-id, created by the RDF WG. Though those would make it harder for streaming processors to directly convert to bnodes without looking at the context.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I think it is always legal, specifically to convert skolemized IRIs</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I think it's better to use normal gen-id:s</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you end up with heaps of clashing bnode id:s</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this is the decentralized identification problem</div>
+<div class="comment"><span class="name">David Booth</span>: The whole point of well-known suffixes is to prevent clashes while allowing distributed minting of IRIs.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  every time we discuss this, we go through the same line of argumentation. First we propose skolem IDs, then we note that skolem IDs can't be rooted in the same namespace, then we decide that skolem IDs need to be generated in a very specific way, then we back up to RDF Graph Normalization as the correct approach to the problem, then we throw our hands up because the problem is more complicated than we want it to be.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  skolem id:S is not a solution to this probglem</div>
+<div class="comment"><span class="name">David Booth</span>:  this is not true; it is a solved problem, based on the well known suffixes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you control the domain, yes</div>
+<div class="comment-continuation">... in that case, we cannot say that there is a specific domain space for thi</div>
+<div class="comment-continuation">... if your system doesn't understand bnodes in these positions, you need a callback to provide a skolem id which is unique to your system</div>
+<div class="comment"><span class="name">David Booth</span>:  and use that well-known suffix, so that it is predictably recognized</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  isn't that what we are currently saying in the spec?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's not in the API</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but the algorithm spec says this [correct?]</div>
+<div class="comment"><span class="name">David Booth</span>:  my point is that it should say MUST replace them</div>
+<div class="comment"><span class="name">David Booth</span>:  there is no RDF system which supports this</div>
+<div class="comment-continuation">... the point is strict alignment</div>
+<div class="comment-continuation">... if one person takes a JSON-LD document and serialize it into Turtle, and another person does the same, the result is essentially the same</div>
+<div class="comment-continuation">... there is a difference between the JSON-LD blank node and RDF blank node</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but you can use it in the object position and the graph id position at the same time</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but since the graph id does not denote the graph, it's semantically not a problem</div>
+<div class="comment-continuation">... in practise though, it would be</div>
+<div class="comment-continuation">... the dictum should be that if a blank node is converted (skolemized) – *all* identifiers must be changed accordinly</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so a skolemized iri is a bnode?</div>
+<div class="comment"><span class="name">David Booth</span>:  no</div>
+<div class="comment"><span class="name">David Booth</span>: yes, it is a hack to make it work around a shortcoming in the RDF model</div>
+<div class="comment"><span class="name">David Booth</span>:  this is only for people wanting to interpret this as RDF</div>
+<div class="comment"><span class="name">Dave Longley</span>:  using graph normalization to compare this regardless of syntax, this can be a prblem</div>
+<div class="comment-continuation">... the skolemization of (certain) bnodes makes the normalization complex</div>
+<div class="comment"><span class="name">David Booth</span>: Yes, the normalization algorithm may need to know about the well-known IRI suffixes.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  a gen-id is not a blank node. it's complex and annoying, but useful.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: would like to quickly resolve this: <a href="https://github.com/json-ld/json-ld.org/issues/257">https://github.com/json-ld/json-ld.org/issues/257</a></div>
+<div class="comment"><span class="name">David Booth</span>:  it is a shortcoming which is nowhere near going away, so it should he handled</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we need to check with the RDF concepts and see if it says what we need</div>
+<div class="comment"><span class="name">David Booth</span>:  so, postpone and discuss more with the RDF WG?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/257#issuecomment-19169738">https://github.com/json-ld/json-ld.org/issues/257#issuecomment-19169738</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: maybe we can resolve this directly in the issue tracker, the datatype issue: <a href="https://github.com/json-ld/json-ld.org/issues/257#issuecomment-19169738">https://github.com/json-ld/json-ld.org/issues/257#issuecomment-19169738</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: should be easy to resolve that</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ah right, let's try to resolve via issue tracker, then do a proposal next week</div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+[Tue 10:04]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0026.html
+[Tue 10:05]	<manu-db>	Any updates to the Agenda?
+[Tue 10:05]	<manu-db>	We need to discuss RDF/JSON-LD alignment
+[Tue 10:05]	<vikash>	Need to do a GSoC update :-)
+[Tue 10:05]	<mlnt>	We have a datatype bug - https://github.com/json-ld/json-ld.org/issues/257
+[Tue 10:06]	<manu-db>	scribe: niklasl
+[Tue 10:06]	<manu-db>	Topic: json-ld.org updates
+[Tue 10:06]	<niklasl>	vikash: thanks to markus for help with github etc.
+[Tue 10:06]	* manu-db	thinks that might have been dlongley? :)
+[Tue 10:07]	<niklasl>	... good web page progress, moving on to the playground. I should be able to integrate my github pull requests soon.
+[Tue 10:07]	* gkellogg	I think it was markus
+[Tue 10:07]	* mlnt	maybe both of us :-)
+[Tue 10:07]	* dlongley	yeah, maybe both
+[Tue 10:08]	<manu-db>	Topic: RDF-ISSUE-135: Government Linked Data (GLD) Working Group Feedback
+[Tue 10:08]	<manu-db>	http://www.w3.org/2011/rdf-wg/track/issues/135
+[Tue 10:08]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/254
+[Tue 10:08]	<niklasl>	manu: markus has reviewed, fixed and given feedback to GLD on most issues
+[Tue 10:09]	<niklasl>	markus: some issues left in the tracker which we need to go through
+[Tue 10:10]	<niklasl>	manu: ... first point will fold into our next topic (json-ld in relation to rdf)
+[Tue 10:10]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/254#issuecomment-19156384
+[Tue 10:11]	<niklasl>	markus: 1.S3 IRI vs. URI/URL
+[Tue 10:11]	<niklasl>	manu: we've decided upon IRI, since its technically correct
+[Tue 10:11]	<niklasl>	markus: changing toRDF algorithm to drop BNodes where not allowed (instead of skolemizing)
+[Tue 10:12]	<dbooth>	-1 to dropping the data
+[Tue 10:12]	<niklasl>	manu: anyone else for dropping?
+[Tue 10:13]	<niklasl>	No responses in favor of dropping.
+[Tue 10:13]	<niklasl>	markus: all the remaining issues are mainly editorial
+[Tue 10:13]	<niklasl>	manu: we can discuss the rest on the mailing list or issue tracker, then
+[Tue 10:14]	<manu-db>	Topic: ISSUE-253: Reverse term definition modifications
+[Tue 10:14]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/253
+[Tue 10:14]	* dbooth	has plenty of time today
+[Tue 10:15]	<niklasl>	markus: when reverse properties were introduced, we did that in a minimal way, restricting e.g. @container to @index
+[Tue 10:16]	<niklasl>	... this is problematic for deterministic compaction, by e.g. ensuring @set
+[Tue 10:17]	<niklasl>	... also, @type: @id makes sense since only IRIs/bnodes are valid subjects – but the form would not be deterministic if mixed references and objects with other values are used
+[Tue 10:17]	<voip-ld>	Dave Lehn (SIP/6003-00000210) has joined the conference.
+[Tue 10:17]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/253#issuecomment-19168635
+[Tue 10:17]	<niklasl>	... I've checked the spec and there are only four minor points which need to be altered, to be considered a bug fix in order to support deterministic shapes
+[Tue 10:18]	<niklasl>	... these to proposals will make this consistent with how other properties work
+[Tue 10:19]	<niklasl>	manu: are there downsides other than no automatic type coercion?
+[Tue 10:19]	<niklasl>	markus: only that the context becomes a bit larger if you only use references, since with this change you have to specify @type: @id explicitly
+[Tue 10:20]	<manu-db>	PROPOSAL: Allow "@container": "@set" for reverse properties.
+[Tue 10:20]	<niklasl>	+1
+[Tue 10:20]	<dlongley>	+1
+[Tue 10:20]	<mlnt>	+1
+[Tue 10:20]	<manu-db>	+1
+[Tue 10:20]	<gkellogg>	+1
+[Tue 10:21]	<pkuyken>	+1
+[Tue 10:21]	<vikash>	+1
+[Tue 10:21]	<manu-db>	RESOLVED: Allow "@container": "@set" for reverse properties.
+[Tue 10:21]	<manu-db>	PROPOSAL: Remove the @type restriction for reverse properties. This also means that a reverse property won't be implicitly type-coerced to @id anymore.
+[Tue 10:21]	<mlnt>	+1
+[Tue 10:21]	<dlongley>	+1
+[Tue 10:21]	<manu-db>	+1
+[Tue 10:22]	<pkuyken>	+1
+[Tue 10:22]	<gkellogg>	+1
+[Tue 10:22]	<niklasl>	+1
+[Tue 10:22]	<niklasl>	manu: was this marked as at risk?
+[Tue 10:22]	<niklasl>	markus: the entire feature was it, yes
+[Tue 10:22]	<niklasl>	gregg: this fix is in response to LC feedback
+[Tue 10:23]	<niklasl>	manu: and this is considered a bug fix for an inconsistency
+[Tue 10:23]	<manu-db>	RESOLVED: Remove the @type restriction for reverse properties. This also means that a reverse property won't be implicitly type-coerced to @id anymore.
+[Tue 10:24]	<manu-db>	Topic: RDF and JSON-LD Alignment issue.
+[Tue 10:24]	* mlnt	sorry :-)
+[Tue 10:24]	<niklasl>	manu: we've had a number of RDF/JSON-LD alignment discussions throughout this work
+[Tue 10:25]	<dbooth>	Can we separate the issues of the re-definition of "Linked Data" from other alignment issues, to eat the elephant one piece at a time?
+[Tue 10:25]	<niklasl>	... we've tried to find an acceptable balance, but the last days” discussion show this is not the case
+[Tue 10:26]	<niklasl>	... let's focus on specific proposals to +1/-1 on
+[Tue 10:26]	<niklasl>	... there are some editorial and some normative suggestions. Maybe we can start with background on your major concerns, David (Booth)?
+[Tue 10:26]	<voip-ld>	<unknown> (IAX2/diamondcard-8154) has joined the conference.
+[Tue 10:27]	* dlongley	is that sandro that just joined?
+[Tue 10:27]	<sandro>	yes
+[Tue 10:27]	<manu-db>	voip: 8154 is sandro
+[Tue 10:27]	<voip-ld>	sandro is now associated with IAX2/diamondcard-8154.
+[Tue 10:27]	<niklasl>	dbooth: let's focus on the (re)definition of Linked Data separately
+[Tue 10:27]	<sandro>	(leaving IRC)
+[Tue 10:27]	<niklasl>	... that term is very important in the semweb community, and it's important to not redefine it
+[Tue 10:28]	<niklasl>	... With respect to the normative stuff; based on discussions with gregg, the WG intended the RDF alignment to be normative originally..
+[Tue 10:28]	<niklasl>	... i.e. the mapping to the RDF model
+[Tue 10:28]	<niklasl>	... this is not apparent by reading the syntax spec
+[Tue 10:28]	<niklasl>	... it explicitly says that it is not normative. This sounds like an editorial issue.
+[Tue 10:29]	<niklasl>	... Separately, I also suggest that the skolemization of graph/predicate bnodes is made normative
+[Tue 10:29]	<dlongley>	three issues: 1. linked data redefinition, 2. relationship to RDF model in syntax spec should be normative (editorial), 3. skolemization should be normative
+[Tue 10:30]	<niklasl>	manu: so three issues in total: 1) Linked Data definition, 2) normative relation to the RDF model 3) normative skolemization [correct?]
+[Tue 10:30]	<manu-db>	Topic: Relationship to RDF model in syntax spec should be normative
+[Tue 10:31]	<niklasl>	manu: I think the CG agrees in principle
+[Tue 10:31]	<niklasl>	gregg: as I recall, we tried to avoid circular dependencies
+[Tue 10:31]	<niklasl>	manu: we did it since the API spec might not progress at the same rate
+[Tue 10:32]	<niklasl>	sandro: I think david's wording from yesterday is that the mapping is provided normatively in the other spec; but the syntax spec doesn't reference it normatively
+[Tue 10:32]	<niklasl>	dbooth: making this reference normative would address my issue
+[Tue 10:33]	<niklasl>	dbooth: a question regarding the conformance statement, is that complete? let's leave that for now, to avoid confusiin
+[Tue 10:34]	<niklasl>	gregg: since we are on separate timelines, the RDF 1.1 is behind us, possibly slowing JSON-LD down [correct?]
+[Tue 10:34]	<niklasl>	manu: so if we make the statement normative, that this is now to map to RDF, that is enough?
+[Tue 10:34]	<niklasl>	dbooth: yes
+[Tue 10:35]	<dbooth>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0074.html
+[Tue 10:35]	<mlnt>	http://json-ld.org/spec/latest/json-ld/#relationship-to-rdf
+[Tue 10:35]	<niklasl>	manu: do we also need to reference to the RDF 1.1 concepts in this statement, in the syntax spec?
+[Tue 10:35]	<dbooth>	I'm proposing we make this change: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].
+[Tue 10:35]	<mlnt>	I would be fine with that change
+[Tue 10:37]	<niklasl>	dbooth: interpreting as RDF, and serializing as JSON-LD
+[Tue 10:37]	<niklasl>	gregg: think of how this would read if it were turtle: we don't want to paint a difference that's not there
+[Tue 10:37]	<niklasl>	dbooth: agreed
+[Tue 10:38]	<niklasl>	sandro: in turtle and rdf/xml, we can just say parsing as RDF, but jn JSON-LD, it's more about converting to..
+[Tue 10:38]	<manu-db>	PROPOSAL: Add the following normative text to the JSON-LD Syntax specification: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].
+[Tue 10:38]	-->|	vikash_ (~vikash@122.177.46.25) has joined #json-ld
+[Tue 10:38]	<dbooth>	+1
+[Tue 10:38]	<manu-db>	+1
+[Tue 10:38]	<niklasl>	+1
+[Tue 10:38]	<gkellogg>	+1
+[Tue 10:38]	<mlnt>	could you add "in section C. Relationship to RDF"?
+[Tue 10:38]	<pkuyken>	+1
+[Tue 10:39]	<dlongley>	+1 (but should align the language with the changes requested in the JSON-LD API spec)
+[Tue 10:39]	<mlnt>	+1, if this goes into section C. Relationship to RDF
+[Tue 10:39]	<niklasl>	manu: we divided this up like this because we wanted to explain the tech clearly, and the best place for conversion is in the algorithms spec, because it is very detailed
+[Tue 10:40]	<niklasl>	dbooth: put pat hayes' point in an appendix?
+[Tue 10:40]	<manu-db>	RESOLVED: Add the following normative text to the JSON-LD Syntax specification: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].
+[Tue 10:40]	<niklasl>	manu: though those details are not for the intended audience
+[Tue 10:40]	<niklasl>	dbooth: I'm fine with this change
+[Tue 10:41]	|<--	vikash has left freenode (Ping timeout: 256 seconds)
+[Tue 10:41]	<manu-db>	Topic: Editorial changes to JSON-LD Syntax
+[Tue 10:41]	<dbooth>	What about this change, in section 1
+[Tue 10:41]	<dbooth>	https://dvcs.w3.org/hg/json-ld/raw-file/default/spec/latest/json-ld/index.html#introduction
+[Tue 10:41]	<dbooth>	Make the following editorial change to clarify and move the mention of RDF slightly later in the document. Delete the sentence: "Developers that require any of the facilities listed above or need to serialize anRDF graph or dataset [RDF11-CONCEPTS] in a JSON-based syntax will find JSON-LD of interest.". Instead, add the following bullet item to the existing bullet list in section 1.1:
+[Tue 10:41]	<dbooth>	- "Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."
+[Tue 10:42]	* vikash_	Electricity had gone :(
+[Tue 10:42]	<voip-ld>	ivikash (SIP/sip2sip.info-00000211) has joined the conference.
+[Tue 10:42]	<niklasl>	manu: a parallell proposal is sandro's proposal
+[Tue 10:42]	<manu-db>	Sandro proposed: JSON-LD was designed to be compatible with Semantic Web technologies like RDF and SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.
+[Tue 10:42]	<niklasl>	sandro: I think I prefer david's proposal
+[Tue 10:43]	<dbooth>	I would be fine with either one. I like Sandro's mention of Appendix C though.
+[Tue 10:44]	<niklasl>	gregg: I like both, sando's could go elsewhere
+[Tue 10:44]	<dbooth>	+1 to using both, with sandro's later
+[Tue 10:44]	<niklasl>	dlongley: though "compatible with" might send the wrong signal about a difference that's not there
+[Tue 10:45]	<niklasl>	gregg: good to note that also JSON usage is taken into account
+[Tue 10:45]	<dbooth>	yes, tweak sandro's to change "compatible with"
+[Tue 10:45]	<niklasl>	manu: the note should be crystal clear that these are not considered as alternative technologies
+[Tue 10:46]	<manu-db>	gkellogg: JSON-LD allows you to write idiomatic JSON, but have it interpreted as RDF
+[Tue 10:47]	<niklasl>	gregg: spell out that JSON-LD allows you to write idiomatic JSON, *and* to interpret it as RDF (c.f. RDFa allowing you to write HTML..)
+[Tue 10:48]	<niklasl>	markus: david wood asked us to add that sentence at the end of the introduction (suggested to be deleted)
+[Tue 10:48]	<niklasl>	... we should not do that without consulting David Wood.
+[Tue 10:49]	<manu-db>	PROPOSAL: Make David Booth's bullet-point addition to the JSON-LD Syntax spec: " * Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."
+[Tue 10:49]	<manu-db>	+1
+[Tue 10:49]	<dlongley>	+1
+[Tue 10:49]	<niklasl>	+1
+[Tue 10:50]	<mlnt>	+1
+[Tue 10:50]	<gkellogg>	+1
+[Tue 10:50]	<pkuyken>	+1
+[Tue 10:50]	<dbooth>	+1
+[Tue 10:50]	<manu-db>	RESOLVED: Make David Booth's bullet-point addition to the JSON-LD Syntax spec: " * Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."
+[Tue 10:50]	<dbooth>	Proposed revision of Sandro's text: JSON-LD was designed to be usable directly as JSON, but also as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.
+[Tue 10:51]	<niklasl>	manu: making it clear that neither RDF nor SPARQL is needed to use JSON-LD, but also that it is designed to work as RDF
+[Tue 10:52]	<dbooth>	JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.
+[Tue 10:52]	<manu-db>	PROPOSAL: Add spec text to the following effect into the JSON-LD Syntax specification: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.
+[Tue 10:52]	<niklasl>	+1 to that
+[Tue 10:52]	<gkellogg>	+1
+[Tue 10:52]	<dlongley>	+1
+[Tue 10:52]	<dbooth>	+1
+[Tue 10:52]	<manu-db>	+1
+[Tue 10:52]	<mlnt>	+1... could probably go into design goals
+[Tue 10:52]	<pkuyken>	+1
+[Tue 10:53]	<vikash_>	+1
+[Tue 10:53]	<manu-db>	RESOLVED: Add spec text to the following effect into the JSON-LD Syntax specification: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.
+[Tue 10:53]	<dbooth>	What about this change? 4. Without adding any earlier mention of RDF than the JSON-LD spec already contains, make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF. (However it is fine to say that JSON-LD does not need to be *processed* as RDF.)
+[Tue 10:53]	<dbooth>	Example: Change "Converting JSON-LD to RDF" to either "Interpreting JSON-LD as RDF" or "Converting a JSON-LD model to an RDF model".
+[Tue 10:54]	<niklasl>	dbooth: not say "converted to", but rather "interpreted as"
+[Tue 10:54]	<mlnt>	fine with "interpreting"
+[Tue 10:54]	* niklasl	too
+[Tue 10:54]	<dlongley>	yeah, that's fine
+[Tue 10:54]	<gkellogg>	+1 to interpreting ...
+[Tue 10:54]	<mlnt>	algorithm names would sound a bit weird though
+[Tue 10:55]	<dlongley>	For algorithms, maybe "produce RDF abstract syntax from JSON-LD"?
+[Tue 10:55]	<dbooth>	What about making other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF. (However it is fine to say that JSON-LD does not need to be *processed* as RDF.)
+[Tue 10:55]	<mlnt>	dlongley, who understands what an abstract syntax is?
+[Tue 10:55]	<mlnt>	:-)
+[Tue 10:55]	<manu-db>	PROPOSAL: Make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF.
+[Tue 10:55]	<gkellogg>	+1
+[Tue 10:55]	<niklasl>	+1
+[Tue 10:55]	<dlongley>	+1
+[Tue 10:55]	<manu-db>	+1
+[Tue 10:55]	<vikash_>	+1
+[Tue 10:55]	<dbooth>	+1
+[Tue 10:55]	<pkuyken>	+1
+[Tue 10:56]	<mlnt>	+1
+[Tue 10:56]	<manu-db>	RESOLVED: Make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF.
+[Tue 10:56]	<mlnt>	dbooth, pull requests are welcome :-P
+[Tue 10:56]	<dbooth>	And this change? 5. At the beginning of appendix C insert: "JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model."
+[Tue 10:57]	<niklasl>	manu: though that hinges on the difference on bnode usage and native datatypes basically you can do those 4 bullet points in appendix c in JSON-LD, but not according RDF 1.1 concepts.
+[Tue 10:58]	<niklasl>	dbooth: so this is tied to the other topic
+[Tue 10:59]	* pkuyken	dropping. I have another meeting.
+[Tue 10:59]	* mlnt	bye
+[Tue 10:59]	<voip-ld>	pkuyken (IAX2/diamondcard-2728) has left the conference.
+[Tue 10:59]	* dlongley	bye pkuyken!
+[Tue 11:00]	<niklasl>	gregg: there are other differences, like the @ındex feature which are purely syntactical stuff
+[Tue 11:00]	<niklasl>	dbooth: but that's ok
+[Tue 11:00]	<niklasl>	gregg: though those could be considered part of the json-ld data model
+[Tue 11:00]	<niklasl>	manu: like the native list and native numbers
+[Tue 11:00]	* dbooth	notes that we are now discussing substantive change proposal
+[Tue 11:00]	<niklasl>	gregg: but turtle has syntactically "native" lists
+[Tue 11:00]	<dlongley>	can we just say: "JSON-LD can be interpreted as a concrete RDF syntax" ?
+[Tue 11:00]	<dlongley>	since there's a mapping?
+[Tue 11:00]	* niklasl	on that note, turtle has native datatypes too, or rather sugar for booleans, ints and doubles
+[Tue 11:01]	<niklasl>	dbooth: but that's an effect of the syntactic form, which isn't a problem in relation to the abstract syntax
+[Tue 11:01]	<niklasl>	manu: I don't see a problem either, but others in the RDF WG had...
+[Tue 11:03]	<niklasl>	gregg: the option to transform numbers to native json numbers could change this (to enable this interpretation of the model relationship)
+[Tue 11:04]	<niklasl>	sandro: I think they complained because it wasn't true at the time. But I think we've just about fixed this, except maybe for skolemization.
+[Tue 11:06]	<dbooth>	My understanding is that this wording does reflect the intent of the working group, and just makes it clearer.
+[Tue 11:06]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0086.html
+[Tue 11:07]	<mlnt>	So we got already a first response
+[Tue 11:08]	<manu-db>	PROPOSAL: Add spec text to JSON-LD Syntax. Appendix C: JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model.
+[Tue 11:08]	<manu-db>	+0.5
+[Tue 11:08]	<gkellogg>	+1
+[Tue 11:08]	<dbooth>	+1
+[Tue 11:08]	<niklasl>	+1
+[Tue 11:08]	<dlongley>	+1
+[Tue 11:08]	<mlnt>	+0
+[Tue 11:08]	-->|	jmv (~jmvanel@39.116.115.78.rev.sfr.net) has joined #json-ld
+[Tue 11:10]	<manu-db>	sandro: +1
+[Tue 11:10]	<manu-db>	RESOLVED: Add spec text to JSON-LD Syntax. Appendix C: JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model.
+[Tue 11:11]	<manu-db>	Topic: Conversion of blank nodes to Skolemization IDs when going to RDF
+[Tue 11:11]	<dbooth>	This proposal? 1. In RDF conversion algorithms in JSON-LD 1.0 Processing Algorithms and API, http://json-ld.org/spec/latest/json-ld-api/#rdf-conversion-algorithms
+[Tue 11:11]	<dbooth>	specify that **when JSON-LD is interpreted as RDF,** (i.e., when the JSON-LD model is converted to the RDF model) skolem IRIs MUST be generated using the well-known URI suffix "json-ld-genid" for any JSON-LD blank node that would otherwise be mapped to an RDF blank node in a position where an RDF blank node is not permitted. Conversely, when RDF is serialized as JSON-LD (or when an RDF model is converted to a JSON-LD model), skolem IRIs having the well-known URI suffix "json-ld-genid" SHOULD be serialized as JSON-LD blank nodes. Finally, register the well-known URI suffix "json-ld-genid", in accordance with RFC5785: http://tools.ietf.org/html/rfc5785
+[Tue 11:11]	<dbooth>	BACKGROUND NOTE: The existing well-known URI suffix "genid" is for converting to/from RDF blank nodes (in positions where blank nodes are *permitted* in RDF), whereas "json-ld-genid" will be used for *avoiding* blank nodes (in positions where they are not allowed in RDF).
+[Tue 11:13]	<niklasl>	dbooth: some discussion about the well-known suffix name (sandro suggested another one I'm fine with), or use the existing name gen-id, created by the RDF WG. Though those would make it harder for streaming processors to directly convert to bnodes without looking at the context.
+[Tue 11:14]	<niklasl>	sandro: I think it is always legal, specifically to convert skolemized IRIs
+[Tue 11:15]	<niklasl>	sandro: I think it's better to use normal gen-id:s
+[Tue 11:15]	<niklasl>	markus: you end up with heaps of clashing bnode id:s
+[Tue 11:16]	<niklasl>	manu: this is the decentralized identification problem
+[Tue 11:16]	<dbooth>	The whole point of well-known suffixes is to prevent clashes while allowing distributed minting of IRIs.
+[Tue 11:17]	<niklasl>	manu: every time we discuss this, we go through the same line of argumentation. First we propose skolem IDs, then we note that skolem IDs can't be rooted in the same namespace, then we decide that skolem IDs need to be generated in a very specific way, then we back up to RDF Graph Normalization as the correct approach to the problem, then we throw our hands up because the problem is more complicated than we want it to be.
+[Tue 11:17]	* niklasl	is obviously a bit tired now..
+[Tue 11:17]	<niklasl>	manu: skolem id:S is not a solution to this probglem
+[Tue 11:18]	-->|	linclark (~clark@c-67-186-35-246.hsd1.pa.comcast.net) has joined #json-ld
+[Tue 11:18]	<niklasl>	dbooth: this is not true; it is a solved problem, based on the well known suffixes
+[Tue 11:18]	<niklasl>	manu: if you control the domain, yes
+[Tue 11:18]	<niklasl>	... in that case, we cannot say that there is a specific domain space for thi
+[Tue 11:19]	<niklasl>	... if your system doesn't understand bnodes in these positions, you need a callback to provide a skolem id which is unique to your system
+[Tue 11:20]	<niklasl>	dbooth: and use that well-known suffix, so that it is predictably recognized
+[Tue 11:20]	<niklasl>	markus: isn't that what we are currently saying in the spec?
+[Tue 11:20]	<niklasl>	manu: it's not in the API
+[Tue 11:20]	<niklasl>	markus: but the algorithm spec says this [correct?]
+[Tue 11:21]	<niklasl>	dbooth: my point is that it should say MUST replace them
+[Tue 11:21]	<niklasl>	dbooth: there is no RDF system which supports this
+[Tue 11:21]	<niklasl>	... the point is strict alignment
+[Tue 11:22]	<niklasl>	... if one person takes a JSON-LD document and serialize it into Turtle, and another person does the same, the result is essentially the same
+[Tue 11:23]	<niklasl>	... there is a difference between the JSON-LD blank node and RDF blank node
+[Tue 11:24]	<niklasl>	markus: but you can use it in the object position and the graph id position at the same time
+[Tue 11:24]	<niklasl>	gregg: but since the graph id does not denote the graph, it's semantically not a problem
+[Tue 11:25]	<niklasl>	... in practise though, it would be
+[Tue 11:26]	<niklasl>	... the dictum should be that if a blank node is converted (skolemized) – *all* identifiers must be changed accordinly
+[Tue 11:26]	* niklasl	shudders at skolemizing all bnodes
+[Tue 11:28]	<niklasl>	markus: so a skolemized iri is a bnode?
+[Tue 11:28]	<niklasl>	dbooth: no
+[Tue 11:29]	<dbooth>	yes, it is a hack to make it work around a shortcoming in the RDF model
+[Tue 11:30]	<niklasl>	dbooth: this is only for people wanting to interpret this as RDF
+[Tue 11:30]	<niklasl>	dlongley: using graph normalization to compare this regardless of syntax, this can be a prblem
+[Tue 11:31]	<niklasl>	... the skolemization of (certain) bnodes makes the normalization complex
+[Tue 11:32]	<dbooth>	Yes, the normalization algorithm may need to know about the well-known IRI suffixes.
+[Tue 11:32]	<niklasl>	sandro: a gen-id is not a blank node. it's complex and annoying, but useful.
+[Tue 11:33]	<mlnt>	would like to quickly resolve this: https://github.com/json-ld/json-ld.org/issues/257
+[Tue 11:33]	|<--	pkuyken has left freenode (Ping timeout: 250 seconds)
+[Tue 11:34]	<niklasl>	dbooth: it is a shortcoming which is nowhere near going away, so it should he handled
+[Tue 11:34]	<niklasl>	sandro: we need to check with the RDF concepts and see if it says what we need
+[Tue 11:35]	<niklasl>	dbooth: so, postpone and discuss more with the RDF WG?
+[Tue 11:35]	<niklasl>	manu: yes
+[Tue 11:36]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/257#issuecomment-19169738
+[Tue 11:37]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.18-0000020b) has left the conference.
+[Tue 11:37]	<voip-ld>	ivikash (SIP/sip2sip.info-00000211) has left the conference.
+[Tue 11:37]	<voip-ld>	sandro (IAX2/diamondcard-8154) has left the conference.
+[Tue 11:37]	<voip-ld>	Manu Sporny (SIP/6000-0000020e) has left the conference.
+[Tue 11:37]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000020f) has left the conference.
+[Tue 11:37]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-0000020d) has left the conference.
+[Tue 11:37]	<voip-ld>	Dave Lehn (SIP/6003-00000210) has left the conference.
+[Tue 11:37]	<voip-ld>	Dave Longley (SIP/6002-0000020c) has left the conference.
+[Tue 11:37]	<voip-ld>	dbooth (IAX2/diamondcard-2737) has left the conference.
+[Tue 11:37]	<mlnt>	maybe we can resolve this directly in the issue tracker, the datatype issue: https://github.com/json-ld/json-ld.org/issues/257#issuecomment-19169738
+[Tue 11:38]	<mlnt>	should be easy to resolve that
+[Tue 11:38]	<manu-db>	ah right, let's try to resolve via issue tracker, then do a proposal next week

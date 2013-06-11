@@ -83,6 +83,11 @@
       {
          "alias": ["lindstream", "niklasl"]
       },
+      "David Booth":
+      {
+         "alias": ["dbooth"],
+         "homepage": "http://www.linkedin.com/pub/david-booth/3/aaa/574"
+      },
       "David I. Lehn":
       {
          "alias": ["dil", "dlehn", "taaz"],
