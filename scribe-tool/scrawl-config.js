@@ -77,7 +77,7 @@
       "Markus Lanthaler":
       {
          "alias": ["MarkusLanthaler", "mlnt"],
-         "homepage": "https://twitter.com/markuslanthaler"
+         "homepage": "http://www.markus-lanthaler.com/"
       },
       "Niklas Lindström":
       {
