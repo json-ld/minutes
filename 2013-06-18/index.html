@@ -1,0 +1,348 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-06-18</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0034.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0034.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Linked Data introductory text</a><li><a href="#topic-2">Skolemization in toRDF() algorithm</a><li><a href="#topic-3">ISSUE-265: Media Type Registration</a><li><a href="#topic-4">Support for xsd:short and other integer types.</a><li><a href="#topic-5">fromRDF() creates nodes for things like rdf:type.</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Adopt proposal 2g and replace the first paragraph in the JSON-LD Syntax Introduction with: Linked Data[LINKED_DATA] is a way to create a network of standards-based machine interpretable data across different documents and Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.</a><li><a href="#resolution-2">In the security considerations section, reference RFC4627 and add text explaining that evaluating the data as code can lead to unexpected side effects compromising the security of a system.</a><li><a href="#resolution-3">Add the following text to the Security Considerations section: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information leading to privacy concerns. Explain that this can be controlled through effective use of the API.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Dave Longley</dd>
+<dt>Present</dt><dd>Dave Longley, Markus Lanthaler, Manu Sporny, David Booth, Gregg Kellogg, Niklas Lindström, Clay Wells</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Dave Longley is scribing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we have time, i'd like to discuss the blank nodes as datatypes issue</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/257">https://github.com/json-ld/json-ld.org/issues/257</a></div>
+<h1 id="topic-1" class="topic">Topic: Linked Data introductory text</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0054.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0054.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  david booth just sent out a proposal to the mailing list that i thought was pretty good</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0219.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0219.html</a></div>
+<div class="comment"><span class="name">David Booth</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0219.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0219.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would you mind going over the proposals, david?</div>
+<div class="comment"><span class="name">David Booth</span>:  proposal 1 is separate that i think we already agreed to ... to include TimBL doc in the references</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm not sure we agreed</div>
+<div class="comment"><span class="name">David Booth</span>:  we can skip over that for the moment</div>
+<div class="comment"><span class="name">David Booth</span>:  i tried to give a range of possibilities, 2a would quote TimBL from his doc w/typos, 2b would do the same but clean up typos, 2c would make that text not be a definition of Linked Data</div>
+<div class="comment"><span class="name">David Booth</span>: [[</div>
+<div class="comment"><span class="name">David Booth</span>: Linked Data[LINKED_DATA] is a technique for creating a network of</div>
+<div class="comment"><span class="name">David Booth</span>: inter-connected machine interpretable data across different documents</div>
+<div class="comment"><span class="name">David Booth</span>: and Web sites. It allows an application to start at one piece of Linked</div>
+<div class="comment"><span class="name">David Booth</span>: Data, and follow embedded links to other pieces of Linked Data that are</div>
+<div class="comment"><span class="name">David Booth</span>: hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">David Booth</span>: ]]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0215.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0215.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i thought it was interesting, kingsley chimed in comments yesterday and actually supported the introduction changing to TimBL's version as being consistent with something the [w3c] group might want to do</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we actually started off deviating from that because of Kingsley's vehement objections, now that he seems like he has changed his position that's interesting</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think that's a misread, his position is nuanced, i think if the group wants to make a formal declaration of what Linked Data is but he thinks things are further conflated, it would just make the RDF WG make it clear what their position is</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think this issue about "what is Linked Data" is larger than JSON-LD and we have another linked data spec for the LDP with a different definition is a problem</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  in my mind, i would go with 2b or 2c from david</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i really like proposal 2c</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it accomplishes was david booth wants to see and it doesn't overly complicate the intro</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I like proposal 2c. In order to avoid statements of being unfair, we should link to the Linked Data "definition". [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'd like to avoid the problem we had before - people accusing us of not being straightforward. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>:  do you think there would be big objections to 2b</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i would object to it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The problem I have is with the last part of this statement - "When someone looks up a URI, provide useful information, using the standards (RDF*, SPARQL)" [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'll just quickly outline the objections: is the line with RDF, SPARQL, if it just said "using standards"</div>
+<div class="comment"><span class="name">David Booth</span>:  ok, let's not get into that then</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  are there any objections to proposal 2c</div>
+<div class="comment"><span class="name">David Booth</span>:  to be clearer it should say something about standards</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  as long as we're vague about which standards, we can do that</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  specifically, open standards? [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">David Booth</span>: proposal 2d</div>
+<div class="comment"><span class="name">David Booth</span>: [[</div>
+<div class="comment"><span class="name">David Booth</span>: Linked Data[LINKED_DATA] is a technique for creating a network of</div>
+<div class="comment"><span class="name">David Booth</span>: inter-connected, standards-based machine interpretable data across different documents</div>
+<div class="comment"><span class="name">David Booth</span>: and Web sites. It allows an application to start at one piece of Linked</div>
+<div class="comment"><span class="name">David Booth</span>: Data, and follow embedded links to other pieces of Linked Data that are</div>
+<div class="comment"><span class="name">David Booth</span>: hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">David Booth</span>: ]]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when we talk about embedding links there are mime types involved</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that looks good to me</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but it would be good to make it less of a mouthful</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  maybe move standards-based later on</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's wordsmith later</div>
+<div class="comment"><span class="name">David Booth</span>: proposal 2e</div>
+<div class="comment"><span class="name">David Booth</span>: [[</div>
+<div class="comment"><span class="name">David Booth</span>: Linked Data[LINKED_DATA] is a technique for creating a network of</div>
+<div class="comment"><span class="name">David Booth</span>: machine interpretable data across different documents</div>
+<div class="comment"><span class="name">David Booth</span>: and Web sites. It allows an application to start at one piece of Linked</div>
+<div class="comment"><span class="name">David Booth</span>: Data, and follow embedded links to other pieces of Linked Data that are</div>
+<div class="comment"><span class="name">David Booth</span>: hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">David Booth</span>: ]]</div>
+<div class="comment"><span class="name">David Booth</span>: proposal 2f</div>
+<div class="comment"><span class="name">David Booth</span>: [[</div>
+<div class="comment"><span class="name">David Booth</span>: Linked Data[LINKED_DATA] is a technique for creating a network of</div>
+<div class="comment"><span class="name">David Booth</span>: standards-based machine interpretable data across different documents</div>
+<div class="comment"><span class="name">David Booth</span>: and Web sites. It allows an application to start at one piece of Linked</div>
+<div class="comment"><span class="name">David Booth</span>: Data, and follow embedded links to other pieces of Linked Data that are</div>
+<div class="comment"><span class="name">David Booth</span>: hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">David Booth</span>: ]]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any problems with this other than switching out "technique" with "practice" ?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  What we have in the spec today: [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: These properties allow data published on the Web to work much like Web pages do today. One can start at one piece of Linked Data, and follow the links to other pieces of data that are hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. I'd like s/technique/practise/ (and perhaps "open" or "royalty-free" somewhere; unless that's implied by this spec being from W3C?)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "These properties allow data published on the Web to work much like Web pages do today."</div>
+<div class="comment"><span class="name">Clay Wells</span>: method</div>
+<div class="comment"><span class="name">David Booth</span>: how about s/technique for creating/way to/ ?</div>
+<div class="comment"><span class="name">David Booth</span>: proposal 2g</div>
+<div class="comment"><span class="name">David Booth</span>: [[</div>
+<div class="comment"><span class="name">David Booth</span>: Linked Data[LINKED_DATA] is a way to create a network of</div>
+<div class="comment"><span class="name">David Booth</span>: standards-based machine interpretable data across different documents</div>
+<div class="comment"><span class="name">David Booth</span>: and Web sites. It allows an application to start at one piece of Linked</div>
+<div class="comment"><span class="name">David Booth</span>: Data, and follow embedded links to other pieces of Linked Data that are</div>
+<div class="comment"><span class="name">David Booth</span>: hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">David Booth</span>: ]]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Adopt proposal 2g and replace the first paragraph in the JSON-LD Syntax Introduction with: Linked Data[LINKED_DATA] is a way to create a network of standards-based machine interpretable data across different documents and Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1 presumed the rest of the RDF WG agrees</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Adopt proposal 2g and replace the first paragraph in the JSON-LD Syntax Introduction with: Linked Data[LINKED_DATA] is a way to create a network of standards-based machine interpretable data across different documents and Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.</div>
+<h1 id="topic-2" class="topic">Topic: Skolemization in toRDF() algorithm</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0159.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0159.html</a></div>
+<div class="comment"><span class="name">David Booth</span>:  so at present, there is some misalignment between the JSON-LD data model and the RDF data model, and that means that when JSON-LD is interpreted as RDF, the results of that interpretation is unpredictable, some implementations may throw away triples that contain blank nodes in "illegal" positions (illegal for the RDF data model)</div>
+<div class="comment"><span class="name">David Booth</span>:  the proposal is to avoid that mismatch when interpreting JSON-LD as RDF, blank nodes that would be illegal MUST be skolemized according to RDF skolemization</div>
+<div class="comment"><span class="name">David Booth</span>:  so the question is about requiring skolemization when interpreting JSON-LD as RDF, the only push back i've seen is requiring clients to do skolemization when the client has no way of minting globally unique IRIs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0112.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0112.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, i brought that up and there were also concerns from Andy</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  and he said that consumers should really figure out how to handle that use case</div>
+<div class="comment"><span class="name">David Booth</span>:  i think there was some confusion on the list about which skolemization topic we were talking about</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0112.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0112.html</a></div>
+<div class="comment"><span class="name">David Booth</span>:  one topic was about skolemization within the RDF spec and the other was about JSON-LD requiring it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  andy replied to the minutes where we were discussing that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if your graph store actually supports graph labels (bnodes as graph names or properties) that there could be an issue by forcing a processor to go through some hoops that it would not normally need to do</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in other words, there's no need to skolemize</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we should use a SHOULD, not a MUST, because that gives us interop but still allows application developers to make the decision for what is appropriate for their stack, so the decision can be made closer to the people that it affects</div>
+<div class="comment"><span class="name">David Booth</span>:  if it's just an internal decision that an application is making, then i see that as irrelevant, any application can do whatever it wants</div>
+<div class="comment"><span class="name">David Booth</span>:  the spec is about what JSON-LD means, the point is, if two independent parties process the same document, they should come up with the set same triples</div>
+<div class="comment"><span class="name">David Booth</span>:  except for the naming of the skolemized IRIs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  how does that address markus' point that you could generate data that's wrong, that there's a clash</div>
+<div class="comment"><span class="name">David Booth</span>:  if you have a clash then you haven't done proper skolemization</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the point is that it's impossible to know if you've done proper skolemization as a client</div>
+<div class="comment"><span class="name">David Booth</span>:  i don't know if that's true, there are lots of ways to ensure uniqueness</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  they are very simple if you don't have a distributed system</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we take Dave Longley's JavaScript implementation, which email address should he use? his own?</div>
+<div class="comment"><span class="name">David Booth</span>:  is the data going to be republished?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the point is that you don't know what the user is going to do with the data, the user knows that, and they can make the best decision</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if i sent JSON-LD to a list in an email, then it's effectively republished</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  although, at a point where it's not reasonable to do such a skolemization</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  one of the issues of i have with forcing skolemization is that it moves a closed world to an open world</div>
+<div class="comment"><span class="name">David Booth</span>: notes that Gregg is using the term "closed world" in a non-standard way</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  once you've skolemized a bnode you've gone from a closed model of data with some security benefits, to an open world and you can amend facts that were intended in a closed fashion</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  intended to be stated in a closed fashion</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's what the payswarm work is about so you can't state things about the graphs later on</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you're dealing with a financial system and people can later make statements about your data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that they shouldn't be able to do, and if they figured out your skolemization algorithm they could inject data into your graph</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  they don't even have to do that, they just have to take a skolemized identifier and make statements about it later</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it would complicate implementations greatly</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  since we say you have to support bnodes in graph and property positions you don't have to deal with skolemization</div>
+<div class="comment"><span class="name">David Booth</span>:  i would categorically object to encouraging features that make it impossible to make statements about things</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no one is proposing that, i don't think that's on the table</div>
+<div class="comment"><span class="name">David Booth</span>:  i'm talking about making it hard for someone to make statements about a graph</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i don't follow, how are we going to do that?</div>
+<div class="comment"><span class="name">David Booth</span>:  the comment was that if something is published with a bnode that you can't make statements about it elsewhere</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's true today about RDF</div>
+<div class="comment"><span class="name">David Booth</span>:  i think that's very anti-web and a negative property</div>
+<div class="comment"><span class="name">David Booth</span>:  there is a whole discussion about draconian gov'ts linking to or making reference to certain statements</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we're having a philosophical discussion at this point, we should focus on a solid proposal</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are a number of people that agree with you but let's stick to solid proposals</div>
+<div class="comment"><span class="name">David Booth</span>:  i don't think we have enough convergence yet, i wasn't aware of andy pushing back here, i need to analyze what he means, i need to better understand the use case that would be injured by requiring skolemization</div>
+<div class="comment"><span class="name">David Booth</span>:  there is another solution entirely, which would be for the RDF WG to allow bnodes in those positions</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  peter raised just that this morning</div>
+<div class="comment"><span class="name">David Booth</span>:  my overall objective here is that i think it's critical if two parties deserialize RDF they get the same result, or as close as possible</div>
+<div class="comment"><span class="name">David Booth</span>:  with a minimum loss of information</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but they [aren't] the same result, [are] they?</div>
+<div class="comment"><span class="name">David Booth</span>:  the problem is two different clients taking the same JSON-LD document would produce data that is interpreted in different ways</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think that's where we disagree, i think they are entirely different documents, one uses bnodes the other skolemization</div>
+<div class="comment"><span class="name">David Booth</span>:  i'm saying that when a JSON-LD document is interpreted as RDF, skolemized IDs should be generated</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that would mean that your graph store, if it supports bnodes in these positions, is broken</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  your graph store could interpret things in the correct way, but it will be forced to interpret in a different way</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you are always getting different data since every skolemization will produce different IDs</div>
+<div class="comment"><span class="name">David Booth</span>:  the data is only different in non-important ways</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: RDF Datasets allow bnode graph names: <a href="https://www.w3.org/2013/meeting/rdf-wg/2013-06-12#resolution_1">https://www.w3.org/2013/meeting/rdf-wg/2013-06-12#resolution_1</a></div>
+<div class="comment"><span class="name">David Booth</span>:  by unimportant i mean that the data is the same graph and they use all the same IRIs with the exception of the skolemized IRIs</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think this issue with regards to bnode graph names is moot since RDF datasets can have graph labels that are bnodes</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We did have a use case - JSON</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i cannot recall if we had a driving use case for allowing bnodes as predicates</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  can someone remind me</div>
+<div class="comment"><span class="name">Dave Longley</span>:  RDF Concepts doesn't allow blank nodes in predicate position - perhaps we should say that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think RDF Concepts basically does that. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-265: Media Type Registration</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/265">https://github.com/json-ld/json-ld.org/issues/265</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm with you on this issue [scribe assist by Clay Wells]</div>
+<div class="comment"><span class="name">David Booth</span>:  i think there's still some technical misunderstanding of skolemization which i will try to better explain on the mailing list</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  so the request is for us to be more explicit</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the feedback is that we should be more explicit about why using JavaScript's eval() method is a bad idea, etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  isn't there some security consideration we could link to</div>
+<div class="comment"><span class="name">Clay Wells</span>: sorry, dbooth, I'm with you on that topic. Thanks!</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we need to reference the JSON security section</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we just need to add a sentence, i think, explaining why eval() is a problem</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we don't have to change much but it would address their concerns</div>
+<div class="proposal"><strong>PROPOSAL:</strong> In the security considerations section, reference RFC4627 and add text explaining that evaluating the data as code can lead to unexpected side effects compromising the security of a system.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we also need to address fetching remote contexts automatically that might leak user information, and we should say that processing a JSON-LD might result in http request without explicit request by the user, etc.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> In the security considerations section, reference RFC4627 and add text explaining that evaluating the data as code can lead to unexpected side effects compromising the security of a system.</div>
+<div class="comment"><span class="name">David Booth</span>: needs to drop off for another call. Thanks all!</div>
+<div class="proposal"><strong>PROPOSAL:</strong> In the security considerations section, warn that remote contexts are dereferenced automatically and that usage patterns could be tracked based on the requests.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  do we need more specific text, maybe there is something akin to this... somewhere in the depths in the XML specs where you can include external entities, it's much more like CSS, it's a good analogy i think</div>
+<div class="proposal"><strong>PROPOSAL:</strong> In the security considerations section, warn that remote contexts are dereferenced automatically and that usage patterns could be tracked based on the requests leading to privacy concerns.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  caching can help mitigate with this problem</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the problem is that the third party is tracking you, and if they wanted to, they could say "don't cache this"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the publisher would be the one controlling the cache-control headers</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if they made stable contexts that could be cached for long periods of time that would help</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the problem is that the user is not in control of the publisher or the third party</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you put schema.org in your context, schema.org would be the third party</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you have proxy in between it can poison the cache, etc.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this all reminds me of XML catalogs, that is, some mechanism for the processor to control cached versions of contexts so that, for instance, you could pass in a reference to a dictionary of contexts and tell the processor it can only use that</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, we can do that with the API and the remote context callback loading option</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could mention that you can use that to mitigate this problem</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we don't have a way to mitigate it could result in further debate or denial, so we should mention this</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add the following text to the Security Considerations section: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information leading to privacy concerns. Explain that this can be mitigated through effective use of the API.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i don't think this is about implementation guidance</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 and rewording "mitigate" to "control"</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Add the following text to the Security Considerations section: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information leading to privacy concerns. Explain that this can be controlled through effective use of the API.</div>
+<h1 id="topic-4" class="topic">Topic: Support for xsd:short and other integer types.</h1>
+<div class="comment"><span class="name">Dave Longley</span>:  We don't want to eliminate the use case where people want to stay within the range of the systems limitations. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We had discussed this before, we don't want to introduce round-tripping issues. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  [scribe missed] [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  At some point, the spec said "if there is a fractional part, turn it into a double" - that might be difficult to do in certain languages. You do double-based math and get the wrong result. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, you run into rounding errors. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm not sure, there are unfortunate cases w/ doubles. I'm less concerned about those than the common use case - if something gets turned into an integer (when it was a double) then that's bad. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  a double like 5.0 will become an 5 xsd:integer when going though RDF round-tripping [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Out of all the possible choices we have, we have picked the least sucky approach. We're trying to be pragmatic. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We keep what we have, and we ask Sandro about his opinion. If he's fine with this, then we can close the issue. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think people are going to want to control this via the context (convert to native types) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  And in that way, it's not tied to XSD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could get rid of the runtime flag, not use the context? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The only issue is that everything would happen in compaction/expansion. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  In fromRDF/toRDF we can have an option to make it more specific... it would only convert the things in the context that are specified. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When you use Turtle, and use the native thing there - most things are turned to decimals. More fine-grained control is needed. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  How would we do this? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We'd have to add something if we wanted to be fine-grained. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we wanted something more than we have right now, if we find something that is typed coerced to this type, convert it to an integer or a double - that's the simpler solution w/o adding keywords to JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: … {"rating": "xsd:decimal"}, values of rating being JSON Numbers, and always xsd:decimals in RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That the useNativeTypes flag is false by default, that mitigates this to a large degree. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Developers can specify a wrapper to make this easier. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  When a pattern emerges, we can standardize it in 1.1 [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, let implementations sort it out and we can standardize it later. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  RDFLib in Python always exposes a literal as a native number... but uses the added datatype tag to determine the exact datatype tag is very useful. You never really care about the lexical representation in that case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You can always use the number directly in processing. It would be nice to do that in the default case. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-5" class="topic">Topic: fromRDF() creates nodes for things like rdf:type.</h1>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i brought up this issue a couple of weeks ago, the resulting JSON-LD, flattened JSON-LD from RDF conversion creates nodes for things that haven't been linked to, the most glaring examples being every rdf:type</div>
+<div class="comment"><span class="name">Manu Sporny</span>: scribe-nods.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  except rdf:nil ... those don't turn up</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  another example would be if you gave someone a homepage, it shows up as a node</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  this is annoying too because choosing JSON-LD to transmit RDF would increase the size of the data</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  with unusable nodes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  markus made the point that by doing this you can effectively find all the links in the document</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my own position is that it does make it a little bit more ugly, but i don't know if that effectively matters in the long run</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that's the result of the node map generation algorithm which basically just collects all the nodes in the doc</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you don't get all the bnodes, you only get the things that are IRIs</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you get bnodes as well, they are all labeled with blank node identifiers</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  every node that appears in the graph appears in the flattened output</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you could just post-process the output, right?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you could also do the same in the other direction</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i think it's more useful to be able to find all the nodes in a graph</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if you wanted to create a graph you'd just loop</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  when i connect them i have to create all the links anyway</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you can just enumerate them in a simple way</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  does anyone care enough about this to modify the flattening algorithm to remove these?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  when i implemented this, it looked much more verbose, i had to do additional work to make the result look uglier</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is it that much of an issue to create a function to remove the nodes you don't want</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it seems to me like something someone could do in 10 minutes at most</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i don't see the point of making flattening looking uglier than it has to</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it looks like an artifact of an algorithm that could be changed</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it seems like preparing for something that someone might want to use for something else</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i used this with connect and i didn't need this structure</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It's already difficult for people to find stuff by subject. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I want to make sure we're not making things more difficult than they already are, since we don't expose a node map. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: notes we're out of time.</div>
+<div class="information">Discussion about rdf:nil and lists and whether they show up in flattening as well.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: We need to cover this next time: <a href="https://github.com/json-ld/json-ld.org/issues/257">https://github.com/json-ld/json-ld.org/issues/257</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  We also need some input on this in the issue tracker: <a href="https://github.com/json-ld/json-ld.org/issues/264">https://github.com/json-ld/json-ld.org/issues/264</a></div>
+</body>
+</html>

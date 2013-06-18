@@ -1,0 +1,340 @@
+[Tue 10:06]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0034.html
+[Tue 10:07]	<manu-db>	scribe: dlongley
+[Tue 10:07]	<dlongley>	markus: if we have time, i'd like to discuss the blank nodes as datatypes issue
+[Tue 10:07]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/257
+[Tue 10:09]	<manu-db>	Topic: Linked Data introductory text
+[Tue 10:09]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0054.html
+[Tue 10:09]	<gkellogg>	q+
+[Tue 10:09]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:09]	<dlongley>	manu: david booth just sent out a proposal to the mailing list that i thought was pretty good
+[Tue 10:09]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0219.html
+[Tue 10:09]	<dbooth>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0219.html
+[Tue 10:09]	<dlongley>	manu-db: would you mind going over the proposals, david?
+[Tue 10:10]	<dlongley>	dbooth: proposal 1 is separate that i think we already agreed to ... to include TimBL doc in the references
+[Tue 10:10]	<dlongley>	manu: i'm not sure we agreed
+[Tue 10:10]	<dlongley>	dbooth: we can skip over that for the moment
+[Tue 10:10]	<manu-db>	q+
+[Tue 10:10]	<voip-ld>	Added manu-db to the speaker queue: gkellogg, manu-db
+[Tue 10:10]	<dlongley>	dbooth: i tried to give a range of possibilities, 2a would quote TimBL from his doc w/typos, 2b would do the same but clean up typos, 2c would make that text not be a definition of Linked Data
+[Tue 10:11]	<dbooth>	[[
+[Tue 10:11]	<dbooth>	Linked Data[LINKED_DATA] is a technique for creating a network of
+[Tue 10:11]	<dbooth>	inter-connected machine interpretable data across different documents
+[Tue 10:11]	<dbooth>	and Web sites. It allows an application to start at one piece of Linked
+[Tue 10:11]	<dbooth>	Data, and follow embedded links to other pieces of Linked Data that are
+[Tue 10:11]	<dbooth>	hosted on different sites across the Web.
+[Tue 10:11]	<dbooth>	]]
+[Tue 10:11]	<manu-db>	ack gkellogg
+[Tue 10:11]	<voip-ld>	gkellogg has the floor. The next speaker is manu-db.
+[Tue 10:11]	<gkellogg>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0215.html
+[Tue 10:12]	<dlongley>	gkellogg: i thought it was interesting, kingsley chimed in comments yesterday and actually supported the introduction changing to TimBL's version as being consistent with something the [w3c] group might want to do
+[Tue 10:12]	<voip-ld>	Clay (SIP/sip2sip.info-00000223) has joined the conference.
+[Tue 10:13]	<dlongley>	gkellogg: we actually started off deviating from that because of Kingsley's vehement objections, now that he seems like he has changed his position that's interesting
+[Tue 10:13]	<dlongley>	manu-db: i think that's a misread, his position is nuanced, i think if the group wants to make a formal declaration of what Linked Data is but he thinks things are further conflated, it would just make the RDF WG make it clear what their position is
+[Tue 10:14]	<dlongley>	gkellogg: i think this issue about "what is Linked Data" is larger than JSON-LD and we have another linked data spec for the LDP with a different definition is a problem
+[Tue 10:14]	<manu-db>	ack manu-db
+[Tue 10:14]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:14]	<dlongley>	gkellogg: in my mind, i would go with 2b or 2c from david
+[Tue 10:14]	<dlongley>	manu-db: i really like proposal 2c
+[Tue 10:14]	<dlongley>	manu-db: i think it accomplishes was david booth wants to see and it doesn't overly complicate the intro
+[Tue 10:15]	<voip-ld>	Dave Lehn (SIP/6003-00000224) has joined the conference.
+[Tue 10:15]	<dlongley>	q+
+[Tue 10:15]	<voip-ld>	Added dlongley to the speaker queue: dlongley
+[Tue 10:15]	<manu-db>	ack dlongley
+[Tue 10:15]	<voip-ld>	dlongley has the floor. The speaker queue is empty.
+[Tue 10:16]	<manu-db>	dlongley: I like proposal 2c. In order to avoid statements of being unfair, we should link to the Linked Data "definition".
+[Tue 10:16]	<manu-db>	dlongley: I'd like to avoid the problem we had before - people accusing us of not being straightforward.
+[Tue 10:17]	<dlongley>	dbooth: do you think there would be big objections to 2b
+[Tue 10:17]	<dlongley>	manu-db: i would object to it
+[Tue 10:17]	<manu-db>	manu: The problem I have is with the last part of this statement - "When someone looks up a URI, provide useful information, using the standards (RDF*, SPARQL)"
+[Tue 10:17]	<dlongley>	manu-db: i'll just quickly outline the objections: is the line with RDF, SPARQL, if it just said "using standards"
+[Tue 10:18]	<dlongley>	dbooth: ok, let's not get into that then
+[Tue 10:18]	<manu-db>	voip: connections?
+[Tue 10:18]	<dlongley>	manu-db: are there any objections to proposal 2c
+[Tue 10:18]	<voip-ld>	Conference connections: Manu Sporny [SIP/6000-0000021e], Dave Longley [SIP/6002-0000021d], Clay [SIP/sip2sip.info-00000223], Niklas Lindström [SIP/sip2sip.info-0000021f], Dave Lehn [SIP/6003-00000224], Gregg Kellogg [SIP/sip2sip.info-0000021c], Markus Lanthaler [SIP/sip.linphone.org-00000222], <no name> (dbooth) [IAX2/diamondcard-8662]
+[Tue 10:18]	<dlongley>	dbooth: to be clearer it should say something about standards
+[Tue 10:19]	<dlongley>	manu-db: as long as we're vague about which standards, we can do that
+[Tue 10:19]	<niklasl>	niklasl: specifically, open standards?
+[Tue 10:19]	<dbooth>	proposal 2d
+[Tue 10:19]	<dbooth>	[[
+[Tue 10:19]	<dbooth>	Linked Data[LINKED_DATA] is a technique for creating a network of
+[Tue 10:19]	<dbooth>	inter-connected, standards-based machine interpretable data across different documents
+[Tue 10:19]	<dbooth>	and Web sites. It allows an application to start at one piece of Linked
+[Tue 10:19]	<dbooth>	Data, and follow embedded links to other pieces of Linked Data that are
+[Tue 10:19]	<dbooth>	hosted on different sites across the Web.
+[Tue 10:19]	<dbooth>	]]
+[Tue 10:19]	<dlongley>	gkellogg: when we talk about embedding links there are mime types involved
+[Tue 10:20]	<clayball>	+1
+[Tue 10:20]	<dlongley>	manu-db: that looks good to me
+[Tue 10:20]	<dlongley>	manu-db: but it would be good to make it less of a mouthful
+[Tue 10:20]	<dlongley>	gkellogg: maybe move standards-based later on
+[Tue 10:20]	<dlongley>	manu-db: let's wordsmith later
+[Tue 10:20]	<dbooth>	proposal 2e
+[Tue 10:21]	<dbooth>	[[
+[Tue 10:21]	<dbooth>	Linked Data[LINKED_DATA] is a technique for creating a network of
+[Tue 10:21]	<dbooth>	machine interpretable data across different documents
+[Tue 10:21]	<dbooth>	and Web sites. It allows an application to start at one piece of Linked
+[Tue 10:21]	<dbooth>	Data, and follow embedded links to other pieces of Linked Data that are
+[Tue 10:21]	<dbooth>	hosted on different sites across the Web.
+[Tue 10:21]	<dbooth>	]]
+[Tue 10:22]	<dbooth>	proposal 2f
+[Tue 10:22]	<dbooth>	[[
+[Tue 10:22]	<dbooth>	Linked Data[LINKED_DATA] is a technique for creating a network of
+[Tue 10:22]	<dbooth>	standards-based machine interpretable data across different documents
+[Tue 10:22]	<dbooth>	and Web sites. It allows an application to start at one piece of Linked
+[Tue 10:22]	<dbooth>	Data, and follow embedded links to other pieces of Linked Data that are
+[Tue 10:22]	<dbooth>	hosted on different sites across the Web.
+[Tue 10:22]	<dbooth>	]]
+[Tue 10:22]	<dlongley>	manu-db: any problems with this other than switching out "technique" with "practice" ?
+[Tue 10:23]	<mlnt>	mlnt: What we have in the spec today:
+[Tue 10:23]	<mlnt>	These properties allow data published on the Web to work much like Web pages do today. One can start at one piece of Linked Data, and follow the links to other pieces of data that are hosted on different sites across the Web.
+[Tue 10:23]	<niklasl>	.. I'd like s/technique/practise/ (and perhaps "open" or "royalty-free" somewhere; unless that's implied by this spec being from W3C?)
+[Tue 10:23]	<mlnt>	"These properties allow data published on the Web to work much like Web pages do today."
+[Tue 10:23]	<clayball>	method
+[Tue 10:24]	<dbooth>	how about s/technique for creating/way to/ ?
+[Tue 10:25]	<dbooth>	proposal 2g
+[Tue 10:25]	<dbooth>	[[
+[Tue 10:25]	<dbooth>	Linked Data[LINKED_DATA] is a way to create a network of
+[Tue 10:25]	<dbooth>	standards-based machine interpretable data across different documents
+[Tue 10:25]	<dbooth>	and Web sites. It allows an application to start at one piece of Linked
+[Tue 10:25]	<dbooth>	Data, and follow embedded links to other pieces of Linked Data that are
+[Tue 10:25]	<dbooth>	hosted on different sites across the Web.
+[Tue 10:25]	<dbooth>	]]
+[Tue 10:25]	<manu-db>	PROPOSAL: Adopt proposal 2g and replace the first paragraph in the JSON-LD Syntax Introduction with: Linked Data[LINKED_DATA] is a way to create a network of standards-based machine interpretable data across different documents and Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.
+[Tue 10:25]	<gkellogg>	+1
+[Tue 10:25]	<dlongley>	+1
+[Tue 10:25]	<manu-db>	+1
+[Tue 10:25]	<niklasl>	+1
+[Tue 10:26]	<clayball>	+1
+[Tue 10:26]	<dbooth>	+1
+[Tue 10:26]	<mlnt>	+1 presumed the rest of the RDF WG agrees
+[Tue 10:26]	<manu-db>	RESOLVED: Adopt proposal 2g and replace the first paragraph in the JSON-LD Syntax Introduction with: Linked Data[LINKED_DATA] is a way to create a network of standards-based machine interpretable data across different documents and Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.
+[Tue 10:26]	<manu-db>	Topic: Skolemization in toRDF() algorithm
+[Tue 10:26]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-comments/2013Jun/0159.html
+[Tue 10:27]	<dlongley>	dbooth: so at present, there is some misalignment between the JSON-LD data model and the RDF data model, and that means that when JSON-LD is interpreted as RDF, the results of that interpretation is unpredictable, some implementations may throw away triples that contain blank nodes in "illegal" positions (illegal for the RDF data model)
+[Tue 10:28]	<dlongley>	dbooth: the proposal is to avoid that mismatch when interpreting JSON-LD as RDF, blank nodes that would be illegal MUST be skolemized according to RDF skolemization
+[Tue 10:28]	<manu-db>	q+
+[Tue 10:28]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:29]	<dlongley>	dbooth: so the question is about requiring skolemization when interpreting JSON-LD as RDF, the only push back i've seen is requiring clients to do skolemization when the client has no way of minting globally unique IRIs
+[Tue 10:29]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0112.html
+[Tue 10:29]	<dlongley>	markus: yes, i brought that up and there were also concerns from Andy
+[Tue 10:29]	<dlongley>	mlnt: and he said that consumers should really figure out how to handle that use case
+[Tue 10:29]	<dlongley>	dbooth: i think there was some confusion on the list about which skolemization topic we were talking about
+[Tue 10:30]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0112.html
+[Tue 10:30]	<dlongley>	dbooth: one topic was about skolemization within the RDF spec and the other was about JSON-LD requiring it
+[Tue 10:30]	<manu-db>	ack manu-db
+[Tue 10:30]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 10:30]	<dlongley>	mlnt: andy replied to the minutes where we were discussing that
+[Tue 10:31]	<dlongley>	manu-db: if your graph store actually supports graph labels (bnodes as graph names or properties) that there could be an issue by forcing a processor to go through some hoops that it would not normally need to do
+[Tue 10:31]	<dlongley>	manu-db: in other words, there's no need to skolemize
+[Tue 10:31]	<dbooth>	q+
+[Tue 10:31]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:31]	<manu-db>	ack dbooth
+[Tue 10:31]	<voip-ld>	dbooth has the floor. The speaker queue is empty.
+[Tue 10:31]	<dlongley>	manu-db: i think we should use a SHOULD, not a MUST, because that gives us interop but still allows application developers to make the decision for what is appropriate for their stack, so the decision can be made closer to the people that it affects
+[Tue 10:32]	<dlongley>	dbooth: if it's just an internal decision that an application is making, then i see that as irrelevant, any application can do whatever it wants
+[Tue 10:32]	<dlongley>	dbooth: the spec is about what JSON-LD means, the point is, if two independent parties process the same document, they should come up with the set same triples
+[Tue 10:32]	<dlongley>	dbooth: except for the naming of the skolemized IRIs
+[Tue 10:33]	<dlongley>	manu-db: how does that address markus' point that you could generate data that's wrong, that there's a clash
+[Tue 10:33]	<dlongley>	dbooth: if you have a clash then you haven't done proper skolemization
+[Tue 10:33]	<gkellogg>	q+
+[Tue 10:33]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:33]	<dlongley>	manu-db: the point is that it's impossible to know if you've done proper skolemization as a client
+[Tue 10:33]	<dlongley>	dbooth: i don't know if that's true, there are lots of ways to ensure uniqueness
+[Tue 10:34]	<dlongley>	mlnt: they are very simple if you don't have a distributed system
+[Tue 10:34]	<dlongley>	mlnt: if we take Dave Longley's JavaScript implementation, which email address should he use? his own?
+[Tue 10:34]	<dlongley>	dbooth: is the data going to be republished?
+[Tue 10:34]	<manu-db>	ack gkellogg
+[Tue 10:35]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:35]	<dlongley>	mlnt: the point is that you don't know what the user is going to do with the data, the user knows that, and they can make the best decision
+[Tue 10:35]	<dlongley>	gkellogg: if i sent JSON-LD to a list in an email, then it's effectively republished
+[Tue 10:35]	<dlongley>	gkellogg: although, at a point where it's not reasonable to do such a skolemization
+[Tue 10:35]	<dlongley>	gkellogg: one of the issues of i have with forcing skolemization is that it moves a closed world to an open world
+[Tue 10:36]	<manu-db>	q+
+[Tue 10:36]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:36]	<dbooth>	notes that Gregg is using the term "closed world" in a non-standard way
+[Tue 10:36]	<dlongley>	gkellogg: once you've skolemized a bnode you've gone from a closed model of data with some security benefits, to an open world and you can amend facts that were intended in a closed fashion
+[Tue 10:36]	<dlongley>	gkellogg: intended to be stated in a closed fashion
+[Tue 10:36]	<dlongley>	gkellogg: that's what the payswarm work is about so you can't state things about the graphs later on
+[Tue 10:36]	<dlongley>	manu-db: if you're dealing with a financial system and people can later make statements about your data
+[Tue 10:37]	<dlongley>	manu-db: that they shouldn't be able to do, and if they figured out your skolemization algorithm they could inject data into your graph
+[Tue 10:37]	<dbooth>	q+ to object to encouraging gagging
+[Tue 10:37]	<dlongley>	gkellogg: they don't even have to do that, they just have to take a skolemized identifier and make statements about it later
+[Tue 10:37]	<voip-ld>	Added dbooth to the speaker queue: manu-db, dbooth
+[Tue 10:37]	<dlongley>	manu-db: i think it would complicate implementations greatly
+[Tue 10:38]	<manu-db>	ack manu-db
+[Tue 10:38]	<voip-ld>	manu-db has the floor. The next speaker is dbooth.
+[Tue 10:38]	<manu-db>	ack dbooth
+[Tue 10:38]	<voip-ld>	manu-db has the floor (to object to encouraging gagging). The speaker queue is empty.
+[Tue 10:38]	<dlongley>	manu-db: since we say you have to support bnodes in graph and property positions you don't have to deal with skolemization
+[Tue 10:38]	<dlongley>	dbooth: i would categorically object to encouraging features that make it impossible to make statements about things
+[Tue 10:38]	<dlongley>	manu-db: no one is proposing that, i don't think that's on the table
+[Tue 10:38]	<dlongley>	dbooth: i'm talking about making it hard for someone to make statements about a graph
+[Tue 10:38]	<dlongley>	manu-db: i don't follow, how are we going to do that?
+[Tue 10:38]	<gkellogg>	q+ to note that the RDFWG seems to have once again allowed BNode labeled graphs
+[Tue 10:38]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:39]	<dlongley>	dbooth: the comment was that if something is published with a bnode that you can't make statements about it elsewhere
+[Tue 10:39]	<dlongley>	gkellogg: that's true today about RDF
+[Tue 10:39]	<dlongley>	dbooth: i think that's very anti-web and a negative property
+[Tue 10:39]	<dlongley>	dbooth: there is a whole discussion about draconian gov'ts linking to or making reference to certain statements
+[Tue 10:40]	<dlongley>	manu-db: i think we're having a philosophical discussion at this point, we should focus on a solid proposal
+[Tue 10:40]	<gkellogg>	q-
+[Tue 10:40]	<voip-ld>	Removed gkellogg from the speaker queue: (empty)
+[Tue 10:40]	<dlongley>	manu-db: there are a number of people that agree with you but let's stick to solid proposals
+[Tue 10:40]	<dlongley>	dbooth: i don't think we have enough convergence yet, i wasn't aware of andy pushing back here, i need to analyze what he means, i need to better understand the use case that would be injured by requiring skolemization
+[Tue 10:41]	<dlongley>	dbooth: there is another solution entirely, which would be for the RDF WG to allow bnodes in those positions
+[Tue 10:41]	<dlongley>	manu-db: peter raised just that this morning
+[Tue 10:41]	<dlongley>	dbooth: my overall objective here is that i think it's critical if two parties deserialize RDF they get the same result, or as close as possible
+[Tue 10:41]	<dlongley>	dbooth: with a minimum loss of information
+[Tue 10:42]	<dlongley>	mlnt: but they [aren't] the same result, [are] they?
+[Tue 10:42]	<dlongley>	dbooth: the problem is two different clients taking the same JSON-LD document would produce data that is interpreted in different ways
+[Tue 10:43]	<dlongley>	manu-db: i think that's where we disagree, i think they are entirely different documents, one uses bnodes the other skolemization
+[Tue 10:43]	<dlongley>	dbooth: i'm saying that when a JSON-LD document is interpreted as RDF, skolemized IDs should be generated
+[Tue 10:44]	<dlongley>	manu-db: that would mean that your graph store, if it supports bnodes in these positions, is broken
+[Tue 10:44]	<dlongley>	manu-db: your graph store could interpret things in the correct way, but it will be forced to interpret in a different way
+[Tue 10:44]	<dlongley>	mlnt: you are always getting different data since every skolemization will produce different IDs
+[Tue 10:45]	<dlongley>	dbooth: the data is only different in non-important ways
+[Tue 10:45]	<gkellogg>	RDF Datasets allow bnode graph names: https://www.w3.org/2013/meeting/rdf-wg/2013-06-12#resolution_1
+[Tue 10:45]	<dlongley>	dbooth: by unimportant i mean that the data is the same graph and they use all the same IRIs with the exception of the skolemized IRIs
+[Tue 10:45]	<gkellogg>	q+
+[Tue 10:45]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:45]	<dlongley>	q+
+[Tue 10:45]	<voip-ld>	Added dlongley to the speaker queue: gkellogg, dlongley
+[Tue 10:46]	<manu-db>	ack gkellogg
+[Tue 10:46]	<voip-ld>	gkellogg has the floor. The next speaker is dlongley.
+[Tue 10:46]	<dlongley>	gkellogg: i think this issue with regards to bnode graph names is moot since RDF datasets can have graph labels that are bnodes
+[Tue 10:47]	<manu-db>	We did have a use case - JSON
+[Tue 10:47]	<dlongley>	gkellogg: i cannot recall if we had a driving use case for allowing bnodes as predicates
+[Tue 10:47]	<dlongley>	gkellogg: can someone remind me
+[Tue 10:47]	<manu-db>	ack dlongley
+[Tue 10:47]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:48]	<manu-db>	dlongley: RDF Concepts doesn't allow blank nodes in predicate position - perhaps we should say that.
+[Tue 10:48]	<manu-db>	manu: I think RDF Concepts basically does that.
+[Tue 10:48]	<dbooth>	q+
+[Tue 10:48]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:49]	<manu-db>	ack dbooth
+[Tue 10:49]	<voip-ld>	dbooth has the floor. The speaker queue is empty.
+[Tue 10:49]	<manu-db>	Topic: ISSUE-265: Media Type Registration
+[Tue 10:50]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/265
+[Tue 10:50]	<clayball>	dlongley: I'm with you on this issue
+[Tue 10:50]	<dlongley>	dbooth: i think there's still some technical misunderstanding of skolemization which i will try to better explain on the mailing list
+[Tue 10:51]	<dlongley>	mlnt: so the request is for us to be more explicit
+[Tue 10:51]	<dlongley>	mlnt: the feedback is that we should be more explicit about why using JavaScript's eval() method is a bad idea, etc.
+[Tue 10:51]	<dlongley>	manu-db: isn't there some security consideration we could link to
+[Tue 10:51]	<clayball>	sorry, dbooth, I'm with you on that topic. Thanks!
+[Tue 10:52]	<dlongley>	mlnt: we need to reference the JSON security section
+[Tue 10:52]	<dlongley>	mlnt: we just need to add a sentence, i think, explaining why eval() is a problem
+[Tue 10:53]	<dlongley>	mlnt: we don't have to change much but it would address their concerns
+[Tue 10:53]	<manu-db>	PROPOSAL: In the security considerations section, reference RFC4627 and add text explaining that evaluating the data as code can lead to unexpected side effects compromising the security of a system.
+[Tue 10:53]	<dlongley>	mlnt: we also need to address fetching remote contexts automatically that might leak user information, and we should say that processing a JSON-LD might result in http request without explicit request by the user, etc.
+[Tue 10:54]	<niklasl>	+1
+[Tue 10:54]	<gkellogg>	+1
+[Tue 10:54]	<dlongley>	+1
+[Tue 10:54]	<mlnt>	+1
+[Tue 10:54]	<clayball>	+1
+[Tue 10:54]	<manu-db>	RESOLVED: In the security considerations section, reference RFC4627 and add text explaining that evaluating the data as code can lead to unexpected side effects compromising the security of a system.
+[Tue 10:54]	<niklasl>	q+
+[Tue 10:54]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:55]	<dbooth>	needs to drop off for another call. Thanks all!
+[Tue 10:55]	<voip-ld>	dbooth (IAX2/diamondcard-8662) has left the conference.
+[Tue 10:56]	<manu-db>	PROPOSAL: In the security considerations section, warn that remote contexts are dereferenced automatically and that usage patterns could be tracked based on the requests.
+[Tue 10:56]	<dlongley>	niklasl: do we need more specific text, maybe there is something akin to this... somewhere in the depths in the XML specs where you can include external entities, it's much more like CSS, it's a good analogy i think
+[Tue 10:57]	<manu-db>	PROPOSAL: In the security considerations section, warn that remote contexts are dereferenced automatically and that usage patterns could be tracked based on the requests leading to privacy concerns.
+[Tue 10:57]	<mlnt>	When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information
+[Tue 10:58]	<dlongley>	gkellogg: caching can help mitigate with this problem
+[Tue 10:58]	<dlongley>	manu-db: the problem is that the third party is tracking you, and if they wanted to, they could say "don't cache this"
+[Tue 10:58]	<dlongley>	gkellogg: the publisher would be the one controlling the cache-control headers
+[Tue 10:59]	<dlongley>	gkellogg: if they made stable contexts that could be cached for long periods of time that would help
+[Tue 10:59]	<dlongley>	mlnt: the problem is that the user is not in control of the publisher or the third party
+[Tue 10:59]	<niklasl>	q+
+[Tue 10:59]	<voip-ld>	Added niklasl to the speaker queue: niklasl, niklasl
+[Tue 10:59]	<dlongley>	mlnt: if you put schema.org in your context, schema.org would be the third party
+[Tue 11:00]	<dlongley>	manu-db: if you have proxy in between it can poison the cache, etc.
+[Tue 11:00]	<manu-db>	ack niklasl
+[Tue 11:00]	<voip-ld>	niklasl has the floor. The next speaker is niklasl.
+[Tue 11:00]	<manu-db>	ack niklasl
+[Tue 11:00]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:00]	<dlongley>	niklasl: this all reminds me of XML catalogs, that is, some mechanism for the processor to control cached versions of contexts so that, for instance, you could pass in a reference to a dictionary of contexts and tell the processor it can only use that
+[Tue 11:01]	<dlongley>	dlongley: yeah, we can do that with the API and the remote context callback loading option
+[Tue 11:01]	<dlongley>	gkellogg: we could mention that you can use that to mitigate this problem
+[Tue 11:02]	<dlongley>	gkellogg: if we don't have a way to mitigate it could result in further debate or denial, so we should mention this
+[Tue 11:02]	<manu-db>	PROPOSAL: Add the following text to the Security Considerations section: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information leading to privacy concerns. Explain that this can be mitigated through effective use of the API.
+[Tue 11:02]	<dlongley>	mlnt: i don't think this is about implementation guidance
+[Tue 11:02]	<mlnt>	+1
+[Tue 11:02]	<dlongley>	+1
+[Tue 11:02]	<clayball>	+1
+[Tue 11:02]	<gkellogg>	+1
+[Tue 11:02]	<niklasl>	+1 and rewording "mitigate" to "control"
+[Tue 11:03]	<manu-db>	+1
+[Tue 11:03]	<manu-db>	RESOLVED: Add the following text to the Security Considerations section: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information leading to privacy concerns. Explain that this can be controlled through effective use of the API.
+[Tue 11:04]	<manu-db>	Topic: Support for xsd:short and other integer types.
+[Tue 11:08]	<manu-db>	dlongley: We don't want to eliminate the use case where people want to stay within the range of the systems limitations.
+[Tue 11:08]	<manu-db>	manu: We had discussed this before, we don't want to introduce round-tripping issues.
+[Tue 11:08]	<manu-db>	markus: [scribe missed]
+[Tue 11:09]	<manu-db>	dlongley: At some point, the spec said "if there is a fractional part, turn it into a double" - that might be difficult to do in certain languages. You do double-based math and get the wrong result.
+[Tue 11:09]	<manu-db>	markus: Yes, you run into rounding errors.
+[Tue 11:09]	<manu-db>	dlongley: I'm not sure, there are unfortunate cases w/ doubles. I'm less concerned about those than the common use case - if something gets turned into an integer (when it was a double) then that's bad.
+[Tue 11:10]	<mlnt>	markus: a double like 5.0 will become an 5 xsd:integer when going though RDF round-tripping
+[Tue 11:11]	<manu-db>	dlongley: Out of all the possible choices we have, we have picked the least sucky approach. We're trying to be pragmatic.
+[Tue 11:11]	<manu-db>	markus: We keep what we have, and we ask Sandro about his opinion. If he's fine with this, then we can close the issue.
+[Tue 11:13]	<manu-db>	dlongley: I think people are going to want to control this via the context (convert to native types)
+[Tue 11:13]	<manu-db>	dlongley: And in that way, it's not tied to XSD.
+[Tue 11:13]	<manu-db>	gkellogg: We could get rid of the runtime flag, not use the context?
+[Tue 11:13]	<manu-db>	dlongley: The only issue is that everything would happen in compaction/expansion.
+[Tue 11:13]	<manu-db>	dlongley: In fromRDF/toRDF we can have an option to make it more specific... it would only convert the things in the context that are specified.
+[Tue 11:14]	<manu-db>	niklasl: When you use Turtle, and use the native thing there - most things are turned to decimals. More fine-grained control is needed.
+[Tue 11:14]	<manu-db>	niklasl: How would we do this?
+[Tue 11:15]	<manu-db>	dlongley: We'd have to add something if we wanted to be fine-grained.
+[Tue 11:15]	<manu-db>	dlongley: If we wanted something more than we have right now, if we find something that is typed coerced to this type, convert it to an integer or a double - that's the simpler solution w/o adding keywords to JSON-LD.
+[Tue 11:15]	<manu-db>	q+
+[Tue 11:15]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:15]	<manu-db>	ack manu-db
+[Tue 11:15]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 11:16]	<niklasl>	… {"rating": "xsd:decimal"}, values of rating being JSON Numbers, and always xsd:decimals in RDF
+[Tue 11:16]	<manu-db>	gkellogg: That the useNativeTypes flag is false by default, that mitigates this to a large degree.
+[Tue 11:16]	<manu-db>	gkellogg: Developers can specify a wrapper to make this easier.
+[Tue 11:17]	<manu-db>	markus: When a pattern emerges, we can standardize it in 1.1
+[Tue 11:17]	<manu-db>	dlongley: Yes, let implementations sort it out and we can standardize it later.
+[Tue 11:18]	<manu-db>	niklasl: RDFLib in Python always exposes a literal as a native number... but uses the added datatype tag to determine the exact datatype tag is very useful. You never really care about the lexical representation in that case.
+[Tue 11:18]	<manu-db>	niklasl: You can always use the number directly in processing. It would be nice to do that in the default case.
+[Tue 11:18]	<manu-db>	Topic: fromRDF() creates nodes for things like rdf:type.
+[Tue 11:19]	<dlongley>	niklasl: i brought up this issue a couple of weeks ago, the resulting JSON-LD, flattened JSON-LD from RDF conversion creates nodes for things that haven't been linked to, the most glaring examples being every rdf:type
+[Tue 11:19]	<manu-db>	scribe-nods.
+[Tue 11:20]	<dlongley>	niklasl: except rdf:nil ... those don't turn up
+[Tue 11:20]	<dlongley>	niklasl: another example would be if you gave someone a homepage, it shows up as a node
+[Tue 11:21]	<dlongley>	niklasl: this is annoying too because choosing JSON-LD to transmit RDF would increase the size of the data
+[Tue 11:21]	<dlongley>	niklasl: with unusable nodes
+[Tue 11:21]	<dlongley>	gkellogg: markus made the point that by doing this you can effectively find all the links in the document
+[Tue 11:22]	<dlongley>	gkellogg: my own position is that it does make it a little bit more ugly, but i don't know if that effectively matters in the long run
+[Tue 11:22]	-->	scor (scor@nat/acquia/x-txtwhoqnmowervgg) has joined #json-ld
+[Tue 11:22]	-->	scor (scor@drupal.org/user/52142/view) has joined #json-ld
+[Tue 11:22]	<dlongley>	mlnt: that's the result of the node map generation algorithm which basically just collects all the nodes in the doc
+[Tue 11:22]	<dlongley>	niklasl: you don't get all the bnodes, you only get the things that are IRIs
+[Tue 11:23]	<dlongley>	mlnt: you get bnodes as well, they are all labeled with blank node identifiers
+[Tue 11:23]	<dlongley>	mlnt: every node that appears in the graph appears in the flattened output
+[Tue 11:23]	<dlongley>	manu-db: you could just post-process the output, right?
+[Tue 11:24]	<dlongley>	niklasl: you could also do the same in the other direction
+[Tue 11:24]	<dlongley>	mlnt: i think it's more useful to be able to find all the nodes in a graph
+[Tue 11:24]	<dlongley>	mlnt: if you wanted to create a graph you'd just loop
+[Tue 11:24]	<dlongley>	niklasl: when i connect them i have to create all the links anyway
+[Tue 11:24]	<dlongley>	mlnt: you can just enumerate them in a simple way
+[Tue 11:25]	<dlongley>	manu-db: does anyone care enough about this to modify the flattening algorithm to remove these?
+[Tue 11:25]	<dlongley>	niklasl: when i implemented this, it looked much more verbose, i had to do additional work to make the result look uglier
+[Tue 11:25]	<dlongley>	manu-db: is it that much of an issue to create a function to remove the nodes you don't want
+[Tue 11:26]	<dlongley>	manu-db: it seems to me like something someone could do in 10 minutes at most
+[Tue 11:26]	<dlongley>	niklasl: i don't see the point of making flattening looking uglier than it has to
+[Tue 11:26]	<dlongley>	niklasl: it looks like an artifact of an algorithm that could be changed
+[Tue 11:26]	<dlongley>	niklasl: it seems like preparing for something that someone might want to use for something else
+[Tue 11:26]	<dlongley>	niklasl: i used this with connect and i didn't need this structure
+[Tue 11:29]	<manu-db>	dlongley: It's already difficult for people to find stuff by subject.
+[Tue 11:29]	<manu-db>	dlongley: I want to make sure we're not making things more difficult than they already are, since we don't expose a node map.
+[Tue 11:30]	<manu-db>	notes we're out of time.
+[Tue 11:31]	<dlongley>	Discussion about rdf:nil and lists and whether they show up in flattening as well.
+[Tue 11:32]	<mlnt>	We need to cover this next time: https://github.com/json-ld/json-ld.org/issues/257
+[Tue 11:32]	<dlongley>	dlongley: We also need some input on this in the issue tracker: https://github.com/json-ld/json-ld.org/issues/264
+[Tue 11:33]	<voip-ld>	Manu Sporny (SIP/6000-0000021e) has left the conference.
+[Tue 11:33]	<voip-ld>	Dave Lehn (SIP/6003-00000224) has left the conference.
+[Tue 11:33]	<voip-ld>	Dave Longley (SIP/6002-0000021d) has left the conference.
+[Tue 11:33]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000222) has left the conference.
+[Tue 11:33]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-0000021f) has left the conference.
+[Tue 11:33]	<voip-ld>	Gregg Kellogg (SIP/sip2sip.info-0000021c) has left the conference.
+[Tue 11:34]	<voip-ld>	Clay (SIP/sip2sip.info-00000223) has left the conference.
