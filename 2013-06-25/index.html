@@ -1,0 +1,290 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-06-25</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0041.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0041.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Peter Patel-Schneider's comments</a><li><a href="#topic-2">ISSUE-257: Blank node identifers for data types</a><li><a href="#topic-3">ISSUE-264: JsonLdUrlDereferencer option</a><li><a href="#topic-4">JSON-LD introduction</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Do not support blank nodes as data types.</a><li><a href="#resolution-2">Raise an error if a blank-node-typed literal is detected.</a><li><a href="#resolution-3">Generalize the LoadContextCallback feature into a LoadDocumentCallback feature and use it for loading both remote contexts and remote documents when necessary.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Peter Patel-Schneider, Clay Wells, Niklas Lindström, Gregg Kellogg, Markus Lanthaler, Dave Longley, David Booth, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any updates or changes to the agenda?</div>
+<h1 id="topic-1" class="topic">Topic: Peter Patel-Schneider's comments</h1>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0126.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0126.html</a></div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  There are two halves to the changes - a very toned down version of feedback from Gregg Reynolds. I agree with his comments.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I agree with his comments, after reading json-ld.org, I agree even more. I think there is something that is actionable.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Regarding the "We can't mention RDF because it will annoy JSON folks" - that's bogus. There is json-ld.org. The tender sensibilities of JSON developers will not be harmed by doing the right thing in the W3C spec in the WG.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  That's one side of the comment.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  JSON-LD is supposedly a W3C from the RDF WG and it is not related to anything else from W3C.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  That's not appropriate. My modest suggestion (truly modest in this case), is to firm up the relationship between JSON-LD and the rest of W3C semantic web specs and Linked Data specs.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I think JSON-LD should be firmly placed on top of RDF. I think that can be accomplished by modifying Appendix A and Appendix C. As far as I can tell, there won't be any changes to the other JSON-LD docs.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Even if those changes are made, we're in an unhappy situation, but I'm willing to hold my nose.</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree on the intent.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I've supported what Peter wants to do, I want to balance that with the direction we've been taking. We wanted to de-emphasize RDF, but not for all practical purposes.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This is mostly in an effort to get to consensus. I don't think using RDF more expicitly early on is going ot push people away.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's a quite bit of history behind the approach of JSON-LD ... this is mostly directed at Peter since you've been out of the loop w/respect to a lot of the previous discussions on this matter, in the very beginning w/JSON-LD, what we did was set out to do was create a data exchange format that was compatible with RDF but was very easy for web developers to use, we wanted round tripability with RDF, not necessarily to be built on top of RDF [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's where JSON-LD started, and that's why certain things are in the spec, as we joined the RDF WG we ... [missed] [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  the idea that RDF was not a central pillar to JSON-LD wasn't brought into the RDF WG [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what we wanted to be able to do was be able to provide a tool that works for both web developers and the semweb community [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the problem was that those two different communities have very different ideas about what an "easy to use" app is [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the semweb community thinks that it's easy to understand RDF and the RDF model, etc. and people can just use it without any issue [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other community, again, this is a general broad brush statement, feel that RDF is overly complicated, hard to use, can conflate it with RDF/XML and even if they don't they feel that RDF has a very steep learning curve and they can't sort out what's important and what's not [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  greg reynolds said this directly: as far as i can see, JSON-LD is throwing RDF under the bus [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think that's hyperbolic [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  saying that anyone here is trying to throw RDF under the bus is hyperbolic, we're both trying to accomplish the same thing [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I don't think we are. If you look at jsonld.org, where is RDF? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what benefit is there for putting RDF on the front page? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  the whole idea behind JSON-LD is to not be RDF [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  That assertion is just not true. [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  look at your shiny new car in the show case, where is RDF? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  schema.org is also firmly based on RDF, but doesn't say anything about RDF...</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  They don't talk about RDF, so it's not based on RDF. And they're not trying to get a W3C REC through.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the point that we should be publishing something that is closely associated with RDF since we're going through the RDF WG is important to note.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  You're completely off the rails - that's ridiculous - a spec coming out of W3C should be based upon other W3C recs, not closely associated with them.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I believe that the JSON-LD spec accomplishes that. I think it does that in the appendixes. That's the intent that I've understood so far.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  As far as I can see, the JSON-LD community has not referenced the W3C specs at all, they've gone out of their way to not talk about RDF.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  We have to take the tender sensibilities of JSON-LD authors out of the equation.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I think we have to make the relationship crystal clear between JSON-LD and RDF.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  The references are buried, they're hard to find out... theyve been denegrated, downplayed, deemphasized, they've been de-everythinged.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think putting a reference in anywhere is a hard requirement.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We have this text in the document in every introductory section:</div>
+<div class="information">Developers that require any of the facilities listed above or need to serialize an RDF graph or dataset [RDF11-CONCEPTS] in a JSON-based syntax will find JSON-LD of interest.</div>
+<div class="information">Software developers who want to generate or consume Linked Data, an RDF graph, or an RDF Dataset in a JSON syntax</div>
+<div class="information">Usable as RDF- JSON-LD was designed to be usable by developers as idiomatic JSON, with no need to understand RDF [RDF11-CONCEPTS]. However, JSON-LD was also designed to be usable as RDF, so people intending to use JSON-LD with RDF tools will find it can be used like any other RDF syntax. Complete details of how JSON-LD relates to RDF are in C. Relationship to RDF.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  In every single case, you push RDF under the bus.</div>
+<div class="comment"><span class="name">Dave Longley</span>: "However, JSON-LD was also designed to be usable as RDF, so people intending to use JSON-LD with RDF tools will find it can be used like any other RDF syntax."</div>
+<div class="comment"><span class="name">Dave Longley</span>:  You're making empirical claims... we can see text in the spec that disproves those claims.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Maybe you would like the language to be different, do you want to focus on that?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  There is no notion that JSON-LD is based on RDF. </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  There are multiple pieces of normative text in the specification that link JSON-LD to RDF.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  It seems like it's incidental.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's a fair criticism.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't think it's a fair criticism (it's hyperbolic).</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that what Peter is saying is that we need to call out the cultural heritage of JSON-LD ... that is RDF.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I think you should take Gregg Reynolds comment... that's the danger... that his comments will prevail. To put it in pragmatic terms, the danger to you is that Gregg is correct and what he claims will come to pass.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think a lot of his confusion is that a mapping to RDF is in a separate document.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Perhaps one could follow all of the links through and come up with all of the links between JSON-LD and RDF, but they're well hidden.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  As far as I'm concerned, the only thing that's worthwhile talking about is the proposal for Appendix A.</div>
+<div class="comment"><span class="name">David Booth</span>: Anyone have a link to Peter's comments?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0126.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0126.html</a></div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  The technical meat of this proposal is to change Appendix A - the data model - to start out by pointing to genesis of Linked Data, and talk about the difference between syntax of JSON-LD and data model - say bluntly, the data model of JSON-LD is RDF datasets as defined by RDF 1.1 concepts.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  You have to talk about JSON data values and come up with a story about how they relate to data values.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  The other point of contention is lists - say that a list translates into an RDF list, basically.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  If stuff is in a JSON-LD document that doesn't translate into an RDF dataset, then it's only meaning is to mediate translation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What do you mean by 'mediate'?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Things that don't get changed into RDF get ignored... a lot of them end up affecting the generation of the graph that underlies the JSON-LD document.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  They have meaning, but their meaning is to 'mediate the formation of the underlying graph'.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  It's the same disclaimer as there is now before.</div>
+<div class="comment"><span class="name">David Booth</span>: aren't there ways to finesse those spec dependencies of one spec on another spec that is not quite finished?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We might be held up due to RDF 1.1 COncepts.</div>
+<div class="comment"><span class="name">David Booth</span>:  Are you suggesting removing the parallel RDF data model? Or are you saying that you want to change how the JSON-LD model is described.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I'm suggesting removing the parallel model.</div>
+<div class="comment"><span class="name">David Booth</span>:  I would be happier with that as well. I had resigned myself to assuming that it would be too much work to do.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Wouldn't it be sufficient to say that the JSON-LD data model is based on the RDF data model. Removing the word "JSON-LD data model" wouldn't do much.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We need to name the "changes to RDF" as the "JSON-LD data model".</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think the big problem is that the JSON-LD data model doesn't say it's based on the RDF data model.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  outlines proposal for RDF data model / JSON-LD data model</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  There is a taste of bad faith on both sides? Maybe naievity on one side.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  One would be complete technical alignment... the other would be ...</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  What about JSON-LD data model is the RDF data model.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  No</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What about 'extension of'? I don't understand how we make the JSON data model lines up with the RDF data model?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  What really is JSON? Isn't that the issue. There are multiple places where one can come up with what the definition of JSON.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  The one at json.org points to the ECMA definition - in that definition, it states bluntly that JavaScript has IEEE numbers, if one went that way, JSON numbers are compatible with xsd:double - would that work? That's /a/ spec.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  The one you guys point to is a different spec. It also really only mentions syntax.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  In a certain strong sense, JSON numbers are IEEE doubles, accept no substitutes. They are completely compatible with xsd:double.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no, that's not the reality.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Implementations deviate from the spec in a very weird, implementation dependent way.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  If it's representable as an integer, then it's an integer, if not, it's a double.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  The first one allows 1.0 to b e an integer... the second is what many languages do... '1' is an integer, '1.0' is a double.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Even if you do this, you can be completely compatible with languages and xsd:datatypes.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Integers are unbounded, etc. etc.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  There is no implementation that can implement 'google' as an integer.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Implementations can't implement these things.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  language tag strings are short-hand for the longer version.</div>
+<div class="comment"><span class="name">Dave Longley</span>: xsd:integer is unbounded</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we can just define "the JSON-LD data model" as an extended RDF graph w/1 extension for bnodes as predicates [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Dave Longley</span>: then use that term throughout the document.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I think bnodes as properties will happen, if it doesn't say it's an extension.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  JSON lists are shorthand for the appropriate RDF lists.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think we have any issues with lists... they're identical to RDF lists.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think there is a point in suggesting that they're different.</div>
+<div class="comment"><span class="name">David Booth</span>:  I think this set vs. list can be done in RDF as well - it's not standardized.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  There is no standard facility to do this in RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think what we're doing in JSON-LD is identical to what we're doing in RDF. I think the JSON-LD case varies from that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  That's not the intent either... We represent RDF lists and we represent repeated statements. That's what JSON-LD models.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so here are the editorial changes we could make: We could say explicitly that the model that JSON-LD uses is an extensio of RDF Datasets in Appendix A. Just come right out and say that. Rename the "JSON-LD Data Model" to just "Data Model" in the spec so that there is no confusion that JSON-LD has a different data model (even though the devil is in the details). We'll work out how to specify JSON numbers, lists, and blank nodes as predicates such that they align w/ the RDF data model or are extensions of it without calling those extensions the JSON-LD data model.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the text makes it confusing that we don't align with RDF data model to the point of not talking about the JSON-LD data model. I think the JSON-LD data model might point as a way of indirection.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think that we can define the RDF dataset as the JSON-LD data model.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we can be clear about the deifnition - it's an extended RDF Dataset...</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think there is a slight problem - if the term becomes so ingrained, it might take on a life on it's own.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so the plan is for the editors to try to implement the changes outlined above. We won't get it right in the first pass, it'll need multiple passes and reviews by Peter and David Booth. Once we settle on something that all of us are happy with, we'll have a proposal to adopt the spec text.</div>
+<div class="comment"><span class="name">David Booth</span>:  I would like us to take this approach to alignment, skolemization might be moot based on this approach.</div>
+<div class="comment"><span class="name">David Booth</span>:  Blank nodes as predicates - important to outline in the spec what happens if the RDF WG doesn't adopt that.</div>
+<div class="comment"><span class="name">David Booth</span>:  Two different processors need to be interoperable.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: bnodes-as-predicates are explicitely out of scope: <a href="http://www.w3.org/2011/01/rdf-wg-charter">http://www.w3.org/2011/01/rdf-wg-charter</a></div>
+<div class="comment"><span class="name">David Booth</span>:  If there is a chance that RDF will adopt blank nodes as predicates / graphs, then we can align.</div>
+<div class="comment"><span class="name">David Booth</span>:  We should either say the triple gets dropped or gets skolemized.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-257: Blank node identifers for data types</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/257">https://github.com/json-ld/json-ld.org/issues/257</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There is an inconsistency in the spec - you can't use a bnode as a datatype if you use it in the document. You can do it if you do it in the context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There are two proposals</div>
+<div class="information">PROPOSAL 1: Do not support blank nodes as data types.</div>
+<div class="information">PROPOSAL 2: Raise an error if a blank-node-typed literal is detected.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any preferences on these proposal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The proposals support each other.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is a consequence of allowing bnodes in that position, syntactically.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We're deviating from a generalization that we could apply everywhere - why not just be general everywhere, why make special exceptions?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We can revisit this later if there is a use case. Let's keep the generalization everywhere.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think this would be a reasonable thing for RDF COncepts to do. Otherwise, we're creating differences that no one is mandating because it falls out of a consistency of approach in transforming documents.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think N3 allows blank node datatypes, but it does allow blank node properties.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I would prefer to keep the generalization, doesn't make sense to fight for that now.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Do we have a use case for this? ANyone ever seen this sort of markup in the wild?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think so.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  It seems like if you wanted to just have types in your local document, that's a use case.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The only use case I can think where that would be used is some sort of strange linguistics use case where you want to specify datatypes within the document that should not be known to the world. It's a starnge use case, nobody is asking for it, if we need it we can put it in later, if if put it in, there will be a big fight in the RDF WG.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Do not support blank nodes as data types.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +0.5</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Do not support blank nodes as data types.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Raise an error if a blank-node-typed literal is detected.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Clay Wells</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +0.5</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Raise an error if a blank-node-typed literal is detected.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is a test case that fails because of this.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Spec changes should be minimal.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: expand-0049-in.jsonld will have to be corrected, will take that discussion offline and make the change.</div>
+<h1 id="topic-3" class="topic">Topic: ISSUE-264: JsonLdUrlDereferencer option</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/264">https://github.com/json-ld/json-ld.org/issues/264</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  When we discussed URL dereferencing previously, the intent was to have the feature as a generalized solution. Unfortunately, the implementation of that intent in the spec made it too specific to dereferencing contexts. We should fix that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  bug fix?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yes.</div>
+<div class="information">Group agrees that this was the intent and this is a bug fix.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Generalize the LoadContextCallback feature into a LoadDocumentCallback feature and use it for loading both remote contexts and remote documents when necessary.</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Generalize the LoadContextCallback feature into a LoadDocumentCallback feature and use it for loading both remote contexts and remote documents when necessary.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 for all proposals above</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We might need to discuss how to prevent endless references.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I thought we must not continue to fetch contexts.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We might say that you should use application/ld+json for the link header.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you request application/ld+json - you should not follow any links.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The callback goes out to the URL and fetches the document... if the HTTP Link header in it, it follow the Link Header and provides the document and the context that was fetched.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That's what comes back as the future value...</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you encounter a Link Header that is a JSON-LD remote context that has application/json - it's invalid.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://json-ld.org/spec/latest/json-ld/#interpreting-json-as-json-ld">http://json-ld.org/spec/latest/json-ld/#interpreting-json-as-json-ld</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  if we look up what a Link Header looks like, the type parameter</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That doesn't tell you much, it's just a hint, you can ignore that.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If you can ignore that, we need to tell implementations what to do if you can ignore that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think the important thing is what the content type is... if the content type is [scribe missed]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you get the document, you get the document plus the link header. If you're trying to dereference the context, you would get back application/ld+json.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That's not true, you don't know that for sure. Their server might not do application/ld+json.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You'd like to interpret it as a context?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't have a strong preference, we need to tell implementations what to do.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree, wondering how we should do that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Do we need a flag to tell the callback what it should look for? We could provide a flag to the callback, the callback should follow one link header. That way, the callback doesn't have to know anything about it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think the callback does that - it just returns the callback?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We have to return back the link header information in the result of the callback.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  RIght, isn't that what was proposed?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  No, I think we need to return back the document and the context... we need to separate concerns here. Your callback might not go onto the network, it might get something from a cache.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  A remote context dictionary returns the result of the context... remote document is the change - doc and context.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The callback would give you the doc and context... the processor decides what it should do.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Wouldn't it be simpler if we return the link?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That's an option... give back a Context URL instead of a context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Not sure we have a specific proposal yet.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Ok, let's go back to the issue tracker and figure it out there.</div>
+<h1 id="topic-4" class="topic">Topic: JSON-LD introduction</h1>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm going to paste some text in here - Peter had some complaints about the introduction.</div>
+<div class="comment"><span class="name">Dave Longley</span>: circling back to Peter's comments, perhaps this fix to the intro would help as well - "JSON-LD was designed to be usable by developers as idiomatic JSON, with no need to understand RDF [RDF11-CONCEPTS]. However, JSON-LD was also designed to be usable as RDF, so people intending to use JSON-LD with RDF tools will find it can be used like any other RDF syntax." to "JSON-LD was designed to be usable as both idiomatic JSON and as RDF. Developers have no need to understand RDF to use JSON-LD, but those intending to use RDF tools will find that JSON-LD is used just like any other RDF syntax."</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What do we want to communicate in there?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We're trying to keep RDF at a distance - don't worry about what's behind the curtain.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  By not saying that JSON-LD is RDF, we're throwing RDF under the bus. The point is that we can say "X has a strong theoretical basis"... we should be able to say the same about RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It is built on top of RDF, but it's done in a simple way.</div>
+<div class="comment"><span class="name">Clay Wells</span>: why even mention "there's no need to understand RDF" at all.. just something to think about.</div>
+<div class="comment"><span class="name">Dave Longley</span>: we want people to know there isn't a steep learning curve</div>
+<div class="comment"><span class="name">Clay Wells</span>: couldn't that be implied?</div>
+<div class="comment"><span class="name">Dave Longley</span>: if we can imply it without saying it, yeah, that would be preferable.</div>
+</body>
+</html>

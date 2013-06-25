@@ -156,6 +156,11 @@
          "alias": ["clayball"],
          "homepage": "http://www.cwells.org/"
       },
+      "Peter Patel-Schneider":
+      {
+         "alias": ["pfps"],
+         "homepage": "http://www.linkedin.com/pub/peter-f-patel-schneider/48/5b8/5a6"
+      },
       "Dan Brickley":
       {
          "alias": ["danbri"],

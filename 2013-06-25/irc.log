@@ -1,0 +1,267 @@
+[Tue 10:03]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jun/0041.html
+[Tue 10:04]	<manu-db>	scribenick: manu-db
+[Tue 10:04]	<manu-db>	manu: Any updates or changes to the agenda?
+[Tue 10:04]	<manu-db>	Topic: Peter Patel-Schneider's comments
+[Tue 10:04]	-->|	dlongley_ (~dlongley@216.252.204.51) has joined #json-ld
+[Tue 10:04]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0126.html
+[Tue 10:05]	=-=	dlongley_ is now known as dlongley-db
+[Tue 10:05]	<manu-db>	pfps: There are two halves to the changes - a very toned down version of feedback from Gregg Reynolds. I agree with his comments.
+[Tue 10:05]	<manu-db>	pfps: I agree with his comments, after reading json-ld.org, I agree even more. I think there is something that is actionable.
+[Tue 10:05]	-->|	pkuyken (d83e1181@gateway/web/freenode/session) has joined #json-ld
+[Tue 10:06]	<manu-db>	pfps: Regarding the "We can't mention RDF because it will annoy JSON folks" - that's bogus. There is json-ld.org. The tender sensibilities of JSON developers will not be harmed by doing the right thing in the W3C spec in the WG.
+[Tue 10:06]	<manu-db>	pfps: That's one side of the comment.
+[Tue 10:06]	<voip-ld>	<unknown> (IAX2/diamondcard-12208) has joined the conference.
+[Tue 10:07]	<manu-db>	pfps: JSON-LD is supposedly a W3C from the RDF WG and it is not related to anything else from W3C.
+[Tue 10:07]	<manu-db>	pfps: That's not appropriate. My modest suggestion (truly modest in this case), is to firm up the relationship between JSON-LD and the rest of W3C semantic web specs and Linked Data specs.
+[Tue 10:08]	<manu-db>	pfps: I think JSON-LD should be firmly placed on top of RDF. I think that can be accomplished by modifying Appendix A and Appendix C. As far as I can tell, there won't be any changes to the other JSON-LD docs.
+[Tue 10:08]	<manu-db>	pfps: Even if those changes are made, we're in an unhappy situation, but I'm willing to hold my nose.
+[Tue 10:08]	<clayball>	+1
+[Tue 10:08]	<manu-db>	q+
+[Tue 10:08]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 10:08]	<manu-db>	niklasl: I agree on the intent.
+[Tue 10:09]	<manu-db>	gkellogg: I've supported what Peter wants to do, I want to balance that with the direction we've been taking. We wanted to de-emphasize RDF, but not for all practical purposes.
+[Tue 10:09]	<manu-db>	gkellogg: This is mostly in an effort to get to consensus. I don't think using RDF more expicitly early on is going ot push people away.
+[Tue 10:09]	<manu-db>	ack
+[Tue 10:09]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 10:10]	<dlongley-db>	manu: there's a quite bit of history behind the approach of JSON-LD ... this is mostly directed at Peter since you've been out of the loop w/respect to a lot of the previous discussions on this matter, in the very beginning w/JSON-LD, what we did was set out to do was create a data exchange format that was compatible with RDF but was very easy for web developers to use, we wanted round tripability with RDF, not necessarily to be built on top of RDF
+[Tue 10:11]	<dlongley-db>	manu: that's where JSON-LD started, and that's why certain things are in the spec, as we joined the RDF WG we ... [missed]
+[Tue 10:11]	|<--	dlongley-db has left freenode (*.net *.split)
+[Tue 10:12]	=-=	dlongley-db is now known as dlongley-db
+[Tue 10:12]	<dlongley-db>	pfps: the idea that RDF was not a central pillar to JSON-LD wasn't brought into the RDF WG
+[Tue 10:12]	<dlongley-db>	manu: what we wanted to be able to do was be able to provide a tool that works for both web developers and the semweb community
+[Tue 10:12]	<dlongley-db>	manu: the problem was that those two different communities have very different ideas about what an "easy to use" app is
+[Tue 10:13]	<dlongley-db>	manu: the semweb community thinks that it's easy to understand RDF and the RDF model, etc. and people can just use it without any issue
+[Tue 10:14]	<dlongley-db>	manu: the other community, again, this is a general broad brush statement, feel that RDF is overly complicated, hard to use, can conflate it with RDF/XML and even if they don't they feel that RDF has a very steep learning curve and they can't sort out what's important and what's not
+[Tue 10:14]	<dlongley-db>	pfps: greg reynolds said this directly: as far as i can see, JSON-LD is throwing RDF under the bus
+[Tue 10:14]	<dlongley-db>	manu-db: I think that's hyperbolic
+[Tue 10:14]	<dlongley-db>	manu-db: saying that anyone here is trying to throw RDF under the bus is hyperbolic, we're both trying to accomplish the same thing
+[Tue 10:15]	<dlongley-db>	pfps: I don't think we are. If you look at jsonld.org, where is RDF?
+[Tue 10:15]	<dlongley-db>	manu-db: what benefit is there for putting RDF on the front page?
+[Tue 10:15]	<voip-ld>	Dave Lehn (SIP/6003-0000023c) has joined the conference.
+[Tue 10:15]	<gkellogg>	q+
+[Tue 10:15]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:15]	<dlongley-db>	pfps: the whole idea behind JSON-LD is to not be RDF
+[Tue 10:15]	<dlongley-db>	manu: That assertion is just not true.
+[Tue 10:16]	<dlongley-db>	pfps: look at your shiny new car in the show case, where is RDF?
+[Tue 10:16]	<manu-db>	ack gkellogg
+[Tue 10:16]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:16]	<manu-db>	gkellogg: schema.org is also firmly based on RDF, but doesn't say anything about RDF...
+[Tue 10:16]	<manu-db>	pfps: They don't talk about RDF, so it's not based on RDF. And they're not trying to get a W3C REC through.
+[Tue 10:17]	<manu-db>	gkellogg: I think the point that we should be publishing something that is closely associated with RDF since we're going through the RDF WG is important to note.
+[Tue 10:17]	<manu-db>	pfps: You're completely off the rails - that's ridiculous - a spec coming out of W3C should be based upon other W3C recs, not closely associated with them.
+[Tue 10:18]	<manu-db>	gkellogg: I believe that the JSON-LD spec accomplishes that. I think it does that in the appendixes. That's the intent that I've understood so far.
+[Tue 10:19]	<manu-db>	pfps: As far as I can see, the JSON-LD community has not referenced the W3C specs at all, they've gone out of their way to not talk about RDF.
+[Tue 10:19]	<manu-db>	pfps: We have to take the tender sensibilities of JSON-LD authors out of the equation.
+[Tue 10:19]	<manu-db>	pfps: I think we have to make the relationship crystal clear between JSON-LD and RDF.
+[Tue 10:20]	<manu-db>	pfps: The references are buried, they're hard to find out... theyve been denegrated, downplayed, deemphasized, they've been de-everythinged.
+[Tue 10:20]	<manu-db>	markus: I don't think putting a reference in anywhere is a hard requirement.
+[Tue 10:20]	-->|	linclark (~clark@147.252.109.104) has joined #json-ld
+[Tue 10:21]	<manu-db>	manu: We have this text in the document in every introductory section:
+[Tue 10:21]	<manu-db>	Developers that require any of the facilities listed above or need to serialize an RDF graph or dataset [RDF11-CONCEPTS] in a JSON-based syntax will find JSON-LD of interest.
+[Tue 10:21]	<manu-db>	Software developers who want to generate or consume Linked Data, an RDF graph, or an RDF Dataset in a JSON syntax
+[Tue 10:21]	<manu-db>	Usable as RDF- JSON-LD was designed to be usable by developers as idiomatic JSON, with no need to understand RDF [RDF11-CONCEPTS]. However, JSON-LD was also designed to be usable as RDF, so people intending to use JSON-LD with RDF tools will find it can be used like any other RDF syntax. Complete details of how JSON-LD relates to RDF are in C. Relationship to RDF.
+[Tue 10:22]	<manu-db>	pfps: In every single case, you push RDF under the bus.
+[Tue 10:22]	-->|	dbooth (~dbooth@209-6-49-245.c3-0.smr-ubr1.sbo-smr.ma.cable.rcn.com) has joined #json-ld
+[Tue 10:23]	<dlongley-db>	"However, JSON-LD was also designed to be usable as RDF, so people intending to use JSON-LD with RDF tools will find it can be used like any other RDF syntax."
+[Tue 10:23]	<manu-db>	dlongley: You're making empirical claims... we can see text in the spec that disproves those claims.
+[Tue 10:23]	<manu-db>	dlongley: Maybe you would like the language to be different, do you want to focus on that?
+[Tue 10:24]	<manu-db>	pfps: There is no notion that JSON-LD is based on RDF. 
+[Tue 10:24]	<manu-db>	manu: There are multiple pieces of normative text in the specification that link JSON-LD to RDF.
+It's possible to use JSON-LD as RDF if you want to. Tjere is no notion about how close they're tied.
+[Tue 10:24]	<manu-db>	pfps: It seems like it's incidental.
+[Tue 10:24]	<manu-db>	gkellogg: That's a fair criticism.
+[Tue 10:24]	<manu-db>	manu: I don't think it's a fair criticism (it's hyperbolic).
+[Tue 10:25]	<manu-db>	gkellogg: I think that what Peter is saying is that we need to call out the cultural heritage of JSON-LD ... that is RDF.
+[Tue 10:26]	<manu-db>	pfps: I think you should take Gregg Reynolds comment... that's the danger... that his comments will prevail. To put it in pragmatic terms, the danger to you is that Gregg is correct and what he claims will come to pass.
+[Tue 10:26]	<voip-ld>	<unknown> (IAX2/diamondcard-15756) has joined the conference.
+[Tue 10:27]	<manu-db>	dlongley: I think a lot of his confusion is that a mapping to RDF is in a separate document.
+[Tue 10:27]	<manu-db>	voip: 15756 is dbooth
+[Tue 10:27]	<voip-ld>	dbooth is now associated with IAX2/diamondcard-15756.
+[Tue 10:27]	<manu-db>	pfps: Perhaps one could follow all of the links through and come up with all of the links between JSON-LD and RDF, but they're well hidden.
+[Tue 10:28]	<manu-db>	pfps: As far as I'm concerned, the only thing that's worthwhile talking about is the proposal for Appendix A.
+[Tue 10:28]	<dbooth>	Anyone have a link to Peter's comments?
+[Tue 10:28]	<niklasl>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0126.html
+[Tue 10:30]	<manu-db>	pfps: The technical meat of this proposal is to change Appendix A - the data model - to start out by pointing to genesis of Linked Data, and talk about the difference between syntax of JSON-LD and data model - say bluntly, the data model of JSON-LD is RDF datasets as defined by RDF 1.1 concepts.
+[Tue 10:30]	<mlnt>	q+
+[Tue 10:30]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:30]	<manu-db>	pfps: You have to talk about JSON data values and come up with a story about how they relate to data values.
+[Tue 10:31]	<manu-db>	pfps: The other point of contention is lists - say that a list translates into an RDF list, basically.
+[Tue 10:31]	<manu-db>	pfps: If stuff is in a JSON-LD document that doesn't translate into an RDF dataset, then it's only meaning is to mediate translation.
+[Tue 10:31]	<manu-db>	manu: What do you mean by 'mediate'?
+[Tue 10:32]	<manu-db>	pfps: Things that don't get changed into RDF get ignored... a lot of them end up affecting the generation of the graph that underlies the JSON-LD document.
+[Tue 10:32]	<manu-db>	pfps: They have meaning, but their meaning is to 'mediate the formation of the underlying graph'.
+[Tue 10:32]	<mlnt>	q-
+[Tue 10:32]	<voip-ld>	Removed mlnt from the speaker queue: (empty)
+[Tue 10:32]	<manu-db>	pfps: It's the same disclaimer as there is now before.
+[Tue 10:33]	<dbooth>	q+ to ask if peter is suggesting that the parallel json-ld data model be removed
+[Tue 10:33]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:34]	<dbooth>	aren't there ways to finesse those spec dependencies of one spec on another spec that is not quite finished?
+[Tue 10:34]	<manu-db>	ack dbooth
+[Tue 10:34]	<voip-ld>	dbooth has the floor (to ask if peter is suggesting that the parallel json-ld data model be removed). The speaker queue is empty.
+[Tue 10:35]	<manu-db>	manu: We might be held up due to RDF 1.1 COncepts.
+[Tue 10:35]	<manu-db>	dbooth: Are you suggesting removing the parallel RDF data model? Or are you saying that you want to change how the JSON-LD model is described.
+[Tue 10:35]	<manu-db>	pfps: I'm suggesting removing the parallel model.
+[Tue 10:35]	<manu-db>	dbooth: I would be happier with that as well. I had resigned myself to assuming that it would be too much work to do.
+[Tue 10:36]	<dlongley-db>	q+
+[Tue 10:36]	<voip-ld>	Added dlongley-db to the speaker queue: dlongley-db
+[Tue 10:36]	<manu-db>	ack dlongley-db
+[Tue 10:36]	<voip-ld>	dlongley-db has the floor. The speaker queue is empty.
+[Tue 10:37]	<manu-db>	dlongley: Wouldn't it be sufficient to say that the JSON-LD data model is based on the RDF data model. Removing the word "JSON-LD data model" wouldn't do much.
+[Tue 10:37]	<manu-db>	dlongley: We need to name the "changes to RDF" as the "JSON-LD data model".
+[Tue 10:37]	<manu-db>	dlongley: I think the big problem is that the JSON-LD data model doesn't say it's based on the RDF data model.
+[Tue 10:39]	<dbooth>	q+ to say if this is viewed as an editorial change, then i would be willing to help do the grunt work to make that change.
+[Tue 10:39]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:40]	|<--	pfps has left freenode (Changing host)
+[Tue 10:40]	-->|	pfps (c0853d0a@gateway/web/freenode/ip.192.133.61.10) has joined #json-ld
+[Tue 10:40]	|<--	pkuyken has left freenode (Changing host)
+[Tue 10:40]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:40]	<manu-db>	manu: outlines proposal for RDF data model / JSON-LD data model
+[Tue 10:40]	-->|	mlnt (~markus@84-115-182-43.dynamic.surfer.at) has joined #json-ld
+[Tue 10:40]	<manu-db>	pfps: There is a taste of bad faith on both sides? Maybe naievity on one side.
+[Tue 10:41]	<manu-db>	pfps: One would be complete technical alignment... the other would be ...
+[Tue 10:41]	<manu-db>	manu: What about JSON-LD data model is the RDF data model.
+[Tue 10:41]	<manu-db>	pfps: No
+[Tue 10:42]	<manu-db>	gkellogg: What about 'extension of'? I don't understand how we make the JSON data model lines up with the RDF data model?
+[Tue 10:42]	<manu-db>	pfps: What really is JSON? Isn't that the issue. There are multiple places where one can come up with what the definition of JSON.
+[Tue 10:43]	<manu-db>	pfps: The one at json.org points to the ECMA definition - in that definition, it states bluntly that JavaScript has IEEE numbers, if one went that way, JSON numbers are compatible with xsd:double - would that work? That's /a/ spec.
+[Tue 10:43]	<manu-db>	pfps: The one you guys point to is a different spec. It also really only mentions syntax.
+[Tue 10:43]	<manu-db>	pfps: In a certain strong sense, JSON numbers are IEEE doubles, accept no substitutes. They are completely compatible with xsd:double.
+[Tue 10:44]	<manu-db>	manu: no, that's not the reality.
+[Tue 10:44]	<manu-db>	pfps: Implementations deviate from the spec in a very weird, implementation dependent way.
+[Tue 10:44]	<manu-db>	pfps: If it's representable as an integer, then it's an integer, if not, it's a double.
+[Tue 10:44]	-->|	dbs_ (~dan@li22-101.members.linode.com) has joined #json-ld
+[Tue 10:44]	<manu-db>	pfps: The first one allows 1.0 to b e an integer... the second is what many languages do... '1' is an integer, '1.0' is a double.
+[Tue 10:45]	<manu-db>	pfps: Even if you do this, you can be completely compatible with languages and xsd:datatypes.
+[Tue 10:45]	<manu-db>	pfps: Integers are unbounded, etc. etc.
+[Tue 10:46]	<manu-db>	pfps: There is no implementation that can implement 'google' as an integer.
+[Tue 10:46]	<manu-db>	pfps: Implementations can't implement these things.
+[Tue 10:46]	<manu-db>	pfps: language tag strings are short-hand for the longer version.
+[Tue 10:47]	<dlongley-db>	xsd:integer is unbounded
+[Tue 10:49]	|<--	mlnt has left freenode (*.net *.split)
+[Tue 10:49]	|<--	dbs has left freenode (*.net *.split)
+[Tue 10:50]	<dlongley-db>	dlongley: we can just define "the JSON-LD data model" as an extended RDF graph w/1 extension for bnodes as predicates
+[Tue 10:50]	<dlongley-db>	then use that term throughout the document.
+[Tue 10:50]	<manu-db>	pfps: I think bnodes as properties will happen, if it doesn't say it's an extension.
+[Tue 10:51]	<manu-db>	pfps: JSON lists are shorthand for the appropriate RDF lists.
+[Tue 10:51]	<manu-db>	gkellogg: I don't think we have any issues with lists... they're identical to RDF lists.
+[Tue 10:52]	<manu-db>	gkellogg: I don't think there is a point in suggesting that they're different.
+[Tue 10:52]	<manu-db>	dbooth: I think this set vs. list can be done in RDF as well - it's not standardized.
+[Tue 10:52]	<manu-db>	pfps: There is no standard facility to do this in RDF.
+[Tue 10:53]	<manu-db>	gkellogg: I think what we're doing in JSON-LD is identical to what we're doing in RDF. I think the JSON-LD case varies from that.
+[Tue 10:54]	<manu-db>	niklasl: That's not the intent either... We represent RDF lists and we represent repeated statements. That's what JSON-LD models.
+[Tue 10:56]	<manu-db>	manu: Ok, so here are the editorial changes we could make: We could say explicitly that the model that JSON-LD uses is an extensio of RDF Datasets in Appendix A. Just come right out and say that. Rename the "JSON-LD Data Model" to just "Data Model" in the spec so that there is no confusion that JSON-LD has a different data model (even though the devil is in the details). We'll work out how to specify JSON numbers, lists, and blank nodes as predicates such that they align w/ the RDF data model or are extensions of it without calling those extensions the JSON-LD data model.
+[Tue 10:56]	<manu-db>	gkellogg: I think the text makes it confusing that we don't align with RDF data model to the point of not talking about the JSON-LD data model. I think the JSON-LD data model might point as a way of indirection.
+[Tue 10:57]	<manu-db>	dlongley: I think that we can define the RDF dataset as the JSON-LD data model.
+[Tue 10:57]	<manu-db>	dlongley: I think we can be clear about the deifnition - it's an extended RDF Dataset...
+[Tue 10:58]	<manu-db>	niklasl: I think there is a slight problem - if the term becomes so ingrained, it might take on a life on it's own.
+[Tue 11:00]	<manu-db>	manu: Ok, so the plan is for the editors to try to implement the changes outlined above. We won't get it right in the first pass, it'll need multiple passes and reviews by Peter and David Booth. Once we settle on something that all of us are happy with, we'll have a proposal to adopt the spec text.
+[Tue 11:01]	<manu-db>	dbooth: I would like us to take this approach to alignment, skolemization might be moot based on this approach.
+[Tue 11:01]	<manu-db>	dbooth: Blank nodes as predicates - important to outline in the spec what happens if the RDF WG doesn't adopt that.
+[Tue 11:02]	<manu-db>	dbooth: Two different processors need to be interoperable.
+[Tue 11:02]	<voip-ld>	<unknown> (IAX2/diamondcard-12208) has left the conference.
+[Tue 11:02]	<mlnt>	bnodes-as-predicates are explicitely out of scope: http://www.w3.org/2011/01/rdf-wg-charter
+[Tue 11:02]	<manu-db>	dbooth: If there is a chance that RDF will adopt blank nodes as predicates / graphs, then we can align.
+[Tue 11:03]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000239) has left the conference.
+[Tue 11:03]	<manu-db>	dbooth: We should either say the triple gets dropped or gets skolemized.
+[Tue 11:04]	<manu-db>	Topic: ISSUE-257: Blank node identifers for data types
+[Tue 11:04]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/257
+[Tue 11:04]	<voip-ld>	dbooth (IAX2/diamondcard-15756) has left the conference.
+[Tue 11:04]	<manu-db>	mlnt: There is an inconsistency in the spec - you can't use a bnode as a datatype if you use it in the document. You can do it if you do it in the context.
+[Tue 11:05]	<manu-db>	mlnt: There are two proposals
+[Tue 11:05]	<manu-db>	PROPOSAL 1: Do not support blank nodes as data types.
+[Tue 11:05]	<manu-db>	PROPOSAL 2: Raise an error if a blank-node-typed literal is detected.
+[Tue 11:05]	<manu-db>	manu: Any preferences on these proposal.
+[Tue 11:06]	<manu-db>	gkellogg: The proposals support each other.
+[Tue 11:06]	<manu-db>	gkellogg: this is a consequence of allowing bnodes in that position, syntactically.
+[Tue 11:06]	<manu-db>	dlongley: We're deviating from a generalization that we could apply everywhere - why not just be general everywhere, why make special exceptions?
+[Tue 11:07]	<manu-db>	dlongley: We can revisit this later if there is a use case. Let's keep the generalization everywhere.
+[Tue 11:07]	<manu-db>	gkellogg: I think this would be a reasonable thing for RDF COncepts to do. Otherwise, we're creating differences that no one is mandating because it falls out of a consistency of approach in transforming documents.
+[Tue 11:08]	<manu-db>	gkellogg: I don't think N3 allows blank node datatypes, but it does allow blank node properties.
+[Tue 11:08]	<manu-db>	mlnt: I would prefer to keep the generalization, doesn't make sense to fight for that now.
+[Tue 11:08]	<manu-db>	manu: Do we have a use case for this? ANyone ever seen this sort of markup in the wild?
+[Tue 11:08]	<manu-db>	mlnt: I don't think so.
+[Tue 11:10]	|<--	dbooth has left freenode (Quit: Leaving)
+[Tue 11:11]	<manu-db>	dlongley: It seems like if you wanted to just have types in your local document, that's a use case.
+[Tue 11:11]	<manu-db>	manu: The only use case I can think where that would be used is some sort of strange linguistics use case where you want to specify datatypes within the document that should not be known to the world. It's a starnge use case, nobody is asking for it, if we need it we can put it in later, if if put it in, there will be a big fight in the RDF WG.
+[Tue 11:11]	<manu-db>	PROPOSAL: Do not support blank nodes as data types.
+[Tue 11:11]	<gkellogg>	+1
+[Tue 11:11]	<manu-db>	+1
+[Tue 11:11]	<clayball>	+1
+[Tue 11:11]	<dlongley-db>	+0.5
+[Tue 11:11]	<mlnt>	+1
+[Tue 11:12]	<manu-db>	RESOLVED: Do not support blank nodes as data types.
+[Tue 11:12]	<manu-db>	PROPOSAL: Raise an error if a blank-node-typed literal is detected.
+[Tue 11:12]	<manu-db>	+1
+[Tue 11:12]	<gkellogg>	+1
+[Tue 11:12]	<mlnt>	+1
+[Tue 11:12]	<clayball>	+1
+[Tue 11:12]	<dlongley-db>	+0.5
+[Tue 11:12]	<manu-db>	RESOLVED: Raise an error if a blank-node-typed literal is detected.
+[Tue 11:13]	<manu-db>	gkellogg: There is a test case that fails because of this.
+[Tue 11:13]	<manu-db>	mlnt: Spec changes should be minimal.
+[Tue 11:13]	<gkellogg>	expand-0049-in.jsonld will have to be corrected, will take that discussion offline and make the change.
+[Tue 11:14]	<manu-db>	Topic: ISSUE-264: JsonLdUrlDereferencer option
+[Tue 11:14]	<manu-db>	https://github.com/json-ld/json-ld.org/issues/264
+[Tue 11:15]	=-=	mlnt is now known as mlnt
+[Tue 11:15]	<manu-db>	manu: When we discussed URL dereferencing previously, the intent was to have the feature as a generalized solution. Unfortunately, the implementation of that intent in the spec made it too specific to dereferencing contexts. We should fix that.
+[Tue 11:15]	<manu-db>	mlnt: bug fix?
+[Tue 11:15]	<manu-db>	dlongley: yes.
+[Tue 11:15]	<manu-db>	Group agrees that this was the intent and this is a bug fix.
+[Tue 11:16]	<manu-db>	PROPOSAL: Generalize the LoadContextCallback feature into a LoadDocumentCallback feature and use it for loading both remote contexts and remote documents when necessary.
+[Tue 11:16]	<dlongley-db>	+1
+[Tue 11:16]	<manu-db>	+1
+[Tue 11:16]	<gkellogg>	+1
+[Tue 11:17]	<mlnt>	+1
+[Tue 11:17]	<taaz>	+1
+[Tue 11:17]	<manu-db>	RESOLVED: Generalize the LoadContextCallback feature into a LoadDocumentCallback feature and use it for loading both remote contexts and remote documents when necessary.
+[Tue 11:17]	-->|	gljs (c3a61d02@gateway/web/freenode/ip.195.166.29.2) has joined #json-ld
+[Tue 11:17]	<niklasl>	+1 for all proposals above
+[Tue 11:18]	<manu-db>	dlongley: We might need to discuss how to prevent endless references.
+[Tue 11:18]	<manu-db>	manu: I thought we must not continue to fetch contexts.
+[Tue 11:19]	<manu-db>	dlongley: We might say that you should use application/ld+json for the link header.
+[Tue 11:19]	<manu-db>	dlongley: If you request application/ld+json - you should not follow any links.
+[Tue 11:20]	<manu-db>	dlongley: The callback goes out to the URL and fetches the document... if the HTTP Link header in it, it follow the Link Header and provides the document and the context that was fetched.
+[Tue 11:20]	<manu-db>	dlongley: That's what comes back as the future value...
+[Tue 11:21]	<manu-db>	dlongley: If you encounter a Link Header that is a JSON-LD remote context that has application/json - it's invalid.
+[Tue 11:21]	<--|	niklasl has left #json-ld
+[Tue 11:21]	<dlongley-db>	http://json-ld.org/spec/latest/json-ld/#interpreting-json-as-json-ld
+[Tue 11:21]	<manu-db>	dlongley: if we look up what a Link Header looks like, the type parameter
+[Tue 11:21]	<manu-db>	mlnt: That doesn't tell you much, it's just a hint, you can ignore that.
+[Tue 11:21]	<manu-db>	dlongley: If you can ignore that, we need to tell implementations what to do if you can ignore that.
+[Tue 11:22]	<manu-db>	mlnt: I think the important thing is what the content type is... if the content type is [scribe missed]
+[Tue 11:23]	<manu-db>	mlnt: If you get the document, you get the document plus the link header. If you're trying to dereference the context, you would get back application/ld+json.
+[Tue 11:23]	<manu-db>	dlongley: That's not true, you don't know that for sure. Their server might not do application/ld+json.
+[Tue 11:23]	<manu-db>	mlnt: You'd like to interpret it as a context?
+[Tue 11:23]	<manu-db>	dlongley: I don't have a strong preference, we need to tell implementations what to do.
+[Tue 11:23]	<manu-db>	mlnt: I agree, wondering how we should do that.
+[Tue 11:24]	<manu-db>	mlnt: Do we need a flag to tell the callback what it should look for? We could provide a flag to the callback, the callback should follow one link header. That way, the callback doesn't have to know anything about it.
+[Tue 11:24]	<manu-db>	mlnt: I don't think the callback does that - it just returns the callback?
+[Tue 11:24]	<manu-db>	dlongley: We have to return back the link header information in the result of the callback.
+[Tue 11:24]	<manu-db>	mlnt: RIght, isn't that what was proposed?
+[Tue 11:25]	<manu-db>	dlongley: No, I think we need to return back the document and the context... we need to separate concerns here. Your callback might not go onto the network, it might get something from a cache.
+[Tue 11:25]	<manu-db>	mlnt: A remote context dictionary returns the result of the context... remote document is the change - doc and context.
+[Tue 11:25]	<manu-db>	dlongley: The callback would give you the doc and context... the processor decides what it should do.
+[Tue 11:26]	<manu-db>	mlnt: Wouldn't it be simpler if we return the link?
+[Tue 11:26]	<manu-db>	dlongley: That's an option... give back a Context URL instead of a context.
+[Tue 11:26]	|<--	gljs has left freenode (Quit: Page closed)
+[Tue 11:26]	<manu-db>	manu: Not sure we have a specific proposal yet.
+[Tue 11:27]	<manu-db>	mlnt: Ok, let's go back to the issue tracker and figure it out there.
+[Tue 11:27]	-->|	gljs (c3a61d02@gateway/web/freenode/ip.195.166.29.2) has joined #json-ld
+[Tue 11:27]	<dlongley-db>	Topic: JSON-LD introduction
+[Tue 11:27]	<manu-db>	dlongley: I'm going to paste some text in here - Peter had some complaints about the introduction.
+[Tue 11:27]	<dlongley-db>	circling back to Peter's comments, perhaps this fix to the intro would help as well - "JSON-LD was designed to be usable by developers as idiomatic JSON, with no need to understand RDF [RDF11-CONCEPTS]. However, JSON-LD was also designed to be usable as RDF, so people intending to use JSON-LD with RDF tools will find it can be used like any other RDF syntax." to "JSON-LD was designed to be usable as both idiomatic JSON and as RDF. Developers have no need to understand RDF to use JSON-LD, but those intending to use RDF tools will find that JSON-LD is used just like any other RDF syntax."
+[Tue 11:29]	<manu-db>	gkellogg: What do we want to communicate in there?
+[Tue 11:29]	<manu-db>	gkellogg: We're trying to keep RDF at a distance - don't worry about what's behind the curtain.
+[Tue 11:30]	<manu-db>	gkellogg: By not saying that JSON-LD is RDF, we're throwing RDF under the bus. The point is that we can say "X has a strong theoretical basis"... we should be able to say the same about RDF.
+[Tue 11:30]	<manu-db>	gkellogg: It is built on top of RDF, but it's done in a simple way.
+[Tue 11:33]	<clayball>	why even mention "there's no need to understand RDF" at all.. just something to think about.
+[Tue 11:33]	<dlongley-db>	we want people to know there isn't a steep learning curve
+[Tue 11:34]	<clayball>	couldn't that be implied?
+[Tue 11:34]	<dlongley-db>	if we can imply it without saying it, yeah, that would be preferable.
+[Tue 11:37]	<voip-ld>	pfps (IAX2/diamondcard-12076) has left the conference.
+[Tue 11:37]	<voip-ld>	Manu Sporny (SIP/6000-00000237) has left the conference.
+[Tue 11:37]	<voip-ld>	Gregg Kellogg (SIP/68.105.212.106-00000235) has left the conference.
+[Tue 11:37]	<voip-ld>	Dave Longley (SIP/6002-0000023b) has left the conference.
+[Tue 11:37]	<voip-ld>	Dave Lehn (SIP/6003-0000023c) has left the conference.
+[Tue 11:37]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000023a) has left the conference.
+[Tue 11:37]	<voip-ld>	Clay (SIP/sip2sip.info-00000236) has left the conference.
