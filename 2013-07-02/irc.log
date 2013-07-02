@@ -1,0 +1,228 @@
+[Tue 10:09]	<manu-db>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0000.html
+[Tue 10:10]	<manu-db>	scribe: niklasl
+[Tue 10:10]	<manu-db>	Topic: Assigning Properties to Lists
+[Tue 10:11]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/75
+[Tue 10:12]	<niklasl>	robert: we'd very much like to give rdf:Lists identity, so that they can be referenced from multiple graphs. Alsoto describe them with other properties
+[Tue 10:12]	<niklasl>	... in openannotation, we need lists to define a selector which determines which part is annotated
+[Tue 10:13]	<niklasl>	... for instance, which piece of a text is annotated, with "before" and "after" also recorded (most clients work like that)
+[Tue 10:13]	<niklasl>	... Futhermore, IDPF has agreed to use openannotation for all EPub books
+[Tue 10:14]	<niklasl>	... EPubs, being zip files with a bunch of files
+[Tue 10:14]	<niklasl>	... To define a selector here (take the EPub, select a file, then a part in there)
+[Tue 10:15]	<niklasl>	... So we don't want to reproduce every single selector mechanism. Thus, an ordered list of two selectors would be neeeded.
+[Tue 10:15]	<niklasl>	... We thus need to identify lists, so that we can reuse these selectors in multiple statements.
+[Tue 10:16]	<niklasl>	... I.e. a person wants to disagree with a specific annotation, or place being annotated.
+[Tue 10:17]	<niklasl>	... Furthermore, we have the order of multiple targets, e..g. "the first passage on page three, is derived from the second passage on page five"
+[Tue 10:17]	<niklasl>	... Not as essential, since it's not really machine actionable
+[Tue 10:17]	<niklasl>	... Another project using lists is Shared Canvas
+[Tue 10:18]	<niklasl>	... We'd very much like to use JSON-LD there too, for selecting pages, using a list of pages and so forth
+[Tue 10:18]	<niklasl>	... For this, we took the "list items" approach; the list doesn't need to be referenced directly.
+[Tue 10:19]	<mlnt>	robert, do you have the link of an example at hand?
+[Tue 10:19]	<niklasl>	... But it might be nice to have this standardized, so people don't reinvent list items all the time.
+[Tue 10:20]	<niklasl>	... at the mailing list and also the OA community meeting in Europe, we agreed that we don't want to change the model to accomodate different syntaxes
+[Tue 10:20]	<niklasl>	... We want to recommend JSON-LD
+[Tue 10:20]	<niklasl>	manu: what's the timeline for these needs / when would the WG close
+[Tue 10:21]	<niklasl>	robert: at the moment, the CG is in an implementation phaze. We need to dicuss with Ivan, but we hope to move from CG to WG next year
+[Tue 10:22]	<niklasl>	manu: we're very close to CR in JSON-LD. If we'd add his feature in, it would put us back for many months. Could we add this for JSON-LD 1.1?
+[Tue 10:22]	<niklasl>	... If we think we can put the feature in, I think we can easily convince implementers to add it. If we add it to the test suite, other implementers would add it.
+[Tue 10:22]	<niklasl>	... So for practical purposes, we aim for it to be added within a year or so.
+[Tue 10:23]	<niklasl>	robert: Yes, that approach could work for us. Given that your'e much further ahead. It's not our prefered option, since for implementations, it might be unpredictable.
+[Tue 10:24]	<niklasl>	... Also, changing this for OA now is much easier than when in a WG
+[Tue 10:24]	<niklasl>	... I don't believe anyone has implemented it yet, but IDPF needs this to be implementable
+[Tue 10:25]	<niklasl>	manu: so we may put it in jSON-LD 1.1
+[Tue 10:25]	<niklasl>	q+
+[Tue 10:25]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:25]	<manu-db>	ack niklasl
+[Tue 10:25]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:26]	<manu-db>	niklasl: First thing, as far as I know, Turtle doesn't support this syntax either. Given that you have a shorthand in Turtle.... actually, none of the formats in RDF/XML and Turtle support this sort of list syntax.
+[Tue 10:26]	<mlnt>	niklasl, AFAICT they currently set rdf:rest to a Turtle list
+[Tue 10:26]	<manu-db>	niklasl: Have you discussed that as well? Am I missing something?
+[Tue 10:26]	<manu-db>	robert: No, I don't think you missed anything.
+[Tue 10:26]	<manu-db>	robert: The identity is easier in RDF/XML - you have the property for the URI.
+[Tue 10:27]	<manu-db>	robert: We did consider the other serializations, it's not a ubiquitous feature, but it would be nice to have in JSON-LD.
+[Tue 10:27]	<voip-ld>	Dave Lehn (SIP/6003-0000024d) has joined the conference.
+[Tue 10:28]	<manu-db>	niklasl: Right, the main argument when we had the issue, even though it's in the Primer that says there is nothing preventing lists from being described, multiple start properties, etc. None of the core syntaxes allow it, it's not intended to be used like that.
+[Tue 10:28]	<manu-db>	niklasl: They're supposed to be used as syntactic constructs.... model-wise, they're not really a part of RDF.
+[Tue 10:29]	<manu-db>	niklasl: If this is supported in JSON-LD, it would be a lot easier to deviate from the recommended usage pattern.... also making it harder for a future RDF spec, who wants to add lists as a native part of the model
+[Tue 10:29]	<manu-db>	niklasl: You can still use rdf:first / rdf:next explicitly today.
+[Tue 10:29]	<dbooth>	q+ to suggest that this question should be asked of the RDF working group to consider its implications
+[Tue 10:29]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:30]	<manu-db>	robert: I agree. The notion of order in a graph is always problematic. Not the common method to have a resource that is a list and has identity.
+[Tue 10:30]	<manu-db>	robert: Maybe RDF COncepts 1.1 should discuss it.
+[Tue 10:30]	<manu-db>	ack dbooth
+[Tue 10:30]	<voip-ld>	dbooth has the floor (to suggest that this question should be asked of the RDF working group to consider its implications). The speaker queue is empty.
+[Tue 10:31]	<manu-db>	dbooth: Yeah, RDF WG should consider this. I agree with Niklas. It doesn't fit w/ the usual list pattern. Important to consider implications.
+[Tue 10:31]	<niklasl>	... Here's an example: http://www.openannotation.org/spec/core/multiplicity.html#List
+[Tue 10:31]	<voip-ld>	ivikash (SIP/sip2sip.info-0000024e) has joined the conference.
+[Tue 10:32]	<azaroth>	That's it exactly, thanks Niklas1
+[Tue 10:32]	<niklasl>	manu: any other thoughs on this?
+[Tue 10:32]	<vikash>	Apologies for joining so late
+[Tue 10:33]	<niklasl>	markus: it would make it hard to expect compaction to behave as predicted
+[Tue 10:33]	<niklasl>	... also, compaction might be more complex
+[Tue 10:33]	<niklasl>	manu: Yes. We wanted to stay away from it since it might be a mine field in general.
+[Tue 10:34]	<niklasl>	q+
+[Tue 10:34]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:34]	<niklasl>	... that said, there might be a case for this.
+[Tue 10:34]	<manu-db>	ack niklasl
+[Tue 10:34]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:34]	<mlnt>	q+
+[Tue 10:34]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:35]	<dbooth>	q+ to suggest that an explicit dependency be noted of this issue on getting feedback from the RDF WG on its implications
+[Tue 10:35]	<voip-ld>	Added dbooth to the speaker queue: mlnt, dbooth
+[Tue 10:35]	<manu-db>	niklasl: Agree with Manu's point - there might be something new that's interesting here. I don't think we should do it w/o discussing implications. Algorithmic complexity for JSON-LD API and implementations. It might be almost as problematic as bnodes as predicates. It's possible to do this in raw RDF. It seems highly obvious that you can add ID in other properties. On the other hands you...
+[Tue 10:35]	<manu-db>	...can do it w/ literals.
+[Tue 10:35]	<manu-db>	niklasl: This borders on the syntactical collapse.
+[Tue 10:35]	<manu-db>	ack mlnt
+[Tue 10:35]	<voip-ld>	mlnt has the floor. The next speaker is dbooth.
+[Tue 10:36]	<azaroth>	q+
+[Tue 10:36]	<voip-ld>	Added azaroth to the speaker queue: mlnt, azaroth
+[Tue 10:37]	<niklasl>	markus: syntactically having a property carrying the actual list is nearly indistinguishable as the requested form (using "@list" as key)
+[Tue 10:37]	<manu-db>	ack mlnt
+[Tue 10:37]	<voip-ld>	mlnt has the floor (to suggest that an explicit dependency be noted of this issue on getting feedback from the RDF WG on its implications). The next speaker is azaroth.
+[Tue 10:37]	<manu-db>	ack azaroth
+[Tue 10:37]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:37]	<niklasl>	robert: I agree. The easisest solution for everyone would be to have a "listItem" as a property.
+[Tue 10:38]	<niklasl>	... and for the RDF WG, it might be good to define a dedicated predicate for it. rdf:value is explicitly fuzzy, so you can't always expect a list.
+[Tue 10:39]	<dbooth>	Robert, would it be feasible to just wrap the list in another object, and attach the additional info to the wrapper object? (I apologize that I have not fully grokked the problem, so this suggestion may not be helpful.)
+[Tue 10:39]	<niklasl>	... It would be easier to sell changing the model if there was another predicate for this.
+[Tue 10:40]	<niklasl>	manu: so a specific vocabulary for lists would be beneficial in general, working in all syntaxes
+[Tue 10:40]	<niklasl>	... would that adress this issue? If we quickly create a list vocabulary?
+[Tue 10:40]	<niklasl>	robert: I think so. Not preferable duing the discussions we had, but the syntactic arguments may sway this position.
+[Tue 10:41]	<niklasl>	... A single, interoperable solution is preferable.
+[Tue 10:41]	<niklasl>	manu: anyone objects to open issue 75, to continue this dicussion?
+[Tue 10:41]	<niklasl>	q+
+[Tue 10:41]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:42]	<manu-db>	ack niklasl
+[Tue 10:42]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:43]	<manu-db>	niklasl: I think we should try to have this as an RDF issue - it really would not come up if lists were core to the RDF model. It's a sore spot in RDF Concepts. I think we should push it over to the RDF WG immediately. It's arbitrary if we or OA try to push something forward, it won't solve the real problem.... not in rdf schema vocab.
+[Tue 10:43]	<azaroth>	+1 to Niklas
+[Tue 10:44]	<manu-db>	PROPOSAL: Create an issue in the RDF WG to formalize a way to express lists that need to be identified with a URL and annotated using properties.
+[Tue 10:44]	<manu-db>	+1
+[Tue 10:44]	<dbooth>	+1
+[Tue 10:44]	<azaroth>	+1
+[Tue 10:44]	<niklasl>	+1 could be someything like rdf:listValue
+[Tue 10:44]	<taaz>	+1
+[Tue 10:44]	<mlnt>	+1
+[Tue 10:44]	<manu-db>	RESOLVED: Create an issue in the RDF WG to formalize a way to express lists that need to be identified with a URL and annotated using properties.
+[Tue 10:46]	<dbooth>	q-
+[Tue 10:46]	<manu-db>	Topic: GSoC update
+[Tue 10:46]	<manu-db>	ivikash: What's broken in the playground?
+[Tue 10:47]	<niklasl>	vikash: what's broken in the playground?
+[Tue 10:48]	<niklasl>	manu: a bit weird ui paradigm when clicking on expanded form; you need to click back and forth
+[Tue 10:49]	<mlnt>	http://www.markus-lanthaler.com/jsonld/playground/
+[Tue 10:49]	<niklasl>	markus: the headers stay but the inputs disappear. Previously headers were toggled off if input areas weren't applicable
+[Tue 10:51]	<niklasl>	manu: play around a bit. I think the old way is better. There may be something even better, but right now, the problem is that something not used is still shown.
+[Tue 10:51]	<niklasl>	vikash: this is bug 50
+[Tue 10:51]	<niklasl>	... by this week, this should be done. Next week is a creator app.
+[Tue 10:52]	<mlnt>	could we discuss these things on the mailing list or the issue tracker?
+[Tue 10:54]	<niklasl>	manu: email danbri and gregg regarding a schema.org JSON-LD context
+[Tue 10:55]	<mlnt>	vikash, here's Sandro's schema.org context: http://www.w3.org/People/Sandro/schema-org-context.jsonld
+[Tue 10:56]	<mlnt>	for the creator app, have a look at: http://schema-creator.org/
+[Tue 10:57]	<manu-db>	Topic: JSON-LD / RDF Alignment
+[Tue 10:57]	<manu-db>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0233.html
+[Tue 10:57]	<vikash>	Bye!
+[Tue 10:57]	<niklasl>	bye vikash!
+[Tue 10:57]	<voip-ld>	ivikash (SIP/sip2sip.info-0000024e) has left the conference.
+[Tue 10:57]	<mlnt>	bye vikash
+[Tue 10:57]	<niklasl>	manu: I went into the spec and tried to integrate what we have consensus on.
+[Tue 10:58]	<niklasl>	... see the email link above for a list of things.
+[Tue 10:58]	<niklasl>	... everything should be there except for skolemization
+[Tue 10:58]	<niklasl>	dbooth: I just found it, but I think it looks great (just some minor things)
+[Tue 10:59]	<niklasl>	manu: would it adress the LC comment?
+[Tue 10:59]	<niklasl>	dbooth: It might. It's in the right direction.
+[Tue 11:00]	<manu-db>	http://json-ld.org/spec/ED/json-ld/20130630/diff-20130411.html#data-model
+[Tue 11:00]	<niklasl>	manu: next, Peter's changes. Appendix A was changed to flat out say that JSON-LD uses an extended RDF model.
+[Tue 11:00]	<niklasl>	... we just say "Data Model", and that it's an extension of the RDF data model.
+[Tue 11:01]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0010.html
+[Tue 11:01]	<niklasl>	... we need to have a resonse from Peter on this.
+[Tue 11:01]	<niklasl>	dbooth: I'd expect it to be, to the extent that I can channel Peter.
+[Tue 11:01]	<dbooth>	Every node is an IRI , a blank node , a JSON-LD value , or a list .
+[Tue 11:02]	<niklasl>	dbooth: restricting the literal space to JSON-LD values is a restriction rather than an extension to the RDF model.
+[Tue 11:02]	<manu-db>	q+
+[Tue 11:02]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:02]	<azaroth>	Sorry, have to attend another call now, though would like to have stayed for the rest of the conversation. Thanks everyone for the discussion re lists.
+[Tue 11:02]	<niklasl>	... and I don't think that lists need to be mentioned there; they are just sugar.
+[Tue 11:02]	<mlnt>	"A JSON-LD value is a string, a number, true or false, a typed value, or a language-tagged string."
+[Tue 11:02]	<niklasl>	thanks robert!
+[Tue 11:02]	<voip-ld>	azaroth (IAX2/diamondcard-3923) has left the conference.
+[Tue 11:03]	<mlnt>	thanks for joining robert
+[Tue 11:03]	<niklasl>	manu: on top, we extension the value space to json true and false, numbers and strings.
+[Tue 11:03]	<dbooth>	A JSON-LD value is a string , a number , true or false , a typed value , or a language-tagged string .
+[Tue 11:04]	<niklasl>	dbooth: it wasn't clear that those lined up with the corresponding RDF value space.
+[Tue 11:04]	<niklasl>	manu+dbooth: agrees that the json number value space is more general
+[Tue 11:05]	<niklasl>	manu: different lexical spaces for booleans in xsd and json
+[Tue 11:05]	<niklasl>	dbooth: only then the mentions of lists
+[Tue 11:05]	<niklasl>	manu: not convinced that they are..
+[Tue 11:06]	<niklasl>	... we need to translate it to something in the data model. In RDF, it translates to the list properties. There is nothing in RDF concepts to point to.
+[Tue 11:07]	<niklasl>	... many just assumes that it's basically part of the data model, but it's formally not
+[Tue 11:07]	<niklasl>	q+
+[Tue 11:07]	<voip-ld>	Added niklasl to the speaker queue: manu-db, niklasl
+[Tue 11:07]	<niklasl>	dbooth: why not point to rdf schema?
+[Tue 11:07]	<manu-db>	ack manu-db
+[Tue 11:07]	<voip-ld>	manu-db has the floor. The next speaker is niklasl.
+[Tue 11:07]	<niklasl>	manu: not part of the rdf data model.
+[Tue 11:07]	<manu-db>	ack niklasl
+[Tue 11:07]	<voip-ld>	manu-db has the floor. The speaker queue is empty.
+[Tue 11:08]	<manu-db>	niklasl: Yeah, just a comment. Could we correlate this RDF Concepts problem w/ the suggestion wrt. list values.
+[Tue 11:08]	<dbooth>	RDF lists:
+[Tue 11:08]	<dbooth>	http://www.w3.org/TR/rdf-schema/#ch_list
+[Tue 11:08]	<manu-db>	niklasl: Clearly, lists are under-specified.
+[Tue 11:08]	<manu-db>	niklasl: Maybe we should expand RDF Concepts that is present in the 2004 Primer and the Syntax that I scanned previously.
+[Tue 11:09]	<niklasl>	manu: but does rdf schema extend the rdf data model?
+[Tue 11:09]	<niklasl>	dbooth: no, just a convention which is using the rdf data model
+[Tue 11:10]	<niklasl>	markus: but's still just a vocabulary. In JSON-LD, we use [a keyword and] an array
+[Tue 11:10]	<niklasl>	... it's like a node type [just as literals]
+[Tue 11:11]	<niklasl>	q+
+[Tue 11:11]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 11:11]	<niklasl>	manu: the JSON-LD data model does not talk about rdf:first and rdf:rest
+[Tue 11:12]	|<--	vikash has left freenode (Quit: Leaving)
+[Tue 11:13]	<niklasl>	dbooth: I don't think any test cases needs to be changed by the way this is described. So it's just a question of how this concept is being described. At present, it's described as a difference.
+[Tue 11:13]	<niklasl>	manu: True. We only change how you think about the data model.
+[Tue 11:14]	<niklasl>	manu: if we make an argument about the difference between native JSON literals and RDF literals, we need to explain the difference of expressing lists as well.
+[Tue 11:14]	<niklasl>	dbooth: I don't see the benefit as a difference, from an RDF perspective.
+[Tue 11:15]	<manu-db>	ack niklasl
+[Tue 11:15]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 11:15]	<manu-db>	niklasl: I think I can answer re: benefit of having different model wrt. JSON lists and RDF lists. In JSON, there are arrays, those arrays represent repeated statements in RDF>
+[Tue 11:16]	<manu-db>	niklasl: RDF people understands that intuitively. We mention @set because people that don't understand RDF, but do understand mathematical sets.... ordered list is more popular than sets in programming.
+[Tue 11:16]	<manu-db>	niklasl: We need a way to explain lists in JSON-LD, in the same way that we explain sets, and other things. Not in a way that introduces rdf:first and rdf:next.
+[Tue 11:16]	<manu-db>	q+
+[Tue 11:16]	<voip-ld>	Added manu-db to the speaker queue: manu-db
+[Tue 11:17]	<dbooth>	Bottom line: I do not see a need to call out lists as being a difference from the RDF model, but I'm okay with it being mentioned, in part because I'd like to push RDF to have native lists.
+[Tue 11:18]	<mlnt>	manu, did you see http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0010.html already?
+[Tue 11:18]	<niklasl>	dbooth: it seems strange to have @set as the default
+[Tue 11:18]	<niklasl>	q+
+[Tue 11:18]	<voip-ld>	Added niklasl to the speaker queue: manu-db, niklasl
+[Tue 11:19]	<niklasl>	... in regular json, the default is ordered
+[Tue 11:19]	<manu-db>	ack manu-db
+[Tue 11:19]	<voip-ld>	manu-db has the floor. The next speaker is niklasl.
+[Tue 11:19]	<manu-db>	mlnt: We discussed this quite a bit in the beginning, the rationale was that the RDF that was generated would be unmanageable - lots of blank nodes, lots of rdf:first/rdf:rest, you couldn't work w/ the RDF anymore.
+[Tue 11:20]	<niklasl>	markus: we discussed it quite a bit in the beginning. The rationale we came up with is that the generated RDF would be very gruesome, using rdf lists for everything.
+[Tue 11:20]	<niklasl>	... hundreds of blank nodes for everything.s
+[Tue 11:21]	<manu-db>	niklasl: Yeah, I agree. That's the rationale. While it's true that arrays in JSON are ordered in their nature, in all the JSON-LD examples, they are commonly only sets. There is no real order. JSON-LD is intended to be used w/ RDF properties, there are only a handful of common RDF properties - author, contributorList, propertyChainAction, where the order is semantic, it means something.
+[Tue 11:22]	<manu-db>	niklasl: In every other case, it's just a bundle of things. I think that's the better case - explicitly say order doesn't mean anything. The same thinking has obscured lots of things wrt. XML. You can rely on the order of the elements, not sure if you should. It's better to say that "you can't rely on the order", unless someone says so explicitly.
+[Tue 11:22]	<manu-db>	dbooth: As a programmer, I'd use the exact opposite rationale.
+[Tue 11:23]	<dbooth>	So if the default were changed to being ordered, then the examples would have to be changed to add @set?
+[Tue 11:24]	<mlnt>	https://github.com/json-ld/json-ld.org/issues/12
+[Tue 11:24]	<manu-db>	niklasl: We discussed whether we should do it in the @context, we could define @set to be the default.
+[Tue 11:25]	<manu-db>	niklasl: I agree w/ David that as a programmer, you think like that. Unless you think otherwise.
+[Tue 11:25]	<manu-db>	dbooth: There is also minimal changes going from JSON to JSON-LD.
+[Tue 11:26]	<manu-db>	niklasl: Datasets on the Web, you never know if the order is intentional or not. It's better to assume that it's not ordered.
+[Tue 11:27]	<manu-db>	mlnt: JSON-LD can already serialize the same data in so many ways already - remote contexts, you can't really interpret the data anymore by just looking at it. Maybe doing it in a processor flag, but not in the context.
+[Tue 11:27]	<manu-db>	niklasl: I'd like to be able to do this in the context. "@container": "@set" would be useful to me.
+[Tue 11:27]	<dbooth>	Can we have a global way to indicate @set ?
+[Tue 11:28]	<manu-db>	niklasl: Yeah, but I could wait for this feature.
+[Tue 11:29]	<niklasl>	dbooth: I'm worried about the element of surprise. It reverses the common expectation.
+[Tue 11:30]	<niklasl>	manu: It has not come up as a real issue from anywere though.
+[Tue 11:30]	<manu-db>	mlnt: Is there a use case for this?
+[Tue 11:32]	<niklasl>	mlnt: In the majority of instances, the order is irrelevant
+[Tue 11:32]	<niklasl>	dbooth: yes, quite possible
+[Tue 11:32]	<niklasl>	manu: a change could also backfire at this stage
+[Tue 11:32]	<niklasl>	... we could potentially have a JSON-LD 1.1, for e.g. this.
+[Tue 11:34]	<dbooth>	I thinkn the best solution would be a simple global way to specify @set, and user get used to always doing that.
+[Tue 11:34]	<manu-db>	niklasl: I think that it can't fly from my point of view - given that for every case where I've seen order having meaning, it's always been a very specific technical reason. Implicitly ordered things as properties on the object. In every specific scenario where order is used.... [scribe missed]
+[Tue 11:35]	<niklasl>	check out schema.org· only a handful where the meaning is explicitly ordered: http://www.w3.org/People/Sandro/schema-org-context.jsonld
+[Tue 11:36]	<manu-db>	niklasl: I might be open that it should be ordered, but not by default.
+[Tue 11:37]	<voip-ld>	Manu Sporny (SIP/6000-0000024b) has left the conference.
+[Tue 11:37]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000248) has left the conference.
+[Tue 11:37]	<voip-ld>	dbooth (IAX2/diamondcard-13888) has left the conference.
+[Tue 11:37]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000024c) has left the conference.
+[Tue 11:37]	<voip-ld>	Dave Lehn (SIP/6003-0000024d) has left the conference.

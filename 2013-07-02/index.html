@@ -1,0 +1,249 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-07-02</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0000.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0000.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Assigning Properties to Lists</a><li><a href="#topic-2">GSoC update</a><li><a href="#topic-3">JSON-LD / RDF Alignment</a><li><a href="#topic-4">Lists in the JSON and RDF data models</a><li><a href="#topic-5">Default interpretation of JSON arrays</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Create an issue in the RDF WG to formalize a way to express lists that need to be identified with a URL and annotated using properties.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Niklas Lindström, Robert Sanderson, Markus Lanthaler, Manu Sporny, David Booth, David I. Lehn, Vikash Agrawal</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Assigning Properties to Lists</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/75">https://github.com/json-ld/json-ld.org/issues/75</a></div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  we'd very much like to give rdf:Lists identity, so that they can be referenced from multiple graphs. Also to describe them with other properties</div>
+<div class="comment-continuation">... in openannotation, we need lists to define a selector which determines which part is annotated</div>
+<div class="comment-continuation">... for instance, which piece of a text is annotated, with "before" and "after" also recorded (most clients work like that)</div>
+<div class="comment-continuation">... Futhermore, IDPF has agreed to use openannotation for all EPub books</div>
+<div class="comment-continuation">... EPubs, being zip files with a bunch of files</div>
+<div class="comment-continuation">... To define a selector here (take the EPub, select a file, then a part in there)</div>
+<div class="comment-continuation">... So we don't want to reproduce every single selector mechanism. Thus, an ordered list of two selectors would be neeeded.</div>
+<div class="comment-continuation">... We thus need to identify lists, so that we can reuse these selectors in multiple statements.</div>
+<div class="comment-continuation">... I.e. a person wants to disagree with a specific annotation, or place being annotated.</div>
+<div class="comment-continuation">... Furthermore, we have the order of multiple targets, e..g. "the first passage on page three, is derived from the second passage on page five"</div>
+<div class="comment-continuation">... Not as essential, since it's not really machine actionable</div>
+<div class="comment-continuation">... Another project using lists is Shared Canvas</div>
+<div class="comment-continuation">... We'd very much like to use JSON-LD there too, for selecting pages, using a list of pages and so forth</div>
+<div class="comment-continuation">... For this, we took the "list items" approach; the list doesn't need to be referenced directly.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: robert, do you have the link of an example at hand?</div>
+<div class="comment-continuation">... But it might be nice to have this standardized, so people don't reinvent list items all the time.</div>
+<div class="comment-continuation">... at the mailing list and also the OA community meeting in Europe, we agreed that we don't want to change the model to accomodate different syntaxes</div>
+<div class="comment-continuation">... We want to recommend JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what's the timeline for these needs / when would the WG close</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  at the moment, the CG is in an implementation phase. We need to dicuss with Ivan, but we hope to move from CG to WG next year</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're very close to CR in JSON-LD. If we'd add his feature in, it would put us back for many months. Could we add this for JSON-LD 1.1?</div>
+<div class="comment-continuation">... If we think we can put the feature in, I think we can easily convince implementers to add it. If we add it to the test suite, other implementers would add it.</div>
+<div class="comment-continuation">... So for practical purposes, we aim for it to be added within a year or so.</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  Yes, that approach could work for us. Given that your'e much further ahead. It's not our prefered option, since for implementations, it might be unpredictable.</div>
+<div class="comment-continuation">... Also, changing this for OA now is much easier than when in a WG</div>
+<div class="comment-continuation">... I don't believe anyone has implemented it yet, but IDPF needs this to be implementable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we may put it in jSON-LD 1.1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  First thing, as far as I know, Turtle doesn't support this syntax either. Given that you have a shorthand in Turtle.... actually, none of the formats in RDF/XML and Turtle support this sort of list syntax. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: niklasl, AFAICT they currently set rdf:rest to a Turtle list</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Have you discussed that as well? Am I missing something? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  No, I don't think you missed anything. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  The identity is easier in RDF/XML - you have the property for the URI. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  We did consider the other serializations, it's not a ubiquitous feature, but it would be nice to have in JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Right, the main argument when we had the issue, even though it's in the Primer that says there is nothing preventing lists from being described, multiple start properties, etc. None of the core syntaxes allow it, it's not intended to be used like that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  They're supposed to be used as syntactic constructs.... model-wise, they're not really a part of RDF. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If this is supported in JSON-LD, it would be a lot easier to deviate from the recommended usage pattern.... also making it harder for a future RDF spec, who wants to add lists as a native part of the model [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  You can still use rdf:first / rdf:next explicitly today. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  I agree. The notion of order in a graph is always problematic. Not the common method to have a resource that is a list and has identity. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  Maybe RDF COncepts 1.1 should discuss it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>:  Yeah, RDF WG should consider this. I agree with Niklas. It doesn't fit w/ the usual list pattern. Important to consider implications. [scribe assist by Manu Sporny]</div>
+<div class="comment-continuation">... Here's an example: <a href="http://www.openannotation.org/spec/core/multiplicity.html#List">http://www.openannotation.org/spec/core/multiplicity.html#List</a></div>
+<div class="comment"><span class="name">Robert Sanderson</span>: That's it exactly, thanks Niklas1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any other thoughs on this?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it would make it hard to expect compaction to behave as predicted</div>
+<div class="comment-continuation">... also, compaction might be more complex</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes. We wanted to stay away from it since it might be a mine field in general.</div>
+<div class="comment-continuation">... that said, there might be a case for this.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Agree with Manu's point - there might be something new that's interesting here. I don't think we should do it w/o discussing implications. Algorithmic complexity for JSON-LD API and implementations. It might be almost as problematic as bnodes as predicates. It's possible to do this in raw RDF. It seems highly obvious that you can add ID in other properties. On the other hands you... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: ...can do it w/ literals.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This borders on the syntactical collapse. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  syntactically having a property carrying the actual list is nearly indistinguishable as the requested form (using "@list" as key)</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  I agree. The easisest solution for everyone would be to have a "listItem" as a property.</div>
+<div class="comment-continuation">... and for the RDF WG, it might be good to define a dedicated predicate for it. rdf:value is explicitly fuzzy, so you can't always expect a list.</div>
+<div class="comment"><span class="name">David Booth</span>: Robert, would it be feasible to just wrap the list in another object, and attach the additional info to the wrapper object? (I apologize that I have not fully grokked the problem, so this suggestion may not be helpful.)</div>
+<div class="comment-continuation">... It would be easier to sell changing the model if there was another predicate for this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so a specific vocabulary for lists would be beneficial in general, working in all syntaxes</div>
+<div class="comment-continuation">... would that adress this issue? If we quickly create a list vocabulary?</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  I think so. Not preferable duing the discussions we had, but the syntactic arguments may sway this position.</div>
+<div class="comment-continuation">... A single, interoperable solution is preferable.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anyone objects to open issue 75, to continue this dicussion?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think we should try to have this as an RDF issue - it really would not come up if lists were core to the RDF model. It's a sore spot in RDF Concepts. I think we should push it over to the RDF WG immediately. It's arbitrary if we or OA try to push something forward, it won't solve the real problem.... not in rdf schema vocab. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Robert Sanderson</span>: +1 to Niklas</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Create an issue in the RDF WG to formalize a way to express lists that need to be identified with a URL and annotated using properties.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Robert Sanderson</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 could be someything like rdf:listValue</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Create an issue in the RDF WG to formalize a way to express lists that need to be identified with a URL and annotated using properties.</div>
+<h1 id="topic-2" class="topic">Topic: GSoC update</h1>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  what's broken in the playground?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a bit weird ui paradigm when clicking on expanded form; headings for JSON-LD Context stay, but the input box disappears.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.markus-lanthaler.com/jsonld/playground/">http://www.markus-lanthaler.com/jsonld/playground/</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the headers stay but the inputs disappear. Previously headers were toggled off if input areas weren't applicable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  play around a bit. I think the old way is better. There may be something even better, but right now, the problem is that something not used is still shown.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  this is bug 50</div>
+<div class="comment-continuation">... by this week, this should be done. Next week is a creator app.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: could we discuss these things on the mailing list or the issue tracker?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  email danbri and gregg regarding a schema.org JSON-LD context</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: vikash, here's Sandro's schema.org context: <a href="http://www.w3.org/People/Sandro/schema-org-context.jsonld">http://www.w3.org/People/Sandro/schema-org-context.jsonld</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: for the creator app, have a look at: <a href="http://schema-creator.org/">http://schema-creator.org/</a></div>
+<h1 id="topic-3" class="topic">Topic: JSON-LD / RDF Alignment</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0233.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0233.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I went into the spec and tried to integrate what we have consensus on.</div>
+<div class="comment-continuation">... see the email link above for a list of things.</div>
+<div class="comment-continuation">... everything should be there except for skolemization</div>
+<div class="comment"><span class="name">David Booth</span>:  I just found it, but I think it looks great (just some minor things)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would it adress the LC comment?</div>
+<div class="comment"><span class="name">David Booth</span>:  It might. It's in the right direction.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://json-ld.org/spec/ED/json-ld/20130630/diff-20130411.html#data-model">http://json-ld.org/spec/ED/json-ld/20130630/diff-20130411.html#data-model</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  next, Peter's changes. Appendix A was changed to flat out say that JSON-LD uses an extended RDF model.</div>
+<div class="comment-continuation">... we just say "Data Model", and that it's an extension of the RDF data model.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0010.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0010.html</a></div>
+<div class="comment-continuation">... we need to have a resonse from Peter on this.</div>
+<div class="comment"><span class="name">David Booth</span>:  I'd expect it to be, to the extent that I can channel Peter.</div>
+<div class="comment"><span class="name">David Booth</span>: Every node is an IRI , a blank node , a JSON-LD value , or a list .</div>
+<div class="comment"><span class="name">David Booth</span>:  restricting the literal space to JSON-LD values is a restriction rather than an extension to the RDF model.</div>
+<div class="comment"><span class="name">Robert Sanderson</span>: Sorry, have to attend another call now, though would like to have stayed for the rest of the conversation. Thanks everyone for the discussion re lists.</div>
+<div class="comment-continuation">... and I don't think that lists need to be mentioned there; they are just sugar.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: "A JSON-LD value is a string, a number, true or false, a typed value, or a language-tagged string."</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: thanks for joining robert</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  on top, we extension the value space to json true and false, numbers and strings.</div>
+<div class="comment"><span class="name">David Booth</span>: A JSON-LD value is a string , a number , true or false , a typed value , or a language-tagged string .</div>
+<div class="comment"><span class="name">David Booth</span>:  it wasn't clear that those lined up with the corresponding RDF value space.</div>
+<div class="information">Manu and David agree that the JSON number value space is more general.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  different lexical spaces for booleans in xsd and json</div>
+<h1 id="topic-4" class="topic">Topic: Lists in the JSON and RDF data models</h1>
+<div class="comment"><span class="name">David Booth</span>:  What about lists, aren't they the same as expressed in RDF?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not convinced that they are..</div>
+<div class="comment-continuation">... we need to translate it to something in the data model. In RDF, it translates to the list properties. There is nothing in RDF concepts to point to.</div>
+<div class="comment-continuation">... many just assumes that it's basically part of the data model, but it's formally not</div>
+<div class="comment"><span class="name">David Booth</span>:  why not point to rdf schema?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  not part of the rdf data model.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, just a comment. Could we correlate this RDF Concepts problem w/ the suggestion wrt. list values. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>: RDF lists:</div>
+<div class="comment"><span class="name">David Booth</span>: <a href="http://www.w3.org/TR/rdf-schema/#ch_list">http://www.w3.org/TR/rdf-schema/#ch_list</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Clearly, lists are under-specified. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Maybe we should expand RDF Concepts that is present in the 2004 Primer and the Syntax that I scanned previously. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  but does rdf schema extend the rdf data model?</div>
+<div class="comment"><span class="name">David Booth</span>:  no, just a convention which is using the rdf data model</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but's still just a vocabulary. In JSON-LD, we use [a keyword and] an array</div>
+<div class="comment-continuation">... it's like a node type [just as literals]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the JSON-LD data model does not talk about rdf:first and rdf:rest</div>
+<div class="comment"><span class="name">David Booth</span>:  I don't think any test cases needs to be changed by the way this is described. So it's just a question of how this concept is being described. At present, it's described as a difference.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  True. We only change how you think about the data model.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we make an argument about the difference between native JSON literals and RDF literals, we need to explain the difference of expressing lists as well.</div>
+<div class="comment"><span class="name">David Booth</span>:  I don't see the benefit as a difference, from an RDF perspective.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think I can answer re: benefit of having different model wrt. JSON lists and RDF lists. In JSON, there are arrays, those arrays represent repeated statements in RDF&gt; [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  RDF people understands that intuitively. We mention @set because people that don't understand RDF, but do understand mathematical sets.... ordered list is more popular than sets in programming. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We need a way to explain lists in JSON-LD, in the same way that we explain sets, and other things. Not in a way that introduces rdf:first and rdf:next. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>: Bottom line: I do not see a need to call out lists as being a difference from the RDF model, but I'm okay with it being mentioned, in part because I'd like to push RDF to have native lists.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: manu, did you see <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0010.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0010.html</a> already?</div>
+<h1 id="topic-5" class="topic">Topic: Default interpretation of JSON arrays</h1>
+<div class="comment"><span class="name">David Booth</span>:  it seems strange to have @set (unordered) as the default </div>
+<div class="comment-continuation">... in regular json, the default is ordered</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We discussed this quite a bit in the beginning, the rationale was that the RDF that was generated would be unmanageable - lots of blank nodes, lots of rdf:first/rdf:rest, you couldn't work w/ the RDF anymore. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we discussed it quite a bit in the beginning. The rationale we came up with is that the generated RDF would be very gruesome, using rdf lists for everything.</div>
+<div class="comment-continuation">... hundreds of blank nodes for everything.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, I agree. That's the rationale. While it's true that arrays in JSON are ordered in their nature, in all the JSON-LD examples, they are commonly only sets. There is no real order. JSON-LD is intended to be used w/ RDF properties, there are only a handful of common RDF properties - author, contributorList, propertyChainAction, where the order is semantic, it means something. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  In every other case, it's just a bundle of things. I think that's the better case - explicitly say order doesn't mean anything. The same thinking has obscured lots of things wrt. XML. You can rely on the order of the elements, not sure if you should. It's better to say that "you can't rely on the order", unless someone says so explicitly. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>:  As a programmer, I'd use the exact opposite rationale. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>: So if the default were changed to being ordered, then the examples would have to be changed to add @set?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues/12">https://github.com/json-ld/json-ld.org/issues/12</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We discussed whether we should do it in the @context, we could define @set to be the default. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree w/ David that as a programmer, you think like that. Unless you think otherwise. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>:  There is also minimal changes going from JSON to JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Datasets on the Web, you never know if the order is intentional or not. It's better to assume that it's not ordered. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  JSON-LD can already serialize the same data in so many ways already - remote contexts, you can't really interpret the data anymore by just looking at it. Maybe doing it in a processor flag, but not in the context. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'd like to be able to do this in the context. "@container": "@set" would be useful to me. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>: Can we have a global way to indicate @set ?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, but I could wait for this feature. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David Booth</span>:  I'm worried about the element of surprise. It reverses the common expectation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It has not come up as a real issue from anywere though.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Is there a use case for this? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  In the majority of instances, the order is irrelevant</div>
+<div class="comment"><span class="name">David Booth</span>:  yes, quite possible</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a change could also backfire at this stage</div>
+<div class="comment-continuation">... we could potentially have a JSON-LD 1.1, for e.g. this.</div>
+<div class="comment"><span class="name">David Booth</span>: I think the best solution would be a simple global way to specify @set, and user get used to always doing that.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that it can't fly from my point of view - given that for every case where I've seen order having meaning, it's always been a very specific technical reason. Implicitly ordered things as properties on the object. In every specific scenario where order is used.... [scribe missed] [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  check out schema.org· only a handful where the meaning is explicitly ordered: <a href="http://www.w3.org/People/Sandro/schema-org-context.jsonld">http://www.w3.org/People/Sandro/schema-org-context.jsonld</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I might be open that it should be ordered, but not by default. [scribe assist by Manu Sporny]</div>
+</body>
+</html>

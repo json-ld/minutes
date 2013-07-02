@@ -156,6 +156,11 @@
          "alias": ["clayball"],
          "homepage": "http://www.cwells.org/"
       },
+      "Robert Sanderson":
+      {
+         "alias": ["azaroth"],
+         "homepage": "http://public.lanl.gov/rsanderson/"
+      },
       "Peter Patel-Schneider":
       {
          "alias": ["pfps"],
