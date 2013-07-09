@@ -1,0 +1,300 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-07-09</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0047.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0047.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Blank nodes as predicates</a><li><a href="#topic-2">RDF Alignment Editorial Changes</a><li><a href="#topic-3">JSON-LD / RDF Alignment</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Dave Longley to post blank node predicates example to list.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Gregg Kellogg</dd>
+<dt>Present</dt><dd>Gregg Kellogg, David Booth, Markus Lanthaler, Manu Sporny, Sandro Hawke, Niklas Lindström, Dave Longley, Peter Patel-Schneider, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div class="comment"><span class="name">David Booth</span>:  I wanted to talk further about RDF term alighment</div>
+<div class="comment-continuation">… API doc requires some more updates.</div>
+<h1 id="topic-1" class="topic">Topic: Blank nodes as predicates</h1>
+<div class="comment"><span class="name">David Booth</span>:  that was the only substantive lack of alignment between JSON-LD and RDF.</div>
+<div class="comment-continuation">… Markus and I have discussed on mailing list. I think we can do away with BNodes as properties in JSON-LD without any significant loss.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we've discussed it quite a lot already, and have always concluded that we want it in JSON-LD. Nothing's really changed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  My concern is that we've discussed that it's impossible to express...</div>
+<div class="comment-continuation">… You could always skolumize keys to turn them into RDF, but that would change the meaning of the JSON, but making internal things external.</div>
+<div class="comment-continuation">… I'd be concerned with removing them, because then JSON-LD would not be capable of expressing JSON.</div>
+<div class="comment-continuation">… DBooth is partially correct, that it wouldn't cause any real damage, because we've backed off a bit.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  bottom line, bnode predicates are there so we can express a JSON document.</div>
+<div class="comment-continuation">… As JSON-LD is built on JSON, this would be silly.</div>
+<div class="comment-continuation">… I think this will be enough for people to move to bnode predicates in the future, and maybe RDF 2.0 will have them.</div>
+<div class="comment"><span class="name">David Booth</span>:  that's not what I saw in markus' example; it was clear that relative URIs could have been used just as well, and may be better</div>
+<div class="comment-continuation">… I haven't seen any motivating use case that requires them.</div>
+<div class="comment-continuation">… I think that prohibiting bnodes as properties is better than skolumnized ids.</div>
+<div class="comment"><span class="name">David Booth</span>: Example from Markus: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0019.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0019.html</a></div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  manu, your saying that a larger class of JSON documents requires BNode predicates.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I was surprised that RDF being such a universal format, could not support basic JSON. I think it needs to be fixed in the RDF data model, and we're just going half way there for JSON-LD.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  I'm dubious that that class is of interest.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's most JSON documents.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  you don't have interoperability without mapping to IRIs.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't see the use case for mapping regular JSON either, as you don't know what it means.</div>
+<div class="comment-continuation">… It's more reasonable to think that they represent string literals, than blank nodes (not supported either).</div>
+<div class="comment-continuation">… The JSON that has no defined meaning isn't interesting. If the keys are interesting, you should set a @vocab in the context.</div>
+<div class="comment"><span class="name">David Booth</span>: It seems natural to me to map them to relative URIs, via a default vocabulary.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  another use case is that you might be interested in some parts of the data and not map everything. You can map to BNodes first, and then continue mapping later.</div>
+<div class="comment-continuation">… I might just be interested in mapping the authors of a blog post, and map the rest to bnodes.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1 to that use case, but how about just skip them....?</div>
+<div class="comment"><span class="name">David Booth</span>: But those could just as well have been mapped to relative URIs.</div>
+<div class="comment-continuation">… If not mapped, you'd losses the tree structure that connects nodes.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: map them all to rdfs:seeAlso   :-)   (the null relation)</div>
+<div class="comment-continuation">… You might just want to see all people involved in a discussion, but not the predicates that relate them.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  For the record, I'm not particularly opposed to supporting this</div>
+<div class="comment-continuation">… If you have data and terms in the JSON which seemingly mean nothing, there's a good case for preserving the structure.</div>
+<div class="comment"><span class="name">David Booth</span>:  a relative IRI would work just as well.</div>
+<div class="comment"><span class="name">Dave Longley</span>: i would support an option for generalized RDF too -- i don't mind it being false by default.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I disagree: you could make the opposite argument.</div>
+<div class="comment-continuation">… because you don't want the identifier to be relative to the document; you don't want someone else to be able to reference it from outside the document.</div>
+<div class="comment"><span class="name">David Booth</span>:  that's anti-web.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it doesn't matter in that particular case. I think that's a shaky argument to make.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  why would you imply that others can use the predicate when the developer themselves doesn't know what it means.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  W3C has created other specs which are anti-web, that doesn't mean that they're not good use cases.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other part of blank nodes is when you don't want to create an identifier that isn't well known. You need to reference on the wire, but don't want a long-lived identifier.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I recommend we discuss the option for supporting generalized RDF as an option, false by default.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this would be a flag in the toRDF algorithm.</div>
+<div class="comment"><span class="name">David Booth</span>:  the problem with that route is that you'd have unnecessary information loss, instead of being usable.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's not necessarily true, you shouldn't be generating them in the first place.</div>
+<div class="comment"><span class="name">David Booth</span>:  information is lost, because triples are lost.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you could always skolumize if you want to preserve them.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in you're case, you'd skolumize every predicate you have access to. Or, talk to the publisher to make sure the data is preserved.</div>
+<div class="comment"><span class="name">David Booth</span>:  I think skolumization is more complicated than needed; I think that standards compliant parsers always produce the same triples, without information loss.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. How about on_illegal_bnode_ids = drop | keep | skolemize ?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there are other places where there is information loss - unmapped keys for instance</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I wouldn't like to introduce a dependency on skolemization at this low level.. an app can do that if it needs to [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  True. Maybe 'skolemize_if_able'.. ;] [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The easiest thing to do is just to use @vocab -</div>
+<div class="comment"><span class="name">David Booth</span>:  by prohibiting bnode properties we gain RDF alignment and downstream use.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think authors will just not output the data; some authors just won't map it.</div>
+<div class="comment-continuation">… The alignment with RDF can always be with the option.</div>
+<div class="comment"><span class="name">David Booth</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0019.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0019.html</a></div>
+<div class="comment"><span class="name">David Booth</span>:  the author could just as well have used relative IRIs.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think some authors don't actually want to map their properties to global things; we can cover these use cases.</div>
+<div class="comment"><span class="name">David Booth</span>:  I didn't find markus argument convincing.</div>
+<div class="comment"><span class="name">David Booth</span>: Let's take this back to the list with an example use case.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  a website might have an API which serves JSON; some of the properties are only intended for local use, but they're not meant to be used outside of the API. This allows for a single API that serves both purposes.</div>
+<div class="comment-continuation">… It's based on the type of context you use to publish.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need a proposal which we can get consensus on. I don't see anyone available.</div>
+<div class="comment-continuation">… It doesn't seem like the group want's to get rid of this feature.</div>
+<div id="action-1" class="action">ACTION: Dave Longley to post blank node predicates example to list.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  given that we have generalized datasets, it does align to RDF.</div>
+<h1 id="topic-2" class="topic">Topic: RDF Alignment Editorial Changes</h1>
+<div class="comment"><span class="name">David Booth</span>:  there are still a few editorial things in the main JSON-LD document: title of section C1 should be "to RDF model", not just "to RDF"</div>
+<div class="comment-continuation">… The API document hasn't had updates for terminology.</div>
+<div class="comment-continuation">… Basically, some of the terminology implies that JSON-LD is not RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  please point out specific references to be changed.</div>
+<h1 id="topic-3" class="topic">Topic: JSON-LD / RDF Alignment</h1>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  no IRC, unfortunately.</div>
+<div class="comment-continuation">… Unless someone has a free node HTTP relay</div>
+<div class="information"><a href="http://webchat.freenode.net/?channels=json-ld">http://webchat.freenode.net/?channels=json-ld</a></div>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0233.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0233.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I attempted to update the JSON-LD syntax spec with feedback from pfps and dbooth</div>
+<div class="comment-continuation">… Peter's not satisfied quite yet, so this discussion is to help resolve that</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  In my opinion, the most recent changes are a big step in the right direction.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I've updated the data model to link to the definitions in RDF Concepts for those that haven't seen it yet: <a href="http://json-ld.org/spec/latest/json-ld/#data-model">http://json-ld.org/spec/latest/json-ld/#data-model</a></div>
+<div class="comment-continuation">… This is an appendix, so issues of readability and so forth, should not be valued, and issues of completeness are most important.</div>
+<div class="comment-continuation">… Any attempt to justify things in an appendix will not be of value to me.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's another issue that we might not leave these as appendicies</div>
+<div class="comment-continuation">… However, it will still remain in the back-matter of the document.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  the main remaining bits have to do with numbers. I just spent a lot of disagreeable time trying to figure out what JSON numbers are.</div>
+<div class="comment-continuation">… The rational does not seem to be supported in any of the JSON documents.</div>
+<div class="comment-continuation">… The only things which talk about what JSON numbers really are fall on it's being IEEE, so 0 === .0</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what you're seeing is why a whole new JSON group was chartered</div>
+<div class="comment-continuation">… I think it's clear what our interpretation is.</div>
+<div class="comment-continuation">… We might be in a case where was say how we interpret the spec-text.</div>
+<div class="comment-continuation">… If we're going to change our mind, we need a compelling reason to do so.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  as far as I can tell, you pulled this out of thin air.</div>
+<div class="comment-continuation">… Every document is either silent, or indicates that JSON numbers are IEEE floating point numbers</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.ietf.org/rfc/rfc4627.txt">http://www.ietf.org/rfc/rfc4627.txt</a></div>
+<div class="comment-continuation">… RFC4627 says JSON is derived from ECMA-script. It's then silent on what numbers are, and defers everything else to ECMA-script version 3.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the only reference says that it's derived from ECMA-script, but is different.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I need a standard reference.</div>
+<div class="comment-continuation">… W3C is voting on a standard which refers to JSON; if JSON isn't built on ECMA-script, it's built on nothing.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's a serialization point built on a grammar.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  they weight is on JavaScript compatibility, if not otherwise specified.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we've tried to do the best we can do, without size restrictions.</div>
+<div class="comment-continuation">… I most cases it works right, in others, we can't do anything about it.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JSON is widely used, so the idea that it's going to result in a catastrophe, it would have happened long ago.</div>
+<div class="comment-continuation">… I understand you're saying that the foundation isn't solid, and that specs are ambigious...</div>
+<div class="comment-continuation">… There's not a wide agreement that ECMA is the JSON data model.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: JSON-LD conforms to the JSON syntax, and JSON-LD has its own data model that conforms to JSON practice.</div>
+<div class="comment-continuation">… That's why the new JSON group has been created; in the mean time, we need to make progress.</div>
+<div class="comment-continuation">… If you look at 4627, you may disagree with how to interpret it, but we have concencus on how to intpret it: JSON numbers do not have a limited range.</div>
+<div class="comment-continuation">… I know that's not perfect, but it's something that implementors can use.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I would be fairly happy with canning the size limitations, but we have real interoperability issues between integers and floating point.</div>
+<div class="comment-continuation">… 0 vs. .0, are they the same number.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in JSON-LD they are the same.</div>
+<div class="comment-continuation">… Numbers without fractions are interpreted as integers.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we need to clarify in the text that we differentiate between numbers</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/">http://json-ld.org/spec/latest/json-ld-api/</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping">http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping</a></div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  if you're going there, we're into numerical analytics territory.</div>
+<div class="comment-continuation">… The most conservative way would be to just use IEEE floating point, and not integers.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that has a number of horrible implications.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  that's what ECMA-script specifies, all numbers are floats.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  ECMA-script is clear that all numbers are IEEE floating point doubles.</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  we saw this number before, as parsers will return either integers or floating point, depending on if there's a zero fractional part.</div>
+<div class="comment-continuation">… This require that types to provided explicitly. It hasn't really been a problem so far.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I think that Appendix A should state what's going on.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we can be more clear.</div>
+<div class="comment-continuation">… what specifically are we not being clear on?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  my last several suggestions had wording to support this, which I reiterated in my last email.</div>
+<div class="comment-continuation">… Integers map to xsd:integer, and "dotted" numbers map to xsd:decimal.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  most implementations we work on don't do that, as we don't have access to the parser.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we can still rely on the non-zero fractional part of the number. 0.0 is the integer 0. That's explained in Appendix C</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need some correc stolid spec text; we didn't think the text you provided could be added.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  that's why I tried to produce actual text.</div>
+<div class="comment-continuation">… If you're going to say that it's incorrect you need to say why.</div>
+<div class="comment-continuation">… There are also lots of implementations that turn everything into double.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll go over it again on the mailing list.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  All remaining issues are in the data model section?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  the last time I looked I was not unhappy with what I saw.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Appendix C has a note that discusses number transformation.</div>
+<div class="comment-continuation">… non-decimal is not clear enough.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I was asking about 0 and 0.0.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the text has been in for the last couple of months.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it's a moving target, and that makes it difficult.</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: that's why we have VERSION DATES.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  what is needed is some notion of clarity about what's going on so that people can understand what the different JSON number encodings actually mean.</div>
+<div class="comment-continuation">… It's up to you how the JSON people will deal with this.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think there's general confusion about JSON number throughout different communities. Implementations sometimes do different things.</div>
+<div class="comment-continuation">… We're trying to work with the different parsers which already exist out there.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  as a way forward, would it help to move that note to the data model, instead of in the relationship to RDF?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  my view is that there should be some mirroring of that in Appendix A</div>
+<div class="comment-continuation">… Im happy to compress Appendix A, but it should be stated there.</div>
+<div class="comment-continuation">… As long as Appendix A alludes to the right things ...</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we'll add a note in Appendix A saying how numbers are mapped, and reference Appendix C.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  numbers are the most tricky point; someone reading Appenix a can really see how JSON-LD is an RDF dataset.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  not just a link, but ???</div>
+<div class="comment-continuation">… strings, true/false and lists are kind of alien to RDF (or just a bit skewed).</div>
+<div class="comment-continuation">… It's not that it describes them in JSON terms as if they're divorced from the RDF description.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'm fine with what we're discussion, but getting the text right is difficult. All agree that this is the direction, but the text is difficult.</div>
+<div class="comment-continuation">… We're going to need to iterate on proposed spec text to try to get this right. Hopefully, the other things will be easier to get right.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I had specific spec-text.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, thanks, but we still need to iterate on it. I want to be sure that what we agree to do on the call will result in some spec-text we can agree upon.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  what's wrong with the boiler-plate I provided?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's confusing when the lexical and value spaces are different. For boolean it's true/false in JSON, and true/false/0/1 in RDF.</div>
+<div class="comment-continuation">… We can't say there's full alignment.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we can say that true/false map to the xsd:boolean value space.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I probably wouldn't go that far, but I'd be happy with that.</div>
+<div class="comment-continuation">… We're saying how to view these JSON-like things as RDF-like things.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  would it be okay if we did this in Appendix C and link from A or should it be in A?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Appendix A says data model; if you say that the data model for JSON-LD has as values 5 different things, then you're saying there are 5 separate things You need something to speak to the fact that there are really only 2 kinds of things in the value space.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  meaning numbers, true, false, strings are all typed values.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  right now, it seems that are 6 different things in the JSON-LD value space.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in JSON they are distinct.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Appendix A describes the RDF data model, not the JSON data model. We're not linking them together. Peter's point is correc,t we need to describe the RDF value and say how JSON values map.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  This might okay, but I'm starting to get a bad feeling again.</div>
+<div class="comment-continuation">… I thought we were aligning things, now were not?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no, we are, but the data model section has become quite pedantic. There are places where different people are concerned about fudging different definitions.</div>
+<div class="comment-continuation">… Part of that issue is that JSON doesn't have a data model itself, so we need to interpret it.</div>
+<div class="comment-continuation">… The parts that are different are where people disagree that there is a 1:1 mapping to RDF.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's a lack of agreement over JSON-LD lists, for example.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I proposed spec text, for which some of the technical details are wrong, but I proposed a general phrasology</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we agree with that, but we need specific text now.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  apparently, I can't produce that, as I lack the experience (sic)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we've don't about as much as we can for alignment.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I've pointed out where I think changes need to be made, and provided spec-text. Certainly, the one for numbers needs to be modified.</div>
+<div class="comment-continuation">… Let's try for true/false first.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  manu, you might not have seen Peter's recent emails. We're very close.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0105.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0105.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Asterisks mark changes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  The summary can't be informative, because we use RFC keywords all oer.</div>
+<div class="comment-continuation">… I feel that the short-hand is a bit hand-wavy, but I'm fine with it. I don't have a better proposal.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  my proposal would be to clarify in Appendix C</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  my point is that somewhere when discussing JSON-LD values, there needs to be something to say that they're not 6 different types of things.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  what if we say JSON-LD values map to RDF literals, as defined in Appendix C</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  If they don't fit in the RDF model, they're wrong.</div>
+<div class="comment-continuation">… Mapping indicates you're going between two different things. You could say "shorthand for"</div>
+<div class="comment-continuation">… I'd be happier with "is", but "short hand" would work; it is vague but corresponds to reality.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Can we say "interpreted as"?</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  that would work.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'm not too happy with "Most types in typed values are XML Schema 1.1 Datatypes [pointer</div>
+<div class="information">to document"</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I agree that it's wrong to put in a spec, but may be true in practice.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  could we say often?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I'd say leave it out.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  Okay, leave it out.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  for lists, I'd be fine as "interpreted as"</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  with an informative pointer to RDFS</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  should we say mapped?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think interpreted is the right language.</div>
+<div class="comment"><span class="name">Peter Patel-Schneider</span>:  I think that's all the changes.</div>
+<div class="comment-continuation">… I don't see any show stoppers for this late in the process.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll apply what we just discussed to the spec, and hopefully we'll be done with this issue.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/issues/264">https://github.com/json-ld/json-ld.org/issues/264</a></div>
+</body>
+</html>

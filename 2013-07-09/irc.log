@@ -1,0 +1,277 @@
+[Tue 10:05]	<m4nu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0047.html
+[Tue 10:06]	<gkellogg>	scribe: gkellogg
+[Tue 10:06]	<gkellogg>	dbooth: I wanted to talk further about RDF term alighment
+[Tue 10:07]	<gkellogg>	… API doc requires some more updates.
+[Tue 10:07]	<m4nu>	Topic: Blank nodes as predicates
+[Tue 10:07]	<gkellogg>	dbooth: that was the only substantive lack of alignment between JSON-LD and RDF.
+[Tue 10:08]	<gkellogg>	… Markus and I have discussed on mailing list. I think we can do away with BNodes as properties in JSON-LD without any significant loss.
+[Tue 10:08]	<m4nu>	q+
+[Tue 10:08]	<voip-ld>	Added m4nu to the speaker queue: m4nu
+[Tue 10:08]	<gkellogg>	markus: we've discussed it quite a lot already, and have always concluded that we want it in JSON-LD. Nothing's really changed.
+[Tue 10:08]	<gkellogg>	manu: My concern is that we've discussed that it's impossible to express...
+[Tue 10:09]	<gkellogg>	… You could always skolumize keys to turn them into RDF, but that would change the meaning of the JSON, but making internal things external.
+[Tue 10:09]	<gkellogg>	… I'd be concerned with removing them, because then JSON-LD would not be capable of expressing JSON.
+[Tue 10:11]	<gkellogg>	… DBooth is partially correct, that it wouldn't cause any real damage, because we've backed off a bit.
+[Tue 10:12]	<gkellogg>	manu: bottom line, bnode predicates are there so we can express a JSON document.
+[Tue 10:12]	<gkellogg>	… As JSON-LD is built on JSON, this would be silly.
+[Tue 10:12]	<dbooth>	q+ to say that isn't what i saw in Markus's example
+[Tue 10:12]	<voip-ld>	Added dbooth to the speaker queue: m4nu, dbooth
+[Tue 10:13]	<gkellogg>	… I think this will be enough for people to move to bnode predicates in the future, and maybe RDF 2.0 will have them.
+[Tue 10:13]	<m4nu>	ack m4nu
+[Tue 10:13]	<voip-ld>	m4nu has the floor. The next speaker is dbooth.
+[Tue 10:13]	<m4nu>	ack dbooth
+[Tue 10:13]	<voip-ld>	m4nu has the floor (to say that isn't what i saw in Markus's example). The speaker queue is empty.
+[Tue 10:13]	<gkellogg>	dbooth: that's not what I saw in markus' example; it was clear that relative URIs could have been used just as well, and may be better
+[Tue 10:13]	<sandro>	q+ 
+[Tue 10:13]	<voip-ld>	Added sandro to the speaker queue: sandro
+[Tue 10:14]	<gkellogg>	… I haven't seen any motivating use case that requires them.
+[Tue 10:14]	<gkellogg>	… I think that prohibiting bnodes as properties is better than skolumnized ids.
+[Tue 10:14]	<m4nu>	ack sandro
+[Tue 10:14]	<voip-ld>	sandro has the floor. The speaker queue is empty.
+[Tue 10:14]	<dbooth>	Example from Markus: http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0019.html
+[Tue 10:15]	<niklasl>	q+
+[Tue 10:15]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:15]	<gkellogg>	sandro: manu, your saying that a larger class of JSON documents requires BNode predicates.
+[Tue 10:15]	<voip-ld>	<unknown> (IAX2/diamondcard-12896) has left the conference.
+[Tue 10:15]	<gkellogg>	manu: I was surprised that RDF being such a universal format, could not support basic JSON. I think it needs to be fixed in the RDF data model, and we're just going half way there for JSON-LD.
+[Tue 10:16]	<gkellogg>	sandro: I'm dubious that that class is of interest.
+[Tue 10:16]	<voip-ld>	<unknown> (IAX2/diamondcard-7462) has joined the conference.
+[Tue 10:16]	<gkellogg>	manu: that's most JSON documents.
+[Tue 10:16]	<gkellogg>	sandro: you don't have interoperability without mapping to IRIs.
+[Tue 10:16]	<m4nu>	ack niklasl
+[Tue 10:16]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:17]	<gkellogg>	niklasl: I don't see the use case for mapping regular JSON either, as you don't know what it means.
+[Tue 10:17]	*	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:17]	<gkellogg>	… It's more reasonable to think that they represent string literals, than blank nodes (not supported either).
+[Tue 10:17]	<mlnt>	q+
+[Tue 10:17]	<voip-ld>	Added mlnt to the speaker queue: mlnt
+[Tue 10:18]	<gkellogg>	… The JSON that has no defined meaning isn't interesting. If the keys are interesting, you should set a @vocab in the context.
+[Tue 10:18]	<m4nu>	ack mlnt
+[Tue 10:18]	<voip-ld>	mlnt has the floor. The speaker queue is empty.
+[Tue 10:18]	<dbooth>	It seems natural to me to map them to relative URIs, via a default vocabulary.
+[Tue 10:18]	<gkellogg>	markus: another use case is that you might be interested in some parts of the data and not map everything. You can map to BNodes first, and then continue mapping later.
+[Tue 10:18]	<gkellogg>	… I might just be interested in mapping the authors of a blog post, and map the rest to bnodes.
+[Tue 10:19]	<sandro>	+1 to that use case, but how about just skip them....?
+[Tue 10:19]	<dbooth>	But those could just as well have been mapped to relative URIs.
+[Tue 10:19]	<gkellogg>	… If not mapped, you'd losses the tree structure that connects nodes.
+[Tue 10:19]	<dbooth>	q+ to point out that they could just as well be mapped to relative URIs
+[Tue 10:19]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:19]	<sandro>	map them all to rdfs:seeAlso   :-)   (the null relation)
+[Tue 10:19]	<gkellogg>	… You might just want to see all people involved in a discussion, but not the predicates that relate them.
+[Tue 10:20]	<gkellogg>	niklasl: For the record, I'm not particularly opposed to supporting this
+[Tue 10:20]	<gkellogg>	… If you have data and terms in the JSON which seemingly mean nothing, there's a good case for preserving the structure.
+[Tue 10:20]	<gkellogg>	dbooth: a relative IRI would work just as well.
+[Tue 10:21]	<dlongley>	i would support an option for generalized RDF too -- i don't mind it being false by default.
+[Tue 10:21]	<gkellogg>	manu: I disagree: you could make the opposite argument.
+[Tue 10:21]	<gkellogg>	… because you don't want the identifier to be relative to the document; you don't want someone else to be able to reference it from outside the document.
+[Tue 10:21]	<gkellogg>	dbooth: that's anti-web.
+[Tue 10:22]	<gkellogg>	manu: it doesn't matter in that particular case. I think that's a shaky argument to make.
+[Tue 10:22]	<gkellogg>	niklasl: why would you imply that others can use the predicate when the developer themselves doesn't know what it means.
+[Tue 10:23]	<gkellogg>	manu: W3C has created other specs which are anti-web, that doesn't mean that they're not good use cases.
+[Tue 10:23]	<dlongley>	q+
+[Tue 10:23]	<voip-ld>	Added dlongley to the speaker queue: dbooth, dlongley
+[Tue 10:24]	<gkellogg>	manu: the other part of blank nodes is when you don't want to create an identifier that isn't well known. You need to reference on the wire, but don't want a long-lived identifier.
+[Tue 10:24]	<m4nu>	ack dbooth
+[Tue 10:24]	<voip-ld>	dbooth has the floor (to point out that they could just as well be mapped to relative URIs). The next speaker is dlongley.
+[Tue 10:24]	<m4nu>	ack dlongley
+[Tue 10:24]	<voip-ld>	dbooth has the floor. The speaker queue is empty.
+[Tue 10:25]	<gkellogg>	dlongley: I recommend we discuss the option for supporting generalized RDF as an option, false by default.
+[Tue 10:25]	*	niklasl we could even call it "useAntiWebIdentifiers".. ;P
+[Tue 10:25]	<gkellogg>	manu: this would be a flag in the toRDF algorithm.
+[Tue 10:25]	<dbooth>	q+ to point out that an option for extended RDF would involve unnecessary information loss when producing standard RDF
+[Tue 10:25]	<voip-ld>	Added dbooth to the speaker queue: dbooth
+[Tue 10:26]	<m4nu>	ack dbooth
+[Tue 10:26]	<voip-ld>	dbooth has the floor (to point out that an option for extended RDF would involve unnecessary information loss when producing standard RDF). The speaker queue is empty.
+[Tue 10:26]	<voip-ld>	Dave Lehn (SIP/6003-0000025f) has joined the conference.
+[Tue 10:26]	<gkellogg>	dbooth: the problem with that route is that you'd have unnecessary information loss, instead of being usable.
+[Tue 10:26]	<gkellogg>	manu: that's not necessarily true, you shouldn't be generating them in the first place.
+[Tue 10:27]	<m4nu>	voip: connections?
+[Tue 10:27]	<voip-ld>	Conference connections: IAX2/diamondcard-15268, IAX2/diamondcard-10337, Dave Longley [SIP/6002-0000025e], IAX2/diamondcard-7462, Dave Lehn [SIP/6003-0000025f], Gregg Kellogg [SIP/192.168.0.10-0000025d], Markus Lanthaler [SIP/sip.linphone.org-0000025a], Dave Longley [SIP/6002-00000259], msporny [SIP/192.168.2.4-00000258], Niklas Lindström [SIP/sip2sip.info-0000025b]
+[Tue 10:28]	<gkellogg>	dbooth: information is lost, because triples are lost.
+[Tue 10:28]	<gkellogg>	markus: you could always skolumize if you want to preserve them.
+[Tue 10:29]	<gkellogg>	manu: in you're case, you'd skolumize every predicate you have access to. Or, talk to the publisher to make sure the data is preserved.
+[Tue 10:29]	<gkellogg>	dbooth: I think skolumization is more complicated than needed; I think that standards compliant parsers always produce the same triples, without information loss.
+[Tue 10:29]	<niklasl>	.. How about on_illegal_bnode_ids = drop | keep | skolemize ?
+[Tue 10:30]	<m4nu>	gkellogg: there are other places where there is information loss - unmapped keys for instance
+[Tue 10:30]	<mlnt>	niklasl: I wouldn't like to introduce a dependency on skolemization at this low level.. an app can do that if it needs to
+[Tue 10:31]	<niklasl>	mlnt: True. Maybe 'skolemize_if_able'.. ;]
+[Tue 10:31]	<m4nu>	gkellogg: The easiest thing to do is just to use @vocab -
+[Tue 10:31]	<gkellogg>	dbooth: by prohibiting bnode properties we gain RDF alignment and downstream use.
+[Tue 10:32]	<gkellogg>	dlongley: I think authors will just not output the data; some authors just won't map it.
+[Tue 10:32]	<gkellogg>	… The alignment with RDF can always be with the option.
+[Tue 10:32]	<dbooth>	http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0019.html
+[Tue 10:32]	<gkellogg>	dbooth: the author could just as well have used relative IRIs.
+[Tue 10:33]	<gkellogg>	dlongley: I think some authors don't actually want to map their properties to global things; we can cover these use cases.
+[Tue 10:33]	<gkellogg>	dbooth: I didn't find markus argument convincing.
+[Tue 10:34]	<dbooth>	Let's take this back to the list with an example use case.
+[Tue 10:34]	<gkellogg>	dlongley: a website might have an API which serves JSON; some of the properties are only intended for local use, but they're not meant to be used outside of the API. This allows for a single API that serves both purposes.
+[Tue 10:34]	<gkellogg>	… It's based on the type of context you use to publish.
+[Tue 10:35]	<gkellogg>	manu: we need a proposal which we can get consensus on. I don't see anyone available.
+[Tue 10:35]	<gkellogg>	… It doesn't seem like the group want's to get rid of this feature.
+[Tue 10:35]	<gkellogg>	ACTION: Dave Longley to post blank node predicates example to list.
+[Tue 10:35]	<gkellogg>	markus: given that we have generalized datasets, it does align to RDF.
+[Tue 10:36]	<m4nu>	Topic: RDF Alignment Editorial Changes
+[Tue 10:36]	<gkellogg>	dbooth: there are still a few editorial things in the main JSON-LD document: title of section C1 should be "to RDF model", not just "to RDF"
+[Tue 10:36]	<gkellogg>	… The API document hasn't had updates for terminology.
+[Tue 10:37]	<gkellogg>	… Basically, some of the terminology implies that JSON-LD is not RDF.
+[Tue 10:37]	<gkellogg>	manu: please point out specific references to be changed.
+[Tue 10:37]	<m4nu>	Topic: JSON-LD / RDF Alignment
+[Tue 10:37]	<gkellogg>	pfps: no IRC, unfortunately.
+[Tue 10:38]	<gkellogg>	… Unless someone has a free node HTTP relay
+[Tue 10:38]	<gkellogg>	http://webchat.freenode.net/?channels=json-ld
+[Tue 10:39]	<m4nu>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jun/0233.html
+[Tue 10:39]	<gkellogg>	manu: I attempted to update the JSON-LD syntax spec with feedback from pfps and dbooth
+[Tue 10:39]	<gkellogg>	… Peter's not satisfied quite yet, so this discussion is to help resolve that
+[Tue 10:39]	*	pfps (cfdb4594@gateway/web/freenode/ip.207.219.69.148) has joined #json-ld
+[Tue 10:40]	<gkellogg>	pfps: In my opinion, the most recent changes are a big step in the right direction.
+[Tue 10:40]	<mlnt>	I've updated the data model to link to the definitions in RDF Concepts for those that haven't seen it yet: http://json-ld.org/spec/latest/json-ld/#data-model
+[Tue 10:40]	<gkellogg>	… This is an appendix, so issues of readability and so forth, should not be valued, and issues of completeness are most important.
+[Tue 10:41]	<gkellogg>	… Any attempt to justify things in an appendix will not be of value to me.
+[Tue 10:41]	<gkellogg>	manu: there's another issue that we might not leave these as appendicies
+[Tue 10:41]	<gkellogg>	… However, it will still remain in the back-matter of the document.
+[Tue 10:42]	<gkellogg>	pfps: the main remaining bits have to do with numbers. I just spent a lot of disagreeable time trying to figure out what JSON numbers are.
+[Tue 10:42]	<gkellogg>	… The rational does not seem to be supported in any of the JSON documents.
+[Tue 10:42]	<gkellogg>	… The only things which talk about what JSON numbers really are fall on it's being IEEE, so 0 === .0
+[Tue 10:43]	<gkellogg>	manu: what you're seeing is why a whole new JSON group was chartered
+[Tue 10:43]	<gkellogg>	… I think it's clear what our interpretation is.
+[Tue 10:43]	<gkellogg>	… We might be in a case where was say how we interpret the spec-text.
+[Tue 10:44]	<gkellogg>	… If we're going to change our mind, we need a compelling reason to do so.
+[Tue 10:44]	<gkellogg>	pfps: as far as I can tell, you pulled this out of thin air.
+[Tue 10:44]	<gkellogg>	… Every document is either silent, or indicates that JSON numbers are IEEE floating point numbers
+[Tue 10:45]	<mlnt>	http://www.ietf.org/rfc/rfc4627.txt
+[Tue 10:45]	<gkellogg>	… RFC4627 says JSON is derived from ECMA-script. It's then silent on what numbers are, and defers everything else to ECMA-script version 3.
+[Tue 10:45]	<gkellogg>	markus: the only reference says that it's derived from ECMA-script, but is different.
+[Tue 10:45]	<gkellogg>	pfps: I need a standard reference.
+[Tue 10:46]	<gkellogg>	… W3C is voting on a standard which refers to JSON; if JSON isn't built on ECMA-script, it's built on nothing.
+[Tue 10:46]	<gkellogg>	markus: it's a serialization point built on a grammar.
+[Tue 10:47]	<gkellogg>	pfps: they weight is on JavaScript compatibility, if not otherwise specified.
+[Tue 10:47]	<gkellogg>	markus: we've tried to do the best we can do, without size restrictions.
+[Tue 10:47]	<gkellogg>	… I most cases it works right, in others, we can't do anything about it.
+[Tue 10:47]	<gkellogg>	manu: JSON is widely used, so the idea that it's going to result in a catastrophe, it would have happened long ago.
+[Tue 10:48]	<gkellogg>	… I understand you're saying that the foundation isn't solid, and that specs are ambigious...
+[Tue 10:48]	<gkellogg>	… There's not a wide agreement that ECMA is the JSON data model.
+[Tue 10:48]	<sandro>	JSON-LD conforms to the JSON syntax, and JSON-LD has its own data model that conforms to JSON practice.
+[Tue 10:49]	<gkellogg>	… That's why the new JSON group has been created; in the mean time, we need to make progress.
+[Tue 10:49]	<gkellogg>	… If you look at 4627, you may disagree with how to interpret it, but we have concencus on how to intpret it: JSON numbers do not have a limited range.
+[Tue 10:49]	<gkellogg>	… I know that's not perfect, but it's something that implementors can use.
+[Tue 10:50]	<gkellogg>	pfps: I would be fairly happy with canning the size limitations, but we have real interoperability issues between integers and floating point.
+[Tue 10:50]	<gkellogg>	… 0 vs. .0, are they the same number.
+[Tue 10:50]	<gkellogg>	markus: in JSON-LD they are the same.
+[Tue 10:51]	<gkellogg>	… Numbers without fractions are interpreted as integers.
+[Tue 10:51]	<gkellogg>	dlongley: we need to clarify in the text that we differentiate between numbers
+[Tue 10:51]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/
+[Tue 10:51]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping
+[Tue 10:52]	<gkellogg>	pfps: if you're going there, we're into numerical analytics territory.
+[Tue 10:52]	<gkellogg>	… The most conservative way would be to just use IEEE floating point, and not integers.
+[Tue 10:52]	<gkellogg>	manu: that has a number of horrible implications.
+[Tue 10:52]	<taaz>	q+
+[Tue 10:52]	<voip-ld>	Added taaz to the speaker queue: taaz
+[Tue 10:53]	<gkellogg>	pfps: that's what ECMA-script specifies, all numbers are floats.
+[Tue 10:53]	<gkellogg>	pfps: ECMA-script is clear that all numbers are IEEE floating point doubles.
+[Tue 10:53]	<m4nu>	ack taaz
+[Tue 10:53]	<voip-ld>	taaz has the floor. The speaker queue is empty.
+[Tue 10:54]	<gkellogg>	taaz: we saw this number before, as parsers will return either integers or floating point, depending on if there's a zero fractional part.
+[Tue 10:54]	<gkellogg>	… This require that types to provided explicitly. It hasn't really been a problem so far.
+[Tue 10:54]	<gkellogg>	pfps: I think that Appendix A should state what's going on.
+[Tue 10:54]	<gkellogg>	manu: yes, we can be more clear.
+[Tue 10:55]	<gkellogg>	… what specifically are we not being clear on?
+[Tue 10:55]	<gkellogg>	pfps: my last several suggestions had wording to support this, which I reiterated in my last email.
+[Tue 10:56]	<gkellogg>	… Integers map to xsd:integer, and "dotted" numbers map to xsd:decimal.
+[Tue 10:56]	<gkellogg>	manu: most implementations we work on don't do that, as we don't have access to the parser.
+[Tue 10:56]	<gkellogg>	markus: we can still rely on the non-zero fractional part of the number. 0.0 is the integer 0. That's explained in Appendix C
+[Tue 10:56]	*	dbooth needs to drop off.  Thank you all!  I'll watch for Dave Longley's example.
+[Tue 10:56]	<voip-ld>	<unknown> (IAX2/diamondcard-15268) has left the conference.
+[Tue 10:56]	*	TallTed has quit ()
+[Tue 10:57]	<gkellogg>	manu: we need some correc stolid spec text; we didn't think the text you provided could be added.
+[Tue 10:57]	<gkellogg>	pfps: that's why I tried to produce actual text.
+[Tue 10:57]	<gkellogg>	… If you're going to say that it's incorrect you need to say why.
+[Tue 10:58]	<gkellogg>	… There are also lots of implementations that turn everything into double.
+[Tue 10:58]	<gkellogg>	manu: we'll go over it again on the mailing list.
+[Tue 10:58]	<gkellogg>	markus: All remaining issues are in the data model section?
+[Tue 10:59]	<gkellogg>	pfps: the last time I looked I was not unhappy with what I saw.
+[Tue 10:59]	<gkellogg>	markus: Appendix C has a note that discusses number transformation.
+[Tue 11:00]	<gkellogg>	… non-decimal is not clear enough.
+[Tue 11:00]	<gkellogg>	pfps: I was asking about 0 and 0.0.
+[Tue 11:00]	<gkellogg>	markus: the text has been in for the last couple of months.
+[Tue 11:00]	<gkellogg>	dlongley: it's a moving target, and that makes it difficult.
+[Tue 11:00]	<sandro>	that's why we have VERSION DATES.
+[Tue 11:01]	<gkellogg>	pfps: what is needed is some notion of clarity about what's going on so that people can understand what the different JSON number encodings actually mean.
+[Tue 11:02]	<gkellogg>	… It's up to you how the JSON people will deal with this.
+[Tue 11:02]	<gkellogg>	dlongley: I think there's general confusion about JSON number throughout different communities. Implementations sometimes do different things.
+[Tue 11:02]	<gkellogg>	… We're trying to work with the different parsers which already exist out there.
+[Tue 11:03]	<gkellogg>	markus: as a way forward, would it help to move that note to the data model, instead of in the relationship to RDF?
+[Tue 11:03]	<gkellogg>	pfps: my view is that there should be some mirroring of that in Appendix A
+[Tue 11:03]	<gkellogg>	… Im happy to compress Appendix A, but it should be stated there.
+[Tue 11:03]	<gkellogg>	… As long as Appendix A alludes to the right things ...
+[Tue 11:04]	<gkellogg>	markus: we'll add a note in Appendix A saying how numbers are mapped, and reference Appendix C.
+[Tue 11:04]	<gkellogg>	pfps: numbers are the most tricky point; someone reading Appenix a can really see how JSON-LD is an RDF dataset.
+[Tue 11:05]	<gkellogg>	pfps: not just a link, but ???
+[Tue 11:06]	<gkellogg>	… strings, true/false and lists are kind of alien to RDF (or just a bit skewed).
+[Tue 11:06]	<gkellogg>	… It's not that it describes them in JSON terms as if they're divorced from the RDF description.
+[Tue 11:07]	<gkellogg>	manu: I'm fine with what we're discussion, but getting the text right is difficult. All agree that this is the direction, but the text is difficult.
+[Tue 11:07]	<gkellogg>	… We're going to need to iterate on proposed spec text to try to get this right. Hopefully, the other things will be easier to get right.
+[Tue 11:08]	<gkellogg>	pfps: I had specific spec-text.
+[Tue 11:08]	<gkellogg>	manu: yes, thanks, but we still need to iterate on it. I want to be sure that what we agree to do on the call will result in some spec-text we can agree upon.
+[Tue 11:08]	<gkellogg>	pfps: what's wrong with the boiler-plate I provided?
+[Tue 11:09]	<gkellogg>	manu: it's confusing when the lexical and value spaces are different. For boolean it's true/false in JSON, and true/false/0/1 in RDF.
+[Tue 11:10]	<gkellogg>	… We can't say there's full alignment.
+[Tue 11:10]	<gkellogg>	markus: we can say that true/false map to the xsd:boolean value space.
+[Tue 11:10]	<gkellogg>	pfps: I probably wouldn't go that far, but I'd be happy with that.
+[Tue 11:11]	<gkellogg>	… We're saying how to view these JSON-like things as RDF-like things.
+[Tue 11:11]	<gkellogg>	markus: would it be okay if we did this in Appendix C and link from A or should it be in A?
+[Tue 11:12]	<gkellogg>	pfps: Appendix A says data model; if you say that the data model for JSON-LD has as values 5 different things, then you're saying there are 5 separate things You need something to speak to the fact that there are really only 2 kinds of things in the value space.
+[Tue 11:12]	<gkellogg>	markus: meaning numbers, true, false, strings are all typed values.
+[Tue 11:12]	<gkellogg>	pfps: right now, it seems that are 6 different things in the JSON-LD value space.
+[Tue 11:13]	<gkellogg>	markus: in JSON they are distinct.
+[Tue 11:14]	<gkellogg>	dlongley: Appendix A describes the RDF data model, not the JSON data model. We're not linking them together. Peter's point is correc,t we need to describe the RDF value and say how JSON values map.
+[Tue 11:14]	*	clayball (~clayball@blknt.cceb.upenn.edu) has joined #json-ld
+[Tue 11:14]	*	maxlath (~Thunderbi@ALyon-258-1-199-57.w80-9.abo.wanadoo.fr) has joined #json-ld
+[Tue 11:14]	<gkellogg>	pfps: This might okay, but I'm starting to get a bad feeling again.
+[Tue 11:15]	<gkellogg>	… I thought we were aligning things, now were not?
+[Tue 11:15]	<gkellogg>	manu: no, we are, but the data model section has become quite pedantic. There are places where different people are concerned about fudging different definitions.
+[Tue 11:16]	<gkellogg>	… Part of that issue is that JSON doesn't have a data model itself, so we need to interpret it.
+[Tue 11:16]	<gkellogg>	… The parts that are different are where people disagree that there is a 1:1 mapping to RDF.
+[Tue 11:17]	<gkellogg>	manu: there's a lack of agreement over JSON-LD lists, for example.
+[Tue 11:18]	<gkellogg>	pfps: I proposed spec text, for which some of the technical details are wrong, but I proposed a general phrasology
+[Tue 11:18]	<gkellogg>	manu: we agree with that, but we need specific text now.
+[Tue 11:19]	<gkellogg>	pfps: apparently, I can't produce that, as I lack the experience (sic)
+[Tue 11:20]	<gkellogg>	manu: I think we've don't about as much as we can for alignment.
+[Tue 11:20]	<gkellogg>	pfps: I've pointed out where I think changes need to be made, and provided spec-text. Certainly, the one for numbers needs to be modified.
+[Tue 11:21]	<gkellogg>	… Let's try for true/false first.
+[Tue 11:21]	<gkellogg>	markus: manu, you might not have seen Peter's recent emails. We're very close.
+[Tue 11:22]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013Jul/0105.html
+[Tue 11:23]	<gkellogg>	markus: Asterisks mark changes
+[Tue 11:23]	*	sandro needs to go.   bye all, good luck!
+[Tue 11:23]	<voip-ld>	<unknown> (IAX2/diamondcard-10337) has left the conference.
+[Tue 11:23]	*	mlnt bye sandro
+[Tue 11:23]	*	dlongley noisy meat freezer is back
+[Tue 11:23]	<gkellogg>	manu: The summary can't be informative, because we use RFC keywords all oer.
+[Tue 11:24]	<gkellogg>	… I feel that the short-hand is a bit hand-wavy, but I'm fine with it. I don't have a better proposal.
+[Tue 11:24]	<gkellogg>	markus: my proposal would be to clarify in Appendix C
+[Tue 11:25]	<gkellogg>	pfps: my point is that somewhere when discussing JSON-LD values, there needs to be something to say that they're not 6 different types of things.
+[Tue 11:25]	<gkellogg>	markus: what if we say JSON-LD values map to RDF literals, as defined in Appendix C
+[Tue 11:26]	<gkellogg>	pfps: If they don't fit in the RDF model, they're wrong.
+[Tue 11:27]	<gkellogg>	… Mapping indicates you're going between two different things. You could say "shorthand for"
+[Tue 11:27]	<gkellogg>	… I'd be happier with "is", but "short hand" would work; it is vague but corresponds to reality.
+[Tue 11:28]	<gkellogg>	dlongley: Can we say "interpreted as"?
+[Tue 11:28]	<gkellogg>	pfps: that would work.
+[Tue 11:28]	<gkellogg>	markus: I'm not too happy with "Most types in typed values are XML Schema 1.1 Datatypes [pointer
+[Tue 11:28]	<gkellogg>	   to document"
+[Tue 11:29]	<gkellogg>	pfps: I agree that it's wrong to put in a spec, but may be true in practice.
+[Tue 11:29]	<gkellogg>	manu: could we say often?
+[Tue 11:29]	<gkellogg>	markus: I'd say leave it out.
+[Tue 11:29]	<gkellogg>	pfps: Okay, leave it out.
+[Tue 11:30]	<gkellogg>	manu: for lists, I'd be fine as "interpreted as"
+[Tue 11:30]	<gkellogg>	pfps: with an informative pointer to RDFS
+[Tue 11:30]	<gkellogg>	markus: should we say mapped?
+[Tue 11:30]	<gkellogg>	manu: I think interpreted is the right language.
+[Tue 11:31]	<gkellogg>	pfps: I think that's all the changes.
+[Tue 11:31]	<gkellogg>	… I don't see any show stoppers for this late in the process.
+[Tue 11:31]	<gkellogg>	manu: I'll apply what we just discussed to the spec, and hopefully we'll be done with this issue.
+[Tue 11:32]	<dlongley>	https://github.com/json-ld/json-ld.org/issues/264
+[Tue 11:32]	<voip-ld>	Gregg Kellogg (SIP/192.168.0.10-0000025d) has left the conference.
+[Tue 11:32]	<voip-ld>	Dave Longley (SIP/6002-0000025e) has left the conference.
+[Tue 11:32]	<voip-ld>	msporny (SIP/192.168.2.4-00000258) has left the conference.
+[Tue 11:32]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-0000025b) has left the conference.
+[Tue 11:32]	<voip-ld>	Dave Lehn (SIP/6003-0000025f) has left the conference.
+[Tue 11:32]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000025a) has left the conference.
