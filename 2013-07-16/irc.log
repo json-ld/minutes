@@ -1,0 +1,192 @@
+[Tue 10:05]	<manu>	Some JSON-LD news, a graph database engine just put in native support for JSON-LD. The Activity Streams 2.0 work has adopted JSON-LD as a way of publishing activity stream data, which is great.
+[Tue 10:05]	<mlnt>	Link to graph database supporting JSON-LD: https://github.com/mcollina/levelgraph-jsonld
+[Tue 10:08]	|<--	maxlath has left zoe-fn (Ping timeout: 240 seconds)
+[Tue 10:08]	<voip-ld>	Dave Longley (SIP/6002-00000296) has joined the conference.
+[Tue 10:08]	<manu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0076.html
+[Tue 10:09]	<manu>	Discussion about Activity Streams 2.0 work using JSON-LD compatible format. Publishing JSON-LD context.
+[Tue 10:10]	<manu>	scribe: dlongley
+[Tue 10:10]	<dlongley>	manu: [discusses agenda items] we have an addition from niklas about what we should do with the flattening algorithm
+[Tue 10:11]	<dlongley>	dbooth: i wanted to propose a suggestion for how we deal with blank nodes as predicates as well
+[Tue 10:11]	<dlongley>	manu: let's deal with niklas' flattening algorithm first then bnodes as predicates and then we'll deal with David Booth's issue and then review the other issues
+[Tue 10:11]	<manu>	Topic: ISSUE-276: Convert appendices into normal sections
+[Tue 10:11]	<manu>	https://github.com/json-ld/json-ld.org/issues/276
+[Tue 10:12]	<dlongley>	manu: this has to do with converting appendices into regular sections -- the primary argument for this is that the appendices are very normative sections and appendices may be considered "additional" info, so instead let's make them regular sections since a lot of normative stuff is in there
+[Tue 10:13]	<dlongley>	dlongley: i dont' think we should move them around (ordering), but changing them to regular sections is fine
+[Tue 10:13]	<dlongley>	manu: yeah, the proposal is to leave them exactly where they are
+[Tue 10:13]	<dlongley>	mlnt: i'd be fine with that change
+[Tue 10:13]	<dlongley>	gkellogg: the reference would be to dan connolly's advice which is that the doc should read the same if the appendices were removed
+[Tue 10:14]	<dbooth>	+1 to Dan Connelly's advice
+[Tue 10:14]	<dlongley>	manu: it would be A, B, and C, we'd leave appendix D the same
+[Tue 10:14]	<dlongley>	gkellogg: so there would be some movement because we'd move appendix D (it becomes appendix A) after appendix C
+[Tue 10:15]	<manu>	PROPOSAL: Convert normative appendices A, B, and C to normal normative sections, leaving them at the same location in the document.
+[Tue 10:15]	<dbooth>	+1
+[Tue 10:15]	<dlongley>	+1
+[Tue 10:15]	<manu>	+1
+[Tue 10:15]	<gkellogg>	+1
+[Tue 10:15]	<mlnt>	+1
+[Tue 10:15]	<niklasl>	+1
+[Tue 10:15]	<manu>	RESOLVED: Convert normative appendices A, B, and C to normal normative sections, leaving them at the same location in the document.
+[Tue 10:16]	<manu>	Topic: ISSUE-279: Extraneous data after flattening bug
+[Tue 10:16]	<manu>	https://github.com/json-ld/json-ld.org/issues/279
+[Tue 10:16]	<dlongley>	manu: niklas has written up the "problem" with the current flattening algorithm, some see it as a good feature others see it as a bad feature
+[Tue 10:17]	<dlongley>	manu: niklas has placed an interesting example into the tracker to demonstrate the downside of the current algorithm
+[Tue 10:17]	<gkellogg>	q+ to note that it's also an issue for the fromRDF algorithm
+[Tue 10:17]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:17]	<manu>	ack gkellogg
+[Tue 10:17]	<dlongley>	manu: so the question is whether or not we see this as a bug in the flattening algorithm or not, fixing the bug would result in not promoting things that are "leaves" -- things are only at the top level
+[Tue 10:17]	<voip-ld>	gkellogg has the floor (to note that it's also an issue for the fromRDF algorithm). The speaker queue is empty.
+[Tue 10:18]	<dlongley>	gkellogg: the same thing goes for the fromRDF algorithm which generates the same footprint
+[Tue 10:18]	<manu>	q+
+[Tue 10:18]	<voip-ld>	Added manu to the speaker queue: manu
+[Tue 10:18]	<dlongley>	mlnt: is it worth changing at this stage if you can just filter the data out later?
+[Tue 10:19]	<dlongley>	manu: my position is that we want to do whatever the majority of devs want, if they all have to filter this stuff out then we should probably have made things filtered out by default
+[Tue 10:19]	<dlongley>	manu: i do think it's strange to have datatypes as nodes in a flattened graph and that it does make things a bit messy
+[Tue 10:19]	<dlongley>	manu: i haven't experienced datatypes as nodes using other syntaxes/APIs/etc
+[Tue 10:20]	<dlongley>	manu: i think it will be more rare to try and get the number of subjects vs. getting all the nodes flattened out so they can iterate through them
+[Tue 10:20]	<voip-ld>	Dave Lehn (SIP/6003-00000297) has joined the conference.
+[Tue 10:20]	<dlongley>	manu: i think it's worth fixing it at this point since fixing it later would be more difficult, adding it would be easier later if we really need it
+[Tue 10:20]	<dlongley>	manu: so i'd lean towards removing these extraneous nodes
+[Tue 10:22]	<dlongley>	gkellogg: if require our algorithms to have this data now we remove the ability to clean it up later because people will come to depend on it
+[Tue 10:23]	<dlongley>	gkellogg: should we mark this at-risk?
+[Tue 10:24]	<dlongley>	gkellogg: there's a danger that someone could argue this is a normative change, etc.
+[Tue 10:25]	<dlongley>	manu: well, i think it's a bug and the other argument that it's not a substantive change because we're doing CR and the algorithms are really for review there and the true test is if CR implementors think this was a good change, etc. -- at this point this was a bug that was put in the spec that was part of a rewrite, we're putting it back how it was and marking it at-risk if implementors feel it should be done another way
+[Tue 10:25]	<dlongley>	manu: sound reasonable?
+[Tue 10:25]	<dlongley>	gkellogg: yes
+[Tue 10:25]	<manu>	PROPOSAL: Fix a bug in the flattening and fromRDF algorithm by not promoting undescribed nodes or datatypes to subjects during the flattening/fromRDF algorithms.
+[Tue 10:25]	<gkellogg>	+1
+[Tue 10:25]	<dlongley>	dlongley: +0.5
+[Tue 10:25]	<niklasl>	+1
+[Tue 10:25]	<manu>	+0.7
+[Tue 10:25]	<mlnt>	+1
+[Tue 10:26]	<manu>	RESOLVED: Fix a bug in the flattening and fromRDF algorithm by not promoting undescribed nodes or datatypes to subjects during the flattening/fromRDF algorithms.
+[Tue 10:26]	<dlongley>	mlnt: how are we going to filter them out? leave them out of the node map or not?
+[Tue 10:26]	<manu>	dlongley: There is another reason we want to do that - the framing algorithm relies on the node-map algorithm, so we should have them in the node map.
+[Tue 10:26]	<dlongley>	gkellogg: i think we used to do it with them in the node map and we just removed them later
+[Tue 10:27]	<dlongley>	gkellogg: i think there's no problem with adding things to the node map
+[Tue 10:28]	<dlongley>	niklasl: the node map is just an internal state, so when adding properties to things in the node map you add them to the array which is cleaner than filtering at the end, i think
+[Tue 10:29]	<dlongley>	niklasl: you can build the node map and the flattened array at the same time
+[Tue 10:29]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#flattening-algorithm
+[Tue 10:30]	<dlongley>	manu: would making that change complicate the algorithms?
+[Tue 10:30]	<mlnt>	For each id-node pair in graph ordered by id, add node to the @graph member of entry. State that node needs to have other properties than @id
+[Tue 10:30]	<dlongley>	dlongley: i don't think we should leak the flattening info into the node map algorithm because it complicates things, but we could mention the optimization
+[Tue 10:30]	<dlongley>	mlnt: i think we only need to add some words to the flattening algorithm
+[Tue 10:30]	<dlongley>	gkellogg: fromRDF just removes some steps
+[Tue 10:31]	<dlongley>	manu: markus, do you have an idea for what changes to make?
+[Tue 10:31]	<dlongley>	mlnt: yeah, for flattening yes, i can look at the RDF one, shouldn't be too difficult
+[Tue 10:31]	<dlongley>	manu: can you take a shot at that?
+[Tue 10:32]	<dlongley>	ACTION: Markus to update algorithms to handle filtering.
+[Tue 10:32]	<dlongley>	gkellogg: what about graphs with no data in it?
+[Tue 10:33]	<dlongley>	manu: well there's an argument to remove it based on how people will use flattening
+[Tue 10:33]	<dlongley>	gkellogg: well, i think an empty graph is actually data and there's value in retaining that
+[Tue 10:33]	<dlongley>	gkellogg: i think there's value to keeping that information in a flattening representation
+[Tue 10:34]	<manu>	dlongley: There may be an additional problem here - there may be disjoint information in the graph.
+[Tue 10:34]	<manu>	dlongley: If we remove them at the top-level, they'll cease to exist entirely in the flattened output. If there is no reference to something in the graph, we'll lose it.
+[Tue 10:35]	<manu>	dlongley: This may be more complex than we want it to be - we have to make sure that the things we're removing aren't referenced from anywhere else.
+[Tue 10:35]	<manu>	mlnt: We already remove free-floating nodes, right?
+[Tue 10:36]	<manu>	niklasl: An empty graph sounds like a covert delete to me.
+[Tue 10:36]	<manu>	gkellogg: I don't think we can do that, you can't actually say in RDF that a graph is referenced. The name of the graph does not semantically relate to the use of that name in a triple somewhere else.
+[Tue 10:36]	<manu>	gkellogg: The fact that a graph has a name and is free standing and not referenced does not have an impact on the RDF Dataset model
+[Tue 10:37]	<manu>	dlongley: That's true, but we wanted to take a different direction in JSON-LD. It's more useful to say that the name of a graph does have meaning. As it appears in the JSON, it does seem to have meaning.
+[Tue 10:37]	<manu>	niklasl: We can leave it as-is, and not extend anything in ISSUE-279, leaving graphs alone.
+[Tue 10:38]	<dlongley>	manu: can these empty graphs even appear in the fromRDF algorithm?
+[Tue 10:38]	<dlongley>	gkellogg: it's possible that the input specifies an empty graph
+[Tue 10:38]	<manu>	PROPOSAL: Graphs are not free-floating nodes and should not be removed during the flattening or fromRDF algorithm.
+[Tue 10:38]	<manu>	+0.6
+[Tue 10:38]	<gkellogg>	+1
+[Tue 10:39]	<dlongley>	+1
+[Tue 10:39]	<niklasl>	+0.75
+[Tue 10:39]	<mlnt>	+0.7
+[Tue 10:39]	<manu>	RESOLVED: Graphs are not free-floating nodes and should not be removed during the flattening or fromRDF algorithm.
+[Tue 10:40]	<manu>	Topic: RDF WG ISSUE-132: Blank node predicates
+[Tue 10:40]	<manu>	http://www.w3.org/2011/rdf-wg/track/issues/132
+[Tue 10:41]	<dlongley>	manu: so we've moved away from skolemization for bnodes as predicates, dbooth has been talking about using relative IRIs
+[Tue 10:41]	<dlongley>	dbooth: coming into this was that there was an important use case as using bnodes as predicates which is why i recommended skolemization
+[Tue 10:41]	<dlongley>	dbooth: when i looked into the use cases i became more and more convinced that other approaches would be better
+[Tue 10:42]	<dlongley>	dbooth: the overriding motivation would be to make transitioning from JSON to JSON-LD easier, which i agree with that motivation
+[Tue 10:43]	<manu>	q+
+[Tue 10:43]	<dlongley>	dbooth: i've tried to point out other ways that these use cases could be addresses, but people seemed to be attached to using bnodes here so i'd just propose that we have an option that defaults to false that, when true, will produce generalized RDF, when false it will drop bnodes as predicates
+[Tue 10:43]	<voip-ld>	Added manu to the speaker queue: manu, manu
+[Tue 10:43]	<manu>	q-
+[Tue 10:43]	<voip-ld>	Removed manu from the speaker queue: manu
+[Tue 10:43]	<dlongley>	dbooth: [missed some comments]
+[Tue 10:43]	<dbooth>	1. Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.
+[Tue 10:43]	<dbooth>	2. Suggest other ways to handle JSON properties that the author is not yet ready to map to stable IRIs, such as: (a) mapping them to unstable IRIs and documenting the fact that those IRIs are unstable; or (b) mapping them to "" (or such) to prevent them from appearing in the resulting RDF. Consumers that need those property values can obtain them at the JSON level (and if desired could then inject those values into the RDF without us
+[Tue 10:43]	<dbooth>	ing blank node predicates).
+[Tue 10:43]	<manu>	q-
+[Tue 10:43]	<voip-ld>	Removed manu from the speaker queue: (empty)
+[Tue 10:44]	<dlongley>	manu: i'd be happy with that change
+[Tue 10:44]	<dlongley>	manu: i think adding the option and having it default to false will address what both sides want
+[Tue 10:44]	<dlongley>	manu: and it would be good to provide suggestions for what authors can do if they want to do this kind of mapping
+[Tue 10:45]	<dlongley>	gkellogg: regarding unstable IRIs are you suggesting we mint a new IRI scheme for unstable IRIs?
+[Tue 10:46]	<dlongley>	dbooth: that's a possibility, my own view is that if people are using a documented unstable feature that's their mistake
+[Tue 10:46]	<dlongley>	dbooth: certainly people can document the fact that certain things are stable or unstable, and they are getting out-of-band information from them then they ought to read the documentation anyway
+[Tue 10:47]	<dlongley>	manu: the only downside to minting a new scheme is making more work for the group and i can see people wanting us to create this for all RDF datasets, etc.
+[Tue 10:47]	<dlongley>	manu: there would be extra work/overhead, that's the strongest argument against it
+[Tue 10:48]	<dlongley>	dbooth: if it were something registered it would just be a general-purpose schema that anyone could use for the purpose of unstable iris
+[Tue 10:48]	<dlongley>	niklasl: i agree with dbooth regarding the fact that people should pay attention to documentation, but in practice it doesn't always happen and there are cases where there have been issues with this
+[Tue 10:49]	<manu>	PROPOSAL: Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.
+[Tue 10:49]	<gkellogg>	+1
+[Tue 10:49]	<niklasl>	+1
+[Tue 10:49]	<dlongley>	+1
+[Tue 10:49]	<dbooth>	+1
+[Tue 10:49]	<manu>	+0.8
+[Tue 10:49]	<taaz>	+1
+[Tue 10:49]	<mlnt>	+0.8
+[Tue 10:49]	<manu>	RESOLVED: Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.
+[Tue 10:51]	<dlongley>	dbooth: i think there may be more push back from the web community for minting an unstable iri scheme
+[Tue 10:52]	<dlongley>	manu: so in general, map bnodes predicates to an unstable IRI, one way is to use a document-relative fragment identifier
+[Tue 10:52]	<dlongley>	mlnt: i think that might be confusing because you'd use those for stable IRIs too
+[Tue 10:53]	<dlongley>	dbooth: the point of the second suggestion was not to be prescriptive but instead to provide ideas for what devs could do to deal with this
+[Tue 10:55]	<dlongley>	[discussion about possible suggestions to make to devs for what to do with bnode predicates]
+[Tue 10:56]	<dlongley>	mlnt: can we just be silent on it? we don't recommend bnode predicates
+[Tue 10:56]	<dlongley>	manu: i think it's come up so often we should mention something
+[Tue 10:56]	<dlongley>	dbooth: maybe just to suggest mapping to unstable IRIs and document or leave them unmapped
+[Tue 10:57]	<dlongley>	gkellogg: i think the people that can do that are capable of mapping to RDF without having to do unstable, etc.
+[Tue 10:57]	<dlongley>	gkellogg: i think this is for people who are just getting into this
+[Tue 10:57]	<dlongley>	gkellogg: i think we can just say that properties that aren't mapped are dropped
+[Tue 10:58]	<dlongley>	manu: so we cover the case where things are unmapped that's already talked about in the spec so this may be a case where the author wants to preserve the data but not in a permanent way
+[Tue 10:58]	<dlongley>	dbooth: yeah, they don't want to throw away the data but they aren't yet ready to commit to a stable IRI
+[Tue 10:58]	<dlongley>	dbooth: that's the use case i've heard
+[Tue 10:59]	<dlongley>	gkellogg: aren't there owl annotations that could be used here
+[Tue 10:59]	<niklasl>	.. vs: http://www.w3.org/2003/06/sw-vocab-status/ns#
+[Tue 10:59]	<dlongley>	manu: i think that in this case the author doesn't want to go through the trouble of even documenting the vocabularies that they're using
+[Tue 11:00]	<dlongley>	manu: they just dont' want the data to disappear but they want it to be recognized as unstable
+[Tue 11:00]	<dbooth>	When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an unstable IRI and document the fact that the IRI is unstable.
+[Tue 11:00]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-00000293) has left the conference.
+[Tue 11:01]	<manu>	PROPOSAL: When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an IRI that is documented as unstable.
+[Tue 11:01]	<manu>	+0.7
+[Tue 11:01]	<gkellogg>	+1
+[Tue 11:02]	<dlongley>	dlongley: +0.7
+[Tue 11:02]	<mlnt>	-0.8
+[Tue 11:02]	<dbooth>	+1
+[Tue 11:02]	<manu>	RESOLVED: When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an IRI that is documented as unstable.
+[Tue 11:05]	<manu>	Topic: Review uncategorized JSON-LD github issues
+[Tue 11:05]	<manu>	https://github.com/json-ld/json-ld.org/issues?milestone=none&page=1&sort=created&state=open
+[Tue 11:05]	<dlongley>	manu: ok, let's go through all of the github issues and make sure we cover whatever needs covering before CR
+[Tue 11:11]	<dlongley>	[discussion about which issues to push off/schedule for discussion]
+[Tue 11:13]	-->|	scor (scor@nat/acquia/x-ckwpzxlxdkdricqp) has joined #json-ld
+[Tue 11:13]	|<--	scor has left zoe-fn (Changing host)
+[Tue 11:13]	-->|	scor (scor@drupal.org/user/52142/view) has joined #json-ld
+[Tue 11:13]	<dlongley>	gkellogg: if json-ld contexts could be extracted from script tags that would be a useful feature
+[Tue 11:13]	<dlongley>	gkellogg: it would be helpful with activity streams
+[Tue 11:14]	<dlongley>	manu: i'd feel more comfortable giving advice on how to host and load contexts on the json-ld.org site because we don't know what best practice is yet
+[Tue 11:14]	<dlongley>	gkellogg: i agree, or it goes into some form of a best practices document that emerges
+[Tue 11:14]	<dlongley>	gkellogg: with regards to the other sort of profile that i'd been suggesting we might want to allow a community to sort of create other specifications to be implemented that could be folded into jsonld.next
+[Tue 11:20]	<manu>	dlongley: We should link to the advanced Context section from the basic context section.
+[Tue 11:20]	<manu>	taaz: Yeah, I suggest that in the issue.
+[Tue 11:24]	<manu>	PROPOSAL: Link all Basic concept sections to the Advanced Concepts section to ensure that readers understand that there are more advanced concepts associated with the basic features of JSON-LD.
+[Tue 11:24]	<mlnt>	+0.5
+[Tue 11:24]	<dlongley>	+1
+[Tue 11:24]	<taaz>	+1
+[Tue 11:24]	<manu>	+0.6
+[Tue 11:24]	<gkellogg>	+0.5
+[Tue 11:25]	<manu>	RESOLVED: Link all Basic concept sections to the Advanced Concepts section to ensure that readers understand that there are more advanced concepts associated with the basic features of JSON-LD.
+[Tue 11:24]	<dlongley>	Group goes through the rest of the issues and asserts that they do not affect the syntax or API specs.
+[Tue 11:26]	<manu>	Topic: JSON-LD Syntax issues
+[Tue 11:26]	<mlnt>	https://github.com/json-ld/json-ld.org/issues?milestone=2&page=1&sort=created&state=open
+[Tue 11:26]	<dlongley>	manu: We still need to discuss issues 274, 263, and apply editorial changes in 254. We'll chat next week about API issues and RDF WG issues.
+[Tue 11:31]	<voip-ld>	Dave Longley (SIP/6002-00000296) has left the conference.
+[Tue 11:31]	<voip-ld>	Gregg Kellogg (SIP/192.168.1.229-00000294) has left the conference.
+[Tue 11:31]	<voip-ld>	Manu Sporny (SIP/6000-00000292) has left the conference.
+[Tue 11:31]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-00000295) has left the conference.
+[Tue 11:31]	<voip-ld>	Dave Lehn (SIP/6003-00000297) has left the conference.

@@ -1,0 +1,250 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-07-16</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0076.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0076.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-276: Convert appendices into normal sections</a><li><a href="#topic-2">ISSUE-279: Extraneous data after flattening bug</a><li><a href="#topic-3">RDF WG ISSUE-132: Blank node predicates</a><li><a href="#topic-4">Review uncategorized JSON-LD github issues</a><li><a href="#topic-5">JSON-LD Syntax issues</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Convert normative appendices A, B, and C to normal normative sections, leaving them at the same location in the document.</a><li><a href="#resolution-2">Fix a bug in the flattening and fromRDF algorithm by not promoting undescribed nodes or datatypes to subjects during the flattening/fromRDF algorithms.</a><li><a href="#resolution-3">Graphs are not free-floating nodes and should not be removed during the flattening or fromRDF algorithm.</a><li><a href="#resolution-4">Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.</a><li><a href="#resolution-5">When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an IRI that is documented as unstable.</a><li><a href="#resolution-6">Link all Basic concept sections to the Advanced Concepts section to ensure that readers understand that there are more advanced concepts associated with the basic features of JSON-LD.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Markus to update algorithms to handle filtering.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Dave Longley</dd>
+<dt>Present</dt><dd>Manu Sporny, Dave Longley, David Booth, Markus Lanthaler, Gregg Kellogg, Niklas Lindström, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>: Some JSON-LD news, a graph database engine just put in native support for JSON-LD. The Activity Streams 2.0 work has adopted JSON-LD as a way of publishing activity stream data, which is great.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Link to graph database supporting JSON-LD: <a href="https://github.com/mcollina/levelgraph-jsonld">https://github.com/mcollina/levelgraph-jsonld</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion about Activity Streams 2.0 work using JSON-LD compatible format. Publishing JSON-LD context.</div>
+<div class="information">Dave Longley is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  [discusses agenda items] we have an addition from niklas about what we should do with the flattening algorithm</div>
+<div class="comment"><span class="name">David Booth</span>:  i wanted to propose a suggestion for how we deal with blank nodes as predicates as well</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's deal with niklas' flattening algorithm first then bnodes as predicates and then we'll deal with David Booth's issue and then review the other issues</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-276: Convert appendices into normal sections</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/276">https://github.com/json-ld/json-ld.org/issues/276</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this has to do with converting appendices into regular sections -- the primary argument for this is that the appendices are very normative sections and appendices may be considered "additional" info, so instead let's make them regular sections since a lot of normative stuff is in there</div>
+<div class="comment"><span class="name">Dave Longley</span>:  i dont' think we should move them around (ordering), but changing them to regular sections is fine</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, the proposal is to leave them exactly where they are</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i'd be fine with that change</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the reference would be to dan connolly's advice which is that the doc should read the same if the appendices were removed</div>
+<div class="comment"><span class="name">David Booth</span>: +1 to Dan Connelly's advice</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it would be A, B, and C, we'd leave appendix D the same</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so there would be some movement because we'd move appendix D (it becomes appendix A) after appendix C</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Convert normative appendices A, B, and C to normal normative sections, leaving them at the same location in the document.</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Convert normative appendices A, B, and C to normal normative sections, leaving them at the same location in the document.</div>
+<h1 id="topic-2" class="topic">Topic: ISSUE-279: Extraneous data after flattening bug</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/279">https://github.com/json-ld/json-ld.org/issues/279</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  niklas has written up the "problem" with the current flattening algorithm, some see it as a good feature others see it as a bad feature</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  niklas has placed an interesting example into the tracker to demonstrate the downside of the current algorithm</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so the question is whether or not we see this as a bug in the flattening algorithm or not, fixing the bug would result in not promoting things that are "leaves" -- things are only at the top level</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the same thing goes for the fromRDF algorithm which generates the same footprint</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  is it worth changing at this stage if you can just filter the data out later?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  my position is that we want to do whatever the majority of devs want, if they all have to filter this stuff out then we should probably have made things filtered out by default</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i do think it's strange to have datatypes as nodes in a flattened graph and that it does make things a bit messy</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i haven't experienced datatypes as nodes using other syntaxes/APIs/etc</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it will be more rare to try and get the number of subjects vs. getting all the nodes flattened out so they can iterate through them</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it's worth fixing it at this point since fixing it later would be more difficult, adding it would be easier later if we really need it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so i'd lean towards removing these extraneous nodes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if require our algorithms to have this data now we remove the ability to clean it up later because people will come to depend on it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  should we mark this at-risk?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's a danger that someone could argue this is a normative change, etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  well, i think it's a bug and the other argument that it's not a substantive change because we're doing CR and the algorithms are really for review there and the true test is if CR implementors think this was a good change, etc. -- at this point this was a bug that was put in the spec that was part of a rewrite, we're putting it back how it was and marking it at-risk if implementors feel it should be done another way</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sound reasonable?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Fix a bug in the flattening and fromRDF algorithm by not promoting undescribed nodes or datatypes to subjects during the flattening/fromRDF algorithms.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  +0.5</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.7</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Fix a bug in the flattening and fromRDF algorithm by not promoting undescribed nodes or datatypes to subjects during the flattening/fromRDF algorithms.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  how are we going to filter them out? leave them out of the node map or not?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  There is another reason we want to do that - the framing algorithm relies on the node-map algorithm, so we should have them in the node map. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think we used to do it with them in the node map and we just removed them later</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think there's no problem with adding things to the node map</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the node map is just an internal state, so when adding properties to things in the node map you add them to the array which is cleaner than filtering at the end, i think</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  you can build the node map and the flattened array at the same time</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#flattening-algorithm">http://json-ld.org/spec/latest/json-ld-api/#flattening-algorithm</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  would making that change complicate the algorithms?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: For each id-node pair in graph ordered by id, add node to the @graph member of entry. State that node needs to have other properties than @id</div>
+<div class="comment"><span class="name">Dave Longley</span>:  i don't think we should leak the flattening info into the node map algorithm because it complicates things, but we could mention the optimization</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i think we only need to add some words to the flattening algorithm</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  fromRDF just removes some steps</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus, do you have an idea for what changes to make?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yeah, for flattening yes, i can look at the RDF one, shouldn't be too difficult</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can you take a shot at that?</div>
+<div id="action-1" class="action">ACTION: Markus to update algorithms to handle filtering.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  what about graphs with no data in it?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  well there's an argument to remove it based on how people will use flattening</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  well, i think an empty graph is actually data and there's value in retaining that</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think there's value to keeping that information in a flattening representation</div>
+<div class="comment"><span class="name">Dave Longley</span>:  There may be an additional problem here - there may be disjoint information in the graph. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we remove them at the top-level, they'll cease to exist entirely in the flattened output. If there is no reference to something in the graph, we'll lose it. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This may be more complex than we want it to be - we have to make sure that the things we're removing aren't referenced from anywhere else. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We already remove free-floating nodes, right? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  An empty graph sounds like a covert delete to me. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think we can do that, you can't actually say in RDF that a graph is referenced. The name of the graph does not semantically relate to the use of that name in a triple somewhere else. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The fact that a graph has a name and is free standing and not referenced does not have an impact on the RDF Dataset model [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That's true, but we wanted to take a different direction in JSON-LD. It's more useful to say that the name of a graph does have meaning. As it appears in the JSON, it does seem to have meaning. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We can leave it as-is, and not extend anything in ISSUE-279, leaving graphs alone. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can these empty graphs even appear in the fromRDF algorithm?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's possible that the input specifies an empty graph</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Graphs are not free-floating nodes and should not be removed during the flattening or fromRDF algorithm.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.6</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.75</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.7</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Graphs are not free-floating nodes and should not be removed during the flattening or fromRDF algorithm.</div>
+<h1 id="topic-3" class="topic">Topic: RDF WG ISSUE-132: Blank node predicates</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/issues/132">http://www.w3.org/2011/rdf-wg/track/issues/132</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we've moved away from skolemization for bnodes as predicates, dbooth has been talking about using relative IRIs</div>
+<div class="comment"><span class="name">David Booth</span>:  coming into this was that there was an important use case as using bnodes as predicates which is why i recommended skolemization</div>
+<div class="comment"><span class="name">David Booth</span>:  when i looked into the use cases i became more and more convinced that other approaches would be better</div>
+<div class="comment"><span class="name">David Booth</span>:  the overriding motivation would be to make transitioning from JSON to JSON-LD easier, which i agree with that motivation</div>
+<div class="comment"><span class="name">David Booth</span>:  i've tried to point out other ways that these use cases could be addresses, but people seemed to be attached to using bnodes here so i'd just propose that we have an option that defaults to false that, when true, will produce generalized RDF, when false it will drop bnodes as predicates</div>
+<div class="comment"><span class="name">David Booth</span>:  [missed some comments]</div>
+<div class="comment"><span class="name">David Booth</span>: 1. Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.</div>
+<div class="comment"><span class="name">David Booth</span>: 2. Suggest other ways to handle JSON properties that the author is not yet ready to map to stable IRIs, such as: (a) mapping them to unstable IRIs and documenting the fact that those IRIs are unstable; or (b) mapping them to "" (or such) to prevent them from appearing in the resulting RDF. Consumers that need those property values can obtain them at the JSON level (and if desired could then inject those values into the RDF without us</div>
+<div class="comment"><span class="name">David Booth</span>: ing blank node predicates).</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'd be happy with that change</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think adding the option and having it default to false will address what both sides want</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and it would be good to provide suggestions for what authors can do if they want to do this kind of mapping</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  regarding unstable IRIs are you suggesting we mint a new IRI scheme for unstable IRIs?</div>
+<div class="comment"><span class="name">David Booth</span>:  that's a possibility, my own view is that if people are using a documented unstable feature that's their mistake</div>
+<div class="comment"><span class="name">David Booth</span>:  certainly people can document the fact that certain things are stable or unstable, and they are getting out-of-band information from them then they ought to read the documentation anyway</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the only downside to minting a new scheme is making more work for the group and i can see people wanting us to create this for all RDF datasets, etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there would be extra work/overhead, that's the strongest argument against it</div>
+<div class="comment"><span class="name">David Booth</span>:  if it were something registered it would just be a general-purpose schema that anyone could use for the purpose of unstable iris</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i agree with dbooth regarding the fact that people should pay attention to documentation, but in practice it doesn't always happen and there are cases where there have been issues with this</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.8</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.8</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.</div>
+<div class="comment"><span class="name">David Booth</span>:  i think there may be more push back from the web community for minting an unstable iri scheme</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so in general, map bnodes predicates to an unstable IRI, one way is to use a document-relative fragment identifier</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i think that might be confusing because you'd use those for stable IRIs too</div>
+<div class="comment"><span class="name">David Booth</span>:  the point of the second suggestion was not to be prescriptive but instead to provide ideas for what devs could do to deal with this</div>
+<div class="information">[discussion about possible suggestions to make to devs for what to do with bnode predicates]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  can we just be silent on it? we don't recommend bnode predicates</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it's come up so often we should mention something</div>
+<div class="comment"><span class="name">David Booth</span>:  maybe just to suggest mapping to unstable IRIs and document or leave them unmapped</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think the people that can do that are capable of mapping to RDF without having to do unstable, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think this is for people who are just getting into this</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think we can just say that properties that aren't mapped are dropped</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we cover the case where things are unmapped that's already talked about in the spec so this may be a case where the author wants to preserve the data but not in a permanent way</div>
+<div class="comment"><span class="name">David Booth</span>:  yeah, they don't want to throw away the data but they aren't yet ready to commit to a stable IRI</div>
+<div class="comment"><span class="name">David Booth</span>:  that's the use case i've heard</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  aren't there owl annotations that could be used here</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. vs: <a href="http://www.w3.org/2003/06/sw-vocab-status/ns#">http://www.w3.org/2003/06/sw-vocab-status/ns#</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think that in this case the author doesn't want to go through the trouble of even documenting the vocabularies that they're using</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they just dont' want the data to disappear but they want it to be recognized as unstable</div>
+<div class="comment"><span class="name">David Booth</span>: When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an unstable IRI and document the fact that the IRI is unstable.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an IRI that is documented as unstable.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.7</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>:  +0.7</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: -0.8</div>
+<div class="comment"><span class="name">David Booth</span>: +1</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an IRI that is documented as unstable.</div>
+<h1 id="topic-4" class="topic">Topic: Review uncategorized JSON-LD github issues</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues?milestone=none&amp;page=1&amp;sort=created&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=none&amp;page=1&amp;sort=created&amp;state=open</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, let's go through all of the github issues and make sure we cover whatever needs covering before CR</div>
+<div class="information">[discussion about which issues to push off/schedule for discussion]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if json-ld contexts could be extracted from script tags that would be a useful feature</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it would be helpful with activity streams</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'd feel more comfortable giving advice on how to host and load contexts on the json-ld.org site because we don't know what best practice is yet</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i agree, or it goes into some form of a best practices document that emerges</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  with regards to the other sort of profile that i'd been suggesting we might want to allow a community to sort of create other specifications to be implemented that could be folded into jsonld.next</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We should link to the advanced Context section from the basic context section. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  Yeah, I suggest that in the issue. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Link all Basic concept sections to the Advanced Concepts section to ensure that readers understand that there are more advanced concepts associated with the basic features of JSON-LD.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.6</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.5</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> Link all Basic concept sections to the Advanced Concepts section to ensure that readers understand that there are more advanced concepts associated with the basic features of JSON-LD.</div>
+<div class="information">Group goes through the rest of the issues and asserts that they do not affect the syntax or API specs.</div>
+<h1 id="topic-5" class="topic">Topic: JSON-LD Syntax issues</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=created&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=created&amp;state=open</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We still need to discuss issues 274, 263, and apply editorial changes in 254. We'll chat next week about API issues and RDF WG issues.</div>
+</body>
+</html>
