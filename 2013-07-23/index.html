@@ -1,0 +1,266 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-07-23</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0106.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0106.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">ISSUE-277: "partial" lists</a><li><a href="#topic-2">GSoC Update</a><li><a href="#topic-3">Review JSON-LD github issues ready to be closed</a><li><a href="#topic-4">Review of JSON-LD API Spec</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Adopt Markus' algorithmic change to convert partial lists from RDF to JSON-LD.</a><li><a href="#resolution-2">Make it clear in the specification that objects can be provided to the context parameter can either be JSON-LD Contexts, or objects containing JSON-LD Contexts.</a><li><a href="#resolution-3">The JSON-LD API should process all documents labeled with media types using the application/json or any media type with a +json suffix. Implementations must not follow an HTTP Link Header if you encounter an application/ld+json media type.</a><li><a href="#resolution-4">A remote context MUST be served as application/ld+json.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Manu Sporny</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Gregg Kellogg, Dave Longley, Markus Lanthaler, Vikash Agrawal, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Manu Sporny is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any other changes to the Agenda other than Niklas' addition?</div>
+<div class="information">No other changes noted, moving on to first agenda item.</div>
+<h1 id="topic-1" class="topic">Topic: ISSUE-277: "partial" lists</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/277">https://github.com/json-ld/json-ld.org/issues/277</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  When I implemented this recently, I noticed that if you can serialize a path to rdf:nil, we should do that by using syntactic sugar form, even if the property is rdf:rest.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  The only case where you wouldn't do that is if that list node is not well formed.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  For example, it's an IRI, has something that's not rdf:next, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  ... and everything before that?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you encounter such a node, and there is an rdf:rest property pointing to it that is not well formed, then we don't do anything about the rest.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think that we should be that eager to unravel a list. There could be places, such as in OpenAnnotation, we don't know if it would be sufficient, but we could describe the first node as an IRI and then the rest as a well-formed list.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't see a reason for the rest of the list to be treated as a non-list when it is a list.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I'm not sure about Turtle serializers in general, but the rdflib serializer is doing the same thing as ISSUE-277 proposal.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  So, we should align with that (and this is a bug fix)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  What are the conditions under which this sort of data appears? Does anyone create the data intentionally where they wouldn't want @list?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Do they go with the OpenAnnotations use case?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: what niklasl just described is what my algorithm update will do</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Is it best to just wrap up as much of the list, or the end of the list as we can?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If something isn't well-formed, we don't use @list at all. Is that preferable over wrapping everything up in @list... I don't know. Could we list out the various cases under which we'd encounter data where the list is not well formed, that might help us make a quicker decision as to what should be done.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  owl:unions aren't... they use lists, but they're not well-formed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  They have a type of owl:Class.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the first member in the list is a owl:Class, but I've seen that in Turtle notation.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think every element is owl:Class.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: :ClassC owl:unionOf ( :ClassA :ClassB ) .</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If that's true, this algorithm wouldn't affect that in any way. It would see that every element in that list is not well-formed, so we can safely ignore that case.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think the main use case is where there are properties on the first element in the list, or the list is the subject.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  In that case, we want people to see the @list keyword.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can't imagine a reason where you could use @list - you could also support lists of lists...</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you'd just have a blank node as an argument and have the rest spelled out as rdf:first and rdf:next</div>
+<div class="comment"><span class="name">Dave Longley</span>:  That would be awkward, but it's no different than what we have now.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus, what's your updated algorithm to address this?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Yes, it does. It keeps blank nodes in list, then rdf:next (scribe missed)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It's worth doing this even w/ increased algorithmic complexity. This is a detail of the spec.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do have normative language for list of lists exception, we might remove that.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: s/rdf:next (scribe missed)/the blank node has an @list-array as value of rdf:rest which represents the inner list</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I don't think anyone would care if we got rid of list of lists.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The exception is only generated now during compaction, if a property has list coercion on it... I don't think we need to generate that exception. We could get the recursive list behavior you wanted by using the sugar syntax.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The reason we need to raise the exception, if you have a property that is a list, and you have another list, then you raise an exception.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we did this, we wouldn't need to do that.</div>
+<div class="information">Gregg explains the technical implementation of why we wouldn't need  to throw an list of lists exception.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The algorithm I'm going to commit later doesn't have any side-effects.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think incorporating it will solve ISSUE-277, we could see where we're at with list of lists. We may need a separate vote on that later on.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We should put a warning on this change, going into Candidate Rec.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Adopt Markus' algorithmic change to convert partial lists from RDF to JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  +0.2</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Adopt Markus' algorithmic change to convert partial lists from RDF to JSON-LD.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  After this change, rdflib implementation will be very much aligned.</div>
+<h1 id="topic-2" class="topic">Topic: GSoC Update</h1>
+<div class="comment"><span class="name">Vikash Agrawal</span>: So, I think I have concluded the website (considering the indentation and validation bugs) Now I am writing my contexts (I made some progress with problems here) so I am reading the spec again</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: This being said, if I am able to complete the Person any time soon, I dont think Places and events will be a big hurdle. I will submit in /contexts/Person-1.jsonld file structure</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: I wanted to talk about the status of mid-term eval, which is starting from Monday! Can you please throw some light over that as in Pass or fail or a definitely pass</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: vikash, there are still sites which haven't been converted to the new layout.. the last one I saw was /minutes</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Thanks manu for allowing the discussion and mlnt nikalas too</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: mlnt, Can you please just let me know those, I will complete those, no worries on that..</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: there were few parts I dint touch.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so vikash, on his proposal, had stated that he would be further along with the JSON-LD creator tool than he currently is for his mid-term evaluation, but i'm fairly happy with the work he's gotten done, though it seems like he could have gotten more done for one reason or another, a fail would mean that he's out of the program and i think that the work he's done on the website is certainly good enough to keep him in the program so i think we should pass him [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  are there any other thoughts on his status in the group? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i'm having trouble keeping up with what he's doing, could we get more updates on the mailing list? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could ask him to do weekly updates [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i would like to see vikash achieve a higher-level of proficiency in JSON-LD, given the time he's spent he still shows a naive understanding so i'd like to see him do better with that [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: dlongley sure. but I think, I am able to provide updates weekly meeting, unfortunately I wasn't able to join in a few of those.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i'd also like to see better quality of code in what's submitted so we don't have to go back and forth as much [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: gkellogg, Those will be done</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  some of what vikash may be doing could be a cultural thing or a student thing to do a first pass and then get feedback, there's certainly a steep learning curve as a student and we expect more of him but at the same time he's tackling a timezone, cultural, and knowledge gap [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: vikash, I would really prefer updates via mail to the mailing list..</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we want to see improvement from vikash in all aspects, but i think he should continue work, is that the consensus? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: weekly updates Noted.</div>
+<div class="comment"><span class="name">Dave Longley</span>: [general consensus]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: manu, Yup, I feel the very same. on my personal fronts I do see, I need to more with json-ld</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: but I also think, I am learning various thingsand utility too.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  dlehn was saying he definitely want him to be writing more code since it's GSoC, so the rest of his time should be spent writing a good chunk of JS code [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Dave Longley</span>: Vikash, there's general consensus that you will pass the mid-term eval</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Feels good and thanks. Woot.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Thank-You so much everyone, and with out you guys this would have been impossible</div>
+<h1 id="topic-3" class="topic">Topic: Review JSON-LD github issues ready to be closed</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=created&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=created&amp;state=open</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we've responded to robin berjon's comments as much as we could, some concerns we couldn't address with the spec at this point [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: makes sure, that he will make a fast pace and do weekly updates</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  some people feel that robin is misreading what the spec is trying to do, i think i dealt with all LC issues he has there [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  understanding the JSON-LD data model is now difficult to understand, with all the changes we've had recently things have become very difficult to understand, the spec is pretty unreadable so we need some editorial changes to fix that [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we're done with the GLD WG feedback [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let us know if anyone thinks differently [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll close that in 24 hours if there are no complaints [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have some ongoing discussion with markus on what we should do with the @context array feature [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we're ready to close David and Peter's review issue [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any thoughts from the rest of the group on any of the two remaining issues? [scribe assist by Dave Longley]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Thank-You so much everyone, and with out you guys this would have been impossible</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Issue #245 is tricky - if we do not allow the data to pass in { "@context": '...' } - not supporting that would be okay</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think that's fine... but wouldn't be a hard +1 still.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you want to access RDFa as JSON-LD, any sort of extra syntactic ritual to access schema.org data would be problematic for political reasons. People are concerned about Linked Data cruft. We shouldn't allow @context key in - must not have a @context keyword.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The playground has been working list this - allowing @context.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It would make it symmetric to the context parameter, if we disallowed it, it would be a special case.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we've been doing that since the beginning, grammar has supported that from the beginning, no reason to change that now.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. the symmetry argument does speak to me</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I can see an argument for increasing flexibility, that would imply being able to pass an object in that has a @context.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should support as many different things being passed in that make sense, if we can do it deterministically.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Part of me doesn't like that it's so variable... but not supporting things where it's clear what the intent is, is bad.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I support both, agree with Gregg.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yeah, I do the same.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  If you put an object in there that doesn't have a @context at the top-level, it'll be an issue.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't know if various options are specified, so we should detail this in the spec.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Make it clear in the specification that objects can be provided to the context parameter can either be JSON-LD Contexts, or objects containing JSON-LD Contexts.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.9</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Make it clear in the specification that objects can be provided to the context parameter can either be JSON-LD Contexts, or objects containing JSON-LD Contexts.</div>
+<h1 id="topic-4" class="topic">Topic: Review of JSON-LD API Spec</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues?milestone=1&amp;page=1&amp;sort=created&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=1&amp;page=1&amp;sort=created&amp;state=open</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  There is one minor thing that Gregg and I have been discussing about nodes with just @id when you frame.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Should such a node be in the output or not... that's one question.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The other one is that we should discuss whether we support +json media types in the API.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Currently, HTTP Link Header allows a publisher to link to a context w/o changing the document. That mechanism is specified to work just for application/ld+json</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +json suffix has been standardized, application/stream+json should be able to use it as well.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The change would just be to re-phrase that section with a small explanation on what you invoke the API, to support all +json media types.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#the-jsonldprocessor-interface">http://json-ld.org/spec/latest/json-ld-api/#the-jsonldprocessor-interface</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Look at the .compact() call... see how it says it's only applicable to application/ld+json? We could change that to "application/ld+json or "+json" suffix... we're overly restrictive here... we're just generalizing the solution. Different flavors of JSON, we should support them all.</div>
+<div class="information">Discussion about loosening restriction that application/ld+json documents MUST contain a @context keyword.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This might be a recursion issue wrt. remote context.</div>
+<div class="information">Discussion about terminating when recursive HTTP requests are made against documents.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  We want systems to try to interpret things as JSON-LD if possible.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The JSON-LD API should process all documents labeled with media types using the application/json or any media type with a +json suffix. Implementations must not follow an HTTP Link Header if you encounter an application/ld+json media type.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> The JSON-LD API should process all documents labeled with media types using the application/json or any media type with a +json suffix. Implementations must not follow an HTTP Link Header if you encounter an application/ld+json media type.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ISSUE-279 also affects framing.</div>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/issues/279">https://github.com/json-ld/json-ld.org/issues/279</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  We're going to have to make algorithmic changes to certain things to support framing in the future, so it'll fall into the same bucket. It's not in the node map.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Framing may need to make modifications to node-map and expansion to preserve things for framing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We will need to provide a framing option to the algorithms.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We already have to do that w/ other algorithms too.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so we're putting that discussion off.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ISSUE-264 - need to discuss</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we need to discuss recursion, when you use an HTTP Link Header, must you specify that the document is application/ld+json? The result is to avoid endless recursion.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That would simplify the problem quite.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  You might have a document that is application/json and it can't serve ld+json, so you need to have redirection for that.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we say you only follow one HTTP Link Header, you only have one result, plus you could support this use case. If you only follow one link header, it doesn't matter what the media type is.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  That might be dangerous, it changes the interpretation of that document, in one case, you use the link header, in the other case you do not.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you have a document that has an inline context, and that context depends on the remote context, you could have different contexts if you pay attention to the ld+json link header and one where you don't.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Talking about your proposal where you just follow one Link Header.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Trying to figure out what you're saying... if you just follow one link header... (scribe missed)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm fine w/ restricting to ld+json, if that's a problem, implementations will become looser.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It's always much easier to loosen something later, than restrict it later. I'd rather keep it stricter to start off.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> A remote context MUST be served as application/ld+json.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.75</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> A remote context MUST be served as application/ld+json.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Another issue here, when you get a remote context and you encounter re-directs, what becomes the base URL to resolve relative URLs against.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  In the case with w3id.org, do you use w3id.org/ as the base URL or the final destination.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Usually, with a redirect, you use the last URL.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Is that true, or does it append onto the HTTP response code?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If you have a bookmark, the HTTP status states whether or not you should update your bookmark.</div>
+<div class="information"><a href="https://w3id.org/payswarm#vendor">https://w3id.org/payswarm#vendor</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  One way to do this - if you're using a Link redirector, don't use relative IRIs.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  or set the base.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  it would be strange to get back a document via redirects that has relative URLs and use a different URLs based on where you started from.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping">http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ISSUE-258 - what changes do we need to make re: unresolved resolution?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we already state that.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ISSUE-238 - WebIDL reference...</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://json-ld.org/test-suite/idltest/">http://json-ld.org/test-suite/idltest/</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We've already referenced WebIDL in the proper way.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We pass the WebIDL test harness, so we're clear.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Refering to Futures/Promises?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We specify Promises very lightly and point to the spec, that's how we should keep it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We'll also want an expert to review the WebIDL during CR phase.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ISSUE-229 - Make test suite more obvous</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to link to the test suite... it also needs to be styled... need a purpose for each test... otherwise it's done.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It just pulls in the manifest, could have better structure, css, could use some style love.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there was probably a comment from RDF WG about making tests more obvious.</div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+[Tue 10:00]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-000002a5) is in the conference.
+[Tue 10:00]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-000002a5) has joined the conference.
+[Tue 10:00]	<voip-ld>	Gregg Kellogg (SIP/66.159.223.136-000002a6) has joined the conference.
+[Tue 10:00]	<voip-ld>	Manu Sporny (SIP/6000-000002a7) has joined the conference.
+[Tue 10:02]	-->|	mlnt (~markus@net-2-34-215-246.cust.dsl.vodafone.it) has joined #json-ld
+[Tue 10:02]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000002a8) has joined the conference.
+[Tue 10:03]	-->|	vikash (~vikash@unaffiliated/vikash) has joined #json-ld
+[Tue 10:04]	<voip-ld>	Dave Longley (SIP/6002-000002a9) has joined the conference.
+[Tue 10:05]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000002a8) has left the conference.
+[Tue 10:06]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000002aa) has joined the conference.
+[Tue 10:09]	<manu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Jul/0106.html
+[Tue 10:10]	<manu>	scribe: manu
+[Tue 10:10]	<manu>	Manu: Any other changes to the Agenda other than Niklas' addition?
+[Tue 10:10]	<manu>	No other changes noted, moving on to first agenda item.
+[Tue 10:10]	<manu>	Topic: ISSUE-277: "partial" lists
+[Tue 10:11]	<manu>	https://github.com/json-ld/json-ld.org/issues/277
+[Tue 10:11]	<manu>	niklasl: When I implemented this recently, I noticed that if you can serialize a path to rdf:nil, we should do that by using syntactic sugar form, even if the property is rdf:rest.
+[Tue 10:11]	<manu>	niklasl: The only case where you wouldn't do that is if that list node is not well formed.
+[Tue 10:12]	<manu>	niklasl: For example, it's an IRI, has something that's not rdf:next, etc.
+[Tue 10:12]	<manu>	gkellogg: ... and everything before that?
+[Tue 10:12]	<manu>	niklasl: If you encounter such a node, and there is an rdf:rest property pointing to it that is not well formed, then we don't do anything about the rest.
+[Tue 10:13]	<manu>	niklasl: I don't think that we should be that eager to unravel a list. There could be places, such as in OpenAnnotation, we don't know if it would be sufficient, but we could describe the first node as an IRI and then the rest as a well-formed list.
+[Tue 10:13]	<manu>	niklasl: I don't see a reason for the rest of the list to be treated as a non-list when it is a list.
+[Tue 10:13]	<manu>	niklasl: I'm not sure about Turtle serializers in general, but the rdflib serializer is doing the same thing as ISSUE-277 proposal.
+[Tue 10:14]	<manu>	niklasl: So, we should align with that (and this is a bug fix)
+[Tue 10:14]	-->|	vikash (~vikash@84.71.195.194) has joined #json-ld
+[Tue 10:14]	<manu>	dlongley: What are the conditions under which this sort of data appears? Does anyone create the data intentionally where they wouldn't want @list?
+[Tue 10:14]	|<--	vikash has left zoe-fn (Read error: Connection reset by peer)
+[Tue 10:14]	<manu>	dlongley: Do they go with the OpenAnnotations use case?
+[Tue 10:14]	<mlnt>	what niklasl just described is what my algorithm update will do
+[Tue 10:14]	<manu>	dlongley: Is it best to just wrap up as much of the list, or the end of the list as we can?
+[Tue 10:15]	-->|	vikash_ (5447c3c2@gateway/web/freenode/ip.84.71.195.194) has joined #json-ld
+[Tue 10:15]	<manu>	dlongley: If something isn't well-formed, we don't use @list at all. Is that preferable over wrapping everything up in @list... I don't know. Could we list out the various cases under which we'd encounter data where the list is not well formed, that might help us make a quicker decision as to what should be done.
+[Tue 10:15]	<manu>	gkellogg: owl:unions aren't... they use lists, but they're not well-formed.
+[Tue 10:15]	<manu>	gkellogg: They have a type of owl:Class.
+[Tue 10:16]	<manu>	niklasl: I think the first member in the list is a owl:Class, but I've seen that in Turtle notation.
+[Tue 10:16]	<manu>	gkellogg: I think every element is owl:Class.
+[Tue 10:16]	<niklasl>	:ClassC owl:unionOf ( :ClassA :ClassB ) .
+[Tue 10:16]	<manu>	dlongley: If that's true, this algorithm wouldn't affect that in any way. It would see that every element in that list is not well-formed, so we can safely ignore that case.
+[Tue 10:16]	<manu>	gkellogg: I think the main use case is where there are properties on the first element in the list, or the list is the subject.
+[Tue 10:17]	<manu>	dlongley: In that case, we want people to see the @list keyword.
+[Tue 10:17]	<manu>	gkellogg: I can't imagine a reason where you could use @list - you could also support lists of lists...
+[Tue 10:17]	<manu>	gkellogg: you'd just have a blank node as an argument and have the rest spelled out as rdf:first and rdf:next
+[Tue 10:18]	<manu>	dlongley: That would be awkward, but it's no different than what we have now.
+[Tue 10:18]	<manu>	gkellogg: Markus, what's your updated algorithm to address this?
+[Tue 10:18]	<manu>	mlnt: Yes, it does. It keeps blank nodes in list, then rdf:next (scribe missed)
+[Tue 10:18]	<manu>	gkellogg: It's worth doing this even w/ increased algorithmic complexity. This is a detail of the spec.
+[Tue 10:18]	<manu>	gkellogg: We do have normative language for list of lists exception, we might remove that.
+[Tue 10:19]	<mlnt>	s/rdf:next (scribe missed)/the blank node has an @list-array as value of rdf:rest which represents the inner list
+[Tue 10:19]	<manu>	niklasl: I don't think anyone would care if we got rid of list of lists.
+[Tue 10:20]	|<--	vikash_ has left zoe-fn (Quit: Page closed)
+[Tue 10:20]	<manu>	gkellogg: The exception is only generated now during compaction, if a property has list coercion on it... I don't think we need to generate that exception. We could get the recursive list behavior you wanted by using the sugar syntax.
+[Tue 10:21]	<manu>	mlnt: The reason we need to raise the exception, if you have a property that is a list, and you have another list, then you raise an exception.
+[Tue 10:21]	<manu>	gkellogg: if we did this, we wouldn't need to do that.
+[Tue 10:21]	<manu>	Gregg explains the technical implementation of why we wouldn't need  to throw an list of lists exception.
+[Tue 10:22]	<manu>	mlnt: The algorithm I'm going to commit later doesn't have any side-effects.
+[Tue 10:23]	<manu>	niklasl: I think incorporating it will solve ISSUE-277, we could see where we're at with list of lists. We may need a separate vote on that later on.
+[Tue 10:23]	<manu>	manu: We should put a warning on this change, going into Candidate Rec.
+[Tue 10:24]	<manu>	PROPOSAL: Adopt Markus' algorithmic change to convert partial lists from RDF to JSON-LD.
+[Tue 10:24]	<niklasl>	+1
+[Tue 10:24]	<voip-ld>	Dave Lehn (SIP/6003-000002ab) has joined the conference.
+[Tue 10:24]	<manu>	manu: +0.2
+[Tue 10:24]	<gkellogg>	+1
+[Tue 10:24]	<mlnt>	+1
+[Tue 10:24]	<vikash>	+1
+[Tue 10:24]	<dlongley>	+1
+[Tue 10:24]	<manu>	RESOLVED: Adopt Markus' algorithmic change to convert partial lists from RDF to JSON-LD.
+[Tue 10:28]	<manu>	niklasl: After this change, rdflib implementation will be very much aligned.
+[Tue 10:28]	<manu>	Topic: GSoC Update
+[Tue 10:28]	<vikash>	So, I think I have concluded the website (considering the indentation and validation bugs) Now I am writing my contexts (I made some progress with problems here) so I am reading the spec again
+[Tue 10:28]	<vikash>	This being said, if I am able to complete the Person any time soon, I dont think Places and events will be a big hurdle. I will submit in /contexts/Person-1.jsonld file structure
+[Tue 10:28]	<vikash>	I wanted to talk about the status of mid-term eval, which is starting from Monday! Can you please throw some light over that as in Pass or fail or a definitely pass
+[Tue 10:29]	<mlnt>	vikash, there are still sites which haven't been converted to the new layout.. the last one I saw was /minutes
+[Tue 10:29]	<vikash>	Thanks manu for allowing the discussion and mlnt nikalas too
+[Tue 10:30]	<vikash>	mlnt, Can you please just let me know those, I will complete those, no worries on that..
+[Tue 10:30]	<vikash>	there were few parts I dint touch.
+[Tue 10:30]	<dlongley>	manu: so vikash, on his proposal, had stated that he would be further along with the JSON-LD creator tool than he currently is for his mid-term evaluation, but i'm fairly happy with the work he's gotten done, though it seems like he could have gotten more done for one reason or another, a fail would mean that he's out of the program and i think that the work he's done on the website is certainly good enough to keep him in the program so i think we should pass him
+[Tue 10:30]	<dlongley>	manu: are there any other thoughts on his status in the group?
+[Tue 10:31]	<dlongley>	mlnt: i'm having trouble keeping up with what he's doing, could we get more updates on the mailing list?
+[Tue 10:31]	<dlongley>	manu: we could ask him to do weekly updates
+[Tue 10:32]	<dlongley>	gkellogg: i would like to see vikash achieve a higher-level of proficiency in JSON-LD, given the time he's spent he still shows a naive understanding so i'd like to see him do better with that
+[Tue 10:32]	<vikash>	dlongley sure. but I think, I am able to provide updates weekly meeting, unfortunately I wasn't able to join in a few of those.
+[Tue 10:32]	<dlongley>	gkellogg: i'd also like to see better quality of code in what's submitted so we don't have to go back and forth as much
+[Tue 10:33]	<vikash>	gkellogg, Those will be done
+[Tue 10:33]	<dlongley>	manu: some of what vikash may be doing could be a cultural thing or a student thing to do a first pass and then get feedback, there's certainly a steep learning curve as a student and we expect more of him but at the same time he's tackling a timezone, cultural, and knowledge gap
+[Tue 10:34]	<mlnt>	vikash, I would really prefer updates via mail to the mailing list..
+[Tue 10:34]	<dlongley>	manu: i think we want to see improvement from vikash in all aspects, but i think he should continue work, is that the consensus?
+[Tue 10:34]	<vikash>	weekly updates Noted.
+[Tue 10:34]	<dlongley>	[general consensus]
+[Tue 10:34]	<vikash>	manu, Yup, I feel the very same. on my personal fronts I do see, I need to more with json-ld
+[Tue 10:35]	<vikash>	but I also think, I am learning various thingsand utility too.
+[Tue 10:35]	<dlongley>	manu: dlehn was saying he definitely want him to be writing more code since it's GSoC, so the rest of his time should be spent writing a good chunk of JS code
+[Tue 10:35]	<dlongley>	Vikash, there's general consensus that you will pass the mid-term eval
+[Tue 10:35]	<vikash>	Feels good and thanks. Woot.
+[Tue 10:35]	<vikash>	Thank-You so much everyone, and with out you guys this would have been impossible
+[Tue 10:35]	<manu>	Topic: Review JSON-LD github issues ready to be closed
+[Tue 10:35]	<manu>	https://github.com/json-ld/json-ld.org/issues?milestone=2&page=1&sort=created&state=open
+[Tue 10:36]	<dlongley>	manu: we've responded to robin berjon's comments as much as we could, some concerns we couldn't address with the spec at this point
+[Tue 10:36]	<vikash>	makes sure, that he will make a fast pace and do weekly updates
+[Tue 10:37]	<dlongley>	manu: some people feel that robin is misreading what the spec is trying to do, i think i dealt with all LC issues he has there
+[Tue 10:38]	<dlongley>	manu: understanding the JSON-LD data model is now difficult to understand, with all the changes we've had recently things have become very difficult to understand, the spec is pretty unreadable so we need some editorial changes to fix that
+[Tue 10:38]	<dlongley>	manu: i think we're done with the GLD WG feedback
+[Tue 10:38]	<dlongley>	manu: let us know if anyone thinks differently
+[Tue 10:38]	<dlongley>	manu: we'll close that in 24 hours if there are no complaints
+[Tue 10:39]	<dlongley>	manu: we have some ongoing discussion with markus on what we should do with the @context array feature
+[Tue 10:39]	<dlongley>	manu: i think we're ready to close David and Peter's review issue
+[Tue 10:39]	<dlongley>	manu: any thoughts from the rest of the group on any of the two remaining issues?
+[Tue 10:40]	<manu>	niklasl: Nothing involving issue [Tue 10:38]	<vikash>	Thank-You so much everyone, and with out you guys this would have been impossible
+#263, we need to fix the intro
+[Tue 10:40]	<manu>	niklasl: Issue #245 is tricky - if we do not allow the data to pass in { "@context": '...' } - not supporting that would be okay
+[Tue 10:41]	<manu>	niklasl: I think that's fine... but wouldn't be a hard +1 still.
+[Tue 10:42]	<manu>	niklasl: If you want to access RDFa as JSON-LD, any sort of extra syntactic ritual to access schema.org data would be problematic for political reasons. People are concerned about Linked Data cruft. We shouldn't allow @context key in - must not have a @context keyword.
+[Tue 10:43]	<manu>	mlnt: The playground has been working list this - allowing @context.
+[Tue 10:43]	<gkellogg>	q+
+[Tue 10:43]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:43]	<manu>	mlnt: It would make it symmetric to the context parameter, if we disallowed it, it would be a special case.
+[Tue 10:43]	<manu>	mlnt: we've been doing that since the beginning, grammar has supported that from the beginning, no reason to change that now.
+[Tue 10:43]	<manu>	ack glellogg
+[Tue 10:43]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:43]	<niklasl>	.. the symmetry argument does speak to me
+[Tue 10:44]	<manu>	gkellogg: I can see an argument for increasing flexibility, that would imply being able to pass an object in that has a @context.
+[Tue 10:44]	<manu>	gkellogg: I think we should support as many different things being passed in that make sense, if we can do it deterministically.
+[Tue 10:45]	<manu>	gkellogg: Part of me doesn't like that it's so variable... but not supporting things where it's clear what the intent is, is bad.
+[Tue 10:45]	<manu>	dlongley: I support both, agree with Gregg.
+[Tue 10:45]	<manu>	Niklas: Yeah, I do the same.
+[Tue 10:45]	<manu>	niklasl: If you put an object in there that doesn't have a @context at the top-level, it'll be an issue.
+[Tue 10:47]	<manu>	gkellogg: I don't know if various options are specified, so we should detail this in the spec.
+[Tue 10:48]	<manu>	PROPOSAL: Make it clear in the specification that objects can be provided to the context parameter can either be JSON-LD Contexts, or objects containing JSON-LD Contexts.
+[Tue 10:49]	<gkellogg>	+1
+[Tue 10:49]	<dlongley>	+1
+[Tue 10:49]	<manu>	+1
+[Tue 10:49]	<vikash>	+1
+[Tue 10:49]	<taaz>	+1
+[Tue 10:50]	<niklasl>	+0.9
+[Tue 10:50]	<manu>	RESOLVED: Make it clear in the specification that objects can be provided to the context parameter can either be JSON-LD Contexts, or objects containing JSON-LD Contexts.
+[Tue 10:50]	<manu>	Topic: Review of JSON-LD API Spec
+[Tue 10:50]	<manu>	https://github.com/json-ld/json-ld.org/issues?milestone=1&page=1&sort=created&state=open
+[Tue 10:51]	<manu>	mlnt: There is one minor thing that Gregg and I have been discussing about nodes with just @id when you frame.
+[Tue 10:51]	<manu>	mlnt: Should such a node be in the output or not... that's one question.
+[Tue 10:51]	<manu>	mlnt: The other one is that we should discuss whether we support +json media types in the API.
+[Tue 10:52]	|<--	vikash has left zoe-fn (Quit: Leaving)
+[Tue 10:52]	<manu>	mlnt: Currently, HTTP Link Header allows a publisher to link to a context w/o changing the document. That mechanism is specified to work just for application/ld+json
+[Tue 10:52]	<manu>	mlnt: +json suffix has been standardized, application/stream+json should be able to use it as well.
+[Tue 10:53]	<manu>	mlnt: The change would just be to re-phrase that section with a small explanation on what you invoke the API, to support all +json media types.
+[Tue 10:53]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#the-jsonldprocessor-interface
+[Tue 10:54]	|<--	dbs has left zoe-fn (Changing host)
+[Tue 10:54]	-->|	dbs (~dan@pdpc/supporter/professional/dbs) has joined #json-ld
+[Tue 10:54]	<manu>	mlnt: Look at the .compact() call... see how it says it's only applicable to application/ld+json? We could change that to "application/ld+json or "+json" suffix... we're overly restrictive here... we're just generalizing the solution. Different flavors of JSON, we should support them all.
+[Tue 10:57]	<manu>	Discussion about loosening restriction that application/ld+json documents MUST contain a @context keyword.
+[Tue 10:58]	<manu>	dlongley: This might be a recursion issue wrt. remote context.
+[Tue 11:01]	<manu>	Discussion about terminating when recursive HTTP requests are made against documents.
+[Tue 11:02]	<manu>	niklasl: We want systems to try to interpret things as JSON-LD if possible.
+[Tue 11:01]	<manu>	PROPOSAL: The JSON-LD API should process all documents labeled with media types using the application/json or any media type with a +json suffix. Implementations must not follow an HTTP Link Header if you encounter an application/ld+json media type.
+[Tue 11:02]	<manu>	+1
+[Tue 11:02]	<dlongley>	+1
+[Tue 11:02]	<gkellogg>	+1
+[Tue 11:02]	<mlnt>	+1
+[Tue 11:02]	<niklasl>	+1
+[Tue 11:02]	<manu>	RESOLVED: The JSON-LD API should process all documents labeled with media types using the application/json or any media type with a +json suffix. Implementations must not follow an HTTP Link Header if you encounter an application/ld+json media type.
+[Tue 11:03]	<manu>	mlnt: ISSUE-279 also affects framing.
+[Tue 11:03]	<manu>	https://github.com/json-ld/json-ld.org/issues/279
+[Tue 11:04]	<manu>	dlongley: We're going to have to make algorithmic changes to certain things to support framing in the future, so it'll fall into the same bucket. It's not in the node map.
+[Tue 11:04]	<manu>	dlongley: Framing may need to make modifications to node-map and expansion to preserve things for framing.
+[Tue 11:04]	<manu>	gkellogg: We will need to provide a framing option to the algorithms.
+[Tue 11:05]	<manu>	dlongley: We already have to do that w/ other algorithms too.
+[Tue 11:05]	<manu>	manu: Ok, so we're putting that discussion off.
+[Tue 11:06]	<manu>	manu: ISSUE-264 - need to discuss
+[Tue 11:07]	<manu>	dlongley: we need to discuss recursion, when you use an HTTP Link Header, must you specify that the document is application/ld+json? The result is to avoid endless recursion.
+[Tue 11:07]	<manu>	mlnt: That would simplify the problem quite.
+[Tue 11:08]	<manu>	dlongley: You might have a document that is application/json and it can't serve ld+json, so you need to have redirection for that.
+[Tue 11:09]	<manu>	dlongley: If we say you only follow one HTTP Link Header, you only have one result, plus you could support this use case. If you only follow one link header, it doesn't matter what the media type is.
+[Tue 11:09]	<manu>	mlnt: That might be dangerous, it changes the interpretation of that document, in one case, you use the link header, in the other case you do not.
+[Tue 11:10]	<manu>	mlnt: If you have a document that has an inline context, and that context depends on the remote context, you could have different contexts if you pay attention to the ld+json link header and one where you don't.
+[Tue 11:10]	<manu>	mlnt: Talking about your proposal where you just follow one Link Header.
+[Tue 11:11]	<manu>	dlongley: Trying to figure out what you're saying... if you just follow one link header... (scribe missed)
+[Tue 11:12]	<manu>	dlongley: I'm fine w/ restricting to ld+json, if that's a problem, implementations will become looser.
+[Tue 11:12]	<manu>	mlnt: It's always much easier to loosen something later, than restrict it later. I'd rather keep it stricter to start off.
+[Tue 11:12]	<manu>	PROPOSAL: A remote context MUST be served as application/ld+json.
+[Tue 11:12]	<gkellogg>	+1
+[Tue 11:13]	<mlnt>	+1
+[Tue 11:13]	<manu>	+1
+[Tue 11:13]	<dlongley>	+1
+[Tue 11:13]	<niklasl>	+0.75
+[Tue 11:13]	<manu>	RESOLVED: A remote context MUST be served as application/ld+json.
+[Tue 11:14]	<manu>	dlongley: Another issue here, when you get a remote context and you encounter re-directs, what becomes the base URL to resolve relative URLs against.
+[Tue 11:14]	<manu>	dlongley: In the case with w3id.org, do you use w3id.org/ as the base URL or the final destination.
+[Tue 11:14]	<manu>	mlnt: Usually, with a redirect, you use the last URL.
+[Tue 11:15]	<manu>	dlongley: Is that true, or does it append onto the HTTP response code?
+[Tue 11:15]	<manu>	mlnt: If you have a bookmark, the HTTP status states whether or not you should update your bookmark.
+[Tue 11:15]	<manu>	https://w3id.org/payswarm#vendor
+[Tue 11:16]	<manu>	dlongley: One way to do this - if you're using a Link redirector, don't use relative IRIs.
+[Tue 11:16]	<manu>	mlnt: or set the base.
+[Tue 11:20]	<manu>	dlongley: it would be strange to get back a document via redirects that has relative URLs and use a different URLs based on where you started from.
+[Tue 11:22]	<mlnt>	http://json-ld.org/spec/latest/json-ld-api/#data-round-tripping
+[Tue 11:23]	<manu>	manu: ISSUE-258 - what changes do we need to make re: unresolved resolution?
+[Tue 11:23]	<manu>	mlnt: I think we already state that.
+[Tue 11:27]	<manu>	manu: ISSUE-238 - WebIDL reference...
+[Tue 11:27]	<dlongley>	http://json-ld.org/test-suite/idltest/
+[Tue 11:28]	<manu>	mlnt: We've already referenced WebIDL in the proper way.
+[Tue 11:28]	<manu>	dlongley: We pass the WebIDL test harness, so we're clear.
+[Tue 11:28]	<manu>	mlnt: Refering to Futures/Promises?
+[Tue 11:29]	<manu>	manu: We specify Promises very lightly and point to the spec, that's how we should keep it.
+[Tue 11:29]	<manu>	mlnt: We'll also want an expert to review the WebIDL during CR phase.
+[Tue 11:30]	<manu>	manu: ISSUE-229 - Make test suite more obvous
+[Tue 11:30]	<manu>	gkellogg: We need to link to the test suite... it also needs to be styled... need a purpose for each test... otherwise it's done.
+[Tue 11:31]	<manu>	gkellogg: It just pulls in the manifest, could have better structure, css, could use some style love.
+[Tue 11:32]	<manu>	gkellogg: there was probably a comment from RDF WG about making tests more obvious.
+[Tue 11:35]	<voip-ld>	Manu Sporny (SIP/6000-000002a7) has left the conference.
+[Tue 11:35]	<voip-ld>	Gregg Kellogg (SIP/66.159.223.136-000002a6) has left the conference.
+[Tue 11:35]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000002aa) has left the conference.
+[Tue 11:35]	<voip-ld>	Dave Lehn (SIP/6003-000002ab) has left the conference.
+[Tue 11:35]	<voip-ld>	Dave Longley (SIP/6002-000002a9) has left the conference.
+[Tue 11:35]	|<--	gkellogg has left zoe-fn (Quit: gkellogg)
+[Tue 11:35]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-000002a5) has left the conference.
