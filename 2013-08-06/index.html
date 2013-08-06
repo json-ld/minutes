@@ -1,0 +1,202 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-08-06</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0014.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0014.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Updates to Syntax Spec by David Booth</a><li><a href="#topic-2">GSoC update from Vikash</a><li><a href="#topic-3">Review JSON-LD github issues ready to be closed</a><li><a href="#topic-4">Review all LC2 and post-LC2 RDF WG issues</a><li><a href="#topic-5">Candidate Recommendation Preparation</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Interpret objects that do not have a @context entry as the JSON-LD Context when passed into the API functions (via any context parameter). When passing in an array of objects and strings, the same rule applies. Remote context documents specified via a URL are still required to contain an @context key to be a valid JSON-LD Context.</a><li><a href="#resolution-2">RDF WG issue 129, 130, 132, 133, 134, and 135 have been addressed by the group and are resolved. Manu will send out official responses.</a><li><a href="#resolution-3">The JSON-LD test suite will be a living test suite (updated as needed). The version of the test suite when we transition into Candidate Recommendation will be assigned a git tag, so that others can test and report against a static version of the test suite.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Vikash Agrawal, Dave Longley, Gregg Kellogg, Niklas Lindström, Paul Kuykendall, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Today we'll re-review all issues and prep for Candidate Recommendation.</div>
+<h1 id="topic-1" class="topic">Topic: Updates to Syntax Spec by David Booth</h1>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/pull/287">https://github.com/json-ld/json-ld.org/pull/287</a></div>
+<div class="information"><a href="https://github.com/json-ld/json-ld.org/pull/288">https://github.com/json-ld/json-ld.org/pull/288</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  These are the changes above ^^ [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Mostly editorial changes, and David Booth agreed to language offered by Dave Longley [scribe assist by Manu Sporny]</div>
+<div class="information"><a href="https://github.com/lanthaler/json-ld.org/commit/e392bb15ee7ad5315ca1816cf1f1fba48f759754">https://github.com/lanthaler/json-ld.org/commit/e392bb15ee7ad5315ca1816cf1f1fba48f759754</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Any objections to pulling both those change request in? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: No objections from the group, ok, let's do that.</div>
+<h1 id="topic-2" class="topic">Topic: GSoC update from Vikash</h1>
+<div class="comment"><span class="name">Vikash Agrawal</span>: hi Everyone, I received a wake up call email from Manu today and I do realise losing of time and effort and not getting as much done as I need to. I apologise for not able to write my weekly update email but I was drafting one last night. But after I read the e-mail, I think it makes more sense, if I write it next week. Also regarding the creator tool, I am able convert the details from form to JSON but using valid Context, how should convert to JSON-LD. Is there a library for this?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Also regarding the context, I have been naive but I am progressing. Apologies.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  vikash, you don't convert from JSON to JSON-LD - you just add a context and the JSON /becomes/ JSON-LD. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  vikash, what library exactly are you looking for?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  also, we're having trouble understanding what problem you're trying to solve. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  viksash, let's discuss this on the mailing list</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's pretty difficult to do so now on IRC</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  vikash - let's take the discussion offline, it's going to be difficult to talk through this via IRC while on the telecon. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: <a href="http://bit.ly/13D6iIZ">http://bit.ly/13D6iIZ</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: ok</div>
+<h1 id="topic-3" class="topic">Topic: Review JSON-LD github issues ready to be closed</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=created&amp;state=open">https://github.com/json-ld/json-ld.org/issues?milestone=2&amp;page=1&amp;sort=created&amp;state=open</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus, you said we support passing objects having a @context member in and did so from the very beginning. is that correct?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and do implementations support that?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes I think all of them do.. not all implementations support passing in arrays (mine for example doesn't; dave's does)</div>
+<div class="comment"><span class="name">Dave Longley</span>:  right. my implementation looks for a @context key. if there's one, it is used, if not the object is used directly</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus, are you saying we shouldn't support that?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  no.. we have to decide that. the danger is that a document is interpreted as a context without throwing an error</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if I pass in an object to my context processing algorithm I presume it is a context not a context document</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this implies that the normal flow is to pass objects having an @context member.. this is the exceptional case</div>
+<div class="comment-continuation">... perhaps we should invoke a warning callback</div>
+<div class="comment-continuation">... this is a case where I would like to see a warning</div>
+<div class="comment"><span class="name">Dave Longley</span>:  this doesn't seem unusual to me</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the problem with allowing arrays of objects with @context is that it might process "invalid" documents as contexts</div>
+<div class="comment-continuation">... I can't see a use case to support that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  people may have a list of context URLs and the dereference them and replace them with the content of those documents</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we can't test that without creating specific API tests</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Interpret objects that do not have a @context entry as the JSON-LD Context when passed into the API functions (via any context parameter). When passing in an array of objects and strings, the same rule applies. Remote context documents specified via a URL are still required to contain an @context key to be a valid JSON-LD Context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  +0.1 (don't see much value in specifying this and it adds further variability)</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Interpret objects that do not have a @context entry as the JSON-LD Context when passed into the API functions (via any context parameter). When passing in an array of objects and strings, the same rule applies. Remote context documents specified via a URL are still required to contain an @context key to be a valid JSON-LD Context.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/254">https://github.com/json-ld/json-ld.org/issues/254</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we're done w/ this. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://github.com/json-ld/json-ld.org/issues/274">https://github.com/json-ld/json-ld.org/issues/274</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok, I'll close 254. the official response will be handled using the issue in the RDF WG tracker</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I've updated an example in response to Robin's feedback</div>
+<div class="comment-continuation">... I hope it clarifies it</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I've read the whole discussion and agree</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the last major (editorial) change to make is to briefly describe JSON-LD's data model at the beginning of the spec</div>
+<div class="comment-continuation">... this is <a href="https://github.com/json-ld/json-ld.org/issues/263">https://github.com/json-ld/json-ld.org/issues/263</a></div>
+<div class="comment-continuation">... I'll sit down and re-arrange pieces and the spec (not removing changes Peter-Patel S. and David B. made) to make the spec easier to read</div>
+<div class="comment-continuation">... I'll introduce the concepts at the high level at the beginning of the spec</div>
+<div class="comment-continuation">... I don't think there's much to discuss</div>
+<div class="comment-continuation">... I'll make the changes and we can discuss them afterwards</div>
+<div class="comment-continuation">... if there are no objections I'll go ahead and make those changes</div>
+<div class="comment-continuation">... that's the only issue remaining for the syntax spec. Markus, all issues for the API spec have been addressed, right?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, only the @context-change we'll need some minor tweaks in the API spec</div>
+<h1 id="topic-4" class="topic">Topic: Review all LC2 and post-LC2 RDF WG issues</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/products/15">http://www.w3.org/2011/rdf-wg/track/products/15</a></div>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0260.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0260.html</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  sandro already outlined the steps we should take: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0260.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0260.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I don't necessarily agree but OK</div>
+<div class="comment-continuation">... but it won't prevent us from going to CR and that's the main point at the moment</div>
+<div class="comment-continuation">... ISSUE-132: both Peter and David said they are happy with the changes we made</div>
+<div class="comment-continuation">... ISSUE-133: reverse properties are a feature at risk</div>
+<div class="comment-continuation">... ISSUE-134: blank node graph names are now supported in RDF; we discuss blank node properties in the spec</div>
+<div class="comment-continuation">... ISSUE-135: we addressed all the feedback. We still need to send the official response</div>
+<div class="proposal"><strong>PROPOSAL:</strong> RDF WG issue 129, 130, 132, 133, 134, and 135 have been addressed by the group and are resolved. Manu will send out official responses.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> RDF WG issue 129, 130, 132, 133, 134, and 135 have been addressed by the group and are resolved. Manu will send out official responses.</div>
+<h1 id="topic-5" class="topic">Topic: Candidate Recommendation Preparation</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we are ready to go to CR</div>
+<div class="comment-continuation">... we have no other comments to address</div>
+<div class="comment-continuation">... the only thing we'll have to do is to prepare the docs</div>
+<div class="comment-continuation">... I'll take care of the syntax spec. Markus can you prepare the syntax spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  sure.. what date do we tag the documents with?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  August 20</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  there's no RDF WG telecon next week</div>
+<div class="comment-continuation">... the next meeting is August 21</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok.. let's try to publish on August 22 then</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  can we send an implementation report for a propertary implementation?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sure</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  do we see any other major or minor changes?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no, we would need to go through another last call then. we do not expect many changes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  pkuyken, here are links that might help you: <a href="http://json-ld.org/test-suite/">http://json-ld.org/test-suite/</a> and http://json-ld.org/test-suite/reports/</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  during CR we may also want to issue a call for implementations</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  should we discuss this now or during CR?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I suggest we keep the test suite where it currently is and update it even post publication</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we can freeze the test suite at any point in time by using the commit hash</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so which URLs should we use in the implementation reports? A URL including the git hash?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes.. I think that would make sense</div>
+<div class="comment-continuation">... I think we did the right thing with the RDFa test suite which is updated as soon as an issue is found</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The JSON-LD test suite will be a living test suite (updated as needed). The version of the test suite when we transition into Candidate Recommendation will be assigned a git tag, so that others can test against a static version of the test suite (if required).</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> The JSON-LD test suite will be a living test suite (updated as needed). The version of the test suite when we transition into Candidate Recommendation will be assigned a git tag, so that others can test and report against a static version of the test suite.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do we need to add the exit criteria to the specs?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes.. I can take care of that or you just look at other specs in CR.. basically we just need to say that we require two implementations pass every test and an implementation report</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok.. how long will we stay in CR?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we agreed on 4 weeks</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/test-suite/reports/">http://json-ld.org/test-suite/reports/</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/reports/jsonld.js-earl.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/reports/jsonld.js-earl.jsonld</a></div>
+</body>
+</html>

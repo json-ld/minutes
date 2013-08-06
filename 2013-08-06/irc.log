@@ -1,0 +1,130 @@
+[Tue 10:04]	<manu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0014.html
+[Tue 10:04]	<manu>	scribe: mlnt
+[Tue 10:05]	<mlnt>	manu: Today we'll re-review all issues and prep for Candidate Recommendation.
+[Tue 10:06]	<manu>	Topic: Updates to Syntax Spec by David Booth
+[Tue 10:06]	<mlnt>	https://github.com/json-ld/json-ld.org/pull/287
+[Tue 10:06]	<mlnt>	https://github.com/json-ld/json-ld.org/pull/288
+[Tue 10:07]	<manu>	mlnt: These are the changes above ^^
+[Tue 10:08]	<manu>	mlnt: Mostly editorial changes, and David Booth agreed to language offered by Dave Longley
+[Tue 10:08]	<mlnt>	https://github.com/lanthaler/json-ld.org/commit/e392bb15ee7ad5315ca1816cf1f1fba48f759754
+[Tue 10:10]	<manu>	manu: Any objections to pulling both those change request in?
+[Tue 10:10]	<manu>	No objections from the group, ok, let's do that.
+[Tue 10:11]	<voip-ld>	Dave Lehn (SIP/6003-0000000c) has joined the conference.
+[Tue 10:11]	<manu>	Topic: GSoC update from Vikash
+[Tue 10:11]	<vikash>	hi Everyone, I received a wake up call email from Manu today and I do realise losing of time and effort and not getting as much done as I need to. I apologise for not able to write my weekly update email but I was drafting one last night. But after I read the e-mail, I think it makes more sense, if I write it next week. Also regarding the creator tool, I am able convert the details from form to JSON but using valid Context, how should convert to JSON-LD. Is there a library for this?
+[Tue 10:11]	<vikash>	Also regarding the context, I have been naive but I am progressing. Apologies.
+[Tue 10:12]	-->|	niklasl (~neuron@1-1-4-33a.ras.sth.bostream.se) has joined #json-ld
+[Tue 10:13]	<manu>	manu: vikash, you don't convert from JSON to JSON-LD - you just add a context and the JSON /becomes/ JSON-LD.
+[Tue 10:13]	<mlnt>	mlnt: vikash, what library exactly are you looking for?
+[Tue 10:13]	<manu>	manu: also, we're having trouble understanding what problem you're trying to solve.
+[Tue 10:13]	<mlnt>	mlnt: viksash, let's discuss this on the mailing list
+[Tue 10:13]	<mlnt>	mlnt: it's pretty difficult to do so now on IRC
+[Tue 10:13]	<manu>	manu: vikash - let's take the discussion offline, it's going to be difficult to talk through this via IRC while on the telecon.
+[Tue 10:16]	<vikash>	http://bit.ly/13D6iIZ
+[Tue 10:13]	<vikash>	ok
+[Tue 10:13]	<manu>	Topic: Review JSON-LD github issues ready to be closed
+[Tue 10:14]	<manu>	https://github.com/json-ld/json-ld.org/issues?milestone=2&page=1&sort=created&state=open
+[Tue 10:14]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-0000000d) has joined the conference.
+[Tue 10:17]	<mlnt>	manu: markus, you said we support passing objects having a @context member in and did so from the very beginning. is that correct?
+[Tue 10:17]	<mlnt>	markus: yes
+[Tue 10:17]	<mlnt>	manu: and do implementations support that?
+[Tue 10:17]	<mlnt>	markus: yes I think all of them do.. not all implementations support passing in arrays (mine for example doesn't; dave's does)
+[Tue 10:19]	<mlnt>	dave: right. my implementation looks for a @context key. if there's one, it is used, if not the object is used directly
+[Tue 10:19]	<mlnt>	manu: markus, are you saying we shouldn't support that?
+[Tue 10:20]	<mlnt>	markus: no.. we have to decide that. the danger is that a document is interpreted as a context without throwing an error
+[Tue 10:21]	<mlnt>	gregg: if I pass in an object to my context processing algorithm I presume it is a context not a context document
+[Tue 10:27]	<mlnt>	gregg: this implies that the normal flow is to pass objects having an @context member.. this is the exceptional case
+[Tue 10:28]	<mlnt>	... perhaps we should invoke a warning callback
+[Tue 10:28]	<mlnt>	... this is a case where I would like to see a warning
+[Tue 10:28]	<mlnt>	dave: this doesn't seem unusual to me
+[Tue 10:30]	<mlnt>	niklas: the problem with allowing arrays of objects with @context is that it might process "invalid" documents as contexts
+[Tue 10:30]	<mlnt>	... I can't see a use case to support that
+[Tue 10:31]	<mlnt>	manu: people may have a list of context URLs and the dereference them and replace them with the content of those documents
+[Tue 10:32]	<mlnt>	gregg: we can't test that without creating specific API tests
+[Tue 10:33]	<manu>	PROPOSAL: Interpret objects that do not have a @context entry as the JSON-LD Context when passed into the API functions (via any context parameter). When passing in an array of objects and strings, the same rule applies. Remote context documents specified via a URL are still required to contain an @context key to be a valid JSON-LD Context.
+[Tue 10:33]	<manu>	+1
+[Tue 10:33]	<dlongley>	+1
+[Tue 10:33]	<niklasl>	+1
+[Tue 10:33]	<gkellogg>	+1
+[Tue 10:33]	<pkuyken>	+1
+[Tue 10:33]	<taaz>	+1
+[Tue 10:33]	<mlnt>	mlnt: +0.1 (don't see much value in specifying this and it adds further variability)
+[Tue 10:33]	<manu>	RESOLVED: Interpret objects that do not have a @context entry as the JSON-LD Context when passed into the API functions (via any context parameter). When passing in an array of objects and strings, the same rule applies. Remote context documents specified via a URL are still required to contain an @context key to be a valid JSON-LD Context.
+[Tue 10:34]	<manu>	https://github.com/json-ld/json-ld.org/issues/254
+[Tue 10:34]	<manu>	manu: I think we're done w/ this.
+[Tue 10:35]	<manu>	https://github.com/json-ld/json-ld.org/issues/274
+[Tue 10:36]	<mlnt>	markus: ok, I'll close 254. the official response will be handled using the issue in the RDF WG tracker
+[Tue 10:36]	<mlnt>	manu: I've updated an example in response to Robin's feedback
+[Tue 10:36]	<mlnt>	... I hope it clarifies it
+[Tue 10:36]	<mlnt>	dave: I've read the whole discussion and agree
+[Tue 10:37]	<mlnt>	manu: the last major (editorial) change to make is to briefly describe JSON-LD's data model at the beginning of the spec
+[Tue 10:37]	<mlnt>	... this is https://github.com/json-ld/json-ld.org/issues/263
+[Tue 10:38]	<mlnt>	... I'll sit down and re-arrange pieces and the spec (not removing changes Peter-Patel S. and David B. made) to make the spec easier to read
+[Tue 10:38]	<mlnt>	... I'll introduce the concepts at the high level at the beginning of the spec
+[Tue 10:38]	<mlnt>	... I don't think there's much to discuss
+[Tue 10:38]	<mlnt>	... I'll make the changes and we can discuss them afterwards
+[Tue 10:39]	<mlnt>	... if there are no objections I'll go ahead and make those changes
+[Tue 10:40]	<mlnt>	... that's the only issue remaining for the syntax spec. Markus, all issues for the API spec have been addressed, right?
+[Tue 10:40]	<mlnt>	markus: yes, only the @context-change we'll need some minor tweaks in the API spec
+[Tue 10:39]	<manu>	Topic: Review all LC2 and post-LC2 RDF WG issues
+[Tue 10:39]	<manu>	http://www.w3.org/2011/rdf-wg/track/products/15
+[Tue 10:42]	<mlnt>	http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0260.html
+[Tue 10:43]	<mlnt>	markus: sandro already outlined the steps we should take: http://lists.w3.org/Archives/Public/public-rdf-wg/2013May/0260.html
+[Tue 10:43]	<mlnt>	manu: I don't necessarily agree but OK
+[Tue 10:43]	<mlnt>	... but it won't prevent us from going to CR and that's the main point at the moment
+[Tue 10:44]	<mlnt>	... ISSUE-132: both Peter and David said they are happy with the changes we made
+[Tue 10:44]	<mlnt>	... ISSUE-133: reverse properties are a feature at risk
+[Tue 10:45]	<mlnt>	... ISSUE-134: blank node graph names are now supported in RDF; we discuss blank node properties in the spec
+[Tue 10:46]	<mlnt>	... ISSUE-135: we addressed all the feedback. We still need to send the official response
+[Tue 10:46]	<manu>	PROPOSAL: RDF WG issue 129, 130, 132, 133, 134, and 135 have been addressed by the group and are resolved. Manu will send out official responses.
+[Tue 10:46]	<pkuyken>	+1
+[Tue 10:46]	<manu>	+1
+[Tue 10:46]	<dlongley>	+1
+[Tue 10:46]	<mlnt>	+1
+[Tue 10:46]	<niklasl>	+1
+[Tue 10:46]	<taaz>	+1
+[Tue 10:46]	<manu>	RESOLVED: RDF WG issue 129, 130, 132, 133, 134, and 135 have been addressed by the group and are resolved. Manu will send out official responses.
+[Tue 10:47]	<manu>	Topic: Candidate Recommendation Preparation
+[Tue 10:47]	<mlnt>	manu: I think we are ready to go to CR
+[Tue 10:47]	<mlnt>	... we have no other comments to address
+[Tue 10:49]	<mlnt>	... the only thing we'll have to do is to prepare the docs
+[Tue 10:49]	<mlnt>	... I'll take care of the syntax spec. Markus can you prepare the syntax spec
+[Tue 10:50]	<mlnt>	markus: sure.. what date do we tag the documents with?
+[Tue 10:50]	<mlnt>	manu: August 20
+[Tue 10:51]	<mlnt>	markus: there's no RDF WG telecon next week
+[Tue 10:52]	<mlnt>	... the next meeting is August 21
+[Tue 10:52]	<mlnt>	manu: ok.. let's try to publish on August 22 then
+[Tue 10:55]	<mlnt>	pkuyken: can we send an implementation report for a propertary implementation?
+[Tue 10:55]	<mlnt>	manu: sure
+[Tue 10:55]	<mlnt>	pkuyken: do we see any other major or minor changes?
+[Tue 10:56]	<mlnt>	manu: no, we would need to go through another last call then. we do not expect many changes
+[Tue 10:57]	<mlnt>	mlnt: pkuyken, here are links that might help you: http://json-ld.org/test-suite/ and http://json-ld.org/test-suite/reports/
+[Tue 10:57]	<mlnt>	gregg: during CR we may also want to issue a call for implementations
+[Tue 10:58]	<mlnt>	manu: should we discuss this now or during CR?
+[Tue 10:58]	<mlnt>	gregg: I suggest we keep the test suite where it currently is and update it even post publication
+[Tue 10:59]	<mlnt>	manu: we can freeze the test suite at any point in time by using the commit hash
+[Tue 11:00]	<mlnt>	gregg: so which URLs should we use in the implementation reports? A URL including the git hash?
+[Tue 11:00]	<mlnt>	manu: yes.. I think that would make sense
+[Tue 11:00]	<mlnt>	... I think we did the right thing with the RDFa test suite which is updated as soon as an issue is found
+[Tue 11:02]	<manu>	PROPOSAL: The JSON-LD test suite will be a living test suite (updated as needed). The version of the test suite when we transition into Candidate Recommendation will be assigned a git tag, so that others can test against a static version of the test suite (if required).
+[Tue 11:02]	<pkuyken>	+1
+[Tue 11:02]	<dlongley>	+1
+[Tue 11:03]	<gkellogg>	+1
+[Tue 11:03]	<niklasl>	+1
+[Tue 11:03]	<manu>	+1
+[Tue 11:03]	<mlnt>	+1
+[Tue 11:03]	<taaz>	+1
+[Tue 11:03]	<manu>	RESOLVED: The JSON-LD test suite will be a living test suite (updated as needed). The version of the test suite when we transition into Candidate Recommendation will be assigned a git tag, so that others can test and report against a static version of the test suite.
+[Tue 11:06]	<mlnt>	markus: do we need to add the exit criteria to the specs?
+[Tue 11:07]	<mlnt>	manu: yes.. I can take care of that or you just look at other specs in CR.. basically we just need to say that we require two implementations pass every test and an implementation report
+[Tue 11:07]	<mlnt>	markus: ok.. how long will we stay in CR?
+[Tue 11:07]	<mlnt>	manu: I think we agreed on 4 weeks
+[Tue 11:08]	<gkellogg>	http://json-ld.org/test-suite/reports/
+[Tue 11:08]	<dlongley>	https://github.com/json-ld/json-ld.org/blob/master/test-suite/reports/jsonld.js-earl.jsonld
+[Tue 11:10]	<voip-ld>	pkuyken (IAX2/diamondcard-2829) has left the conference.
+[Tue 11:10]	<voip-ld>	Gregg Kellogg (SIP/66.159.223.136-00000008) has left the conference.
+[Tue 11:10]	<voip-ld>	Dave Longley (SIP/6002-00000009) has left the conference.
+[Tue 11:10]	<voip-ld>	Dave Lehn (SIP/6003-0000000c) has left the conference.
+[Tue 11:10]	<voip-ld>	Manu Sporny (SIP/6000-0000000a) has left the conference.
+[Tue 11:10]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000000b) has left the conference.
+[Tue 11:10]	<voip-ld>	Niklas Lindström (SIP/82.182.71.107-0000000d) has left the conference.
