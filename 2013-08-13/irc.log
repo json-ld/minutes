@@ -1,0 +1,225 @@
+[Tue 10:06]	<manu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0024.html
+[Tue 10:06]	<voip-ld>	dlehn (SIP/192.168.1.131:5060-0000001e) has joined the conference.
+[Tue 10:07]	<manu>	scribe: gkellogg
+[Tue 10:07]	<manu>	Topic: JSON-LD in the News
+[Tue 10:07]	<gkellogg>	manu: JSON-LD got good coverage at the W3C Social Standards Workshop
+[Tue 10:08]	<gkellogg>	… Announcements from IBM, and schema.org actions.
+[Tue 10:08]	<manu>	schema.org is now using JSON-LD to describe some of their data: http://schema.org/Action
+[Tue 10:08]	<dbooth>	Lots of discussion at Social Web meetup about JSON-LD: http://www.w3.org/2013/socialweb/
+[Tue 10:09]	<voip-ld>	ivikash (SIP/sip2sip.info-0000001f) has joined the conference.
+[Tue 10:09]	<gkellogg>	… schema using JSON-LD as they have found people have problems with microdata/RDFa
+[Tue 10:09]	<gkellogg>	… As a result ActivityStreams started looking at JSON-LD.
+[Tue 10:09]	-->|	niklasl (~nlm@193.10.249.131) has joined #json-ld
+[Tue 10:09]	<manu>	Shane Becker said JSON-LD was unnecessary: http://iamshane.com/articles/2013/8/8/1/json-ld-is-an-uneeded-spec
+[Tue 10:09]	<gkellogg>	… subsequently micro formats community took exception, saying it was an "unneeded specification"
+[Tue 10:10]	<gkellogg>	… (Doesn't look like they actually read the spec).
+[Tue 10:10]	<manu>	I countered Shane's post here: http://manu.sporny.org/2013/json-ld-is-the-bees-knees/
+[Tue 10:10]	<gkellogg>	… That was picked up and re-tweeted a bit, so I wrote a blog entry to debunk it
+[Tue 10:10]	<manu>	Ade Oshineye wrote this post on JSON-LD https://plus.google.com/+AdeOshineye/posts/8BAahV1gQUk
+[Tue 10:11]	<dlongley>	Dan Brickley started working on some soundcloud markup: https://gist.github.com/danbri/6210802
+[Tue 10:11]	<dlongley>	Link above was a response Dan Brickley was working on for marking up the recording info requested by Ade
+[Tue 10:11]	<gkellogg>	… Ade at google wrote a post liking to shane's article
+[Tue 10:11]	<gkellogg>	… Conversations allow an opportunity to talk more about the motivations of JSON-LD
+[Tue 10:12]	<manu>	gkellogg: The whole Activity stuff wrt. Google - it was not well received at all, it made it seem like they were ignoring Activity Streams community. Guha came to defend schema.org and dispel myths and was not very effective at that.
+[Tue 10:13]	<manu>	gkellogg: schema.org wasn't viewed nicely - they were kinda ignoring Activity Streams.
+[Tue 10:13]	<gkellogg>	manu: we may want to think about distancing ourselves from schema.org and other initiatives; we've seen this happen before with RDFa.
+[Tue 10:14]	<gkellogg>	… our strategy has been to talk about JSON-LD use anywhere.
+[Tue 10:14]	<gkellogg>	… We don't want to pick sides.
+[Tue 10:15]	<manu>	gkellogg: One of my responses on Twitter, wrt. Microformats people, what it does w/ vocabularies - JSON-LD is vocabulary agnostic, Microformats isn't.
+[Tue 10:15]	<gkellogg>	manu: MF is making some change about separating vocabulary from markup, but there is very little activity within that community now.
+[Tue 10:16]	<manu>	gkellogg: There is also a fair amount of presence by the IndieWeb community, Tantek being the main person there... they showed off some cool social media tech - indieauth... effective way to bring many communities together. Great forum for JSON-LD. Nothing we really need to do to follow up. Wouldn't worry about any of the schema.org stuff that came up there. They're such a big player that people are going to take shots at them.
+[Tue 10:17]	<manu>	Topic: David Booth's Editorial Comments
+[Tue 10:17]	<manu>	http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0025.html
+[Tue 10:17]	<gkellogg>	manu: dbooth had sent out some minor changes to the Syntax and API specs.
+[Tue 10:17]	<gkellogg>	dbooth: just editorial changes to smooth out some language.
+[Tue 10:18]	<gkellogg>	… Text says it's a "generalized RDF dataset", but by default, it's standard. It also start talking about extensions before saying that there are extensions.
+[Tue 10:18]	<gkellogg>	manu: gkellogg and I reviewed the spec and could integrate it.
+[Tue 10:19]	<gkellogg>	markus: is it true that it serializes a standard dataset? It does allow you to put in blank nodes.
+[Tue 10:19]	<manu>	gkellogg: It's not syntactically invalid to use blank nodes in predicate positions like it is in TURTLE, so it can be serialized, but it does not result in those blank nodes being emitted when you turn it into RDF.
+[Tue 10:19]	<gkellogg>	dbooth: if the spec only constrains the end-result, then the end-result is standard RDF unless the option is specified.
+[Tue 10:20]	<gkellogg>	manu: I can see it both ways; I don't think the proposed change will make a big difference.
+[Tue 10:20]	<gkellogg>	markus: the description is somehow incompatible with the data model described in the spec.
+[Tue 10:21]	<gkellogg>	manu: I think dbooth's approach is to talk about serialization, and that is data model, so we're going to have differences.
+[Tue 10:21]	<gkellogg>	markus: the only place blank nodes are dropped is if you emit RDF.
+[Tue 10:22]	<gkellogg>	manu: is this paragraph about JSON or RDF?
+[Tue 10:22]	<gkellogg>	dlongley: deserializing to an abstract syntax is the wrong term.
+[Tue 10:22]	<gkellogg>	dbooth: maybe we can move "optionally" before "serialize".
+[Tue 10:23]	<gkellogg>	manu: let me look into it more and try to tweak the wording.
+[Tue 10:23]	<gkellogg>	… We'll try to change the text to address both dbooth's and markus' objections.
+[Tue 10:23]	<manu>	Topic: Update on GSoC from Vikash
+[Tue 10:23]	<manu>	http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0026.html
+[Tue 10:24]	<voip-ld>	dbooth (IAX2/diamondcard-6752) has left the conference.
+[Tue 10:24]	<gkellogg>	vikash: I shared an update this week. Markus had some issues within the schema, as it did not include all classes and properties in schema.
+[Tue 10:24]	<mlnt>	bye dbooth
+[Tue 10:25]	|<--	dbooth has left zoe-fn (Quit: Leaving)
+[Tue 10:25]	<gkellogg>	… using @vocab of http://schema.org/ means that specifying other vocabulary terms is not vital.
+[Tue 10:25]	<gkellogg>	… I've moved on to the LinkedIn application.
+[Tue 10:25]	<gkellogg>	… A question: I get JSON from LinkedIn, should I display that or a modified version?
+[Tue 10:25]	<gkellogg>	… This could be the last coding project for the summer, then I could go on to documentation.
+[Tue 10:26]	<gkellogg>	manu: regarding the schema.org context, markus said it's not complete, but we had decided to just focus on the properties needed for specific classes.
+[Tue 10:26]	<gkellogg>	… We'll need to eventually replace that with something machine generated; it shouldn't be that difficult to go through the schema and translate it.
+[Tue 10:28]	<gkellogg>	manu: perhaps a bonus project would be to do an algorithmic transformation of the vocabulary to JSON-LD context, and make it better.
+[Tue 10:28]	<gkellogg>	vikash: I would go through a python crawler to retrieve it?
+[Tue 10:29]	<gkellogg>	manu: fetching a document from schema.org and transforming it into JSON-LD automatically, as the vocabulary will be updated over time. Having to do this manually is not a good long-term strategy.
+[Tue 10:30]	<gkellogg>	vikash: so, I would get it every time it updates and re-generate the context definition.
+[Tue 10:30]	<gkellogg>	manu: don't worry about that now, we'll come back to it later.
+[Tue 10:30]	<gkellogg>	vikash: the creator tool is done, and there are some validations left to perform.
+[Tue 10:31]	<gkellogg>	manu: sounds like you're going to work on the creator tool and LinkedIn app.
+[Tue 10:31]	<gkellogg>	… don't work on the schema.org context anymore, and maybe come back to it later.
+[Tue 10:31]	<gkellogg>	… The w3.org redirection is fine.
+[Tue 10:32]	<gkellogg>	… the creator tool is a good first pass; we need to make the tool more generalized, so we can plug in different types of things. We'd like to do Organizations and other schema types, so they can't be hard-coded.
+[Tue 10:32]	<gkellogg>	… The first pass was all that we asked for; one of the things you could do in the future would be to make it generic, for example having a JSON-LD file to describe the types and form elements.
+[Tue 10:33]	<gkellogg>	vikash: Do you want me to make the creator tool more generic? Add those options you mentioned?
+[Tue 10:33]	<gkellogg>	manu: don't worry about them now, when you're done, we can come back to it.
+[Tue 10:33]	<gkellogg>	… Is LinkedIn application published anywhere?
+[Tue 10:34]	<gkellogg>	vikash: for LinkedIn, I won't be able to publish. If possible, you need to pull it down and test it on a local machine, so it can't be deployed (?)
+[Tue 10:35]	<gkellogg>	… what should be presented in the application?
+[Tue 10:35]	<gkellogg>	manu: the ideal tool would allow you to put in a LinkedIn profile name, fetch the JSON, convert to JSON-LD and return it in a text-box.
+[Tue 10:36]	<gkellogg>	vikash: I was thinking that after signing it, user would see both JSON and JSON-LD, or we could just show JSON-LD with computations in the background.
+[Tue 10:36]	<gkellogg>	manu: just show JSON-LD, but could have an "advanced" tab to show original JSON, but hide it by default.
+[Tue 10:36]	<gkellogg>	dlongley: isn't the idea for the JSON-LD to look just like the JSON you got with an @context?
+[Tue 10:37]	<gkellogg>	manu: I was thinkingg it would be translated to schema.org markup, we would do the transformation.
+[Tue 10:37]	<gkellogg>	dlongley: it might be good to see the JSON-LD just using a context, and then after you've converted it to schema.org.
+[Tue 10:38]	<gkellogg>	manu: my understanding of the purpose of the code is just to allow people to see their data as JSON-LD
+[Tue 10:38]	<gkellogg>	dlongley: why wouldn't we want it to look as much as the original JSON as possible?
+[Tue 10:38]	<gkellogg>	manu: the data they publish is not very intuitive. The primary use case is schema.org, not LinkedIn.
+[Tue 10:39]	<gkellogg>	dlongley: other people might want to reused the context for other uses.
+[Tue 10:39]	<gkellogg>	manu: that belongs in an advanced tab.
+[Tue 10:40]	<gkellogg>	… I was hoping that people would just copy and paste the JSON-LD and put it into a file on their website, or into a script tag in their profile page.
+[Tue 10:40]	<gkellogg>	vikash: an advanced tab would be a good way to do it.
+[Tue 10:41]	<manu>	gkellogg: Meta comment - your audio has been very difficult to understand, probably because you're not using a headset and possibly bandwidth issues. Please try to get a headset.
+[Tue 10:41]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000020) has joined the conference.
+[Tue 10:41]	<gkellogg>	vikash: I've had some problems with my data plan.
+[Tue 10:41]	<gkellogg>	manu: I think the major problem is the lack of a headset.
+[Tue 10:42]	<manu>	Topic: Review of JSON-LD 1.0 CR-ready specification
+[Tue 10:42]	<manu>	http://json-ld.org/spec/latest/json-ld/
+[Tue 10:42]	<gkellogg>	manu: I prepped a spec last week for CR, including everything but dbooth's updates
+[Tue 10:42]	<gkellogg>	… I think the CR spec is ready to go from an editorial perspective.
+[Tue 10:43]	<gkellogg>	dlongley: my comment is that people have complained about overloading @type, either because they haven't read it, or it requires some more explanation.
+[Tue 10:43]	<gkellogg>	markus: the problem is that people aren't really reading the spec.
+[Tue 10:44]	<niklasl>	q+
+[Tue 10:44]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:44]	<gkellogg>	manu: we could mark the use of @type in the context as at risk and introduce @datatype in the future.
+[Tue 10:44]	<gkellogg>	dlongley: that's not the problem.
+[Tue 10:44]	<gkellogg>	manu: then the issue is a reading comprehension problem.
+[Tue 10:45]	<gkellogg>	… they're not reading enough to know the difference. We've always had this issue.
+[Tue 10:45]	<manu>	ack niklasl
+[Tue 10:45]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:45]	<gkellogg>	niklas: The problem is that the overloading of @type isn't carried through because we treat the concept of datatypes as something different than RDF types.
+[Tue 10:46]	<gkellogg>	… Would @datatype change the distinction?
+[Tue 10:46]	<gkellogg>	… It might address the problem unless people start to use @type instead of @datatype.
+[Tue 10:46]	<gkellogg>	… OTOH, using @coerce in the context imply that people don't really think about type, but values.
+[Tue 10:47]	<gkellogg>	… we could use @value instead of @type in the context
+[Tue 10:47]	<gkellogg>	markus: or allow @type to be used for data-injection, as people have assumed.
+[Tue 10:48]	<gkellogg>	manu: round-rripping becomes problematic, because we wouldn't know if to remove the type later
+[Tue 10:48]	<gkellogg>	niklas: that would mean that we could only do this for types, and not other properties.
+[Tue 10:48]	<gkellogg>	… I would be fine with introducing @coerce, or @value
+[Tue 10:49]	<gkellogg>	manu: @coerce might have a similar problem
+[Tue 10:49]	<gkellogg>	dlongley: we might need a different keyword
+[Tue 10:49]	<gkellogg>	niklas: the keyword should imply: "treat the string value as something other than a string"
+[Tue 10:49]	<gkellogg>	manu: just put an @ sign in front of that phrase!
+[Tue 10:50]	<niklasl>	.. @coercevalue
+[Tue 10:50]	<dlongley>	@interpretAs @interpret
+[Tue 10:50]	<gkellogg>	… Let's put an issue marker next to this indicating that we might introduce a new keyword. Once people learn it, they don't forget it.
+[Tue 10:50]	<gkellogg>	niklas: could we propose to examine the possibility of another keyword.
+[Tue 10:51]	<gkellogg>	markus: what problem are we trying to solve? People don't know the different of types in statements or literals, this doesn't change that.
+[Tue 10:51]	<manu>	we could do @literalType
+[Tue 10:51]	<gkellogg>	… People understand this once it is explained, and will resolve itself
+[Tue 10:52]	|<--	maxlath has left zoe-fn (Quit: maxlath)
+[Tue 10:52]	<gkellogg>	niklas: I think the use of @type in context does introduce a threshold which will never go away and will be a hurdle. I find it a bit strange when I look at the data. We have other specific keywords which send a specific signal.
+[Tue 10:53]	<gkellogg>	… When I see @id and @type together, you have to wonder what it means.
+[Tue 10:53]	<gkellogg>	dlongley: We should try to add an "explain" feature to the playground, which would go line by line to describe what the data means.
+[Tue 10:54]	<manu>	PROPOSAL: Add an issue marker for @type stating that we may introduce a new keyword to do literal type coercion.
+[Tue 10:54]	<niklasl>	+1
+[Tue 10:54]	<manu>	+1
+[Tue 10:54]	<dlongley>	+1
+[Tue 10:54]	<vikash>	+1 (surely)
+[Tue 10:54]	<gkellogg>	gkellogg: +0.2
+[Tue 10:54]	<mlnt>	-0.9
+[Tue 10:54]	<niklasl>	(.. e.g. "@type": "@id" vs. "@coerce": "@id")
+[Tue 10:54]	<gkellogg>	markus: I don't think it will address the issue and just trigger more confusion.
+[Tue 10:55]	<dlongley>	changing mine to a -1
+[Tue 10:55]	<gkellogg>	manu: by not putting it in the spec, it could cost us another 4 weeks. By putting into the spec, it enables us to change.
+[Tue 10:56]	<vikash>	Can we have @expandTo
+[Tue 10:56]	<gkellogg>	markus: even if we add an issue marker, I think we would have to go back to LC
+[Tue 10:57]	<gkellogg>	manu: no, that's not how the W3C process works. you're allowed to do this if you've used an issue marker.
+[Tue 10:57]	<gkellogg>	markus: this looks like the API issue that put is back into LC
+[Tue 10:58]	<gkellogg>	manu: we're not into LC anymore, so the rules are different. We wouldn't actually need to go back to LC.
+[Tue 10:58]	<gkellogg>	… The reason for this is to prevent from going from CR back to LC.
+[Tue 10:59]	<niklasl>	.. also, recall that berjon first problem in the examples was "@type": "@id"..
+[Tue 10:59]	<gkellogg>	dlongley: my vote is for least-friction, whatever that might be
+[Tue 10:59]	<dlongley>	+1
+[Tue 11:00]	<gkellogg>	dlongley: I'm willing to trigger more discussions if this will help.
+[Tue 11:00]	<gkellogg>	niklas: if manu isn't correct, then I expect markus and dlongley to actually vote -1 to making the change, if it comes to that.
+[Tue 11:00]	<manu>	RESOLVED: Add an issue marker for @type stating that we may introduce a new keyword to do literal type coercion.
+[Tue 11:00]	<gkellogg>	manu: my assumption is that we won't make a change.
+[Tue 11:01]	<gkellogg>	dlongley: danbri was confused about @type: @id, if you're expecting a URL or an object or array of objects (which you can).
+[Tue 11:01]	<manu>	gkellogg: Confusion there may be about type casting may work on things that are not bare strings... type casting is only meant to apply to strings.
+[Tue 11:02]	<gkellogg>	markus: same for @language
+[Tue 11:02]	<gkellogg>	dlongley: it could be to say "if a string is found in the value position, it will be used to interpret that". Highlighting that fact might be helpful.
+[Tue 11:03]	<gkellogg>	… If you look at example 3, it's misleading.
+[Tue 11:04]	<gkellogg>	… It should say if a string is encountered as a value, it should be interpreted as an IRI
+[Tue 11:04]	<gkellogg>	manu: I had that in spec-text before, but it was a lot to swallow in the 3rd example.
+[Tue 11:04]	<gkellogg>	… It's going to be difficult for people to understand why we're being so specific.
+[Tue 11:05]	<gkellogg>	dlongley: I don't think we need to make a lot of substantial changes, we could just say "if the values are strings, they can be interpreted as IRIs.
+[Tue 11:05]	<gkellogg>	… We could say that in the example, and in the paragraph after the example.
+[Tue 11:06]	<gkellogg>	… it's only a couple of words.
+[Tue 11:06]	<niklasl>	.. something like "This means that any string associated with 'image' shall be interpreted as an object with this string as its identifier"?
+[Tue 11:06]	<gkellogg>	manu: I'm dubious that it will help, but fine in putting in some text.
+[Tue 11:07]	<gkellogg>	dlongley: also after example 10, we could change the "even though …" text a bit to "since ..."
+[Tue 11:07]	<gkellogg>	… text after example 3, 4 and 10
+[Tue 11:08]	<gkellogg>	niklas: I'm concerned about how we say that things are interpreted as IRIs. We really mean that it implies there's an object with that identifier. People already know that a string can be an IRI
+[Tue 11:09]	<gkellogg>	… I think we're a bit in "RDF mode" in our minds, if they instead thought of the string as representing an object with an @id key.
+[Tue 11:09]	<gkellogg>	manu: these are editorial changes, which can be made after CR. We should focus on changes that need to be done before CR.
+[Tue 11:10]	<gkellogg>	manu: any concern about JSON-LD 1.0 spec for CR?
+[Tue 11:11]	<manu>	PROPOSAL: Request that the RDF WG publish the JSON-LD 1.0 Candidate Recommendation on August 22nd with a CR period of 4 weeks.
+[Tue 11:11]	<manu>	+1
+[Tue 11:11]	<dlongley>	+1
+[Tue 11:11]	<gkellogg>	+1
+[Tue 11:11]	<niklasl>	+1
+[Tue 11:11]	<mlnt>	+1
+[Tue 11:11]	<taaz>	+1
+[Tue 11:11]	<vikash>	+1
+[Tue 11:11]	<manu>	RESOLVED: Request that the RDF WG publish the JSON-LD 1.0 Candidate Recommendation on August 22nd with a CR period of 4 weeks.
+[Tue 11:12]	<manu>	Topic: Review JSON-LD 1.0 API CR-ready specification
+[Tue 11:12]	<manu>	http://json-ld.org/spec/latest/json-ld-api/
+[Tue 11:13]	<gkellogg>	markus: had a question about exit criteria, which was taken from another spec.
+[Tue 11:13]	<gkellogg>	… Also about @context, on how it can be accepted. The only thing that isn't support is an array of objects having @context.
+[Tue 11:13]	<gkellogg>	… We could support this, but it would need to change the API algorithms.
+[Tue 11:14]	<gkellogg>	… This could mean that some problems wouldn't be found.
+[Tue 11:15]	<gkellogg>	… You could embed a context with another context, which would be problematic
+[Tue 11:15]	<gkellogg>	manu: is there a major use case we're missing?
+[Tue 11:15]	<gkellogg>	markus: I really don't see a use case, just what you presented last week, but that can be implemented quite easily.
+[Tue 11:16]	<gkellogg>	… It's really about allowing some syntactic sugar which isn't currently allowed.
+[Tue 11:16]	<gkellogg>	dlongley: my implementation allows it, but I don't really care that much. Markus is right that you could do this in pre-processing pretty easily.
+[Tue 11:17]	<gkellogg>	manu: I think it's safe to not add at this point, we can always come back to it in the future.
+[Tue 11:18]	<gkellogg>	… I have some concerns about the explanations of each section. Since it's the API spec, I don't think it's super critically, but we might want to make language more accessible during and after CR
+[Tue 11:19]	<manu>	PROPOSAL: Request that the RDF WG publish the JSON-LD 1.0 API spec as a Candidate Recommendation on August 22nd with a CR period of 4 weeks.
+[Tue 11:19]	<manu>	+1
+[Tue 11:19]	<dlongley>	+1
+[Tue 11:19]	<mlnt>	+1
+[Tue 11:19]	<vikash>	+1
+[Tue 11:19]	<gkellogg>	+1
+[Tue 11:19]	<niklasl>	+1
+[Tue 11:19]	<taaz>	+1
+[Tue 11:19]	<manu>	RESOLVED: Request that the RDF WG publish the JSON-LD 1.0 API spec as a Candidate Recommendation on August 22nd with a CR period of 4 weeks.
+[Tue 11:19]	-->|	tilgovi (~randall@couchdb/committer/tilgovi) has joined #json-ld
+[Tue 11:20]	<gkellogg>	manu: markus and gregg, please propose to move to CR on the next call.
+[Tue 11:20]	<gkellogg>	Topic: Implementations and Test Suite
+[Tue 11:20]	<gkellogg>	gkellogg: mine's up to date.
+[Tue 11:21]	<gkellogg>	markus: Mine does to, except for new @context stuff.
+[Tue 11:21]	<gkellogg>	niklas: the rdflib JSON-LD does for python
+[Tue 11:21]	<gkellogg>	dlongley: javascript does
+[Tue 11:21]	<niklasl>	.. https://github.com/RDFLib/rdflib-jsonld
+[Tue 11:22]	<gkellogg>	gkellogg: the Java implementation is close to passing
+[Tue 11:22]	<gkellogg>	manu: enough to get through CR
+[Tue 11:23]	<gkellogg>	markus: Manu, are you giving the W3C web master a heads-up.
+[Tue 11:23]	<gkellogg>	markus: we can timestamp the documents now.
+[Tue 11:24]	<gkellogg>	manu: hopefully we'll be out of CR in another month and into PR
+[Tue 11:24]	<voip-ld>	ivikash (SIP/sip2sip.info-0000001f) has left the conference.
+[Tue 11:24]	<voip-ld>	Manu Sporny (SIP/6000-0000001a) has left the conference.
+[Tue 11:24]	<voip-ld>	Dave Longley (SIP/6002-0000001d) has left the conference.
+[Tue 11:24]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000020) has left the conference.
+[Tue 11:24]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000001c) has left the conference.
+[Tue 11:24]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.65-0000001b) has left the conference.
+[Tue 11:24]	<voip-ld>	dlehn (SIP/192.168.1.131:5060-0000001e) has left the conference.
