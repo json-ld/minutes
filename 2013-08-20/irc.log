@@ -1,0 +1,248 @@
+[Tue 10:06]	<manu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0068.html
+[Tue 10:06]	<manu>	scribe: dlongley
+[Tue 10:06]	<dlongley>	manu: we may need to discuss @base a bit, but first an update from vikash on GSoC, and then a discussion about going to CR or skipping to PR
+[Tue 10:07]	<manu>	Topic: @base and NQuad output
+[Tue 10:07]	<mlnt>	https://github.com/json-ld/json-ld.org/commit/c24a9952b7281918cbde50dcb842c980ff299243
+[Tue 10:07]	<dlongley>	gkellogg: the problem i came across was passing all tests but one
+[Tue 10:08]	<dlongley>	gkellogg: i didn't pass because the test is for the presence of relative IRIs in the output, it's effectively the same as the related expand test, where @base is set to null, so the relative IRIs are left alone
+[Tue 10:08]	<dlongley>	gkellogg: that's fine with JSON-LD (but perhaps dubious IMO), but not ok with RDF
+[Tue 10:09]	<dlongley>	gkellogg: i proposed a solution and implemented it, where the test rules would say that any resulting relative IRIs should be joined against some specific test base in order to get absolute IRIs out of it, markus, i believe objected to that because it required post processing
+[Tue 10:09]	<dlongley>	gkellogg: and pointed out the fact that the algorithm should just omit RDF, another proposal would be to drop relative IRIs but that wuold require a change to the algorithms or generate an error, etc.
+[Tue 10:10]	<dlongley>	gkellogg: but it would be illegal/illegitimate in my view to output relative IRIs in RDF
+[Tue 10:10]	<dlongley>	gkellogg: markus recommended we revisit @base: null
+[Tue 10:10]	<dlongley>	gkellogg: when i saw the effect of setting @base: null, it was counter-intuitive, i thought it was meant to set @base back to the original base
+[Tue 10:10]	<dlongley>	gkellogg: i didn't understand the use case
+[Tue 10:10]	<dlongley>	manu: we wanted to have bundled apps with relative URLs in the app manifests, etc.
+[Tue 10:11]	<dlongley>	manu: this came up but i forget who had the use case, but they wanted relative URLs for widgets/bundled apps
+[Tue 10:11]	<dlongley>	manu: and not have that resolved
+[Tue 10:11]	<dlongley>	manu: the other use case is for having something on the wire where some other application should decide the @base
+[Tue 10:11]	<dlongley>	gkellogg: this reminds me of n3 (i think) which lets you clear any base that was set
+[Tue 10:12]	<dlongley>	gkellogg: when you set that it does for back to the original document base, however, if there was no original document base, if it was a pure set of notation not living somewhere then it would continue as a relative IRI
+[Tue 10:12]	<dlongley>	manu: that would still be illegal N-Quads right?
+[Tue 10:12]	<dlongley>	gkellogg: well, the tests wouldn't be a problem because there's always a document base
+[Tue 10:12]	<dlongley>	gkellogg: at least in my case there is parser behavior when there is no document base
+[Tue 10:13]	<dlongley>	mlnt: i don't think there's any feature elsewhere that says, even though there is a base you override it
+[Tue 10:13]	<dlongley>	mlnt: we have an additional feature where we say we have no base
+[Tue 10:13]	<dlongley>	manu: so what you're proposing is falling back
+[Tue 10:14]	<dlongley>	dlongley: we're forgetting the discussion we had, we're rehashing the same arguments
+[Tue 10:14]	<dlongley>	manu: i'm wary of changing this now
+[Tue 10:14]	<dlongley>	gkellogg: we need to be able to test this
+[Tue 10:15]	<dlongley>	manu: yeah, there are two things, we need to fix the test, and the other thing is markus is questioning the feature
+[Tue 10:15]	<dlongley>	manu: i think fixing the test is fairly easy and removing the feature is way more complicated, and we shouldn't try to fix it right before going into CR
+[Tue 10:15]	<dlongley>	manu: we may just add an issue marker to remove the feature after implementation feedback
+[Tue 10:16]	<dlongley>	gkellogg: we could just reinterpret the feature to mean reset base
+[Tue 10:16]	<dlongley>	dlongley: we already have that feature with @context: null
+[Tue 10:16]	<dlongley>	gkellogg: ok
+[Tue 10:17]	<dlongley>	manu: i think it's problematic that we don't remember how all this works and we need to all be on the same call to discuss
+[Tue 10:17]	<dlongley>	gkellogg: we could remove the test, change the toRDF algorithm, add instructions for how to handle output
+[Tue 10:18]	<manu>	dlongley: Within the same document, it might be useful to have relative IRIs, I don't think we can just drop it from the algorithm.
+[Tue 10:19]	<manu>	mlnt: You won't know the difference between the two relative IRIs.
+[Tue 10:19]	-->|	PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[Tue 10:19]	<manu>	dlongley: The whole point is that what you would be digitally signing or asserting is that the bundle is the same - the bundle that you paid for is the same bundle that you're getting.
+[Tue 10:19]	<manu>	PROPOSAL: Add an issue marker for the "@base": null feature in the JSON-LD API CR specification - it may be modified or removed.
+[Tue 10:20]	<gkellogg>	+1
+[Tue 10:20]	<manu>	+1
+[Tue 10:20]	<dlongley>	+1
+[Tue 10:20]	<mlnt>	+1
+[Tue 10:20]	<taaz>	+0
+[Tue 10:20]	<vikash>	+1
+[Tue 10:20]	<manu>	RESOLVED: Add an issue marker for the "@base": null feature in the JSON-LD API CR specification - it may be modified or removed.
+[Tue 10:20]	<pkuyken-ad>	+1
+[Tue 10:20]	<mlnt>	Ok, reopening https://github.com/json-ld/json-ld.org/issues/223
+[Tue 10:22]	<dlongley>	gkellogg: we need to resolve the test issue
+[Tue 10:22]	<dlongley>	manu: what's wrong with gregg's solution?
+[Tue 10:22]	<dlongley>	mlnt: we should be testing that there are relative IRIs and gregg's solution changes them so they are absolute IRIs
+[Tue 10:23]	<dlongley>	gkellogg: there is a turtle test like this where base is set to null that requires you to use a published base IRI that is part of the test case, so it's not unlike that, but the mechanism is different, so if that means changing the algorithm or massaging the test results
+[Tue 10:23]	<dlongley>	mlnt: in turtle you would use the application-supplied base
+[Tue 10:23]	<dlongley>	manu: what is your suggestion mlnt?
+[Tue 10:23]	<dlongley>	mlnt: the simplest thing would be to extend N-Quads to also include relative IRIs
+[Tue 10:24]	<dlongley>	manu: i think it's stupid that we can't put relative IRIs in there, it's up to the application to decide if the data is application or not, so i do think that N-Quads shoudl support that, but i think it will be a long drawn out discussion with the RDF group
+[Tue 10:24]	<dlongley>	gkellogg: it won't happen, there's no support for relative IRIs in RDF there
+[Tue 10:24]	<dlongley>	mlnt: we could output a new different format for the test suite "generalized N-Quads"
+[Tue 10:25]	<dlongley>	gkellogg: this is about toRDF and this stuff won't be RDF
+[Tue 10:25]	<dlongley>	gkellogg: it's difficult to rationalize not having RDF
+[Tue 10:25]	<dlongley>	mlnt: if that's the case, i think we have no choice but to discard those triples in the toRDF algorithm
+[Tue 10:25]	<dlongley>	manu: so how do we ensure that implementations preserve those
+[Tue 10:25]	<dlongley>	manu: in those cases where they need to
+[Tue 10:26]	<dlongley>	gkellogg: this stuff is tested in flattening and expansion
+[Tue 10:26]	<dlongley>	dlongley: dont' forget the graph comparison/hash/signing use case
+[Tue 10:26]	<dlongley>	manu: a flag would be necessary here for preserving relative URLs
+[Tue 10:27]	<dlongley>	gkellogg: my turtle processor will generate relative IRIs if there is no base and a validate option is not provided
+[Tue 10:27]	<dlongley>	gkellogg: this allows me to ensure that i'm only outputting valid RDF but i can also output invalid RDF where apps need it
+[Tue 10:27]	<dlongley>	gkellogg: one alternative would be to turn this into an error case where a processor raises an exception
+[Tue 10:28]	<dlongley>	gkellogg: that would allow the behavior so a processor would generate it anyway
+[Tue 10:29]	<dlongley>	gkellogg: this would allow processors to continue if an error was detected
+[Tue 10:29]	<dlongley>	mlnt: we use promises now that wouldn't allow a processor to continue if errors happens
+[Tue 10:29]	<dlongley>	gkellogg: we can't do that with promises?
+[Tue 10:30]	<manu>	dlongley: If we did the error test case, it would help, but it wouldn't test everything. You wouldn't be able to test what the output was.
+[Tue 10:30]	<dlongley>	mlnt: yes, but we removed that feature before we switched to promises
+[Tue 10:30]	<manu>	gkellogg: It would mean that it would eliminate that potential use case.
+[Tue 10:31]	<manu>	gkellogg: We could add an at risk comment on the toRDF algorithm that could have us revisit relative IRIs after CR.
+[Tue 10:31]	<manu>	dlongley: We could output the invalid RDF, but the way you would check it is to see if it's invalid, but matches something its supposed to match.
+[Tue 10:31]	<manu>	gkellogg: I don't think a valid RDF processor could express relative IRIs.
+[Tue 10:32]	<manu>	gkellogg: Some implementations might not support that.
+[Tue 10:32]	<manu>	dlongley: What if we approach this the same way that we approach generalized RDF? By default, only allow absolute IRIs, but have a flag that allows relative IRIs.
+[Tue 10:32]	<manu>	dlongley: By default it would work properly, but would still support this use case for specialized applications.
+[Tue 10:33]	<manu>	gkellogg: That's reasonable. We need to do something like this in the test, we don't have flags to pass this stuff in the algorithms/API calls.
+[Tue 10:33]	<manu>	gkellogg: We do need a test for generalized RDF...
+[Tue 10:33]	<dlongley>	gkellogg: i think we also need to add a type that indicates it's an optional test
+[Tue 10:33]	<manu>	gkellogg: We do need a type for an optional test, or something else in the test manifest that we can use to say it's not required.
+[Tue 10:34]	<manu>	dlongley: RDF processors might not be able to output valid NQuads.
+[Tue 10:35]	<dlongley>	gkellogg: if you look at this from the way the turtle tests are done, this would be a negative evaluation tests and processors aren't required to pass those
+[Tue 10:35]	<manu>	dlongley: Are you saying "negative evaluation case" in the general case? Is the output supposed to be valid or invalid?
+[Tue 10:36]	<manu>	gkellogg: The processor can be conforming, even if it doesn't pass negative tests. The current one is a negative test, it should not output the data using relative IRIs.
+[Tue 10:36]	<manu>	gkellogg: You could fail that test and not generate an error and still be conforming.
+[Tue 10:36]	<manu>	dlongley: I thought we'd also have a positive test with the option turned on.
+[Tue 10:37]	<manu>	gkellogg: Yes, positive evaluation test would generate an error.
+[Tue 10:37]	<manu>	mlnt: If I run toRDF w/o this flag, do we drop those?
+[Tue 10:37]	<manu>	manu: Yes.
+[Tue 10:40]	<manu>	manu: Currently we don't have any developer asking for digitally signed app manifests with relative URLs.
+[Tue 10:40]	<dlongley>	dlongley: we did have some devs that wanted relative URLs for widgets in JSON-LD, not sure if they needed RDF
+[Tue 10:40]	<mlnt>	So, can we just drop them and not specify a flag in the spec to include them.. implementations are free to do so but that is beyond the specified algorithm
+[Tue 10:40]	<manu>	manu: so, we don't have to support the feature now in the spec (as Markus said)
+[Tue 10:41]	<dlongley>	manu: so the assumption here is that we will drop relative URLs in the toRDF algorithm and implementations can add a flag to keep relative URLs when converting to RDF
+[Tue 10:42]	<manu>	PROPOSAL: Drop relative IRI in the serialize to RDF algorithm. JSON-LD processors are free to include an option that preserves relative IRIs when serializing to RDF.
+[Tue 10:42]	<gkellogg>	+1
+[Tue 10:42]	<manu>	+1
+[Tue 10:42]	<vikash>	+1
+[Tue 10:42]	<dlongley>	+1
+[Tue 10:42]	<mlnt>	+1
+[Tue 10:42]	<pkuyken-ad>	+1
+[Tue 10:43]	<taaz>	+0
+[Tue 10:43]	<manu>	RESOLVED: Drop relative IRI in the serialize to RDF algorithm. JSON-LD processors are free to include an option that preserves relative IRIs when serializing to RDF.
+[Tue 10:43]	<dlongley>	mlnt: just to be clear, we could drop an entire graph
+[Tue 10:43]	<mlnt>	for the record: we e.g. drop entire graphs if the graph name is a relative IRI
+[Tue 10:43]	<dlongley>	manu: yes
+[Tue 10:43]	<manu>	Topic: Vikash update for GSoC
+[Tue 10:45]	<dlongley>	vikash: this week i added a bunch of things already, like fetching of data, manu commented the other day for using jsonld.js library for compaction, so this week i have the json-ld context for the linkedin data, [missed]
+[Tue 10:46]	<dlongley>	vikash: they may or may not get shown depending upon the user, they don't always encode valid xsd:dates, the date is broken into parts, i put a small piece of code on the mailin glist, i wnated to know if that's a good way of doing things
+[Tue 10:46]	<dlongley>	manu: you're right that a valid xsd date needs a year, month, and a day
+[Tue 10:46]	<dlongley>	manu: is there a type vikash can use for this?
+[Tue 10:46]	<dlongley>	gkellogg: i think there's a gmonth datatype
+[Tue 10:47]	<gkellogg>	http://www.w3.org/TR/2001/REC-xmlschema-2-20010502/#gMonthDay
+[Tue 10:47]	<dlongley>	manu: vikash are you asking us to pull and see if the code works?
+[Tue 10:47]	<dlongley>	vikash: yes, and look at the structure of the JSON
+[Tue 10:47]	<dlongley>	manu: you will have to check to see if it's year month day and use xsd:date, and if it's just a month and a day you can use gMonthDay
+[Tue 10:47]	<vikash>	user["birthDate"] = result.values[0].dateOfBirth.year+'-'+result.values[0].dateOfBirth.month+'-'+result.values[0].dateOfBirth.day;
+[Tue 10:47]	<dlongley>	vikash: i have year month date, i do the above to get the user's birthday
+[Tue 10:48]	<vikash>	{... "birthDate" : "http://schema.org/birthDate", ...}
+[Tue 10:48]	<dlongley>	vikash: i can have a birthday that is different from the schema.org date, so i can have something like this in my context
+[Tue 10:48]	<dlongley>	manu: yeah, so this is where it gets kind of complicated, schema.org doesn't use xsd:dates for the birth dates, they don't datatype it at all, there is no xsd datetime stuff associated with it
+[Tue 10:48]	<gkellogg>	http://schema.org/birthDate
+[Tue 10:48]	<dlongley>	vikash: to simplify things you should probably do the same thing
+[Tue 10:49]	<vikash>	ISO 8601
+[Tue 10:49]	<gkellogg>	http://schema.org/Date
+[Tue 10:49]	<dlongley>	gkellogg: it does say that the value is of type Date, which the date is ISO8601
+[Tue 10:49]	<vikash>	which is Date: 2013-08-19
+[Tue 10:49]	<dlongley>	manu: except that they completely break that rule in a lot of their markup
+[Tue 10:49]	<dlongley>	gkellogg: that may be, and they will accept anything to figure out what it means
+[Tue 10:49]	<dlongley>	vikash: [missed] it's pretty weird to me, they have broken it into so much of chunks so writing something generic is hard
+[Tue 10:50]	<dlongley>	vikash: hard coding might be required as i've done for date
+[Tue 10:50]	<dlongley>	manu: there may be times in the linkedin data where you have to do something that's a little easier for the JSON-LD processor to work with
+[Tue 10:50]	<dlongley>	manu: so you'll have to do that at some points
+[Tue 10:51]	<dlongley>	vikash: so those were the essential issues i was facing, apart from that i was having similar problems with the email such as education, some may have [missed] of study, some will have start date, some end date, they are broken out into forms, hardcoding to convert to JSON-LD would be best
+[Tue 10:51]	<dlongley>	manu: yes, in those instances you will have to do that
+[Tue 10:51]	<dlongley>	manu: hopefully you won't have to do that for everything
+[Tue 10:51]	<dlongley>	vikash: that's why [missed] json one [missed] then i can use the compact to convert back to the final json that i receive resolving these issues
+[Tue 10:51]	<dlongley>	manu: yes, sounds good
+[Tue 10:52]	<dlongley>	vikash: suppose i wanted to condense objects, i have multiple json objects again, what should be a good way to do that?
+[Tue 10:52]	<dlongley>	vikash: printing it and then using type id or something else?
+[Tue 10:53]	<dlongley>	manu: are you asking how you should compact ... sorry, is the question you're asking: you have the linkedin data and you have their way of expressing dates and things like that are you asking how to transform that to send to the JSON-LD processor for compaction?
+[Tue 10:53]	<dlongley>	vikash: my question ... suppose you have hyperlinks, i have education, how should i make it into a JSON that i should use, and how should i express that in the @context
+[Tue 10:53]	<dlongley>	manu: are you saying that linkedin has an education field
+[Tue 10:53]	<dlongley>	manu: it's hard to figure this out without an example, so let's do this offline, we'll take it to the mailing list
+[Tue 10:54]	<dlongley>	vikash: i'll share a small gist right now on github, and if possible then we take it to the mailing list
+[Tue 10:54]	<vikash>	https://gist.github.com/ivikash/6282447
+[Tue 10:54]	<dlongley>	manu: anything else you need help with?
+[Tue 10:54]	<dlongley>	manu: yes, i'm not sure how to map "educations" to schema.org
+[Tue 10:54]	<dlongley>	vikash: I will need to know to get everything happening has to be done
+[Tue 10:55]	<dlongley>	mlnt: you could just create a declarative mapping
+[Tue 10:55]	<dlongley>	gkellogg: would indexing work? use values?
+[Tue 10:55]	<dlongley>	gkellogg: declare values to be a container index
+[Tue 10:55]	<dlongley>	gkellogg: would that allow you to pull those properties up, it may be something to play with?
+[Tue 10:55]	<vikash>	https://gist.github.com/ivikash/6282468 [SampleJSON-LDOutput, after hard-coding]
+[Tue 10:56]	<dlongley>	gkellogg: certainly JSON-LD macros would help you turn this into something more reasonable
+[Tue 10:56]	<dlongley>	gkellogg: you could massage this to be what you want, to in schema.org representation
+[Tue 10:56]	<dlongley>	manu: this linkedin data is not really compatible with JSON-LD, you could express it as JSON-LD, but it would be better to clean up the object quite a bit before mapping to schema.org
+[Tue 10:57]	<dlongley>	vikash: [missed] this is something that is just clearer and concise and acceptable
+[Tue 10:57]	<dlongley>	manu: yes, the other gist is good
+[Tue 10:57]	<dlongley>	gkellogg: yes, that's fine
+[Tue 10:57]	<dlongley>	manu: remember that you want to preserve as much of the school and location information, etc. as possible
+[Tue 10:57]	<dlongley>	manu: the data is important to preserve
+[Tue 10:58]	<voip-ld>	pkuyken (IAX2/diamondcard-12994) has left the conference.
+[Tue 10:58]	<dlongley>	gkellogg: we do see other cases where we have this property that they use, for instance in microdata and microformats JSON, where there is "property" or "properties" and the values are contained in there, it's a shame we didn't handle that case yet and i think we will in the future
+[Tue 10:59]	<dlongley>	manu: i think with this kind of data, the amount of hoop jumping in the @context will perhaps always be out of the scope of JSON-LD
+[Tue 10:59]	<vikash>	https://github.com/ivikash.json
+[Tue 10:59]	<vikash>	vikash: github.com has a much more cleaner JSON
+[Tue 10:59]	<dlongley>	manu: yeah, we should do this in a way more compatible with JSON-LD than with linkedin
+[Tue 10:59]	-->|	mlnt_ (~markus@net-188-216-235-198.cust.dsl.vodafone.it) has joined #json-ld
+[Tue 11:00]	<dlongley>	manu: well, vikash, do the best that you can extracting the data out of the linkedin stuff and you may just have to hardcode a chunk of this stuff, or rather, a decent bit of this so you can get a JSON object to run the compaction code on
+[Tue 11:00]	<dlongley>	manu: i think you have a pretty good idea of what you need to do now
+[Tue 11:00]	<vikash>	These are the fields I'm retrieving: .fields(["id", "firstName", "lastName", "pictureUrl", "publicProfileUrl","location","headline","summary","specialties","positions","emailAddress","interests","publications","patents","languages","skills","certifications","educations","courses","volunteer","following","dateOfBirth","memberUrlResources","phoneNumbers","twitterAccounts","connections","network"])
+[Tue 11:00]	<dlongley>	vikash: this will be present in the linkedin, i just have a small thing to share
+[Tue 11:01]	<dlongley>	vikash: this is the data from linkedin, most of these things might not be available for my profile, i will be able to see in the output, depending upon the JSON i could implement those
+[Tue 11:01]	<dlongley>	manu: you might want to get a couple of our linkedin profiles as tests
+[Tue 11:01]	<vikash>	Sure
+[Tue 11:01]	<dlongley>	manu: if you could print things out to the console and a couple of us could log in and give you our data as test data
+[Tue 11:01]	<dlongley>	manu: we'll try and do that
+[Tue 11:01]	<dlongley>	vikash: ok
+[Tue 11:02]	<dlongley>	vikash: one more thing, could i get [missed] a link to the turtle processor that you were discussing
+[Tue 11:02]	<dlongley>	vikash: i just want to have to look at that for the understanding purpose [missed]
+[Tue 11:02]	|<--	mlnt has left zoe-fn (Ping timeout: 248 seconds)
+[Tue 11:02]	<dlongley>	gkellogg: did you want a link to the processor?
+[Tue 11:03]	<dlongley>	gkellogg: if you want a processor you can look at my ruby one on github
+[Tue 11:03]	<manu>	vikash: Here's a link to the TURTLE spec - http://www.w3.org/TR/turtle/
+[Tue 11:04]	<manu>	Topic: Decision to go CR or PR
+[Tue 11:04]	<gkellogg>	http://www.w3.org/TR/turtle/
+[Tue 11:04]	<manu>	http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements
+[Tue 11:04]	<gkellogg>	: https://github.com/ruby-rdf/rdf-turtle
+[Tue 11:04]	<vikash>	Thanks
+[Tue 11:05]	<dlongley>	manu: i completely forgot about the waiting period between announcement and proposed call, which is for any stage after LC, so the way that this ends up happening is that we resolve to take it to CR here and then the RDF WG resolves to going to CR, they make the announcement and there's a 7 day lag for people to object if they want, if no objections, then there's a meeting with w3c and they decide if the doc should transition and there's a meeting and a call with editors, chairman, etc
+[Tue 11:05]	<dlongley>	manu: the link in IRC is for all the things that go on in the discussion
+[Tue 11:06]	<dlongley>	manu: then if director says its ok to transition we do that on a publish date
+[Tue 11:06]	<dlongley>	manu: once we go to PR we have to do that all over again
+[Tue 11:06]	<dlongley>	manu: we have two calls coming up where we'll have to do that
+[Tue 11:06]	<dlongley>	manu: there's a question if we want to take a week and get all implementation reports together and skip CR and go directly to PR, which we can do
+[Tue 11:06]	<dlongley>	manu: dan brickley said that doesn't give google a chance to respond
+[Tue 11:07]	<dlongley>	manu: given google's track record, they never respond (never provide an implementation report), but i feel if we go ahead then people will complain that we rushed and didn't wait for major adopters of the technology
+[Tue 11:07]	<dlongley>	manu: i think we could go to PR pretty easily, technologically speaking, but politically people could think we tried to railroad the standard through, etc.
+[Tue 11:08]	<dlongley>	gkellogg: a couple of thoughts, if we want to ensure we have time to do tests we need that, second i don't see why we need to rush through CR other than to get the process behind us, if this allows more space for more implementations that would be a good thing
+[Tue 11:09]	<dlongley>	manu: there are some large organizations are waiting for an announcement but i don't know if that's a very strong reason
+[Tue 11:09]	<dlongley>	mlnt: if we went straight to PR would that mean we'd need to resolve all at-risk now?
+[Tue 11:09]	<manu>	dlongley: I'm ok with waiting. I know we have other things we'd like to move on to, but we might cause more problems if we don't wait. We could shorten the period to the minimum amount.
+[Tue 11:10]	<dlongley>	manu: yes, we'd have to resolve all at-risk
+[Tue 11:10]	<dlongley>	mlnt: the call is scheduled exactly when we wanted to leave CR
+[Tue 11:10]	<dlongley>	manu: we wanted to exit september 19th
+[Tue 11:11]	<dlongley>	mlnt: ok, you're right
+[Tue 11:11]	<dlongley>	manu: it's one week here, one week there, i dont' think it makes too much of a difference
+[Tue 11:11]	<dlongley>	manu: i think we can knock it down by a week
+[Tue 11:11]	<dlongley>	mlnt: we've spent a lot of time between LC and now CR
+[Tue 11:11]	<dlongley>	manu: what slows us down at this point is the W3C process (it's by design)
+[Tue 11:12]	<dlongley>	manu: they want to make sure everyone understands we're getting ready to put this out as a REC
+[Tue 11:12]	<dlongley>	manu: once we come out of CR we have to modify the docs based on feedback (1-2 weeks if lucky), resolve to go to PR, another 7 day waiting period, then 1-2 weeks waiting for a meeting, then a month of voting, then we have to clean up the docs (1-2 weeks) then we can finally publish as a REC after director approves
+[Tue 11:13]	<dlongley>	manu: that's why i'm saying knocking 1-2 weeks off won't make too much of a difference in the long term
+[Tue 11:13]	<dlongley>	mlnt: if we skip CR we knock off a month
+[Tue 11:13]	<dlongley>	manu: google may be hostile to that approach
+[Tue 11:13]	<dlongley>	gkellogg: we don't need to antagonize them
+[Tue 11:13]	<dlongley>	mlnt: i don't think google will submit a report anyway
+[Tue 11:13]	<dlongley>	manu: i agree but they've used that as a stick to beat us over the head
+[Tue 11:14]	<dlongley>	manu: they are big supporters of JSON-LD
+[Tue 11:14]	<dlongley>	manu: so skipping CR wouldn't be a good idea
+[Tue 11:14]	<dlongley>	manu: i'm fairly uneasy to go straight to PR, if google wasn't upset by it i think it would be the right thing to do
+[Tue 11:14]	<dlongley>	manu: we all want to get this thing shipped because we think it's done, but other people haven't been involved and don't understand how quickly it's been moving
+[Tue 11:15]	<manu>	PROPOSAL: Request that the RDF WG transition the JSON-LD 1.0 and JSON-LD 1.0 API specs to CR, using the shortest possible CR period (don't skip CR)
+[Tue 11:15]	<gkellogg>	+1
+[Tue 11:15]	<dlongley>	+1
+[Tue 11:15]	<manu>	+1
+[Tue 11:15]	<mlnt>	+1
+[Tue 11:15]	<taaz>	+1
+[Tue 11:15]	<vikash>	+1
+[Tue 11:16]	<manu>	RESOLVED: Request that the RDF WG transition the JSON-LD 1.0 and JSON-LD 1.0 API specs to CR, using the shortest possible CR period (don't skip CR)
+[Tue 11:17]	<manu>	We should specifically ask Google is they want more time for CR and extend the CR period based on feedback from them. They're the only implementers we're waiting on right now.
+[Tue 11:18]	-->|	TallTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 11:19]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.65-0000003b) has left the conference.
+[Tue 11:19]	<voip-ld>	Manu Sporny (SIP/6000-00000038) has left the conference.
+[Tue 11:19]	<voip-ld>	Dave Longley (SIP/6002-00000039) has left the conference.
+[Tue 11:19]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000003a) has left the conference.
+[Tue 11:20]	<voip-ld>	dlehn (SIP/192.168.1.131:5060-00000037) has left the conference.
+[Tue 11:24]	<voip-ld>	ivikash (SIP/sip2sip.info-00000036) has left the conference.

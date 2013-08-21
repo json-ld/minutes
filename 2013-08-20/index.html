@@ -1,0 +1,317 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-08-20</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0068.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0068.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">@base and NQuad output</a><li><a href="#topic-2">Vikash update for GSoC</a><li><a href="#topic-3">Decision to go CR or PR</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Add an issue marker for the "@base": null feature in the JSON-LD API CR specification - it may be modified or removed.</a><li><a href="#resolution-2">Drop relative IRI in the serialize to RDF algorithm. JSON-LD processors are free to include an option that preserves relative IRIs when serializing to RDF.</a><li><a href="#resolution-3">Request that the RDF WG transition the JSON-LD 1.0 and JSON-LD 1.0 API specs to CR, using the shortest possible CR period (don't skip CR)</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Dave Longley</dd>
+<dt>Present</dt><dd>Dave Longley, Manu Sporny, Gregg Kellogg, Markus Lanthaler, David I. Lehn, Vikash Agrawal</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Dave Longley is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we may need to discuss @base a bit, but first an update from vikash on GSoC, and then a discussion about going to CR or skipping to PR</div>
+<h1 id="topic-1" class="topic">Topic: @base and NQuad output</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/c24a9952b7281918cbde50dcb842c980ff299243">https://github.com/json-ld/json-ld.org/commit/c24a9952b7281918cbde50dcb842c980ff299243</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the problem i came across was passing all tests but one</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i didn't pass because the test is for the presence of relative IRIs in the output, it's effectively the same as the related expand test, where @base is set to null, so the relative IRIs are left alone</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's fine with JSON-LD (but perhaps dubious IMO), but not ok with RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i proposed a solution and implemented it, where the test rules would say that any resulting relative IRIs should be joined against some specific test base in order to get absolute IRIs out of it, markus, i believe objected to that because it required post processing</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  and pointed out the fact that the algorithm should just omit RDF, another proposal would be to drop relative IRIs but that wuold require a change to the algorithms or generate an error, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  but it would be illegal/illegitimate in my view to output relative IRIs in RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  markus recommended we revisit @base: null</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when i saw the effect of setting @base: null, it was counter-intuitive, i thought it was meant to set @base back to the original base</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i didn't understand the use case</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we wanted to have bundled apps with relative URLs in the app manifests, etc.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this came up but i forget who had the use case, but they wanted relative URLs for widgets/bundled apps</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  and not have that resolved</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other use case is for having something on the wire where some other application should decide the @base</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this reminds me of n3 (i think) which lets you clear any base that was set</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  when you set that it does for back to the original document base, however, if there was no original document base, if it was a pure set of notation not living somewhere then it would continue as a relative IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that would still be illegal N-Quads right?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  well, the tests wouldn't be a problem because there's always a document base</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  at least in my case there is parser behavior when there is no document base</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i don't think there's any feature elsewhere that says, even though there is a base you override it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we have an additional feature where we say we have no base</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so what you're proposing is falling back</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we're forgetting the discussion we had, we're rehashing the same arguments</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm wary of changing this now</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to be able to test this</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, there are two things, we need to fix the test, and the other thing is markus is questioning the feature</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think fixing the test is fairly easy and removing the feature is way more complicated, and we shouldn't try to fix it right before going into CR</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we may just add an issue marker to remove the feature after implementation feedback</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could just reinterpret the feature to mean reset base</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we already have that feature with @context: null</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  ok</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it's problematic that we don't remember how all this works and we need to all be on the same call to discuss</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could remove the test, change the toRDF algorithm, add instructions for how to handle output</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Within the same document, it might be useful to have relative IRIs, I don't think we can just drop it from the algorithm. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  You won't know the difference between the two relative IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The whole point is that what you would be digitally signing or asserting is that the bundle is the same - the bundle that you paid for is the same bundle that you're getting. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Add an issue marker for the "@base": null feature in the JSON-LD API CR specification - it may be modified or removed.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Add an issue marker for the "@base": null feature in the JSON-LD API CR specification - it may be modified or removed.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Ok, reopening <a href="https://github.com/json-ld/json-ld.org/issues/223">https://github.com/json-ld/json-ld.org/issues/223</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to resolve the test issue</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what's wrong with gregg's solution?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we should be testing that there are relative IRIs and gregg's solution changes them so they are absolute IRIs</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there is a turtle test like this where base is set to null that requires you to use a published base IRI that is part of the test case, so it's not unlike that, but the mechanism is different, so if that means changing the algorithm or massaging the test results</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in turtle you would use the application-supplied base</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what is your suggestion mlnt?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the simplest thing would be to extend N-Quads to also include relative IRIs</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think it's stupid that we can't put relative IRIs in there, it's up to the application to decide if the data is application or not, so i do think that N-Quads shoudl support that, but i think it will be a long drawn out discussion with the RDF group</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it won't happen, there's no support for relative IRIs in RDF there</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we could output a new different format for the test suite "generalized N-Quads"</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is about toRDF and this stuff won't be RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's difficult to rationalize not having RDF</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if that's the case, i think we have no choice but to discard those triples in the toRDF algorithm</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so how do we ensure that implementations preserve those</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  in those cases where they need to</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this stuff is tested in flattening and expansion</div>
+<div class="comment"><span class="name">Dave Longley</span>:  dont' forget the graph comparison/hash/signing use case</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a flag would be necessary here for preserving relative URLs</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my turtle processor will generate relative IRIs if there is no base and a validate option is not provided</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this allows me to ensure that i'm only outputting valid RDF but i can also output invalid RDF where apps need it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  one alternative would be to turn this into an error case where a processor raises an exception</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that would allow the behavior so a processor would generate it anyway</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this would allow processors to continue if an error was detected</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we use promises now that wouldn't allow a processor to continue if errors happens</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we can't do that with promises?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  If we did the error test case, it would help, but it wouldn't test everything. You wouldn't be able to test what the output was. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, but we removed that feature before we switched to promises</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would mean that it would eliminate that potential use case. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could add an at risk comment on the toRDF algorithm that could have us revisit relative IRIs after CR. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We could output the invalid RDF, but the way you would check it is to see if it's invalid, but matches something its supposed to match. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think a valid RDF processor could express relative IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Some implementations might not support that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  What if we approach this the same way that we approach generalized RDF? By default, only allow absolute IRIs, but have a flag that allows relative IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  By default it would work properly, but would still support this use case for specialized applications. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  That's reasonable. We need to do something like this in the test, we don't have flags to pass this stuff in the algorithms/API calls. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do need a test for generalized RDF... [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think we also need to add a type that indicates it's an optional test</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do need a type for an optional test, or something else in the test manifest that we can use to say it's not required. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  RDF processors might not be able to output valid NQuads. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you look at this from the way the turtle tests are done, this would be a negative evaluation tests and processors aren't required to pass those</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Are you saying "negative evaluation case" in the general case? Is the output supposed to be valid or invalid? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The processor can be conforming, even if it doesn't pass negative tests. The current one is a negative test, it should not output the data using relative IRIs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  You could fail that test and not generate an error and still be conforming. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I thought we'd also have a positive test with the option turned on. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, positive evaluation test would generate an error. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If I run toRDF w/o this flag, do we drop those? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Yes. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Currently we don't have any developer asking for digitally signed app manifests with relative URLs. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we did have some devs that wanted relative URLs for widgets in JSON-LD, not sure if they needed RDF</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: So, can we just drop them and not specify a flag in the spec to include them.. implementations are free to do so but that is beyond the specified algorithm</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so, we don't have to support the feature now in the spec (as Markus said) [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so the assumption here is that we will drop relative URLs in the toRDF algorithm and implementations can add a flag to keep relative URLs when converting to RDF</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Drop relative IRI in the serialize to RDF algorithm. JSON-LD processors are free to include an option that preserves relative IRIs when serializing to RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Drop relative IRI in the serialize to RDF algorithm. JSON-LD processors are free to include an option that preserves relative IRIs when serializing to RDF.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  just to be clear, we could drop an entire graph</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: for the record: we e.g. drop entire graphs if the graph name is a relative IRI</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes</div>
+<h1 id="topic-2" class="topic">Topic: Vikash update for GSoC</h1>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  this week i added a bunch of things already, like fetching of data, manu commented the other day for using jsonld.js library for compaction, so this week i have the json-ld context for the linkedin data, [missed]</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  they may or may not get shown depending upon the user, they don't always encode valid xsd:dates, the date is broken into parts, i put a small piece of code on the mailin glist, i wnated to know if that's a good way of doing things</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you're right that a valid xsd date needs a year, month, and a day</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is there a type vikash can use for this?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i think there's a gmonth datatype</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://www.w3.org/TR/2001/REC-xmlschema-2-20010502/#gMonthDay">http://www.w3.org/TR/2001/REC-xmlschema-2-20010502/#gMonthDay</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  vikash are you asking us to pull and see if the code works?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  yes, and look at the structure of the JSON</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you will have to check to see if it's year month day and use xsd:date, and if it's just a month and a day you can use gMonthDay</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: user["birthDate"] = result.values[0].dateOfBirth.year+'-'+result.values[0].dateOfBirth.month+'-'+result.values[0].dateOfBirth.day;</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  i have year month date, i do the above to get the user's birthday</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: {... "birthDate" : "<a href="http://schema.org/birthDate",">http://schema.org/birthDate",</a> ...}</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  i can have a birthday that is different from the schema.org date, so i can have something like this in my context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, so this is where it gets kind of complicated, schema.org doesn't use xsd:dates for the birth dates, they don't datatype it at all, there is no xsd datetime stuff associated with it</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://schema.org/birthDate">http://schema.org/birthDate</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  to simplify things you should probably do the same thing</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: ISO 8601</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://schema.org/Date">http://schema.org/Date</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it does say that the value is of type Date, which the date is ISO8601</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: which is Date: 2013-08-19</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  except that they completely break that rule in a lot of their markup</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that may be, and they will accept anything to figure out what it means</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  [missed] it's pretty weird to me, they have broken it into so much of chunks so writing something generic is hard</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  hard coding might be required as i've done for date</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there may be times in the linkedin data where you have to do something that's a little easier for the JSON-LD processor to work with</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so you'll have to do that at some points</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  so those were the essential issues i was facing, apart from that i was having similar problems with the email such as education, some may have [missed] of study, some will have start date, some end date, they are broken out into forms, hardcoding to convert to JSON-LD would be best</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, in those instances you will have to do that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  hopefully you won't have to do that for everything</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  that's why [missed] json one [missed] then i can use the compact to convert back to the final json that i receive resolving these issues</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, sounds good</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  suppose i wanted to condense objects, i have multiple json objects again, what should be a good way to do that?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  printing it and then using type id or something else?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  are you asking how you should compact ... sorry, is the question you're asking: you have the linkedin data and you have their way of expressing dates and things like that are you asking how to transform that to send to the JSON-LD processor for compaction?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  my question ... suppose you have hyperlinks, i have education, how should i make it into a JSON that i should use, and how should i express that in the @context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  are you saying that linkedin has an education field</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's hard to figure this out without an example, so let's do this offline, we'll take it to the mailing list</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  i'll share a small gist right now on github, and if possible then we take it to the mailing list</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: <a href="https://gist.github.com/ivikash/6282447">https://gist.github.com/ivikash/6282447</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  anything else you need help with?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, i'm not sure how to map "educations" to schema.org</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I will need to know to get everything happening has to be done</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  you could just create a declarative mapping</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  would indexing work? use values?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  declare values to be a container index</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  would that allow you to pull those properties up, it may be something to play with?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: <a href="https://gist.github.com/ivikash/6282468">https://gist.github.com/ivikash/6282468</a> [SampleJSON-LDOutput, after hard-coding]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  certainly JSON-LD macros would help you turn this into something more reasonable</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  you could massage this to be what you want, to in schema.org representation</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this linkedin data is not really compatible with JSON-LD, you could express it as JSON-LD, but it would be better to clean up the object quite a bit before mapping to schema.org</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  [missed] this is something that is just clearer and concise and acceptable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, the other gist is good</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes, that's fine</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  remember that you want to preserve as much of the school and location information, etc. as possible</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the data is important to preserve</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we do see other cases where we have this property that they use, for instance in microdata and microformats JSON, where there is "property" or "properties" and the values are contained in there, it's a shame we didn't handle that case yet and i think we will in the future</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think with this kind of data, the amount of hoop jumping in the @context will perhaps always be out of the scope of JSON-LD</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: <a href="https://github.com/ivikash.json">https://github.com/ivikash.json</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  github.com has a much more cleaner JSON [scribe assist by Vikash Agrawal]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, we should do this in a way more compatible with JSON-LD than with linkedin</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  well, vikash, do the best that you can extracting the data out of the linkedin stuff and you may just have to hardcode a chunk of this stuff, or rather, a decent bit of this so you can get a JSON object to run the compaction code on</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think you have a pretty good idea of what you need to do now</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: These are the fields I'm retrieving: .fields(["id", "firstName", "lastName", "pictureUrl", "publicProfileUrl","location","headline","summary","specialties","positions","emailAddress","interests","publications","patents","languages","skills","certifications","educations","courses","volunteer","following","dateOfBirth","memberUrlResources","phoneNumbers","twitterAccounts","connections","network"])</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  this will be present in the linkedin, i just have a small thing to share</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  this is the data from linkedin, most of these things might not be available for my profile, i will be able to see in the output, depending upon the JSON i could implement those</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  you might want to get a couple of our linkedin profiles as tests</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Sure</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if you could print things out to the console and a couple of us could log in and give you our data as test data</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll try and do that</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  ok</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  one more thing, could i get [missed] a link to the turtle processor that you were discussing</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  i just want to have to look at that for the understanding purpose [missed]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  did you want a link to the processor?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if you want a processor you can look at my ruby one on github</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Here's a link to the TURTLE spec - <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a> [scribe assist by Manu Sporny]</div>
+<h1 id="topic-3" class="topic">Topic: Decision to go CR or PR</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements">http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: : <a href="https://github.com/ruby-rdf/rdf-turtle">https://github.com/ruby-rdf/rdf-turtle</a></div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: Thanks</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i completely forgot about the waiting period between announcement and proposed call, which is for any stage after LC, so the way that this ends up happening is that we resolve to take it to CR here and then the RDF WG resolves to going to CR, they make the announcement and there's a 7 day lag for people to object if they want, if no objections, then there's a meeting with w3c and they decide if the doc should transition and there's a meeting and a call with editors, chairman, etc</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the link in IRC is for all the things that go on in the discussion</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  then if director says its ok to transition we do that on a publish date</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  once we go to PR we have to do that all over again</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have two calls coming up where we'll have to do that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there's a question if we want to take a week and get all implementation reports together and skip CR and go directly to PR, which we can do</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  dan brickley said that doesn't give google a chance to respond</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  given google's track record, they never respond (never provide an implementation report), but i feel if we go ahead then people will complain that we rushed and didn't wait for major adopters of the technology</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we could go to PR pretty easily, technologically speaking, but politically people could think we tried to railroad the standard through, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  a couple of thoughts, if we want to ensure we have time to do tests we need that, second i don't see why we need to rush through CR other than to get the process behind us, if this allows more space for more implementations that would be a good thing</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are some large organizations are waiting for an announcement but i don't know if that's a very strong reason</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we went straight to PR would that mean we'd need to resolve all at-risk now?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm ok with waiting. I know we have other things we'd like to move on to, but we might cause more problems if we don't wait. We could shorten the period to the minimum amount. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, we'd have to resolve all at-risk</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the call is scheduled exactly when we wanted to leave CR</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we wanted to exit september 19th</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  ok, you're right</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  it's one week here, one week there, i dont' think it makes too much of a difference</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we can knock it down by a week</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we've spent a lot of time between LC and now CR</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  what slows us down at this point is the W3C process (it's by design)</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they want to make sure everyone understands we're getting ready to put this out as a REC</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  once we come out of CR we have to modify the docs based on feedback (1-2 weeks if lucky), resolve to go to PR, another 7 day waiting period, then 1-2 weeks waiting for a meeting, then a month of voting, then we have to clean up the docs (1-2 weeks) then we can finally publish as a REC after director approves</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  that's why i'm saying knocking 1-2 weeks off won't make too much of a difference in the long term</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if we skip CR we knock off a month</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  google may be hostile to that approach</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we don't need to antagonize them</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i don't think google will submit a report anyway</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i agree but they've used that as a stick to beat us over the head</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  they are big supporters of JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so skipping CR wouldn't be a good idea</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm fairly uneasy to go straight to PR, if google wasn't upset by it i think it would be the right thing to do</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we all want to get this thing shipped because we think it's done, but other people haven't been involved and don't understand how quickly it's been moving</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Request that the RDF WG transition the JSON-LD 1.0 and JSON-LD 1.0 API specs to CR, using the shortest possible CR period (don't skip CR)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Request that the RDF WG transition the JSON-LD 1.0 and JSON-LD 1.0 API specs to CR, using the shortest possible CR period (don't skip CR)</div>
+<div class="comment"><span class="name">Manu Sporny</span>: We should specifically ask Google is they want more time for CR and extend the CR period based on feedback from them. They're the only implementers we're waiting on right now.</div>
+</body>
+</html>
