@@ -1,0 +1,222 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-08-27</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0090.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0090.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Update from Vikash on GSoC</a><li><a href="#topic-2">JSON-LD Candidate REC Transition Discussion</a><li><a href="#topic-3">Testing API Options</a><li><a href="#topic-4">Test manifest/vocabulary updates</a><li><a href="#topic-5">Testing Freeze Date</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>undefined</dd>
+<dt>Present</dt><dd>Vikash Agrawal, Manu Sporny, Markus Lanthaler, Dave Longley, Niklas Lindström, Gregg Kellogg, Paul Kuykendall</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<h1 id="topic-1" class="topic">Topic: Update from Vikash on GSoC</h1>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  This week I kept working on the LinkedIn app, can't show any of the updates now.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I've been needing some JSON documents of people's LinkedIn profiles.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  My LinkedIn profile is not very detailed, need something more detailed.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I'm not sure what things like "interest", "position", "skill" should be linked to.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Dave Longley and I had a good talk about things that I needed to change. For example, schema.org and companies and organizations.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Also talked about what the data in JSON-LD should look like.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let me know when to send you my JSON data.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  This is the last week of work on code, I need to move on to documentation and extra bonus items.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  How many weeks are left for you?</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  around 3-4 weeks.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Via my proposal, documentation is next. I think I'll finish the LinkedIn app this week, I'd like to keep working on other stuff, not necessarily documentation.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  I think I need to write the schema... it's one of my weak points.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, so the plan is to work on the schema.org JSON-LD Context.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Ok, sounds good.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  You should focus on generalizing the schema.org JSON-LD Context and generalizing the Creator tool.</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  Yes, generalizing LinkedIn app is difficult.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: just checked, schema.org doesn't have CORS enabled</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's try to build the tool to translate schema.org in Javascript so other people can hack on it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://schema.rdfs.org/">http://schema.rdfs.org/</a> is CORS enabled</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: so you might wanna use that instead</div>
+<h1 id="topic-2" class="topic">Topic: JSON-LD Candidate REC Transition Discussion</h1>
+<div class="information"><a href="http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements">http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So we need to discuss this: <a href="http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements#Documentation_of_changes">http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements#Documentation_of_changes</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: m4nu: primarily we need to make sure that all the changes i've marked as non-substantive bug fixes/editorial</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>:  you can find the complete definition of schema.org in RDFa (usable with greenturtle) at <a href="http://schema.org/docs/schema_org_rdfa.html">http://schema.org/docs/schema_org_rdfa.html</a> HTH [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Dave Longley</span>: m4nu: are ok, i need to be reminded how these things are bug fixes</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: s/vikash: you/vikash, you/</div>
+<div class="comment"><span class="name">Dave Longley</span>: m4nu: as we are reading these, if someone thinks the changes aren't just bug fixes that means CR is off</div>
+<div class="comment"><span class="name">Vikash Agrawal</span>: mlnt, I think with an AJAX call to <a href="http://schema.rdfs.org/all.json">http://schema.rdfs.org/all.json</a> things can ease out</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: yeah, but as niklas already said, it's outdated</div>
+<div class="comment"><span class="name">Dave Longley</span>:  All implementations were doing it already, we didn't say that you could do that in the spec.</div>
+<div class="comment"><span class="name">Dave Longley</span>: m4nu: [discussion of non-substantive changes]</div>
+<div class="information">(non-substantive bug fix) Update grammar to allow blank node identifiers as value of @vocab</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Almost everywhere we allow bnode IDs in the specs, we look for a colon, we weren't clear in the spec that you could use a blank node here.</div>
+<div class="information">(non-substantive bug fix) Support processing of documents with a +json media type as defined in [RFC6839]</div>
+<div class="information">JSON-LD 1.0 API Changes</div>
+<div class="information">(substantive) Support relative IRIs in @base - why is this substantive and JSON-LD 1.0 change is not substantive?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  This aligned w/ HTML, TURTLE, etc. We always intended this to behave in the general way it works elsewhere.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, so changing to (non-substantive bug fix) Support relative IRIs in @base</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes, we didn't get strong comments on this when the change was made, that's always the way it was expected to work.</div>
+<div class="information">* (substantive) Remove default value of JsonLdOption's base member</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  It was set to document base, we changed it to be nothing - substantive.</div>
+<div class="information">Support for relative URLs in @base and documents that do not have a base value</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Ok, so the last part was substantive, the first part was not really</div>
+<div class="information">Ensure determinism of the Deserialize JSON-LD to RDF algorithm by specifying the processing order</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We forgot to sort properties before sorting them, it was a bug.</div>
+<div class="information">Change the default value of the use native types flag in the Serialize RDF as JSON-LD algorithm to false</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We decided by default, we don't want to lose information. information loss was a bug.</div>
+<div class="information">all the rest are bug fixes.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Does anyone disagree with the way these are classified.</div>
+<div class="information">No disagreement.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think we're good for the transition call, anything else?</div>
+<h1 id="topic-3" class="topic">Topic: Testing API Options</h1>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0076.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0076.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The API Options are done by just adding an "option" member to each test entry, and that entry has a value that has it's own properties for each option we're testing. Or, in some cases, where it indicates that an option should be used with some specification that is yet to be created. For document loader implementation, we need to define how it must behave.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We need to talk about how to handle errors. We have one test entry as a placeholder. We could fold the error test cases into regular test cases for each algorithm.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus thinks it might be simpler to keep errors separate to make an easier to implement test runner.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think I put in the last test for all specified error conditions in Expand algorithm in addition to context algorithms last night.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There are 3 algorithms and context tthat call out specific error cases, there is a test for each of them. There are expand errors, they have tests. There are other algorithms that could be invoked during expansion.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We have complete test coverage up to that point.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The other issue which has been created is how the Context entry should be treated. This is pertinent because we had a number of context documents which were simply empty documents.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  A document with an empty object is an error condition, we didn't intend to do that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if the "context" argument provides an empty context, then it's not an error. The entries in the manifest are defined to be of type @id, they're treated as IRIs, therefore if the document were expanded, they'd be absolute IRIs, then it's clear to me that the meaning of that IRI is passed as the context, and that would open the link up and read it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  What would we do if we had to test passing a context that wasn't an IRI, but an object, etc.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Markus suggested that all of those tests can be done via the IDL test platform.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think that's the way to do it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think if we wanted to do it inline, we'd pass a literal value for context with a datatype that would allow it to be used that way.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's probably not ideal.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  wrt. the WebIDL test cases, is that possible?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't know how to hook it into the harness to see if it's possible. I think we'd create more tests so that a test runner would know if it would have to run through the API.</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://travis-ci.org/digitalbazaar/jsonld.js/jobs/10559014">https://travis-ci.org/digitalbazaar/jsonld.js/jobs/10559014</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't know if the WebIDL tests would be where we run this.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We now run automated tests against W3C JSON-LD WebIDL test suite</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: dlongley, here's how you can add other tests: <a href="http://darobin.github.io/test-harness-tutorial/docs/using-testharness.html">http://darobin.github.io/test-harness-tutorial/docs/using-testharness.html</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  The only thing that tests is to make sure we have the proper stuff in the object.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We can create our own tests using this test harness.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  This just tells you how to use their test harness to write arbitrary tests.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  What I'm saying is that all we'd do is create another manifest and you only run those tests if you run the IDL-based API.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So, we'd create some test harness to run it through an API... you can use whatever test harness you want.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  This raises another question on reporting on the IDL tests... are they testing the API design, or are they intended to be used for implementations.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would make it difficult to show two conforming implementations.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  The two conforming implementations would just be two things written in JavaScript.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We just need to ensure that we're testing API options.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We need to test to make sure they're doing the right thing wrt. the spec.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We should test what the API options do, but they probably won't use the WebIDL stuff.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We were just talking about adding something to the IDL test suite.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we might want to have one or two tests added to the IDL tests.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Where are we going to put that information.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I don't know how we're avoiding the issue of inlining context or avoiding the problem of having to put context inline.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  In that case, we would also need to support inline input documents.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could use a literal form for the value with a datatype that says it's serialized JSON.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we test it once, that's enough for the API. The algorithms just need to handle the input it receives.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Whether or not you can pass in a context definition in raw object form, it's not really important to the main manifest. Let's just tack that one test onto the end of the WebIDL stuff.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  So, we want to have a single test for passing things in inline?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We had a discussion where we had an object passed directly in.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We could add something to the IDL test that does both.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm trying to figure out what "add that test to the IDL" means.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Let's just update the page on json-ld.org.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We can do that, I guess we're not that concerned w/ others implementing the IDL interface.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  It's not that important that we need to test this.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Simplest thing is to just not test it, let's just leave the test out.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We have a minimum set of tests for the API, so we're good.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I don't think we need to do WebIDL tests.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We could have a single test that says you pass WebIDL. It'll show that we have a JavaScript implementation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's not do that, no need to do that.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Are we going to have tests that support both native as well as more standard RDF types?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, we've added a way to describe those options in the manifest, we need to create tests that use those options. We need a test for each place each option is called out in the spec.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Are they using native?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Native is off by default... doubles would be hard to test.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  ok, thanks.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Yeah, standard C# double is not safe because of rounding issues. There is an IEEE-specific type that has to be used in order to support the xsd:double.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We could consider just changing the value being tested so it's in the range being supported by standard double packages.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Testing so that it's xsd:double is fine.</div>
+<h1 id="topic-4" class="topic">Topic: Test manifest/vocabulary updates</h1>
+<div class="information"><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0084.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0084.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Since we reference a vocabulary, we should have the vocabulary defined. So there is a TURTLE vocab document and that is translated into JSON-LD and into RDFa.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/test-suite/vocab.html">http://json-ld.org/test-suite/vocab.html</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  As a result, if you go to <a href="http://json-ld.org/test-suite/vocab">http://json-ld.org/test-suite/vocab</a> you will get the HTML+RDFa definition.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There is an attempt to do some content negotiation based on the accept type.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  If someone can go and look at it and take a look, it would be nice to return the JSON-LD and Turtle versions of that.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  These do define all of the terms in the test manifest. Positive/Negative/Syntax/Eval tests. Compact, flatten, it's all in there.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there are definitions for all of the properties that are used. The properties we're using are the RDF versions. So you'll see an 'input' property... it's an alias for mf:action - test manifest for RDF used elsewhere. This can be processed truly as RDF, in which case we needed other options that are not in the standard test manifest for base, compact arrays, expand context, produce...</div>
+<div class="information">...generalized rdf, etc.</div>
+<div class="error">Error: (IRC nickname not recognized)[Tue 11:07]	&lt;m4nu&gt;	m4nu: everything looks good, anything that's missing?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  nope, it's all there.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  One thing we're not testing for is the processing mode, however we don't expect to override that. The default is JSON-LD 1.0. This is the flag that is sent in via the Test Runner that puts the processor in a strict RDF mode. Normalization would probably not be set to JSON-LD 1.0, it would be something else.</div>
+<h1 id="topic-5" class="topic">Topic: Testing Freeze Date</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  What do we want to do with the test suite freeze date?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  TURTLE froze before CR.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  RDFa froze at the very end of CR.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  We do need to come up with a time where the test suite is ready and tag it. Maybe when we do the call for implementations. We can re-tag later. We should freeze and then fix bugs. Reports would be against tagged version of URI for test manifest.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Let's freeze at CR.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The base URI for tests is JSON-LD/test-suite.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  For TURTLE it's something under the TR-space. If we want to do that, we would change the instructions so that the test location should point to a static location.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Let's just keep it at json-ld.org.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  let's just keep it there on json-ld.org</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  So we're going to freeze the test suite when the CR publication happens.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Telecon for next week is canceled.</div>
+</body>
+</html>

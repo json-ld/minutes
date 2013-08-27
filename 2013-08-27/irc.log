@@ -1,0 +1,156 @@
+[Tue 10:07]	<m4nu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0090.html
+[Tue 10:07]	<m4nu>	Topic: Update from Vikash on GSoC
+[Tue 10:08]	<m4nu>	scribe: m4nu
+[Tue 10:08]	<m4nu>	vikash: This week I kept working on the LinkedIn app, can't show any of the updates now.
+[Tue 10:08]	<m4nu>	vikash: I've been needing some JSON documents of people's LinkedIn profiles.
+[Tue 10:08]	<m4nu>	vikash: My LinkedIn profile is not very detailed, need something more detailed.
+[Tue 10:09]	<m4nu>	vikash: I'm not sure what things like "interest", "position", "skill" should be linked to.
+[Tue 10:09]	<m4nu>	vikash: Dave Longley and I had a good talk about things that I needed to change. For example, schema.org and companies and organizations.
+[Tue 10:09]	<voip-ld>	Dave Lehn (SIP/6003-00000071) has joined the conference.
+[Tue 10:10]	<m4nu>	vikash: Also talked about what the data in JSON-LD should look like.
+[Tue 10:11]	<m4nu>	manu: Let me know when to send you my JSON data.
+[Tue 10:12]	<m4nu>	vikash: This is the last week of work on code, I need to move on to documentation and extra bonus items.
+[Tue 10:12]	<m4nu>	manu: How many weeks are left for you?
+[Tue 10:12]	<m4nu>	vikash: around 3-4 weeks.
+[Tue 10:12]	<m4nu>	vikash: Via my proposal, documentation is next. I think I'll finish the LinkedIn app this week, I'd like to keep working on other stuff, not necessarily documentation.
+[Tue 10:13]	<m4nu>	vikash: I think I need to write the schema... it's one of my weak points.
+[Tue 10:13]	<m4nu>	manu: Ok, so the plan is to work on the schema.org JSON-LD Context.
+[Tue 10:14]	<m4nu>	vikash: Ok, sounds good.
+[Tue 10:16]	<m4nu>	manu: You should focus on generalizing the schema.org JSON-LD Context and generalizing the Creator tool.
+[Tue 10:16]	<m4nu>	vikash: Yes, generalizing LinkedIn app is difficult.
+[Tue 10:19]	<mlnt>	just checked, schema.org doesn't have CORS enabled
+[Tue 10:19]	<m4nu>	manu: Let's try to build the tool to translate schema.org in Javascript so other people can hack on it.
+[Tue 10:19]	<mlnt>	http://schema.rdfs.org/ is CORS enabled
+[Tue 10:20]	<mlnt>	so you might wanna use that instead
+[Tue 10:20]	<m4nu>	Topic: JSON-LD Candidate REC Transition Discussion
+[Tue 10:20]	<m4nu>	http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements
+[Tue 10:21]	<m4nu>	manu: So we need to discuss this: http://www.w3.org/2011/rdf-wg/wiki/JSON-LD-CR-Transition-Requirements#Documentation_of_changes
+[Tue 10:21]	<dlongley>	m4nu: primarily we need to make sure that all the changes i've marked as non-substantive bug fixes/editorial
+[Tue 10:22]	<mlnt>	vikash: you can find the complete definition of schema.org in RDFa (usable with greenturtle) at http://schema.org/docs/schema_org_rdfa.html HTH
+[Tue 10:22]	<dlongley>	m4nu: are ok, i need to be reminded how these things are bug fixes
+[Tue 10:22]	<mlnt>	s/vikash: you/vikash, you/
+[Tue 10:22]	<dlongley>	m4nu: as we are reading these, if someone thinks the changes aren't just bug fixes that means CR is off
+[Tue 10:22]	<vikash>	mlnt, I think with an AJAX call to http://schema.rdfs.org/all.json things can ease out
+[Tue 10:22]	<mlnt>	yeah, but as niklas already said, it's outdated
+[Tue 10:23]	<m4nu>	dlongley: All implementations were doing it already, we didn't say that you could do that in the spec.
+[Tue 10:23]	|<--	scor has left zoe-fn (Quit: scor)
+[Tue 10:24]	<dlongley>	m4nu: [discussion of non-substantive changes]
+[Tue 10:24]	<m4nu>	(non-substantive bug fix) Update grammar to allow blank node identifiers as value of @vocab
+[Tue 10:25]	<m4nu>	dlongley: Almost everywhere we allow bnode IDs in the specs, we look for a colon, we weren't clear in the spec that you could use a blank node here.
+[Tue 10:25]	<voip-ld>	<unknown> (IAX2/diamondcard-12369) has joined the conference.
+[Tue 10:25]	-->|	gkellogg (~gkellogg@cpe-76-171-145-102.socal.res.rr.com) has joined #json-ld
+[Tue 10:25]	<m4nu>	(non-substantive bug fix) Support processing of documents with a +json media type as defined in [RFC6839]
+[Tue 10:26]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.23-00000072) has joined the conference.
+[Tue 10:26]	<pkuyken>	voip-ld: 12369 is pkuyken
+[Tue 10:26]	<voip-ld>	pkuyken is now associated with IAX2/diamondcard-12369.
+[Tue 10:26]	<m4nu>	JSON-LD 1.0 API Changes
+[Tue 10:30]	<m4nu>	(substantive) Support relative IRIs in @base - why is this substantive and JSON-LD 1.0 change is not substantive?
+[Tue 10:30]	<m4nu>	niklas: This aligned w/ HTML, TURTLE, etc. We always intended this to behave in the general way it works elsewhere.
+[Tue 10:31]	<m4nu>	manu: ok, so changing to (non-substantive bug fix) Support relative IRIs in @base
+[Tue 10:31]	<m4nu>	dlongley: Yes, we didn't get strong comments on this when the change was made, that's always the way it was expected to work.
+[Tue 10:32]	<m4nu>	* (substantive) Remove default value of JsonLdOption's base member
+[Tue 10:32]	<m4nu>	markus: It was set to document base, we changed it to be nothing - substantive.
+[Tue 10:33]	<m4nu>	Support for relative URLs in @base and documents that do not have a base value
+[Tue 10:33]	<m4nu>	markus: Ok, so the last part was substantive, the first part was not really
+[Tue 10:34]	<m4nu>	Ensure determinism of the Deserialize JSON-LD to RDF algorithm by specifying the processing order
+[Tue 10:34]	<m4nu>	markus: We forgot to sort properties before sorting them, it was a bug.
+[Tue 10:35]	<m4nu>	Change the default value of the use native types flag in the Serialize RDF as JSON-LD algorithm to false
+[Tue 10:35]	<m4nu>	dlongley: We decided by default, we don't want to lose information. information loss was a bug.
+[Tue 10:37]	<m4nu>	all the rest are bug fixes.
+[Tue 10:37]	<m4nu>	manu: Does anyone disagree with the way these are classified.
+[Tue 10:37]	<m4nu>	No disagreement.
+[Tue 10:39]	<m4nu>	manu: I think we're good for the transition call, anything else?
+[Tue 10:39]	<m4nu>	Topic: Testing API Options
+[Tue 10:39]	<m4nu>	http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0076.html
+[Tue 10:40]	<m4nu>	gkellogg: The API Options are done by just adding an "option" member to each test entry, and that entry has a value that has it's own properties for each option we're testing. Or, in some cases, where it indicates that an option should be used with some specification that is yet to be created. For document loader implementation, we need to define how it must behave.
+[Tue 10:41]	<m4nu>	gkellogg: We need to talk about how to handle errors. We have one test entry as a placeholder. We could fold the error test cases into regular test cases for each algorithm.
+[Tue 10:41]	<m4nu>	gkellogg: Markus thinks it might be simpler to keep errors separate to make an easier to implement test runner.
+[Tue 10:42]	<m4nu>	gkellogg: I think I put in the last test for all specified error conditions in Expand algorithm in addition to context algorithms last night.
+[Tue 10:42]	<m4nu>	gkellogg: There are 3 algorithms and context tthat call out specific error cases, there is a test for each of them. There are expand errors, they have tests. There are other algorithms that could be invoked during expansion.
+[Tue 10:42]	<m4nu>	gkellogg: We have complete test coverage up to that point.
+[Tue 10:43]	<m4nu>	gkellogg: The other issue which has been created is how the Context entry should be treated. This is pertinent because we had a number of context documents which were simply empty documents.
+[Tue 10:43]	<m4nu>	gkellogg: A document with an empty object is an error condition, we didn't intend to do that.
+[Tue 10:44]	<m4nu>	gkellogg: if the "context" argument provides an empty context, then it's not an error. The entries in the manifest are defined to be of type @id, they're treated as IRIs, therefore if the document were expanded, they'd be absolute IRIs, then it's clear to me that the meaning of that IRI is passed as the context, and that would open the link up and read it.
+[Tue 10:44]	<m4nu>	gkellogg: What would we do if we had to test passing a context that wasn't an IRI, but an object, etc.
+[Tue 10:45]	<m4nu>	gkellogg: Markus suggested that all of those tests can be done via the IDL test platform.
+[Tue 10:45]	<m4nu>	gkellogg: I think that's the way to do it.
+[Tue 10:45]	<m4nu>	gkellogg: I think if we wanted to do it inline, we'd pass a literal value for context with a datatype that would allow it to be used that way.
+[Tue 10:45]	<m4nu>	gkellogg: that's probably not ideal.
+[Tue 10:46]	<m4nu>	Manu: wrt. the WebIDL test cases, is that possible?
+[Tue 10:46]	<m4nu>	dlongley: I don't know how to hook it into the harness to see if it's possible. I think we'd create more tests so that a test runner would know if it would have to run through the API.
+[Tue 10:46]	<dlongley>	https://travis-ci.org/digitalbazaar/jsonld.js/jobs/10559014
+[Tue 10:46]	<m4nu>	dlongley: I don't know if the WebIDL tests would be where we run this.
+[Tue 10:46]	<m4nu>	dlongley: We now run automated tests against W3C JSON-LD WebIDL test suite
+[Tue 10:46]	<mlnt>	dlongley, here's how you can add other tests: http://darobin.github.io/test-harness-tutorial/docs/using-testharness.html
+[Tue 10:47]	<m4nu>	dlongley: The only thing that tests is to make sure we have the proper stuff in the object.
+[Tue 10:47]	<m4nu>	mlnt: We can create our own tests using this test harness.
+[Tue 10:47]	<m4nu>	dlongley: This just tells you how to use their test harness to write arbitrary tests.
+[Tue 10:48]	<m4nu>	dlongley: What I'm saying is that all we'd do is create another manifest and you only run those tests if you run the IDL-based API.
+[Tue 10:48]	<m4nu>	manu: So, we'd create some test harness to run it through an API... you can use whatever test harness you want.
+[Tue 10:49]	<m4nu>	gkellogg: This raises another question on reporting on the IDL tests... are they testing the API design, or are they intended to be used for implementations.
+[Tue 10:49]	<m4nu>	gkellogg: It would make it difficult to show two conforming implementations.
+[Tue 10:49]	<m4nu>	dlongley: The two conforming implementations would just be two things written in JavaScript.
+[Tue 10:50]	<m4nu>	dlongley: We just need to ensure that we're testing API options.
+[Tue 10:50]	<m4nu>	dlongley: We need to test to make sure they're doing the right thing wrt. the spec.
+[Tue 10:51]	<m4nu>	dlongley: We should test what the API options do, but they probably won't use the WebIDL stuff.
+[Tue 10:51]	-->|	scor (scor@drupal.org/user/52142/view) has joined #json-ld
+[Tue 10:51]	<m4nu>	markus: We were just talking about adding something to the IDL test suite.
+[Tue 10:52]	<m4nu>	markus: I think we might want to have one or two tests added to the IDL tests.
+[Tue 10:52]	<m4nu>	dlongley: Where are we going to put that information.
+[Tue 10:52]	<m4nu>	dlongley: I don't know how we're avoiding the issue of inlining context or avoiding the problem of having to put context inline.
+[Tue 10:52]	<m4nu>	gkellogg: In that case, we would also need to support inline input documents.
+[Tue 10:52]	<m4nu>	gkellogg: We could use a literal form for the value with a datatype that says it's serialized JSON.
+[Tue 10:53]	<m4nu>	mlnt: If we test it once, that's enough for the API. The algorithms just need to handle the input it receives.
+[Tue 10:53]	<m4nu>	mlnt: Whether or not you can pass in a context definition in raw object form, it's not really important to the main manifest. Let's just tack that one test onto the end of the WebIDL stuff.
+[Tue 10:54]	<m4nu>	dlongley: So, we want to have a single test for passing things in inline?
+[Tue 10:54]	<m4nu>	mlnt: We had a discussion where we had an object passed directly in.
+[Tue 10:54]	<m4nu>	mlnt: We could add something to the IDL test that does both.
+[Tue 10:54]	<m4nu>	dlongley: I'm trying to figure out what "add that test to the IDL" means.
+[Tue 10:54]	<m4nu>	mlnt: Let's just update the page on json-ld.org.
+[Tue 10:55]	<m4nu>	dlongley: We can do that, I guess we're not that concerned w/ others implementing the IDL interface.
+[Tue 10:56]	<m4nu>	manu: It's not that important that we need to test this.
+[Tue 10:58]	<m4nu>	mlnt: Simplest thing is to just not test it, let's just leave the test out.
+[Tue 10:59]	<m4nu>	dlongley: We have a minimum set of tests for the API, so we're good.
+[Tue 10:59]	<m4nu>	gkellogg: I don't think we need to do WebIDL tests.
+[Tue 11:00]	<m4nu>	dlongley: We could have a single test that says you pass WebIDL. It'll show that we have a JavaScript implementation.
+[Tue 11:00]	<m4nu>	manu: Let's not do that, no need to do that.
+[Tue 11:00]	<m4nu>	pkuyken: Are we going to have tests that support both native as well as more standard RDF types?
+[Tue 11:01]	<m4nu>	gkellogg: Yes, we've added a way to describe those options in the manifest, we need to create tests that use those options. We need a test for each place each option is called out in the spec.
+[Tue 11:01]	<m4nu>	pkuyken: Are they using native?
+[Tue 11:01]	<m4nu>	dlongley: Native is off by default... doubles would be hard to test.
+[Tue 11:01]	<m4nu>	pkuyken: ok, thanks.
+[Tue 11:02]	<m4nu>	pkuyken: Yeah, standard C# double is not safe because of rounding issues. There is an IEEE-specific type that has to be used in order to support the xsd:double.
+[Tue 11:03]	<m4nu>	gkellogg: We could consider just changing the value being tested so it's in the range being supported by standard double packages.
+[Tue 11:03]	<m4nu>	pkuyken: Testing so that it's xsd:double is fine.
+[Tue 11:03]	<m4nu>	Topic: Test manifest/vocabulary updates
+[Tue 11:03]	<m4nu>	http://lists.w3.org/Archives/Public/public-linked-json/2013Aug/0084.html
+[Tue 11:04]	<m4nu>	gkellogg: Since we reference a vocabulary, we should have the vocabulary defined. So there is a TURTLE vocab document and that is translated into JSON-LD and into RDFa.
+[Tue 11:04]	<gkellogg>	http://json-ld.org/test-suite/vocab.html
+[Tue 11:04]	<m4nu>	gkellogg: As a result, if you go to http://json-ld.org/test-suite/vocab you will get the HTML+RDFa definition.
+[Tue 11:04]	<m4nu>	gkellogg: There is an attempt to do some content negotiation based on the accept type.
+[Tue 11:05]	<m4nu>	gkellogg: If someone can go and look at it and take a look, it would be nice to return the JSON-LD and Turtle versions of that.
+[Tue 11:05]	<m4nu>	gkellogg: These do define all of the terms in the test manifest. Positive/Negative/Syntax/Eval tests. Compact, flatten, it's all in there.
+[Tue 11:06]	<m4nu>	gkellogg: there are definitions for all of the properties that are used. The properties we're using are the RDF versions. So you'll see an 'input' property... it's an alias for mf:action - test manifest for RDF used elsewhere. This can be processed truly as RDF, in which case we needed other options that are not in the standard test manifest for base, compact arrays, expand context, produce...
+[Tue 11:06]	<m4nu>	...generalized rdf, etc.
+[Tue 11:07]	<m4nu>	m4nu: everything looks good, anything that's missing?
+[Tue 11:07]	<m4nu>	gkellogg: nope, it's all there.
+[Tue 11:07]	<m4nu>	gkellogg: One thing we're not testing for is the processing mode, however we don't expect to override that. The default is JSON-LD 1.0. This is the flag that is sent in via the Test Runner that puts the processor in a strict RDF mode. Normalization would probably not be set to JSON-LD 1.0, it would be something else.
+[Tue 11:08]	<m4nu>	Topic: Testing Freeze Date
+[Tue 11:08]	<m4nu>	manu: What do we want to do with the test suite freeze date?
+[Tue 11:09]	<m4nu>	gkellogg: TURTLE froze before CR.
+[Tue 11:09]	<m4nu>	gkellogg: RDFa froze at the very end of CR.
+[Tue 11:09]	<m4nu>	gkellogg: We do need to come up with a time where the test suite is ready and tag it. Maybe when we do the call for implementations. We can re-tag later. We should freeze and then fix bugs. Reports would be against tagged version of URI for test manifest.
+[Tue 11:11]	<m4nu>	manu: Let's freeze at CR.
+[Tue 11:12]	<m4nu>	gkellogg: The base URI for tests is JSON-LD/test-suite.
+[Tue 11:13]	<m4nu>	gkellogg: For TURTLE it's something under the TR-space. If we want to do that, we would change the instructions so that the test location should point to a static location.
+[Tue 11:13]	<m4nu>	gkellogg: Let's just keep it at json-ld.org.
+[Tue 11:13]	<m4nu>	dlongley: let's just keep it there on json-ld.org
+[Tue 11:15]	<m4nu>	manu: So we're going to freeze the test suite when the CR publication happens.
+[Tue 11:16]	<m4nu>	manu: Telecon for next week is canceled.
+[Tue 11:17]	<voip-ld>	pkuyken (IAX2/diamondcard-12369) has left the conference.
+[Tue 11:18]	<voip-ld>	Manu Sporny (SIP/6000-0000006c) has left the conference.
+[Tue 11:18]	<voip-ld>	Dave Longley (SIP/6002-0000006d) has left the conference.
+[Tue 11:18]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-00000070) has left the conference.
+[Tue 11:18]	<voip-ld>	Dave Lehn (SIP/6003-00000071) has left the conference.
+[Tue 11:18]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-0000006e) has left the conference.
+[Tue 11:18]	<voip-ld>	Gregg Kellogg (SIP/10.0.1.23-00000072) has left the conference.
