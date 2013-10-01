@@ -71,7 +71,7 @@
       },
       "Paul Kuykendall":
       {
-         "alias": "pkuyken",
+         "alias": ["pkuyken", "kyukepau"],
          "homepage": "https://twitter.com/pkuyken"
       },
       "Markus Lanthaler":
@@ -118,7 +118,7 @@
       },
       "Manu Sporny":
       {
-         "alias": ["manu-db", "manu1", "manu`"],
+         "alias": ["manu-db", "manu1", "manu`", "m4nu"],
          "homepage": "http://manu.sporny.org/about"
       },
       "Richard Cyganiak":

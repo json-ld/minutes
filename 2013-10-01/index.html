@@ -1,0 +1,227 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-10-01</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Sep/0093.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Sep/0093.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Candidate Recommendation Feedback</a><li><a href="#topic-2">Spec Bug with useRdfType flag</a><li><a href="#topic-3">OData Alignment</a><li><a href="#topic-4">Updating the Implementation Report</a><li><a href="#topic-5">W3C Hosted Version of Test Suite</a><li><a href="#topic-6">Plan for Proposed Recommendation</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">JSON-LD 1.0 and the API will remain in Candidate Rec for an additional week to fix a bug in the spec related to the useRdfType flag and add an additional test. After the spec text has been fixed, and a test created, implementers will be required to file new implementation reports. Once they have done so, the specs will exit CR.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Manu to write up instructions on running the Candidate Recommendation Test Suite.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Markus Lanthaler, Manu Sporny, Gregg Kellogg, Niklas Lindström, Paul Kuykendall, Dave Longley, David I. Lehn, Stian Soiland-Reyes</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Markus Lanthaler is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Agenda is there, anything else that we should add? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, Niklas raised an issue for fromRDF got lost during a re-write [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="https://github.com/json-ld/json-ld.org/issues/91#issuecomment-25046309">https://github.com/json-ld/json-ld.org/issues/91#issuecomment-25046309</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  There were no tests for it since we weren't testing that option. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  We need to also talk about OData alignment. [scribe assist by Manu Sporny]</div>
+<h1 id="topic-1" class="topic">Topic: Candidate Recommendation Feedback</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we had two basic items - useRdfType bug and OData Alignment</div>
+<div class="comment-continuation">... anyone know of any other CR feedback we got?</div>
+<div class="information">No other CR feedback from implementers.</div>
+<h1 id="topic-2" class="topic">Topic: Spec Bug with useRdfType flag</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: Let's take Niklas' issue first, which is here - <a href="https://github.com/json-ld/json-ld.org/issues/91#issuecomment-25046309">https://github.com/json-ld/json-ld.org/issues/91#issuecomment-25046309</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  we used to have an option in the serialize RDF to JSON-LD algorithm to not use @type but rdf:type</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it was called useRdfType</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I mainly need that to ensure that the value is always an array (I can't control that for @type)</div>
+<div class="comment-continuation">... to keep the shape of the data deterministic</div>
+<div class="comment-continuation">... another use case might be to have the type as an object itself</div>
+<div class="comment-continuation">... but that's more a speculative demand</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  looking at the commits it definitely looks like an unintended bug</div>
+<div class="comment-continuation">... if that's the case, we should be able to fix this without going through another LC/CR</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the other thing is the question markus raised.. if we introduce this: do we look for @type or rdf:type</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think the question is interesting in it's own right</div>
+<div class="comment-continuation">... the data may be produced in different ways so we always have to deal with this</div>
+<div class="comment-continuation">... and there's currently no way to turn rdf:type to @type or vice versa AFAIK</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we put this back in, it would make sense to write tests for it</div>
+<div class="comment-continuation">... not sure what the consequences are</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, that's a grey area.. people could argue we introduce a new feature that wasn't there (tested) before</div>
+<div class="comment-continuation">... meaning we would need to go through another LC</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we never really discussed @type or rdf:type before. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I implemented it, I thought the text went in that resolved that. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Did we have spec text to deal w/ this issue? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/commit/956c76f99e6bd60a0742b5b29c6061a838bbb3ba#L0L3410">https://github.com/json-ld/json-ld.org/commit/956c76f99e6bd60a0742b5b29c6061a838bbb3ba#L0L3410</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  How does the consumer of the data know whether to look for @type or rdf:type? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: [[ 3.6) If property is rdf:type and the useRdfType option is not present or false:</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: 3.6.1) Append the string representation of object to the array value for the key @type, creating an entry in value if necessary. ]]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  another option could be to move this out to a separate (CG) spec</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I think I agree</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: The latest reference to useRdfType I could find in the spec itself was <a href="http://json-ld.org/spec/ED/json-ld-api/20121225/">http://json-ld.org/spec/ED/json-ld-api/20121225/</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Paul, here's the link to the commit in which I removed it accidently: <a href="https://github.com/json-ld/json-ld.org/commit/956c76f99e6bd60a0742b5b29c6061a838bbb3ba#L0L3410">https://github.com/json-ld/json-ld.org/commit/956c76f99e6bd60a0742b5b29c6061a838bbb3ba#L0L3410</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  perhaps we do this in a next version or in a separate spec</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  that would be an issue for me</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I was suggesting to have something like a supplementary note or CG document not really wait for a 1.1 spec</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Having it in the current algorithm would make it clear that RDF-to-JSON-LD may contain rdf:type and/or @type</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we could just as well have options in expand/compact to keep @type as array</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  right.. and in principle I would prefer that</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  The question I asked myself is - do we need to specify all of this? Every implementation can do what it wants. Do we want to require every implementation to do that? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  If we do that, we have to update the test suite. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Even if that option is not in the standard, all implementations can support it anyway. The API doesn't even have toRDF and fromRDF methods anymore. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Having the option lets people know that there is variability there. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree, but I don't find it important enough to have to go through another LC. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are multiple options</div>
+<div class="comment-continuation">... a) re-introduce useRdfType and nothing else</div>
+<div class="comment-continuation">... b) also add tests, that would probably mean another LC</div>
+<div class="comment-continuation">... c) put it in a different spec/note because we don't have an API for it anyway at the moment</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  the problem with that is that I expect to encounter this issue in a Java implementation or something.. so it affects the algorithms but not necessarily the API</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the fourth option is d) re-introduce a variation of useRdfType which would allow us to go through another LC</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  my suggestion is to update the spec to include useRdfType but do not add tests</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we should probably discuss this with W3C staff</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we are ready to leave CR</div>
+<div class="comment-continuation">... we'll try to fix this bug if it doesn't mean another LC</div>
+<div class="comment-continuation">... otherwise we'll fix it in the next version</div>
+<div class="comment-continuation">... would that be ok Niklas?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  yes</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so is the consensus to re-introduce useRdfType and nothing else (no tests)?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think we should talk about the long term goal of the test suite</div>
+<div class="comment-continuation">... we should have a way to update it as we did with RDFa</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think so.. we should be able to react to bugs etc.</div>
+<div class="comment-continuation">... we have a frozen test suite for going through CR</div>
+<div class="comment-continuation">... but in a couple of months we should be able to add tests without going through the whole process again</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I have a few concerns with that approach</div>
+<div class="comment-continuation">... it's a bit of handwaving</div>
+<div class="comment-continuation">... we have a lot of options and not all of them are tested properly</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if that's the reaction, we rip the option out again</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We have control over most of the implementations in the implementation report, can't we simply add the test and run the reports again? [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  We do say that the group will decide when the test suite is of good quality. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  1st of October is the earliest date, doesn't mean we have to exit today. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  excellent point</div>
+<div class="comment-continuation">... I think that gives us a way out</div>
+<div class="comment-continuation">... we fix the bug in the spec, add a test, wait for implementations</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I like that</div>
+<div class="proposal"><strong>PROPOSAL:</strong> JSON-LD 1.0 and the API will remain in Candidate Rec for an additional week to fix a bug in the spec related to the useRdfType flag and add an additional test. After the spec text has been fixed, and a test created, implementers will be required to file new implementation reports. Once they have done so, the specs will exit CR.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> JSON-LD 1.0 and the API will remain in Candidate Rec for an additional week to fix a bug in the spec related to the useRdfType flag and add an additional test. After the spec text has been fixed, and a test created, implementers will be required to file new implementation reports. Once they have done so, the specs will exit CR.</div>
+<h1 id="topic-3" class="topic">Topic: OData Alignment</h1>
+<div class="comment"><span class="name">Manu Sporny</span>: Feedback from Michael Pizzo at Microsoft on OData alignment - <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Sep/0079.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Sep/0079.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>: so, change stuff like - "@type" to "@jsonld.type" and "@context" to "@jsonld.context"</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the OData community is asking us to change all keywords to use a "@jsonld." prefix.</div>
+<div class="comment-continuation">... we can do that already because we can alias keywords</div>
+<div class="comment-continuation">... it seems part of it is not understanding that JSON-LD is lower-level than OData and part is not understanding keyword aliasing in JSON-LD (or the JSON-LD Context in general)</div>
+<div class="comment-continuation">... prefixing everything with a prefix containing a dot makes it difficult to work with in JavaScript. Additionally, the prefix could be ignored entirely by developers that alias it to something else.</div>
+<div class="comment-continuation">... the other thing is that OData could be implemented on top of JSON-LD since it's more of a schema and less of a markup language.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  just wanted to say that putting a dot in a key is incompatible with MongoDB</div>
+<div class="comment-continuation">... and as Manu said, every key except @context can be aliased</div>
+<div class="comment-continuation">... that being said, I'm sympathetic to having some kind of namespacing mechanism.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  another way to look at is is to say that "@jsonld." is the default namespace so we don't need to change anything</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I have trouble understanding what problem we're trying to address here. Why do we need a standard namespacing scheme for metadata languages?</div>
+<div class="comment-continuation">... why would someone like to layer meta-languages beside each other? Seems like a complex solution to a problem that we haven't encountered in the 4 years that we've been developing this spec. Even if someone had this problem, they are probably overengineering the solution to it.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's the same question as Microdata and RDFa in HTML</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I agree. Seems like they are trying to convert JSON to XML but we've seen that that doesn't solve any problem</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  Our company  tried to go down the OData route early on</div>
+<div class="comment-continuation">... some of their features (vocabs etc.) do allow to be aligned with RDF</div>
+<div class="comment-continuation">... so that may be the motivation behind it</div>
+<div class="comment"><span class="name">Dave Longley</span>:  you can already do what they want to do... you have a context in JSON-LD defining everything. Then you just use the OData JSON-LD Context. </div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  exactly, that's the reason why we did chose JSON-LD - flexibility to do what Michael is asking for.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  nothing stops Microsoft layering OData on top of JSON-LD</div>
+<div class="comment-continuation">... they can simply use the @odata. prefix</div>
+<div class="comment-continuation">... it's not clear what changing all properties to use a @jsonld. prefix would buy us other than a standard mechanism for metadata languages to namespace metadata language-specific keywords. None of the people using JSON-LD seem to have this problem right now. </div>
+<div class="comment-continuation">... on the other hand, making this change would break existing JSON-LD content out there, it would cause us to go through another Last Call and CR, delaying the process by months. It would also make the markup problematic when using it with document-based databases like MongoDB. So, there are a number of downsides with no clear upside.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I think the group is right.. it is a solution to a non-problem</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  let's try to get Microsoft on a call to talk about it, maybe there is something deeper here that we're missing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  this is not unlike the activity streams group which doesn't want to use JSON-LD's media type and also doesn't want to include a @context property</div>
+<div class="comment"><span class="name">Dave Longley</span>:  looks like they want to avoid conflicts between keywords and other properties.. that's exactly what the context is for in JSON-LD.</div>
+<h1 id="topic-4" class="topic">Topic: Updating the Implementation Report</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  we need to wait for the updated implementation report, we need to add the useRdfType test.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we are also waiting on an updated report from the Java implementation</div>
+<div class="comment-continuation">... we'll probably get one by next week</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/test-suite/reports/">http://json-ld.org/test-suite/reports/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the current implementation report lists 7 implementations</div>
+<div class="comment-continuation">... 6 pass 100% of the tests</div>
+<div class="comment"><span class="name">Stian Soiland-Reyes</span>: (just slightly related) I have just updated the jsonld-java bindings for Jena btw</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Great, thanks stain, that's very helpful to know</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I might use this additional week to submit a report of my implementation as well</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  It would be great if we would have an implementation in C</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we have an old C++ implementation if someone wants to update it</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  unfortunately I can't submit a report for our C# implementation</div>
+<h1 id="topic-5" class="topic">Topic: W3C Hosted Version of Test Suite</h1>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  there's still the question if we want to run the final test suite from w3.org instead of json-ld.org</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Discussion related to static location of JSON-LD test suite.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. just recalled this Java-based implementation of JSON-LD: <a href="http://semarglproject.org/">http://semarglproject.org/</a> Not sure about its status, but the RDFa 1.1 support is solid. Might want to ping Lev Khomich about a report.</div>
+<div class="information">Discussion about how to freeze a working version of the JSON-LD test suite.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Niklas, <a href="http://semarglproject.org/conformance.html:">http://semarglproject.org/conformance.html:</a> Works in JSON-LD-RDF Converter mode. At this moment only supports conversion to RDF.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: We could update documentation here: <a href="http://www.w3.org/2013/json-ld-tests/">http://www.w3.org/2013/json-ld-tests/</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  or we update <a href="http://json-ld.org/test-suite/reports/">http://json-ld.org/test-suite/reports/</a> to include the instructions and mirror that</div>
+<div id="action-1" class="action">ACTION: Manu to write up instructions on running the Candidate Recommendation Test Suite.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: actually, not /reports, just /test-suite, which could include /reports/</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  Gregg, I meant /reports because it doesn't link to anything else on json-ld.org</div>
+<h1 id="topic-6" class="topic">Topic: Plan for Proposed Recommendation</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I think our plan is to delay exiting CR by at least a week to re-introduce useRdfType. Then, we'll get all of the implementation reports together. Then we'll move to have the RDF WG move the work to Proposed Rec. We don't have many changes to the spec, so that should be fast. Then there is the mandatory 7 day waiting period, then meeting with W3C Management to approve the publication as a Proposed Rec. When W3C publishes the Proposed Recommendation, we'll have to wait 4 weeks for the votes to trickle in. After the votes are in, we'll have a W3C Recommendation... we already have the minimum votes to make it, I believe. So, we should have a W3C Recommendation within 6-8 weeks from now.</div>
+</body>
+</html>
