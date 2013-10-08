@@ -1,0 +1,201 @@
+[Tue 10:04]	<m4nu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0026.html
+[Tue 10:04]	<gkellogg>	scribe: gkellogg
+[Tue 10:05]	<gkellogg>	niklas: I'd like to mention the status of JSON-LD in RDFLib in the implementation report.
+[Tue 10:06]	<gkellogg>	… I have toRdf covered except for 8 tests.
+[Tue 10:06]	<m4nu>	voip: connections?
+[Tue 10:06]	<voip-ld>	Conference connections: Markus Lanthaler [SIP/sip.linphone.org-000000cd], Dave Longley [SIP/6002-000000cc], Niklas Lindström [SIP/sip2sip.info-000000ca], Gregg Kellogg [SIP/71.202.225.162:51316-000000cb], Manu Sporny [SIP/6000-000000c9], <unknown> (Mike) [IAX2/diamondcard-9713]
+[Tue 10:06]	<m4nu>	Topic: OData / JSON-LD Alignment
+[Tue 10:07]	<gkellogg>	manu: It's unfortunate that the two groups didn't get together sooner to collaborate, but we're here now, so let's see what we can do to align.
+[Tue 10:07]	<gkellogg>	Mike: I agree that it's unfortunate that the two groups didn't get together sooner, because we could have done a lot to align the formats.
+[Tue 10:07]	<gkellogg>	… By opening up the conversation we may be able to align more closely in the future.
+[Tue 10:07]	<gkellogg>	… This came about when I was in a schema.org and we were discussing how to represent such data in JSON-LD or OData.
+[Tue 10:08]	<gkellogg>	… We're trying to do the same thing in either format. Forgetting about the keywords, and look at say a schema:Movie, it would look pretty much the same in either format.
+[Tue 10:08]	<gkellogg>	… What would be different is how we would add type or other context information to the payload.
+[Tue 10:08]	<gkellogg>	… We're trying to add info to the payload, but we're doing it differently.
+[Tue 10:09]	<gkellogg>	… We both add type, context and aliasing information.
+[Tue 10:09]	<gkellogg>	… It would be great if JSON-LD and OData could understand the same keyword. If there were a common way to add keywords, we could over time understand the meaning of those keywords.
+[Tue 10:10]	<gkellogg>	… It would be nice if we could distinguish between different meanings for overlapping keywords.
+[Tue 10:11]	<m4nu>	q+ to agree on the commonalities between JSON-LD and OData.
+[Tue 10:11]	<voip-ld>	Added m4nu to the speaker queue: m4nu
+[Tue 10:11]	<gkellogg>	… That was the genesis of the email by examining both forms and trying to see how we can manage them together by trying to look for keyword constructs and wouldn't confuse each other.
+[Tue 10:11]	<voip-ld>	Dave Lehn (SIP/6003-000000ce) has joined the conference.
+[Tue 10:11]	<gkellogg>	manu: most of what you've said would have broad agreement with this group.
+[Tue 10:12]	<gkellogg>	… I think the question we explored during the last call is if we don't do anything now, is there something we could do in the future, and I think there is.
+[Tue 10:12]	<gkellogg>	… There's also some questions on the details of how you would do this.
+[Tue 10:13]	<gkellogg>	… We understand that OData uses application/json, which could allow for conflicts with other keywords (e.g., "type" could conflict with other uses in application/json)
+[Tue 10:13]	|<--	jmvanel has left zoe-fn (Ping timeout: 248 seconds)
+[Tue 10:13]	<gkellogg>	… One of the things JSON-LD did was use a different mime-type, so that the meaning of keywords (e.g., @id, @type) is well-understood.
+[Tue 10:14]	<gkellogg>	… The question was, should there be some higher-level mime type to say that a doc could contain both JSON-LD and OData, or could there be a profile of OData for JSON-LD, so that you could use application/ld+json with an OData context so that both OData and JSON-LD keywords would have unambigious meaning.
+[Tue 10:15]	<gkellogg>	… At this point, we have both specs in their final steps, and a lot of deployed data in JSON-LD, so that changing keywords in JSON-LD now would be problematic, but we think we could do something in a 1.1 or 2.0 release.
+[Tue 10:15]	<gkellogg>	… Did the OData group discuss mime/type or the use of a JSON-LD context.
+[Tue 10:16]	<gkellogg>	Mike: We added format parameters added to application/json to specify the keywords that might be added. The default is to add a minimal number of keywords to the payload, or you can add all or no keywords.
+[Tue 10:17]	<gkellogg>	… The OData spec at OASIS is really version 4; we had 3 previous versions developed in an open process outside of a standards community.
+[Tue 10:17]	<gkellogg>	... In versions 1 and 2, we did something quite similar to JSON-LD. We had "metadata" with keywords prefaced by __. You can think of metadata like a JSON-LD context.
+[Tue 10:18]	<m4nu>	ack m4nu
+[Tue 10:18]	<voip-ld>	m4nu has the floor (to agree on the commonalities between JSON-LD and OData.). The speaker queue is empty.
+[Tue 10:18]	<gkellogg>	…We got feedback that there was too much stuff that didn't look like JSON. It was a JSON encoding, but didn't look like what people thought JSON should look like
+[Tue 10:19]	<gkellogg>	… With version 3 and into the current version 4, we've tried to look as much as possible like normal JSON with minimal keywords, similar to what you've done with @context in the header that can represent out-of-band information about the representation of the payload.
+[Tue 10:20]	<gkellogg>	… Part of doing this was to just follow the rules of JSON and stick with application/json; this poses the threat of overlap. Originally we though about using "." in the names to distinguish between them.
+[Tue 10:20]	<gkellogg>	… We used "." as it wasn't implemented in a normal Serializer/deserializer
+[Tue 10:21]	<gkellogg>	… We got feedback that eve though "." was a pain, there are other systems that also use ".", so we did end up adopting the "@" prefix in OData's JSON format. Someone could use "@odata.type" and it could overlap, but that seemed like a remote possibility.
+[Tue 10:21]	<gkellogg>	… Your options for moving forward seem interesting; I like the idea that we could add OData information to a JSON-LD payload.
+[Tue 10:22]	<gkellogg>	… We could also use a more pure-JSON convention. The fact that you're using unqualified keywords in your MIME type, doesn't prevent different keywords using a prefix from being used in a straight JSON format.
+[Tue 10:22]	-->|	jmvanel (~jmvanel@78.193.21.40) has joined #json-ld
+[Tue 10:22]	<gkellogg>	manu: if I understand you, OData currently uses the "@" symbol, or you're thinking about that?
+[Tue 10:23]	<gkellogg>	Mike: I just pushed through a change which delayed the standard, but this adds the @ prefix. In the future, if we want to allow a convention for adding things to application/json, this might help.
+[Tue 10:23]	<gkellogg>	manu: this is something we seem to have agreement on.
+[Tue 10:24]	<gkellogg>	… it feels like the JSON community might push back on having "@" prefix mean something special, but then we'd just need to move to a different mime type.
+[Tue 10:25]	<gkellogg>	… We're both in very similar circumstances, and the JSON-LD group will continue to operate for the foreseeable future.
+[Tue 10:25]	<gkellogg>	… We should push our respective specs out and look at alignment in the next iteration. Perhaps it's @odata. or a registry with both OData and JSON-LD keywords.
+[Tue 10:26]	<niklasl>	q+
+[Tue 10:26]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:26]	|<--	jmvanel has left zoe-fn (Read error: Operation timed out)
+[Tue 10:26]	<dlongley>	gkellogg: how would a registry work? something that tries to prevent conflicts with overlapping specifications?
+[Tue 10:27]	<gkellogg>	… The idea is that if OData and JSON-LD deviated completely, the next thing we could do would be to create a common mime type extending application/json to use a set of keywords, and specify in some registry that there are some keywords that can be used for metadata expression and include both OData and JSON-LD keywords
+[Tue 10:28]	<gkellogg>	… The third option is that JSON-LD could create an OData JSON-LD context that would specify all the OData keywords so that JSON-LD could be compatible with all OData documents.
+[Tue 10:28]	<m4nu>	ack niklasl
+[Tue 10:28]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:29]	<gkellogg>	niklas: I find it a bit disconcerting that we're talking about registries, as the mime-type solution is already specified for doing things like this.
+[Tue 10:29]	<mlnt>	+1 what niklas just said
+[Tue 10:30]	<gkellogg>	… I'd like when we continue with this to consider the actual use case and what a data-consumer needs to do to deal with this. JSON-LD is trying to reduce the number of keywords, and most importantly, be based on RDF to reduce the representation complexity.
+[Tue 10:30]	<gkellogg>	… This makes the problem "done" from my perspective, but that the core purpose of JSON-LD is to encode the RDF, which has very well understood semantic meaning.
+[Tue 10:30]	<gkellogg>	+1 to niklas
+[Tue 10:31]	<gkellogg>	Mike: In response to Niklas, I agree that we look at specific scenarios and solve real problems.
+[Tue 10:31]	<gkellogg>	… That's why I prefaced my discussion with my use cases using schema.org.
+[Tue 10:32]	<gkellogg>	… The problem with using a mime type is that it makes interoperability more difficult.
+[Tue 10:32]	<dlongley>	q+
+[Tue 10:32]	<voip-ld>	Added dlongley to the speaker queue: dlongley
+[Tue 10:32]	<gkellogg>	… I don't know if it's a registry, or namespacing, but we need to do something.
+[Tue 10:33]	-->|	pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:33]	<gkellogg>	… I don't think the idea is that far-fetched, and there are advantages of being able to specify both keywords, and having a common way where there's overlap.
+[Tue 10:33]	<m4nu>	ack dlongley
+[Tue 10:33]	<voip-ld>	dlongley has the floor. The speaker queue is empty.
+[Tue 10:34]	<gkellogg>	dlongley: Before we go too far in other directions, we should try solution #3 and see if we can do this with an OData contaxt in JSON-LD.
+[Tue 10:34]	<voip-ld>	<unknown> (IAX2/diamondcard-12285) has joined the conference.
+[Tue 10:34]	<niklasl>	+1 to dlongley (JSON-LD should be able to support the use cases of OData in and of itself)
+[Tue 10:34]	<pkuyken>	voip-ld: 12285 is pkuyken
+[Tue 10:34]	<voip-ld>	pkuyken is now associated with IAX2/diamondcard-12285.
+[Tue 10:34]	<gkellogg>	manu: I think this would be the simplest way to get alignment. If we can do this, then problem is solved.
+[Tue 10:35]	<gkellogg>	… The remaining problem is you need to use application/ld+json, or the HTTP header.
+[Tue 10:35]	<gkellogg>	mike: I'd love to do that; some document that said how to represent both JSON-LD and OData keywords would be hugely valuable.
+[Tue 10:36]	<gkellogg>	q+
+[Tue 10:36]	<voip-ld>	Added gkellogg to the speaker queue: gkellogg
+[Tue 10:36]	<gkellogg>	… I'd love to work on some examples of how to do this.
+[Tue 10:36]	<gkellogg>	manu: just keep doing what you're doing, bring it up on a call, IRC or on the mailing list, and you'll get a lot of help.
+[Tue 10:37]	<m4nu>	ack gkellogg
+[Tue 10:37]	<voip-ld>	gkellogg has the floor. The speaker queue is empty.
+[Tue 10:37]	<m4nu>	gkellogg: I wanted to echo something Niklas said in his comments, about RDF being the underlying model here... the real value here. With respect to schema.org, it's an RDF vocabulary, it's just an exercise to how to lay that out in JSON-LD.
+[Tue 10:38]	<m4nu>	gkellogg: Was there a consideration in OData to align with RDF? Could we use that as a rubric in how we resolve these things. Data model vs. syntactic model/overlay.
+[Tue 10:38]	<gkellogg>	mike: Certainly OData has been looking at RDF for a while and trying to understand the difference of what RDF/SPARQL provide and what OData provides. I view the two as being very complementary.
+[Tue 10:39]	<gkellogg>	… RDF is very general, and OData is a bit more structured/constrained. When you have an Entity model, it makes it easy to expose and consume such data.
+[Tue 10:39]	<gkellogg>	… Im speaking at ISWC in Sydney later this month on how to do this in a triple-store.
+[Tue 10:41]	<gkellogg>	… I think it's interesting for having an RDF format for OData, we have both Atom and JSON formats; being able to describe this using say Turtle, it would work very naturally. Then the RDF would be a way of representing the OData information.
+[Tue 10:41]	<gkellogg>	… I talked with TimBL and some others last year, and there was quite a bit of interest in getting triples out of OData.
+[Tue 10:41]	<gkellogg>	… When the data starts out as triples, there's a natural way to expose it as an OData service.
+[Tue 10:42]	<gkellogg>	… It's also interesting when something has some structured data to be able to expose that as OData, but make it available to the RDF community.
+[Tue 10:42]	-->|	jmvanel (~jmvanel@78.193.21.40) has joined #json-ld
+[Tue 10:42]	<gkellogg>	… We might already be there with where JSON-LD is.
+[Tue 10:43]	<gkellogg>	manu: In general, we're just talking about a way of exposing data and any format could potentially be sucked in to an RDF triple store. We're now getting out linked data formats that can be expressed in this way.
+[Tue 10:44]	<gkellogg>	… The problem is that it's not clear which of the formats will work well in the future, but we need to be sure that whichever one does well has a way of being mapped to a universal data format, such as RDF.
+[Tue 10:44]	<gkellogg>	… I view JSON-LD as being an object format which translates to RDF very well, but there's not necessarily a need to translate it to RDF.
+[Tue 10:45]	<gkellogg>	gkellogg: it would be useful to highlight different use cases for OData and JSON-LD.
+[Tue 10:45]	<m4nu>	gkellogg: It would be useful to highlight where OData is better for some use cases and places where JSON-LD is better for other use cases.
+[Tue 10:46]	<gkellogg>	mike: OData is more than just a format, it describes formats for URLs, semantics for updates, and additional headers. There's more to it than just formats, in a sense, it allows pluggable modules.
+[Tue 10:46]	<gkellogg>	niklas: that sounds like an important path to explore.
+[Tue 10:47]	<gkellogg>	… From an RDF perspective, I don't think of it too much as Triples, but the formation of expressions; RDF represents graph of relationships between things, and the triple store is just one of many ways to represent this, but so is MongoDB, for example.
+[Tue 10:47]	<niklasl>	.. http://www.w3.org/TR/ldp/
+[Tue 10:47]	<gkellogg>	… RDF is also format independent, note the Linked Data working group, and there are existing REST mechanisms for RDF, including Atom.
+[Tue 10:48]	<gkellogg>	… That's a good direction, as it then becomes about the vocabularies that are used. That's where the real value of interoperability comes from.
+[Tue 10:49]	<gkellogg>	manu: there's a lot to discuss here, and it will take multiple weeks on the further work we want to collaborate on. In the mean time, we're at the end of the CR phase, and I don't think there's much we can do in the next three months to go into the REC.
+[Tue 10:49]	<gkellogg>	… I think we have what we need for basic alignment; we can build on "@" as a way of identifying a keyword, and we can talk about mime types over time.
+[Tue 10:50]	<gkellogg>	… We need a document that outlines when you might use one or the other.
+[Tue 10:50]	<gkellogg>	… Mike, do you have some specific areas you think we should focus on in the short-term?
+[Tue 10:51]	<gkellogg>	Mike: I realize we're both trying to get things out, but I'd love to come up with a proof-of-concept that shows a JSON-LD document using OData keywords that can be interpreted by either system.
+[Tue 10:51]	<gkellogg>	… I'm hopeful that that could be fairly quick, and get some pointers to how this could be easier in a JSON-LD 1.1, for example.
+[Tue 10:52]	<gkellogg>	… If there's a way in JSON-LD to register a pattern or prefix that could be used for namespacing.
+[Tue 10:53]	<gkellogg>	manu: if you could markup Person, Place and Event in OData, a number of us could create a JSON-LD context to show how this might work.
+[Tue 10:53]	<pkuyken>	q+
+[Tue 10:53]	<voip-ld>	Added pkuyken to the speaker queue: pkuyken
+[Tue 10:53]	<m4nu>	ack pkuyken
+[Tue 10:53]	<voip-ld>	pkuyken has the floor. The speaker queue is empty.
+[Tue 10:54]	<gkellogg>	pkuyken: Interesting that JSON-LD isn't used much as an RDF format, we are doing this and find it very useful with JSON-LD; we previously tried to work with OData, but ran into problems. I think there's a lot of interest in the industry for using JSON-LD as a serialization format.
+[Tue 10:54]	<gkellogg>	… If we could bridge the gap, it would be a fantastic win.
+[Tue 10:55]	<gkellogg>	Mike: i'd love to work with people that have a foot in both camp. In particular, to see what you couldn't represent.
+[Tue 10:55]	<gkellogg>	pkuyken: this was back at version 2-3.
+[Tue 10:55]	<gkellogg>	mike: email me at mikep@microsoft.com
+[Tue 10:56]	<gkellogg>	manu: I think we have a concrete direction to move forward on based on working off of specific schema.org examples.
+[Tue 10:56]	<gkellogg>	mike: I wanted to thank the group for discussing this.
+[Tue 10:57]	<gkellogg>	manu: likewise, I hope we can continue this type of collaboration.
+[Tue 10:57]	<m4nu>	Topic: Implementation Report
+[Tue 10:57]	<m4nu>	http://json-ld.org/test-suite/reports/
+[Tue 10:57]	<gkellogg>	manu: there was a bug found in the spec for which a test case was added.
+[Tue 10:58]	<gkellogg>	… I understand that we have 3 implementations, dlongley's markus' and gregg's
+[Tue 10:58]	<gkellogg>	pkuyken: I've got permission to submit a report, but I'm working on issues.
+[Tue 10:59]	<gkellogg>	… We could use a week to resolve the next 10 bugs.
+[Tue 10:59]	<gkellogg>	manu: we can hold off until you're ready with a report, but we're waiting on you guys.
+[Tue 11:00]	<gkellogg>	niklas: I suspect it would be valuable to have a report for RDFLib, although the processor is limited to fromRdf and toRdf. There is some support for compact/expand.
+[Tue 11:01]	<gkellogg>	… Compaction is not really something that is important, so it always flattens.
+[Tue 11:02]	<gkellogg>	… It does also expand and flatten. I could probably do some coverage on expand and flatten.
+[Tue 11:03]	<gkellogg>	… If the deadline is extended to next Tuesday, that would help.
+[Tue 11:03]	<gkellogg>	manu: as long as you need, but we'd like to wrap this up.
+[Tue 11:05]	<gkellogg>	… This is the stage that matters, because we can go to W3C management and show broad support, including reports we weren't expecting.
+[Tue 11:05]	<mlnt>	we have a flattening test that compacts: flatten-0044 (http://json-ld.org/test-suite/reports/#test_79f5a90f71c40dbc425b5534b6fbf308)
+[Tue 11:05]	<gkellogg>	pkuyken: we can do ours by next week with no problems.
+[Tue 11:06]	<m4nu>	gkellogg: Gavin has done some work trying to deal with large JSON-LD graphs and has a problem w/ a number of the different implementations taking a long time to work through very large documents.
+[Tue 11:07]	<m4nu>	gkellogg: We have some issues w/ sorting - mostly for bnode naming, so having a profile that doesn't require that would drop the time down considerably, for very large datasets, etc.
+[Tue 11:07]	<m4nu>	gkellogg: That would be useful as a note.
+[Tue 11:07]	<gkellogg>	manu: we tried to keep it streaming.
+[Tue 11:08]	<m4nu>	gkellogg: I'm also pushing to get Java JSON-LD folks to submit stuff.
+[Tue 11:09]	<gkellogg>	taaz: Can we add some tests for bugs that have been found?
+[Tue 11:09]	|<--	PaulCapestany has left zoe-fn (Quit: Computer has gone to sleep.)
+[Tue 11:09]	<gkellogg>	manu: if we add those tests, the risks are that implementations will break, and we'll need to re-submit reports.
+[Tue 11:10]	<gkellogg>	… This is always a problem with extending CR, as there will always be bugs that are found.
+[Tue 11:12]	<m4nu>	gkellogg: I think generating a new report is easy, but this is a neverending thing. Do the tests point out flaws in the specifications? Something you couldn't implement correctly, rather than finding areas where there are inconsistencies where there is vagueness around the algorithms.
+[Tue 11:12]	<dlongley>	@base: "http://foo/bar" ... does that compact: "http://foo/bar" to "bar" or "" ?
+[Tue 11:12]	<gkellogg>	taaz: basically path and base handling things.
+[Tue 11:12]	<m4nu>	taaz: This mostly has to do w/ path handling and handling with base.
+[Tue 11:13]	<mlnt>	@base: "http://foo/bar" does compact "http://foo/bar" to "bar" IMO
+[Tue 11:14]	<taaz>	https://github.com/digitalbazaar/pyld/issues/26
+[Tue 11:14]	<taaz>	https://github.com/digitalbazaar/pyld/issues/25
+[Tue 11:14]	<dlongley>	https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0066-in.jsonld
+[Tue 11:14]	<taaz>	https://github.com/digitalbazaar/pyld/issues/24
+[Tue 11:14]	<dlongley>	https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0066-out.jsonld
+[Tue 11:16]	<gkellogg>	manu: we'll add new tests after the PR phase.
+[Tue 11:16]	<m4nu>	Topic: Plan for Proposed Recommendation
+[Tue 11:17]	<gkellogg>	manu: we need to send out an official response to mike about today's discussion.
+[Tue 11:17]	<gkellogg>	… Then the group moves to have the RDF WG move the document to PR, they agree and there's a 7-day delay, meet with W3C management.
+[Tue 11:18]	<gkellogg>	… then there's a 1 month voting phase, after which we'll have a REC if enough votes come in.
+[Tue 11:19]	<gkellogg>	gkellogg: concepts is still in LC, I believe
+[Tue 11:20]	<m4nu>	ACTION: Manu to request the RDF WG propose a way for JSON-LD to proceed to PR in spite of the RDF Concepts document being in LC.
+[Tue 11:20]	<m4nu>	Topic: rdflib Implementation Concerns
+[Tue 11:21]	<niklasl>	.. https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0116-in.jsonld
+[Tue 11:21]	<niklasl>	.. http:///example/o1
+[Tue 11:21]	<gkellogg>	niklas: these tests fail because the URL join implementation in Python's standard lib doesn't behave correctly.
+[Tue 11:21]	<niklasl>	http://example/o0
+[Tue 11:21]	<gkellogg>	… (Note the three "/" after http:)
+[Tue 11:22]	<gkellogg>	… Could this be an editing error?
+[Tue 11:23]	<gkellogg>	gkellogg: this is a bug, we should just fix it.
+[Tue 11:23]	<mlnt>	don't care what we do about this but wanted to say that it is a valid IRI
+[Tue 11:24]	<gkellogg>	manu: if changing this doesn't affect any other implementations, there's no need to update reports.
+[Tue 11:24]	<niklasl>	.. https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0102-in.jsonld
+[Tue 11:25]	<gkellogg>	niklas: there's a similar one in 0102, which could be a problem in Python 2.5 through 3.3
+[Tue 11:25]	<niklasl>	.. "/.././useless/../../"
+[Tue 11:26]	<gkellogg>	niklas: I suspect the URL lib doesn't handle this properly.
+[Tue 11:26]	<dlongley>	You should try posixpath.normpath(foo), that's what we use for our Python implementation
+[Tue 11:27]	<gkellogg>	niklas: do you use URL lib too?
+[Tue 11:27]	<gkellogg>	dlongley: we use both.
+[Tue 11:27]	<niklasl>	.. https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0100-in.jsonld
+[Tue 11:28]	<gkellogg>	niklasl: Setting @base to null, when the result is a "hard" relative IRI, RDFlib still consumes it as RDF. I would pass the test if I set a flag about being more strict about not explicitly dealing with relative IRIs.
+[Tue 11:28]	<voip-ld>	pkuyken (IAX2/diamondcard-12285) has left the conference.
+[Tue 11:29]	<gkellogg>	… It expects to drop the triples with relative IRIs
+[Tue 11:30]	<gkellogg>	dlongley: the "produce generalized RDF" flag should allow these triples to be emitted.
+[Tue 11:30]	<gkellogg>	niklas: The other problems are RDFLib limitations.
+[Tue 11:30]	<gkellogg>	… I also haven't disallowed lists of lists.
+[Tue 11:32]	<niklasl>	.. the relevant test is https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/fromRdf-0008-in.nq
+[Tue 11:34]	<voip-ld>	Manu Sporny (SIP/6000-000000c9) has left the conference.
+[Tue 11:34]	<voip-ld>	Gregg Kellogg (SIP/71.202.225.162:51316-000000cb) has left the conference.
+[Tue 11:34]	<voip-ld>	Markus Lanthaler (SIP/sip.linphone.org-000000cd) has left the conference.
+[Tue 11:34]	<voip-ld>	Dave Longley (SIP/6002-000000cc) has left the conference.
+[Tue 11:34]	<voip-ld>	Mike (IAX2/diamondcard-9713) has left the conference.
+[Tue 11:34]	<voip-ld>	Niklas Lindström (SIP/sip2sip.info-000000ca) has left the conference.
+[Tue 11:34]	<voip-ld>	Dave Lehn (SIP/6003-000000ce) has left the conference.

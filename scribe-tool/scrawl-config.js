@@ -141,6 +141,11 @@
          "alias": ["sandro_"],
          "homepage": "http://www.linkedin.com/in/hawke"
       },
+      "Michael Pizzo":
+      {
+         "alias": ["Mike"],
+         "homepage": "http://www.linkedin.com/in/michaeljpizzo"
+      },
       "Stian Soiland-Reyes":
       {
          "alias": ["stain", "stain_"],
