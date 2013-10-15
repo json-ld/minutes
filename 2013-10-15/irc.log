@@ -1,0 +1,322 @@
+[10:00:00]	<voip-ld> msporny (SIP/10.26.0.122-000000e3) is in the conference.
+[10:00:00]	<voip-ld> Gregg Kellogg (SIP/192.168.0.74-000000e4) has joined the conference.
+[10:00:00]	<voip-ld> Dave Longley (SIP/6002-000000e5) has joined the conference.
+[10:00:00]	<voip-ld> dlehn (SIP/192.168.1.178:5060-000000e6) has joined the conference.
+[10:00:00]	<voip-ld> <unknown> (IAX2/diamondcard-6199) has joined the conference.
+[10:00:00]	<m4nu> voip: 6199 is sandro
+[10:00:00]	<voip-ld> sandro is now associated with IAX2/diamondcard-6199.
+[10:00:00]	<voip-ld> Markus Lanthaler (SIP/sip.linphone.org-000000e7) has joined the conference.
+* mlnt (~markus@net-2-34-217-54.cust.dsl.vodafone.it) has joined #json-ld
+[10:00:00]	<voip-ld> Niklas Lindström (SIP/sip2sip.info-000000e8) has joined the conference.
+* niklasl (~nlm@gate.kb.se) has joined #json-ld
+[10:00:00]	<voip-ld> Niklas Lindström (SIP/sip2sip.info-000000e8) has left the conference.
+[10:00:00]	<voip-ld> Niklas Lindström (SIP/sip2sip.info-000000e9) has joined the conference.
+* niklasl has no sound...
+[10:00:00]	<m4nu> Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0038.html
+* gkellogg niklasl: can't hear you either :(
+[10:00:00]	<dlongley> scribe: dlongley
+[10:00:00]	<dlongley> m4nu: we'll be talking about the plan for PR and an update from gregg on implementation reports
+[10:00:00]	<dlongley> sandro: my email probably raised some things we should discuss
+[10:00:00]	<dlongley> m4nu: yeah, the first item on the agenda will cover that
+[10:00:00]	<dlongley> m4nu: the argument for not going through another LC/CR, etc.
+[10:00:00]	<m4nu> Topic: Plan for Proposed Recommendation
+[10:00:00]	<dlongley> m4nu: the last time we talked about this, we thought we were pretty close to going to PR, the blocker was RDF-CONCEPTS still being in LC
+[10:00:00]	<voip-ld> Niklas Lindström (SIP/sip2sip.info-000000e9) has left the conference.
+[10:00:00]	<dlongley> m4nu: from what i gather, it was discussed on the RDF WG call and the proposed path forward is to wait for RDF-CONCEPTS to go to CR and then we can move JSON-LD specs to PR
+[10:00:00]	<voip-ld> Niklas Lindström (SIP/192.168.3.27-000000ea) has joined the conference.
+* niklasl ah, that's better
+[10:00:00]	<dlongley> sandro: it's not exactly clear when RDF-CONCEPTS will be ready to move forward, it's possible we may make that discussion tomorrow, it's due to a bunch of comments
+[10:00:00]	<dlongley> sandro: i think we'll have a formal objection from Jeremy Carroll
+[10:00:00]	<dlongley> gkellogg: that's with semantics, not concepts
+[10:00:00]	<dlongley> sandro: they go together
+[10:00:00]	<dlongley> gkellogg: if we move concepts first we can prevent JSON-LD from getting blocked
+[10:00:00]	<dlongley> sandro: i think they are both clear to go ahead, there will be some loose ends, my guess is it won't be tomorrow but probably two weeks
+[10:00:00]	<dlongley> gkellogg: so a matter of a couple of weeks
+[10:00:00]	<dlongley> m4nu: the RDF WG charter is up in december
+[10:00:00]	<dlongley> m4nu: is it going to extended?
+[10:00:00]	<dlongley> sandro: no
+[10:00:00]	<dlongley> sandro: as long as we get to PR by the end of the december
+[10:00:00]	<dlongley> m4nu: there are no big blockers other than Jeremy Carroll's FO, but that will be resolved because the group will continue ahead
+[10:00:00]	<dlongley> sandro: yup
+[10:00:00]	<dlongley> m4nu: ok, thanks
+[10:00:00]	<dlongley> m4nu: so we'll go into a holding pattern until RDF-CONCEPTS goes into CR
+[10:00:00]	<dlongley> mlnt: we need to talk about Promises
+[10:00:00]	<dlongley> m4nu: yes, that's next, we still need to talk about the issues that sandro raised
+[10:00:00]	<dlongley> m4nu: whether or not we're going to make the API non-normative per the issue-at-risk comment, etc.
+[10:00:00]	<m4nu> Topic: How to refer to Promises
+[10:00:00]	<dlongley> m4nu: if we make the section non-normative we still need to reference some spec out there
+[10:00:00]	<dlongley> mlnt: the problem is there is no specification at the moment, we could use a reference to the DOM spec, but we know that won't be the final spec, eventually it's going to end up directly in ECMAScript (JS spec)
+[10:00:00]	<dlongley> mlnt: up until a week ago i didn't see any mentions in the spec
+[10:00:00]	<dlongley> mlnt: the hope is that it will be published in december
+[10:00:00]	<dlongley> mlnt: google has an implementation but doesn't ship until, i think, november
+[10:00:00]	<dlongley> mlnt: i don't know the state in firefox
+* pkuyken (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[10:00:00]	<dlongley> mlnt: it's up in the air in the moment
+[10:00:00]	<voip-ld> <unknown> (IAX2/diamondcard-5549) has joined the conference.
+[10:00:00]	<m4nu> voip: 5549 is pkuyken
+[10:00:00]	<voip-ld> pkuyken is now associated with IAX2/diamondcard-5549.
+[10:00:00]	<dlongley> sandro: i think for non-normative, i think we could reference the historic DOM spec of it, we could say, specifically, we know this isn't the final thing, but for now this is what people can use and when something better comes along they should switch to it, there should be no procedural blocker
+[10:00:00]	<dlongley> sandro: i think we just need to point at something that developers can read and be clear about it
+[10:00:00]	<dlongley> mlnt: are there any restrictions as far as W3C is concerned?
+[10:00:00]	<dlongley> sandro: if it's not a W3C spec, it's more of a judgment call about how stable it is, there's no clear way to say what is a stable spec from somebody else
+[10:00:00]	<dlongley> mlnt: it would mean... even if we had an ecmascript draft we could argue it's stable enough, because, for example, chrome already implemented it
+[10:00:00]	<dlongley> sandro: if we had an ecmascript draft and it was implemented in chrome and firefox and we could go ahead with a normative reference, it would be a bit of stretch, but we could argue that, the ecmascript spec being ready in december may not actually happen
+[10:00:00]	<dlongley> sandro: we have a little bit of slack because of these other docs (concepts, and semantics) so we could just wait until then and there's an ecmascript draft by december 1st then we can use it
+[10:00:00]	<dlongley> m4nu: i just asked Anne which draft we should reference
+[10:00:00]	<dlongley> m4nu: he gave me the link in IRC
+[10:00:00]	<m4nu> Anne says we should reference this draft: https://github.com/domenic/promises-unwrapping/blob/master/README.md
+[10:00:00]	<dlongley> sandro: i think it would be ok to use a github URL presuming it was frozen in time
+[10:00:00]	<dlongley> sandro: if we have permission to copy that to w3c
+[10:00:00]	<gkellogg> Here's a frozen version: https://raw.github.com/domenic/promises-unwrapping/7e845e44045e4063c1e48cd3cfcab419620ae59b/README.md
+[10:00:00]	<niklasl> "To the extent possible under law, Domenic Denicola has waived all copyright and related or neighboring rights to promises-unwrapping."
+[10:00:00]	<dlongley> m4nu: this isn't ecmascript, this is a doc in the public domain
+[10:00:00]	<dlongley> sandro: what i heard was that dom's employer has some copyright claim to that text and hasn't been willing to do the appropriate paperwork
+[10:00:00]	<dlongley> m4nu: we could use a pointer to a specific version of it
+[10:00:00]	<mlnt> scroll to the bottom, the document says: "To the extent possible under law, Domenic Denicola has waived all copyright and related or neighboring rights to promises-unwrapping. This work is published from: United States ."
+[10:00:00]	<dlongley> m4nu: the assumption we're making is that github will be around for at least 3 years, and at that point hopefully we'll have another link we can reference
+[10:00:00]	<dlongley> sandro: if the link happens to break it becomes a matter of archeology and people should be able to deal with that
+[10:00:00]	<dlongley> sandro: digital bazaar or somebody could checkout that repo and make it available on the web
+[10:00:00]	<dlongley> sandro: i haven't looked at the license
+[10:00:00]	<dlongley> sandro: it could just be that ecmascript has a really high bar on that 
+[10:00:00]	<dlongley> m4nu: he's put it into the public domain and if google didn't want to do that, but i have no idea what google would want to come in and establish copyright over something going into ecma
+[10:00:00]	<dlongley> sandro: do you want me to go ahead and ask w3c's lawyers if we can make a copy of that
+[10:00:00]	<dlongley> m4nu: sure, you could ask
+[10:00:00]	<dlongley> sandro: normally we're happy to take the employee as clicking somewhere as sufficient
+[10:00:00]	<dlongley> sandro: we use their own word for it
+[10:00:00]	<dlongley> sandro: i'll do that
+[10:00:00]	<dlongley> m4nu: thanks
+[10:00:00]	<dlongley> mlnt: it looks like dom is not working for google
+[10:00:00]	<gkellogg> How to write specs using Promises: https://github.com/domenic/promises-unwrapping/blob/7e845e44045e4063c1e48cd3cfcab419620ae59b/writing-specifications-with-promises.md
+[10:00:00]	<mlnt> http://www.linkedin.com/in/domenicdenicola
+[10:00:00]	<dlongley> mlnt: he's working for Lab49
+[10:00:00]	<dlongley> mlnt: if the api would stay normative, would it change anything in regards to that linking?
+[10:00:00]	<dlongley> sandro: to stay normative we would need to clear up the legal thing about this text and then argue that it is stable because of implementations, for instance, in chrome and firefox
+[10:00:00]	<dlongley> mlnt: but it's not a problem per se
+[10:00:00]	<dlongley> mlnt: it's not disallowed to link to something like this, for example
+[10:00:00]	<dlongley> sandro: it's not strictly disallowed, no
+[10:00:00]	<dlongley> sandro: we'd just have to make the argument that the technology is stable
+[10:00:00]	<dlongley> sandro: if we can copy the text to our site then the text won't change and then it's just whether or not the technology is stable
+[10:00:00]	<dlongley> m4nu: i'm guess that it's going to happen soon w/ecmascript, but maybe not before we need it to happen
+[10:00:00]	<m4nu> ACTION: Sandro to ask W3C legal about archiving Promises spec at W3C.
+[10:00:00]	<dlongley> m4nu: ok and we'll just refer to that doc if we can
+[10:00:00]	<dlongley> ACTION: Manu to outline path forward for Promises reference to RDF WG and get input from W3C Director on the path forward.
+[10:00:00]	<m4nu> Topic: Does non-normative API require another LC?
+[10:00:00]	<dlongley> m4nu: if the change is from normative to non-normative do we need to do another CR/LC, etc
+[10:00:00]	<dlongley> m4nu: sandro raised the point that we could make the argument that we don't need another LC, i thought we had predicted that this might happen and we put in spec text so we wouldn't have to go through another round
+[10:00:00]	<dlongley> m4nu: markus, is that spec text is in there?
+[10:00:00]	<dlongley> m4nu: saying the API could become non-normative
+[10:00:00]	<dlongley> mlnt: no, we just said that the reference might change
+[10:00:00]	<dlongley> sandro: we put an at-risk warning in there, but we phrased it as we might change the reference, we didn't include that we might take the whole API and make it non-normative
+[10:00:00]	<dlongley> mlnt: if it's somehow possible it would really make sense to keep the API normative, i'm not a big fan of making it non-normative
+[10:00:00]	<dlongley> sandro: i think we can only do that if we really have 2 implementations 
+[10:00:00]	<dlongley> m4nu: a generous reading of the at-risk marker would be to say ... one way to refer to a spec that lives elsewhere is to make the reference non-normative and refer to it
+[10:00:00]	<dlongley> m4nu: if we had said in this feature at-risk marker, "this section might become non-normative as a result of us trying to figure out how to refer to a spec outside of the w3c" then we'd be fine
+[10:00:00]	<dlongley> m4nu: however that spec text does not exist, what i'm looking for is some text in this spec is to see if we can change the spec in the way we need to
+[10:00:00]	<m4nu> https://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk#8
+[10:00:00]	<dlongley> m4nu: i think the language hints at us needing to do something other than just updating the reference
+[10:00:00]	<dlongley> sandro: because we have that at-risk we have some argument
+[10:00:00]	<dlongley> sandro: i think the change we want to make is covered by that, it's not literally covered by that, but it's close enough, and i think we want to try to make that argument, and if we get push back we can do another LC, but we really don't want to do that
+[10:00:00]	<mlnt> here's the link to the Chromium Promise issue: https://codereview.chromium.org/24980002 - it's already implemented
+[10:00:00]	<dlongley> sandro: to make that case, i think ralph, acting as director on this, will ask if it will invalidate any reviews
+[10:00:00]	<dlongley> sandro: is there anyone who is going to be unhappy about this change
+[10:00:00]	<dlongley> m4nu: i think the answer to that is no
+[10:00:00]	<dlongley> m4nu: i don't think any changes to implementations will happen
+[10:00:00]	<dlongley> sandro: i think the only people who would be unhappy about this would be people thinking strategically who want it normative, but they'd also understand that this was a change we'd have to make
+[10:00:00]	<dlongley> sandro: ideally we should gather some comments from people
+[10:00:00]	<dlongley> sandro: as evidence
+[10:00:00]	<dlongley> sandro: have we gotten any comments from anyone about Promises
+[10:00:00]	<dlongley> m4nu: we have lots of comments from industry about Promises, we could collect comments from people about Promises, saying Promises are a good thing and a good direction to go
+[10:00:00]	<dlongley> m4nu: the question is, would that helpful because we're creating something non-normative here
+[10:00:00]	<dlongley> sandro: i don't think that's particularly helpful
+[10:00:00]	<dlongley> sandro: so normally, the director doesn't make decisions until you have the meeting
+[10:00:00]	<dlongley> sandro: and we're waiting a couple weeks for those references
+[10:00:00]	<dlongley> sandro: we could try to have the transition now and wait a couple weeks and fix the references, but in case the answer is no, we want to have time for LC
+[10:00:00]	<dlongley> m4nu: could you get ralph to look at this to get an answer
+[10:00:00]	<dlongley> m4nu: i could write an email asking if it's ok with RDF WG and point ralph at it, and ask if it was fine to go into the transition meeting like that
+[10:00:00]	<dlongley> sandro: i'd like to get a binding yes or no from him, we don't want it to change later
+[10:00:00]	<dlongley> sandro: ok, you write that email
+[10:00:00]	<dlongley> sandro: i'm thinking that we should try to get a WG resolution from that tomorrow
+[10:00:00]	<dlongley> sandro: the other thing that ralph cares a lot about is whether or not the WG has discussed it and come to a resolution
+[10:00:00]	<m4nu> PROPOSAL: Make the JSON-LD WebIDL API non-normative and refer to the Promises specification written by Domenic Denicola and proceed straight to Proposed Recommendation.
+[10:00:00]	<m4nu> +1
+[10:00:00]	<gkellogg> +0.5
+[10:00:00]	<sandro> +1
+[10:00:00]	<pkuyken> +1
+[10:00:00]	<dlongley> +1
+[10:00:00]	<mlnt> +0.1
+[10:00:00]	<taaz> +0
+[10:00:00]	<niklasl> +0
+[10:00:00]	<sandro> sandro: why the weak support?
+[10:00:00]	<sandro> gkellogg: I just wish there were a way to keep it normative
+[10:00:00]	<niklasl> (I don't feel properly informed to judge the strategic effects of either route)
+[10:00:00]	<gkellogg> gkellogg: I think it's unfortunate that this can't be a normative section, but understand that this is the best of available solutions
+[10:00:00]	<m4nu> RESOLVED: Make the JSON-LD WebIDL API non-normative and refer to the Promises specification written by Domenic Denicola and proceed straight to Proposed Recommendation.
+[10:00:00]	<dlongley> m4nu: could the non-plus-1's explain why?
+[10:00:00]	<dlongley> m4nu: gregg wants it to be normative but doesn't see how we could do that
+[10:00:00]	<mlnt> markus: with making it non-normative it will be impossible to build applications on top of the API in an interoperable way
+[10:00:00]	<dlongley> gkellogg: it's useful to note that we don't actually have any tests that use Promises, my implementation doesn't implement them and i think other ones don't as well
+[10:00:00]	<dlongley> gkellogg: it's really narrow, for JS in particular
+[10:00:00]	<dlongley> sandro: has someone done the editorial change, is it all of the API?
+[10:00:00]	<dlongley> sandro: so it's just how you talk to the algorithms that becomes non-normative
+[10:00:00]	<dlongley> sandro: all the at-risk stuff has to come out before we go to PR
+[10:00:00]	<dlongley> m4nu: yeah, that's unfortunate, so maybe next week we will go through all of those and then pass it off to the RDF WG
+[10:00:00]	<pkuyken> q+
+[10:00:00]	<voip-ld> Added pkuyken to the speaker queue: pkuyken
+[10:00:00]	<dlongley> sandro: as long as the CG is unanimous about all of them we'll probably sign off on them
+[10:00:00]	<m4nu> ack pkuyken
+[10:00:00]	<voip-ld> pkuyken has the floor. The speaker queue is empty.
+[10:00:00]	<dlongley> sandro: in the WG
+[10:00:00]	<dlongley> pkuyken: is there a way for us to have preliminary info on which way the at-risk markers will go
+[10:00:00]	<dlongley> pkuyken: maybe on the mailing list
+[10:00:00]	<sandro> https://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk
+[10:00:00]	<dlongley> m4nu: the risk with doing that is that people will start debating them
+[10:00:00]	<m4nu> Topic: Removing at risk markers from JSON-LD specs.
+[10:00:00]	<dlongley> m4nu: at great length
+[10:00:00]	<dlongley> m4nu: ok, we have resolutions on a lot of these
+[10:00:00]	<dlongley> m4nu: i think we have a generalized RDF flag for blank nodes in the property position
+[10:00:00]	<m4nu> PROPOSAL: Allow blank nodes to be used as graph name or property.
+[10:00:00]	<m4nu> +1
+[10:00:00]	<dlongley> +1
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<pkuyken> +1
+[10:00:00]	<mlnt> +1
+[10:00:00]	<niklasl> +1
+[10:00:00]	<mlnt> this is feature at risk 3
+[10:00:00]	<taaz> +1
+[10:00:00]	<niklasl> (given the "use-generalized-rdf" set to true (default is false) for blank nodes as properties)
+[10:00:00]	<sandro> +1
+[10:00:00]	<m4nu> RESOLVED: Allow blank nodes to be used as graph name or property.
+[10:00:00]	<niklasl> .. which is the case. :)
+[10:00:00]	<dlongley> sandro: if we can point to public comments for each of these it would be the strongest way forward
+[10:00:00]	<m4nu> dlongley: We do want to make sure that if the RDF WG sees this that they understand that there is a use_generalized_rdf flag
+[10:00:00]	<dlongley> mlnt: i think the list of lists at-risk marker we didn't resolve completely
+[10:00:00]	<m4nu> PROPOSAL: Support conversion of lists of lists to list objects by preserving the blank node head of the inner list. This resolves feature-at-risk #4 in the JSON-LD API specification.
+[10:00:00]	<m4nu> +1
+[10:00:00]	<mlnt> +1
+[10:00:00]	<dlongley> +1
+[10:00:00]	<pkuyken> +1
+[10:00:00]	<taaz> +0
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<niklasl> +1 (better than dropping them)
+[10:00:00]	<sandro> +1
+[10:00:00]	<m4nu> RESOLVED: Support conversion of lists of lists to list objects by preserving the blank node head of the inner list. This resolves feature-at-risk #4 in the JSON-LD API specification.
+[10:00:00]	<dlongley> m4nu: we've had a number of JSON-LD authors about having @type having a different meaning 
+[10:00:00]	<dlongley> m4nu: based on context
+[10:00:00]	<dlongley> m4nu: we've had several different discussions about renaming it in different contexts, but it hasn't really gone anywhere, with a little explaining it seems like people are ok with it as is
+[10:00:00]	<mlnt> We might wanna do some editorial changes, see: https://github.com/json-ld/json-ld.org/issues/301
+[10:00:00]	<dlongley> m4nu: can we make a 2-3 sentence editorial change before we go to PR?
+[10:00:00]	<dlongley> sandro: as long as it's just editorial and particularly if it's responding to a comment it's fine
+[10:00:00]	<dlongley> pkuyken: i think reading a tutorial will easily cover this
+[10:00:00]	<m4nu> PROPOSAL: Make an editorial update to the JSON-LD specification to clarify that the @type keyword is context sensitive and make its various usages more clear in the specification. This addresses issue at risk marker #9 in the JSON-LD syntax specification.
+[10:00:00]	<m4nu> +1
+[10:00:00]	<pkuyken> +1
+[10:00:00]	<mlnt> +1
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<niklasl> +0.9
+[10:00:00]	<dlongley> +1
+[10:00:00]	<taaz> +1
+[10:00:00]	<m4nu> RESOLVED: Make an editorial update to the JSON-LD specification to clarify that the @type keyword is context sensitive and make its various usages more clear in the specification. This addresses issue at risk marker #9 in the JSON-LD syntax specification.
+[10:00:00]	<dlongley> m4nu: Ok, we also need to talk about @base: null. I think consensus is that we keep it. Object if you disagree.
+[10:00:00]	<m4nu> PROPOSAL: Keep the @base: null feature in the JSON-LD specification as it is defined in the Candidate Recommendation specification.
+[10:00:00]	<m4nu> +1
+[10:00:00]	<dlongley> +1
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<pkuyken> +1
+[10:00:00]	<sandro> +1
+[10:00:00]	<taaz> +1
+[10:00:00]	<niklasl> +0 (I cannot really judge the effect on usability)
+[10:00:00]	<mlnt> +0
+[10:00:00]	<m4nu> RESOLVED: Keep the @base: null feature in the JSON-LD specification as it is defined in the Candidate Recommendation specification.
+[10:00:00]	<mlnt> neither do I
+[10:00:00]	<dlongley> m4nu: ok, so if we can get that raised in the RDF WG call tomorrow
+[10:00:00]	<dlongley> gkellogg: i may not be on the call tomorrow
+[10:00:00]	<dlongley> sandro: ideally, if you can send an email nowish right after this call it can be on the agenda
+[10:00:00]	<m4nu> ACTION: Manu to send an email to RDF WG stating that all issue markers are resolved.
+[10:00:00]	<m4nu> Topic: Updated Implementation Report
+[10:00:00]	<dlongley> m4nu: pkuyken got a C# implementation report in
+[10:00:00]	<dlongley> gkellogg: it's in the comprehensive report now as is rdflib from niklasl 
+[10:00:00]	<dlongley> gkellogg: and jsonld-java
+[10:00:00]	<dlongley> gkellogg: it's 100% except for a couple of tests they didn't cover
+[10:00:00]	<mlnt> just realized we still haven't resolved ISSUE-300 https://github.com/json-ld/json-ld.org/issues/300
+[10:00:00]	<dlongley> gavinc: Some note pointing out that @base: null makes toRDF not work may prevent surprises
+* gavinc lurks
+[10:00:00]	<dlongley> gkellogg: the java implementation doesn't handle remote docs
+[10:00:00]	<dlongley> pkuyken: we had problems with that because some remote docs didn't exist
+[10:00:00]	<niklasl> q+
+[10:00:00]	<voip-ld> Added niklasl to the speaker queue: niklasl
+[10:00:00]	<dlongley> gkellogg: that's intentional it is testing that they don't exist
+[10:00:00]	<dlongley> pkuyken: is that documented?
+[10:00:00]	<dlongley> gkellogg: yes
+[10:00:00]	<gkellogg> http://json-ld.org/test-suite/reports/
+[10:00:00]	<dlongley> dlongley: is it ok that some implementation reports haven't gone to public-rdf-comments but only to public-linked-json
+[10:00:00]	<dlongley> sandro: either is fine
+[10:00:00]	<dlongley> gkellogg: minus some sporadic errors i think we're showing broad support for a variety of platforms
+[10:00:00]	<dlongley> m4nu: yeah, thanks to all implementors
+[10:00:00]	<m4nu> voip: connections?
+* pkuyken uh...
+* pkuyken it's not me.
+[10:00:00]	<voip-ld> sandro (IAX2/diamondcard-6199) has left the conference.
+[10:00:00]	<voip-ld> Conference connections: <unknown> (pkuyken) [IAX2/diamondcard-5549], Dave Longley [SIP/6002-000000e5], Gregg Kellogg [SIP/192.168.0.74-000000e4], Niklas Lindström [SIP/192.168.3.27-000000ea], dlehn [SIP/192.168.1.178:5060-000000e6], msporny [SIP/10.26.0.122-000000e3], Markus Lanthaler [SIP/sip.linphone.org-000000e7]
+[10:00:00]	<sandro> probably me.  I don't think I hung up properly.
+[10:00:00]	<dlongley> mlnt: the current status keeps @index nodes
+[10:00:00]	<dlongley> gkellogg: do we have a test?
+[10:00:00]	<dlongley> mlnt: yes, and it keeps it
+* gkellogg sandro: it worked out eventually
+[10:00:00]	<dlongley> niklasl: if you use @index it's probably computed from some other value in the node
+[10:00:00]	<dlongley> mlnt: the only reason to perhaps drop it is to be more consistent
+[10:00:00]	<dlongley> m4nu: do we have spec text that covers this
+[10:00:00]	<dlongley> mlnt: i would argue it's just a bug fix
+[10:00:00]	<dlongley> gkellogg: it would require implementations to change and removing a test and adding another one and asking for updated implementation reports
+[10:00:00]	<dlongley> m4nu: the alternative is that we say nothing about it, and after we put the spec out we can make these changes
+[10:00:00]	<dlongley> niklasl: i'm in favor of keeping it, i could imagine some implementation using it
+[10:00:00]	<dlongley> niklasl: it could, in theory, be destroying information in some strange algorithm outside of what we've specified
+[10:00:00]	<dlongley> niklasl: i'm in favor of keeping the nodes which is the current behavior and it might support some unforeseen behavior
+[10:00:00]	<m4nu> PROPOSAL: When processing free-floating nodes, if there is an @index keyword in the node, it is not a free-floating node.
+[10:00:00]	<m4nu> +0.7
+* niklasl what is the sound of a free-floating node…
+[10:00:00]	<mlnt> +0.5 (not entirely consistent IMO but I'm fine with it and don't feel strongly about it)
+[10:00:00]	<dlongley> +1
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<taaz> +0
+[10:00:00]	<pkuyken> +0 Not enough understanding of the problem
+[10:00:00]	<niklasl> +0.5
+[10:00:00]	<m4nu> RESOLVED: When processing free-floating nodes, if there is an @index keyword in the node, it is not a free-floating node.
+[10:00:00]	<voip-ld> Speaker queue: niklasl
+[10:00:00]	<m4nu> ack niklasl
+[10:00:00]	<voip-ld> niklasl has the floor. The speaker queue is empty.
+[10:00:00]	<m4nu> niklasl: It might be good to tell people using toRDF that blank node properties could be created.
+[10:00:00]	<m4nu> dlongley: They shouldn't be surprised as they have to use the flag to generate them... it's off by default. It would be fine to mention it in the spec.
+[10:00:00]	<m4nu> PROPOSAL: Clarify the at-risk #10 feature in the specification by stating that if the use generalized RDF flag is set, then the toRDF algorithm could generate blank node properties.
+[10:00:00]	<niklasl> http://json-ld.org/spec/latest/json-ld/#at-risk-10
+[10:00:00]	<dlongley> dlongley: "Setting @base to null will prevent relative IRIs to be expanded to absolute IRIs." should be changed to "Setting @base to null will prevent relative IRIs from being expanded to absolute IRIs."
+[10:00:00]	<m4nu> +1
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<niklasl> gavinc: would that solve your need?
+* PaulCapestany has quit (Quit: Computer has gone to sleep.)
+[10:00:00]	<voip-ld> pkuyken (IAX2/diamondcard-5549) has left the conference.
+[10:00:00]	<dlongley> +1
+[10:00:00]	<mlnt> http://json-ld.org/spec/latest/json-ld/#base-iri
+[10:00:00]	<gkellogg> [[[A generalized RDF triple is an RDF triple generalized so that subjects, predicates, and objects are all allowed to be IRIs, blank nodes, or literals.]]]
+[10:00:00]	<mlnt> http://json-ld.org/spec/latest/json-ld-api/#deserialize-json-ld-to-rdf-algorithm
+[10:00:00]	<mlnt> Step 4.3.1 always drops such nodes
+[10:00:00]	<dlongley> gkellogg: generalized RDF doesn't include relative IRIs
+[10:00:00]	<dlongley> dlongley: yeah, individual implementations could add a flag to keep relative IRIs 
+[10:00:00]	<m4nu> Topic: Candidate Recommendation Period
+[10:00:00]	<mlnt> Upcoming Publishing Moratoria: the week starting 11 November during TPAC 2013 // starting 18 December 2013 through 1 January 2014
+[10:00:00]	<m4nu> PROPOSAL: The Candidate Recommendation period for JSON-LD is closed as of October 15th 2013.
+[10:00:00]	<m4nu> +1
+[10:00:00]	<dlongley> +1
+[10:00:00]	<gkellogg> +1
+[10:00:00]	<niklasl> +1
+[10:00:00]	<mlnt> +1
+[10:00:00]	<taaz> +1
+[10:00:00]	<gkellogg> RESOLVED: The Candidate Recommendation period for JSON-LD is closed as of October 15th 2013.
+[10:00:00]	<voip-ld> Gregg Kellogg (SIP/192.168.0.74-000000e4) has left the conference.
+[10:00:00]	<voip-ld> Dave Longley (SIP/6002-000000e5) has left the conference.
+[10:00:00]	<voip-ld> msporny (SIP/10.26.0.122-000000e3) has left the conference.
+[10:00:00]	<voip-ld> Markus Lanthaler (SIP/sip.linphone.org-000000e7) has left the conference.
+[10:00:00]	<voip-ld> dlehn (SIP/192.168.1.178:5060-000000e6) has left the conference.
+[10:00:00]	<voip-ld> Niklas Lindström (SIP/192.168.3.27-000000ea) has left the conference.
+[10:00:00]	<m4nu> voip: self-destruct
+* voip-ld has quit (Quit: Auuugh! *booooom*)
+* niklasl (~nlm@gate.kb.se) has left #json-ld

@@ -1,0 +1,354 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-10-15</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0038.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0038.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Plan for Proposed Recommendation</a><li><a href="#topic-2">How to refer to Promises</a><li><a href="#topic-3">Does non-normative API require another LC?</a><li><a href="#topic-4">Removing at risk markers from JSON-LD specs.</a><li><a href="#topic-5">Updated Implementation Report</a><li><a href="#topic-6">Candidate Recommendation Period</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Make the JSON-LD WebIDL API non-normative and refer to the Promises specification written by Domenic Denicola and proceed straight to Proposed Recommendation.</a><li><a href="#resolution-2">Allow blank nodes to be used as graph name or property.</a><li><a href="#resolution-3">Support conversion of lists of lists to list objects by preserving the blank node head of the inner list. This resolves feature-at-risk #4 in the JSON-LD API specification.</a><li><a href="#resolution-4">Make an editorial update to the JSON-LD specification to clarify that the @type keyword is context sensitive and make its various usages more clear in the specification. This addresses issue at risk marker #9 in the JSON-LD syntax specification.</a><li><a href="#resolution-5">Keep the @base: null feature in the JSON-LD specification as it is defined in the Candidate Recommendation specification.</a><li><a href="#resolution-6">When processing free-floating nodes, if there is an @index keyword in the node, it is not a free-floating node.</a><li><a href="#resolution-7">The Candidate Recommendation period for JSON-LD is closed as of October 15th 2013.</a></ol></dd><dt>Action Items</dt><dd><ol><li><a href="#action-1">Sandro to ask W3C legal about archiving Promises spec at W3C.</a><li><a href="#action-2">Manu to outline path forward for Promises reference to RDF WG and get input from W3C Director on the path forward.</a><li><a href="#action-3">Manu to send an email to RDF WG stating that all issue markers are resolved.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Dave Longley</dd>
+<dt>Present</dt><dd>Dave Longley, Manu Sporny, Sandro Hawke, Gregg Kellogg, Markus Lanthaler, Niklas Lindström, Paul Kuykendall, David I. Lehn, Gavin Carothers</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="information">Dave Longley is scribing.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we'll be talking about the plan for PR and an update from gregg on implementation reports</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  my email probably raised some things we should discuss</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, the first item on the agenda will cover that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the argument for not going through another LC/CR, etc.</div>
+<h1 id="topic-1" class="topic">Topic: Plan for Proposed Recommendation</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  the last time we talked about this, we thought we were pretty close to going to PR, the blocker was RDF-CONCEPTS still being in LC</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  from what i gather, it was discussed on the RDF WG call and the proposed path forward is to wait for RDF-CONCEPTS to go to CR and then we can move JSON-LD specs to PR</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  it's not exactly clear when RDF-CONCEPTS will be ready to move forward, it's possible we may make that discussion tomorrow, it's due to a bunch of comments</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think we'll have a formal objection from Jeremy Carroll</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's with semantics, not concepts</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  they go together</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if we move concepts first we can prevent JSON-LD from getting blocked</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think they are both clear to go ahead, there will be some loose ends, my guess is it won't be tomorrow but probably two weeks</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  so a matter of a couple of weeks</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the RDF WG charter is up in december</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  is it going to extended?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  no</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  as long as we get to PR by the end of the december</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  there are no big blockers other than Jeremy Carroll's FO, but that will be resolved because the group will continue ahead</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  yup</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, thanks</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  so we'll go into a holding pattern until RDF-CONCEPTS goes into CR</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we need to talk about Promises</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yes, that's next, we still need to talk about the issues that sandro raised</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  whether or not we're going to make the API non-normative per the issue-at-risk comment, etc.</div>
+<h1 id="topic-2" class="topic">Topic: How to refer to Promises</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we make the section non-normative we still need to reference some spec out there</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the problem is there is no specification at the moment, we could use a reference to the DOM spec, but we know that won't be the final spec, eventually it's going to end up directly in ECMAScript (JS spec)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  up until a week ago i didn't see any mentions in the spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the hope is that it will be published in december</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  google has an implementation but doesn't ship until, i think, november</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i don't know the state in firefox</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's up in the air in the moment</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think for non-normative, i think we could reference the historic DOM spec of it, we could say, specifically, we know this isn't the final thing, but for now this is what people can use and when something better comes along they should switch to it, there should be no procedural blocker</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think we just need to point at something that developers can read and be clear about it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  are there any restrictions as far as W3C is concerned?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  if it's not a W3C spec, it's more of a judgment call about how stable it is, there's no clear way to say what is a stable spec from somebody else</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it would mean... even if we had an ecmascript draft we could argue it's stable enough, because, for example, chrome already implemented it</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  if we had an ecmascript draft and it was implemented in chrome and firefox and we could go ahead with a normative reference, it would be a bit of stretch, but we could argue that, the ecmascript spec being ready in december may not actually happen</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we have a little bit of slack because of these other docs (concepts, and semantics) so we could just wait until then and there's an ecmascript draft by december 1st then we can use it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i just asked Anne which draft we should reference</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  he gave me the link in IRC</div>
+<div class="comment"><span class="name">Manu Sporny</span>: Anne says we should reference this draft: <a href="https://github.com/domenic/promises-unwrapping/blob/master/README.md">https://github.com/domenic/promises-unwrapping/blob/master/README.md</a></div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think it would be ok to use a github URL presuming it was frozen in time</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  if we have permission to copy that to w3c</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Here's a frozen version: <a href="https://raw.github.com/domenic/promises-unwrapping/7e845e44045e4063c1e48cd3cfcab419620ae59b/README.md">https://raw.github.com/domenic/promises-unwrapping/7e845e44045e4063c1e48cd3cfcab419620ae59b/README.md</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: "To the extent possible under law, Domenic Denicola has waived all copyright and related or neighboring rights to promises-unwrapping."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  this isn't ecmascript, this is a doc in the public domain</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  what i heard was that dom's employer has some copyright claim to that text and hasn't been willing to do the appropriate paperwork</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we could use a pointer to a specific version of it</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: scroll to the bottom, the document says: "To the extent possible under law, Domenic Denicola has waived all copyright and related or neighboring rights to promises-unwrapping. This work is published from: United States ."</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the assumption we're making is that github will be around for at least 3 years, and at that point hopefully we'll have another link we can reference</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  if the link happens to break it becomes a matter of archeology and people should be able to deal with that</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  digital bazaar or somebody could checkout that repo and make it available on the web</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i haven't looked at the license</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  it could just be that ecmascript has a really high bar on that </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  he's put it into the public domain and if google didn't want to do that, but i have no idea what google would want to come in and establish copyright over something going into ecma</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  do you want me to go ahead and ask w3c's lawyers if we can make a copy of that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sure, you could ask</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  normally we're happy to take the employee as clicking somewhere as sufficient</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we use their own word for it</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i'll do that</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  thanks</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it looks like dom is not working for google</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: How to write specs using Promises: <a href="https://github.com/domenic/promises-unwrapping/blob/7e845e44045e4063c1e48cd3cfcab419620ae59b/writing-specifications-with-promises.md">https://github.com/domenic/promises-unwrapping/blob/7e845e44045e4063c1e48cd3cfcab419620ae59b/writing-specifications-with-promises.md</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://www.linkedin.com/in/domenicdenicola">http://www.linkedin.com/in/domenicdenicola</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  he's working for Lab49</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if the api would stay normative, would it change anything in regards to that linking?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  to stay normative we would need to clear up the legal thing about this text and then argue that it is stable because of implementations, for instance, in chrome and firefox</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  but it's not a problem per se</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's not disallowed to link to something like this, for example</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  it's not strictly disallowed, no</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we'd just have to make the argument that the technology is stable</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  if we can copy the text to our site then the text won't change and then it's just whether or not the technology is stable</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i'm guess that it's going to happen soon w/ecmascript, but maybe not before we need it to happen</div>
+<div id="action-1" class="action">ACTION: Sandro to ask W3C legal about archiving Promises spec at W3C.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok and we'll just refer to that doc if we can</div>
+<div id="action-2" class="action">ACTION: Manu to outline path forward for Promises reference to RDF WG and get input from W3C Director on the path forward.</div>
+<h1 id="topic-3" class="topic">Topic: Does non-normative API require another LC?</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  if the change is from normative to non-normative do we need to do another CR/LC, etc</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  sandro raised the point that we could make the argument that we don't need another LC, i thought we had predicted that this might happen and we put in spec text so we wouldn't have to go through another round</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  markus, is that spec text is in there?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  saying the API could become non-normative</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  no, we just said that the reference might change</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we put an at-risk warning in there, but we phrased it as we might change the reference, we didn't include that we might take the whole API and make it non-normative</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  if it's somehow possible it would really make sense to keep the API normative, i'm not a big fan of making it non-normative</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think we can only do that if we really have 2 implementations </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  a generous reading of the at-risk marker would be to say ... one way to refer to a spec that lives elsewhere is to make the reference non-normative and refer to it</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  if we had said in this feature at-risk marker, "this section might become non-normative as a result of us trying to figure out how to refer to a spec outside of the w3c" then we'd be fine</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  however that spec text does not exist, what i'm looking for is some text in this spec is to see if we can change the spec in the way we need to</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="https://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk#8">https://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk#8</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think the language hints at us needing to do something other than just updating the reference</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  because we have that at-risk we have some argument</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think the change we want to make is covered by that, it's not literally covered by that, but it's close enough, and i think we want to try to make that argument, and if we get push back we can do another LC, but we really don't want to do that</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: here's the link to the Chromium Promise issue: <a href="https://codereview.chromium.org/24980002">https://codereview.chromium.org/24980002</a> - it's already implemented</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  to make that case, i think ralph, acting as director on this, will ask if it will invalidate any reviews</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  is there anyone who is going to be unhappy about this change</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think the answer to that is no</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i don't think any changes to implementations will happen</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i think the only people who would be unhappy about this would be people thinking strategically who want it normative, but they'd also understand that this was a change we'd have to make</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  ideally we should gather some comments from people</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  as evidence</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  have we gotten any comments from anyone about Promises</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we have lots of comments from industry about Promises, we could collect comments from people about Promises, saying Promises are a good thing and a good direction to go</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the question is, would that helpful because we're creating something non-normative here</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i don't think that's particularly helpful</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  so normally, the director doesn't make decisions until you have the meeting</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  and we're waiting a couple weeks for those references</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  we could try to have the transition now and wait a couple weeks and fix the references, but in case the answer is no, we want to have time for LC</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  could you get ralph to look at this to get an answer</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i could write an email asking if it's ok with RDF WG and point ralph at it, and ask if it was fine to go into the transition meeting like that</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i'd like to get a binding yes or no from him, we don't want it to change later</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  ok, you write that email</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  i'm thinking that we should try to get a WG resolution from that tomorrow</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  the other thing that ralph cares a lot about is whether or not the WG has discussed it and come to a resolution</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Make the JSON-LD WebIDL API non-normative and refer to the Promises specification written by Domenic Denicola and proceed straight to Proposed Recommendation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +0.5</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  why the weak support? [scribe assist by Sandro Hawke]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I just wish there were a way to keep it normative [scribe assist by Sandro Hawke]</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: (I don't feel properly informed to judge the strategic effects of either route)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's unfortunate that this can't be a normative section, but understand that this is the best of available solutions [scribe assist by Gregg Kellogg]</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Make the JSON-LD WebIDL API non-normative and refer to the Promises specification written by Domenic Denicola and proceed straight to Proposed Recommendation.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  could the non-plus-1's explain why?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  gregg wants it to be normative but doesn't see how we could do that</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  with making it non-normative it will be impossible to build applications on top of the API in an interoperable way [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's useful to note that we don't actually have any tests that use Promises, my implementation doesn't implement them and i think other ones don't as well</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's really narrow, for JS in particular</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  has someone done the editorial change, is it all of the API?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  so it's just how you talk to the algorithms that becomes non-normative</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  all the at-risk stuff has to come out before we go to PR</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, that's unfortunate, so maybe next week we will go through all of those and then pass it off to the RDF WG</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  as long as the CG is unanimous about all of them we'll probably sign off on them</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  in the WG</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  is there a way for us to have preliminary info on which way the at-risk markers will go</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  maybe on the mailing list</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: <a href="https://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk">https://www.w3.org/2011/rdf-wg/wiki/JSON-LD_Features_at_Risk</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the risk with doing that is that people will start debating them</div>
+<h1 id="topic-4" class="topic">Topic: Removing at risk markers from JSON-LD specs.</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  at great length</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, we have resolutions on a lot of these</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  i think we have a generalized RDF flag for blank nodes in the property position</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Allow blank nodes to be used as graph name or property.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: this is feature at risk 3</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: (given the "use-generalized-rdf" set to true (default is false) for blank nodes as properties)</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1</div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> Allow blank nodes to be used as graph name or property.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. which is the case. :)</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  if we can point to public comments for each of these it would be the strongest way forward</div>
+<div class="comment"><span class="name">Dave Longley</span>:  We do want to make sure that if the RDF WG sees this that they understand that there is a use_generalized_rdf flag [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i think the list of lists at-risk marker we didn't resolve completely</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Support conversion of lists of lists to list objects by preserving the blank node head of the inner list. This resolves feature-at-risk #4 in the JSON-LD API specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 (better than dropping them)</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1</div>
+<div id="resolution-3" class="resolution"><strong>RESOLUTION:</strong> Support conversion of lists of lists to list objects by preserving the blank node head of the inner list. This resolves feature-at-risk #4 in the JSON-LD API specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we've had a number of JSON-LD authors about having @type having a different meaning </div>
+<div class="comment"><span class="name">Manu Sporny</span>:  based on context</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we've had several different discussions about renaming it in different contexts, but it hasn't really gone anywhere, with a little explaining it seems like people are ok with it as is</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: We might wanna do some editorial changes, see: <a href="https://github.com/json-ld/json-ld.org/issues/301">https://github.com/json-ld/json-ld.org/issues/301</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  can we make a 2-3 sentence editorial change before we go to PR?</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  as long as it's just editorial and particularly if it's responding to a comment it's fine</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  i think reading a tutorial will easily cover this</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Make an editorial update to the JSON-LD specification to clarify that the @type keyword is context sensitive and make its various usages more clear in the specification. This addresses issue at risk marker #9 in the JSON-LD syntax specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.9</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-4" class="resolution"><strong>RESOLUTION:</strong> Make an editorial update to the JSON-LD specification to clarify that the @type keyword is context sensitive and make its various usages more clear in the specification. This addresses issue at risk marker #9 in the JSON-LD syntax specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Ok, we also need to talk about @base: null. I think consensus is that we keep it. Object if you disagree.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Keep the @base: null feature in the JSON-LD specification as it is defined in the Candidate Recommendation specification.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0 (I cannot really judge the effect on usability)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0</div>
+<div id="resolution-5" class="resolution"><strong>RESOLUTION:</strong> Keep the @base: null feature in the JSON-LD specification as it is defined in the Candidate Recommendation specification.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: neither do I</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  ok, so if we can get that raised in the RDF WG call tomorrow</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  i may not be on the call tomorrow</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  ideally, if you can send an email nowish right after this call it can be on the agenda</div>
+<div id="action-3" class="action">ACTION: Manu to send an email to RDF WG stating that all issue markers are resolved.</div>
+<h1 id="topic-5" class="topic">Topic: Updated Implementation Report</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  pkuyken got a C# implementation report in</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's in the comprehensive report now as is rdflib from niklasl </div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  and jsonld-java</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's 100% except for a couple of tests they didn't cover</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: just realized we still haven't resolved ISSUE-300 <a href="https://github.com/json-ld/json-ld.org/issues/300">https://github.com/json-ld/json-ld.org/issues/300</a></div>
+<div class="comment"><span class="name">Gavin Carothers</span>:  Some note pointing out that @base: null makes toRDF not work may prevent surprises</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the java implementation doesn't handle remote docs</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  we had problems with that because some remote docs didn't exist</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  that's intentional it is testing that they don't exist</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  is that documented?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://json-ld.org/test-suite/reports/">http://json-ld.org/test-suite/reports/</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  is it ok that some implementation reports haven't gone to public-rdf-comments but only to public-linked-json</div>
+<div class="comment"><span class="name">Sandro Hawke</span>:  either is fine</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  minus some sporadic errors i think we're showing broad support for a variety of platforms</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  yeah, thanks to all implementors</div>
+<div class="comment"><span class="name">Sandro Hawke</span>: probably me.  I don't think I hung up properly.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the current status keeps @index nodes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  do we have a test?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, and it keeps it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  if you use @index it's probably computed from some other value in the node</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the only reason to perhaps drop it is to be more consistent</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  do we have spec text that covers this</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  i would argue it's just a bug fix</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it would require implementations to change and removing a test and adding another one and asking for updated implementation reports</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  the alternative is that we say nothing about it, and after we put the spec out we can make these changes</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i'm in favor of keeping it, i could imagine some implementation using it</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  it could, in theory, be destroying information in some strange algorithm outside of what we've specified</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  i'm in favor of keeping the nodes which is the current behavior and it might support some unforeseen behavior</div>
+<div class="proposal"><strong>PROPOSAL:</strong> When processing free-floating nodes, if there is an @index keyword in the node, it is not a free-floating node.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +0.7</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +0.5 (not entirely consistent IMO but I'm fine with it and don't feel strongly about it)</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +0</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +0 Not enough understanding of the problem</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +0.5</div>
+<div id="resolution-6" class="resolution"><strong>RESOLUTION:</strong> When processing free-floating nodes, if there is an @index keyword in the node, it is not a free-floating node.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  It might be good to tell people using toRDF that blank node properties could be created. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Dave Longley</span>:  They shouldn't be surprised as they have to use the flag to generate them... it's off by default. It would be fine to mention it in the spec. [scribe assist by Manu Sporny]</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Clarify the at-risk #10 feature in the specification by stating that if the use generalized RDF flag is set, then the toRDF algorithm could generate blank node properties.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://json-ld.org/spec/latest/json-ld/#at-risk-10">http://json-ld.org/spec/latest/json-ld/#at-risk-10</a></div>
+<div class="comment"><span class="name">Dave Longley</span>:  "Setting @base to null will prevent relative IRIs to be expanded to absolute IRIs." should be changed to "Setting @base to null will prevent relative IRIs from being expanded to absolute IRIs."</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Gavin Carothers</span>:  would that solve your need? [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld/#base-iri">http://json-ld.org/spec/latest/json-ld/#base-iri</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: [[[A generalized RDF triple is an RDF triple generalized so that subjects, predicates, and objects are all allowed to be IRIs, blank nodes, or literals.]]]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld-api/#deserialize-json-ld-to-rdf-algorithm">http://json-ld.org/spec/latest/json-ld-api/#deserialize-json-ld-to-rdf-algorithm</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Step 4.3.1 always drops such nodes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  generalized RDF doesn't include relative IRIs</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah, individual implementations could add a flag to keep relative IRIs </div>
+<h1 id="topic-6" class="topic">Topic: Candidate Recommendation Period</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Upcoming Publishing Moratoria: the week starting 11 November during TPAC 2013 // starting 18 December 2013 through 1 January 2014</div>
+<div class="proposal"><strong>PROPOSAL:</strong> The Candidate Recommendation period for JSON-LD is closed as of October 15th 2013.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Dave Longley</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div class="comment"><span class="name">David I. Lehn</span>: +1</div>
+<div id="resolution-7" class="resolution"><strong>RESOLUTION:</strong> The Candidate Recommendation period for JSON-LD is closed as of October 15th 2013.</div>
+</body>
+</html>
