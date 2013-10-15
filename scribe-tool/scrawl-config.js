@@ -55,6 +55,11 @@
          "alias": ["linclark", "lin"],
          "homepage": "http://lin-clark.com/"
       },
+      "Gavin Carothers":
+      {
+         "alias": ["gavinc"],
+         "homepage": "http://gavin.carothers.name/"
+      },
       "Nicolas Dufour":
       {
          "alias": ["capnemo"],
