@@ -1,0 +1,162 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2013-10-22</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0052.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0052.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Bug in @reverse algorithm</a><li><a href="#topic-2">Proposed Recommendation Plan</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">Apply the fix to the @reverse algorithm as detailed by Markus and merge the fix into the JSON-LD Algorithms prior to Proposed Recommendation publication.</a></ol></dd><dt>Chair</dt><dd>Manu Sporny</dd>
+<dt>Scribe</dt><dd>Niklas Lindström</dd>
+<dt>Present</dt><dd>Manu Sporny, Niklas Lindström, Gregg Kellogg, Paul Kuykendall, Markus Lanthaler, David I. Lehn</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Manu Sporny</span>:  today: 1. the bug with reverse + id, 2. going to PR [scribe assist by Niklas Lindström]</div>
+<div class="information">Niklas Lindström is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Bug in @reverse algorithm</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  pierre-antoine found a bug with the reverse algorithm; verified by gregg and markus. Proposals to address the bug bug Markus and Dave. Markus' proposal is merged into the spec</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="https://github.com/json-ld/json-ld.org/commit/2346834ade454dc5dd608e0b3822d945e7a86ca9">https://github.com/json-ld/json-ld.org/commit/2346834ade454dc5dd608e0b3822d945e7a86ca9</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/pull/304">https://github.com/json-ld/json-ld.org/pull/304</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I implemented Markus' change and passed the test. Dave commented an alternative solution, but since that's based on an algorithm divergence, it can't directly be used.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  and that fixes the JS impl.</div>
+<div class="comment-continuation">… we need to prep the spec for transitions today, and update reports</div>
+<div class="comment-continuation">... strictly, we may have until the transition meeting, but having them 'til tomorrow should do</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  I just checked my rdflib version as well, so this works. This was a bug, nothing that should be construed as an intentional change. [scribe assist by Manu Sporny]</div>
+<div class="information">dave longely has updated the JS, PHP and Python impls.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the purpose of the CR phase is to find problems just like this.</div>
+<div class="proposal"><strong>PROPOSAL:</strong> Apply the fix to the @reverse algorithm as detailed by Markus and merge the fix into the JSON-LD Algorithms prior to Proposed Recommendation publication.</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1</div>
+<div class="comment"><span class="name">Manu Sporny</span>: +1</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: +1</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: +1</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: +1</div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> Apply the fix to the @reverse algorithm as detailed by Markus and merge the fix into the JSON-LD Algorithms prior to Proposed Recommendation publication.</div>
+<h1 id="topic-2" class="topic">Topic: Proposed Recommendation Plan</h1>
+<div class="comment"><span class="name">Manu Sporny</span>:  I went through the mailing list and looked for any comments not tracked. We've sent out responses on all but one issue.</div>
+<div class="comment-continuation">… The one just resolved. I'll send out a response to Pierre-Antoine.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  are mails to the list official comments?</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  no, not formally. But it's a good practise to operate like this.</div>
+<div class="comment"><span class="name">Manu Sporny</span>: <a href="http://www.w3.org/2011/rdf-wg/track/products/18">http://www.w3.org/2011/rdf-wg/track/products/18</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  agreed.</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  all of these are tracked in the RDF WG tracker.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2013Oct/0074.html">http://lists.w3.org/Archives/Public/public-rdf-comments/2013Oct/0074.html</a></div>
+<div class="information">Simon made an official reponse on explaining @type, with suggested editorial changes.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  we could pick the wordings we like</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  do we have a note for the uses of type?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes, in 6.4</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld/#typed-values">http://json-ld.org/spec/latest/json-ld/#typed-values</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://json-ld.org/spec/latest/json-ld/#specifying-the-type">http://json-ld.org/spec/latest/json-ld/#specifying-the-type</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  if it was formatted as a Note, it should make it easier for people to pull that in</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I agree.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  in which section, 5.4 or 6.4?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  or two notes...</div>
+<div class="comment-continuation">… and these sections could reference each other.</div>
+<div class="comment-continuation">… up towards the top of each, add notes to address Simon's desired wording</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  In section 5.4, towards the end, we do spell it out though..</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it's really a matter of formatting them</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  from an rdf point of view, that distinction is since literal's can't be subjects in RDF</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  editorial changes like this (formatting notes) could be postponed to after PR</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  once we put it up as a PR, the voting is on accepting it as is (apart from e.g. spelling errors)</div>
+<div class="comment-continuation">… If we introduce new language, we may diverge from RDF concepts..</div>
+<div class="comment-continuation">… the best right now is to put notes in to emphasize this.</div>
+<div class="comment-continuation">... we could put the last part of 5.4 as a note block.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0016.html">http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0016.html</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  Yes, the text at the end of section 5.4, that should be a note. [scribe assist by Manu Sporny]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  and not introduce new concepts like node type and value type.</div>
+<div class="comment-continuation">... could otherwise affect the api spec..</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  any objections? [none]</div>
+<div class="information">Manu going through the issues, ensuring that we've resolved and responded</div>
+<div class="information">Manu checking <a href="http://www.w3.org/2011/rdf-wg/track/products/18">http://www.w3.org/2011/rdf-wg/track/products/18</a> issues.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Shall we merge <a href="https://github.com/json-ld/json-ld.org/pull/303">https://github.com/json-ld/json-ld.org/pull/303</a> now (make API non-normative)?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I think it's good.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  we need to dicuss the timeline for preparing the documents</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  we're planning a transition call on october 30th</div>
+<div class="comment-continuation">… the PR document to be done then</div>
+<div class="comment-continuation">... we need the notes and merge the pull requests</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  and to write the PR request (the document, who reviewed, etc.)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: <a href="http://lists.w3.org/Archives/Public/public-rdf-wg/2013Oct/0223.html">http://lists.w3.org/Archives/Public/public-rdf-wg/2013Oct/0223.html</a></div>
+<div class="comment"><span class="name">Manu Sporny</span>:  same as before, for CR (the wiki page), plus the additions made during CR</div>
+<div class="information">[mlnt will make a draft, gkellogg and m4nu will review it before tomorrow's call]</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  plus references to the 4 issues, how we ruled, and the responses</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  the proposed date is the 5th of november (made during the last RDF call)</div>
+<div class="comment-continuation">... before the moratorium</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  the RDF concepts should be in CR by then</div>
+<div class="comment-continuation">... hopefully</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  I'll add the note, markus will merge the pull requests plus fix the wiki page for PR req. tomorrow</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  people should send in updated earl reports if they can</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  and send links with the updates to the public-rdf-comments</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  so the json-ld test-suite is completely up to date?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  yes</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/tobie/respec-issues">https://github.com/tobie/respec-issues</a></div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  I just came across these respec issues</div>
+<div class="comment"><span class="name">David I. Lehn</span>:  bye</div>
+</body>
+</html>

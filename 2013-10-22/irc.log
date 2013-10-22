@@ -1,0 +1,103 @@
+[00:00:00]	<m4nu> Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0052.html
+[00:00:00]	<niklasl> manu: today: 1. the bug with reverse + id, 2. going to PR
+[00:00:00]	<m4nu> scribe: niklasl
+[00:00:00]	<m4nu> Topic: Bug in @reverse algorithm
+[00:00:00]	<niklasl> m4nu: pierre-antoine found a bug with the reverse algorithm; verified by gregg and markus. Proposals to address the bug bug Markus and Dave. Markus' proposal is merged into the spec
+[00:00:00]	<mlnt> https://github.com/json-ld/json-ld.org/commit/2346834ade454dc5dd608e0b3822d945e7a86ca9
+[00:00:00]	* gavinc (~gavin@barad-dur.carothers.name) has joined #json-ld
+[00:00:00]	<gkellogg> https://github.com/json-ld/json-ld.org/pull/304
+[00:00:00]	<niklasl> gregg: I implemented Markus' change and passed the test. Dave commented an alternative solution, but since that's based on an algorithm divergence, it can't directly be used.
+[00:00:00]	<niklasl> gregg: and that fixes the JS impl.
+[00:00:00]	<niklasl> … we need to prep the spec for transitions today, and update reports
+[00:00:00]	<niklasl> ... strictly, we may have until the transition meeting, but having them 'til tomorrow should do
+[00:00:00]	<niklasl> q+
+[00:00:00]	<voip-ld> Added niklasl to the speaker queue: niklasl
+[00:00:00]	<m4nu> ack niklasl
+[00:00:00]	<voip-ld> niklasl has the floor. The speaker queue is empty.
+[00:00:00]	<m4nu> niklas: I just checked my rdflib version as well, so this works. This was a bug, nothing that should be construed as an intentional change.
+[00:00:00]	<niklasl> dave longely has updated the JS, PHP and Python impls.
+[00:00:00]	<niklasl> gregg: the purpose of the CR phase is to find problems just like this.
+[00:00:00]	<m4nu> PROPOSAL: Apply the fix to the @reverse algorithm as detailed by Markus and merge the fix into the JSON-LD Algorithms prior to Proposed Recommendation publication.
+[00:00:00]	<niklasl> +1
+[00:00:00]	<m4nu> +1
+[00:00:00]	<gkellogg> +1
+[00:00:00]	<pkuyken> +1
+[00:00:00]	<mlnt> +1
+[00:00:00]	<m4nu> RESOLVED: Apply the fix to the @reverse algorithm as detailed by Markus and merge the fix into the JSON-LD Algorithms prior to Proposed Recommendation publication.
+[00:00:00]	<m4nu> Topic: Proposed Recommendation Plan
+[00:00:00]	<niklasl> m4nu: I went through the mailing list and looked for any comments not tracked. We've sent out responses on all but one issue.
+[00:00:00]	<niklasl> … The one just resolved. I'll send out a response to Pierre-Antoine.
+[00:00:00]	<niklasl> markus: are mails to the list official comments?
+[00:00:00]	<niklasl> m4nu: no, not formally. But it's a good practise to operate like this.
+[00:00:00]	<m4nu> http://www.w3.org/2011/rdf-wg/track/products/18
+[00:00:00]	<niklasl> markus: agreed.
+[00:00:00]	<voip-ld> dlehn (SIP/192.168.1.178:5060-000000f3) has joined the conference.
+[00:00:00]	<niklasl> m4nu: all of these are tracked in the RDF WG tracker.
+[00:00:00]	<mlnt> http://lists.w3.org/Archives/Public/public-rdf-comments/2013Oct/0074.html
+[00:00:00]	<niklasl> Simon made an official reponse on explaining @type, with suggested editorial changes.
+[00:00:00]	<niklasl> mlnt: we could pick the wordings we like
+[00:00:00]	* vikash I am trying to connect on SIP but unfortunately its not connecting. Sorry .
+[00:00:00]	<niklasl> gregg: do we have a note for the uses of type?
+[00:00:00]	<niklasl> mlnt: yes, in 6.4
+[00:00:00]	<mlnt> http://json-ld.org/spec/latest/json-ld/#typed-values
+[00:00:00]	* niklasl mixes aliases and real names heavily today… :P
+[00:00:00]	<mlnt> http://json-ld.org/spec/latest/json-ld/#specifying-the-type
+[00:00:00]	<niklasl> gregg: if it was formatted as a Note, it should make it easier for people to pull that in
+[00:00:00]	<niklasl> m4nu: I agree.
+[00:00:00]	<niklasl> mlnt: in which section, 5.4 or 6.4?
+[00:00:00]	<niklasl> gkellogg: or two notes...
+[00:00:00]	<niklasl> … and these sections could reference each other.
+[00:00:00]	<niklasl> … up towards the top of each, add notes to address Simon's desired wording
+[00:00:00]	<niklasl> m4nu: In section 5.4, towards the end, we do spell it out though..
+[00:00:00]	<niklasl> gkellogg: it's really a matter of formatting them
+[00:00:00]	* vikash jitsi is not connecting to sip account at all :/
+[00:00:00]	<niklasl> mlnt: from an rdf point of view, that distinction is since literal's can't be subjects in RDF
+[00:00:00]	<niklasl> mlnt: editorial changes like this (formatting notes) could be postponed to after PR
+[00:00:00]	<niklasl> m4nu: once we put it up as a PR, the voting is on accepting it as is (apart from e.g. spelling errors)
+[00:00:00]	<niklasl> … If we introduce new language, we may diverge from RDF concepts..
+[00:00:00]	<niklasl> … the best right now is to put notes in to emphasize this.
+[00:00:00]	<niklasl> q+
+[00:00:00]	<voip-ld> Added niklasl to the speaker queue: niklasl
+[00:00:00]	<voip-ld> dlehn (SIP/192.168.1.178:5060-000000f3) has left the conference.
+[00:00:00]	<niklasl> ... we could put the last part of 5.4 as a note block.
+[00:00:00]	<mlnt> http://lists.w3.org/Archives/Public/public-linked-json/2013Oct/0016.html
+[00:00:00]	<m4nu> ack niklasl
+[00:00:00]	<voip-ld> niklasl has the floor. The speaker queue is empty.
+[00:00:00]	<m4nu> niklasl: Yes, the text at the end of section 5.4, that should be a note.
+[00:00:00]	* PaulCapestany (~PaulCapes@204.28.124.82) has joined #json-ld
+[00:00:00]	<niklasl> mlnt: and not introduce new concepts like node type and value type.
+[00:00:00]	<niklasl> ... could otherwise affect the api spec..
+[00:00:00]	<niklasl> m4nu: any objections? [none]
+[00:00:00]	<niklasl> Manu going through the issues, ensuring that we've resolved and responded
+[00:00:00]	<niklasl> Manu checking http://www.w3.org/2011/rdf-wg/track/products/18 issues.
+[00:00:00]	<mlnt> Shall we merge https://github.com/json-ld/json-ld.org/pull/303 now (make API non-normative)?
+[00:00:00]	<niklasl> gkellogg: I think it's good.
+[00:00:00]	<niklasl> gkellogg: we need to dicuss the timeline for preparing the documents
+[00:00:00]	<niklasl> m4nu: we're planning a transition call on october 30th
+[00:00:00]	<niklasl> … the PR document to be done then
+[00:00:00]	<niklasl> ... we need the notes and merge the pull requests
+[00:00:00]	<niklasl> mlnt: and to write the PR request (the document, who reviewed, etc.)
+[00:00:00]	<mlnt> http://lists.w3.org/Archives/Public/public-rdf-wg/2013Oct/0223.html
+[00:00:00]	<niklasl> m4nu: same as before, for CR (the wiki page), plus the additions made during CR
+[00:00:00]	<niklasl> [mlnt will make a draft, gkellogg and m4nu will review it before tomorrow's call]
+[00:00:00]	<niklasl> m4nu: plus references to the 4 issues, how we ruled, and the responses
+[00:00:00]	* vikash Apologies everyone, how hard I am trying its not just connecting me :/ :/
+[00:00:00]	<niklasl> mlnt: the proposed date is the 5th of november (made during the last RDF call)
+[00:00:00]	<niklasl> ... before the moratorium
+[00:00:00]	<niklasl> gkellogg: the RDF concepts should be in CR by then
+[00:00:00]	<niklasl> ... hopefully
+[00:00:00]	* niklasl should that be CR for RDF concepts?
+[00:00:00]	<niklasl> m4nu: I'll add the note, markus will merge the pull requests plus fix the wiki page for PR req. tomorrow
+[00:00:00]	<niklasl> gkellogg: people should send in updated earl reports if they can
+[00:00:00]	<niklasl> gkellogg: and send links with the updates to the public-rdf-comments
+[00:00:00]	<niklasl> paul: so the json-ld test-suite is completely up to date?
+[00:00:00]	<niklasl> mlnt: yes
+[00:00:00]	<gkellogg> https://github.com/tobie/respec-issues
+[00:00:00]	<niklasl> gkellogg: I just came across these respec issues
+[00:00:00]	<niklasl> taaz: bye
+[00:00:00]	<voip-ld> Gregg Kellogg (SIP/71.202.225.162:49853-000000f1) has left the conference.
+[00:00:00]	<voip-ld> pkuyken (IAX2/diamondcard-3152) has left the conference.
+[00:00:00]	<voip-ld> Niklas Lindström (SIP/192.168.3.27-000000ef) has left the conference.
+[00:00:00]	<voip-ld> msporny (SIP/10.128.151.18-000000f0) has left the conference.
+[00:00:00]	<voip-ld> Markus Lanthaler (SIP/sip.linphone.org-000000f2) has left the conference.
+[00:00:00]	* vikash has quit (Quit: Page closed)
