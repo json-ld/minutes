@@ -1,0 +1,143 @@
+[Tue 10:02]	<m4nu>	Agenda: http://lists.w3.org/Archives/Public/public-linked-json/2013Dec/0016.html
+[Tue 10:02]	<m4nu>	scribe: m4nu
+[Tue 10:02]	<gkellogg>	chair: gkellogg
+[Tue 10:03]	<gkellogg>	Topic: Recommendation Publication Schedule
+[Tue 10:03]	<m4nu>	gkellogg: There have been a number of emails going by in the last day or so about publication of JSON-LD. Invited RDF WG chairs and W3C staff members.
+[Tue 10:04]	<m4nu>	gkellogg: As a result of those conversations, we have a proposal to take JSON-LD to REC right after RDF 1.1 specs go to PR.
+[Tue 10:04]	<m4nu>	gkellogg: This is mostly dealt with by the staff. We will want to get some resolutions down to smooth the process.
+[Tue 10:05]	<m4nu>	gkellogg: The only slight objection to this path was from Ivan. He felt that there would be more "thunder" if JSON-LD would come out with the RDF 1.1 documents. Both Guus and David agreed that JSON-LD is something different, and there are advantages to having it out on its own separate form.
+[Tue 10:05]	<m4nu>	gkellogg: Rather than trying to do this at the same time, they said they'd support doing the PR and then REC for JSON-LD in January.
+[Tue 10:06]	<m4nu>	gkellogg: Is there any anecdotal evidence to take JSON-LD to REC earlier than RDF 1.1 stuff?
+[Tue 10:06]	<gkellogg>	manu: I've been having some offline emails with several large deployers of JSON-LD
+[Tue 10:06]	<gkellogg>	... (private conversations) asking about status so that they can signal inside about going to production with several tools and projects
+[Tue 10:07]	<gkellogg>	... They don't want to be in a position of releasing a product which would then need a change.
+[Tue 10:07]	|<--	PaulCapestany has left zoe-fn (Quit: Computer has gone to sleep.)
+[Tue 10:07]	<gkellogg>	... This is why I'd like to get it published sooner. There's no new work, even if it doesn't go to REC, it doesn't affect anything, but it has a practical impact on people that are using the technology.
+[Tue 10:08]	<gkellogg>	... The normative references to RDF docs are fairly academic, and wouldn't affect an actual web developer.
+[Tue 10:08]	<gkellogg>	... Also, if RDF were to change drastically, there would be a bigger issue in removing things rather than keeping them in.
+[Tue 10:08]	<gkellogg>	... Delaying publication of JSON-LD seems more academic rather than preventing something that could actually happening.
+[Tue 10:09]	<gkellogg>	... I think there's general agreement to take JSON-LD to REC mimediately after RDF Concepts/MT publication
+[Tue 10:09]	-->|	pkuyken_ (d83e1181@gateway/web/freenode/ip.216.62.17.129) has joined #json-ld
+[Tue 10:09]	<voip-ld>	<unknown> (IAX2/diamondcard-616) has joined the conference.
+[Tue 10:09]	|<--	pkuyken_ has left zoe-fn (Client Quit)
+[Tue 10:10]	<m4nu>	PROPOSAL: Propose that the RDF WG petition the Director to take JSON-LD to Recommendation immediately after the publication of the Proposed Recommendations for the RDF 1.1 work.
+[Tue 10:10]	<pkuyken>	voip: 616 is pkuyken
+[Tue 10:10]	<voip-ld>	pkuyken is now associated with IAX2/diamondcard-616.
+[Tue 10:10]	<gkellogg>	+1
+[Tue 10:10]	<dlongley>	+1
+[Tue 10:10]	<m4nu>	+1
+[Tue 10:10]	<pkuyken>	+1
+[Tue 10:10]	<mlnt>	+1
+[Tue 10:10]	<taaz>	+1
+[Tue 10:10]	<m4nu>	RESOLVED: Propose that the RDF WG petition the Director to take JSON-LD to Recommendation immediately after the publication of the Proposed Recommendations for the RDF 1.1 work.
+[Tue 10:10]	<gkellogg>	RESOLVED: Propose that the RDF WG petition the Director to take JSON-LD to Recommendation immediately after the publication of the Proposed Recommendations for the RDF 1.1 work.
+[Tue 10:11]	<m4nu>	gkellogg: It'll be good to get the work out there. Lots of hard work.
+[Tue 10:11]	<gkellogg>	Topic: Future work of CG
+[Tue 10:11]	<m4nu>	gkellogg: A couple of work items have been left hanging due to the drive of getting the core work out.
+[Tue 10:12]	<m4nu>	gkellogg: JSON-LD Framing has come up lately. RDF Graph Normalization is also important. A streaming API has been discussed as being useful for very large dataset dumps where in-memory processing requirements are prohibitive.
+[Tue 10:12]	<m4nu>	gkellogg: There has been talk about something like the indexing mechanism, but a way to ignore a layer of keys.
+[Tue 10:13]	<m4nu>	dlongley: We have a number of lingering issues on github, we have a few more ideas that we could add to the @context.
+[Tue 10:13]	<m4nu>	dlongley: We wrote these down on github as issues before.
+[Tue 10:13]	<m4nu>	pkuyken: Has there been any other discussions w/ Microsoft on OData alignment.
+[Tue 10:13]	<m4nu>	gkellogg: No
+[Tue 10:13]	<m4nu>	mlnt: Nope.
+[Tue 10:13]	<m4nu>	mlnt: He said he'd send OData examples to the list and we'd show how it could be modeled in JSON-LD.
+[Tue 10:14]	<m4nu>	mlnt: We didn't get that mail, unfortunately.
+[Tue 10:14]	<m4nu>	gkellogg: There has been some discussion about making JSON-LD compatible w/ HAL. Another place this came up is in the Microdata definition - we could try to align JSON-LD w/ Microdata.
+[Tue 10:15]	<m4nu>	gkellogg: I think we're seeing people wanting to use keys and subobjects to compartmentalize data.
+[Tue 10:15]	<m4nu>	mlnt: Yeah, it doesn't work well if you have properties that don't mean anything but you want to still have a connection between two objects.
+[Tue 10:15]	<m4nu>	gkellogg: What is the kind of framework underwhich we can do extensions to JSON-LD w/o breaking the existing spec.
+[Tue 10:15]	<gkellogg>	Topic: extension mechanisms for JSON-LD
+[Tue 10:16]	<gkellogg>	manu: Two main types of extensions: algorithmic, which don't break the spec too much. Syntax changes have a chance to destabalize
+[Tue 10:16]	<gkellogg>	... If we start making syntax additions we'd be needing a JSON-LD 1.1 or 2.0.
+[Tue 10:17]	<gkellogg>	... These should be discussions around extensions, and not push things until we're sure we want to make such changes.
+[Tue 10:17]	<gkellogg>	... Framing is something we can play around with in the API, same thing with Normalization and Streaming.
+[Tue 10:18]	<gkellogg>	... Talking about compartmentalization of object linking, we inevitably get into talking about syntax.
+[Tue 10:19]	<m4nu>	manu: There are two ways of approaching this compartmentalization feature.
+[Tue 10:19]	<m4nu>	manu: The first is to create some API extension to transform JSON data to JSON-LD. The second is to extend the syntax.
+[Tue 10:20]	<m4nu>	gkellogg: Are JSON-LD Frames a part of the syntax?
+[Tue 10:20]	* gavinc	+lots to streaming
+[Tue 10:20]	<m4nu>	mlnt: They're different... different media type, etc.
+[Tue 10:21]	<m4nu>	gkellogg: Hmm, yes, but we do have code in the main algorithms that deals w/ frame data, right?
+[Tue 10:22]	<m4nu>	mlnt: Yeah, but we don't need to stick to that mechanism.
+[Tue 10:22]	<m4nu>	gkellogg: We do have a way of specifying which processing rules to use.
+[Tue 10:22]	<m4nu>	mlnt: But not within the document.
+[Tue 10:23]	<m4nu>	mlnt: A lot of those mechanisms come from converting other data to JSON-LD. We don't need to pollute the syntax w/ conversion of old documents to JSON-LD.
+[Tue 10:23]	<m4nu>	mlnt: I think many people just want to use HAL is because of the richer toolset.
+[Tue 10:23]	<m4nu>	mlnt: I think we should concentrate more on tools/libraries around JSON-LD.
+[Tue 10:26]	<gkellogg>	manu: We should work on tooling to solve issues rather than looking at the standards right now.
+[Tue 10:26]	<gkellogg>	... Make it easy for web developers.
+[Tue 10:26]	<m4nu>	pkuyken: I agree. At what point are we betting on winners and losers re: mindshare.
+[Tue 10:26]	<m4nu>	pkuyken: The tooling is a better option, make it as agnostic as possible.
+[Tue 10:26]	<m4nu>	dlongley: I think we can move more quickly by working on tools instead of working on syntax.
+[Tue 10:27]	<m4nu>	gkellogg: One possibility would be to look at JSON-LD Macros as the basis for some common tooling. It allows for ad-hoc modification to get into a JSON-LD format. Anyone spent any quality time w/ his work?
+[Tue 10:28]	<m4nu>	mlnt: Not really. Just syntactic transformation is the least difficult part. The whole idea of Linked Data is much more complicated than transforming JSON representations. You need tools to show you the power of using such an approach.
+[Tue 10:28]	<m4nu>	mlnt: You need to build on top of it. Something that looks simple, but has big improvements over HAL or something like that.
+[Tue 10:29]	<m4nu>	pkuyken: If you want to put extensions, where do you do that? Should we say how to do that? We can keep the extensions more isolated/sandboxed.
+[Tue 10:30]	<m4nu>	manu: We don't want to restrict people by telling people how to do extensions.
+[Tue 10:31]	<m4nu>	pkuyken: That's not what I mean, how do we tell people they can work with the community. Which thread do you pull on first? We need docs to tell people how to extend JSON-LD.
+[Tue 10:32]	<m4nu>	pkuyken: We can maybe use HAL as the example, to show some of the power of JSON-LD.
+[Tue 10:33]	<m4nu>	manu: Agreed.
+[Tue 10:33]	<m4nu>	gkellogg: yeah, it could be a blog post. Someone could do that and then we could create a CG note from it.
+[Tue 10:34]	<m4nu>	mlnt: The problem with those documents is that nobody wants to write it. We can reach out. Answer people where they're asking questions.
+[Tue 10:35]	<genesis>	hard to explain people the interest in few word, i try to be proselyte but i'm not able to convince people for now
+[Tue 10:37]	<m4nu>	mlnt: I don't understand why they can't publish a JSON-LD Context.
+[Tue 10:37]	<m4nu>	manu: I don't know if this is something they're interested in fixing.
+[Tue 10:38]	<m4nu>	gkellogg: Dan Brickley was concerned that publishing a JSON-LD Context would create many millions of requests to Google systems.
+[Tue 10:38]	<m4nu>	gkellogg: We may have to build schema.org into our processors.
+[Tue 10:39]	-->|	niklasl (~nlm@gate.kb.se) has joined #json-ld
+[Tue 10:41]	<m4nu>	mlnt: Is the Context ready?
+[Tue 10:41]	<m4nu>	gkellogg: He needs a Python program to translate schema.org vocab to JSON-LD Context. He needs something like that.
+[Tue 10:42]	<m4nu>	mlnt: I think niklas already hacked something together for that?
+[Tue 10:42]	<voip-ld>	Niklas LindströSIP/192.168.3.27-00000147) has joined the conference.
+[Tue 10:42]	<m4nu>	gkellogg: I'll send an email out to public-vocabs.
+[Tue 10:42]	<niklasl>	q+
+[Tue 10:42]	<voip-ld>	Added niklasl to the speaker queue: niklasl
+[Tue 10:42]	<niklasl>	.. https://gist.github.com/niklasl/7873635
+[Tue 10:42]	* gkellogg	thanks niklas!
+[Tue 10:43]	<m4nu>	dlongley: We could put the context in ./well-known/context.jsonld
+[Tue 10:43]	<m4nu>	ack niklasl
+[Tue 10:43]	<voip-ld>	niklasl has the floor. The speaker queue is empty.
+[Tue 10:43]	<gkellogg>	ack niklasl
+[Tue 10:43]	<gkellogg>	q?
+[Tue 10:43]	<voip-ld>	There are no speakers in the queue.
+[Tue 10:43]	<m4nu>	niklasl: I sent this to schema.org and Dan, didn't receive any other response.
+[Tue 10:44]	<m4nu>	niklasl: Yes, I think it's mostly there. I think Dan wanted to discuss what we need wrt. coercing things that are strings vs. things.
+[Tue 10:44]	<m4nu>	niklasl: I adapted the script so it behaved in a sane way by default. Don't know if it's enough.
+[Tue 10:45]	<m4nu>	gkellogg: He may want commitment on tool providers to do what they can in order to limit excessive invocations of that URL via caching.
+[Tue 10:45]	<m4nu>	gkellogg: Maybe you guys can follow that and emphasize it so that we can get a commitment to get it done.
+[Tue 10:46]	<m4nu>	ACTION: Gregg Kellogg to send an email to public-vocabs to ask for JSON-LD Context download from schema.org.
+[Tue 10:47]	<m4nu>	pkuyken: We need to list JSON-LD tools in a prominent place.
+[Tue 10:47]	<m4nu>	gkellogg: I'm not sure where else we might publish that. Maybe on the JSON-LD landing page.
+[Tue 10:48]	<m4nu>	pkuyken: The mailing list can be byzantine.
+[Tue 10:48]	<m4nu>	gkellogg: Can we access the stats for the site?
+[Tue 10:49]	<gkellogg>	manu: The whole reason DB started with JSON-LD is because of web payments.
+[Tue 10:49]	<gkellogg>	... And, of course, because of people on this call it took on a life of it's own.
+[Tue 10:49]	<gkellogg>	... Now that 1.0 is out there we need to apply it to work.
+[Tue 10:49]	<gkellogg>	... Framing's not that useful, but normalization is quite important.
+[Tue 10:50]	<gkellogg>	... We'll focus more on normalization; framing will be done eventually, but don't have much time to work on it.
+[Tue 10:50]	<gkellogg>	... I don't think we'll have much time to work on tooling otherwise.
+[Tue 10:50]	<gkellogg>	... From our perspective, we're willing to put time in to RDF Graph Normalization primarily, and bring that to REC.
+[Tue 10:50]	<gkellogg>	... After that, framing and other tooling.
+[Tue 10:51]	<gkellogg>	... I imagine that there is other tooling as a by-product of web payments (validation, etc.) and as a side-effect we'll create some tools to verify hashs, signatures and so forth.
+[Tue 10:52]	<gkellogg>	... The action we'll take is where to take Normalization next and getting it specced out.
+[Tue 10:52]	<gkellogg>	... There are web site updates, HAL conformance, and schema.org relationships.
+[Tue 10:52]	<gkellogg>	ACTION: manu to describe direction of Normalization
+[Tue 10:53]	<gkellogg>	ACTION: gkellogg to push on schema.org for context publication.
+[Tue 10:54]	<gkellogg>	manu: I could try to put aside a day to work on the json-ld.org site.
+[Tue 10:55]	<gkellogg>	... I thought about reaching out to the local university and offering to do a mentorship to get credit and work on JSON-LD stuff.
+[Tue 10:55]	<gkellogg>	... We could potentially get 4-5 people to contribute.
+[Tue 10:55]	<gkellogg>	... Also GSoC coming up again next summer.
+[Tue 10:56]	<m4nu>	gkellogg: If we could start a conversation on tooling, we can see what updates to the website need to be done.
+[Tue 10:57]	<m4nu>	gkellogg: Next meeting - next Tuesday is off, after that is New years. Let's meet again on the 7th of January.
+[Tue 10:58]	<m4nu>	gkellogg: Let's see if we can get some progress by that point.
+[Tue 10:58]	|<--	TallTed has left zoe-fn (Ping timeout: 240 seconds)
+[Tue 10:58]	-->|	TallTed (~Thud@63.119.36.36) has joined #json-ld
+[Tue 10:58]	<m4nu>	gkellogg: We should have regular but infrequent meetings to keep pressure on JSON-LD to keep moving. We need to get more people involved, to share the burden and for this to take off, it can't remain the original core contributors. It needs a life of its own.
+[Tue 10:58]	<mlnt>	pkuyken, can you hang on a second after the call.. have a quick question
+[Tue 10:59]	<m4nu>	gkellogg: I'll send out a meeting Agenda for the next meeting before the 7th of Jan.
+[Tue 10:59]	<voip-ld>	Manu Sporny (SIP/6000-00000144) has left the conference.
+[Tue 10:59]	<voip-ld>	Dave Longley (SIP/6002-00000146) has left the conference.
+[Tue 10:59]	<voip-ld>	Gregg Kellogg (SIP/50.131.178.234:57696-00000142) has left the conference.
+[Tue 10:59]	<voip-ld>	Niklas LindströSIP/192.168.3.27-00000147) has left the conference.
+[Tue 11:00]	<voip-ld>	dlehn (SIP/192.168.1.149:5060-00000143) has left the conference.
