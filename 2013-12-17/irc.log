@@ -30,7 +30,6 @@
 [Tue 10:10]	<mlnt>	+1
 [Tue 10:10]	<taaz>	+1
 [Tue 10:10]	<m4nu>	RESOLVED: Propose that the RDF WG petition the Director to take JSON-LD to Recommendation immediately after the publication of the Proposed Recommendations for the RDF 1.1 work.
-[Tue 10:10]	<gkellogg>	RESOLVED: Propose that the RDF WG petition the Director to take JSON-LD to Recommendation immediately after the publication of the Proposed Recommendations for the RDF 1.1 work.
 [Tue 10:11]	<m4nu>	gkellogg: It'll be good to get the work out there. Lots of hard work.
 [Tue 10:11]	<gkellogg>	Topic: Future work of CG
 [Tue 10:11]	<m4nu>	gkellogg: A couple of work items have been left hanging due to the drive of getting the core work out.
@@ -47,14 +46,10 @@
 [Tue 10:15]	<m4nu>	gkellogg: I think we're seeing people wanting to use keys and subobjects to compartmentalize data.
 [Tue 10:15]	<m4nu>	mlnt: Yeah, it doesn't work well if you have properties that don't mean anything but you want to still have a connection between two objects.
 [Tue 10:15]	<m4nu>	gkellogg: What is the kind of framework underwhich we can do extensions to JSON-LD w/o breaking the existing spec.
-[Tue 10:15]	<gkellogg>	Topic: extension mechanisms for JSON-LD
-[Tue 10:16]	<gkellogg>	manu: Two main types of extensions: algorithmic, which don't break the spec too much. Syntax changes have a chance to destabalize
-[Tue 10:16]	<gkellogg>	... If we start making syntax additions we'd be needing a JSON-LD 1.1 or 2.0.
-[Tue 10:17]	<gkellogg>	... These should be discussions around extensions, and not push things until we're sure we want to make such changes.
-[Tue 10:17]	<gkellogg>	... Framing is something we can play around with in the API, same thing with Normalization and Streaming.
-[Tue 10:18]	<gkellogg>	... Talking about compartmentalization of object linking, we inevitably get into talking about syntax.
+[Tue 10:15]	<gkellogg>	Topic: Extension mechanisms for JSON-LD
+[Tue 10:16]	<gkellogg>	manu: Two main types of extensions: algorithmic, which don't break the spec too much. Syntax changes have a chance to destabilize. If we start making syntax additions we'd be needing a JSON-LD 1.1 or 2.0. These should be discussions around extensions, and not push things until we're sure we want to make such changes. Framing is something we can play around with in the API, same thing with Normalization and Streaming. Talking about compartmentalization of object linking, we inevitably get into talking about syntax.
 [Tue 10:19]	<m4nu>	manu: There are two ways of approaching this compartmentalization feature.
-[Tue 10:19]	<m4nu>	manu: The first is to create some API extension to transform JSON data to JSON-LD. The second is to extend the syntax.
+[Tue 10:19]	<m4nu>	... The first is to create some API extension to transform JSON data to JSON-LD. The second is to extend the syntax.
 [Tue 10:20]	<m4nu>	gkellogg: Are JSON-LD Frames a part of the syntax?
 [Tue 10:20]	* gavinc	+lots to streaming
 [Tue 10:20]	<m4nu>	mlnt: They're different... different media type, etc.
@@ -65,8 +60,7 @@
 [Tue 10:23]	<m4nu>	mlnt: A lot of those mechanisms come from converting other data to JSON-LD. We don't need to pollute the syntax w/ conversion of old documents to JSON-LD.
 [Tue 10:23]	<m4nu>	mlnt: I think many people just want to use HAL is because of the richer toolset.
 [Tue 10:23]	<m4nu>	mlnt: I think we should concentrate more on tools/libraries around JSON-LD.
-[Tue 10:26]	<gkellogg>	manu: We should work on tooling to solve issues rather than looking at the standards right now.
-[Tue 10:26]	<gkellogg>	... Make it easy for web developers.
+[Tue 10:26]	<gkellogg>	manu: We should work on tooling to solve issues rather than looking at the standards right now. Make it easy for web developers.
 [Tue 10:26]	<m4nu>	pkuyken: I agree. At what point are we betting on winners and losers re: mindshare.
 [Tue 10:26]	<m4nu>	pkuyken: The tooling is a better option, make it as agnostic as possible.
 [Tue 10:26]	<m4nu>	dlongley: I think we can move more quickly by working on tools instead of working on syntax.
@@ -106,28 +100,16 @@
 [Tue 10:44]	<m4nu>	niklasl: I adapted the script so it behaved in a sane way by default. Don't know if it's enough.
 [Tue 10:45]	<m4nu>	gkellogg: He may want commitment on tool providers to do what they can in order to limit excessive invocations of that URL via caching.
 [Tue 10:45]	<m4nu>	gkellogg: Maybe you guys can follow that and emphasize it so that we can get a commitment to get it done.
-[Tue 10:46]	<m4nu>	ACTION: Gregg Kellogg to send an email to public-vocabs to ask for JSON-LD Context download from schema.org.
+[Tue 10:46]	<m4nu>	ACTION: gkellogg to send an email to public-vocabs to ask for JSON-LD Context download from schema.org.
 [Tue 10:47]	<m4nu>	pkuyken: We need to list JSON-LD tools in a prominent place.
 [Tue 10:47]	<m4nu>	gkellogg: I'm not sure where else we might publish that. Maybe on the JSON-LD landing page.
 [Tue 10:48]	<m4nu>	pkuyken: The mailing list can be byzantine.
 [Tue 10:48]	<m4nu>	gkellogg: Can we access the stats for the site?
-[Tue 10:49]	<gkellogg>	manu: The whole reason DB started with JSON-LD is because of web payments.
-[Tue 10:49]	<gkellogg>	... And, of course, because of people on this call it took on a life of it's own.
-[Tue 10:49]	<gkellogg>	... Now that 1.0 is out there we need to apply it to work.
-[Tue 10:49]	<gkellogg>	... Framing's not that useful, but normalization is quite important.
-[Tue 10:50]	<gkellogg>	... We'll focus more on normalization; framing will be done eventually, but don't have much time to work on it.
-[Tue 10:50]	<gkellogg>	... I don't think we'll have much time to work on tooling otherwise.
-[Tue 10:50]	<gkellogg>	... From our perspective, we're willing to put time in to RDF Graph Normalization primarily, and bring that to REC.
-[Tue 10:50]	<gkellogg>	... After that, framing and other tooling.
-[Tue 10:51]	<gkellogg>	... I imagine that there is other tooling as a by-product of web payments (validation, etc.) and as a side-effect we'll create some tools to verify hashs, signatures and so forth.
-[Tue 10:52]	<gkellogg>	... The action we'll take is where to take Normalization next and getting it specced out.
-[Tue 10:52]	<gkellogg>	... There are web site updates, HAL conformance, and schema.org relationships.
+[Tue 10:49]	<gkellogg>	manu: The whole reason DB started with JSON-LD is because of web payments. And, of course, because of people on this call it took on a life of it's own. Now that 1.0 is out there we need to apply it to work. Framing's not that useful, but normalization is quite important. We'll focus more on normalization; framing will be done eventually, but don't have much time to work on it. I don't think we'll have much time to work on tooling otherwise. From our perspective, we're willing to put time in to RDF Graph Normalization primarily, and bring that to REC. After that, framing and other tooling.
+[Tue 10:51]	<gkellogg>	... I imagine that there is other tooling as a by-product of web payments (validation, etc.) and as a side-effect we'll create some tools to verify hashs, signatures and so forth. The action we'll take is where to take Normalization next and getting it specced out. There are web site updates, HAL conformance, and schema.org relationships.
 [Tue 10:52]	<gkellogg>	ACTION: manu to describe direction of Normalization
 [Tue 10:53]	<gkellogg>	ACTION: gkellogg to push on schema.org for context publication.
-[Tue 10:54]	<gkellogg>	manu: I could try to put aside a day to work on the json-ld.org site.
-[Tue 10:55]	<gkellogg>	... I thought about reaching out to the local university and offering to do a mentorship to get credit and work on JSON-LD stuff.
-[Tue 10:55]	<gkellogg>	... We could potentially get 4-5 people to contribute.
-[Tue 10:55]	<gkellogg>	... Also GSoC coming up again next summer.
+[Tue 10:54]	<gkellogg>	manu: I could try to put aside a day to work on the json-ld.org site. I thought about reaching out to the local university and offering to do a mentorship to get credit and work on JSON-LD stuff. We could potentially get 4-5 people to contribute. Also GSoC coming up again next summer.
 [Tue 10:56]	<m4nu>	gkellogg: If we could start a conversation on tooling, we can see what updates to the website need to be done.
 [Tue 10:57]	<m4nu>	gkellogg: Next meeting - next Tuesday is off, after that is New years. Let's meet again on the 7th of January.
 [Tue 10:58]	<m4nu>	gkellogg: Let's see if we can get some progress by that point.
