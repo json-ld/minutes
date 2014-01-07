@@ -1,0 +1,95 @@
+[16:04]	<niklasl>	.. Is there a telecon today? We planned for the 7th last time, but there's been no mail about it.
+[16:04]	<mlnt>	I don't know myself.. I just joined but was the only one
+[16:04]	<pkuyken>	I was wondering about that myself
+[16:04]	<mlnt>	Do we have something to talk about?
+[16:05]	<pkuyken>	We discussed last time the "next steps" with respect to tooling, etc.
+[16:05]	<pkuyken>	Do we have any other items that we should go over?
+[16:06]	<niklasl>	I guess we ended by saying something like "of course, unless we have a bunch of topics/issues, we could wait until we've gathered some and then issue a call"..
+[16:06]	<mlnt>	There was some discussion regarding the context at schema.org but other than that I don't think anything else happened
+[16:06]	<niklasl>	mlnt: I agree, I think that's about it right now.
+[16:07]	<mlnt>	So I guess we postpone the telecon!?
+[16:07]	<pkuyken>	Has anyone/group come up with a wish-list of tools, etc. that would be beneficial?
+[16:07]	<niklasl>	I've no problems with taking that on the list and see if we can coalesce the questions around that (publishing contexts, caching and other tooling)
+[16:08]	<mlnt>	pkuyken.. do you want to briefly discuss this on the call? I'm happy to have a brief call but also fine with moving it to the mailing list
+[16:08]	<pkuyken>	dialing in
+[16:08]	<mlnt>	niklkasl, will you join us as well for a couple of minutes?
+[16:09]	<niklasl>	sure, dialing in
+[16:09]	<voip>-ld	<unknown> (IAX2/diamondcard-9877) has joined the conference.
+[16:09]	<voip>-ld	Niklas Lindström (SIP/82.182.71.107-00000153) has joined the conference.
+[16:09]	<mlnt>	ping m4nu, taaz, dlongley_
+[16:09]	<voip>-ld	Markus Lanthaler (SIP/sip.linphone.org-00000154) has joined the conference.
+[16:10]	<>=-=	dlongley_ is now known as dlongley
+[16:10]	<mlnt>	dlongley: we are having a brief call if you want to join
+[16:10]	<dlongley>	i can join for a bit
+[16:10]	<voip>-ld	Dave Longley (SIP/6002-00000155) has joined the conference.
+[16:10]	<mlnt>	scribe: mlnt
+[16:10]	<mlnt>	chair: mlnt
+[16:11]	<pkuyken>	Topic: Tooling for JSON-LD
+[16:11]	<pkuyken>	2) Schema.org discussion on list
+[16:12]	<mlnt>	paul: during the last telecon we discussed what tooling we wanted to have
+[16:12]	<mlnt>	... I'm wondering where we are at
+[16:12]	<mlnt>	... do we want to put something up on json-ld.org or on the wiki on GitHub?
+[16:13]	<niklasl>	is having sound issues, so I may miss some speech from time to time
+[16:13]	<mlnt>	markus: me too
+[16:13]	<mlnt>	dlongley: I think it would be good to have a primer
+[16:13]	<mlnt>	... David Lehn was working on it some time ago but it's not done yet
+[16:14]	<niklasl>	q+
+[16:14]	<voip>-ld	Added niklasl to the speaker queue: niklasl
+[16:14]	<mlnt>	... people have issues understanding some things (like overloading of @type)
+[16:14]	<mlnt>	... not sure if a primer would help
+[16:14]	<mlnt>	... regarding tools: I think creating a wiki page and linking it from json-ld.org would be a good start
+[16:14]	<niklasl>	+1 for a wish list (and list of common questions)
+[16:14]	<mlnt>	... also updates for the playground would be nice
+[16:15]	<mlnt>	paul: a simple copy button on the playground would be awesome
+[16:15]	<mlnt>	... where shall we track these things?
+[16:16]	<mlnt>	dlongley: regarding the playground I think you should just file an issue
+[16:16]	<mlnt>	paul: the only concern I have with the wiki (w3c wiki) is that people have the feeling to have to dig into specs
+[16:17]	<mlnt>	... instead of just having to use tools etc.
+[16:17]	<mlnt>	dlongley: I think we could just use Github issues for this as well
+[16:18]	<mlnt>	niklas: one difficult question is always if JSON-LD is usable as just JSON
+[16:19]	<mlnt>	... schema.org might be an example for that.. can people use different terms (if they are properly mapped in the context)?
+[16:19]	<mlnt>	dlongley: I think we should focus on the JSON side of things
+[16:20]	<mlnt>	niklas: yeah.. we should mention what kind of constraints that imposes in the primer
+[16:21]	<mlnt>	dlongley: do people agree with paul that we should avoid the wiki
+[16:22]	<mlnt>	niklas: yeah, wikis are lousy for discussion
+[16:22]	<mlnt>	markus: I agree. I would prefer to just use Gihub issues with a specific tag so that we can directly link to that list
+[16:22]	<dlongley>	http://json-ld.org/primer/latest/
+[16:22]	<genesis>	(etherpad could be better but issue is good and available)
+[16:23]	<mlnt>	markus: I think we shouldn't format it using ReSpec but make it look more like a blog post
+[16:23]	<mlnt>	dlongley: yeah
+[16:23]	<mlnt>	Topic: Context at schema.org
+[16:24]	<mlnt>	paul: do we want to discuss the context at schema.org now?
+[16:25]	<mlnt>	markus: I don't think we can discuss much here because (unfortunately) we are not in control there
+[16:25]	<mlnt>	niklas: one of the interesting questions to me is that at this stage the intent of the examples being published is to create data being published by Google
+[16:26]	<mlnt>	... I think this intended for publishers to publish data for Google and the other schema.org search engines.. not other people
+[16:26]	<mlnt>	... Google obviously will have their own caches
+[16:27]	<mlnt>	markus: most problems could be addressed by using @vocab
+[16:28]	<mlnt>	dlongley: that wouldn't address the problem that Martin Hepp is throwing in (tools accessing various schema.org URLs for properties etc.)
+[16:29]	<mlnt>	niklasl: that might be a problem because tools might do optimizations like prefetching etc.
+[16:29]	<mlnt>	... there are no such tools available for JSON-LD (yet)
+[16:30]	<mlnt>	markus: that's a general Linked Data "problem"
+[16:30]	<mlnt>	... tools like Tabulator etc. will have to dereference properties etc. to get their labels
+[16:30]	<mlnt>	dlongley: in a lot of cases that's the whole point of all this
+[16:31]	<mlnt>	... anyway. I think there's progress been made on the mailing list
+[16:31]	<mlnt>	Topic: Processing of relative IRIs without base
+[16:33]	<mlnt>	dlongley: markus, I think we never decided what happens when base is set to null
+[16:36]	<mlnt>	markus: https://github.com/lanthaler/JsonLD/issues/47
+[16:36]	<mlnt>	markus: at least my understanding from reading the RFCs is that the algorithms can only be run if there's a base
+[16:37]	<mlnt>	... if @base is set to null then there's none
+[16:38]	<mlnt>	dlongley: is there not even something like path normalization we might could run
+[16:38]	<mlnt>	markus: I don't think so.. the algorithms are not defined
+[16:38]	<mlnt>	... http://tools.ietf.org/html/rfc3986#section-5
+[16:39]	<mlnt>	... The term "relative" implies that a "base URI" exists against which the relative reference is applied. Aside from fragment-only references (Section 4.4), relative references are only usable when a base URI is known.
+[16:39]	<mlnt>	... A base URI must be established by the parser prior to parsing URI references that might be relative.
+[16:40]	<mlnt>	dlongley: I'm fine with not touching relativ IRIs if there's no base
+[16:40]	<mlnt>	markus: it's a bit weird but should we add a test for this?
+[16:41]	<mlnt>	dlongley: hmm.. no I don't think so
+[16:41]	<mlnt>	markus: it's weird but we don't need to use an empty string
+[16:41]	<mlnt>	dlongley: yeah.. maybe that makes sense
+[16:43]	<mlnt>	markus: that brings me to something else...
+[16:43]	<mlnt>	Topic: Subtree split to create a repository containing just the JSON-LD tests
+[16:43]	<mlnt>	markus:  could we create a subtree split including just the tests?
+[16:44]	<mlnt>	paul: I think that would be a great idea
+[16:44]	<mlnt>	markus: do you have access to set up a post-commit webhook on GitHub? I don't
+[16:45]	<mlnt>	dlongley: I have access
+[16:45]	<mlnt>	... I'll try to give you access as well
