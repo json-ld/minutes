@@ -1,0 +1,170 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2014-01-07</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd>n/a (ad-hoc telecon)</dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Tooling for JSON-LD</a><li><a href="#topic-2">Context at schema.org</a><li><a href="#topic-3">Processing of relative IRIs without base</a><li><a href="#topic-4">Subtree split to create a repository containing just the JSON-LD tests</a></ol></dd><dt>Chair</dt><dd>Markus Lanthaler</dd>
+<dt>Scribe</dt><dd>Markus Lanthaler</dd>
+<dt>Present</dt><dd>Niklas Lindström, Markus Lanthaler, Paul Kuykendall, Dave Longley</dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</div></dd>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. Is there a telecon today? We planned for the 7th last time, but there's been no mail about it.</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: I don't know myself.. I just joined but was the only one</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: I was wondering about that myself</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: Do we have something to talk about?</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: We discussed last time the "next steps" with respect to tooling, etc.</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: Do we have any other items that we should go over?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I guess we ended by saying something like "of course, unless we have a bunch of topics/issues, we could wait until we've gathered some and then issue a call"..</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: There was some discussion regarding the context at schema.org but other than that I don't think anything else happened</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree, I think that's about it right now. [scribe assist by Niklas Lindström]</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: So I guess we postpone the telecon!?</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: Has anyone/group come up with a wish-list of tools, etc. that would be beneficial?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: I've no problems with taking that on the list and see if we can coalesce the questions around that (publishing contexts, caching and other tooling)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: pkuyken.. do you want to briefly discuss this on the call? I'm happy to have a brief call but also fine with moving it to the mailing list</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>: dialing in</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: niklkasl, will you join us as well for a couple of minutes?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: sure, dialing in</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>: ping m4nu, taaz, dlongley_</div>
+<div class="comment"><span class="name">Dave Longley</span>:  we are having a brief call if you want to join [scribe assist by Markus Lanthaler]</div>
+<div class="comment"><span class="name">Dave Longley</span>: i can join for a bit</div>
+<div class="information">Markus Lanthaler is scribing.</div>
+<h1 id="topic-1" class="topic">Topic: Tooling for JSON-LD</h1>
+<div class="comment"><span class="name">Paul Kuykendall</span>: 2) Schema.org discussion on list</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  during the last telecon we discussed what tooling we wanted to have</div>
+<div class="comment-continuation">... I'm wondering where we are at</div>
+<div class="comment-continuation">... do we want to put something up on json-ld.org or on the wiki on GitHub?</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: is having sound issues, so I may miss some speech from time to time</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  me too</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think it would be good to have a primer</div>
+<div class="comment-continuation">... David Lehn was working on it some time ago but it's not done yet</div>
+<div class="comment-continuation">... people have issues understanding some things (like overloading of @type)</div>
+<div class="comment-continuation">... not sure if a primer would help</div>
+<div class="comment-continuation">... regarding tools: I think creating a wiki page and linking it from json-ld.org would be a good start</div>
+<div class="comment"><span class="name">Niklas Lindström</span>: +1 for a wish list (and list of common questions)</div>
+<div class="comment-continuation">... also updates for the playground would be nice</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  a simple copy button on the playground would be awesome</div>
+<div class="comment-continuation">... where shall we track these things?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  regarding the playground I think you should just file an issue</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  the only concern I have with the wiki (w3c wiki) is that people have the feeling to have to dig into specs</div>
+<div class="comment-continuation">... instead of just having to use tools etc.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we could just use Github issues for this as well</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  one difficult question is always if JSON-LD is usable as just JSON</div>
+<div class="comment-continuation">... schema.org might be an example for that.. can people use different terms (if they are properly mapped in the context)?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I think we should focus on the JSON side of things</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  yeah.. we should mention what kind of constraints that imposes in the primer</div>
+<div class="comment"><span class="name">Dave Longley</span>:  do people agree with paul that we should avoid the wiki</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  yeah, wikis are lousy for discussion</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I agree. I would prefer to just use Gihub issues with a specific tag so that we can directly link to that list</div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="http://json-ld.org/primer/latest/">http://json-ld.org/primer/latest/</a></div>
+<div class="information">(etherpad could be better but issue is good and available)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I think we shouldn't format it using ReSpec but make it look more like a blog post</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah</div>
+<h1 id="topic-2" class="topic">Topic: Context at schema.org</h1>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  do we want to discuss the context at schema.org now?</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think we can discuss much here because (unfortunately) we are not in control there</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  one of the interesting questions to me is that at this stage the intent of the examples being published is to create data being published by Google</div>
+<div class="comment-continuation">... I think this intended for publishers to publish data for Google and the other schema.org search engines.. not other people</div>
+<div class="comment-continuation">... Google obviously will have their own caches</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  most problems could be addressed by using @vocab</div>
+<div class="comment"><span class="name">Dave Longley</span>:  that wouldn't address the problem that Martin Hepp is throwing in (tools accessing various schema.org URLs for properties etc.)</div>
+<div class="comment"><span class="name">Niklas Lindström</span>:  that might be a problem because tools might do optimizations like prefetching etc.</div>
+<div class="comment-continuation">... there are no such tools available for JSON-LD (yet)</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that's a general Linked Data "problem"</div>
+<div class="comment-continuation">... tools like Tabulator etc. will have to dereference properties etc. to get their labels</div>
+<div class="comment"><span class="name">Dave Longley</span>:  in a lot of cases that's the whole point of all this</div>
+<div class="comment-continuation">... anyway. I think there's progress been made on the mailing list</div>
+<h1 id="topic-3" class="topic">Topic: Processing of relative IRIs without base</h1>
+<div class="comment"><span class="name">Dave Longley</span>:  markus, I think we never decided what happens when base is set to null</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  <a href="https://github.com/lanthaler/JsonLD/issues/47">https://github.com/lanthaler/JsonLD/issues/47</a></div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  at least my understanding from reading the RFCs is that the algorithms can only be run if there's a base</div>
+<div class="comment-continuation">... if @base is set to null then there's none</div>
+<div class="comment"><span class="name">Dave Longley</span>:  is there not even something like path normalization we might could run</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  I don't think so.. the algorithms are not defined</div>
+<div class="comment-continuation">... <a href="http://tools.ietf.org/html/rfc3986#section-5">http://tools.ietf.org/html/rfc3986#section-5</a></div>
+<div class="comment-continuation">... The term "relative" implies that a "base URI" exists against which the relative reference is applied. Aside from fragment-only references (Section 4.4), relative references are only usable when a base URI is known.</div>
+<div class="comment-continuation">... A base URI must be established by the parser prior to parsing URI references that might be relative.</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I'm fine with not touching relativ IRIs if there's no base</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's a bit weird but should we add a test for this?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  hmm.. no I don't think so</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  it's weird but we don't need to use an empty string</div>
+<div class="comment"><span class="name">Dave Longley</span>:  yeah.. maybe that makes sense</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  that brings me to something else...</div>
+<h1 id="topic-4" class="topic">Topic: Subtree split to create a repository containing just the JSON-LD tests</h1>
+<div class="comment"><span class="name">Markus Lanthaler</span>:   could we create a subtree split including just the tests?</div>
+<div class="comment"><span class="name">Paul Kuykendall</span>:  I think that would be a great idea</div>
+<div class="comment"><span class="name">Markus Lanthaler</span>:  do you have access to set up a post-commit webhook on GitHub? I don't</div>
+<div class="comment"><span class="name">Dave Longley</span>:  I have access</div>
+<div class="comment-continuation">... I'll try to give you access as well</div>
+</body>
+</html>
