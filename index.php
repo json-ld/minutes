@@ -102,11 +102,11 @@ if(!file_exists($mscfilename) or ((time() - $mtime) > 3600))
    fwrite($mcache, "</ul>\n");
    
    fseek($mcache, 0);
-   print fread($mcache, 65536);
+   print fread($mcache, 131072);
 }
 else
 {
-   print fread($mcache, 65536);
+   print fread($mcache, 131072);
 }
 fclose($mcache);
 
