@@ -1,0 +1,240 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <title>Linked Data in JSON Telecon</title> 
+  
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+a {
+   color: #4183c4;
+}
+
+ol {
+   padding-left: 1.2em;
+   margin: 0em;
+}
+ 
+.name {
+   font-weight: bold;
+}
+ 
+.information {
+   font-style: italic;
+}
+ 
+.comment-continuation {
+   margin-left: 2em;
+}
+ 
+.proposal {
+   background: #eee;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.resolution {
+   background: #beb;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+ 
+.action {
+   background: #bbe;
+   border: 0.2em solid #c4c8cc;
+   margin: 1em;
+   border-radius: 1em 1em 1em 1em;
+   padding: 1em 1em 1em 1em;
+}
+  </style> 
+</head> 
+ 
+<body> 
+<h1>JSON-LD Community Group Telecon</h1>
+<h2>Minutes for 2017-11-12</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/wiki/TPAC/2017">https://www.w3.org/wiki/TPAC/2017</a></dd>
+<dt>Chair</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe</dt><dd>Robert Sanderson</dd>
+<dt>Present</dt><dd>Gregg Kellogg, Robert Sanderson, Kim (Hamilton) Duffy, Benjamin Young, David Wood, Ivan Herman, Manu Sporny, Fabien Gandon, Christopher Webber, Dave Longley</dd>
+<div class="information">Robert Sanderson is scribing.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Slides for this presentation are at <a href="https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/">https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/</a></div>
+<div class="comment"><span class="name">Kim (Hamilton) Duffy</span>: present+</div>
+<div class="comment"><span class="name">Benjamin Young</span>: present+</div>
+<div class="comment"><span class="name">David Wood</span>:   Are the additions just supplementary, or changes semantics?</div>
+<div class="information">present+</div>
+<div class="information">present+</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Only additions.</div>
+<div class="comment-continuation">... Previously container was limited to 4 values. Now we have a new value space for container.</div>
+<div class="comment-continuation">... so for compatibility, a 1.1 processor and sees it in 1.0 mode will complain</div>
+<div class="comment"><span class="name">David Wood</span>:  Versioned MIME 1.0 -- intention to later come up with 1.1.  Unexpectedly, the process of versioning caused MIME to never increase its version</div>
+<div class="comment-continuation">... built into so many tools</div>
+<div class="comment"><span class="name">Ivan Herman</span>: present+</div>
+<div class="comment-continuation">... With schema.org and other usage, what barriers are there practically for adoption?</div>
+<div class="comment-continuation">... brought up a couple already, are there others?</div>
+<div class="information">depending on what could be broken when 1.0 processors read @version 1.1, maybe it would make sense to use 2.0 instead of 1.1</div>
+<div class="information">depends on expectations</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  New keys can confuse 1.0 and 1.1 implementations.  If this property was used, 1.1 would interpret the data differently</div>
+<div class="comment-continuation">... need to face what that means as a community.  Far fewer implementations of the processor than the uses of the language, we could choose to simply say we're cutting off the 1.0 features or restrictions</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  Far fewer code implementations, but no idea how often it's used.  Forcing an upgrade</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Kingsley sent me an email 2 days ago, just tried yoru 1.1 context and it blew up on me. ... what are we doing?</div>
+<div class="comment-continuation">... that was a good thing as it was a 1.0 processor</div>
+<div class="comment-continuation">... Good for it to blow up as there are features we absolutely need</div>
+<div class="comment-continuation">... His digital signature would be just wrong</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  How does a CG manage it?  Need a working group.</div>
+<div class="information">???" RDF 1.1 was a WG though</div>
+<div class="comment"><span class="name">David Wood</span>:   Was standardized in a WG</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  Don't see a problem</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  If its successful, take it to WG and the version will be decided</div>
+<div class="comment-continuation">... agree with alexandre that 2.0 sends a new message</div>
+<div class="comment"><span class="name">Benjamin Young</span>: +1 to calling it 2.0 (or just 2)</div>
+<div class="comment-continuation">... rdf 1.1 is incremental, nothign radical</div>
+<div class="comment"><span class="name">Fabien Gandon</span>:  it is ok to do 1.1 or 2.0 in a CG or WG [scribe assist by Fabien Gandon]</div>
+<div class="comment"><span class="name">Christopher Webber</span>:  Agree with Manu that it should have blown up in that circumstance</div>
+<div class="comment-continuation">... don't want someone using schema who it was using it in prod, don't want it to randomly blow up</div>
+<div class="comment-continuation">... learnt lesson in activitypub/streams, if you add a new term to a context, and had a cached context, it wouldn't validate</div>
+<div class="comment-continuation">... doesn't change this, but might be worth encouraging. Good to version contexts... schema.org + some version identifier.  Can wait to update to that version when your code is ready</div>
+<div class="comment-continuation">... should start pushing more</div>
+<div class="comment"><span class="name">Kim (Hamilton) Duffy</span>:   Abstracted from just JSON -- does that change RDF canonicalization</div>
+<div class="comment"><span class="name">David Wood</span>:  I did not pay her :D</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  canonicalization happens at the rdf abstract model level</div>
+<div class="comment-continuation">... if your data is in YAML, you might eg have whitespace issues ... but also in RDF/XML</div>
+<div class="comment-continuation">... no different barriers</div>
+<div class="comment-continuation">... turning JSON-LD into RDF for normalization goes through the algorithms that parse the syntax into an intermediate form, that you then run alogithms on</div>
+<div class="comment-continuation">... just a different surface syntax.  Can be used where the target model can go to that structure</div>
+<div class="comment"><span class="name">David Wood</span>:   What about framing?</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  just syntactic sugar.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Can be used to filter</div>
+<div class="comment"><span class="name">Dave Longley</span>:   If you filter, you can change the canonical representation by filtering</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Included the index which does not round trip</div>
+<div class="comment"><span class="name">Ivan Herman</span>:   JSONLD for me is yet another RDF serialization.</div>
+<div class="comment-continuation">... Still true?</div>
+<div class="comment"><span class="name">Dave Longley</span>:  Yes</div>
+<div class="comment"><span class="name">Benjamin Young</span>:  But not round trip everything like index</div>
+<div class="information">present+</div>
+<div class="comment-continuation">... (round tripping meaning)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Definitely need to leave it as an issue. Good discussion here, in issue, and hopefully in a WG</div>
+<div class="information">reto: One issue was a huge file that couldnt' be parsed.  Worked with a developer, JSON-LD looks a bit different, then people have a problem.  Google structured data -- put examples in and there are errors</div>
+<div class="comment-continuation">... if you look at it like JSON, then can be surprised when things can mean the same thing and look differently</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  Two JSON-LD are equivalent if the RDF is euivalent, but files can be very different</div>
+<div class="comment-continuation">... hard to understand if you don't have the background</div>
+<div class="comment"><span class="name">David Wood</span>:  JSON and JSON-LD have idfferent data models -- LD is explicit, JSON is implicit</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  (slides)  ID maps -- keys of URIs that reference the description of the identified resource</div>
+<div class="comment-continuation">... these are equivalent to an array of two objects with @id in the objects</div>
+<div class="comment-continuation">... round trippable. If you compact with a context that doesn't have a container id, then you get array. If you add it, you get the object</div>
+<div class="information">???: That's by virtue of the URL?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  The @container: @id makes this explicit</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Also a parallel that lets you have container type -- the indexes are treated as the value of @type for the object</div>
+<div class="comment"><span class="name">Dave Longley</span>:  graph container as well</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  nested properties -- microdata representation has JSON structure between entities and properties</div>
+<div class="comment-continuation">... so added a sugary nesting property.  labels: @nest means when you expand the data, collapse the values back to the entity</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  What does it mean?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Ignore the nesting</div>
+<div class="comment"><span class="name">Dave Longley</span>:   labels has no meaning in the data model.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  an object with two labels.</div>
+<div class="comment"><span class="name">Benjamin Young</span>:  really valuable -- run into this in JSON a lot -- want it packaged in this way for devs</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  something like comments or annotations</div>
+<div class="information">david, dlongley: a sturctural comment</div>
+<div class="information">(...) discussion about @nest as a name</div>
+<div class="information">drummond: Strictly for the format</div>
+<div class="comment-continuation">... are there other things like that?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Other things are to take json idioms</div>
+<div class="comment-continuation">... and generally round trip</div>
+<div class="comment-continuation">... this won't survive a round trip</div>
+<div class="information">reto: Would it make sense to have the labels (?)</div>
+<div class="comment"><span class="name">Christopher Webber</span>:  Can definitely see using this</div>
+<div class="comment-continuation">... if you have two of them, and they have the same keys, do they go?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No, you end up in an array. Just not round trip to the right places</div>
+<div class="comment-continuation">... another way to have a term with a nested key, that does allow round tripping</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Scoped contexts</div>
+<div class="comment-continuation">... Very cool and easy to do.  Define a context within a term definition, so when you see the term, it is as if the context is inserted within the term</div>
+<div class="information">(everyone): Oh yes. This. This.</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  So the context comes into play for values of the term. Name is Manu at the top level, then an interest which has two keys name and topic</div>
+<div class="comment-continuation">... Now name and topic are evaluated according to foaf not schema</div>
+<div class="comment-continuation">... gets around the framing problem of putting contexts lower down in the frame</div>
+<div class="information">...</div>
+<div class="comment-continuation">... desire in the community, or at least a misunderstanding, about what contexts are for</div>
+<div class="comment-continuation">... thought if you added data to a term definition to the context it would be added to the data. That's not the case</div>
+<div class="comment"><span class="name">Benjamin Young</span>:  Fixes the confusion that you're defining a term globally, and name now has one meaning through out.  Fixes the problem for "found json" ... others json I want to be -ld</div>
+<div class="comment-continuation">... you get some snowflake json and want to make it LD, and they used the same key differently</div>
+<div class="information">Drummond:  Conflicting terms?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Last context wins</div>
+<div class="information">/me notes that we needed something like in schema.org because of some terms pointing to GoodRelations entities</div>
+<div class="comment-continuation">... scoped context based on type.  Key off of @type to assign the context.</div>
+<div class="comment-continuation">... So the term definition is based on the @type of the resource, not the key that is used to refer to it</div>
+<div class="comment"><span class="name">David Wood</span>:   didn't you throw the parser writers under the bus?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  it requires injecting code at the beginning of expansion where we look at type. Have to look at key for expansion, then also pass the context in.</div>
+<div class="information">So some insertion but not duplication</div>
+<div class="comment-continuation">... then add code that processes the type</div>
+<div class="comment-continuation">... appends the context to be used. Doesn't require two passes</div>
+<div class="information">betehess: Does order of properties matter?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Does it have a key that expands to @type?</div>
+<div class="information">betehess: Can't stream the JSON though</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  Wanted streaming processors to work, but couldn't do it.  If you want streaming, then you do need to order the keys in the right way as the publisher</div>
+<div class="information">reto: Can't mandate it?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  No, because JSON doesn't have ordered keys.</div>
+<div class="comment"><span class="name">Robert Sanderson</span>:  ...</div>
+<div class="comment"><span class="name">David Wood</span>:  When Benjamin writes a proxy for found json, he can reorder and stream :)</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  When compacting, it was common to be surprised by keys used. eg:  making a sport key, would produce sport:sEvent, not sportsEvent</div>
+<div class="comment-continuation">... added rules to make this more intuitive</div>
+<div class="comment-continuation">... number of open issues</div>
+<div class="comment-continuation">... graph container is gratuitous, for framing.</div>
+<div class="comment-continuation">... add a graph container type</div>
+<div class="comment-continuation">... add JSON that isn't mapped, just a literal JSON value</div>
+<div class="comment-continuation">... Language maps have bugs.</div>
+<div class="comment-continuation">... Request JSON-LD and a context or frame in the request</div>
+<div class="comment-continuation">... eg from a SPARQL endpoint</div>
+<div class="comment-continuation">... Having to download a context. Problem for Web of Things.  Some pre-population of contexts so act of parsing doesn't result in deref</div>
+<div class="comment-continuation">... DiD addresses the need?</div>
+<div class="comment-continuation">... bigger issue than just JSON-LD</div>
+<div class="comment"><span class="name">Manu Sporny</span>:  JS lib lets you put in handlers for URLs to pre-cache</div>
+<div class="comment-continuation">... loads off of disk with these handlers</div>
+<div class="comment-continuation">... for first bullet, fundamental feature for verifiable claims</div>
+<div class="comment"><span class="name">Christopher Webber</span>:  Big fan of DID -- not convinced they're the right way to do the issue. Content addressing?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  API option might address it</div>
+<div class="information">marisa: Unmapped JSON values -- using JSON-LD for a report format for accessibility in epubs</div>
+<div class="comment-continuation">... EARL is high level, need more detail</div>
+<div class="comment-continuation">... if you have JSON-LD doc, and has a mix of in vocab and out, is that valid?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  Yes, but parsing it will ignore the unknown terms</div>
+<div class="information">marisa: To be a good citizen, would add</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  geojson has an incompatible structure, need to keep the datatype without semantic</div>
+<div class="comment-continuation">... allows round tripping the data, not the sematnics</div>
+<div class="information">marisa: Will move some custom terms into vocab, but too soon right now</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  some portions of RDF, some not.  Currently need two files, one -LD and one just JSON</div>
+<div class="comment-continuation">... want to do metadata in RDF, but maybe ToC is not useful in RDF.  Can declare that it's not RDF</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>:  hope to finish CG work in Q1 2018</div>
+<div class="comment-continuation">... results at Gregg's distiller</div>
+<div class="comment-continuation">... final report from CG ... but want a recommendation</div>
+<div class="comment-continuation">... need to get a WG or attached to an existing one</div>
+<div class="comment"><span class="name">Ivan Herman</span>:  there isn't one coming up at the moment</div>
+<div class="information">will the slides be available?</div>
+<div class="comment-continuation">... could force it into something but not a clean solution</div>
+<div class="comment-continuation">... 1.0 was lucky that RDF wg was running</div>
+<div class="comment-continuation">... today not so lucky</div>
+<div class="comment-continuation">... so need to go the separate WG route</div>
+<div class="comment"><span class="name">Benjamin Young</span>:  data best practices on the web ... could have a WG that vague?</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Slides from the talk: <a href="https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/index.html">https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/index.html</a></div>
+<div class="comment"><span class="name">Benjamin Young</span>: gkellogg (et al): David Raggett mentioned an interesting in creating a "data on the Web" WG fwiw</div>
+<div class="comment"><span class="name">Gregg Kellogg</span>: Good to know, I’ll connect. It did come up in another context as one avenue.</div>
+<div class="comment"><span class="name">Benjamin Young</span>: cam up in his overview of <a href="https://www.w3.org/wiki/TPAC/2017/SessionIdeas#Web_Data_Standardization">https://www.w3.org/wiki/TPAC/2017/SessionIdeas#Web_Data_Standardization</a></div>
+</body>
+</html>
