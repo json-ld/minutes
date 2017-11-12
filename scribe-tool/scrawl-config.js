@@ -17,7 +17,7 @@
       },
       "David Wood":
       {
-         "alias": ["prototypo"],
+         "alias": ["prototypo", "david_wood"],
          "homepage": "http://prototypo.blogspot.com/"
       },
       "Zdenko 'Denny' Vrandečić":
@@ -179,7 +179,7 @@
       "Dan Brickley":
       {
          "alias": ["danbri"],
-         "homepage": "http://danbri.org/‎"
+         "homepage": "http://danbri.org/"
       },
       "Radu Marian":
       {
@@ -195,6 +195,24 @@
       {
          "alias": ["vikash"],
          "homepage": "https://github.com/ivikash/"
+      },
+      "Christopher Webber":
+      {
+        "alias": ["cwebber", "cwebber2"],
+        "homepage": "http://dustycloud.org/"
+      },
+      "Kim (Hamilton) Duffy":
+      {
+        "alias": ["kimhd"],
+        "homepage": "https://github.com/kimdhamilton"
+      },
+      "Benjamin Young": {
+        "alias": ["bigbluehat"],
+        "homepage": "http://bigbluehat.com/"
+      },
+      "Fabien Gandon": {
+        "alias": ["fab_gandon"],
+        "homepage": "http://fabien.info"
       }
    };
 
