@@ -213,6 +213,16 @@
       "Fabien Gandon": {
         "alias": ["fab_gandon"],
         "homepage": "http://fabien.info"
+      },
+      "Reto Gmür": {
+        "alias": ["reto"]
+      },
+      "Drummond Reed": {
+        "alias": ["drummond"],
+        "homepage": "https://www.linkedin.com/in/drummondreed/"
+      },
+      "Alexandre Bertails": {
+        "alias": ["betehess"]
       }
    };
 

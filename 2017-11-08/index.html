@@ -133,7 +133,7 @@ ol {
 <div class="information">present+</div>
 <div class="comment-continuation">... (round tripping meaning)</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  Definitely need to leave it as an issue. Good discussion here, in issue, and hopefully in a WG</div>
-<div class="information">reto: One issue was a huge file that couldnt' be parsed.  Worked with a developer, JSON-LD looks a bit different, then people have a problem.  Google structured data -- put examples in and there are errors</div>
+<div class="information"><span class="name">Reto Gmür</span>: One issue was a huge file that couldnt' be parsed.  Worked with a developer, JSON-LD looks a bit different, then people have a problem.  Google structured data -- put examples in and there are errors</div>
 <div class="comment-continuation">... if you look at it like JSON, then can be surprised when things can mean the same thing and look differently</div>
 <div class="comment"><span class="name">Ivan Herman</span>:  Two JSON-LD are equivalent if the RDF is euivalent, but files can be very different</div>
 <div class="comment-continuation">... hard to understand if you don't have the background</div>
@@ -155,12 +155,12 @@ ol {
 <div class="comment"><span class="name">Ivan Herman</span>:  something like comments or annotations</div>
 <div class="information">david, dlongley: a sturctural comment</div>
 <div class="information">(...) discussion about @nest as a name</div>
-<div class="information">drummond: Strictly for the format</div>
+<div class="information"><span class="name">Drummond Reed</span>: Strictly for the format</div>
 <div class="comment-continuation">... are there other things like that?</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  Other things are to take json idioms</div>
 <div class="comment-continuation">... and generally round trip</div>
 <div class="comment-continuation">... this won't survive a round trip</div>
-<div class="information">reto: Would it make sense to have the labels (?)</div>
+<div class="information"><span class="name">Reto Gmür</span>: Would it make sense to have the labels (?)</div>
 <div class="comment"><span class="name">Christopher Webber</span>:  Can definitely see using this</div>
 <div class="comment-continuation">... if you have two of them, and they have the same keys, do they go?</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  No, you end up in an array. Just not round trip to the right places</div>
@@ -176,7 +176,7 @@ ol {
 <div class="comment-continuation">... thought if you added data to a term definition to the context it would be added to the data. That's not the case</div>
 <div class="comment"><span class="name">Benjamin Young</span>:  Fixes the confusion that you're defining a term globally, and name now has one meaning through out.  Fixes the problem for "found json" ... others json I want to be -ld</div>
 <div class="comment-continuation">... you get some snowflake json and want to make it LD, and they used the same key differently</div>
-<div class="information">Drummond:  Conflicting terms?</div>
+<div class="information"><span class="name">Drummond Reed</span>:  Conflicting terms?</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  Last context wins</div>
 <div class="information">/me notes that we needed something like in schema.org because of some terms pointing to GoodRelations entities</div>
 <div class="comment-continuation">... scoped context based on type.  Key off of @type to assign the context.</div>
@@ -186,11 +186,11 @@ ol {
 <div class="information">So some insertion but not duplication</div>
 <div class="comment-continuation">... then add code that processes the type</div>
 <div class="comment-continuation">... appends the context to be used. Doesn't require two passes</div>
-<div class="information">betehess: Does order of properties matter?</div>
+<div class="information"><span class="name">Alexandre Bertails</span>: Does order of properties matter?</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  Does it have a key that expands to @type?</div>
-<div class="information">betehess: Can't stream the JSON though</div>
+<div class="information"><span class="name">Alexandre Bertails</span>: Can't stream the JSON though</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  Wanted streaming processors to work, but couldn't do it.  If you want streaming, then you do need to order the keys in the right way as the publisher</div>
-<div class="information">reto: Can't mandate it?</div>
+<div class="information"><span class="name">Reto Gmür</span>: Can't mandate it?</div>
 <div class="comment"><span class="name">Gregg Kellogg</span>:  No, because JSON doesn't have ordered keys.</div>
 <div class="comment"><span class="name">Robert Sanderson</span>:  ...</div>
 <div class="comment"><span class="name">David Wood</span>:  When Benjamin writes a proxy for found json, he can reorder and stream :)</div>
