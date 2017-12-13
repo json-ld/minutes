@@ -1,7 +1,6 @@
 body {
-   margin: auto;
-   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-   font-weight: 300;
+   margin: 0px;
+   padding: 0px;
 }
 
 label {
@@ -11,13 +10,59 @@ label {
    width: 100px;
 }
 
-a {
-   color: #4183c4;
+h1 {
+   margin-top: 24px;
+   margin-bottom: 14px;
+}
+
+.header {
+   margin-top: 0px;
+   margin-bottom: 14px;
 }
 
 ol {
-   padding-left: 1.2em;
-   margin: 0em;
+   margin-bottom: 0em;
+}
+
+li {
+   margin-left: 1.5em;
+   margin-bottom: 0em;
+}
+
+#content, .content {
+   margin-left: 20%;
+   margin-right: 20%;
+}
+
+.summary {
+   margin-left: 10%
+   margin-right: 10%
+}
+
+.name {
+   font-weight: bold;
+}
+
+.information {
+   font-style: italic;
+}
+
+.comment {
+   padding-left: 1.5em;
+   text-indent: -1.5em;
+}
+
+.comment-continuation {
+   margin-left: 2em;
+   font-size: 1.25em;
+}
+
+dt {
+   font-style: oblique;
+}
+
+dd {
+   margin-left: 20px;
 }
 
 #toolbar {
@@ -27,11 +72,6 @@ ol {
    position: fixed;
    width: 100%;
    z-index: 1000;
-}
-
-.content {
-   margin-left:20%;
-   margin-right:20%;
 }
 
 .left-column {
@@ -61,38 +101,7 @@ ol {
    min-height:200px !important;
 }
 
-.name {
-   font-weight: bold;
-}
-
-.information {
-   font-style: italic;
-}
-
-.comment-continuation {
-   margin-left: 2em;
-}
-
-.proposal {
-   background: #eee;
-   border: 0.2em solid #c4c8cc;
-   margin: 1em;
-   border-radius: 1em 1em 1em 1em;
-   padding: 1em 1em 1em 1em;
-}
-
-.resolution {
-   background: #beb;
-   border: 0.2em solid #c4c8cc;
-   margin: 1em;
-   border-radius: 1em 1em 1em 1em;
-   padding: 1em 1em 1em 1em;
-}
-
-.action {
-   background: #bbe;
-   border: 0.2em solid #c4c8cc;
-   margin: 1em;
-   border-radius: 1em 1em 1em 1em;
-   padding: 1em 1em 1em 1em;
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
 }
