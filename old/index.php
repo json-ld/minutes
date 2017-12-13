@@ -21,43 +21,21 @@ print <<< htmlcode
       <div id="container"> 
          <div id="header"> 
             <div class="col"> 
-               <h1>JSON-LD - Teleconference Logs</h1>
+               <h1>JSON-LD - Teleconference Logs (2011-2014)</h1>
             </div> 
          </div> 
 
          <div id="content"> 
-            <div><a href="../">JSON-LD</a> &gt; Teleconference Logs</div>
+            <div><a href="/">JSON-LD</a> &gt; <a href="../">Teleconference Logs</a> &gt; 2011-2014</div>
             <div id="info"> 
-               <h1>Joining Teleconferences</h1>
+               <h1>Historical Logs</h1>
                
-               <p>All JSON-LD teleconferences are open to the public. Anyone may join and participate in the discussion. All teleconferences are announced at least 24 hours in advance on the <a href="http://lists.w3.org/Archives/Public/public-linked-json/">JSON-LD mailing list</a>.</p>
-
-               <ul>
-                  <li><strong>Next Meeting:</strong> 
-htmlcode;
-
-if(date('l', strtotime('today')) === 'Tuesday')
-{
-   print date('l, F jS (Y-m-d)', strtotime('today'));
-}
-else
-{
-   print date('l, F jS (Y-m-d)', strtotime('next Tuesday'));
-}
-
-print <<< htmlcode
-                  </li>
-                  <li><strong>Time:</strong> 1500 UTC, 7am San Francisco, 10am Boston, 3pm London</li>
-                  <li><strong>Where:</strong> Digital Bazaar JSON-LD Telecon Bridge, SIP: <a href="sip:json-ld@digitalbazaar.com">json-ld@digitalbazaar.com</a>, tel: +1.540.961.4469 x6303.</li>
-                  <li><strong>IRC:</strong> <a href="irc://freenode.net/#json-ld">irc://freenode.net/#json-ld</a> (<a href="http://webchat.freenode.net?channels=json-ld">join via WebIRC</a>)
-                  <li><strong>Duration:</strong> 60 minutes
-               </ul>
-
-               <p>Make sure you have a good headset with a microphone as any background noise is distracting to others during the call. If there is excessive noise on your connection, you will be muted until you need to speak. Make sure you join the IRC channel as links and code examples are usually shared over the chat channel.</p>
+               <p>These logs record work done leading up to the
+                 <a href="https://www.w3.org/TR/2014/REC-json-ld-20140116/">JSON-LD 1.0 release</a>
+                 which became part of the <a href="https://www.w3.org/2011/rdf-wg/wiki/Main_Page">RDF 1.1 Working Group</a>..</p>
                
-               <h1>Text Logs</h1>
-               <p>The public JSON-LD teleconferences and all of the decisions made in those meetings are listed below. Click on each link to take you to the full log of the meeting:</p> 
-               <p>Logs for work leading up to the JSON-LD 1.0 release may be found <a href="old/">here</a></p>
+               <h1>Text and Audio Logs</h1>
+               <p>The public JSON-LD teleconferences and all of the decisions made in those meetings are listed below. Click on each link to take you to the full text and audio log of the meeting:</p> 
 htmlcode;
 
 // Generate the minutes summary cache
@@ -74,7 +52,7 @@ if(!file_exists($mscfilename) or ((time() - $mtime) > 3600))
    {
       if(preg_match("/201[0-9]-[0-9]{2,2}-[0-9]{2,2}/", $minutes))
       {
-         fwrite($mcache, "   <li><a href=\"$minutes/\">Minutes for  $minutes</a>\n");
+         fwrite($mcache, "   <li><a href=\"$minutes/\">Text and Audio Minutes for  $minutes</a>\n");
 
          // open the IRC log file
          $irclogfilename = $minutes . "/irc.log";
