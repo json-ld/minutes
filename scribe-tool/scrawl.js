@@ -56,7 +56,7 @@
     var regex = '.{1,' + width + '}(\\s|$)' +
       (cut ? '|.{' +width+ '}|.+$' : '|\\S+?(\\s|$)');
 
-    return str.match(RegExp(regex, 'g')).join(brk);
+    return str.match(new RegExp(regex, 'g')).join(brk);
   };
 
   scrawl.generateAliases = function()

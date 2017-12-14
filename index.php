@@ -55,9 +55,8 @@ print <<< htmlcode
 
                <p>Make sure you have a good headset with a microphone as any background noise is distracting to others during the call. If there is excessive noise on your connection, you will be muted until you need to speak. Make sure you join the IRC channel as links and code examples are usually shared over the chat channel.</p>
                
-               <h1>Text Logs</h1>
-               <p>The public JSON-LD teleconferences and all of the decisions made in those meetings are listed below. Click on each link to take you to the full log of the meeting:</p> 
-               <p>Logs for work leading up to the JSON-LD 1.0 release may be found <a href="old/">here</a></p>
+               <h1>Text and Audio Logs</h1>
+               <p>The public JSON-LD teleconferences and all of the decisions made in those meetings are listed below. Click on each link to take you to the full text and audio log of the meeting:</p> 
 htmlcode;
 
 // Generate the minutes summary cache
