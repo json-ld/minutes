@@ -40,7 +40,7 @@ var gDate = path.basename(dstDir);
 gDate = gDate.match(/([0-9]{4}-[0-9]{2}-[0-9]{2})/)[1];
 
 // configure scrawl
-scrawl.group = 'Credentials CG Telecon';
+scrawl.group = 'JSON-LD CG Telecon';
 scrawl.people = JSON.parse(peopleJson);
 
 /************************* Utility Functions *********************************/
@@ -57,12 +57,12 @@ function postToWordpress(username, password, content, callback) {
   wpSummary = wpSummary.substring(
     wpSummary.indexOf('<dl>'), wpSummary.indexOf('</dl>') + 5);
   wpSummary = wpSummary.replace(/href=\"#/g,
-    'href="https://w3c-ccg.github.io/meetings/' + gDate + '/#');
+    'href="https://json-ld.github.io/minutes/' + gDate + '/#');
   wpSummary = wpSummary.replace(/href=\"audio/g,
-    'href="https://w3c-ccg.github.io/meetings/' + gDate + '/audio');
+    'href="https://json-ld.github.io/minutes/' + gDate + '/audio');
   wpSummary = wpSummary.replace(/<div><audio[\s\S]*\/audio><\/div>/g, '');
   wpSummary += '<p>Detailed minutes and recorded audio for this call are ' +
-    '<a href="https://w3c-ccg.github.io/meetings/' + gDate +
+    '<a href="https://json-ld.github.io/minutes/' + gDate +
     '/">available in the archive</a>.</p>';
 
   // calculate the proper post date
@@ -109,8 +109,8 @@ function sendEmail(username, password, hostname, content, callback) {
     text:    content,
     from: 'msporny@digitalbazaar.com',
     //from:    username + '@' + hostname,
-    to:      'Credentials CG <public-credentials@w3.org>',
-    subject: '[MINUTES] W3C Credentials CG Call - ' + gDate + ' 12pm ET'
+    to:      'JSON-LD CG <public-linked-json@w3.org>',
+    subject: '[MINUTES] W3C JSON-LD CG Call - ' + gDate + ' 12pm ET'
   }, function(err, message) {
     if(err) {
       console.log('scrawl:', err);
@@ -118,7 +118,7 @@ function sendEmail(username, password, hostname, content, callback) {
     }
 
     if(!program.quiet) {
-      console.log('scrawl: Sent minutes email to public-credentials@w3.org');
+      console.log('scrawl: Sent minutes email to public-linked-json@w3.org');
     }
     callback();
   });
@@ -270,8 +270,8 @@ async.waterfall([ function(callback) {
     var scribe = content.match(/Scribe:\n\s(.*)\n/g)[0]
       .replace(/\n/g, '').replace('Scribe:  ', '');
     content = 'Thanks to ' + scribe + ' for scribing this week! The minutes\n' +
-      'for this week\'s Credentials CG telecon are now available:\n\n' +
-      'https://w3c-ccg.github.io/meetings/'+ gDate + '/\n\n' +
+      'for this week\'s JSON-LD CG telecon are now available:\n\n' +
+      'https://json-ld.github.io/minutes/'+ gDate + '/\n\n' +
       'Full text of the discussion follows for W3C archival purposes.\n' +
       'Audio from the meeting is available as well (link provided below).\n\n' +
       '----------------------------------------------------------------\n' +
@@ -340,11 +340,11 @@ async.waterfall([ function(callback) {
     }
 
     // format in a way that is readable on G+
-    content = '*Credentials CG Meeting Summary for ' + gDate + '*\n\n' +
+    content = '*JSON-LD CG Meeting Summary for ' + gDate + '*\n\n' +
       'We discussed ' + formattedItems + '.\n\n' +
       content + '\nFull transcript and audio logs are available here:\n\n' +
-      'https://w3c-ccg.github.io/meetings/' + gDate + '/\n\n' +
-      '#w3c #ccg';
+      'https://json-ld.github.io/minutes/' + gDate + '/\n\n' +
+      '#w3c #json-ld';
 
     console.log('scrawl: You will need to paste this to your G+ stream:\n');
     console.log(content);
@@ -387,9 +387,9 @@ async.waterfall([ function(callback) {
         }
       }, function(err, results) {
         // construct the tweet
-        var tweet = 'Credentials CG discusses ' +
-          results.message + ': https://w3c-ccg.github.io/meetings/' +
-          gDate + '/ #w3c #ccg';
+        var tweet = 'JSON-LD CG discusses ' +
+          results.message + ': https://json-ld.github.io/minutes/' +
+          gDate + '/ #w3c #json-ld';
 
         // send the tweet
         twitter.updateStatus(tweet, function(data) {
@@ -407,7 +407,7 @@ async.waterfall([ function(callback) {
       console.log('scrawl: Creating new blog post.');
     }
     var content = {
-      post_title: 'Credentials CG Meeting Minutes for ' + gDate,
+      post_title: 'JSON-LD CG Meeting Minutes for ' + gDate,
       post_content: scrawl.generateMinutes(gLogData, 'html', gDate)
     };
 
@@ -421,7 +421,7 @@ async.waterfall([ function(callback) {
       prompt.get({
         properties: {
           username: {
-            description: 'Enter the Credentials WordPress username',
+            description: 'Enter the JSON-LD WordPress username',
             pattern: /^.{4,}$/,
             message: 'The username must be at least 4 characters.',
             'default': 'msporny'
