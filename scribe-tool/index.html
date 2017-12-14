@@ -77,9 +77,15 @@ showMarkup = function(type) {
 
 // initialize scrawl
 $.getJSON( "people.json", function(people) {
-  scrawl.group = "JSON for Linking Data Community Group";
+  scrawl.group = "JSON-LD Community Group";
   scrawl.people = people;
 });
+$.get("header.html", function(header) {
+  scrawl.htmlHeader = header;
+})
+$.get("footer.html", function(footer) {
+  scrawl.htmlFooter = footer;
+})
   </script>
 </head>
 <body>
