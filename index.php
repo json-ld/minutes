@@ -33,21 +33,8 @@ print <<< htmlcode
                <p>All JSON-LD teleconferences are open to the public. Anyone may join and participate in the discussion. All teleconferences are announced at least 24 hours in advance on the <a href="http://lists.w3.org/Archives/Public/public-linked-json/">JSON-LD mailing list</a>.</p>
 
                <ul>
-                  <li><strong>Next Meeting:</strong> 
-htmlcode;
-
-if(date('l', strtotime('today')) === 'Tuesday')
-{
-   print date('l, F jS (Y-m-d)', strtotime('today'));
-}
-else
-{
-   print date('l, F jS (Y-m-d)', strtotime('next Tuesday'));
-}
-
-print <<< htmlcode
-                  </li>
-                  <li><strong>Time:</strong> 1500 UTC, 7am San Francisco, 10am Boston, 3pm London</li>
+                  <li><strong>Next Meeting:</strong> 1st and 3rd Mondays of each month</li>
+                  <li><strong>Time:</strong> 1800 UTC, 10am San Francisco, 1pm Boston, 6pm London</li>
                   <li><strong>Where:</strong> Digital Bazaar JSON-LD Telecon Bridge, SIP: <a href="sip:json-ld@digitalbazaar.com">json-ld@digitalbazaar.com</a>, tel: +1.540.961.4469 x6303.</li>
                   <li><strong>IRC:</strong> <a href="irc://freenode.net/#json-ld">irc://freenode.net/#json-ld</a> (<a href="http://webchat.freenode.net?channels=json-ld">join via WebIRC</a>)
                   <li><strong>Duration:</strong> 60 minutes
