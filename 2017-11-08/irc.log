@@ -16,6 +16,7 @@
 [2017-11-08 13:14:45] <laudrain> present+
 [2017-11-08 13:14:47] <azaroth> gkellogg: Only additions.
 [2017-11-08 13:14:53] → marisa joined (~marisa@public.cloak)
+[] <> topic: Additions to @container
 [2017-11-08 13:15:15] <azaroth> ... Previously container was limited to 4 values. Now we have a new value space for container.
 [2017-11-08 13:15:37] <azaroth> ... so for compatibility, a 1.1 processor and sees it in 1.0 mode will complain
 [2017-11-08 13:16:09] <azaroth> david_wood: Versioned MIME 1.0 -- intention to later come up with 1.1.  Unexpectedly, the process of versioning caused MIME to never increase its version
@@ -30,7 +31,7 @@
 [2017-11-08 13:17:54] <bigbluehat> q?
 [2017-11-08 13:17:54] — Zakim sees no one on the speaker queue
 [2017-11-08 13:17:58] <azaroth> ivan: Far fewer code implementations, but no idea how often it's used.  Forcing an upgrade
-[2017-11-08 13:18:19] <azaroth> Manu: Kingsley sent me an email 2 days ago, just tried yoru 1.1 context and it blew up on me. ... what are we doing?
+[2017-11-08 13:18:19] <azaroth> Manu: Kingsley sent me an email 2 days ago, just tried your 1.1 context and it blew up on me. ... what are we doing?
 [2017-11-08 13:18:25] <azaroth> ... that was a good thing as it was a 1.0 processor
 [2017-11-08 13:18:40] <azaroth> ... Good for it to blow up as there are features we absolutely need
 [2017-11-08 13:18:55] <azaroth> ... His digital signature would be just wrong
@@ -122,6 +123,7 @@
 [2017-11-08 13:29:48] <azaroth> ... hard to understand if you don't have the background
 [2017-11-08 13:30:11] — cwebber2 don't tell json people that though until they get on the json-ld boat ;)
 [2017-11-08 13:30:13] <azaroth> David_wood: JSON and JSON-LD have idfferent data models -- LD is explicit, JSON is implicit
+[] <> topic: ID Maps
 [2017-11-08 13:30:42] <azaroth> gkellogg: (slides)  ID maps -- keys of URIs that reference the description of the identified resource
 [2017-11-08 13:30:59] <azaroth> ... these are equivalent to an array of two objects with @id in the objects
 [2017-11-08 13:31:16] <cwebber2> q+
@@ -137,6 +139,7 @@
 [2017-11-08 13:31:55] — Zakim sees no one on the speaker queue
 [2017-11-08 13:32:41] <azaroth> gkellogg: Also a parallel that lets you have container type -- the indexes are treated as the value of @type for the object
 [2017-11-08 13:33:11] <azaroth> dlongley: graph container as well
+[] <> topic: Nested Properties
 [2017-11-08 13:33:33] <azaroth> gkellogg: nested properties -- microdata representation has JSON structure between entities and properties
 [2017-11-08 13:34:02] <azaroth> ... so added a sugary nesting property.  labels: @nest means when you expand the data, collapse the values back to the entity
 [2017-11-08 13:34:13] <azaroth> ivan: What does it mean?
@@ -185,6 +188,7 @@
 [2017-11-08 13:38:31] — betehess bigbluehat @hop works for me
 [2017-11-08 13:38:47] <azaroth> ... another way to have a term with a nested key, that does allow round tripping
 [2017-11-08 13:38:51] — cwebber2 @rabbithole
+[] <> topic: Scoped Contexts
 [2017-11-08 13:38:57] <azaroth> gkellogg: Scoped contexts
 [2017-11-08 13:39:24] <azaroth> ... Very cool and easy to do.  Define a context within a term definition, so when you see the term, it is as if the context is inserted within the term
 [2017-11-08 13:39:48] <azaroth> (everyone): Oh yes. This. This.
@@ -246,7 +250,8 @@
 [2017-11-08 13:53:03] — Zakim sees cwebber, marisa on the speaker queue
 [2017-11-08 13:53:16] <azaroth> ... Having to download a context. Problem for Web of Things.  Some pre-population of contexts so act of parsing doesn't result in deref
 [2017-11-08 13:53:27] <azaroth> ... DiD addresses the need?
-[2017-11-08 13:53:36] <azaroth> ... bigger issue than just JSON-LD
+[2017-11-08 13:53:36] <azaroth> ... bigger issue than just JSON-LD[] <> topic: Nested Properties
+[] <> topic: Cached Contexts
 [2017-11-08 13:53:46] <azaroth> manu: JS lib lets you put in handlers for URLs to pre-cache
 [2017-11-08 13:53:55] <azaroth> ... loads off of disk with these handlers
 [2017-11-08 13:54:07] → rdeltour joined (~rdeltour@public.cloak)
@@ -275,6 +280,7 @@
 [2017-11-08 13:57:22] — Zakim sees no one on the speaker queue
 [2017-11-08 13:58:00] <azaroth> ivan: some portions of RDF, some not.  Currently need two files, one -LD and one just JSON
 [2017-11-08 13:58:31] <azaroth> ... want to do metadata in RDF, but maybe ToC is not useful in RDF.  Can declare that it's not RDF
+[] <> topic: Next Steps
 [2017-11-08 13:59:18] <azaroth> gkellogg: hope to finish CG work in Q1 2018
 [2017-11-08 13:59:30] <azaroth> ... results at Gregg's distiller
 [2017-11-08 13:59:45] <azaroth> ... final report from CG ... but want a recommendation

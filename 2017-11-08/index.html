@@ -120,7 +120,7 @@ div.resolution {
 <div class="summary">
 <dl>
 <dt>Agenda</dt><dd><a href="https://www.w3.org/wiki/TPAC/2017">https://www.w3.org/wiki/TPAC/2017</a></dd>
-<dt>Organizer</dt><dd>Gregg Kellogg</dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Additions to @container</a><li><a href="#topic-2">ID Maps</a><li><a href="#topic-3">Nested Properties</a><li><a href="#topic-4">Scoped Contexts</a><li><a href="#topic-5">Nested Properties</a><li><a href="#topic-6">Cached Contexts</a><li><a href="#topic-7">Next Steps</a></ol></dd><dt>Organizer</dt><dd>Gregg Kellogg</dd>
 <dt>Scribe</dt><dd>Robert Sanderson</dd>
 <dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="http://public.lanl.gov/rsanderson/">Robert Sanderson</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="http://prototypo.blogspot.com/">David Wood</a>, <a href="https://bertails.org">Alexandre Bertails</a>, <a href="http://www.w3.org/People/Ivan/">Ivan Herman</a>, <a href="http://manu.sporny.org/about">Manu Sporny</a>, <a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="http://www-sop.inria.fr/members/Fabien.Gandon/">Farbian Gandon</a>, <a href="https://www.linkedin.com/in/kimdhamilton/">Kim Hamilton Duffy</a>, <a href="https://github.com/dlongley">Dave Longley</a>, <a href="https://factsmission.com">Reto Gmür</a>, <a href="https://www.linkedin.com/in/drummondreed">Drummond Reed</a>, <a href="http://dustycloud.org/">Chris Webber</a></dd>
 <dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
@@ -132,6 +132,7 @@ div.resolution {
 <div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Gregg Kellogg</span>: Slides for this presentation are at <a href="https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/">https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/</a> <a id="link-1" style="display:none;" href="#1">✪</a></div>
 <div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">David I. Lehn</span>:   Are the additions just supplementary, or changes semantics? <a id="link-2" style="display:none;" href="#2">✪</a></div>
 <div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Gregg Kellogg</span>:  Only additions. <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<h1 id="topic-1" class="topic">Topic: Additions to @container</h1>
 <div class="comment-continuation">... Previously container was limited to 4 values. Now we have a new value space for container.</div>
 <div class="comment-continuation">... so for compatibility, a 1.1 processor and sees it in 1.0 mode will complain</div>
 <div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">David Wood</span>:  Versioned MIME 1.0 -- intention to later come up with 1.1.  Unexpectedly, the process of versioning caused MIME to never increase its version <a id="link-4" style="display:none;" href="#4">✪</a></div>
@@ -143,7 +144,7 @@ div.resolution {
 <div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Gregg Kellogg</span>:  New keys can confuse 1.0 and 1.1 implementations.  If this property was used, 1.1 would interpret the data differently <a id="link-7" style="display:none;" href="#7">✪</a></div>
 <div class="comment-continuation">... need to face what that means as a community.  Far fewer implementations of the processor than the uses of the language, we could choose to simply say we&apos;re cutting off the 1.0 features or restrictions</div>
 <div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Ivan Herman</span>:  Far fewer code implementations, but no idea how often it&apos;s used.  Forcing an upgrade <a id="link-8" style="display:none;" href="#8">✪</a></div>
-<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Manu Sporny</span>:  Kingsley sent me an email 2 days ago, just tried yoru 1.1 context and it blew up on me. ... what are we doing? <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Manu Sporny</span>:  Kingsley sent me an email 2 days ago, just tried your 1.1 context and it blew up on me. ... what are we doing? <a id="link-9" style="display:none;" href="#9">✪</a></div>
 <div class="comment-continuation">... that was a good thing as it was a 1.0 processor</div>
 <div class="comment-continuation">... Good for it to blow up as there are features we absolutely need</div>
 <div class="comment-continuation">... His digital signature would be just wrong</div>
@@ -184,6 +185,7 @@ div.resolution {
 <div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Ivan Herman</span>:  Two JSON-LD are equivalent if the RDF is euivalent, but files can be very different <a id="link-31" style="display:none;" href="#31">✪</a></div>
 <div class="comment-continuation">... hard to understand if you don&apos;t have the background</div>
 <div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">David Wood</span>:  JSON and JSON-LD have idfferent data models -- LD is explicit, JSON is implicit <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<h1 id="topic-2" class="topic">Topic: ID Maps</h1>
 <div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>:  (Slides)  ID maps -- keys of URIs that reference the description of the identified resource <a id="link-33" style="display:none;" href="#33">✪</a></div>
 <div class="comment-continuation">... these are equivalent to an array of two objects with @id in the objects</div>
 <div class="comment-continuation">... round trippable. If you compact with a context that doesn&apos;t have a container id, then you get array. If you add it, you get the object</div>
@@ -191,6 +193,7 @@ div.resolution {
 <div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Gregg Kellogg</span>:  The @container: @id makes this explicit <a id="link-35" style="display:none;" href="#35">✪</a></div>
 <div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Gregg Kellogg</span>:  Also a parallel that lets you have container type -- the indexes are treated as the value of @type for the object <a id="link-36" style="display:none;" href="#36">✪</a></div>
 <div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Dave Longley</span>:  Graph container as well <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<h1 id="topic-3" class="topic">Topic: Nested Properties</h1>
 <div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Gregg Kellogg</span>:  Nested properties -- microdata representation has JSON structure between entities and properties <a id="link-38" style="display:none;" href="#38">✪</a></div>
 <div class="comment-continuation">... so added a sugary nesting property.  labels: @nest means when you expand the data, collapse the values back to the entity</div>
 <div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Ivan Herman</span>:  What does it mean? <a id="link-39" style="display:none;" href="#39">✪</a></div>
@@ -211,6 +214,7 @@ div.resolution {
 <div class="comment-continuation">... if you have two of them, and they have the same keys, do they go?</div>
 <div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="comment"><span class="name">Gregg Kellogg</span>:  No, you end up in an array. Just not round trip to the right places <a id="link-51" style="display:none;" href="#51">✪</a></div>
 <div class="comment-continuation">... another way to have a term with a nested key, that does allow round tripping</div>
+<h1 id="topic-4" class="topic">Topic: Scoped Contexts</h1>
 <div onmouseout="$('#link-52').hide()" onmouseover="$('#link-52').show()" id="52" class="comment"><span class="name">Gregg Kellogg</span>:  Scoped contexts <a id="link-52" style="display:none;" href="#52">✪</a></div>
 <div class="comment-continuation">... Very cool and easy to do.  Define a context within a term definition, so when you see the term, it is as if the context is inserted within the term</div>
 <div onmouseout="$('#link-53').hide()" onmouseover="$('#link-53').show()" id="53" class="information">(Everyone): Oh yes. This. This. <a id="link-53" style="display:none;" href="#53">✪</a></div>
@@ -251,7 +255,8 @@ div.resolution {
 <div class="comment-continuation">... eg from a SPARQL endpoint</div>
 <div class="comment-continuation">... Having to download a context. Problem for Web of Things.  Some pre-population of contexts so act of parsing doesn&apos;t result in deref</div>
 <div class="comment-continuation">... DiD addresses the need?</div>
-<div class="comment-continuation">... bigger issue than just JSON-LD</div>
+<h1 id="topic-5" class="topic">Topic: Nested Properties</h1>
+<h1 id="topic-6" class="topic">Topic: Cached Contexts</h1>
 <div onmouseout="$('#link-72').hide()" onmouseover="$('#link-72').show()" id="72" class="comment"><span class="name">Manu Sporny</span>:  JS lib lets you put in handlers for URLs to pre-cache <a id="link-72" style="display:none;" href="#72">✪</a></div>
 <div class="comment-continuation">... loads off of disk with these handlers</div>
 <div class="comment-continuation">... for first bullet, fundamental feature for verifiable claims</div>
@@ -267,6 +272,7 @@ div.resolution {
 <div onmouseout="$('#link-79').hide()" onmouseover="$('#link-79').show()" id="79" class="information">Marisa: Will move some custom terms into vocab, but too soon right now <a id="link-79" style="display:none;" href="#79">✪</a></div>
 <div onmouseout="$('#link-80').hide()" onmouseover="$('#link-80').show()" id="80" class="comment"><span class="name">Ivan Herman</span>:  Some portions of RDF, some not.  Currently need two files, one -LD and one just JSON <a id="link-80" style="display:none;" href="#80">✪</a></div>
 <div class="comment-continuation">... want to do metadata in RDF, but maybe ToC is not useful in RDF.  Can declare that it&apos;s not RDF</div>
+<h1 id="topic-7" class="topic">Topic: Next Steps</h1>
 <div onmouseout="$('#link-81').hide()" onmouseover="$('#link-81').show()" id="81" class="comment"><span class="name">Gregg Kellogg</span>:  Hope to finish CG work in Q1 2018 <a id="link-81" style="display:none;" href="#81">✪</a></div>
 <div class="comment-continuation">... results at Gregg&apos;s distiller</div>
 <div class="comment-continuation">... final report from CG ... but want a recommendation</div>
