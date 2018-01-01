@@ -6,7 +6,7 @@
 (function() {
   var $ = (typeof jQuery !== 'undefined') ? jQuery : undefined;
   /* Standard regular expressions to use when matching lines */
-  var commentRx = /^\[?(.*)\]?\s+\<(.*)\>\s+(.*)$/;
+  var commentRx = /^\[?(.*)\]?\s+<(.*)\>\s+(.*)$/;
   var scribeRx = /^(scribe|scribenick):.*$/i;
   var meetingRx = /^meeting:\s(.*)$/i;
   var totalPresentRx = /^total present:\s(.*)$/i;
@@ -109,7 +109,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<h1 id="topic-' + id + '" class="topic">Topic: ' +
        scrawl.htmlencode(msg) + '</h1>\n';
@@ -126,7 +126,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div id="action-' + id + '" class="action">ACTION: ' +
        scrawl.htmlencode(msg) + '</div>\n';
@@ -143,7 +143,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div class="information">' +
        scrawl.htmlencode(msg) + '</div>\n';
@@ -160,7 +160,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div class="proposal"><strong>PROPOSAL:</strong> ' +
        scrawl.htmlencode(msg) + '</div>\n';
@@ -178,7 +178,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div id="resolution-' + id + '" class="resolution">' +
         '<strong>RESOLUTION:</strong> ' +
@@ -197,7 +197,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div id="usecase-' + scrawl.counter + '" class="resolution">' +
         '<strong>USE CASE:</strong> ' +
@@ -223,14 +223,14 @@
       });
     }
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       scrawl.counter += 1;
       rval = '<div onmouseout="$(\'#link-' + scrawl.counter + '\').hide()" ' +
         'onmouseover="$(\'#link-' + scrawl.counter + '\').show()" ' +
         'id="' + scrawl.counter + '" ';
 
-      if(person != undefined)
+      if(person !== undefined)
       {
         rval += 'class="comment"><span class="name">' +
           scrawl.htmlencode(person) + '</span>: ';
@@ -242,7 +242,7 @@
 
       rval += scrawl.htmlencode(msg);
 
-      if(assist != undefined)
+      if(assist !== undefined)
       {
         rval += ' [scribe assist by ' + scrawl.htmlencode(assist) + ']';
       }
@@ -253,12 +253,12 @@
     else
     {
       scribeline = '';
-      if(person != undefined)
+      if(person !== undefined)
       {
         scribeline = person + ': ';
       }
       scribeline += msg;
-      if(assist != undefined)
+      if(assist !== undefined)
       {
         scribeline += ' [scribe assist by '+ assist + ']';
       }
@@ -273,7 +273,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div class="comment-continuation">' +
        scrawl.htmlencode(msg) + '</div>\n';
@@ -284,11 +284,11 @@
     }
 
     return rval;
-  }
+  };
 
   scrawl.present = function(context, person)
   {
-    if(person != undefined)
+    if(person !== undefined)
     {
       context.present[person] = true;
     }
@@ -298,7 +298,7 @@
   {
     var rval = '';
 
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval = '<div class="error">Error: ' +
         scrawl.htmlencode(msg) + '</div>\n';
@@ -331,7 +331,7 @@
        var msg = match[3];
 
        // check for a scribe line
-       if(msg.search(scribeRx) != -1)
+       if(msg.search(scribeRx) !== -1)
        {
          var scribe = msg.split(':')[1].replace(' ', '');
          scribe = scribe.toLowerCase();
@@ -349,7 +349,7 @@
               ' is scribing.', textMode);
          }
        }
-       else if(msg.search(chairRx) != -1)
+       else if(msg.search(chairRx) !== -1)
        {
          var chairs = msg.split(':')[1].split(',');
 
@@ -364,13 +364,13 @@
          }
        }
        // check for meeting line
-       else if(msg.search(meetingRx) != -1)
+       else if(msg.search(meetingRx) !== -1)
        {
          var meeting = msg.match(meetingRx)[1];
          context.group = meeting;
        }
        // check for present line
-       else if(msg.search(presentRx) != -1)
+       else if(msg.search(presentRx) !== -1)
        {
           var present = msg.match(presentRx)[1].toLowerCase();
           var people = present.split(',');
@@ -384,50 +384,50 @@
               scrawl.present(context, aliases[person]);
             } else if(lastName in aliases) {
               scrawl.present(context, aliases[lastName]);
-            } else {
+            } else if(person) {
               console.log('Could not find alias for', person);
             }
           }
        }
        // check for audio line
-       else if(msg.search(audioRx) != -1)
+       else if(msg.search(audioRx) !== -1)
        {
          context.audio = false;
        }
        // check for date line
-       else if(msg.search(dateRx) != -1)
+       else if(msg.search(dateRx) !== -1)
        {
          var date = msg.match(dateRx)[1];
          context.date = new Date(date);
        }
        // check for topic line
-       else if(msg.search(topicRx) != -1)
+       else if(msg.search(topicRx) !== -1)
        {
          var topic = msg.match(topicRx)[1];
          context.topics = context.topics.concat(topic);
          rval = scrawl.topic(topic, context.topics.length, textMode);
        }
        // check for action line
-       else if(msg.search(actionRx) != -1)
+       else if(msg.search(actionRx) !== -1)
        {
          var action = msg.match(actionRx)[1];
          context.actions = context.actions.concat(action);
          rval = scrawl.action(action, context.actions.length, textMode);
        }
        // check for Agenda line
-       else if(msg.search(agendaRx) != -1)
+       else if(msg.search(agendaRx) !== -1)
        {
          var agenda = msg.match(agendaRx)[1];
          context.agenda = agenda;
        }
        // check for proposal line
-       else if(msg.search(proposalRx) != -1)
+       else if(msg.search(proposalRx) !== -1)
        {
          var proposal = msg.split(':')[1];
          rval = scrawl.proposal(proposal, textMode);
        }
        // check for resolution line
-       else if(msg.search(resolutionRx) != -1)
+       else if(msg.search(resolutionRx) !== -1)
        {
          var resolution = msg.match(resolutionRx)[2];
          context.resolutions = context.resolutions.concat(resolution);
@@ -435,26 +435,26 @@
            resolution, context.resolutions.length, textMode);
        }
        // check for use case line
-       else if(msg.search(useCaseRx) != -1)
+       else if(msg.search(useCaseRx) !== -1)
        {
          var usecase = msg.match(useCaseRx)[2];
          rval = scrawl.usecase(usecase, textMode);
        }
-       else if(msg.search(totalPresentRx) != -1)
+       else if(msg.search(totalPresentRx) !== -1)
        {
          context.totalPresent = msg.match(totalPresentRx)[1];
        }
-       else if(nick.search(voipRx) != -1 || msg.search(toVoipRx) != -1 ||
-         nick.search(rrsAgentRx) != -1 || msg.search(rrsAgentRx) != -1 )
+       else if(nick.search(voipRx) !== -1 || msg.search(toVoipRx) !== -1 ||
+         nick.search(rrsAgentRx) !== -1 || msg.search(rrsAgentRx) !== -1 )
        {
          // the line is from or is addressed to a channel bot, ignore it
        }
-       else if(msg.search(queueRx) != -1)
+       else if(msg.search(queueRx) !== -1)
        {
          // the line is queue management, ignore it
        }
        // the line is a +1/-1 vote
-       else if(msg.search(voteRx) != -1)
+       else if(msg.search(voteRx) !== -1)
        {
          if(nick in aliases)
          {
@@ -463,14 +463,14 @@
          }
        }
        // the line is by the scribe
-       else if(nick == context.scribenick)
+       else if(nick === context.scribenick)
        {
-         if(msg.indexOf('…') == 0 || msg.indexOf('...') == 0)
+         if(msg.indexOf('…') === 0 || msg.indexOf('...') === 0)
          {
            // the line is a scribe continuation
            rval = scrawl.scribeContinuation(msg, textMode);
          }
-         else if(msg.indexOf(':') != -1)
+         else if(msg.indexOf(':') !== -1)
          {
            var alias = msg.split(':', 1)[0].replace(' ', '').toLowerCase();
 
@@ -498,9 +498,9 @@
          }
        }
        // the line is a comment by somebody else
-       else if(nick != context.scribenick)
+       else if(nick !== context.scribenick)
        {
-         if(msg.indexOf(':') != -1)
+         if(msg.indexOf(':') !== -1)
          {
            var alias = msg.split(':', 1)[0].replace(' ', '').toLowerCase();
 
@@ -513,7 +513,7 @@
               rval = scrawl.scribe(cleanedMessage, textMode,
                 aliases[alias], aliases[nick]);
            }
-           else if(alias.indexOf('http') == 0)
+           else if(alias.indexOf('http') === 0)
            {
              rval = scrawl.scribe(msg, textMode, aliases[nick]);
            }
@@ -577,18 +577,18 @@
     }
 
     // zero-pad the month and day if necessary
-    if(month.length == 1)
+    if(month.length === 1)
     {
       month = '0' + month;
     }
 
-    if(day.length == 1)
+    if(day.length === 1)
     {
       day = '0' + day;
     }
 
     // generate the summary text
-    if(textMode == 'html')
+    if(textMode === 'html')
     {
       rval += '<h1>' + group + '</h1>\n';
       rval += '<h2>Minutes for ' + time.getFullYear() + '-' +
@@ -751,7 +751,7 @@
     var context =
     {
       'group': scrawl.group,
-      'chair': ['Kim Hamilton Duffy', 'Christopher Allen'],
+      'chair': ['Gregg Kellogg', 'Rob Sanderson'],
       'present': {},
       'scribe': [],
       'topics': [],

@@ -223,13 +223,13 @@ async.waterfall([ function(callback) {
       }
 
       // write out summary file
-      var summaryHtml = htmlHeader.replace('../../stylesheet', '../stylesheet');
+      var summaryHtml = htmlHeader;
       var summaryKeys = Object.keys(results.buildSummaries).sort().reverse();
       for(var k in summaryKeys) {
         var key = summaryKeys[k];
         var summary = results.buildSummaries[key];
         summaryHtml += '<h3><a href="' + key + '/">Meeting for ' + key + '</a></h3>\n';
-        if(summary.topic.length > 0) {
+        if(summary.topic && summary.topic.length > 0) {
           summaryHtml += '<h4>Topics</h4><ol>\n';
           for(var t in summary.topic) {
             var tcounter = parseInt(t) + 1;
