@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+} 
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h2>JSON-LD Syntax and API</h2>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+<h3><a href="2017-11-08/">Meeting for 2017-11-08</a></h3>
+<h3><a href="2014-01-07/">Meeting for 2014-01-07</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2014-01-07/#topic-1">Tooling for JSON-LD</a></li>
+<li><a href="2014-01-07/#topic-2">Context at schema.org</a></li>
+<li><a href="2014-01-07/#topic-3">Processing of relative IRIs without base</a></li>
+<li><a href="2014-01-07/#topic-4">Subtree split to create a repository containing just the JSON-LD tests</a></li>
+</ol>
+<h3><a href="2013-12-17/">Meeting for 2013-12-17</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-12-17/#topic-1">Recommendation Publication Schedule</a></li>
+<li><a href="2013-12-17/#topic-2">Future work of CG</a></li>
+<li><a href="2013-12-17/#topic-3">Extension mechanisms for JSON-LD</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-12-17/#resolution-1">Propose that the RDF WG petition the Director to take JSON-LD to Recommendation immediately after the publication of the Proposed Recommendations for the RDF 1.1 work.</a></li>
+</ol>
+<h3><a href="2013-10-22/">Meeting for 2013-10-22</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-10-22/#topic-1">Bug in @reverse algorithm</a></li>
+<li><a href="2013-10-22/#topic-2">Proposed Recommendation Plan</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-10-22/#resolution-1">Apply the fix to the @reverse algorithm as detailed by Markus and merge the fix into the JSON-LD Algorithms prior to Proposed Recommendation publication.</a></li>
+</ol>
+<h3><a href="2013-10-15/">Meeting for 2013-10-15</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-10-15/#topic-1">Plan for Proposed Recommendation</a></li>
+<li><a href="2013-10-15/#topic-2">How to refer to Promises</a></li>
+<li><a href="2013-10-15/#topic-3">Does non-normative API require another LC?</a></li>
+<li><a href="2013-10-15/#topic-4">Removing at risk markers from JSON-LD specs.</a></li>
+<li><a href="2013-10-15/#topic-5">Updated Implementation Report</a></li>
+<li><a href="2013-10-15/#topic-6">Candidate Recommendation Period</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-10-15/#resolution-1">Make the JSON-LD WebIDL API non-normative and refer to the Promises specification written by Domenic Denicola and proceed straight to Proposed Recommendation.</a></li>
+<li><a href="2013-10-15/#resolution-2">Allow blank nodes to be used as graph name or property.</a></li>
+<li><a href="2013-10-15/#resolution-3">Support conversion of lists of lists to list objects by preserving the blank node head of the inner list. This resolves feature-at-risk #4 in the JSON-LD API specification.</a></li>
+<li><a href="2013-10-15/#resolution-4">Make an editorial update to the JSON-LD specification to clarify that the @type keyword is context sensitive and make its various usages more clear in the specification. This addresses issue at risk marker #9 in the JSON-LD syntax specification.</a></li>
+<li><a href="2013-10-15/#resolution-5">Keep the @base: null feature in the JSON-LD specification as it is defined in the Candidate Recommendation specification.</a></li>
+<li><a href="2013-10-15/#resolution-6">When processing free-floating nodes, if there is an @index keyword in the node, it is not a free-floating node.</a></li>
+<li><a href="2013-10-15/#resolution-7">The Candidate Recommendation period for JSON-LD is closed as of October 15th 2013.</a></li>
+</ol>
+<h3><a href="2013-10-08/">Meeting for 2013-10-08</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-10-08/#topic-1">OData / JSON-LD Alignment</a></li>
+<li><a href="2013-10-08/#topic-2">Implementation Report</a></li>
+<li><a href="2013-10-08/#topic-3">Plan for Proposed Recommendation</a></li>
+<li><a href="2013-10-08/#topic-4">rdflib Implementation Concerns</a></li>
+</ol>
+<h3><a href="2013-10-01/">Meeting for 2013-10-01</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-10-01/#topic-1">Candidate Recommendation Feedback</a></li>
+<li><a href="2013-10-01/#topic-2">Spec Bug with useRdfType flag</a></li>
+<li><a href="2013-10-01/#topic-3">OData Alignment</a></li>
+<li><a href="2013-10-01/#topic-4">Updating the Implementation Report</a></li>
+<li><a href="2013-10-01/#topic-5">W3C Hosted Version of Test Suite</a></li>
+<li><a href="2013-10-01/#topic-6">Plan for Proposed Recommendation</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-10-01/#resolution-1">JSON-LD 1.0 and the API will remain in Candidate Rec for an additional week to fix a bug in the spec related to the useRdfType flag and add an additional test. After the spec text has been fixed, and a test created, implementers will be required to file new implementation reports. Once they have done so, the specs will exit CR.</a></li>
+</ol>
+<h3><a href="2013-08-27/">Meeting for 2013-08-27</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-08-27/#topic-1">Update from Vikash on GSoC</a></li>
+<li><a href="2013-08-27/#topic-2">JSON-LD Candidate REC Transition Discussion</a></li>
+<li><a href="2013-08-27/#topic-3">Testing API Options</a></li>
+<li><a href="2013-08-27/#topic-4">Test manifest/vocabulary updates</a></li>
+<li><a href="2013-08-27/#topic-5">Testing Freeze Date</a></li>
+</ol>
+<h3><a href="2013-08-20/">Meeting for 2013-08-20</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-08-20/#topic-1">@base and NQuad output</a></li>
+<li><a href="2013-08-20/#topic-2">Vikash update for GSoC</a></li>
+<li><a href="2013-08-20/#topic-3">Decision to go CR or PR</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-08-20/#resolution-1">Add an issue marker for the "@base": null feature in the JSON-LD API CR specification - it may be modified or removed.</a></li>
+<li><a href="2013-08-20/#resolution-2">Drop relative IRI in the serialize to RDF algorithm. JSON-LD processors are free to include an option that preserves relative IRIs when serializing to RDF.</a></li>
+<li><a href="2013-08-20/#resolution-3">Request that the RDF WG transition the JSON-LD 1.0 and JSON-LD 1.0 API specs to CR, using the shortest possible CR period (don't skip CR)</a></li>
+</ol>
+<h3><a href="2013-08-13/">Meeting for 2013-08-13</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-08-13/#topic-1">JSON-LD in the News</a></li>
+<li><a href="2013-08-13/#topic-2">David Booth's Editorial Comments</a></li>
+<li><a href="2013-08-13/#topic-3">Update on GSoC from Vikash</a></li>
+<li><a href="2013-08-13/#topic-4">Review of JSON-LD 1.0 CR-ready specification</a></li>
+<li><a href="2013-08-13/#topic-5">Review JSON-LD 1.0 API CR-ready specification</a></li>
+<li><a href="2013-08-13/#topic-6">Implementations and Test Suite</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-08-13/#resolution-1">Add an issue marker for @type stating that we may introduce a new keyword to do literal type coercion.</a></li>
+<li><a href="2013-08-13/#resolution-2">Request that the RDF WG publish the JSON-LD 1.0 Candidate Recommendation on August 22nd with a CR period of 4 weeks.</a></li>
+<li><a href="2013-08-13/#resolution-3">Request that the RDF WG publish the JSON-LD 1.0 API spec as a Candidate Recommendation on August 22nd with a CR period of 4 weeks.</a></li>
+</ol>
+<h3><a href="2013-08-06/">Meeting for 2013-08-06</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-08-06/#topic-1">Updates to Syntax Spec by David Booth</a></li>
+<li><a href="2013-08-06/#topic-2">GSoC update from Vikash</a></li>
+<li><a href="2013-08-06/#topic-3">Review JSON-LD github issues ready to be closed</a></li>
+<li><a href="2013-08-06/#topic-4">Review all LC2 and post-LC2 RDF WG issues</a></li>
+<li><a href="2013-08-06/#topic-5">Candidate Recommendation Preparation</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-08-06/#resolution-1">Interpret objects that do not have a @context entry as the JSON-LD Context when passed into the API functions (via any context parameter). When passing in an array of objects and strings, the same rule applies. Remote context documents specified via a URL are still required to contain an @context key to be a valid JSON-LD Context.</a></li>
+<li><a href="2013-08-06/#resolution-2">RDF WG issue 129, 130, 132, 133, 134, and 135 have been addressed by the group and are resolved. Manu will send out official responses.</a></li>
+<li><a href="2013-08-06/#resolution-3">The JSON-LD test suite will be a living test suite (updated as needed). The version of the test suite when we transition into Candidate Recommendation will be assigned a git tag, so that others can test and report against a static version of the test suite.</a></li>
+</ol>
+<h3><a href="2013-07-23/">Meeting for 2013-07-23</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-07-23/#topic-1">ISSUE-277: "partial" lists</a></li>
+<li><a href="2013-07-23/#topic-2">GSoC Update</a></li>
+<li><a href="2013-07-23/#topic-3">Review JSON-LD github issues ready to be closed</a></li>
+<li><a href="2013-07-23/#topic-4">Review of JSON-LD API Spec</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-07-23/#resolution-1">Adopt Markus' algorithmic change to convert partial lists from RDF to JSON-LD.</a></li>
+<li><a href="2013-07-23/#resolution-2">Make it clear in the specification that objects can be provided to the context parameter can either be JSON-LD Contexts, or objects containing JSON-LD Contexts.</a></li>
+<li><a href="2013-07-23/#resolution-3">The JSON-LD API should process all documents labeled with media types using the application/json or any media type with a +json suffix. Implementations must not follow an HTTP Link Header if you encounter an application/ld+json media type.</a></li>
+<li><a href="2013-07-23/#resolution-4">A remote context MUST be served as application/ld+json.</a></li>
+</ol>
+<h3><a href="2013-07-16/">Meeting for 2013-07-16</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-07-16/#topic-1">ISSUE-276: Convert appendices into normal sections</a></li>
+<li><a href="2013-07-16/#topic-2">ISSUE-279: Extraneous data after flattening bug</a></li>
+<li><a href="2013-07-16/#topic-3">RDF WG ISSUE-132: Blank node predicates</a></li>
+<li><a href="2013-07-16/#topic-4">Review: Uncategorized JSON-LD github issues</a></li>
+<li><a href="2013-07-16/#topic-5">Review: JSON-LD Syntax issues</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-07-16/#resolution-1">Convert normative appendices A, B, and C to normal normative sections, leaving them at the same location in the document.</a></li>
+<li><a href="2013-07-16/#resolution-2">Fix a bug in the flattening and fromRDF algorithm by not promoting undescribed nodes or datatypes to subjects during the flattening/fromRDF algorithms.</a></li>
+<li><a href="2013-07-16/#resolution-3">Graphs are not free-floating nodes and should not be removed during the flattening or fromRDF algorithm.</a></li>
+<li><a href="2013-07-16/#resolution-4">Add an option to produce "extended RDF", which defaults to false. If the option is true, "extended RDF" will be produced, retaining triples that have blank nodes as predicates. If the option is false, standard RDF will be produced and triples with blank node properties will be discarded.</a></li>
+<li><a href="2013-07-16/#resolution-5">When mapping properties, if the author is not yet ready to commit to a stable IRI, suggest mapping the property to an IRI that is documented as unstable.</a></li>
+<li><a href="2013-07-16/#resolution-6">Link all Basic concept sections to the Advanced Concepts section to ensure that readers understand that there are more advanced concepts associated with the basic features of JSON-LD.</a></li>
+</ol>
+<h3><a href="2013-07-09/">Meeting for 2013-07-09</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-07-09/#topic-1">Blank nodes as predicates</a></li>
+<li><a href="2013-07-09/#topic-2">RDF Alignment Editorial Changes</a></li>
+<li><a href="2013-07-09/#topic-3">JSON-LD / RDF Alignment</a></li>
+</ol>
+<h3><a href="2013-07-02/">Meeting for 2013-07-02</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-07-02/#topic-1">Assigning Properties to Lists</a></li>
+<li><a href="2013-07-02/#topic-2">GSoC update</a></li>
+<li><a href="2013-07-02/#topic-3">JSON-LD / RDF Alignment</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-07-02/#resolution-1">Create an issue in the RDF WG to formalize a way to express lists that need to be identified with a URL and annotated using properties.</a></li>
+</ol>
+<h3><a href="2013-06-25/">Meeting for 2013-06-25</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-06-25/#topic-1">Peter Patel-Schneider's comments</a></li>
+<li><a href="2013-06-25/#topic-2">ISSUE-257: Blank node identifers for data types</a></li>
+<li><a href="2013-06-25/#topic-3">ISSUE-264: JsonLdUrlDereferencer option</a></li>
+<li><a href="2013-06-25/#topic-4">JSON-LD introduction</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-06-25/#resolution-1">Do not support blank nodes as data types.</a></li>
+<li><a href="2013-06-25/#resolution-2">Raise an error if a blank-node-typed literal is detected.</a></li>
+<li><a href="2013-06-25/#resolution-3">Generalize the LoadContextCallback feature into a LoadDocumentCallback feature and use it for loading both remote contexts and remote documents when necessary.</a></li>
+</ol>
+<h3><a href="2013-06-18/">Meeting for 2013-06-18</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-06-18/#topic-1">Linked Data introductory text</a></li>
+<li><a href="2013-06-18/#topic-2">Skolemization in toRDF() algorithm</a></li>
+<li><a href="2013-06-18/#topic-3">ISSUE-265: Media Type Registration</a></li>
+<li><a href="2013-06-18/#topic-4">Support for xsd:short and other integer types.</a></li>
+<li><a href="2013-06-18/#topic-5">fromRDF() creates nodes for things like rdf:type.</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-06-18/#resolution-1">Adopt proposal 2g and replace the first paragraph in the JSON-LD Syntax Introduction with: Linked Data[LINKED_DATA] is a way to create a network of standards-based machine interpretable data across different documents and Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.</a></li>
+<li><a href="2013-06-18/#resolution-2">In the security considerations section, reference RFC4627 and add text explaining that evaluating the data as code can lead to unexpected side effects compromising the security of a system.</a></li>
+<li><a href="2013-06-18/#resolution-3">Add the following text to the Security Considerations section: When processing JSON-LD documents, links to remote contexts are typically followed automatically, resulting in the transfer of files without the explicit request of the user for each one. If remote contexts are served by third parties, it may allow them to gather usage patterns or similar information leading to privacy concerns. Explain that this can be controlled through effective use of the API.</a></li>
+</ol>
+<h3><a href="2013-06-11/">Meeting for 2013-06-11</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-06-11/#topic-1">json-ld.org updates</a></li>
+<li><a href="2013-06-11/#topic-2">RDF-ISSUE-135: Government Linked Data (GLD) Working Group Feedback</a></li>
+<li><a href="2013-06-11/#topic-3">ISSUE-253: Reverse term definition modifications</a></li>
+<li><a href="2013-06-11/#topic-4">RDF and JSON-LD Alignment issue.</a></li>
+<li><a href="2013-06-11/#topic-5">Relationship to RDF model in syntax spec should be normative</a></li>
+<li><a href="2013-06-11/#topic-6">Editorial changes to JSON-LD Syntax</a></li>
+<li><a href="2013-06-11/#topic-7">Conversion of blank nodes to Skolemization IDs when going to RDF</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-06-11/#resolution-1">Allow "@container": "@set" for reverse properties.</a></li>
+<li><a href="2013-06-11/#resolution-2">Remove the @type restriction for reverse properties. This also means that a reverse property won't be implicitly type-coerced to @id anymore.</a></li>
+<li><a href="2013-06-11/#resolution-3">Add the following normative text to the JSON-LD Syntax specification: The normative algorithm for interpreting JSON-LD as RDF is specified in the JSON-LD Processing Algorithms and API specification [JSON-LD-API].</a></li>
+<li><a href="2013-06-11/#resolution-4">Make David Booth's bullet-point addition to the JSON-LD Syntax spec: " * Software developers who want to generate or consume Linked Data, an RDF graph or an RDF Dataset in a JSON syntax."</a></li>
+<li><a href="2013-06-11/#resolution-5">Add spec text to the following effect into the JSON-LD Syntax specification: JSON-LD was designed to be usable directly as JSON, with no knowledge of RDF, but was designed also to be usable as RDF (if desired), for use with other Semantic Web technologies like SPARQL. People intending to use JSON-LD with RDF tools will find it can be used as another RDF syntax, like Turtle. Complete details of how JSON-LD relates to RDF are in Appendix C.</a></li>
+<li><a href="2013-06-11/#resolution-6">Make other editorial changes as needed to avoid implying that JSON-LD is not necessarily RDF.</a></li>
+<li><a href="2013-06-11/#resolution-7">Add spec text to JSON-LD Syntax. Appendix C: JSON-LD is a _concrete RDF syntax_ as described in [RDF11_CONCEPTS]. Hence, a JSON-LD document is both an RDF document and a JSON document and correspondingly represents both an instance of the RDF data model and an instance of the JSON-LD data model.</a></li>
+</ol>
+<h3><a href="2013-06-04/">Meeting for 2013-06-04</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-06-04/#topic-1">Vikash's Summer of Code</a></li>
+<li><a href="2013-06-04/#topic-2">RDF-ISSUE-133: Reverse properties</a></li>
+<li><a href="2013-06-04/#topic-3">RDF-ISSUE-134: Blank node labeling</a></li>
+<li><a href="2013-06-04/#topic-4">RDF-ISSUE-129: Lossless conversion</a></li>
+<li><a href="2013-06-04/#topic-5">The Candidate Recommendation Phase</a></li>
+<li><a href="2013-06-04/#topic-6">Other concerns and news</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-06-04/#resolution-1">Support reverse properties in JSON-LD 1.0.</a></li>
+<li><a href="2013-06-04/#resolution-2">The default value of the useNativeTypes flag should be set to 'false' in the JSON-LD API.</a></li>
+<li><a href="2013-06-04/#resolution-3">Add explanatory text to the JSON-LD API specification explaining the risks of the useNativeTypes flag and how to do proper conversion to/from native types using the to/from RDF method call.</a></li>
+</ol>
+<h3><a href="2013-05-28/">Meeting for 2013-05-28</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-05-28/#topic-1">RDF-ISSUE-130: Properly referencing the DOM Futures spec</a></li>
+<li><a href="2013-05-28/#topic-2">Discussion with Google about JSON-LD usage</a></li>
+</ol>
+<h3><a href="2013-05-21/">Meeting for 2013-05-21</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-05-21/#topic-1">RDF-ISSUE-132: JSON-LD/RDF Alignment</a></li>
+<li><a href="2013-05-21/#topic-2">RDF-ISSUE-128: Mandatory profiles</a></li>
+<li><a href="2013-05-21/#topic-3">Gmail JSON-LD Implementation Concerns</a></li>
+<li><a href="2013-05-21/#topic-4">RDF WG resolutions</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-05-21/#resolution-1">Adopt the language for content negotiation above where the server should try to comply with the request MIME type and profile from the client.</a></li>
+</ol>
+<h3><a href="2013-05-14/">Meeting for 2013-05-14</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-05-14/#topic-1">Implementation Updates</a></li>
+<li><a href="2013-05-14/#topic-2">RDF-ISSUE-129: Lossless conversion</a></li>
+<li><a href="2013-05-14/#topic-3">RDF-ISSUE-128: Mandatory profiles</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-05-14/#resolution-1">Add issue markers to the 2nd Last Call for JSON-LD Algorithms and API to warn about how the useNativeTypes flag and algorithm might change, and to also warn about the details of referencing the DOM-WHATWG spec wrt. Futures may change.</a></li>
+</ol>
+<h3><a href="2013-05-07/">Meeting for 2013-05-07</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-05-07/#topic-1">JsonLdOptions base vs. @base</a></li>
+<li><a href="2013-05-07/#topic-2">Implementation Report Submissions</a></li>
+<li><a href="2013-05-07/#topic-3">Path forward for JSON-LD CR/PR</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-05-07/#resolution-1">Support relative IRIs in @base.</a></li>
+<li><a href="2013-05-07/#resolution-2">@base is always resolved against the current documents URL. @base when set in a remote context document does not apply to the document that imports the remote context.</a></li>
+<li><a href="2013-05-07/#resolution-3">Accept the new Base Resolution Algorithm, which supports setting @base: null (no base value).</a></li>
+<li><a href="2013-05-07/#resolution-4">The API option for 'base' is not set by default.</a></li>
+</ol>
+<h3><a href="2013-04-30/">Meeting for 2013-04-30</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-04-30/#topic-1">Google Summer of Code 2013</a></li>
+<li><a href="2013-04-30/#topic-2">JSON-LD API and Futures</a></li>
+<li><a href="2013-04-30/#topic-3">Implementation Report Submissions</a></li>
+<li><a href="2013-04-30/#topic-4">2nd Last Call for JSON-LD API</a></li>
+</ol>
+<h3><a href="2013-04-23/">Meeting for 2013-04-23</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-04-23/#topic-1">JSON-LD API and Futures</a></li>
+<li><a href="2013-04-23/#topic-2">Term re-definition behavior</a></li>
+<li><a href="2013-04-23/#topic-3">Test Suite Design</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-04-23/#resolution-1">Address ISSUE-125 by adopting a Futures-based approach for the JSON-LD API.</a></li>
+<li><a href="2013-04-23/#resolution-2">When re-defining a term 'A', any previous definition for term 'A' is removed before the right hand side for the new re-definition is evaluated.</a></li>
+</ol>
+<h3><a href="2013-04-16/">Meeting for 2013-04-16</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-04-16/#topic-1">Last Call Issues</a></li>
+<li><a href="2013-04-16/#topic-2">Last Call Issue: Order of parameters (options or callback last) - by Boris Zbarsky</a></li>
+<li><a href="2013-04-16/#topic-3">JSON-LD Specification Bugs</a></li>
+<li><a href="2013-04-16/#topic-4">Test Suite Design</a></li>
+</ol>
+<h3><a href="2013-04-09/">Meeting for 2013-04-09</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-04-09/#topic-1">Last Call Documents for RDF WG</a></li>
+<li><a href="2013-04-09/#topic-2">ISSUE-238: WebIDL dependency</a></li>
+<li><a href="2013-04-09/#topic-3">ISSUE-223: JsonLdOptions base vs. @base</a></li>
+<li><a href="2013-04-09/#topic-4">Compaction corner cases</a></li>
+<li><a href="2013-04-09/#topic-5">ISSUE-229: Test Suite</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-04-09/#resolution-1">Express the WebIDL for functions with optional parameters using the method overloading WebIDL pattern.</a></li>
+<li><a href="2013-04-09/#resolution-2">If the result of compaction is an array at the top level, always wrap it in @graph (default graph). This means that the result of compaction will always be an object.</a></li>
+<li><a href="2013-04-09/#resolution-3">When a context is passed into the .compact() function call, it MUST NOT be the 'null' value. If a null value is detected, an error must be thrown.</a></li>
+</ol>
+<h3><a href="2013-04-02/">Meeting for 2013-04-02</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-04-02/#topic-1">Web Payments Launch (PaySwarm / Meritora)</a></li>
+<li><a href="2013-04-02/#topic-2">ISSUE-235: Let @vocab take precedence over compact IRIs in compaction</a></li>
+<li><a href="2013-04-02/#topic-3">Rename '@type': '@vocab' to '@type': '@context'</a></li>
+<li><a href="2013-04-02/#topic-4">ISSUE-224: Sandro Hawke's Feedback</a></li>
+<li><a href="2013-04-02/#topic-5">ISSUE-234: Sandro Hawke's JSON-LD API spec review</a></li>
+<li><a href="2013-04-02/#topic-6">ISSUE-236: Zhe Wu's JSON-LD API spec review</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-04-02/#resolution-1">When compacting IRIs @vocab should take precedence over Compact IRIs. This reverses the previous order of precedence.</a></li>
+<li><a href="2013-04-02/#resolution-2">Specify what canonical lexical form is for xsd:integer and xsd:double by referencing the XML Schema 1.1 Datatypes specification. When processors are generating output, they are required to use this form.</a></li>
+</ol>
+<h3><a href="2013-03-26/">Meeting for 2013-03-26</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-03-26/#topic-1">Last Call and FCGS for Syntax and Algorithms</a></li>
+<li><a href="2013-03-26/#topic-2">ISSUE-217: Disallow BNode identifier as Graph Name</a></li>
+<li><a href="2013-03-26/#topic-3">ISSUE-218: Algorithm specification updates by editors</a></li>
+<li><a href="2013-03-26/#topic-4">ISSUE-220: Drop empty arrays (sets) and empty lists in expansion</a></li>
+<li><a href="2013-03-26/#topic-5">Remove re-labeling blank nodes during expansion</a></li>
+<li><a href="2013-03-26/#topic-6">ISSUE-232: Replace "optimize" option with "strict" option</a></li>
+<li><a href="2013-03-26/#topic-7">Any other issues before Last Call?</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-03-26/#resolution-1">Publish the JSON-LD Syntax and Algorithms specifications as Final Community Group Specifications (FCGS) and prep the RDF WG Last Call (LC) documents for publication on April 4th 2013.</a></li>
+<li><a href="2013-03-26/#resolution-2">The term selection algorithm should use the '@null' token to specify the null value and the '@none' token to specify the none value.</a></li>
+<li><a href="2013-03-26/#resolution-3">Do not drop empty arrays (sets) and empty lists in expansion and compaction.</a></li>
+<li><a href="2013-03-26/#resolution-4">Remove blank node re-labeling during expansion since it is no longer required. The flattening algorithm must still re-label blank nodes.</a></li>
+<li><a href="2013-03-26/#resolution-5">Change 'optimize' flag to be a 'processingMode' option. The default value for JSON-LD 1.0 processors is 'json-ld-1.0'. Implementers may accept other values, but must ensure that those values are not prefixed with the string 'json-ld'. If the processingMode is set to 'json-ld-1.0', the outcome must be the same as the algorithms.</a></li>
+</ol>
+<h3><a href="2013-03-19/">Meeting for 2013-03-19</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-03-19/#topic-1">ISSUE-224: Sandro Hawke's JSON-LD syntax spec review</a></li>
+<li><a href="2013-03-19/#topic-2">ISSUE-222: David Booth's JSON-LD syntax spec review</a></li>
+<li><a href="2013-03-19/#topic-3">ISSUE-230: Charles Greer's JSON-LD syntax spec review</a></li>
+<li><a href="2013-03-19/#topic-4">ISSUE-223: JsonLdOptions base vs. @base</a></li>
+<li><a href="2013-03-19/#topic-5">ISSUE-226: Expansion/Compaction explanation inaccurate/misleading</a></li>
+<li><a href="2013-03-19/#topic-6">ISSUE-231: JSON-LD in HTML</a></li>
+<li><a href="2013-03-19/#topic-7">Last Call timeline</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-03-19/#resolution-1">Add the JSON-LD in HTML feature to the JSON-LD Syntax specification without support for @data-context. We are still discussing @data-context and the danger of it forcing a JSON-LD initial context.</a></li>
+</ol>
+<h3><a href="2013-03-12/">Meeting for 2013-03-12</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-03-12/#topic-1">ISSUE-224: Sandro Hawke's JSON-LD syntax spec review</a></li>
+</ol>
+<h3><a href="2013-03-05/">Meeting for 2013-03-05</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-03-05/#topic-1">ISSUE-218: Algorithm specification updates by editors</a></li>
+<li><a href="2013-03-05/#topic-2">JSON-LD Property Generators</a></li>
+<li><a href="2013-03-05/#topic-3">ISSUE-221: Inverse properties in JSON-LD</a></li>
+<li><a href="2013-03-05/#topic-4">ISSUE-223: JsonLdOptions base vs. @base</a></li>
+<li><a href="2013-03-05/#topic-5">JSON-LD latest API issues</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-03-05/#resolution-1">Remove Property Generators from JSON-LD before Last Call due to no developers needing the feature, the feature having a high potential of misuse, and because of the complexity it adds to the specification.</a></li>
+<li><a href="2013-03-05/#resolution-2">Put JSON-LD Inverse Properties into the JSON-LD 1.0 specification as an at-risk feature.</a></li>
+<li><a href="2013-03-05/#resolution-3">'base' (passed in via the API) sets the document base, @base (in the document) overrides any value set by 'base' (passed in via the API).</a></li>
+<li><a href="2013-03-05/#resolution-4">Allow @base to be set to the empty string. If @base is set to the empty string, relative IRIs are processed according to RFC 3986 Section 5.2.2 (which is how they're always processed in JSON-LD).</a></li>
+</ol>
+<h3><a href="2013-02-26/">Meeting for 2013-02-26</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-02-26/#topic-1">JSON-LD Icons</a></li>
+<li><a href="2013-02-26/#topic-2">Jeremy Carroll's request for @base</a></li>
+<li><a href="2013-02-26/#topic-3">ISSUE-217: Disallow BNode identifier as Graph Name</a></li>
+<li><a href="2013-02-26/#topic-4">ISSUE-218: Algorithm specification updates by editors</a></li>
+<li><a href="2013-02-26/#topic-5">Publication Timeline</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-02-26/#resolution-1">Add @base to the JSON-LD syntax as an at-risk feature.</a></li>
+<li><a href="2013-02-26/#resolution-2">Support @base and @language declarations in the @context. Warn developers that JSON-LD contexts that are to be used as remote contexts probably shouldn't include @language or @base.</a></li>
+<li><a href="2013-02-26/#resolution-3">JSON-LD will continue to support blank node identifiers for properties and graph names. When converting data to RDF 1.1, the specification will not introduce any special checks to handle these specific cases. It is up to the implementations to figure out how to convert this data to something conformant to RDF 1.1.</a></li>
+<li><a href="2013-02-26/#resolution-4">Mark property generators as an at-risk feature in JSON-LD 1.0.</a></li>
+</ol>
+<h3><a href="2013-02-19/">Meeting for 2013-02-19</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-02-19/#topic-1">ISSUE-217: Disallow BNode identifier as Graph Name</a></li>
+<li><a href="2013-02-19/#topic-2">Publishing JSON-LD 1.0 as a FCGS</a></li>
+<li><a href="2013-02-19/#topic-3">ISSUE-218: Algorithm specification updates by editors</a></li>
+<li><a href="2013-02-19/#topic-4">Update to RDF Algorithms</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-02-19/#resolution-1">This group re-affirms that the common practice when naming a graph is to use either an IRI or a blank node identifier. The JSON-LD specification remains unchanged. When expressing graphs in Linked Data, the graph name SHOULD be an IRI.</a></li>
+<li><a href="2013-02-19/#resolution-2">Publish the JSON-LD 1.0 syntax specification as of February 19th 2013 as a Final Community Group Specification.</a></li>
+</ol>
+<h3><a href="2013-02-12/">Meeting for 2013-02-12</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-02-12/#topic-1">Choosing the Algorithms Specification</a></li>
+<li><a href="2013-02-12/#topic-2">ISSUE-213: Vulnerability when loading HTTP-based JSON-LD Contexts</a></li>
+<li><a href="2013-02-12/#topic-3">ISSUE-204: Design Issue with Relative IRIs and compaction</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-02-12/#resolution-1">Base future JSON-LD Algorithms 1.0 specification work on Dave Longley's alternate2.html specification, keeping in mind that the group is not suggesting that all algorithms are finalized. Algorithms will need to be clarified further after the base document is picked.</a></li>
+<li><a href="2013-02-12/#resolution-2">Add a JsonLdUrlDereferencer option to the JSON-LD API calls. It can be a function that takes a URL and a callback, and calls the callback with an error or the result of dereferencing that URL. If the option is provided, then the implementation MUST use it to dereference remote contexts.</a></li>
+<li><a href="2013-02-12/#resolution-3">If "@type": "@vocab" is specified for a term in the active context, then processing for the value associated with the term attempts to resolve it as an IRI - first processing it as a term, then a CURIE, then an absolute IRI, then against the active @vocab (if present), then a document-relative IRI.</a></li>
+<li><a href="2013-02-12/#resolution-4">The value space for terms tagged with "@type": "@id" is compact IRI, absolute IRI, relative IRI, the value space for "@type": "@vocab" is term, compact IRI, absolute IRI, @vocab, relative IRI.</a></li>
+<li><a href="2013-02-12/#resolution-5">Within a term definition in the JSON-LD context, document-relative IRIs are not supported.</a></li>
+</ol>
+<h3><a href="2013-02-05/">Meeting for 2013-02-05</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-02-05/#topic-1">New Alternate Algorithms Review</a></li>
+<li><a href="2013-02-05/#topic-2">RDF Algorithms Section</a></li>
+<li><a href="2013-02-05/#topic-3">ISSUE-217: Disallow BNode identifier as Graph Name</a></li>
+<li><a href="2013-02-05/#topic-4">JSON-LD 1.0 Final Community Group Specification</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-02-05/#resolution-1">Adopt the 'purpose' and 'general solution' language in Dave Longley's (alternate2.html) specification.</a></li>
+</ol>
+<h3><a href="2013-01-29/">Meeting for 2013-01-29</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-01-29/#topic-1">Remaining Editorial Work for JSON-LD 1.0 Specification</a></li>
+<li><a href="2013-01-29/#topic-2">Update to JSON-LD Data Model</a></li>
+<li><a href="2013-01-29/#topic-3">Context via HTTP Link Header</a></li>
+<li><a href="2013-01-29/#topic-4">IANA parameters</a></li>
+<li><a href="2013-01-29/#topic-5">Update on Algorithms</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-01-29/#resolution-1">"Remove Example 51: Data annotations" and provide different examples showing how data annotations survive expansion/compaction.</a></li>
+<li><a href="2013-01-29/#resolution-2">Rename @annotation to @index and update the prose in section 6.14 to reflect the change.</a></li>
+<li><a href="2013-01-29/#resolution-3">Remove 'form' from the optional parameters for application/ld+json. Add four URL values for 'profile': http://www.w3.org/ns/json-ld#expanded http://www.w3.org/ns/json-ld#compacted http://www.w3.org/ns/json-ld#expanded-flattened http://www.w3.org/ns/json-ld#compacted-flattened</a></li>
+</ol>
+<h3><a href="2013-01-22/">Meeting for 2013-01-22</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-01-22/#topic-1">ISSUE-204: Design Issue with Relative IRIs and Compaction</a></li>
+<li><a href="2013-01-22/#topic-2">ISSUE-211: Potential ambiguity when setting default language</a></li>
+<li><a href="2013-01-22/#topic-3">Approach to Algorithms</a></li>
+<li><a href="2013-01-22/#topic-4">Remaining Editorial Work for JSON-LD 1.0 Specification</a></li>
+<li><a href="2013-01-22/#topic-5">Editor/Author Attribution Order</a></li>
+</ol>
+<h3><a href="2013-01-15/">Meeting for 2013-01-15</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-01-15/#topic-1">ISSUE-204: Compact @id's to relative IRIs</a></li>
+<li><a href="2013-01-15/#topic-2">ISSUE-205: Use the term URL instead of IRI in the (API) spec</a></li>
+<li><a href="2013-01-15/#topic-3">Approach to Algorithms</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-01-15/#resolution-1">Add an at-risk issue on compacting IRIs as relative.</a></li>
+<li><a href="2013-01-15/#resolution-2">Use IRI in the JSON-LD specifications instead of URL.</a></li>
+</ol>
+<h3><a href="2013-01-08/">Meeting for 2013-01-08</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2013-01-08/#topic-1">State of JSON-LD Documents</a></li>
+<li><a href="2013-01-08/#topic-2">ISSUE-153: Define error handler behavior</a></li>
+<li><a href="2013-01-08/#topic-3">ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</a></li>
+<li><a href="2013-01-08/#topic-4">ISSUE-204: Compact @id's to relative IRIs</a></li>
+<li><a href="2013-01-08/#topic-5">ISSUE-205: Use the term URL instead of IRI in the (API) spec</a></li>
+<li><a href="2013-01-08/#topic-6">ISSUE-207: Handling of free-floating values in flattening/toRDF</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2013-01-08/#resolution-1">Accept the JSON-LD API spec text on error handling with a few modifications - remove the issueCallback mechanism from JsonLdOptions, remove severity fromJsonLdProcessorIssue, rename JsonLdProcessorIssue to JsonLdError.</a></li>
+<li><a href="2013-01-08/#resolution-2">Rename JSON-LD syntax spec to "JSON-LD 1.0 - A JSON-based Serialization for Linked Data" and the API spec to "JSON-LD 1.0 Processing Algorithms and API (no subtitle)"</a></li>
+<li><a href="2013-01-08/#resolution-3">Do not allow terms as values for @id.</a></li>
+<li><a href="2013-01-08/#resolution-4">The following value types are supported for @id - document relative IRIs, absolute IRIs, and CURIEs.</a></li>
+<li><a href="2013-01-08/#resolution-5">When compacting, attempt to compact absolute IRIs to document-relative IRIs.</a></li>
+<li><a href="2013-01-08/#resolution-6">Include the text "Throughout this specification, the term 'URL' means IRI as defined in RFC3987. The reason we use URL is because it is more familiar to Web developers." and use the term URL everywhere in both specifications.</a></li>
+<li><a href="2013-01-08/#resolution-7">JSON-LD Processors do not modify URLs other than to translate between relative and absolute URLs. Specifically, they do not implement the URL processing rules as outlined in the HTML5 specification.</a></li>
+<li><a href="2013-01-08/#resolution-8">Disallow free-floating values and IRIs in the JSON-LD Data model. If a free-floating value/IRI is detected during expansion, drop the value/IRI.</a></li>
+</ol>
+<h3><a href="2012-12-18/">Meeting for 2012-12-18</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-12-18/#topic-1">Schedule for telecons and publication</a></li>
+<li><a href="2012-12-18/#topic-2">JSON-LD Test Suite</a></li>
+<li><a href="2012-12-18/#topic-3">Renaming of blank nodes</a></li>
+<li><a href="2012-12-18/#topic-4">ISSUE-203: Validate IRIs and language tags</a></li>
+<li><a href="2012-12-18/#topic-5">ISSUE-109: Add flatten() method to JSON-LD API</a></li>
+<li><a href="2012-12-18/#topic-6">ISSUE-206: Clarify that the algorithms operate a copy of the input</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-12-18/#resolution-1">Rename all blank node identifiers when doing expansion.</a></li>
+<li><a href="2012-12-18/#resolution-2">JSON-LD Processors MAY issue validation warnings for malformed IRIs and BCP47 language strings, but they MUST NOT attempt to correct validation errors.</a></li>
+<li><a href="2012-12-18/#resolution-3">Add a .flatten() method to the JSON-LD API, which returns all data in flattened, compact form. Remove the flatten flag from the .expand() and .compact() methods. Ensure that the .flatten() method preserves data in named graphs.</a></li>
+<li><a href="2012-12-18/#resolution-4">Any input to JSON-LD API methods MUST NOT be modified.</a></li>
+</ol>
+<h3><a href="2012-12-11/">Meeting for 2012-12-11</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-12-11/#topic-1">JSON-LD .graphify() API</a></li>
+<li><a href="2012-12-11/#topic-2">ISSUE-200: JSON-LD API Review by Robin Berjon</a></li>
+<li><a href="2012-12-11/#topic-3">Graph vs DataSet</a></li>
+<li><a href="2012-12-11/#topic-4">ISSUE-153: Define error handler behavior</a></li>
+<li><a href="2012-12-11/#topic-5">ISSUE-201: Update dataset examples</a></li>
+<li><a href="2012-12-11/#topic-6">ISSUE-202: Do not compact @graph arrays with one element</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-12-11/#resolution-1">Remove the .toRDF() and .fromRDF() WebIDL API calls into a separate document that will not be a part of the JSON-LD 1.0 work. The to/from RDF algorithms will still be a part of the JSON-LD API 1.0 work.</a></li>
+<li><a href="2012-12-11/#resolution-2">Add a note to the "Relationship to RDF" section to specify that if clients that do not understand Datasets are to be supported using JSON-LD, that the primary information should go in the default graph.</a></li>
+<li><a href="2012-12-11/#resolution-3">Keep values of @graph that are arrays consisting of just one element as arrays.</a></li>
+<li><a href="2012-12-11/#resolution-4">Do not compact "node references" that are values of @graph to strings.</a></li>
+</ol>
+<h3><a href="2012-12-04/">Meeting for 2012-12-04</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-12-04/#topic-1">Algorithm updates</a></li>
+<li><a href="2012-12-04/#topic-2">ISSUE-157: JSON-LD mapping to RDF terminology</a></li>
+<li><a href="2012-12-04/#topic-3">ISSUE-184: Definition of JSON-LD processor in the API spec</a></li>
+<li><a href="2012-12-04/#topic-4">ISSUE-153: Define error handler behavior</a></li>
+<li><a href="2012-12-04/#topic-5">ISSUE-182: Graph vs. DataSet</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-12-04/#resolution-1">The JSON-LD API specification will define two products: 1) A JSON-LD Implementation, and 2) A JSON-LD Processor, which is dependent on a valid JSON-LD Implementation and implements the asynchronous API.</a></li>
+<li><a href="2012-12-04/#resolution-2">Simplify the error handling mechanism by passing an error object to the callbacks which only consists of an error code and an optional error message containing additional information for debugging.</a></li>
+<li><a href="2012-12-04/#resolution-3">State in the syntax spec that JSON-LD can be used as a RDF graph source. A consumer would just use the default graph and ignore all named graphs in that case. This would allow a server to use, e.g., both Turtle and JSON-LD in content negotiation.</a></li>
+</ol>
+<h3><a href="2012-11-27/">Meeting for 2012-11-27</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-11-27/#topic-1">ISSUE-182: Dataset vs. Graph</a></li>
+<li><a href="2012-11-27/#topic-2">ISSUE-113: Define exactly how (IRI) compaction is supposed to work</a></li>
+<li><a href="2012-11-27/#topic-3">ISSUE-172: Should each member in a list contribute to term rank?</a></li>
+<li><a href="2012-11-27/#topic-4">ISSUE-200: JSON-LD API Review by Robin Berjon</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-11-27/#resolution-1">When compacting lists, the most specific term that matches all of the elements in the list, taking into account the default language, must be selected.</a></li>
+<li><a href="2012-11-27/#resolution-2">The callback signature for the .toRDF() method should accept Quad[]. That is, the callback is called once after all processing has been completed.</a></li>
+</ol>
+<h3><a href="2012-11-20/">Meeting for 2012-11-20</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-11-20/#topic-1">ISSUE-159: Add specifying @language to expanded form</a></li>
+<li><a href="2012-11-20/#topic-2">ISSUE-170: Clarify sets and lists</a></li>
+<li><a href="2012-11-20/#topic-3">ISSUE-182: Graph vs DataSet</a></li>
+<li><a href="2012-11-20/#topic-4">ISSUE-197: Abuse of describedby relation in link header</a></li>
+<li><a href="2012-11-20/#topic-5">ISSUE-140: Consider objectify/link API method</a></li>
+<li><a href="2012-11-20/#topic-6">ISSUE-179: Consider moving WebIDL to Appendix or Note</a></li>
+<li><a href="2012-11-20/#topic-7">ISSUE-188: Numbers and booleans as @type</a></li>
+<li><a href="2012-11-20/#topic-8">ISSUE-184: Definition of JSON-LD processor in the API spec</a></li>
+<li><a href="2012-11-20/#topic-9">ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</a></li>
+<li><a href="2012-11-20/#topic-10">ISSUE-171: Value Compaction broken</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-11-20/#resolution-1">Close ISSUE-159 by referencing ISSUE-133: no further actions required.</a></li>
+<li><a href="2012-11-20/#resolution-2">Clarify why the @set keyword exists in the JSON-LD Syntax specification. Namely, it exists if developers want to selectively ensure that a term's values will always be compacted to an array in compacted form. For the avoidance of doubt, @set is allowed in the body of a JSON-LD document and the spec should explain it's use within the @context and the body of the document.</a></li>
+<li><a href="2012-11-20/#resolution-3">Normatively define the concept of a JSON-LD Dataset. In the context of a Dataset, a JSON-LD document including only a default graph serializes a Dataset with only a default graph. A JSON-LD document describing a default graph and/or one or more named graphs serializes a Dataset with default and named graphs.</a></li>
+<li><a href="2012-11-20/#resolution-4">Normatively define the concept of a "JSON-LD document", including description of the scope of blank nodes, which is the scope of the document.</a></li>
+<li><a href="2012-11-20/#resolution-5">Add in the RDF-mapping section Richard is writing a statement that JSON-LD documents serialize datasets (which may contain only a default graph)</a></li>
+<li><a href="2012-11-20/#resolution-6">Align with RDF WG ISSUE-105 (once there is a final decision from the RDF WG) regarding graphs, datasets, authoritative representations, and content negotiation.</a></li>
+<li><a href="2012-11-20/#resolution-7">Retain the ability to specify a JSON-LD context via the 'Link' HTTP header.</a></li>
+<li><a href="2012-11-20/#resolution-8">The rel=http://www.w3.org/ns/json-ld#context relationship replaces the 'describedby' relationship as the mechanism that is used to instruct the JSON-LD processor on which context it should use to interpret the document.</a></li>
+<li><a href="2012-11-20/#resolution-9">Defer creation of a .graphify() mechanism until after JSON-LD 1.0.</a></li>
+<li><a href="2012-11-20/#resolution-10">Place the Algorithms section in the JSON-LD API document before the API section. Make the API section normative, but clarify that implementers MAY provide their own API that is compliant with the Algorithms.</a></li>
+<li><a href="2012-11-20/#resolution-11">State in the definition of each applicable algorithm that the input is a (well-formed) JSON-LD document. State in the conformance section of theAPI/Algorithms/Proce ssing document that the spec does not constrain the behaviour of JSON-LD processors for JSON documents that are not (well-formed) JSON-LD documents.</a></li>
+<li><a href="2012-11-20/#resolution-12">Define "JSON-LD processor" in a Conformance section in the JSON-LD API.</a></li>
+</ol>
+<h3><a href="2012-11-13/">Meeting for 2012-11-13</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-11-13/#topic-1">ISSUE-196: Add '@annotation' container type</a></li>
+<li><a href="2012-11-13/#topic-2">ISSUE-195: Add '@graph' container type</a></li>
+<li><a href="2012-11-13/#topic-3">ISSUE-165: Allow @id: null to decouple a term from @vocab</a></li>
+<li><a href="2012-11-13/#topic-4">ISSUE-166: Add a conformance section</a></li>
+<li><a href="2012-11-13/#topic-5">ISSUE-169: Clarify the meaning of multiple node definitions with the same @id</a></li>
+<li><a href="2012-11-13/#topic-6">ISSUE-180: Make link to RDF more apparent in the specification</a></li>
+<li><a href="2012-11-13/#topic-7">ISSUE-181: Limit divergence between JSON-LD and RDF data models</a></li>
+<li><a href="2012-11-13/#topic-8">ISSUE-182: Graph vs DataSet</a></li>
+<li><a href="2012-11-13/#topic-9">ISSUE-189: Support of {@type:{@id:xxx}} constructs</a></li>
+<li><a href="2012-11-13/#topic-10">ISSUE-133: Add '@language' container type (related to ISSUE-159)</a></li>
+<li><a href="2012-11-13/#topic-11">ISSUE-178: Consider renaming JSON-LD API to JSON-LD Core Processing</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-11-13/#resolution-1">If '@container': '@annotation' is added to the JSON-LD Syntax, the feature MUST be round-trippable from .compact() to .expand() back to .compact()</a></li>
+<li><a href="2012-11-13/#resolution-2">Add '@container': '@annotation' to the JSON-LD Syntax.</a></li>
+<li><a href="2012-11-13/#resolution-3">Push the addition of '@container': '@graph' to the JSON-LD Syntax specification off to a later version of JSON-LD.</a></li>
+<li><a href="2012-11-13/#resolution-4">Allow a term to be mapped to null (either directly or by setting @id to null). This mapping is stored in the active context and also overwrites a @vocab mapping meaning that the term does not expand to an IRI and will thus be dropped when expanding.</a></li>
+<li><a href="2012-11-13/#resolution-5">Add a conformance section to the JSON-LD Syntax specification by merging pull request 194.</a></li>
+<li><a href="2012-11-13/#resolution-6">Remove the term node reference as it is not needed; one term (currently node definition) is sufficient.</a></li>
+<li><a href="2012-11-13/#resolution-7">Rename node definition to node object because 1. it doesn't actually “define” a node, and 2. to make more explicit that it is a kind of JSON object</a></li>
+<li><a href="2012-11-13/#resolution-8">Add a statement in the introduction of the JSON-LD syntax specification saying that JSON-LD is a serialization of the RDF data model.</a></li>
+<li><a href="2012-11-13/#resolution-9">Add the following statements to the specs: a) "Authors SHOULD NOT use unconnected nodes (a node definition that does not contain any properties) in JSON-LD documents." b) "Authors SHOULD NOT use blank nodes as edge labels." c) "JSON-LD processors MUST normalize all language tags to lowercase when processing documents via the JSON-LD Algorithms." d) "Blank node labels are scoped to the JSON-LD document."</a></li>
+<li><a href="2012-11-13/#resolution-10">Do not support constructs like "@type":{"@id":"A"} in the spec as that would suggest to developers that they could include other properties of the type there as well.</a></li>
+<li><a href="2012-11-13/#resolution-11">The values of the key-value pairs of a language map MUST be strings or arrays of strings. When expanded, the strings are tagged with the language specified by the key. When compacting, only language-tagged strings will match a term that has a "@container": "@language" mapping. Terms that have a "@container": "@language" mapping MUST NOT be type-coerced.</a></li>
+</ol>
+<h3><a href="2012-11-06/">Meeting for 2012-11-06</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-11-06/#topic-1">Brief review of RDF WG Face-to-Face</a></li>
+<li><a href="2012-11-06/#topic-2">JSON-LD Breakout Session</a></li>
+<li><a href="2012-11-06/#topic-3">Strategy for addressing pre-LC RDF WG issues</a></li>
+<li><a href="2012-11-06/#topic-4">Review of new issues</a></li>
+<li><a href="2012-11-06/#topic-5">ISSUE-159: Add specifying @language to expanded form</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-11-06/#resolution-1">A feature freeze is in effect for JSON-LD 1.0 Syntax and JSON-LD 1.0 API effective November 06th 2012.</a></li>
+</ol>
+<h3><a href="2012-10-23/">Meeting for 2012-10-23</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-10-23/#topic-1">ISSUE-168: JSON-LD Syntax document MUST utilize the RDF definitions</a></li>
+<li><a href="2012-10-23/#topic-2">ISSUE-156: Compact API first expands without provided context</a></li>
+<li><a href="2012-10-23/#topic-3">ISSUE-162: Base IRI used to expand @type</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-10-23/#resolution-1">Move the optional expansion context parameter in the .expand() call into the last JsonLdOptions parameter.</a></li>
+<li><a href="2012-10-23/#resolution-2">Process the 'expandContext' option when performing .compact(). When expanding during the .compact() call, the 'expandContext' is applied first, followed with any other contexts held in the document being processed.</a></li>
+<li><a href="2012-10-23/#resolution-3">When resolving IRIs for @type, first use a term/prefix if that exists, if not use @vocab, if @vocab does not exist, use the BASE IRI to resolve @type.</a></li>
+<li><a href="2012-10-23/#resolution-4">Do not define @vocab as base IRI but as prefix.</a></li>
+</ol>
+<h3><a href="2012-10-16/">Meeting for 2012-10-16</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-10-16/#topic-1">Wikidata visit</a></li>
+<li><a href="2012-10-16/#topic-2">RDF WG Face-to-face</a></li>
+<li><a href="2012-10-16/#topic-3">Drupal JSON-LD Vendor extension</a></li>
+<li><a href="2012-10-16/#topic-4">ISSUE-113: IRI compaction algorithm</a></li>
+<li><a href="2012-10-16/#topic-5">ISSUE-114: JSON-LD grammar</a></li>
+<li><a href="2012-10-16/#topic-6">Issue review</a></li>
+<li><a href="2012-10-16/#topic-7">Thoughts on .link()</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-10-16/#resolution-1">Add an optional parameter to the application/ld+json mimetype called 'profile' where the value associated with it SHOULD be an IRI.</a></li>
+<li><a href="2012-10-16/#resolution-2">Move all examples in the JSON-LD Grammar section of the spec to the main body and point to them with links.</a></li>
+</ol>
+<h3><a href="2012-10-09/">Meeting for 2012-10-09</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-10-09/#topic-1">ISSUE-140: Consider objectify/link API method</a></li>
+<li><a href="2012-10-09/#topic-2">ISSUE-160: Specify property-generator round-tripping algorithm</a></li>
+<li><a href="2012-10-09/#topic-3">ISSUE-153: Define error handler behavior</a></li>
+<li><a href="2012-10-09/#topic-4">ISSUE-159: Add specifying @language to expanded form</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-10-09/#resolution-1">Table issue-140 for the time being, delay discussion until all other issues for JSON-LD 1.0 have been addressed.</a></li>
+<li><a href="2012-10-09/#resolution-2">Adopt Gregg Kellogg's property generator algorithm when expanding/compacting with the following modifications; 1) use node definitions everywhere when expanding, 2) generate bnode IDs for all node definitions without an '@id', 3) use deep comparisons when eliminating node definitions during compaction.</a></li>
+<li><a href="2012-10-09/#resolution-3">Add warning language to the JSON-LD Syntax and API specs noting the most problematic issues when working with property generators.</a></li>
+<li><a href="2012-10-09/#resolution-4">Add a non-normative note to tell implementers that their implementations may have a feature that allows all but one node definition created by a property generator to be collapsed into a node reference.</a></li>
+</ol>
+<h3><a href="2012-10-02/">Meeting for 2012-10-02</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-10-02/#topic-1">ISSUE-160: Specify property-generator round-tripping algorithm</a></li>
+<li><a href="2012-10-02/#topic-2">Microdata to JSON-LD conversion</a></li>
+<li><a href="2012-10-02/#topic-3">JSON-LD in Drupal 8</a></li>
+</ol>
+<h3><a href="2012-09-25/">Meeting for 2012-09-25</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-09-25/#topic-1">TPAC JSON-LD breakout session</a></li>
+<li><a href="2012-09-25/#topic-2">RDF WG review of latest JSON-LD docs</a></li>
+<li><a href="2012-09-25/#topic-3">ISSUE-153: Define error handler behavior</a></li>
+<li><a href="2012-09-25/#topic-4">ISSUE-160: Specify property-generator round-tripping algorithm</a></li>
+</ol>
+<h3><a href="2012-09-18/">Meeting for 2012-09-18</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-09-18/#topic-1">ISSUE-113: IRI compaction algorithm</a></li>
+<li><a href="2012-09-18/#topic-2">ISSUE-140: Consider objectify/link API method</a></li>
+<li><a href="2012-09-18/#topic-3">Timeframe?</a></li>
+</ol>
+<h3><a href="2012-09-11/">Meeting for 2012-09-11</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-09-11/#topic-1">ISSUE-159: Add specifying @language to expanded form</a></li>
+</ol>
+<h3><a href="2012-09-04/">Meeting for 2012-09-04</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-09-04/#topic-1">Talk about JSON-LD at NoSQL conference</a></li>
+<li><a href="2012-09-04/#topic-2">Discussion on RDF Concepts terminology</a></li>
+<li><a href="2012-09-04/#topic-3">ISSUE-134: Add @container: @id</a></li>
+<li><a href="2012-09-04/#topic-4">ISSUE-141: Prefix/CURIE terminology</a></li>
+<li><a href="2012-09-04/#topic-5">ISSUE-155: JSON-LD introduction via data model</a></li>
+<li><a href="2012-09-04/#topic-6">ISSUE-109: Add flatten() method to JSON-LD API</a></li>
+<li><a href="2012-09-04/#topic-7">Determine if .frame() should be in JSON-LD 1.0</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-09-04/#resolution-1">Do not support id-maps via 'container'; '@id' in JSON-LD 1.0.</a></li>
+<li><a href="2012-09-04/#resolution-2">Rewrite the introductory portions of the JSON-LD document to explain JSON-LD in JSON terms first, then describe the advantages of JSON-LD, then rework the Linked Data section as the JSON-LD data model section.</a></li>
+<li><a href="2012-09-04/#resolution-3">Support a 'flatten' option to .expand() and .compact(). The value of the option will be the graph to flatten and return. The default value will be false, to ensure that that the JSON-LD input document is not flattened.</a></li>
+<li><a href="2012-09-04/#resolution-4">Do not support .frame() in JSON-LD 1.0 API.</a></li>
+</ol>
+<h3><a href="2012-08-28/">Meeting for 2012-08-28</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-08-28/#topic-1">ISSUE-47: Subject, property and object terminology</a></li>
+<li><a href="2012-08-28/#topic-2">ISSUE-66: Scoped/nested @contexts</a></li>
+<li><a href="2012-08-28/#topic-3">ISSUE-122: Allow declaring `@container` on `@type`</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-08-28/#resolution-1">Rename "subject definition" to "node definition" and "subject reference" to "node reference"</a></li>
+<li><a href="2012-08-28/#resolution-2">Change the 'nest'ed terminology to 'scope'ed when referring to @contexts that exist inside of JSON objects.</a></li>
+<li><a href="2012-08-28/#resolution-3">Add a flag to the .compact() and .frame() algorithms that turns off optimization of arrays with single items in them to single values in the output.</a></li>
+</ol>
+<h3><a href="2012-08-21/">Meeting for 2012-08-21</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-08-21/#topic-1">DrupalCon discussion on JSON-LD</a></li>
+<li><a href="2012-08-21/#topic-2">Property Generators and .compact() API</a></li>
+<li><a href="2012-08-21/#topic-3">Alternative to combinatorial .compact()</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-08-21/#resolution-1">The group is committed to support language maps and property generators in JSON-LD 1.0.</a></li>
+<li><a href="2012-08-21/#resolution-2">Support optional features in .compact(). Any optional feature that is implemented, MUST be implemented in a specific way as outlined in the JSON-LD API.</a></li>
+</ol>
+<h3><a href="2012-08-14/">Meeting for 2012-08-14</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-08-14/#topic-1">JSON-LD at NoSQL conference</a></li>
+<li><a href="2012-08-14/#topic-2">In-memory JSON-LD object representation</a></li>
+<li><a href="2012-08-14/#topic-3">@language / @vocab Intransitivity</a></li>
+<li><a href="2012-08-14/#topic-4">ISSUE-80: Remove initial context from API spec</a></li>
+<li><a href="2012-08-14/#topic-5">ISSUE-150: Use of native types in from/to RDF</a></li>
+<li><a href="2012-08-14/#topic-6">ISSUE-151: Context Processing Algorithm Dependency Resolution</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-08-14/#resolution-1">Do not support an initial context in JSON-LD 1.0.</a></li>
+<li><a href="2012-08-14/#resolution-2">Continue to support 'useNativeDatatypes' in .fromRDF(), specifying how the native type conversion happens. Do not support options for overriding each native datatype with a different value.</a></li>
+</ol>
+<h3><a href="2012-08-07/">Meeting for 2012-08-07</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-08-07/#topic-1">New github event notification system</a></li>
+<li><a href="2012-08-07/#topic-2">ISSUE-149: Create a pre-processing step option for the API</a></li>
+<li><a href="2012-08-07/#topic-3">ISSUE-146: Support array position to property binding</a></li>
+<li><a href="2012-08-07/#topic-4">ISSUE-147: Add synchronous methods to the API</a></li>
+<li><a href="2012-08-07/#topic-5">ISSUE-80: Remove initial context from API spec</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-08-07/#resolution-1">Do not support a pre-processing step option in the JSON-LD API to transform incoming JSON.</a></li>
+<li><a href="2012-08-07/#resolution-2">Do not support a declarative mechanism that is capable of mapping array position to an RDF property.</a></li>
+<li><a href="2012-08-07/#resolution-3">The JSON-LD API method signatures across all languages are exactly the same. If a developer wants synchronous behavior, they MUST NOT add the callback parameter. Add an issue marker to the JSON-LD API spec stating that this functionality is at risk.</a></li>
+</ol>
+<h3><a href="2012-07-31/">Meeting for 2012-07-31</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-07-31/#topic-1">Feature freeze of JSON-LD</a></li>
+<li><a href="2012-07-31/#topic-2">Lin Clark public domain dedication</a></li>
+<li><a href="2012-07-31/#topic-3">Drupal Language-Map requirement discussion</a></li>
+<li><a href="2012-07-31/#topic-4">JSON-LD issues reflected in W3C Tracker</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-07-31/#resolution-1">Add support for language maps via the "@container": "@language" annotation in @context. For example: "tags": { "@id": "http://example.com/vocab#tags", "@container": "@language"}. The value of the term MUST be an associative array. All associative array keys MUST be BCP47 language strings.</a></li>
+</ol>
+<h3><a href="2012-07-24/">Meeting for 2012-07-24</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-07-24/#topic-1">ISSUE-120: Expand @type to @id-objects</a></li>
+<li><a href="2012-07-24/#topic-2">ISSUE-114: JSON-LD Grammar</a></li>
+<li><a href="2012-07-24/#topic-3">ISSUE-142: Allow terms to expand to multiple IRIs</a></li>
+<li><a href="2012-07-24/#topic-4">ISSUE-144: @context in coercion rules</a></li>
+<li><a href="2012-07-24/#topic-5">ISSUE-146: Support array position to property binding</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-07-24/#resolution-1">When @id is found as a value in an object associated with @type, a handler callback is called to handle the issue.</a></li>
+<li><a href="2012-07-24/#resolution-2">Express the JSON-LD Grammar in prose with supporting tables/examples. Clarify that violating the grammar does not necessarily mean that a JSON-LD processor will not process the document.</a></li>
+<li><a href="2012-07-24/#resolution-3">Support a single term expanding to multiple IRIs when an array of @ids are associated with a single term in the @context.</a></li>
+<li><a href="2012-07-24/#resolution-4">Do not support embedding @contexts within a @context to re-define the IRI that a term maps to.</a></li>
+</ol>
+<h3><a href="2012-07-17/">Meeting for 2012-07-17</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-07-17/#topic-1">JSON-LD for Biomedical Informatics</a></li>
+<li><a href="2012-07-17/#topic-2">JSON-LD First Public Working Drafts</a></li>
+<li><a href="2012-07-17/#topic-3">ISSUE-132: Reconsider prefix/suffix separator</a></li>
+<li><a href="2012-07-17/#topic-4">Super sessions</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-07-17/#resolution-1">Do not change the prefix-suffix separator from COLON ':' to anything else.</a></li>
+</ol>
+<h3><a href="2012-07-10/">Meeting for 2012-07-10</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-07-10/#topic-1">ISSUE-133: Add @container: @language</a></li>
+<li><a href="2012-07-10/#topic-2">Sub-tree support for @container</a></li>
+<li><a href="2012-07-10/#topic-3">ISSUE-134: Add @container: @id</a></li>
+</ol>
+<h3><a href="2012-07-03/">Meeting for 2012-07-03</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-07-03/#topic-1">FPWD of JSON-LD Syntax and API</a></li>
+<li><a href="2012-07-03/#topic-2">ISSUE-133: Add @container: @language</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-07-03/#resolution-1">Support language-maps via the "@container": "@language" pattern in @context.</a></li>
+</ol>
+<h3><a href="2012-06-26/">Meeting for 2012-06-26</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-06-26/#topic-1">Transition of documents to the RDF WG</a></li>
+<li><a href="2012-06-26/#topic-2">ISSUE-120 recap - Expansion and @type</a></li>
+<li><a href="2012-06-26/#topic-3">.objectify() vs. .frame()</a></li>
+</ol>
+<h3><a href="2012-06-19/">Meeting for 2012-06-19</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-06-19/#topic-1">Feedback from RDF WG</a></li>
+<li><a href="2012-06-19/#topic-2">Linked Data and JSON-LD introductory videos</a></li>
+<li><a href="2012-06-19/#topic-3">ISSUE-26: @vocab support</a></li>
+<li><a href="2012-06-19/#topic-4">ISSUE-129: Eliminate duplicates in expansion</a></li>
+<li><a href="2012-06-19/#topic-5">ISSUE-108: IRI templates</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-06-19/#resolution-1">Support the @vocab keyword for setting a default vocabulary URL for a JSON-LD document.</a></li>
+<li><a href="2012-06-19/#resolution-2">Remove text relating to removing duplicates when expanding JSON-LD documents</a></li>
+<li><a href="2012-06-19/#resolution-3">Do not add any normative language relating to IRI templates or other transformations</a></li>
+</ol>
+<h3><a href="2012-06-12/">Meeting for 2012-06-12</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-06-12/#topic-1">Use of @container to specify language-maps and other useful things</a></li>
+<li><a href="2012-06-12/#topic-2">Review latest JSON-LD Syntax and API specs</a></li>
+<li><a href="2012-06-12/#topic-3">ISSUE-120: Expand @type to @id-objects</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-06-12/#resolution-1">Attempt to add other @container options, such as "@container": "@language" to support Wikidata's language-map use case.</a></li>
+<li><a href="2012-06-12/#resolution-2">When operating on @type, the result of the expansion algorithm MUST always result in an array of strings that are IRIs.</a></li>
+<li><a href="2012-06-12/#resolution-3">In the expansion algorithm, when expanding the value associated with @type, extract only @id from that value. Any value that does not expand to an absolute IRI MUST be discarded.</a></li>
+</ol>
+<h3><a href="2012-06-05/">Meeting for 2012-06-05</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-06-05/#topic-1">SemTech 2012</a></li>
+<li><a href="2012-06-05/#topic-2">ISSUE-127: JSON-LD API Introduction</a></li>
+<li><a href="2012-06-05/#topic-3">Define from/to RDF algorithms in terms of standard RDF</a></li>
+<li><a href="2012-06-05/#topic-4">RDF WG Invited Expert process</a></li>
+</ol>
+<h3><a href="2012-05-29/">Meeting for 2012-05-29</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-05-29/#topic-1">RDF WG Spec Concerns</a></li>
+<li><a href="2012-05-29/#topic-2">Concerns about Publishing JSON-LD API</a></li>
+<li><a href="2012-05-29/#topic-3">JSON-LD CG to RDF WG document transition</a></li>
+</ol>
+<h3><a href="2012-05-22/">Meeting for 2012-05-22</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-05-22/#topic-1">JSON-LD pushed to RDF WG for review</a></li>
+<li><a href="2012-05-22/#topic-2">ISSUE-114: JSON-LD Grammar</a></li>
+<li><a href="2012-05-22/#topic-3">ISSUE-118: @graph support in framing</a></li>
+<li><a href="2012-05-22/#topic-4">ISSUE-119: Aggressive embedding support</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-05-22/#resolution-1">Defer @graph and, in general, value matching from the framing algorithm.</a></li>
+</ol>
+<h3><a href="2012-05-15/">Meeting for 2012-05-15</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-05-15/#topic-1">Finishing up the JSON-LD Syntax document</a></li>
+<li><a href="2012-05-15/#topic-2">ISSUE-100: Should the JSON-LD API have a "mode": "strict" flag?</a></li>
+<li><a href="2012-05-15/#topic-3">ISSUE-116: Introduce @extension keyword?</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-05-15/#resolution-1">JSON-LD will support a JSON-LD Processor Event mechanism that will report certain events (to be decided later) via a callback given through JSON-LD API calls.</a></li>
+<li><a href="2012-05-15/#resolution-2">The JSON-LD Processor Event callback would be registered for every JSON-LD API call, and would provide the type of event and the data associated with the event for the callback. This mechanism would be used to report potential errors, warnings and when the processing of the document was complete.</a></li>
+<li><a href="2012-05-15/#resolution-3">When a JSON-LD processor processes input that would result in an exception, it should instead call the JSON-LD Processor Event callback with data concerning the issue that was detected.</a></li>
+<li><a href="2012-05-15/#resolution-4">Do not support the @extension keyword at this point in time.</a></li>
+</ol>
+<h3><a href="2012-05-08/">Meeting for 2012-05-08</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-05-08/#topic-1">ISSUE-115: Expanded form - expand all native types to @value form?</a></li>
+<li><a href="2012-05-08/#topic-2">ISSUE-114: Values space of keywords</a></li>
+<li><a href="2012-05-08/#topic-3">ISSUE-112: Define mandatory API parameters (options)</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-05-08/#resolution-1">In general, for expansion, ensure that all property values are expressed in expanded value form (e.g. {"@value": 5}, {"@value": "foo"}, {"@id": "http://example.com/"}) with the exception of @id and @type.</a></li>
+<li><a href="2012-05-08/#resolution-2">In expanded form, @graph must be expressed in expanded value form (e.g. "@graph": [{"@id": "http://example.com/foo#graph}])</a></li>
+<li><a href="2012-05-08/#resolution-3">In general, if the author's intent is clear, we should transform the input into proper JSON-LD (keeping the processor mode, if any, in mind - in strict mode, throw exceptions, in lax mode, attempt to interpret the value).</a></li>
+<li><a href="2012-05-08/#resolution-4">When converting toRDF(), any value that is a JSON number that has a fractional value MUST be treated as an xsd:double using the printf("%1.15E", number) representation.</a></li>
+<li><a href="2012-05-08/#resolution-5">There are no mandatory options in the JSON-LD API. Defaults must be specified for all options passed to JSON-LD API methods.</a></li>
+<li><a href="2012-05-08/#resolution-6">The default for the base IRI for JSON-LD API methods is the current document IRI if in a browser context, or the empty string if there is no document context.</a></li>
+</ol>
+<h3><a href="2012-05-01/">Meeting for 2012-05-01</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-05-01/#topic-1">ISSUE-96: Should framing results be object or array</a></li>
+<li><a href="2012-05-01/#topic-2">ISSUE-97: Frame expansion</a></li>
+<li><a href="2012-05-01/#topic-3">ISSUE-80: Remove initial context from API spec</a></li>
+<li><a href="2012-05-01/#topic-4">ISSUE-107: Fragment identifier interpretation</a></li>
+<li><a href="2012-05-01/#topic-5">ISSUE-98: Datatype coercion of native types</a></li>
+<li><a href="2012-05-01/#topic-6">RDF WG and JSON-LD</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-05-01/#resolution-1">The result of framing MUST be an object with a @context and @graph property. The value of @graph is always an array containing zero or more results.</a></li>
+<li><a href="2012-05-01/#resolution-2">For framing, use a combination of @preserve and @null, which are replaced in post-processing to avoid the problem of them disappearing during expansion or compaction.</a></li>
+<li><a href="2012-05-01/#resolution-3">If JSON-LD has an initial context, it MUST be specified external to the JSON-LD Syntax specification at a well-known location.</a></li>
+<li><a href="2012-05-01/#resolution-4">In JSON-LD a fragment identifier MAY identify a node in the linked data graph expressed in the document. This idiom, which is also used in RDF [RDF-CONCEPTS], gives a simple way to "mint" new, document-local IRIs to label nodes and therefore contributes considerably to the expressive power of JSON-LD.</a></li>
+<li><a href="2012-05-01/#resolution-5">When round-tripping xsd:boolean values from JSON-LD through expansion and back through compaction, a JSON-native boolean value with xsd:boolean datatype coersion will remain a JSON-native boolean value.</a></li>
+<li><a href="2012-05-01/#resolution-6">@value supports native JSON datatypes such as number, boolean, string.</a></li>
+<li><a href="2012-05-01/#resolution-7">During expansion, a native JSON value with type coercion applied gets expanded to the expanded object form where the value of @value is still in the native JSON form and @type is the type in the type coercion rule.</a></li>
+<li><a href="2012-05-01/#resolution-8">When compacting, if there is a direct match for @type for the property and @type for the property in the context, then the value of the property is replaced with the value of @value.</a></li>
+<li><a href="2012-05-01/#resolution-9">Introduce a 'useNativeTypes' flag for the fromRDF algorithm which, when set, attempts to convert xsd:boolean, xsd:integer, and xsd:double to native JSON values. If the conversion fails the value will be converted to the expanded object notation form.</a></li>
+</ol>
+<h3><a href="2012-04-24/">Meeting for 2012-04-24</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-04-24/#topic-1">WWW2012 Conference</a></li>
+<li><a href="2012-04-24/#topic-2">ISSUE-106: JSON-LD 1.0 @graph syntax</a></li>
+<li><a href="2012-04-24/#topic-3">ISSUE-102: Can JSON-LD keywords be re-defined in the @context?</a></li>
+<li><a href="2012-04-24/#topic-4">ISSUE-103: Re-introduce @datatype as @valuetype</a></li>
+<li><a href="2012-04-24/#topic-5">ISSUE-92: Limit JSON-LD properties to one @list per property</a></li>
+<li><a href="2012-04-24/#topic-6">ISSUE-91: Re-definition of keywords</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-04-24/#resolution-1">Adopt the 6 points in ISSUE-106 along with Gregg and Longley's proposal for @graph processing in framing as the way we approach named graph support in JSON-LD.</a></li>
+<li><a href="2012-04-24/#resolution-2">JSON-LD keywords MUST NOT be re-defined in the @context. If a JSON-LD processor detects that a JSON-LD keyword is being re-defined, it MUST throw an exception.</a></li>
+<li><a href="2012-04-24/#resolution-3">Do not re-introduce typing JSON-LD @value via something like @datatype or @valuetype.</a></li>
+<li><a href="2012-04-24/#resolution-4">If the result of IRI compaction has an @container @list and there are multiple @list values, throw an exception. When doing IRI compaction do not select terms (other than absolute IRIs) that have @container @list if the value has more than one list.</a></li>
+<li><a href="2012-04-24/#resolution-5">JSON-LD allows sets of lists except where it conflicts with the previous resolution.</a></li>
+<li><a href="2012-04-24/#resolution-6">Remove step #1: "If iri is rdf:type, return @type." from the Compact IRI algorithm.</a></li>
+<li><a href="2012-04-24/#resolution-7">Add an option to the fromRDF algorithm to skip step 5.6 "If the property is rdf:type use @type" to support the use of a term in place of the @type keyword during conversion from RDF to JSON-LD.</a></li>
+</ol>
+<h3><a href="2012-04-10/">Meeting for 2012-04-10</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-04-10/#topic-1">ISSUE-91: Re-definition of keywords</a></li>
+<li><a href="2012-04-10/#topic-2">ISSUE-92: Limit JSON-LD properties to one @list per property</a></li>
+<li><a href="2012-04-10/#topic-3">ISSUE-93: Keyword aliasing operation</a></li>
+<li><a href="2012-04-10/#topic-4">ISSUE-99: @graph treatment when expanding</a></li>
+<li><a href="2012-04-10/#topic-5">ISSUE-58: Specifying the active context for compaction</a></li>
+<li><a href="2012-04-10/#topic-6">ISSUE-57: Should @context be minimized when compacting?</a></li>
+<li><a href="2012-04-10/#topic-7">ISSUE-53: Remove normalization completely from JSON-LD API spec</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-04-10/#resolution-1">When performing expansion properties that are coerced to a @container type of @list MUST be placed in an array in expanded form. For example, "prop-iri": [{"@list": [1, 2]}] is correct, "prop-iri": {"@list": [1, 2]} is not.</a></li>
+<li><a href="2012-04-10/#resolution-2">JSON-LD supports multiple aliases for a JSON-LD keyword.</a></li>
+<li><a href="2012-04-10/#resolution-3">Re-affirm that the aliasing of @context is disallowed due to algorithmic complexity/ambiguity and lack of a compelling use case.</a></li>
+<li><a href="2012-04-10/#resolution-4">A @context is processed without regard to keyword aliases. Keyword aliases are taken into account when processing the body of a JSON-LD document.</a></li>
+<li><a href="2012-04-10/#resolution-5">If @graph is the only property in the document's top level object, it MUST be dropped in expansion and compaction. In all other cases (which includes @graph at the document's top level object when there are other properties other than @context at the same level), @graph MUST NOT be dropped in expansion and compaction.</a></li>
+<li><a href="2012-04-10/#resolution-6">The first input parameter for all JSON-LD API methods MAY be an object, an array of objects, or an IRI (DOMString).</a></li>
+<li><a href="2012-04-10/#resolution-7">The second input parameter to the .compact() method is the context that should be used for compaction. The value can be either an object or an IRI.</a></li>
+<li><a href="2012-04-10/#resolution-8">The second input parameter to the .frame() method is the frame that should be used for compaction. The value can be either an object or an IRI.</a></li>
+<li><a href="2012-04-10/#resolution-9">If the optimize flag is not set, the context used for compaction MUST be included without modifications in the resulting document. This applies to both context objects as well as contexts specified by passing an IRI. If the optimize flag is set, a processor is free to modify the context in order to optimize the resulting document body.</a></li>
+<li><a href="2012-04-10/#resolution-10">Remove the normalization algorithm and API from the JSON-LD API specification. The normalization algorithm will be placed into a separate RDF Graph Normalization specification which contains an API for retrieving a set of normalized statements.</a></li>
+</ol>
+<h3><a href="2012-04-03/">Meeting for 2012-04-03</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-04-03/#topic-1">ISSUE-95: Remove @graph from the spec</a></li>
+<li><a href="2012-04-03/#topic-2">ISSUE-84: Probing of unlinked objects</a></li>
+<li><a href="2012-04-03/#topic-3">ISSUE-74: IRI conflicts when compacting/expanding</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-04-03/#resolution-1">Do not remove @graph from the JSON-LD syntax.</a></li>
+<li><a href="2012-04-03/#resolution-2">Do not support controlled probing of unlinked objects for this version of JSON-LD.</a></li>
+</ol>
+<h3><a href="2012-03-27/">Meeting for 2012-03-27</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-03-27/#topic-1">ISSUE-81: Data round tripping issues</a></li>
+<li><a href="2012-03-27/#topic-2">ISSUE-87: Clarification of @set and expansion</a></li>
+<li><a href="2012-03-27/#topic-3">Explicit term for RDF type?</a></li>
+<li><a href="2012-03-27/#topic-4">ISSUE-88: Reserved keywords</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-03-27/#resolution-1">Terms MAY be defined as any valid JSON string. Terms starting with an '@' character SHOULD NOT be used as they may createforward-compatibilit y issues.</a></li>
+</ol>
+<h3><a href="2012-03-20/">Meeting for 2012-03-20</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-03-20/#topic-1">Clarification of @set and expansion</a></li>
+<li><a href="2012-03-20/#topic-2">Expansion of strings and numbers</a></li>
+<li><a href="2012-03-20/#topic-3">ISSUE-85: Support @language in term definitions</a></li>
+<li><a href="2012-03-20/#topic-4">How is @language applied to strings?</a></li>
+<li><a href="2012-03-20/#topic-5">ISSUE-75: References to lists</a></li>
+<li><a href="2012-03-20/#topic-6">ISSUE-81: Double round tripping issues due to lack of precision</a></li>
+<li><a href="2012-03-20/#topic-7">ISSUE-86: IRI normalization</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-03-20/#resolution-1">Using "@list" and "@set" as keys in JSON-LD values that are expressed in expanded form is allowed.</a></li>
+<li><a href="2012-03-20/#resolution-2">During compaction "@set" expressed in expanded form MUST be optimized away if it is not coerced to a "@list". During expansion "@set" MUST be optimized away.</a></li>
+<li><a href="2012-03-20/#resolution-3">The use of "@container" is ignored in the body of a JSON-LD document.</a></li>
+<li><a href="2012-03-20/#resolution-4">The value of the @value key is always transformed to a string by the JSON-LD processor.</a></li>
+<li><a href="2012-03-20/#resolution-5">Unless there are type coercion rules in the @context that apply, native JSON numbers and strings are not modified in compacted or expanded form.</a></li>
+<li><a href="2012-03-20/#resolution-6">Support the use of @language in term definitions to specify the associated @language for the term. If both @type and @language are specified, @language is ignored.</a></li>
+<li><a href="2012-03-20/#resolution-7">If @language is specified at the top-level of a @context, then it applies to all native strings that would be interpreted as plain literals in the JSON-LD body. The @language can be overridden in term definitions by specifying a different @language value, including @language: null, or by specifying a @type for the term.</a></li>
+<li><a href="2012-03-20/#resolution-8">Do not support the direct naming of lists using IRIs in this revision of JSON-LD.</a></li>
+<li><a href="2012-03-20/#resolution-9">Convert all values coerced to xsd:double to strings using the C-syntax formula of "%1.16e".</a></li>
+<li><a href="2012-03-20/#resolution-10">Conform to the requirements of RFC3986, Section 5 (Reference Resolution), when processing IRIs.</a></li>
+</ol>
+<h3><a href="2012-03-13/">Meeting for 2012-03-13</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-03-13/#topic-1">ISSUE-76: Use of null in JSON-LD</a></li>
+<li><a href="2012-03-13/#topic-2">ISSUE-79: Define how empty arrays are handled</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-03-13/#resolution-1">Unless otherwise specified, when 'null' is used in the @context, it removes any definition associated with the key.</a></li>
+<li><a href="2012-03-13/#resolution-2">If @context is set to 'null', then the active context is cleared or set to the initial context (depending on the resolution to ISSUE-80)</a></li>
+<li><a href="2012-03-13/#resolution-3">Unless otherwise specified, if 'null' is associated with a key in the body of a JSON-LD document, then the JSON-LD processor MUST act as if the key-value pair was never declared. If @value or @list is set to null in expanded form, then the entire JSON object is ignored.</a></li>
+<li><a href="2012-03-13/#resolution-4">If an empty array ([]) used as a value is not subject to @list coercion, then the value MUST be removed from normalized output. The empty array MUST be preserved in compacted and expanded output.</a></li>
+<li><a href="2012-03-13/#resolution-5">When normalizing, anything that is not coerced to a @list container type that has an empty array for its value is removed from the normalized output.</a></li>
+<li><a href="2012-03-13/#resolution-6">When compacting and expanding, anything that is coerced to a @set or a @list container type that has an empty array for its value is preserved in the compacted and expanded output.</a></li>
+<li><a href="2012-03-13/#resolution-7">Unless otherwise specified, when performing the expansion algorithm all values must be contained in a JSON array structure. This does not apply to values for syntactic keys such as @value, @language, @id, and @type when used to specify a datatype.</a></li>
+<li><a href="2012-03-13/#resolution-8">When compacting, anything that is coerced to a @set or a @list container type has its values put into an array in the compacted output, even if there is only one value.</a></li>
+</ol>
+<h3><a href="2012-03-06/">Meeting for 2012-03-06</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-03-06/#topic-1">ISSUE-44: Support for @set coercion</a></li>
+<li><a href="2012-03-06/#topic-2">ISSUE-52: Lists of lists</a></li>
+<li><a href="2012-03-06/#topic-3">ISSUE-74: IRI compaction/expansion conflicts</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-03-06/#resolution-1">Adopt the "@container": "@set" syntax when used in a JSON-LD context to specify that a term is associated with a set of values.</a></li>
+<li><a href="2012-03-06/#resolution-2">When the "@container": "@set" syntax is used in a JSON-LD context for a term definition within the framing algorithm, the resulting term will be associated with a JSON array.</a></li>
+<li><a href="2012-03-06/#resolution-3">Lists of lists are not allowed for JSON-LD 1.0. If a list of lists is detected, the JSON-LD processor MUST throw an exception.</a></li>
+</ol>
+<h3><a href="2012-02-28/">Meeting for 2012-02-28</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-02-28/#topic-1">ISSUE-82: How are non-JSON-LD values in @context processed?</a></li>
+<li><a href="2012-02-28/#topic-2">ISSUE-68: Multiple graphs syntax</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-02-28/#resolution-1">For non-JSON-LD values in @context, in general, they are ignored by JSON-LD processors. When compacting, the non-JSON-LD values can be removed. When expanding, the entire @context is removed and thus the non-JSON-LD values are removed.</a></li>
+<li><a href="2012-02-28/#resolution-2">Override part of the decision made in ISSUE-56 - When performing expansion, non-JSON-LD values are not dropped from the document, but are ignored.</a></li>
+<li><a href="2012-02-28/#resolution-3">The @graph keyword is used to express a collection of one or more JSON objects (to express a graph which may or may not be fully connected)</a></li>
+</ol>
+<h3><a href="2012-02-21/">Meeting for 2012-02-21</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-02-21/#topic-1">ISSUE-54: Arrays of IRIs</a></li>
+<li><a href="2012-02-21/#topic-2">ISSUE-63: Provenance in JSON-LD</a></li>
+<li><a href="2012-02-21/#topic-3">ISSUE-64: Make clear how type and language coercions work</a></li>
+<li><a href="2012-02-21/#topic-4">ISSUE-76: Use of null in JSON-LD</a></li>
+<li><a href="2012-02-21/#topic-5">ISSUE-65: Handling of data that doesn't contain triples.</a></li>
+<li><a href="2012-02-21/#topic-6">ISSUE-69: Remove media type parameter option "form=compacted"</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-02-21/#resolution-1">If a string is found in an array that is the value of the "@id" key, a JSON-LD Processor MUST throw an exception.</a></li>
+<li><a href="2012-02-21/#resolution-2">Put the discussion of Provenance on hold until the RDF WG produces a proposal for provenance.</a></li>
+<li><a href="2012-02-21/#resolution-3">When expanded form is used, no coercion rules apply to the value expressed in the expanded form.</a></li>
+<li><a href="2012-02-21/#resolution-4">Setting @language to null in the @context clears any coercion rules for language for the JSON subtree.</a></li>
+<li><a href="2012-02-21/#resolution-5">When "@context": null is specified, it clears the active context.</a></li>
+<li><a href="2012-02-21/#resolution-6">If "@language": null is specified in a local context, language coercion is removed from the active context.</a></li>
+<li><a href="2012-02-21/#resolution-7">If '{}' is used as a value in a JSON-LD document, then a blank node identifier MUST be generated for the object during normalization.</a></li>
+<li><a href="2012-02-21/#resolution-8">Remove "form=compacted" from the MIMEType for JSON-LD.</a></li>
+</ol>
+<h3><a href="2012-02-07/">Meeting for 2012-02-07</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-02-07/#topic-1">ISSUE-46: Absolute IRI detection</a></li>
+<li><a href="2012-02-07/#topic-2">@list - type coercion</a></li>
+<li><a href="2012-02-07/#topic-3">ISSUE-54: Arrays of IRIs</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-02-07/#resolution-1">If a key in a JSON-LD document contains a colon, it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI. The only exception to this rule is if "//" follows the first colon, and in that case, the value is an AbsoluteIRI.</a></li>
+<li><a href="2012-02-07/#resolution-2">If a key in a JSON-LD document contains a colon and the first colon is not followed by "//", it is a CompactIRI if the prefix is defined as a term in the active context, otherwise it is an AbsoluteIRI.</a></li>
+<li><a href="2012-02-07/#resolution-3">Adopt "@container": "@list" syntax to specify container coercion to an ordered list when specified via the @context.</a></li>
+</ol>
+<h3><a href="2012-01-31/">Meeting for 2012-01-31</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-01-31/#topic-1">ISSUE-43: Use of IRIs and CURIEs as @context keys</a></li>
+<li><a href="2012-01-31/#topic-2">ISSUE-56: JSON keys that are not terms</a></li>
+<li><a href="2012-01-31/#topic-3">ISSUE-52: Should we support lists of lists?</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-01-31/#resolution-1">When processing keys in a JSON-LD document, ignore keys and do not process the subtree for keys that do not have a mapping in the @context. When compacting and expanding, drop keys that do not have mappings from the output.</a></li>
+<li><a href="2012-01-31/#resolution-2">Mapping a key to _null_ removes a mapping for that key active context</a></li>
+<li><a href="2012-01-31/#resolution-3">A term can only be redefined, never partially reconfigured</a></li>
+</ol>
+<h3><a href="2012-01-24/">Meeting for 2012-01-24</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-01-24/#topic-1">ISSUE-49: Relative IRIs may clash with terms</a></li>
+<li><a href="2012-01-24/#topic-2">Lexical Space for Terms in the Document</a></li>
+<li><a href="2012-01-24/#topic-3">Lexical Space for Keys in @context</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-01-24/#resolution-1">Constrain the left-hand side of JSON-LD key-value statements by only allowing terms, or prefixed-values, or absolute IRIs.</a></li>
+<li><a href="2012-01-24/#resolution-2">Allow terms, or prefixed-values, or absolute IRIs or relative IRIs on the right-hand side of JSON-LD key-value statements.</a></li>
+<li><a href="2012-01-24/#resolution-3">The lexical space for keys in JSON-LD key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</a></li>
+<li><a href="2012-01-24/#resolution-4">The lexical space for keys in JSON-LD Context key-value statements is - if a term - NCName, if a prefix - NCName for the prefix, otherwise the lexical space for an absolute IRI.</a></li>
+</ol>
+<h3><a href="2012-01-17/">Meeting for 2012-01-17</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-01-17/#topic-1">Plan to finish documents</a></li>
+<li><a href="2012-01-17/#topic-2">ISSUE-43: Use of IRIs and CURIEs as @context keys</a></li>
+<li><a href="2012-01-17/#topic-3">ISSUE-44: Allow frames to say: "predicate p always points to a set"</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-01-17/#resolution-1">Decouple the JSON-LD Syntax specification from the JSON-LD API specification.</a></li>
+<li><a href="2012-01-17/#resolution-2">When expanding JSON-LD keys outside of the @context, perform a direct comparison on the @context keys first, then run the CURIE expansion algorithm using the @context keys.</a></li>
+<li><a href="2012-01-17/#resolution-3">If a CURIE as a key in the @context is not bound to an @id, the @id is determined by expanding the key as a CURIE.</a></li>
+<li><a href="2012-01-17/#resolution-4">The type coercion algorithm only checks for equality in the context when attempting to find a type coercion rule.</a></li>
+</ol>
+<h3><a href="2012-01-10/">Meeting for 2012-01-10</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2012-01-10/#topic-1">Specs and Test Suite Update</a></li>
+<li><a href="2012-01-10/#topic-2">ISSUE-43: Use of IRIs and CURIEs as @context keys</a></li>
+<li><a href="2012-01-10/#topic-3">ISSUE-48: Rename @literal to @value</a></li>
+<li><a href="2012-01-10/#topic-4">ISSUE-42: Distinguishing a JSON-LD frame from a JSON-LD document</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2012-01-10/#resolution-1">Rename the @literal keyword to @value.</a></li>
+<li><a href="2012-01-10/#resolution-2">JSON-LD frames should have a MIMEType, which is distinct from JSON-LD documents.</a></li>
+</ol>
+<h3><a href="2011-12-20/">Meeting for 2011-12-20</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-12-20/#topic-1">Updates to JSON-LD implementations</a></li>
+<li><a href="2011-12-20/#topic-2">Case sensitivity in JSON-LD</a></li>
+<li><a href="2011-12-20/#topic-3">ISSUE-16: Linking Instance Documents and Context Documents</a></li>
+<li><a href="2011-12-20/#topic-4">ISSUE-41: IRI expansion within @context</a></li>
+<li><a href="2011-12-20/#topic-5">ISSUE-43: Use of IRIs and CURIEs as @context keys</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-12-20/#resolution-1">JSON-LD is case-sensitive.</a></li>
+<li><a href="2011-12-20/#resolution-2">Support the use of the HTTP "Link" header to associate a JSON-LD context with JSON documents.</a></li>
+<li><a href="2011-12-20/#resolution-3">The relation name used in a Link header to associate a JSON-LD context with a JSON document will be "describedby".</a></li>
+<li><a href="2011-12-20/#resolution-4">A JSON-LD document MUST have all context information required for processing within the body of the document.</a></li>
+<li><a href="2011-12-20/#resolution-5">IRI expansion should work in @context for prefixes and terms used on the right-hand side of prefix/term declarations, including @type and @id. The IRI expansion algorithm SHOULD be recursive, in that it continues to execute as long as one prefix/term is expanded in the current cycle. If a cycle is detected during resolution, then an exception MUST be thrown.</a></li>
+</ol>
+<h3><a href="2011-12-13/">Meeting for 2011-12-13</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-12-13/#topic-1">Reducing the number of keywords in JSON-LD</a></li>
+<li><a href="2011-12-13/#topic-2">ISSUE-15: Are @subject and @iri redundant?</a></li>
+<li><a href="2011-12-13/#topic-3">ISSUE-26: Drop @base and @vocab</a></li>
+<li><a href="2011-12-13/#topic-4">ISSUE-31: Merge @type and @datatype</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-12-13/#resolution-1">Use the same keyword for the concepts of @subject and @iri.</a></li>
+<li><a href="2011-12-13/#resolution-2">Use the keyword '@id' for the combined concept of @subject and @iri.</a></li>
+<li><a href="2011-12-13/#resolution-3">Drop support for @base.</a></li>
+<li><a href="2011-12-13/#resolution-4">Drop support for @vocab.</a></li>
+<li><a href="2011-12-13/#resolution-5">Merge @datatype keyword with @type - @type will be used to specify both rdf:type for nodes and literal datatypes.</a></li>
+</ol>
+<h3><a href="2011-12-06/">Meeting for 2011-12-06</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-12-06/#topic-1">ISSUE-8: Optimizing Compact Form</a></li>
+<li><a href="2011-12-06/#topic-2">ISSUE-14: Remove MIME type parameter option "form=framed" from spec</a></li>
+<li><a href="2011-12-06/#topic-3">Are @subject and @iri redundant?</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-12-06/#resolution-1">JSON-LD processors MUST implement the compaction API. The algorithm for compaction optimization is not defined. There is an 'optimize' flag that can be set to true or false to enable compaction optimization.</a></li>
+<li><a href="2011-12-06/#resolution-2">Remove the MIME type parameter for form="framed" from the spec.</a></li>
+</ol>
+<h3><a href="2011-11-29/">Meeting for 2011-11-29</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-11-29/#topic-1">Mark Nottingham's post</a></li>
+<li><a href="2011-11-29/#topic-2">Change of telco time</a></li>
+<li><a href="2011-11-29/#topic-3">ISSUE-40: Merge @coerce with @context</a></li>
+<li><a href="2011-11-29/#topic-4">Compact Serialization from RDFa to JSON-LD</a></li>
+<li><a href="2011-11-29/#topic-5">ISSUE-36: Define if data in context documents is ignored</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-11-29/#resolution-1">Teleconferences every week until we get through the issue list.</a></li>
+<li><a href="2011-11-29/#resolution-2">Adopt #3 (from https;//github.com/json-ld/json-ld.org/issues/40#issuecomment-2930565 ) as the mechanism to express coercion rules in JSON-LD.</a></li>
+</ol>
+<h3><a href="2011-11-15/">Meeting for 2011-11-15</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-11-15/#topic-1">ISSUE-35: JSON Vocabulary / Data Round-tripping</a></li>
+<li><a href="2011-11-15/#topic-2">ISSUE-40: Merge @coerce with @context</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-11-15/#resolution-1">No change to specification, current language on auto-coercion is fine</a></li>
+<li><a href="2011-11-15/#resolution-2">Move coercion rules into the term definitions section of @context</a></li>
+</ol>
+<h3><a href="2011-11-01/">Meeting for 2011-11-01</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-11-01/#topic-1">ISSUE-37: Clarify prefix expansion</a></li>
+<li><a href="2011-11-01/#topic-2">ISSUE-38: Prefix location clarification</a></li>
+<li><a href="2011-11-01/#topic-3">ISSUE-35: JSON Vocabulary / Data Round-tripping</a></li>
+</ol>
+<h3><a href="2011-10-18/">Meeting for 2011-10-18</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-10-18/#topic-1">Approval/Disapproval of the Spec Split</a></li>
+<li><a href="2011-10-18/#topic-2">ISSUE-31: Merge @type and @datatype</a></li>
+<li><a href="2011-10-18/#topic-3">ISSUE-34: Type Coercion is confusing</a></li>
+</ol>
+<h3><a href="2011-10-04/">Meeting for 2011-10-04</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-10-04/#topic-1">ISSUE-12: Arrays as ordered lists or unordered sets</a></li>
+<li><a href="2011-10-04/#topic-2">ISSUE-30: Distinguishing @context documents</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-10-04/#resolution-1">Support @list keyword in @coerce as well as in expanded form in the body of JSON-LD documents.</a></li>
+</ol>
+<h3><a href="2011-09-20/">Meeting for 2011-09-20</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-09-20/#topic-1">ISSUE-11: Add support for NULL</a></li>
+<li><a href="2011-09-20/#topic-2">ISSUE-16: Linking instance documents and context documents</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-09-20/#resolution-1">Leave support for 'null' keyword in JSON-LD as unspecified.</a></li>
+</ol>
+<h3><a href="2011-09-06/">Meeting for 2011-09-06</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-09-06/#topic-1">ISSUE-28: Markus' spec-split proposal</a></li>
+<li><a href="2011-09-06/#topic-2">ISSUE-27: Normalization in an external document</a></li>
+<li><a href="2011-09-06/#topic-3">ISSUE-26: Merging @base and @vocab</a></li>
+<li><a href="2011-09-06/#topic-4">ISSUE-8: Optimizing Compact form</a></li>
+</ol>
+<h4>Resolutions</h4><ol>
+<li><a href="2011-09-06/#resolution-1">Keep spec together for now with sections for various parts until we need to split into separate documents.</a></li>
+<li><a href="2011-09-06/#resolution-2">Move normalization to a separate spec.</a></li>
+<li><a href="2011-09-06/#resolution-3">Keep @base and @vocab as separate concepts within JSON-LD</a></li>
+</ol>
+<h3><a href="2011-08-23/">Meeting for 2011-08-23</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-08-23/#topic-1">Support 'null' in JSON-LD</a></li>
+<li><a href="2011-08-23/#topic-2">Arrays as ordered lists or unordered sets</a></li>
+<li><a href="2011-08-23/#topic-3">Algorithm spec language updates</a></li>
+<li><a href="2011-08-23/#topic-4">API return values - null values vs. Exceptions</a></li>
+<li><a href="2011-08-23/#topic-5">IANA MIME type registration</a></li>
+<li><a href="2011-08-23/#topic-6">Post-call discussion - RDF/JSON, issue tracking</a></li>
+</ol>
+<h3><a href="2011-08-08/">Meeting for 2011-08-08</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-08-08/#topic-1">New Participants</a></li>
+<li><a href="2011-08-08/#topic-2">Updates on implementations</a></li>
+<li><a href="2011-08-08/#topic-3">Test Suite</a></li>
+<li><a href="2011-08-08/#topic-4">Basic / Beginners Guide to JSON-LD</a></li>
+<li><a href="2011-08-08/#topic-5">JSON-LD spec updates</a></li>
+<li><a href="2011-08-08/#topic-6">JSON-LD Requirements</a></li>
+</ol>
+<h3><a href="2011-07-26/">Meeting for 2011-07-26</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-07-26/#topic-1">JSON-LD Playground</a></li>
+<li><a href="2011-07-26/#topic-2">Finalizing definition of Linked Data</a></li>
+<li><a href="2011-07-26/#topic-3">Discuss JSON-SD Requirements</a></li>
+</ol>
+<h3><a href="2011-07-04/">Meeting for 2011-07-04</a></h3>
+<h4>Topics</h4><ol>
+<li><a href="2011-07-04/#topic-1">Introductions</a></li>
+<li><a href="2011-07-04/#topic-2">State of the Specs and Implementations</a></li>
+<li><a href="2011-07-04/#topic-3">Formal Definition of Linked Data </a></li>
+</ol>
+    </div>
+  </body>
+</html>

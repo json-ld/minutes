@@ -18,6 +18,14 @@ body {
    font-weight: 300;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
 label {
    float: left;
    text-align: right;
@@ -27,8 +35,8 @@ label {
 
 ol {
    padding-left: 1.2em;
-   margin: 0em;
 }
+
 dl > dd {
   margin-left: 2em;
 }
@@ -107,8 +115,8 @@ div.resolution {
       <h3><a href="../">Go Back</a></h3>
 
       <hr>
-<h1>JSON-LD Community Group</h1>
-<h2>Minutes for 2017-12-14</h2>
+<div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG Telecon</h1>
+<h2>Minutes for 2017-11-08</h2>
 <div class="summary">
 <dl>
 <dt>Agenda</dt><dd><a href="https://www.w3.org/wiki/TPAC/2017">https://www.w3.org/wiki/TPAC/2017</a></dd>
@@ -133,8 +141,8 @@ div.resolution {
 <div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Alexandre Bertails</span>: Depending on what could be broken when 1.0 processors read @version 1.1, maybe it would make sense to use 2.0 instead of 1.1 <a id="link-5" style="display:none;" href="#5">✪</a></div>
 <div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Alexandre Bertails</span>: Depends on expectations <a id="link-6" style="display:none;" href="#6">✪</a></div>
 <div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Gregg Kellogg</span>:  New keys can confuse 1.0 and 1.1 implementations.  If this property was used, 1.1 would interpret the data differently <a id="link-7" style="display:none;" href="#7">✪</a></div>
-<div class="comment-continuation">... need to face what that means as a community.  Far fewer implementations of the processor than the uses of the language, we could choose to simply say we're cutting off the 1.0 features or restrictions</div>
-<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Ivan Herman</span>:  Far fewer code implementations, but no idea how often it's used.  Forcing an upgrade <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div class="comment-continuation">... need to face what that means as a community.  Far fewer implementations of the processor than the uses of the language, we could choose to simply say we&apos;re cutting off the 1.0 features or restrictions</div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Ivan Herman</span>:  Far fewer code implementations, but no idea how often it&apos;s used.  Forcing an upgrade <a id="link-8" style="display:none;" href="#8">✪</a></div>
 <div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Manu Sporny</span>:  Kingsley sent me an email 2 days ago, just tried yoru 1.1 context and it blew up on me. ... what are we doing? <a id="link-9" style="display:none;" href="#9">✪</a></div>
 <div class="comment-continuation">... that was a good thing as it was a 1.0 processor</div>
 <div class="comment-continuation">... Good for it to blow up as there are features we absolutely need</div>
@@ -142,16 +150,16 @@ div.resolution {
 <div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Gregg Kellogg</span>:  How does a CG manage it?  Need a working group. <a id="link-10" style="display:none;" href="#10">✪</a></div>
 <div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="information">???&quot; RDF 1.1 was a WG though <a id="link-11" style="display:none;" href="#11">✪</a></div>
 <div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">David I. Lehn</span>:   Was standardized in a WG <a id="link-12" style="display:none;" href="#12">✪</a></div>
-<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Ivan Herman</span>:  Don't see a problem <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Ivan Herman</span>:  Don&apos;t see a problem <a id="link-13" style="display:none;" href="#13">✪</a></div>
 <div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Ivan Herman</span>:  If its successful, take it to WG and the version will be decided <a id="link-14" style="display:none;" href="#14">✪</a></div>
 <div class="comment-continuation">... agree with alexandre that 2.0 sends a new message</div>
 <div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Benjamin Young</span>: +1 To calling it 2.0 (or just 2) <a id="link-15" style="display:none;" href="#15">✪</a></div>
 <div class="comment-continuation">... rdf 1.1 is incremental, nothign radical</div>
 <div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Farbian Gandon</span>: Fabien: it is ok to do 1.1 or 2.0 in a CG or WG <a id="link-16" style="display:none;" href="#16">✪</a></div>
 <div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="information">Cwebber2: Agree with Manu that it should have blown up in that circumstance <a id="link-17" style="display:none;" href="#17">✪</a></div>
-<div class="comment-continuation">... don't want someone using schema who it was using it in prod, don't want it to randomly blow up</div>
-<div class="comment-continuation">... learnt lesson in activitypub/streams, if you add a new term to a context, and had a cached context, it wouldn't validate</div>
-<div class="comment-continuation">... doesn't change this, but might be worth encouraging. Good to version contexts... schema.org + some version identifier.  Can wait to update to that version when your code is ready</div>
+<div class="comment-continuation">... don&apos;t want someone using schema who it was using it in prod, don&apos;t want it to randomly blow up</div>
+<div class="comment-continuation">... learnt lesson in activitypub/streams, if you add a new term to a context, and had a cached context, it wouldn&apos;t validate</div>
+<div class="comment-continuation">... doesn&apos;t change this, but might be worth encouraging. Good to version contexts... schema.org + some version identifier.  Can wait to update to that version when your code is ready</div>
 <div class="comment-continuation">... should start pushing more</div>
 <div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Kim Hamilton Duffy</span>:   Abstracted from just JSON -- does that change RDF canonicalization <a id="link-18" style="display:none;" href="#18">✪</a></div>
 <div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">David I. Lehn</span>:  I did not pay her :D <a id="link-19" style="display:none;" href="#19">✪</a></div>
@@ -171,15 +179,15 @@ div.resolution {
 <div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Benjamin Young</span>:  But not round trip everything like index <a id="link-28" style="display:none;" href="#28">✪</a></div>
 <div class="comment-continuation">... (round tripping meaning)</div>
 <div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Gregg Kellogg</span>:  Definitely need to leave it as an issue. Good discussion here, in issue, and hopefully in a WG <a id="link-29" style="display:none;" href="#29">✪</a></div>
-<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Reto Gmür</span>:  One issue was a huge file that couldnt' be parsed.  Worked with a developer, JSON-LD looks a bit different, then people have a problem.  Google structured data -- put examples in and there are errors <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Reto Gm&#252;r</span>:  One issue was a huge file that couldnt&apos; be parsed.  Worked with a developer, JSON-LD looks a bit different, then people have a problem.  Google structured data -- put examples in and there are errors <a id="link-30" style="display:none;" href="#30">✪</a></div>
 <div class="comment-continuation">... if you look at it like JSON, then can be surprised when things can mean the same thing and look differently</div>
 <div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Ivan Herman</span>:  Two JSON-LD are equivalent if the RDF is euivalent, but files can be very different <a id="link-31" style="display:none;" href="#31">✪</a></div>
-<div class="comment-continuation">... hard to understand if you don't have the background</div>
+<div class="comment-continuation">... hard to understand if you don&apos;t have the background</div>
 <div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">David Wood</span>:  JSON and JSON-LD have idfferent data models -- LD is explicit, JSON is implicit <a id="link-32" style="display:none;" href="#32">✪</a></div>
 <div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>:  (Slides)  ID maps -- keys of URIs that reference the description of the identified resource <a id="link-33" style="display:none;" href="#33">✪</a></div>
 <div class="comment-continuation">... these are equivalent to an array of two objects with @id in the objects</div>
-<div class="comment-continuation">... round trippable. If you compact with a context that doesn't have a container id, then you get array. If you add it, you get the object</div>
-<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="information">???: That's by virtue of the URL? <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div class="comment-continuation">... round trippable. If you compact with a context that doesn&apos;t have a container id, then you get array. If you add it, you get the object</div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="information">???: That&apos;s by virtue of the URL? <a id="link-34" style="display:none;" href="#34">✪</a></div>
 <div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Gregg Kellogg</span>:  The @container: @id makes this explicit <a id="link-35" style="display:none;" href="#35">✪</a></div>
 <div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Gregg Kellogg</span>:  Also a parallel that lets you have container type -- the indexes are treated as the value of @type for the object <a id="link-36" style="display:none;" href="#36">✪</a></div>
 <div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Dave Longley</span>:  Graph container as well <a id="link-37" style="display:none;" href="#37">✪</a></div>
@@ -197,8 +205,8 @@ div.resolution {
 <div class="comment-continuation">... are there other things like that?</div>
 <div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="comment"><span class="name">Gregg Kellogg</span>:  Other things are to take json idioms <a id="link-48" style="display:none;" href="#48">✪</a></div>
 <div class="comment-continuation">... and generally round trip</div>
-<div class="comment-continuation">... this won't survive a round trip</div>
-<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Reto Gmür</span>:  Would it make sense to have the labels (?) <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div class="comment-continuation">... this won&apos;t survive a round trip</div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Reto Gm&#252;r</span>:  Would it make sense to have the labels (?) <a id="link-49" style="display:none;" href="#49">✪</a></div>
 <div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Chris Webber</span>:  Can definitely see using this <a id="link-50" style="display:none;" href="#50">✪</a></div>
 <div class="comment-continuation">... if you have two of them, and they have the same keys, do they go?</div>
 <div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="comment"><span class="name">Gregg Kellogg</span>:  No, you end up in an array. Just not round trip to the right places <a id="link-51" style="display:none;" href="#51">✪</a></div>
@@ -211,25 +219,25 @@ div.resolution {
 <div class="comment-continuation">... gets around the framing problem of putting contexts lower down in the frame</div>
 <div onmouseout="$('#link-55').hide()" onmouseover="$('#link-55').show()" id="55" class="information">... <a id="link-55" style="display:none;" href="#55">✪</a></div>
 <div class="comment-continuation">... desire in the community, or at least a misunderstanding, about what contexts are for</div>
-<div class="comment-continuation">... thought if you added data to a term definition to the context it would be added to the data. That's not the case</div>
-<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Benjamin Young</span>:  Fixes the confusion that you're defining a term globally, and name now has one meaning through out.  Fixes the problem for &quot;found json&quot; ... others json I want to be -ld <a id="link-56" style="display:none;" href="#56">✪</a></div>
+<div class="comment-continuation">... thought if you added data to a term definition to the context it would be added to the data. That&apos;s not the case</div>
+<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Benjamin Young</span>:  Fixes the confusion that you&apos;re defining a term globally, and name now has one meaning through out.  Fixes the problem for &quot;found json&quot; ... others json I want to be -ld <a id="link-56" style="display:none;" href="#56">✪</a></div>
 <div class="comment-continuation">... you get some snowflake json and want to make it LD, and they used the same key differently</div>
 <div onmouseout="$('#link-57').hide()" onmouseover="$('#link-57').show()" id="57" class="comment"><span class="name">Drummond Reed</span>:   Conflicting terms? <a id="link-57" style="display:none;" href="#57">✪</a></div>
 <div onmouseout="$('#link-58').hide()" onmouseover="$('#link-58').show()" id="58" class="comment"><span class="name">Gregg Kellogg</span>:  Last context wins <a id="link-58" style="display:none;" href="#58">✪</a></div>
 <div onmouseout="$('#link-59').hide()" onmouseover="$('#link-59').show()" id="59" class="comment"><span class="name">Alexandre Bertails</span>: /Me notes that we needed something like in schema.org because of some terms pointing to GoodRelations entities <a id="link-59" style="display:none;" href="#59">✪</a></div>
 <div class="comment-continuation">... scoped context based on type.  Key off of @type to assign the context.</div>
 <div class="comment-continuation">... So the term definition is based on the @type of the resource, not the key that is used to refer to it</div>
-<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">David I. Lehn</span>:   Didn't you throw the parser writers under the bus? <a id="link-60" style="display:none;" href="#60">✪</a></div>
+<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">David I. Lehn</span>:   Didn&apos;t you throw the parser writers under the bus? <a id="link-60" style="display:none;" href="#60">✪</a></div>
 <div onmouseout="$('#link-61').hide()" onmouseover="$('#link-61').show()" id="61" class="comment"><span class="name">Gregg Kellogg</span>:  It requires injecting code at the beginning of expansion where we look at type. Have to look at key for expansion, then also pass the context in. <a id="link-61" style="display:none;" href="#61">✪</a></div>
 <div onmouseout="$('#link-62').hide()" onmouseover="$('#link-62').show()" id="62" class="information">So some insertion but not duplication <a id="link-62" style="display:none;" href="#62">✪</a></div>
 <div class="comment-continuation">... then add code that processes the type</div>
-<div class="comment-continuation">... appends the context to be used. Doesn't require two passes</div>
+<div class="comment-continuation">... appends the context to be used. Doesn&apos;t require two passes</div>
 <div onmouseout="$('#link-63').hide()" onmouseover="$('#link-63').show()" id="63" class="comment"><span class="name">Alexandre Bertails</span>:  Does order of properties matter? <a id="link-63" style="display:none;" href="#63">✪</a></div>
 <div onmouseout="$('#link-64').hide()" onmouseover="$('#link-64').show()" id="64" class="comment"><span class="name">Gregg Kellogg</span>:  Does it have a key that expands to @type? <a id="link-64" style="display:none;" href="#64">✪</a></div>
-<div onmouseout="$('#link-65').hide()" onmouseover="$('#link-65').show()" id="65" class="comment"><span class="name">Alexandre Bertails</span>:  Can't stream the JSON though <a id="link-65" style="display:none;" href="#65">✪</a></div>
-<div onmouseout="$('#link-66').hide()" onmouseover="$('#link-66').show()" id="66" class="comment"><span class="name">Manu Sporny</span>:  Wanted streaming processors to work, but couldn't do it.  If you want streaming, then you do need to order the keys in the right way as the publisher <a id="link-66" style="display:none;" href="#66">✪</a></div>
-<div onmouseout="$('#link-67').hide()" onmouseover="$('#link-67').show()" id="67" class="comment"><span class="name">Reto Gmür</span>:  Can't mandate it? <a id="link-67" style="display:none;" href="#67">✪</a></div>
-<div onmouseout="$('#link-68').hide()" onmouseover="$('#link-68').show()" id="68" class="comment"><span class="name">Gregg Kellogg</span>:  No, because JSON doesn't have ordered keys. <a id="link-68" style="display:none;" href="#68">✪</a></div>
+<div onmouseout="$('#link-65').hide()" onmouseover="$('#link-65').show()" id="65" class="comment"><span class="name">Alexandre Bertails</span>:  Can&apos;t stream the JSON though <a id="link-65" style="display:none;" href="#65">✪</a></div>
+<div onmouseout="$('#link-66').hide()" onmouseover="$('#link-66').show()" id="66" class="comment"><span class="name">Manu Sporny</span>:  Wanted streaming processors to work, but couldn&apos;t do it.  If you want streaming, then you do need to order the keys in the right way as the publisher <a id="link-66" style="display:none;" href="#66">✪</a></div>
+<div onmouseout="$('#link-67').hide()" onmouseover="$('#link-67').show()" id="67" class="comment"><span class="name">Reto Gm&#252;r</span>:  Can&apos;t mandate it? <a id="link-67" style="display:none;" href="#67">✪</a></div>
+<div onmouseout="$('#link-68').hide()" onmouseover="$('#link-68').show()" id="68" class="comment"><span class="name">Gregg Kellogg</span>:  No, because JSON doesn&apos;t have ordered keys. <a id="link-68" style="display:none;" href="#68">✪</a></div>
 <div onmouseout="$('#link-69').hide()" onmouseover="$('#link-69').show()" id="69" class="comment"><span class="name">Robert Sanderson</span>:  ... <a id="link-69" style="display:none;" href="#69">✪</a></div>
 <div onmouseout="$('#link-70').hide()" onmouseover="$('#link-70').show()" id="70" class="comment"><span class="name">David I. Lehn</span>:  When Benjamin writes a proxy for found json, he can reorder and stream :) <a id="link-70" style="display:none;" href="#70">✪</a></div>
 <div onmouseout="$('#link-71').hide()" onmouseover="$('#link-71').show()" id="71" class="comment"><span class="name">Gregg Kellogg</span>:  When compacting, it was common to be surprised by keys used. eg:  making a sport key, would produce sport:sEvent, not sportsEvent <a id="link-71" style="display:none;" href="#71">✪</a></div>
@@ -237,17 +245,17 @@ div.resolution {
 <div class="comment-continuation">... number of open issues</div>
 <div class="comment-continuation">... graph container is gratuitous, for framing.</div>
 <div class="comment-continuation">... add a graph container type</div>
-<div class="comment-continuation">... add JSON that isn't mapped, just a literal JSON value</div>
+<div class="comment-continuation">... add JSON that isn&apos;t mapped, just a literal JSON value</div>
 <div class="comment-continuation">... Language maps have bugs.</div>
 <div class="comment-continuation">... Request JSON-LD and a context or frame in the request</div>
 <div class="comment-continuation">... eg from a SPARQL endpoint</div>
-<div class="comment-continuation">... Having to download a context. Problem for Web of Things.  Some pre-population of contexts so act of parsing doesn't result in deref</div>
+<div class="comment-continuation">... Having to download a context. Problem for Web of Things.  Some pre-population of contexts so act of parsing doesn&apos;t result in deref</div>
 <div class="comment-continuation">... DiD addresses the need?</div>
 <div class="comment-continuation">... bigger issue than just JSON-LD</div>
 <div onmouseout="$('#link-72').hide()" onmouseover="$('#link-72').show()" id="72" class="comment"><span class="name">Manu Sporny</span>:  JS lib lets you put in handlers for URLs to pre-cache <a id="link-72" style="display:none;" href="#72">✪</a></div>
 <div class="comment-continuation">... loads off of disk with these handlers</div>
 <div class="comment-continuation">... for first bullet, fundamental feature for verifiable claims</div>
-<div onmouseout="$('#link-73').hide()" onmouseover="$('#link-73').show()" id="73" class="comment"><span class="name">Chris Webber</span>:  Big fan of DID -- not convinced they're the right way to do the issue. Content addressing? <a id="link-73" style="display:none;" href="#73">✪</a></div>
+<div onmouseout="$('#link-73').hide()" onmouseover="$('#link-73').show()" id="73" class="comment"><span class="name">Chris Webber</span>:  Big fan of DID -- not convinced they&apos;re the right way to do the issue. Content addressing? <a id="link-73" style="display:none;" href="#73">✪</a></div>
 <div onmouseout="$('#link-74').hide()" onmouseover="$('#link-74').show()" id="74" class="comment"><span class="name">Gregg Kellogg</span>:  API option might address it <a id="link-74" style="display:none;" href="#74">✪</a></div>
 <div onmouseout="$('#link-75').hide()" onmouseover="$('#link-75').show()" id="75" class="information">Marisa: Unmapped JSON values -- using JSON-LD for a report format for accessibility in epubs <a id="link-75" style="display:none;" href="#75">✪</a></div>
 <div class="comment-continuation">... EARL is high level, need more detail</div>
@@ -258,12 +266,12 @@ div.resolution {
 <div class="comment-continuation">... allows round tripping the data, not the sematnics</div>
 <div onmouseout="$('#link-79').hide()" onmouseover="$('#link-79').show()" id="79" class="information">Marisa: Will move some custom terms into vocab, but too soon right now <a id="link-79" style="display:none;" href="#79">✪</a></div>
 <div onmouseout="$('#link-80').hide()" onmouseover="$('#link-80').show()" id="80" class="comment"><span class="name">Ivan Herman</span>:  Some portions of RDF, some not.  Currently need two files, one -LD and one just JSON <a id="link-80" style="display:none;" href="#80">✪</a></div>
-<div class="comment-continuation">... want to do metadata in RDF, but maybe ToC is not useful in RDF.  Can declare that it's not RDF</div>
+<div class="comment-continuation">... want to do metadata in RDF, but maybe ToC is not useful in RDF.  Can declare that it&apos;s not RDF</div>
 <div onmouseout="$('#link-81').hide()" onmouseover="$('#link-81').show()" id="81" class="comment"><span class="name">Gregg Kellogg</span>:  Hope to finish CG work in Q1 2018 <a id="link-81" style="display:none;" href="#81">✪</a></div>
-<div class="comment-continuation">... results at Gregg's distiller</div>
+<div class="comment-continuation">... results at Gregg&apos;s distiller</div>
 <div class="comment-continuation">... final report from CG ... but want a recommendation</div>
 <div class="comment-continuation">... need to get a WG or attached to an existing one</div>
-<div onmouseout="$('#link-82').hide()" onmouseover="$('#link-82').show()" id="82" class="comment"><span class="name">Ivan Herman</span>:  There isn't one coming up at the moment <a id="link-82" style="display:none;" href="#82">✪</a></div>
+<div onmouseout="$('#link-82').hide()" onmouseover="$('#link-82').show()" id="82" class="comment"><span class="name">Ivan Herman</span>:  There isn&apos;t one coming up at the moment <a id="link-82" style="display:none;" href="#82">✪</a></div>
 <div onmouseout="$('#link-83').hide()" onmouseover="$('#link-83').show()" id="83" class="information">Will the slides be available? <a id="link-83" style="display:none;" href="#83">✪</a></div>
 <div class="comment-continuation">... could force it into something but not a clean solution</div>
 <div class="comment-continuation">... 1.0 was lucky that RDF wg was running</div>
@@ -272,8 +280,8 @@ div.resolution {
 <div onmouseout="$('#link-84').hide()" onmouseover="$('#link-84').show()" id="84" class="comment"><span class="name">Benjamin Young</span>:  Data best practices on the web ... could have a WG that vague? <a id="link-84" style="display:none;" href="#84">✪</a></div>
 <div onmouseout="$('#link-85').hide()" onmouseover="$('#link-85').show()" id="85" class="comment"><span class="name">Gregg Kellogg</span>: Slides from the talk: <a href="https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/index.html">https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/index.html</a> <a id="link-85" style="display:none;" href="#85">✪</a></div>
 <div onmouseout="$('#link-86').hide()" onmouseover="$('#link-86').show()" id="86" class="comment"><span class="name">Benjamin Young</span>: Gkellogg (et al): David Raggett mentioned an interesting in creating a &quot;data on the Web&quot; WG fwiw <a id="link-86" style="display:none;" href="#86">✪</a></div>
-<div onmouseout="$('#link-87').hide()" onmouseover="$('#link-87').show()" id="87" class="comment"><span class="name">Gregg Kellogg</span>: Good to know, I’ll connect. It did come up in another context as one avenue. <a id="link-87" style="display:none;" href="#87">✪</a></div>
+<div onmouseout="$('#link-87').hide()" onmouseover="$('#link-87').show()" id="87" class="comment"><span class="name">Gregg Kellogg</span>: Good to know, I&#8217;ll connect. It did come up in another context as one avenue. <a id="link-87" style="display:none;" href="#87">✪</a></div>
 <div onmouseout="$('#link-88').hide()" onmouseover="$('#link-88').show()" id="88" class="comment"><span class="name">Benjamin Young</span>: Cam up in his overview of <a href="https://www.w3.org/wiki/TPAC/2017/SessionIdeas#Web_Data_Standardization">https://www.w3.org/wiki/TPAC/2017/SessionIdeas#Web_Data_Standardization</a> <a id="link-88" style="display:none;" href="#88">✪</a></div>
-    </div>
+</div></div></div></div></div>    </div>
   </body>
 </html>
