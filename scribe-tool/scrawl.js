@@ -766,7 +766,6 @@
     }
 
     // process each IRC log line
-    debugger;
     for(var i = 0; i < ircLines.length; i++)
     {
       var line = ircLines[i];
