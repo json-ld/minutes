@@ -6,7 +6,7 @@
 (function() {
   var $ = (typeof jQuery !== 'undefined') ? jQuery : undefined;
   /* Standard regular expressions to use when matching lines */
-  var commentRx = /^\[?(.*)\]?\s+<(.*)\>\s+(.*)$/;
+  var commentRx = /^\[?([^\]]*)\]?\s+<?(\w*)[>:]\s+(.*)$/;
   var scribeRx = /^(scribe|scribenick):.*$/i;
   var meetingRx = /^meeting:\s(.*)$/i;
   var totalPresentRx = /^total present:\s(.*)$/i;
@@ -766,6 +766,7 @@
     }
 
     // process each IRC log line
+    debugger;
     for(var i = 0; i < ircLines.length; i++)
     {
       var line = ircLines[i];

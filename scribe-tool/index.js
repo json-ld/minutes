@@ -107,7 +107,7 @@ function sendEmail(username, password, hostname, content, callback) {
   // send the message
   server.send({
     text:    content,
-    from: 'msporny@digitalbazaar.com',
+    from: 'gregg@greggkellogg.net',
     //from:    username + '@' + hostname,
     to:      'JSON-LD CG <public-linked-json@w3.org>',
     subject: '[MINUTES] W3C JSON-LD CG Call - ' + gDate + ' 12pm ET'

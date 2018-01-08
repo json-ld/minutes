@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+} 
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h2>JSON-LD Syntax and API</h2>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+<div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG Telecon</h1>
+<h2>Minutes for 2018-01-08</h2>
+<div class="summary">
+<dl>
+<dt>Agenda</dt><dd><a href="https://lists.w3.org/Archives/Public/public-linked-json/2018Jan/0000.html">https://lists.w3.org/Archives/Public/public-linked-json/2018Jan/0000.html</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Introductions</a><li><a href="#topic-2">Community Group details and process</a><li><a href="#topic-3">Possible road to Recommendation?</a><li><a href="#topic-4">Review current 1.1 work</a><li><a href="#topic-5">JSON-LD Test Suite</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">same call every other week at this time.</a><li><a href="#resolution-2">accept issue 560 pending lanthaler approval</a></ol></dd><dt>Organizer</dt><dd>Gregg Kellogg, Rob Sanderson</dd>
+<dt>Scribe</dt><dd>Dave Longley</dd>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="undefined">Niklas Lindström</a>, <a href="https://github.com/dlongley">Dave Longley</a>, <a href="http://public.lanl.gov/rsanderson/">Robert Sanderson</a>, <a href="undefined">Paul Warren</a>, <a href="undefined">Eleanor Joslin</a>, <a href="undefined">Paolo Ciccarese</a>, <a href="http://dustycloud.org/">Chris Webber</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="undefined">Herm Fisher</a>, <a href="https://www.linkedin.com/in/psimmonds/">Paul Simmonds</a></dd>
+<dt>Audio Log</dt><dd><div><a href="audio.ogg">audio.ogg</a></div>
+<div><audio controls="controls" preload="none">
+<source src="audio.ogg" type="audio/ogg" />Warning: Your browser does not support the HTML5 audio element, please upgrade.</audio></div></dd>
+</dl>
+</div>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Gregg Kellogg</span>: Voip 0302 is azaroth <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Can&#8217;t hear you. [scribe assist by Gregg Kellogg] <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: Hm, no, I hear nothing... I&apos;ll try another device. <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Gregg Kellogg</span>: Void: 0306 is Herm <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div class="information">Dave Longley is scribing.</div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Gregg Kellogg</span>: How to scribe a meeting: <a href="https://www.w3.org/2009/CommonScribe/manual.html">https://www.w3.org/2009/CommonScribe/manual.html</a> <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Robert Sanderson</span>: We hear you, Niklas <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: Weird, I heard nothing; and lost the carriee. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Paul Warren</span>: Paul Warren also here on the same line as Herm <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Gregg Kellogg</span>: Hi Paul! <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Can you hear us now? [scribe assist by Robert Sanderson] <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Eleanor Joslin</span>: Eleanor Joslin here on the same line as Herm and Paul <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Robert Sanderson</span>: Great to have such a turn out :) <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<h1 id="topic-1" class="topic">Topic: Introductions</h1>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Gregg Kellogg</span>:  I&apos;m Gregg Kellogg, one of the editors on the 1.0 spec, and I&apos;ve been doing a fair amount of work pushing the 1.1 spec forward. I&apos;m mostly independent but also affiliated with Spec Ops. <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Robert Sanderson</span>:  I&apos;m Rob Sanderson, I followed along the 1.0 work and we&apos;ve become more deeply involved using JSON-LD 1.1 features in a couple of situations. Including IIIS, which uses several 1.1 features and new language map functionality and in the cultural heritage domain we use it in linked arts -- trying to provide linked open usable data with museum objects and so forth. <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="information">Herm Fisher: I&apos;m involved with XBRL a standard on XML base. Financial reporting for bank transfers, securities, for US/China/etc. Trying to move forward using JSON. Trying to get a better understanding of how to fit into the JSON-LD work. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="information">Paul Warren: Technical director at [fill] International, we&apos;re currently using JSON-LD in one of the drafts for XBRL. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Eleanor Joslin</span>:  I&apos;m a developer, here for the same reason as Herm and Paul. [missed]? <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="information">David Newbury: Enterprise software architect with Rob, many of the projects we&apos;re doing involve JSON-LD in various forms. <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Paul Warren</span>: Technical director at xbrl International <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="information">David Lehn: I&apos;m with Digital Bazaar, been working on JSON-LD for quite some time, been around for quite some time working on JSON-LD libs and helping with specs as I can. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Dave Longley</span>:  I work with Digital Bazaar, I worked a lot on the 1.0 spec; I also maintain Javascript, Python and PHP JSON-LD libraries [scribe assist by Gregg Kellogg] <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Paolo Ciccarese</span>:  Focus on biomedical data, hence main interest in JSON-LD, worked with Rob. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Chris Webber</span>:  I&apos;m Chris Webber, I work with Spec Ops. Also a recently implementer of JSON-LD for Scheme, also did partial implementation for Guile. I may not been on many calls but around from time to time. <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Robert Sanderson</span>:  Proposal is that, at least for the mean time, we have a call every 2 weeks at this time. Trying to just get through the issues, get outstanding issues discussed, etc. <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Dave Longley</span>:  Sure, just que me in :) [scribe assist by Niklas Lindstr&#246;m] <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: Cue... <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Robert Sanderson</span>:  We&apos;ll probably keep using this call bridge, it has some nice tool integrations, but niklasl_ is having some difficulties so if others do as well we&apos;ll look into other options to make sure everyone can participate. <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: Yes <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  same call every other week at this time.</div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Gregg Kellogg</span>: +1 <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Robert Sanderson</span>: +1 <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Chris Webber</span>: +1 <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Paolo Ciccarese</span>: +1 <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">David I. Lehn</span>: +1 <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Herm Fisher</span>: +1 <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Dave Longley</span>: +1 Though i may not be able to join all of them :) <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: I&#8217;m Niklas Lindstr&#246;m, works for the National Library of Sweden <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="information">And Niklas was also a major contributor to JSON-LD 1.0. <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> same call every other week at this time.</div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Eleanor Joslin</span>: This time is workable for me, but slightly earlier in the day would be better <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Eleanor Joslin</span>: OK <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: I was involved in JSON-LD 1.0. We use it all over the place in the new Library System at KB (National Library of Sweden) <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Gregg Kellogg</span>:  We may put out another doodle to see if we get a different response. <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +0 Re time <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Robert Sanderson</span>:  We&apos;ll do the next call at this time just for consistency but there&apos;s a possibility for an earlier call. <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<h1 id="topic-2" class="topic">Topic: Community Group details and process</h1>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Robert Sanderson</span>:  Mostly to emphasize that this is a W3C CG, it is not a Working Group. That means we can write specifications but they don&apos;t have any formal standing. We can have any process that we want, any of us can write a bunch of HTML and put it up somewhere, the most effective process to get JSON-LD 1.1 into standards track is to follow the process WGs use. <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: I will attempt to follow JSON-LD 1.1, as we&#8217;re dependent on 1.0 and want to see if 1.1 works for us. I have few cycles to spare at work alas, and a 1 year old daughter at home, so I&#8217;m pressed for call times as well. ;) <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Robert Sanderson</span>:  It gives the air of legitimacy and gives all the background and requirements a WG would need to take 1.1 forward. That means the use of github for tracking issues, the pull request model for making edits to documents and so forth. <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="comment"><span class="name">Robert Sanderson</span>:  That&apos;s how 1.0 was done so not new. <a id="link-47" style="display:none;" href="#47">✪</a></div>
+<div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues">https://github.com/json-ld/json-ld.org/issues</a> <a id="link-48" style="display:none;" href="#48">✪</a></div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Gregg Kellogg</span>:  Also important for CGs to operate as much as possible online to preserve the call time for more challenging issues. <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/projects/2?">https://github.com/json-ld/json-ld.org/projects/2?</a> <a id="link-50" style="display:none;" href="#50">✪</a></div>
+<div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="comment"><span class="name">Gregg Kellogg</span>:  The github repo where specs and issues are kept in IRC. <a id="link-51" style="display:none;" href="#51">✪</a></div>
+<div onmouseout="$('#link-52').hide()" onmouseover="$('#link-52').show()" id="52" class="comment"><span class="name">Gregg Kellogg</span>:  Also a project tracker there. <a id="link-52" style="display:none;" href="#52">✪</a></div>
+<div onmouseout="$('#link-53').hide()" onmouseover="$('#link-53').show()" id="53" class="comment"><span class="name">Gregg Kellogg</span>:  I encourage people to weigh in there, particularly if you support a PR or an issue, there is a nice thumbs up/thumbs down tool. <a id="link-53" style="display:none;" href="#53">✪</a></div>
+<div onmouseout="$('#link-54').hide()" onmouseover="$('#link-54').show()" id="54" class="comment"><span class="name">Gregg Kellogg</span>:  We can try to drive things as much as possible that way -- but can also use email as well. <a id="link-54" style="display:none;" href="#54">✪</a></div>
+<div onmouseout="$('#link-55').hide()" onmouseover="$('#link-55').show()" id="55" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: Just a quick re &#8221;1.1&#8221;, will the CG version be called that? <a id="link-55" style="display:none;" href="#55">✪</a></div>
+<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/548">https://github.com/json-ld/json-ld.org/issues/548</a> <a id="link-56" style="display:none;" href="#56">✪</a></div>
+<div onmouseout="$('#link-57').hide()" onmouseover="$('#link-57').show()" id="57" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: What I&#8217;m after is: will there be a &#8221;JSON-LD CG 1.1&#8221; and *then* a possible WG 1.1? <a id="link-57" style="display:none;" href="#57">✪</a></div>
+<div onmouseout="$('#link-58').hide()" onmouseover="$('#link-58').show()" id="58" class="comment"><span class="name">Robert Sanderson</span>:  We&apos;ll delay that question until we get to the issue for it. Any thoughts or questions about the CG details, etc.? <a id="link-58" style="display:none;" href="#58">✪</a></div>
+<div onmouseout="$('#link-59').hide()" onmouseover="$('#link-59').show()" id="59" class="comment"><span class="name">Robert Sanderson</span>:  Anyone not been part of a CG or WG at W3C in the past? <a id="link-59" style="display:none;" href="#59">✪</a></div>
+<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">Paul Simmonds</span>:  I have not. <a id="link-60" style="display:none;" href="#60">✪</a></div>
+<div onmouseout="$('#link-61').hide()" onmouseover="$('#link-61').show()" id="61" class="comment"><span class="name">Gregg Kellogg</span>: Also an open issue, chartering a WG would be useful, but challenging. <a id="link-61" style="display:none;" href="#61">✪</a></div>
+<div onmouseout="$('#link-62').hide()" onmouseover="$('#link-62').show()" id="62" class="comment"><span class="name">Eleanor Joslin</span>:  Me neither. <a id="link-62" style="display:none;" href="#62">✪</a></div>
+<div onmouseout="$('#link-63').hide()" onmouseover="$('#link-63').show()" id="63" class="comment"><span class="name">Robert Sanderson</span>:  Thanks for participating! <a id="link-63" style="display:none;" href="#63">✪</a></div>
+<div onmouseout="$('#link-64').hide()" onmouseover="$('#link-64').show()" id="64" class="comment"><span class="name">Gregg Kellogg</span>:  Right; but either way, is &#8221;X.Y CG flavour&#8221; vs &#8221;WG flavour&#8221; a risk? [scribe assist by Niklas Lindstr&#246;m] <a id="link-64" style="display:none;" href="#64">✪</a></div>
+<div onmouseout="$('#link-65').hide()" onmouseover="$('#link-65').show()" id="65" class="comment"><span class="name">Robert Sanderson</span>:  There are a few oddities that you&apos;ll quickly understand how they work or why they happen. For the most parts W3C process is aimed at transparency and participating. Trying to ensure that everything is well documented. <a id="link-65" style="display:none;" href="#65">✪</a></div>
+<div onmouseout="$('#link-66').hide()" onmouseover="$('#link-66').show()" id="66" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: (Thinking a little bit about WHATWG&#8230;) <a id="link-66" style="display:none;" href="#66">✪</a></div>
+<div onmouseout="$('#link-67').hide()" onmouseover="$('#link-67').show()" id="67" class="comment"><span class="name">Gregg Kellogg</span>: Niklasl, Open question. I have concerns about that to <a id="link-67" style="display:none;" href="#67">✪</a></div>
+<div onmouseout="$('#link-68').hide()" onmouseover="$('#link-68').show()" id="68" class="comment"><span class="name">Robert Sanderson</span>:  For example, scribing everything everyone is saying. They can go back and look at the minutes later if not on the call. <a id="link-68" style="display:none;" href="#68">✪</a></div>
+<div onmouseout="$('#link-69').hide()" onmouseover="$('#link-69').show()" id="69" class="comment"><span class="name">Robert Sanderson</span>:  This is more consistent and thorough than writing some bullet points later. <a id="link-69" style="display:none;" href="#69">✪</a></div>
+<div onmouseout="$('#link-70').hide()" onmouseover="$('#link-70').show()" id="70" class="comment"><span class="name">Gregg Kellogg</span>:  OK, great! [scribe assist by Niklas Lindstr&#246;m] <a id="link-70" style="display:none;" href="#70">✪</a></div>
+<div onmouseout="$('#link-71').hide()" onmouseover="$('#link-71').show()" id="71" class="comment"><span class="name">Robert Sanderson</span>:  This level of transparency is a relatively new. So the notion of having everything as public as possible is important. <a id="link-71" style="display:none;" href="#71">✪</a></div>
+<div onmouseout="$('#link-72').hide()" onmouseover="$('#link-72').show()" id="72" class="comment"><span class="name">Gregg Kellogg</span>:  Relevant to that, these calls are being recorded. The practice has been, in the minutes, to include a link to the audio in the recording. <a id="link-72" style="display:none;" href="#72">✪</a></div>
+<div onmouseout="$('#link-73').hide()" onmouseover="$('#link-73').show()" id="73" class="comment"><span class="name">Gregg Kellogg</span>:  So that&apos;s a fair warning. If there are specific things you don&apos;t want minuted please say so and we won&apos;t minute it. <a id="link-73" style="display:none;" href="#73">✪</a></div>
+<div onmouseout="$('#link-74').hide()" onmouseover="$('#link-74').show()" id="74" class="comment"><span class="name">Gregg Kellogg</span>:  But it will still be in the audio call. <a id="link-74" style="display:none;" href="#74">✪</a></div>
+<div onmouseout="$('#link-75').hide()" onmouseover="$('#link-75').show()" id="75" class="comment"><span class="name">Robert Sanderson</span>:  I don&apos;t imagine there would be much call for something so secret we need to pause the audio. <a id="link-75" style="display:none;" href="#75">✪</a></div>
+<div onmouseout="$('#link-76').hide()" onmouseover="$('#link-76').show()" id="76" class="comment"><span class="name">Dave Longley</span>:  We can edit the audio later if super important but would prefer not to. <a id="link-76" style="display:none;" href="#76">✪</a></div>
+<div onmouseout="$('#link-77').hide()" onmouseover="$('#link-77').show()" id="77" class="comment"><span class="name">Robert Sanderson</span>:  There is also a waiver that you need to sign to participate in the CG. If you haven&apos;t joined the CG, as an individual or representing your institution if your institution is a member, please do so. <a id="link-77" style="display:none;" href="#77">✪</a></div>
+<div onmouseout="$('#link-78').hide()" onmouseover="$('#link-78').show()" id="78" class="comment"><span class="name">Robert Sanderson</span>:  The waiver is minimal, mostly don&apos;t sue. <a id="link-78" style="display:none;" href="#78">✪</a></div>
+<div onmouseout="$('#link-79').hide()" onmouseover="$('#link-79').show()" id="79" class="comment"><span class="name">Robert Sanderson</span>:  Just some minor but important administrivia. <a id="link-79" style="display:none;" href="#79">✪</a></div>
+<div onmouseout="$('#link-80').hide()" onmouseover="$('#link-80').show()" id="80" class="comment"><span class="name">Robert Sanderson</span>:  Any other comments on this topic? <a id="link-80" style="display:none;" href="#80">✪</a></div>
+<div onmouseout="$('#link-81').hide()" onmouseover="$('#link-81').show()" id="81" class="information">None <a id="link-81" style="display:none;" href="#81">✪</a></div>
+<h1 id="topic-3" class="topic">Topic: Possible road to Recommendation?</h1>
+<div onmouseout="$('#link-82').hide()" onmouseover="$('#link-82').show()" id="82" class="comment"><span class="name">Robert Sanderson</span>:  If I recall correctly, JSON-LD 1.0 got to REC not by having a JSON-LD WG, but through the RDF WG. <a id="link-82" style="display:none;" href="#82">✪</a></div>
+<div onmouseout="$('#link-83').hide()" onmouseover="$('#link-83').show()" id="83" class="comment"><span class="name">Gregg Kellogg</span>:  Correct. <a id="link-83" style="display:none;" href="#83">✪</a></div>
+<div onmouseout="$('#link-84').hide()" onmouseover="$('#link-84').show()" id="84" class="comment"><span class="name">Robert Sanderson</span>:  That was some very fortunate timing because it meant that we didn&apos;t need to have a charter and all of the W3C members vote to create a WG with its own team contact and so on. <a id="link-84" style="display:none;" href="#84">✪</a></div>
+<div onmouseout="$('#link-85').hide()" onmouseover="$('#link-85').show()" id="85" class="comment"><span class="name">Robert Sanderson</span>:  For 1.1, we are unlikely to be so lucky. <a id="link-85" style="display:none;" href="#85">✪</a></div>
+<div onmouseout="$('#link-86').hide()" onmouseover="$('#link-86').show()" id="86" class="comment"><span class="name">Robert Sanderson</span>:  In terms of getting to REC, the initial barrier to entry is a bit higher. We&apos;ll need to get a WG up. Which means that, the more solid the work is that we do the more likely we&apos;ll get a WG. If it looks like a slam dunk at W3C, it&apos;s not rubber stamping of course, but if it&apos;s possible to show implementations, adoption, and good well-written specs out of the gate, then getting a WG approved is much easier. <a id="link-86" style="display:none;" href="#86">✪</a></div>
+<div onmouseout="$('#link-87').hide()" onmouseover="$('#link-87').show()" id="87" class="comment"><span class="name">Robert Sanderson</span>:  At TPAC we had some brief discussions with team leads, Ralph Swick and Ivan Herman, and it&apos;s not only up to them, but they seemed reasonable confident with a path forward towards a WG. <a id="link-87" style="display:none;" href="#87">✪</a></div>
+<div onmouseout="$('#link-88').hide()" onmouseover="$('#link-88').show()" id="88" class="comment"><span class="name">Robert Sanderson</span>:  The more work we do now, the more likely it is to happen in a timely fashion. In particular, the more members that are using it and building products around it, that require 1.1 features, that may be the most critical. <a id="link-88" style="display:none;" href="#88">✪</a></div>
+<div onmouseout="$('#link-89').hide()" onmouseover="$('#link-89').show()" id="89" class="comment"><span class="name">Robert Sanderson</span>:  It&apos;s great to have the folks here from XBRL here as new adopters and the consistency and continuity of everyone else. <a id="link-89" style="display:none;" href="#89">✪</a></div>
+<div onmouseout="$('#link-90').hide()" onmouseover="$('#link-90').show()" id="90" class="comment"><span class="name">Robert Sanderson</span>:  Gregg, others, want to talk about timelines? <a id="link-90" style="display:none;" href="#90">✪</a></div>
+<div onmouseout="$('#link-91').hide()" onmouseover="$('#link-91').show()" id="91" class="comment"><span class="name">Gregg Kellogg</span>:  I guess there&apos;s a couple of ways we could continue. We could basically try to wrap up the work we&apos;re doing now in a bow so a WG could simply adopt, or we could push towards going to a WG earlier and defer. A WG charter would need to be created, it would be at least 6 months before a WG is chartered, if one is ever chartered at all. <a id="link-91" style="display:none;" href="#91">✪</a></div>
+<div onmouseout="$('#link-92').hide()" onmouseover="$('#link-92').show()" id="92" class="comment"><span class="name">Gregg Kellogg</span>:  In these areas I think the CG output can be quite useful. It&apos;s not something that was available to people in the past, but CG output is more of a social standard, not the end of the world, but we&apos;d like to see a WG. <a id="link-92" style="display:none;" href="#92">✪</a></div>
+<div onmouseout="$('#link-93').hide()" onmouseover="$('#link-93').show()" id="93" class="comment"><span class="name">Gregg Kellogg</span>:  It would be nice to wrap things up with 1.1 and then work to set up a WG to ideally adopt that work or perhaps tag on to some other existing group to which the work is sympathetic. <a id="link-93" style="display:none;" href="#93">✪</a></div>
+<div onmouseout="$('#link-94').hide()" onmouseover="$('#link-94').show()" id="94" class="comment"><span class="name">Robert Sanderson</span>:  I don&apos;t know how you thought about Annotation WG transition. <a id="link-94" style="display:none;" href="#94">✪</a></div>
+<div onmouseout="$('#link-95').hide()" onmouseover="$('#link-95').show()" id="95" class="comment"><span class="name">Robert Sanderson</span>:  Paolo. <a id="link-95" style="display:none;" href="#95">✪</a></div>
+<div onmouseout="$('#link-96').hide()" onmouseover="$('#link-96').show()" id="96" class="comment"><span class="name">Robert Sanderson</span>:  From my perspective, having a reasonably thorough spec -- there was space for additional work, if desired, seemed to be reasonably productive. <a id="link-96" style="display:none;" href="#96">✪</a></div>
+<div onmouseout="$('#link-97').hide()" onmouseover="$('#link-97').show()" id="97" class="comment"><span class="name">Robert Sanderson</span>:  Paolo co-chaired the Annotation CG and then the WG, which concluded at the beginning of 2017. <a id="link-97" style="display:none;" href="#97">✪</a></div>
+<div onmouseout="$('#link-98').hide()" onmouseover="$('#link-98').show()" id="98" class="comment"><span class="name">Robert Sanderson</span>:  The community group did not talk about protocol, there was no way of sharing annotations between systems, there was some good discussion in doing that in the WG context. That meant that the modeling side, while it was fully discussed, that was more about fine tuning than designing from scratch. <a id="link-98" style="display:none;" href="#98">✪</a></div>
+<div onmouseout="$('#link-99').hide()" onmouseover="$('#link-99').show()" id="99" class="comment"><span class="name">Robert Sanderson</span>:  Having the design space for people to sink their space into rather than people thinking it was just a rubber stamping was helpful. <a id="link-99" style="display:none;" href="#99">✪</a></div>
+<div onmouseout="$('#link-100').hide()" onmouseover="$('#link-100').show()" id="100" class="comment"><span class="name">Robert Sanderson</span>:  So the work we&apos;re doing here to get things started would be valuable. <a id="link-100" style="display:none;" href="#100">✪</a></div>
+<div onmouseout="$('#link-101').hide()" onmouseover="$('#link-101').show()" id="101" class="comment"><span class="name">Paolo Ciccarese</span>:  I agree with what you said, I think what happened is -- we had some ideas before starting the WG. There were boundaries changed and pushed in some ways, but a good roadmap for the model and vocab to start. Not everyone was extremely happy about that. <a id="link-101" style="display:none;" href="#101">✪</a></div>
+<div onmouseout="$('#link-102').hide()" onmouseover="$('#link-102').show()" id="102" class="comment"><span class="name">Paolo Ciccarese</span>:  Some people who didn&apos;t participate in the CG were offput because there were specs to work off of that had to be brought in. But to have something solid before starting is a good idea in general. <a id="link-102" style="display:none;" href="#102">✪</a></div>
+<div onmouseout="$('#link-103').hide()" onmouseover="$('#link-103').show()" id="103" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: ;) <a id="link-103" style="display:none;" href="#103">✪</a></div>
+<div onmouseout="$('#link-104').hide()" onmouseover="$('#link-104').show()" id="104" class="comment"><span class="name">Gregg Kellogg</span>:  A point of admin here, if you are in IRC and have a question or would like to contribute something, you can type &quot;q+&quot; to use the queue. <a id="link-104" style="display:none;" href="#104">✪</a></div>
+<div onmouseout="$('#link-105').hide()" onmouseover="$('#link-105').show()" id="105" class="comment"><span class="name">Gregg Kellogg</span>:  You can do &quot;q-&quot; to take yourself off. <a id="link-105" style="display:none;" href="#105">✪</a></div>
+<div onmouseout="$('#link-106').hide()" onmouseover="$('#link-106').show()" id="106" class="comment"><span class="name">Gregg Kellogg</span>:  Q? to see the queue. <a id="link-106" style="display:none;" href="#106">✪</a></div>
+<div onmouseout="$('#link-107').hide()" onmouseover="$('#link-107').show()" id="107" class="comment"><span class="name">Robert Sanderson</span>:  I agree with Gregg that 6 months is the earliest to start on a charter and a target milestone would be TPAC in 2018. <a id="link-107" style="display:none;" href="#107">✪</a></div>
+<div onmouseout="$('#link-108').hide()" onmouseover="$('#link-108').show()" id="108" class="comment"><span class="name">Robert Sanderson</span>:  Talking with potential staff contacts, etc. working through a charter to be proposed. <a id="link-108" style="display:none;" href="#108">✪</a></div>
+<div onmouseout="$('#link-109').hide()" onmouseover="$('#link-109').show()" id="109" class="comment"><span class="name">Robert Sanderson</span>:  That would be November then, about 11 months, to propose a charter. <a id="link-109" style="display:none;" href="#109">✪</a></div>
+<div onmouseout="$('#link-110').hide()" onmouseover="$('#link-110').show()" id="110" class="comment"><span class="name">Robert Sanderson</span>:  Having the support of W3C management is absolutely critical to getting things through. Talking in person is more productive than phone calls. <a id="link-110" style="display:none;" href="#110">✪</a></div>
+<div onmouseout="$('#link-111').hide()" onmouseover="$('#link-111').show()" id="111" class="comment"><span class="name">Robert Sanderson</span>:  Any further thoughts or questions around the process? <a id="link-111" style="display:none;" href="#111">✪</a></div>
+<div onmouseout="$('#link-112').hide()" onmouseover="$('#link-112').show()" id="112" class="information">None <a id="link-112" style="display:none;" href="#112">✪</a></div>
+<div onmouseout="$('#link-113').hide()" onmouseover="$('#link-113').show()" id="113" class="comment"><span class="name">Robert Sanderson</span>:  A former co-chair of mine said, if you&apos;re not, as chair, feeling like the silence is uncomfortable then you haven&apos;t waited long enough for people to ask questions :) <a id="link-113" style="display:none;" href="#113">✪</a></div>
+<div onmouseout="$('#link-114').hide()" onmouseover="$('#link-114').show()" id="114" class="comment"><span class="name">Robert Sanderson</span>:  It is 20 to the hour, which gives us the right amount of time to review the 1.1 spec differences per Gregg&apos;s slides. <a id="link-114" style="display:none;" href="#114">✪</a></div>
+<div onmouseout="$('#link-115').hide()" onmouseover="$('#link-115').show()" id="115" class="comment"><span class="name">Gregg Kellogg</span>: TPAC slides <a href="https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/assets/player/KeynoteDHTMLPlayer.html#5">https://json-ld.org/presentations/JSON-LD-Update-TPAC-2017/assets/player/KeynoteDHTMLPlayer.html#5</a> <a id="link-115" style="display:none;" href="#115">✪</a></div>
+<h1 id="topic-4" class="topic">Topic: Review current 1.1 work</h1>
+<div onmouseout="$('#link-116').hide()" onmouseover="$('#link-116').show()" id="116" class="comment"><span class="name">Gregg Kellogg</span>:  I don&apos;t think we want to try and accomplish too much in the first week, doing an overview of what has transpired is a good place to conclude what we&apos;re doing here. <a id="link-116" style="display:none;" href="#116">✪</a></div>
+<div onmouseout="$('#link-117').hide()" onmouseover="$('#link-117').show()" id="117" class="comment"><span class="name">Gregg Kellogg</span>:  I pasted in a link to the slide deck that describes the work that&apos;s been done since 1.0. <a id="link-117" style="display:none;" href="#117">✪</a></div>
+<div onmouseout="$('#link-118').hide()" onmouseover="$('#link-118').show()" id="118" class="comment"><span class="name">Gregg Kellogg</span>:  There was quite a lot of time languishing between 1.0 and when we started getting more serious about moving forward. During that time there were a number of issues or errors, shortcomings of the 1.0 work. And new areas where people would like to see JSON-LD move in. <a id="link-118" style="display:none;" href="#118">✪</a></div>
+<div onmouseout="$('#link-119').hide()" onmouseover="$('#link-119').show()" id="119" class="comment"><span class="name">Gregg Kellogg</span>:  That was enough to give us a general consensus of how to move forward. In particular, it was mostly about letting more JSON to take on JSON-LD meaning. And better ways to normalize the results. Additionally in the 1.0 time frame we were working principally, Dave Longley&apos;s work on framing, ... it has become quite important and more work as been done to improve the spec. <a id="link-119" style="display:none;" href="#119">✪</a></div>
+<div onmouseout="$('#link-120').hide()" onmouseover="$('#link-120').show()" id="120" class="comment"><span class="name">Gregg Kellogg</span>:  We&apos;d like to consider framing to be part of the 1.1 effort and part of the API instead of a separate spec. <a id="link-120" style="display:none;" href="#120">✪</a></div>
+<div onmouseout="$('#link-121').hide()" onmouseover="$('#link-121').show()" id="121" class="comment"><span class="name">Gregg Kellogg</span>:  Looking at the slides, the versioning announcement creates a backwards compatibility effort. So some people are suggesting that we should do JSON-LD 2.0. <a id="link-121" style="display:none;" href="#121">✪</a></div>
+<div onmouseout="$('#link-122').hide()" onmouseover="$('#link-122').show()" id="122" class="comment"><span class="name">Gregg Kellogg</span>:  Rather than &quot;1.1&quot;. <a id="link-122" style="display:none;" href="#122">✪</a></div>
+<div onmouseout="$('#link-123').hide()" onmouseover="$('#link-123').show()" id="123" class="comment"><span class="name">Gregg Kellogg</span>:  In this case we need to make sure that a 1.0 processor doesn&apos;t misinterpret the data -- and we have done that by introducing a version into the @context to cause a 1.0 to blow up rather than misinterpret the data. <a id="link-123" style="display:none;" href="#123">✪</a></div>
+<div onmouseout="$('#link-124').hide()" onmouseover="$('#link-124').show()" id="124" class="comment"><span class="name">Gregg Kellogg</span>:  So the example does that -- in particular here to handle a @container that&apos;s different. <a id="link-124" style="display:none;" href="#124">✪</a></div>
+<div onmouseout="$('#link-125').hide()" onmouseover="$('#link-125').show()" id="125" class="comment"><span class="name">Robert Sanderson</span>: (Slide 7) <a id="link-125" style="display:none;" href="#125">✪</a></div>
+<div onmouseout="$('#link-126').hide()" onmouseover="$('#link-126').show()" id="126" class="comment"><span class="name">Gregg Kellogg</span>:  In order to move more like JSON and use more objects and object keys to reference multiple things rather than arrays of things, we looked to increase the types of things for @container. <a id="link-126" style="display:none;" href="#126">✪</a></div>
+<div onmouseout="$('#link-127').hide()" onmouseover="$('#link-127').show()" id="127" class="comment"><span class="name">Robert Sanderson</span>: (Slide 8, identifier maps) <a id="link-127" style="display:none;" href="#127">✪</a></div>
+<div onmouseout="$('#link-128').hide()" onmouseover="$('#link-128').show()" id="128" class="comment"><span class="name">Gregg Kellogg</span>:  Previously we could set @language, @index, on a term definition and that would cause a JSON-LD processor to interpret the object value of that term as a map. The keys would be language identifiers for @language and so on. When expanding it turns into an array of value objects with language tags within. <a id="link-128" style="display:none;" href="#128">✪</a></div>
+<div onmouseout="$('#link-129').hide()" onmouseover="$('#link-129').show()" id="129" class="comment"><span class="name">Gregg Kellogg</span>:  We wanted to be able to do more things like that, for example, with ids and types. <a id="link-129" style="display:none;" href="#129">✪</a></div>
+<div onmouseout="$('#link-130').hide()" onmouseover="$('#link-130').show()" id="130" class="comment"><span class="name">Gregg Kellogg</span>:  Examples on slide 8. <a id="link-130" style="display:none;" href="#130">✪</a></div>
+<div onmouseout="$('#link-131').hide()" onmouseover="$('#link-131').show()" id="131" class="comment"><span class="name">Robert Sanderson</span>: Eg the triple would be: &lt;<a href="http://example.com/&gt;">http://example.com/&gt;</a> schema:blogPost &lt;http://example.com/posts/1/en&gt; . <a id="link-131" style="display:none;" href="#131">✪</a></div>
+<div onmouseout="$('#link-132').hide()" onmouseover="$('#link-132').show()" id="132" class="comment"><span class="name">Gregg Kellogg</span>:  Property nesting -- many uses of JSON include ways, where there&apos;s nominally an entity where properties aren&apos;t keys of the entity but part of some structure underneath (has no meaning in the data model). Slide 9 we see using that with &quot;labels&quot;. <a id="link-132" style="display:none;" href="#132">✪</a></div>
+<div onmouseout="$('#link-133').hide()" onmouseover="$('#link-133').show()" id="133" class="comment"><span class="name">Gregg Kellogg</span>:  This @nest feature folds values up a layer. <a id="link-133" style="display:none;" href="#133">✪</a></div>
+<div onmouseout="$('#link-134').hide()" onmouseover="$('#link-134').show()" id="134" class="comment"><span class="name">Gregg Kellogg</span>:  When expanded, it&apos;s as if the nested keys are just properties of the top entity. <a id="link-134" style="display:none;" href="#134">✪</a></div>
+<div onmouseout="$('#link-135').hide()" onmouseover="$('#link-135').show()" id="135" class="comment"><span class="name">Robert Sanderson</span>: Hence the triple here is:  &lt;<a href="http://example.org/myresource&gt;">http://example.org/myresource&gt;</a> skos:prefLabel &quot;This is the main label...&quot; . <a id="link-135" style="display:none;" href="#135">✪</a></div>
+<div onmouseout="$('#link-136').hide()" onmouseover="$('#link-136').show()" id="136" class="comment"><span class="name">Gregg Kellogg</span>:  Scoped contexts solve a number of issues. If you find yourself importing JSON-LD from another scope and you&apos;ve been frustrated with having to add an embedded @context definition to define the @context in play for deeper values, this allows you to use a term definition instead. <a id="link-136" style="display:none;" href="#136">✪</a></div>
+<div onmouseout="$('#link-137').hide()" onmouseover="$('#link-137').show()" id="137" class="comment"><span class="name">Gregg Kellogg</span>:  Slide 10 has examples. <a id="link-137" style="display:none;" href="#137">✪</a></div>
+<div onmouseout="$('#link-138').hide()" onmouseover="$('#link-138').show()" id="138" class="comment"><span class="name">Gregg Kellogg</span>:  The &quot;interest&quot; term has its own context for its value without having to embed it. <a id="link-138" style="display:none;" href="#138">✪</a></div>
+<div onmouseout="$('#link-139').hide()" onmouseover="$('#link-139').show()" id="139" class="comment"><span class="name">Gregg Kellogg</span>:  The feature is recursive so terms and is round-tripping. Particularly useful for framing. <a id="link-139" style="display:none;" href="#139">✪</a></div>
+<div onmouseout="$('#link-140').hide()" onmouseover="$('#link-140').show()" id="140" class="comment"><span class="name">Gregg Kellogg</span>:  A scoped context in the frame definition will be applied to the framed results. <a id="link-140" style="display:none;" href="#140">✪</a></div>
+<div onmouseout="$('#link-141').hide()" onmouseover="$('#link-141').show()" id="141" class="comment"><span class="name">Gregg Kellogg</span>:  You can also use scoped contexts on types. <a id="link-141" style="display:none;" href="#141">✪</a></div>
+<div onmouseout="$('#link-142').hide()" onmouseover="$('#link-142').show()" id="142" class="information">@Type scoped contexts are useful for &quot;object oriented&quot; like designs <a id="link-142" style="display:none;" href="#142">✪</a></div>
+<div onmouseout="$('#link-143').hide()" onmouseover="$('#link-143').show()" id="143" class="comment"><span class="name">Robert Sanderson</span>: (Slide 12, compact IRIs) <a id="link-143" style="display:none;" href="#143">✪</a></div>
+<div onmouseout="$('#link-144').hide()" onmouseover="$('#link-144').show()" id="144" class="comment"><span class="name">Gregg Kellogg</span>:  Improving Compact IRIs is meant to make the use of curies less unexpected. <a id="link-144" style="display:none;" href="#144">✪</a></div>
+<div onmouseout="$('#link-145').hide()" onmouseover="$('#link-145').show()" id="145" class="comment"><span class="name">Gregg Kellogg</span>:  There&apos;s a change where a term will only be considered to be used as a prefix if the prefix key is set or if the term ends in &apos;/&apos; or &apos;#&apos;. <a id="link-145" style="display:none;" href="#145">✪</a></div>
+<div onmouseout="$('#link-146').hide()" onmouseover="$('#link-146').show()" id="146" class="comment"><span class="name">Gregg Kellogg</span>:  There are a variety of open issues after that. <a id="link-146" style="display:none;" href="#146">✪</a></div>
+<div onmouseout="$('#link-147').hide()" onmouseover="$('#link-147').show()" id="147" class="comment"><span class="name">Gregg Kellogg</span>:  There are more open issues on github but they aren&apos;t tagged with 1.1. They may relate to the website or playground, but aren&apos;t critical towards updating the 1.1 specs themselves. <a id="link-147" style="display:none;" href="#147">✪</a></div>
+<div onmouseout="$('#link-148').hide()" onmouseover="$('#link-148').show()" id="148" class="comment"><span class="name">Gregg Kellogg</span>:  Any question? <a id="link-148" style="display:none;" href="#148">✪</a></div>
+<div onmouseout="$('#link-149').hide()" onmouseover="$('#link-149').show()" id="149" class="comment"><span class="name">Gregg Kellogg</span>:  Issues for us to consider soon -- do we want to stick with 1.1 and preserve 2.0 for a WG or stick with semantic versioning and move towards 2.0. <a id="link-149" style="display:none;" href="#149">✪</a></div>
+<div onmouseout="$('#link-150').hide()" onmouseover="$('#link-150').show()" id="150" class="comment"><span class="name">Robert Sanderson</span>:  This discussion continued at TPAC in November. One thing that would be useful to inform it, would be what ... what are the actual breaking changes and breaking for whom? For example, a 1.1 processor that is using a 1.0 definition will work fine vs. a 1.0 processor that will break in some situation. <a id="link-150" style="display:none;" href="#150">✪</a></div>
+<div onmouseout="$('#link-151').hide()" onmouseover="$('#link-151').show()" id="151" class="comment"><span class="name">Robert Sanderson</span>:  As was brought up in November, that&apos;s probably what we want in many of the situations. <a id="link-151" style="display:none;" href="#151">✪</a></div>
+<div onmouseout="$('#link-152').hide()" onmouseover="$('#link-152').show()" id="152" class="comment"><span class="name">Robert Sanderson</span>:  Could you talk a bit more about what is broken by the changes? <a id="link-152" style="display:none;" href="#152">✪</a></div>
+<div onmouseout="$('#link-153').hide()" onmouseover="$('#link-153').show()" id="153" class="comment"><span class="name">Gregg Kellogg</span>:  Probably not as much as you would want. One of the largest users of JSON-LD is Google. It is non-conforming though, they don&apos;t look at a @context and they presume it&apos;s the one that they&apos;ve deployed. If you were to use this in there and expect schema.org partners to interpret it properly you&apos;d be disappointed perhaps. <a id="link-153" style="display:none;" href="#153">✪</a></div>
+<div onmouseout="$('#link-154').hide()" onmouseover="$('#link-154').show()" id="154" class="comment"><span class="name">Gregg Kellogg</span>:  Someone did report their processor breaking on a 1.1 version. But that&apos;s exactly the intent. But that raises the question about adoption. <a id="link-154" style="display:none;" href="#154">✪</a></div>
+<div onmouseout="$('#link-155').hide()" onmouseover="$('#link-155').show()" id="155" class="comment"><span class="name">Herm Fisher</span>: For XBRL we found a need to &quot;certify&quot; processors against a set of standard test suites. <a id="link-155" style="display:none;" href="#155">✪</a></div>
+<div onmouseout="$('#link-156').hide()" onmouseover="$('#link-156').show()" id="156" class="comment"><span class="name">Gregg Kellogg</span>:  And how it would work. The side conversations I&apos;ve had with Dan Brickley at Google -- they are not likely to dereference a @context would be ... it would be useful as a URI parameter. In the case when they are seeing a type definition in a script tag in HTML, if the type was &quot;application/ld+json;version=2.0&quot; that would give them the opportunity to make use of these features without actually having to dereference and process @contexts. <a id="link-156" style="display:none;" href="#156">✪</a></div>
+<div onmouseout="$('#link-157').hide()" onmouseover="$('#link-157').show()" id="157" class="comment"><span class="name">Gregg Kellogg</span>:  In IIIF, Web of Things, things such as @id maps are required functionality, it might be slow adoption from some existing uses it could introduce cases where 1.0 compat isn&apos;t an issue. <a id="link-157" style="display:none;" href="#157">✪</a></div>
+<div onmouseout="$('#link-158').hide()" onmouseover="$('#link-158').show()" id="158" class="comment"><span class="name">Herm Fisher</span>:  We&apos;ve always had a set of standard test suites, that&apos;s part of every step of building changes to the spec. There was enough cowboy behavior that it was decided to provide a service that a product was part of the suite. <a id="link-158" style="display:none;" href="#158">✪</a></div>
+<div onmouseout="$('#link-159').hide()" onmouseover="$('#link-159').show()" id="159" class="comment"><span class="name">Paul Simmonds</span>:  It&apos;s been nice to know how many conforming implementations have come out of the work as a result [missed?]. <a id="link-159" style="display:none;" href="#159">✪</a></div>
+<h1 id="topic-5" class="topic">Topic: JSON-LD Test Suite</h1>
+<div onmouseout="$('#link-160').hide()" onmouseover="$('#link-160').show()" id="160" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://json-ld.org/test-suite/">https://json-ld.org/test-suite/</a> <a id="link-160" style="display:none;" href="#160">✪</a></div>
+<div onmouseout="$('#link-161').hide()" onmouseover="$('#link-161').show()" id="161" class="comment"><span class="name">Robert Sanderson</span>:  We also have test suites for JSON-LD. From a process perspective, one of the W3C requirements is that there is a test suite that implementers can use to ensure that they have implemented the features in conformance with the spec. <a id="link-161" style="display:none;" href="#161">✪</a></div>
+<div onmouseout="$('#link-162').hide()" onmouseover="$('#link-162').show()" id="162" class="comment"><span class="name">Robert Sanderson</span>:  It&apos;s a little fuzzy as to what a feature is and what tests are needed, but overall, it&apos;s very much part of the work that we need to do. <a id="link-162" style="display:none;" href="#162">✪</a></div>
+<div onmouseout="$('#link-163').hide()" onmouseover="$('#link-163').show()" id="163" class="comment"><span class="name">Gregg Kellogg</span>:  There is a test suite that was begun in the 1.0 phase and has been continued. My practice has been, for every update to the spec, that there are tests to test for appropriate behavior. <a id="link-163" style="display:none;" href="#163">✪</a></div>
+<div onmouseout="$('#link-164').hide()" onmouseover="$('#link-164').show()" id="164" class="comment"><span class="name">Gregg Kellogg</span>:  Those tests are marked with 1.1 so it&apos;s possible for a 1.0 processor to continue to run tests and not trip over things they aren&apos;t expecting. There is a quite comprehensive and maintained test suite. <a id="link-164" style="display:none;" href="#164">✪</a></div>
+<div onmouseout="$('#link-165').hide()" onmouseover="$('#link-165').show()" id="165" class="comment"><span class="name">Gregg Kellogg</span>:  This test suite was also and the implementation reports were important for using a transition doc for showing wide implementation and at any time we choose we can put forward -- and do a call for implementations and accept implementation documents. <a id="link-165" style="display:none;" href="#165">✪</a></div>
+<div onmouseout="$('#link-166').hide()" onmouseover="$('#link-166').show()" id="166" class="comment"><span class="name">Gregg Kellogg</span>:  That would allow us to show conformance we have. <a id="link-166" style="display:none;" href="#166">✪</a></div>
+<div onmouseout="$('#link-167').hide()" onmouseover="$('#link-167').show()" id="167" class="comment"><span class="name">Gregg Kellogg</span>:  At this point the only fully conformant processor is my own, the Ruby processor, but work is underway on other processors as well. <a id="link-167" style="display:none;" href="#167">✪</a></div>
+<div onmouseout="$('#link-168').hide()" onmouseover="$('#link-168').show()" id="168" class="comment"><span class="name">Robert Sanderson</span>:  It&apos;s the top of the hour. Any questions or comments? <a id="link-168" style="display:none;" href="#168">✪</a></div>
+<div onmouseout="$('#link-169').hide()" onmouseover="$('#link-169').show()" id="169" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld.org/issues/560">https://github.com/json-ld/json-ld.org/issues/560</a> <a id="link-169" style="display:none;" href="#169">✪</a></div>
+<div onmouseout="$('#link-170').hide()" onmouseover="$('#link-170').show()" id="170" class="comment"><span class="name">Chris Webber</span>:  So I was originally pinged to join the call to suggest we take on the W3C&apos;s permissive software license for the standard. It didn&apos;t exist when 1.0 came out. I found I wanted to copy a lot of the language from the JSON-LD spec into the implementation I was writing and wanted to ensure it was legally feasible. <a id="link-170" style="display:none;" href="#170">✪</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  accept issue 560</div>
+<div onmouseout="$('#link-171').hide()" onmouseover="$('#link-171').show()" id="171" class="comment"><span class="name">Chris Webber</span>:  I wanted to raise it possibly for next week since it was the reason I came onto this call. <a id="link-171" style="display:none;" href="#171">✪</a></div>
+<div onmouseout="$('#link-172').hide()" onmouseover="$('#link-172').show()" id="172" class="comment"><span class="name">Dave Longley</span>: +1 <a id="link-172" style="display:none;" href="#172">✪</a></div>
+<div onmouseout="$('#link-173').hide()" onmouseover="$('#link-173').show()" id="173" class="comment"><span class="name">Chris Webber</span>: +1 <a id="link-173" style="display:none;" href="#173">✪</a></div>
+<div onmouseout="$('#link-174').hide()" onmouseover="$('#link-174').show()" id="174" class="comment"><span class="name">Gregg Kellogg</span>: +1 <a id="link-174" style="display:none;" href="#174">✪</a></div>
+<div onmouseout="$('#link-175').hide()" onmouseover="$('#link-175').show()" id="175" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 <a id="link-175" style="display:none;" href="#175">✪</a></div>
+<div onmouseout="$('#link-176').hide()" onmouseover="$('#link-176').show()" id="176" class="comment"><span class="name">Robert Sanderson</span>: +1 <a id="link-176" style="display:none;" href="#176">✪</a></div>
+<div onmouseout="$('#link-177').hide()" onmouseover="$('#link-177').show()" id="177" class="information">Do you want the +1 here or on the issue? <a id="link-177" style="display:none;" href="#177">✪</a></div>
+<div onmouseout="$('#link-178').hide()" onmouseover="$('#link-178').show()" id="178" class="comment"><span class="name">David I. Lehn</span>: +1 <a id="link-178" style="display:none;" href="#178">✪</a></div>
+<div onmouseout="$('#link-179').hide()" onmouseover="$('#link-179').show()" id="179" class="comment"><span class="name">David I. Lehn</span>:  Does this need approval from a wider audience? Perhaps from the other contributors? <a id="link-179" style="display:none;" href="#179">✪</a></div>
+<div onmouseout="$('#link-180').hide()" onmouseover="$('#link-180').show()" id="180" class="comment"><span class="name">Robert Sanderson</span>:  It might be prudent to ping Markus about it. <a id="link-180" style="display:none;" href="#180">✪</a></div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> accept issue 560 pending lanthaler approval</div>
+<div onmouseout="$('#link-181').hide()" onmouseover="$('#link-181').show()" id="181" class="comment"><span class="name">Robert Sanderson</span>:  Pending acceptance, as long as Markus is not -1. <a id="link-181" style="display:none;" href="#181">✪</a></div>
+<div onmouseout="$('#link-182').hide()" onmouseover="$('#link-182').show()" id="182" class="comment"><span class="name">Robert Sanderson</span>: Thanks everyone :) <a id="link-182" style="display:none;" href="#182">✪</a></div>
+<div onmouseout="$('#link-183').hide()" onmouseover="$('#link-183').show()" id="183" class="comment"><span class="name">Robert Sanderson</span>: So ... SIP on Mac ... a good free client? <a id="link-183" style="display:none;" href="#183">✪</a></div>
+<div onmouseout="$('#link-184').hide()" onmouseover="$('#link-184').show()" id="184" class="comment"><span class="name">Gregg Kellogg</span>: Linphone works well. <a id="link-184" style="display:none;" href="#184">✪</a></div>
+<div onmouseout="$('#link-185').hide()" onmouseover="$('#link-185').show()" id="185" class="comment"><span class="name">Robert Sanderson</span>: Okay, I think I have it set up. Will try next time. <a id="link-185" style="display:none;" href="#185">✪</a></div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>
