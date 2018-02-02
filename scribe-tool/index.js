@@ -229,7 +229,7 @@ async.waterfall([ function(callback) {
         '<p>All JSON-LD teleconferences are open to the public. Anyone may join and participate in the discussion. All teleconferences are announced at least 24 hours in advance on the <a href="http://lists.w3.org/Archives/Public/public-linked-json/">JSON-LD mailing list</a>.</p>' +
         '<ul>' +
          '<li><strong>Meetings:</strong> 1st and 3rd Mondays of each month</li>' +
-         '<li><strong>Time:</strong> 1800 UTC, 10am San Francisco, 1pm Boston, 6pm London</li>' +
+         '<li><strong>Time:</strong> 1600 UTC, 8am San Francisco, 11am Boston, 4pm London</li>' +
          '<li><strong>Where:</strong> Digital Bazaar JSON-LD Telecon Bridge, SIP: <a href="sip:json-ld@digitalbazaar.com">json-ld@digitalbazaar.com</a>, tel: +1.540.961.4469 x6303.</li>' +
          '<li><strong>IRC:</strong> <a href="irc://freenode.net/#json-ld">irc://freenode.net/#json-ld</a> (<a href="http://webchat.freenode.net?channels=json-ld">join via WebIRC</a>)</li>' +
          '<li><strong>Duration:</strong> 60 minutes</li>' +
