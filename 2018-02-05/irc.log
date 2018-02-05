@@ -1,0 +1,278 @@
+[2018-02-05T16:01:11.770Z]	<azaroth>	voip: 0025 is azaroth42
+[2018-02-05T16:01:23.501Z]	<azaroth>	voip: connections
+[2018-02-05T16:01:50.214Z]	<azaroth>	:(
+[2018-02-05T16:03:20.252Z]	<azaroth>	voip: connections
+[2018-02-05T16:03:47.553Z]	<iherman>	Trying to connect with linphone, it seems to do something but then breaks
+[2018-02-05T16:03:53.235Z]	<iherman>	Giving up...
+[2018-02-05T16:05:15.522Z]	<niklasl_>	I'm having rther choppy sound :/
+[2018-02-05T16:05:24.221Z]	<Victor_Charpenay>	hi! I tried to connect to the provided SIP addresses but all three time out.
+[2018-02-05T16:05:55.285Z]	<azaroth>	voip: connections
+[2018-02-05T16:06:09.425Z]	<niklasl_>	voip: 02a is me
+[2018-02-05T16:06:11.073Z]	<_workergnome>	I'm here, as well
+[2018-02-05T16:06:17.343Z]	<azaroth>	voip: 002f is bigbluehat
+[2018-02-05T16:06:25.567Z]	<Victor_Charpenay>	am I missing something?
+[2018-02-05T16:07:04.762Z]	<azaroth>	voip: 0028 is workergnome
+[2018-02-05T16:07:10.326Z]	<azaroth>	voip: connection
+[2018-02-05T16:07:12.150Z]	<azaroth>	voip: connections
+[2018-02-05T16:09:47.311Z]	<gkellogg>	scribe: bigbluehat
+[2018-02-05T16:10:14.440Z]	<bigbluehat>	Topic: Announcements: new playgrounds!
+[2018-02-05T16:10:26.375Z]	<gkellogg>	agenda: https://lists.w3.org/Archives/Public/public-linked-json/2018Feb/0000.html
+[2018-02-05T16:10:27.107Z]	<bigbluehat>	azaroth: you can now try out the in-progress 1.1 spec
+[2018-02-05T16:10:39.727Z]	<bigbluehat>	...gkellogg would you like to say more?
+[2018-02-05T16:10:50.806Z]	<bigbluehat>	gkellogg: I think there is an open question if we want to keep 1.0 playground as primary
+[2018-02-05T16:10:57.596Z]	<bigbluehat>	...or if we want to move to a single playground
+[2018-02-05T16:11:10.779Z]	<bigbluehat>	...regarding compatibility, the dev playground does work for all the specs
+[2018-02-05T16:11:15.759Z]	<bigbluehat>	...with the exception of Framing
+[2018-02-05T16:11:27.016Z]	<niklasl_>	q+
+[2018-02-05T16:11:31.060Z]	<gkellogg>	q+
+[2018-02-05T16:11:31.792Z]	<bigbluehat>	...but I'm working on that feature for the playground now
+[2018-02-05T16:11:37.232Z]	<bigbluehat>	azaroth: so. one playground or more
+[2018-02-05T16:11:50.967Z]	<azaroth>	q?
+[2018-02-05T16:12:03.497Z]	<bigbluehat>	...given the version compatibility scenario/compatibility, we might need to make it clear
+[2018-02-05T16:12:17.070Z]	<bigbluehat>	niklasl_: maybe just a visual switch in the interface
+[2018-02-05T16:12:17.808Z]	<azaroth>	ack niklasl_
+[2018-02-05T16:12:26.977Z]	<bigbluehat>	...so you can test them both in one playground, but switch between them
+[2018-02-05T16:13:03.215Z]	<bigbluehat>	niklasl_: I was thinking something similar
+[2018-02-05T16:13:11.597Z]	<niklasl_>	I type
+[2018-02-05T16:13:23.456Z]	<niklasl_>	I agree, something visual
+[2018-02-05T16:13:24.215Z]	<azaroth>	ack gkellogg
+[2018-02-05T16:13:41.233Z]	<niklasl_>	But a very clear "pending / in development" cue for 1.1 mode
+[2018-02-05T16:13:41.840Z]	<bigbluehat>	gkellogg: I'll point out that 1.1 is almost entirely compatible with 1.0
+[2018-02-05T16:13:58.908Z]	<bigbluehat>	...so unless you use new features in 1.1, you should have no trouble using a single playground
+[2018-02-05T16:14:06.346Z]	<bigbluehat>	...compacting IRIs is different
+[2018-02-05T16:14:22.219Z]	<bigbluehat>	...also, the playground does do sanity checking on definition keywords and container values
+[2018-02-05T16:14:25.538Z]	<azaroth>	q?
+[2018-02-05T16:14:26.707Z]	<bigbluehat>	...whereas the 1.0 spec did not
+[2018-02-05T16:14:36.535Z]	<bigbluehat>	...so I'm not sure that there's a value to switching between processors
+[2018-02-05T16:14:49.057Z]	<bigbluehat>	...maybe it would help someone to have the fallback to test things
+[2018-02-05T16:14:58.240Z]	<bigbluehat>	...but from the way a processor should operate, they should be the same
+[2018-02-05T16:15:10.786Z]	<bigbluehat>	azaroth: so. I ran into is issue #581
+[2018-02-05T16:15:54.254Z]	<bigbluehat>	...it's hard to understand the fallback handling
+[2018-02-05T16:16:28.112Z]	<bigbluehat>	gkellogg: so. maybe some switch in the HTML to invoke one version of the processor
+[2018-02-05T16:16:41.247Z]	<bigbluehat>	...there are two ways to turn on the mode
+[2018-02-05T16:16:50.062Z]	<bigbluehat>	...either the @version in the @context
+[2018-02-05T16:16:53.438Z]	<bigbluehat>	...or via the API
+[2018-02-05T16:17:02.506Z]	<bigbluehat>	...right now we're mostly talking about using the API to toggle it
+[2018-02-05T16:17:07.346Z]	<bigbluehat>	...to avoid using @version all the time
+[2018-02-05T16:17:23.517Z]	<bigbluehat>	...there are also other API flags we might want to expose also
+[2018-02-05T16:17:40.578Z]	<bigbluehat>	taaz: I do agree there's good stuff we can expose
+[2018-02-05T16:17:48.497Z]	<bigbluehat>	...but I would be concerned about it getting too complicated
+[2018-02-05T16:18:07.212Z]	<bigbluehat>	azaroth: sounds like everyone's +1 on a single playground, but with some way to make it user friendly for switching
+[2018-02-05T16:18:17.072Z]	<bigbluehat>	gkellogg: do we want to put an action or proposal out there?
+[2018-02-05T16:18:37.572Z]	<azaroth>	PROPOSAL: Have one playground that handles both 1.0 and 1.1 ; explore ways to make the processing mode as user friendly as possible
+[2018-02-05T16:18:40.683Z]	<azaroth>	+1
+[2018-02-05T16:18:46.430Z]	<taaz>	+1
+[2018-02-05T16:18:47.012Z]	<gkellogg>	+1
+[2018-02-05T16:18:49.283Z]	<bigbluehat>	+1
+[2018-02-05T16:18:52.580Z]	<niklasl_>	+1 (preferably with 1.0 as default until 1.1 is REC)
+[2018-02-05T16:19:20.119Z]	<azaroth>	RESOLVED: Have one playground that handles both 1.0 and 1.1 ; explore ways to make the processing mode as user friendly as possible
+[2018-02-05T16:19:59.336Z]	<bigbluehat>	azaroth: as niklasl_ said we should discuss default
+[2018-02-05T16:20:04.513Z]	<bigbluehat>	...I believe the default has to be 1.0
+[2018-02-05T16:20:15.242Z]	<bigbluehat>	...and you'd have to use UI or @version to toggle it on
+[2018-02-05T16:20:25.427Z]	<bigbluehat>	gkellogg: well. the way that the proposal was worded, it's a bit unclear
+[2018-02-05T16:20:39.595Z]	<bigbluehat>	...is it a 1.0 implementation and a UI to switch to a 1.1 implementation?
+[2018-02-05T16:20:51.325Z]	<bigbluehat>	...or is it a 1.1 implementation with a toggle to process the 1.0?
+[2018-02-05T16:21:20.511Z]	<niklasl_>	True. Yes, I think that'd be wise. (With a caveat about the default having the known 1.0 bugs perhaps...)
+[2018-02-05T16:21:35.686Z]	<bigbluehat>	azaroth: perhaps an amendment to the proposal would clarify it to a 1.1 implementation to a 1.0 default and the ability to toggle it
+[2018-02-05T16:21:47.931Z]	<_workergnome>	That sounds reasonable to me.
+[2018-02-05T16:22:38.787Z]	<azaroth>	PROPOSAL: (amendment) The playground handles 1.0 with a 1.0 implementation, rather than a 1.1 algorithm in 1.0 mode. 1.0 will be the default algorithm.
+[2018-02-05T16:22:42.657Z]	<bigbluehat>	azaroth: bigbluehat you had thoughts on evangelism?
+[2018-02-05T16:22:52.020Z]	<azaroth>	+1
+[2018-02-05T16:22:56.813Z]	<bigbluehat>	bigbluehat: we'd like to encourage folks to use 1.1, but not too quickly as they're still using 1.0 in the wild
+[2018-02-05T16:23:26.483Z]	<gkellogg>	+1
+[2018-02-05T16:23:39.099Z]	<niklasl_>	+1
+[2018-02-05T16:24:05.014Z]	<bigbluehat>	taaz: we'll have to make sure that's doable given namespace collisions
+[2018-02-05T16:24:23.570Z]	<bigbluehat>	gkellogg: could you just switch libraries as you can with switching HTML pages?
+[2018-02-05T16:25:00.117Z]	<bigbluehat>	taaz: possibly. it depends on the details, but we can sort those out if that's what's wanted
+[2018-02-05T16:25:21.448Z]	<bigbluehat>	azaroth: I'd suggest we move on to the other topics
+[2018-02-05T16:25:29.534Z]	<bigbluehat>	gkellogg: I would like to look at open pull requests on the call today
+[2018-02-05T16:25:39.179Z]	<bigbluehat>	Topic: Updates on the Charter
+[2018-02-05T16:25:48.495Z]	<bigbluehat>	azaroth: bigbluehat has volunteered to co-chair the group
+[2018-02-05T16:25:51.636Z]	<bigbluehat>	...should it be approved
+[2018-02-05T16:25:56.609Z]	<gkellogg>	https://json-ld.github.io/charter/
+[2018-02-05T16:25:57.487Z]	<bigbluehat>	...along with iherman as our staff contact
+[2018-02-05T16:26:20.362Z]	<bigbluehat>	...so far, there's not been much of an opportunity to step forward, but if anyone has a concern, please email me
+[2018-02-05T16:26:48.239Z]	<bigbluehat>	...assuming everything goes according to plan, we have our two chairs
+[2018-02-05T16:26:59.412Z]	<bigbluehat>	...so we can be sure we have enough folks to do calls and admin stuff
+[2018-02-05T16:27:01.896Z]	<bigbluehat>	...we have our editors
+[2018-02-05T16:27:04.987Z]	<bigbluehat>	...and a staff contact
+[2018-02-05T16:27:13.574Z]	<bigbluehat>	...it was announced to the Advisory Board (AB)
+[2018-02-05T16:27:24.892Z]	<bigbluehat>	...no one seemed to flinch or bat an eyelid, so it's so far so good
+[2018-02-05T16:27:32.646Z]	<bigbluehat>	...we have to work out the details of what, by when, and by whom
+[2018-02-05T16:27:44.108Z]	<bigbluehat>	...but it looks promising to become a WG in the not too distant future
+[2018-02-05T16:27:57.869Z]	<gkellogg>	https://github.com/json-ld/json-ld.org/wiki/Changes-in-Community-Group-Drafts-Targeted-for-1.1
+[2018-02-05T16:28:04.532Z]	<bigbluehat>	gkellogg: just a note to say the charter points to this wiki page
+[2018-02-05T16:28:10.845Z]	<bigbluehat>	...which explains the changes in the CG drafts
+[2018-02-05T16:28:34.846Z]	<bigbluehat>	azaroth: anything else we need to add here
+[2018-02-05T16:28:35.618Z]	<gkellogg>	https://github.com/json-ld/json-ld.org/pulls
+[2018-02-05T16:28:41.050Z]	<bigbluehat>	gkellogg: there are pull requests that need addressing
+[2018-02-05T16:28:46.021Z]	<bigbluehat>	...if we could add those to the agenda
+[2018-02-05T16:28:52.469Z]	<bigbluehat>	...along with the other open issues you highlighted
+[2018-02-05T16:29:24.835Z]	<bigbluehat>	...there is a longstanding PR on authorship
+[2018-02-05T16:33:15.822Z]	<azaroth>	Topic: https://github.com/json-ld/json-ld.org/pull/487
+[2018-02-05T16:29:35.575Z]	<azaroth>	https://github.com/json-ld/json-ld.org/pull/487 
+[2018-02-05T16:29:58.082Z]	<bigbluehat>	...issue #487 handles adding a few more authors based on contribution
+[2018-02-05T16:30:15.163Z]	<bigbluehat>	...it's something the group ultimately needs to decide on
+[2018-02-05T16:30:25.526Z]	<azaroth>	PROPOSAL: merge #487
+[2018-02-05T16:30:25.962Z]	<bigbluehat>	...the other ones are basically pulling through open PRs
+[2018-02-05T16:30:30.787Z]	<gkellogg>	+1
+[2018-02-05T16:30:41.570Z]	<azaroth>	+1
+[2018-02-05T16:30:51.461Z]	<niklasl_>	+1
+[2018-02-05T16:31:46.777Z]	<_workergnome>	apologies--have to drop off early.
+[2018-02-05T16:32:28.426Z]	<azaroth>	RESOLVED: merge #487
+[2018-02-05T16:32:54.197Z]	<gkellogg>	PR https://github.com/json-ld/json-ld.org/pull/573
+[2018-02-05T16:33:15.822Z]	<azaroth>	Topic: https://github.com/json-ld/json-ld.org/pull/573 
+[2018-02-05T16:33:16.466Z]	<bigbluehat>	gkellogg: this one's about relative IRIs in JSON-LD
+[2018-02-05T16:33:37.957Z]	<bigbluehat>	...this updates it to more clearly define them relative to the document
+[2018-02-05T16:33:42.768Z]	<bigbluehat>	...rather than relative to the vocabulary
+[2018-02-05T16:33:54.306Z]	<bigbluehat>	...the issue remains open, though, for dealing with vocab position
+[2018-02-05T16:34:01.482Z]	<bigbluehat>	...such as @type
+[2018-02-05T16:34:10.708Z]	<bigbluehat>	...that's been confusing for some folks coming from the RDF field
+[2018-02-05T16:34:19.652Z]	<bigbluehat>	...this PR clarifies the intention of what the documents say curently
+[2018-02-05T16:34:30.996Z]	<bigbluehat>	...and its been properly accepted by the people who raised the issue
+[2018-02-05T16:34:55.281Z]	<gkellogg>	Example <#foo>
+[2018-02-05T16:34:55.573Z]	<bigbluehat>	azaroth: so. for example.
+[2018-02-05T16:35:16.435Z]	<bigbluehat>	gkellogg: if you had something like <#foo> in Turtle that might be a property location relative to the document
+[2018-02-05T16:35:19.512Z]	<gkellogg>	{"#foo": "bar"}
+[2018-02-05T16:35:36.977Z]	<bigbluehat>	...you can't do that in JSON-LD where you might have {"#foo": "bar"}
+[2018-02-05T16:35:46.450Z]	<bigbluehat>	...and unless you've setup your vocabulary to handle that, it might be ignored
+[2018-02-05T16:36:03.086Z]	<bigbluehat>	...we might want to setup some text that describes what happens if a term starts with an IRI delimiter
+[2018-02-05T16:36:09.788Z]	<gkellogg>	"@vocab": "@base"
+[2018-02-05T16:36:14.032Z]	<bigbluehat>	...or a way to say the vocabulary base is the same as the document base
+[2018-02-05T16:36:33.346Z]	<bigbluehat>	...such as "@vocab": "@base"
+[2018-02-05T16:36:53.156Z]	<bigbluehat>	...but none of those concerns really need to prevent this PR, because this leaves the door open to more discussion
+[2018-02-05T16:36:58.091Z]	<bigbluehat>	...while still clarifying things
+[2018-02-05T16:37:04.744Z]	<niklasl_>	q+
+[2018-02-05T16:37:10.110Z]	<azaroth>	ack niklasl_
+[2018-02-05T16:37:16.547Z]	<bigbluehat>	azaroth: right, so this is a clarifying PR, not a change in functionality
+[2018-02-05T16:38:11.827Z]	<bigbluehat>	gkellogg: I'm trying to remember why we chose string concatenation vs. IRI processing
+[2018-02-05T16:33:15.822Z]	<azaroth>	Topic: https://github.com/json-ld/json-ld.org/pull/573
+[2018-02-05T16:38:57.462Z]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/488
+[2018-02-05T16:39:02.199Z]	<bigbluehat>	gkellogg: let's take that back to issue #488
+[2018-02-05T16:39:14.347Z]	<niklasl_>	Clarification: terms aren't *resolved* against vocab, they are string-concatenated.
+[2018-02-05T16:39:14.783Z]	<bigbluehat>	...so we can at least get the text inline with current behavior
+[2018-02-05T16:39:23.163Z]	<azaroth>	q?
+[2018-02-05T16:39:39.971Z]	<bigbluehat>	azaroth: any other questions?
+[2018-02-05T16:39:43.005Z]	<azaroth>	PROPOSAL: Merge #573
+[2018-02-05T16:39:44.432Z]	<niklasl_>	.... This because vocab can end with "#", and if we didn't concatenate, keys (and type values) would have to begin with a "#".
+[2018-02-05T16:39:45.050Z]	<azaroth>	+1
+[2018-02-05T16:39:47.347Z]	<gkellogg>	+1
+[2018-02-05T16:39:51.447Z]	<bigbluehat>	+1
+[2018-02-05T16:40:06.420Z]	<niklasl_>	+1 (with clarification on vocab concatenation)
+[2018-02-05T16:40:11.906Z]	<taaz>	+1
+[2018-02-05T16:40:21.769Z]	<azaroth>	RESOLVED: Merge #573
+[2018-02-05T16:40:42.402Z]	<niklasl_>	... This concatenation is equal to prefix handling in Trig/Turtle, RDFa and RDF/XML
+[2018-02-05T16:40:42.494Z]	<gkellogg>	PT https://github.com/json-ld/json-ld.org/pull/574
+[2018-02-05T16:40:53.369Z]	<bigbluehat>	Topic: https://github.com/json-ld/json-ld.org/pull/574
+[2018-02-05T16:41:14.541Z]	<bigbluehat>	gkellogg: this is about a document relative flag
+[2018-02-05T16:41:27.996Z]	<bigbluehat>	...it seems to be entirely editorial
+[2018-02-05T16:41:37.294Z]	<bigbluehat>	...and #575 is also editorial
+[2018-02-05T16:41:43.906Z]	<bigbluehat>	...trying to make it scan more easily for people
+[2018-02-05T16:41:49.456Z]	<bigbluehat>	...but does not change anything technically about it
+[2018-02-05T16:42:12.000Z]	<bigbluehat>	azaroth: take a quick look at #574
+[2018-02-05T16:42:18.281Z]	<bigbluehat>	...any objections?
+[2018-02-05T16:42:51.988Z]	<gkellogg>	ACTION: merge 574 and 575
+[2018-02-05T16:42:53.691Z]	<bigbluehat>	...similarly any objections to #575?
+[2018-02-05T16:43:08.982Z]	<bigbluehat>	...it does make things easier to read, so it'd be hard to object to :)
+[2018-02-05T16:43:18.796Z]	<bigbluehat>	Topic: https://github.com/json-ld/json-ld.org/pull/578
+[2018-02-05T16:43:44.654Z]	<bigbluehat>	gkellogg: this is to make the example match what actually happens
+[2018-02-05T16:43:52.787Z]	<bigbluehat>	...it gets closer, but it's still not quite there
+[2018-02-05T16:44:03.340Z]	<bigbluehat>	...as a positive side-effect this extracts the examples
+[2018-02-05T16:44:09.306Z]	<bigbluehat>	...which has value for use in the playground
+[2018-02-05T16:44:28.200Z]	<bigbluehat>	...there's also been discussion of using YAML instead of JSON
+[2018-02-05T16:44:50.963Z]	<bigbluehat>	azaroth: so this isn't even merely editorial, just infrastructure tweaks?
+[2018-02-05T16:44:53.453Z]	<bigbluehat>	gkellogg: correct
+[2018-02-05T16:44:58.394Z]	<bigbluehat>	azaroth: no actually content changes
+[2018-02-05T16:45:03.433Z]	<bigbluehat>	...so not sure we even need a proposal
+[2018-02-05T16:45:20.348Z]	<bigbluehat>	taaz: I have a question around why we're merging things like this?
+[2018-02-05T16:45:25.789Z]	<bigbluehat>	...vs. just using GitHub?
+[2018-02-05T16:45:42.279Z]	<bigbluehat>	gkellogg: well, it's about establishing process around how changes are made
+[2018-02-05T16:45:56.792Z]	<bigbluehat>	...if all of these had already had discussion and acceptance, then that'd be one thing
+[2018-02-05T16:46:14.667Z]	<bigbluehat>	...but this gives us a chance to get some feedback
+[2018-02-05T16:46:37.323Z]	<bigbluehat>	taaz: yeah...understand, but it just feels weird for the few of use that are here to confirm stuff already available online
+[2018-02-05T16:47:30.649Z]	<bigbluehat>	azaroth: mainly we're trying to keep things up-to-date, and processing things on the call helps push things forward
+[2018-02-05T16:47:39.128Z]	<bigbluehat>	...and re-enforces process
+[2018-02-05T16:47:49.078Z]	<bigbluehat>	...and as we move to a WG, it will become more important
+[2018-02-05T16:47:52.022Z]	<bigbluehat>	q+
+[2018-02-05T16:47:56.300Z]	<bigbluehat>	...does that help taaz ?
+[2018-02-05T16:48:04.618Z]	<bigbluehat>	taaz: yeah. it's fine, I guess
+[2018-02-05T16:48:14.974Z]	<bigbluehat>	gkellogg: yeah. it also goes back to the roll of the editor
+[2018-02-05T16:48:26.222Z]	<bigbluehat>	...if there's controversy, then the editor should seek to get it resolved
+[2018-02-05T16:48:37.650Z]	<azaroth>	ack bigbluehat
+[2018-02-05T16:48:40.743Z]	<bigbluehat>	...I do think it's helpful to get things discussed
+[2018-02-05T16:50:43.893Z]	<bigbluehat>	bigbluehat: maybe we could use milestones for the calls?
+[2018-02-05T16:50:52.718Z]	<bigbluehat>	...we could group the issues to be considered/closed in the milestone
+[2018-02-05T16:51:14.934Z]	<gkellogg>	ACTION: merge 578
+[2018-02-05T16:51:40.042Z]	<azaroth>	PROPOSAL: (process) Use github milestones to manage PRs (to try and merge) and Issues (to discuss)
+[2018-02-05T16:51:49.748Z]	<gkellogg>	+1
+[2018-02-05T16:51:52.757Z]	<azaroth>	+1
+[2018-02-05T16:51:53.379Z]	<bigbluehat>	+1
+[2018-02-05T16:51:58.951Z]	<taaz>	+1
+[2018-02-05T16:52:07.346Z]	<niklasl_>	+1
+[2018-02-05T16:52:25.973Z]	<azaroth>	RESOLVED: (process) Use github milestones to manage PRs (to try and merge) and Issues (to discuss)
+[2018-02-05T16:33:15.822Z]	<azaroth>	Topic: https://github.com/json-ld/json-ld.org/pull/582
+[2018-02-05T16:52:35.589Z]	<gkellogg>	PR https://github.com/json-ld/json-ld.org/pull/582
+[2018-02-05T16:53:28.461Z]	<bigbluehat>	gkellogg: this PR explains the spec text around framing
+[2018-02-05T16:53:36.777Z]	<bigbluehat>	...it doesn't change any of the substance in the framing document
+[2018-02-05T16:53:41.577Z]	<bigbluehat>	...it just moves it into the API document
+[2018-02-05T16:53:55.175Z]	<niklasl_>	q+
+[2018-02-05T16:54:02.950Z]	<bigbluehat>	azaroth: travis-ci isn't happy
+[2018-02-05T16:54:18.572Z]	<bigbluehat>	gkellogg: yes. that's because CI is applied and there's an issue with an earlier PR
+[2018-02-05T16:54:23.626Z]	<bigbluehat>	...I've since turned that off
+[2018-02-05T16:54:44.903Z]	<bigbluehat>	...we do hope to turn it back on
+[2018-02-05T16:54:48.035Z]	<taaz>	q+
+[2018-02-05T16:54:48.346Z]	<azaroth>	ack niklasl_
+[2018-02-05T16:54:48.963Z]	<bigbluehat>	...to validate examples and things
+[2018-02-05T16:55:10.280Z]	<bigbluehat>	niklasl_: I do have a concern about this making the API document longer
+[2018-02-05T16:56:40.853Z]	<niklasl_>	Sure
+[2018-02-05T16:56:42.169Z]	<azaroth>	ack taaz
+[2018-02-05T16:57:01.128Z]	<bigbluehat>	taaz: I may be repeating what niklasl_ has mentioned
+[2018-02-05T16:57:08.693Z]	<bigbluehat>	...is merging this going to cause problems for implementors?
+[2018-02-05T16:57:16.337Z]	<bigbluehat>	...what if someone doesn't want to include framing?
+[2018-02-05T16:57:21.455Z]	<niklasl_>	I've been a bit concerned that framing is a bit complex, and I've done alternate approaches in a couple of implementations
+[2018-02-05T16:57:29.828Z]	<bigbluehat>	...won't implementers need to include framing to pass validation?
+[2018-02-05T16:57:41.144Z]	<bigbluehat>	gkellogg: not sure there are any out there that don't support framing
+[2018-02-05T16:57:43.968Z]	<bigbluehat>	...google's maybe
+[2018-02-05T16:57:52.526Z]	<bigbluehat>	taaz: yeah. that's one of the key ones to be concerned about
+[2018-02-05T16:58:06.478Z]	<bigbluehat>	gkellogg: it might be useful to suggest different levels of conformance
+[2018-02-05T16:58:12.212Z]	<niklasl_>	rdflib-jsonld doesn't have one; it has a pending one which is simpler, it just "autoframes" based on @id
+[2018-02-05T16:58:28.294Z]	<bigbluehat>	...for instance, expansion and things are easier to implement without getting into compaction
+[2018-02-05T16:58:36.900Z]	<bigbluehat>	...so the bar is lower for integrating with RDF toolsets
+[2018-02-05T16:58:50.733Z]	<bigbluehat>	...and framing might be a feature that's beyond compaction
+[2018-02-05T16:59:14.248Z]	<bigbluehat>	azaroth: as niklasl_ says, one of the python implementations doesn't
+[2018-02-05T16:59:27.282Z]	<bigbluehat>	...and framing seems like a separate beast than compaction
+[2018-02-05T16:59:38.043Z]	<bigbluehat>	...I'm not -1, but I'm not sure we need to have a single API document
+[2018-02-05T17:00:06.330Z]	<bigbluehat>	gkellogg: the issues I was seeing were around options
+[2018-02-05T17:00:06.955Z]	<niklasl_>	Recall that e.g. redland (librdf) hasn't gone near json-ld because "too complex"
+[2018-02-05T17:00:15.674Z]	<bigbluehat>	...and having framing here means a single set of options for both
+[2018-02-05T17:00:40.010Z]	<bigbluehat>	...perhaps a way to handle it is through different levels of conformance
+[2018-02-05T17:00:40.742Z]	<bigbluehat>	q+
+[2018-02-05T17:00:49.196Z]	<azaroth>	ack bigbluehat
+[2018-02-05T17:00:53.042Z]	<niklasl_>	Really, it only needs expansion to get any json-ld into RDF, and it does only have to emit expanded json-ld to be useful for "full" json-ld processors...
+[2018-02-05T17:02:37.752Z]	<bigbluehat>	ack bigbluehat 
+[2018-02-05T17:02:39.845Z]	<gkellogg>	related issue https://github.com/json-ld/json-ld.org/issues/477
+[2018-02-05T17:02:55.191Z]	<bigbluehat>	bigbluehat: getting a gold star from the W3C via testing goes up with very MUST in the text
+[2018-02-05T17:02:57.434Z]	<azaroth>	PROPOSAL: Don't merge #582, resolve #477 as won't fix (with rationales from the call)
+[2018-02-05T17:03:04.923Z]	<bigbluehat>	gkellogg: so we need a counter proposal for not-merging
+[2018-02-05T17:03:10.841Z]	<gkellogg>	+0.5
+[2018-02-05T17:03:13.711Z]	<bigbluehat>	+1
+[2018-02-05T17:03:34.888Z]	<niklasl_>	+1 (we can still publish a separate framing doc for 1.1 REC if we want to, right?)
+[2018-02-05T17:03:48.818Z]	<gkellogg>	q+
+[2018-02-05T17:03:54.983Z]	<azaroth>	ack gkellogg
+[2018-02-05T17:04:01.660Z]	<bigbluehat>	azaroth: so, requirement in specs can cascade, but the testing tools don't get that conditional nature of the text
+[2018-02-05T17:04:17.954Z]	<bigbluehat>	...where "if you do section X, then you MUST do the following"
+[2018-02-05T17:04:20.812Z]	<azaroth>	RESOLVED: Don't merge #582, resolve #477 as won't fix (with rationales from the call)
+[2018-02-05T17:04:22.317Z]	<bigbluehat>	...the testing just doesn't map to that
+[2018-02-05T17:04:31.055Z]	<bigbluehat>	gkellogg: we should also then reconsider our charter text
+[2018-02-05T17:04:36.949Z]	<azaroth>	ACTION: Update the charter to explicitly call out framing as a deliverable
+[2018-02-05T17:04:40.520Z]	<bigbluehat>	...to make sure its clear which dcuments contain which thing
+[2018-02-05T17:05:04.901Z]	<bigbluehat>	azaroth: k. we're a bit past time, so off we go
+[2018-02-05T17:05:14.450Z]	<bigbluehat>	...gkellogg thanks so much for your work here!
+[2018-02-05T17:05:25.588Z]	<bigbluehat>	...and we'll also be looking into our voip options before next call
+[2018-02-05T17:05:33.434Z]	<bigbluehat>	...thanks everyone!
+[2018-02-05T17:05:44.462Z]	<azaroth>	Adjourn :)
+[2018-02-05T17:05:52.922Z]	<azaroth>	Oh, and thanks to Benjamin for scribing!
+[2018-02-05T17:05:59.828Z]	<bigbluehat>	you're welcome! :)
+[2018-02-05T17:06:04.431Z]	<bigbluehat>	azaroth: anything else you need from me?
+[2018-02-05T17:06:14.647Z]	<azaroth>	I don't think so
+[2018-02-05T17:06:28.868Z]	<azaroth>	I'll add the comment to #477 about rationale for wontfix
