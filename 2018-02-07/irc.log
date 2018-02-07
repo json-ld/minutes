@@ -1,0 +1,131 @@
+[2018-02-07T19:59:41.180Z]	<gkellogg>	voip: 09a is gkellogg
+[2018-02-07T19:59:41.180Z]	<gkellogg>	scribe: gkellogg
+[2018-02-07T19:59:41.180Z]	<gkellogg>	chair: manu
+[2018-02-07T20:00:09.737Z]	<gkellogg>	voip: 09a is pfrazee
+[2018-02-07T20:00:09.737Z]	<taaz>	present+
+[2018-02-07T20:03:07.500Z]	<gkellogg>	manu: asking pfrazee to give a background on Beaker
+[2018-02-07T20:04:02.141Z]	<gkellogg>	manu: we're fans of decentralizing things on the web, started Web Payments, which was supposed to be to allow people to be online with banking.
+[2018-02-07T20:04:20.031Z]	<gkellogg>	... How much overlap is there between Beaker's goals and other goals? Maybe more colab makes sense.
+[2018-02-07T20:04:41.378Z]	<gkellogg>	pfrazee: our focus starts with publishing, allowing people to publish without using a 3rd party service.
+[2018-02-07T20:05:17.637Z]	<gkellogg>	... From there, it's possible to create applications. The stack will grow over time, at the moment we're seeing how much we can get out of a DAT network.
+[2018-02-07T20:06:03.650Z]	<gkellogg>	... through that, you can build a class of applicaitons, such as social networking and office software. This has led to a couple of things, one which is like Twitter, but another deviates in UI.
+[2018-02-07T20:06:29.579Z]	<gkellogg>	... It's primarily a filesystem shared over the network, and activly watch the files for change. They can be any data you like, but we chose JSON.
+[2018-02-07T20:06:47.501Z]	<gkellogg>	... You follow each other by scanning JSON files for changes and then index to use as content.
+[2018-02-07T20:07:09.258Z]	<gkellogg>	... Eventually, we run into schema coordination issues. That's how we got to the JSON-LD conversation.
+[2018-02-07T20:07:36.706Z]	<manu>	voip: 9e is JamiePitts
+[2018-02-07T20:08:08.558Z]	<manu>	gkellogg: Hi, Gregg Kellogg, leading efforts for updates to JSON-LD 1.1
+[2018-02-07T20:08:28.686Z]	<manu>	gkellogg: There is a charter out for discussion wrt. W3C WG for JSON-LD
+[2018-02-07T20:09:17.320Z]	<manu>	gkellogg: This is certainly timely, encourage you to participate if you have input on JSON-LD, using IRC to log communications - these get turned into meeting notes. Standard practice for CGs and WGs. We encourage people with diverse backgrounds to collaborate to make best possible thing.
+[2018-02-07T20:10:47.670Z]	<gkellogg>	JamiePitts: I work at Etherium in devops, and represent them at the W3C. I'm working on a metadata project that involves JSON-LD. I'm interested in how you reach out to people on how they use it.
+[2018-02-07T20:10:49.280Z]	<manu>	jamiepitts: I work at Ethereum Foundation at Devops, intro to W3C. Working on a metadata project that involves JSON-LD, reach out to people on how it works, metadata general.
+[2018-02-07T20:11:33.441Z]	<gkellogg>	manu: I want to make sure we get to Paul's concerns.
+[2018-02-07T20:11:59.950Z]	<gkellogg>	... I did a readthrough of your README and design document (issue 820) and I believe I understand the problem space and your concernts.
+[2018-02-07T20:13:01.038Z]	<gkellogg>	... All of your design goals have a lot of overlap with JSON-LD. When we were putting the spec together we addressed many of the same problems. For about 20% I could see your concerns about JSON-LD, but for everything else, there's direct applicability.
+[2018-02-07T20:13:21.088Z]	<gkellogg>	... Perhaps there are some ways it's used that aren't obvious.
+[2018-02-07T20:14:01.253Z]	<gkellogg>	... The community tries to not push the spec too hard, but if it's not useful, we will try hard to address needs. But, at some point, it may be too different to adapt to goals.
+[2018-02-07T20:14:30.773Z]	<gkellogg>	... There is quite a bit of community input, so it does more than any one individual wants, but it addressed the needs of an important community.
+[2018-02-07T20:14:49.718Z]	<gkellogg>	... A lot of 1.1 work is based on community feedback.
+[2018-02-07T20:15:15.167Z]	<gkellogg>	... JSON-LD is used from between 10% to 19% of all domains on the internet (most probably for SEO).
+[2018-02-07T20:16:04.070Z]	<gkellogg>	... The other class of people using it tend to be data scientists and government open data. In these cases, getting the semantics right is crucial.
+[2018-02-07T20:16:37.876Z]	<gkellogg>	... In the worst case, you can at least learn from some of our experience.
+[2018-02-07T20:16:59.367Z]	<gkellogg>	pfrazee: I have a lot of respect for the time and effort put into JSON-LD.
+[2018-02-07T20:18:07.539Z]	<gkellogg>	... With this project, I talked with people to get opinions. People may have used RDF and really understood the value. Other people didn't see the utility and very much did not like it. So, there's an emotional reaction. I'm trying to understand real problems from perception.
+[2018-02-07T20:18:48.369Z]	<gkellogg>	... The requirements are somewhat unique; in the service of making publishing easy, we're also looking to make application development very easy and allow programming by view-source.
+[2018-02-07T20:19:17.040Z]	<gkellogg>	... Ease of use and understaning for programmers of all skill levels; we want people to have fun.
+[2018-02-07T20:19:36.270Z]	<gkellogg>	... We need to make sure we have the extensibility use case in mind always.
+[2018-02-07T20:19:55.424Z]	<manu>	voip: number?
+[2018-02-07T20:20:22.057Z]	<gkellogg>	... The expectation is that everyone may have their own client; everyone may  have their own datamodel. We may be refering to schemas always.
+[2018-02-07T20:21:14.043Z]	<gkellogg>	... Our observations are summarized in JSON-LZ (LaZy), which led to this call.
+[2018-02-07T20:21:35.961Z]	<cadorn>	looks like my client is not working; will listen to recording; thanks!
+[2018-02-07T20:22:01.151Z]	<gkellogg>	... We wanted to make sure the meta-data information did not need to be pre-meditated. People are probably not going to invest consistently and reliably, and may change things later.
+[2018-02-07T20:22:36.300Z]	<gkellogg>	... In that vein, I'm concerned about the need for up-front tooling. If we minimize the amount of tooling needed, that would be good, but it may be â€œpainted onâ€ later.
+[2018-02-07T20:23:19.460Z]	<gkellogg>	manu: What struck me is that it's the same design space. I can understand why someone using JSON-LD might think there needs to be a lot of up-front work, but that's not quite true.
+[2018-02-07T20:23:42.658Z]	<gkellogg>	... When we designed, we had JSON programmers in mind, and don't want to for people down the -LD route.
+[2018-02-07T20:24:18.384Z]	<gkellogg>	... E.g., if you look at the activity pub spec, you don't really need to have a defined vocabulary to use it.
+[2018-02-07T20:24:40.589Z]	<gkellogg>	... We couldn't do that in the base-JSON-LD spec, but it's something that other groups have done.
+[2018-02-07T20:25:15.318Z]	<gkellogg>	... So, for all data published by something like Beaker, you might assume a particular context. That might just define a namespace that things go to if not otherwise defined.
+[2018-02-07T20:25:38.384Z]	<gkellogg>	... This makes you compatibile with LD elsewhere. That allows you to be lazy in your approach.
+[2018-02-07T20:26:23.958Z]	<gkellogg>	... We have some non-profits and for-profits using JSON-LD. Usually when developing, the schema is the last thing we do. We're Mongo-DB based and we just start doing JSON datastructures. It's only at the end that we start locking things down.
+[2018-02-07T20:26:41.578Z]	<gkellogg>	... As we figure out the scope, we start to get more formal.
+[2018-02-07T20:28:02.259Z]	<gkellogg>	pfrazee: One thing I get a reaction from from people that don't come from RDF/LD is they don't understand the value proposition. A way to short-circuit that might be to use a mechanism similar to the Link header to specify the context to allow it to be painted on externally.
+[2018-02-07T20:28:31.840Z]	<gkellogg>	... This could allow metadata without syntax. and allows complicated information to be separated and documents to avoid boilerplate.
+[2018-02-07T20:29:07.330Z]	<gkellogg>	manu: In the beginning, we got feedback about squatting on different names, which is where the â€œ@â€œ syntax came from, but people say that don't like that.
+[2018-02-07T20:29:27.058Z]	<gkellogg>	... We address that through keyword aliases to, for example, alias â€œ@idâ€ to â€œidâ€. Just not for @context.
+[2018-02-07T20:29:38.870Z]	<gkellogg>	... But the Link header addresses that.
+[2018-02-07T20:29:53.560Z]	<gkellogg>	... Or, it can be specified as part of the specification.
+[2018-02-07T20:30:52.321Z]	<gkellogg>	... The other thing is that people don't like namespaces. It's debatable, but people don't want to see compact IRIs. JSON-LD allows prefixing, but doesn't require it. RDF folks get the namespacing, but others can completely avoid it by sticking to terms.
+[2018-02-07T20:31:17.244Z]	<gkellogg>	... Things with â€œ.â€ or â€œ:â€ in the names are problematic, but the context allows you to get around these.
+[2018-02-07T20:32:14.505Z]	<gkellogg>	pfrazee: The aliasing is quite close to what we need. You can individuallly alias terms to namespaces, but to do it at a broad stroke requires prefixing. Otherwise, you need to define each term.
+[2018-02-07T20:32:20.591Z]	<gkellogg>	manu: @vocab allows that.
+[2018-02-07T20:33:24.432Z]	<manu>	gkellogg: THere is a change in 1.1, that allows scoped contexts... allows data from diferent locations. In one place you might have something like "identifier" that means something particlar, but now you go into some other property... you can previously solve via inline context, but now you can do w/ scoped context.
+[2018-02-07T20:34:03.926Z]	<manu>	gkellogg: You can set @vocab to schema.org, or you can do @vocab to foaf... that's something that's a way to use the vocabulary mechanism, but have it logically resolve to different namespaces w/o having data users deal w/ it.
+[2018-02-07T20:34:30.397Z]	<gkellogg>	https://json-ld.org/spec/latest/json-ld/#scoped-contexts
+[2018-02-07T20:34:51.752Z]	<manu>	pfrazee: The solution I was looking at is a globbing pattern, it has the advantage of painting over multiple different attributes w/o having different applications.
+[2018-02-07T20:35:30.870Z]	<gkellogg>	manu: that came up when working on JSON-LD vocab stuff. the danger was people stomping over too much data. Regexps are hard.
+[2018-02-07T20:35:55.258Z]	<gkellogg>	... Because the focus was on getting the semantics right, we chose to not go there. As a consequence, contexts can get large.
+[2018-02-07T20:36:24.692Z]	<gkellogg>	... But in practice, the amount you need tends to be pretty small. For example, look at Activity Pub, they just define a handfull of terms.
+[2018-02-07T20:36:43.520Z]	<gkellogg>	... Schema.org, on the otherhand, defines many terms, as there's a single flat namespace.
+[2018-02-07T20:37:12.652Z]	<gkellogg>	... I understand the desire to use globbing to reduce the size of the context, but in practice, it tends not to be a problem.
+[2018-02-07T20:38:00.813Z]	<gkellogg>	... If we brought up globbing patterns in 1.1, we'd probably hit the same problems. Why not just write the context once without using globbing.
+[2018-02-07T20:38:26.451Z]	<gkellogg>	pfrazee: I understand your argument, but if it were possible, engineers would appriciate it.
+[2018-02-07T20:38:42.117Z]	<gkellogg>	... I wouldn't make it a blocker, but please keep it in your mind.
+[2018-02-07T20:39:09.790Z]	<manu>	gkellogg: The way the group thinks about it is by managing issues and through community engagement. I'd encourage you to file an issue and start a dialogue.
+[2018-02-07T20:40:09.944Z]	<manu>	gkellogg: I share Manu's concern around potential complexity around globbing. From a standards perspective, you get into what the regex syntax is, whose regex lib are you going to use. Avoiding that as a practical perspective is useful. Prefixes directly address that issue, but they may not be paletable. Maybe there is a middle ground here.
+[2018-02-07T20:40:30.897Z]	<manu>	gkellogg: I think the group has been quite open to trying to address these problems over time.
+[2018-02-07T20:40:42.930Z]	<manu>	pfrazee: Happy to open an issue and continue conversation there.
+[2018-02-07T20:40:54.938Z]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/
+[2018-02-07T20:41:21.742Z]	<manu>	gkellogg: That's where issues are right now, may move it out to CG and spec in a bit. 
+[2018-02-07T20:42:12.246Z]	<gkellogg>	pfrazee: I'd like to look for a subset of tools that I could bundle together from the community. We could look at prefixes later.
+[2018-02-07T20:43:24.709Z]	<manu>	gkellogg: yes, that's what a lot of other groups do... limit JSON-LD to particular dialect. Work on publishing CSV as Linked Data, uses a descriptor format as JSON-LD, but to get to some of the extensibility bits, you can add arbitrary JSON-LD in various locations, but stick to dialect.
+[2018-02-07T20:43:26.658Z]	<gkellogg>	... That can reduce the load on developers
+[2018-02-07T20:43:54.651Z]	<gkellogg>	manu: there have been people that use JSON-LD as a back-end language and work through a library. Actual publication happens out of a library.
+[2018-02-07T20:44:20.358Z]	<gkellogg>	... or, reverse domain notation, instead of colons.
+[2018-02-07T20:44:37.933Z]	<gkellogg>	... You can always handle these in a library and output JSON-LD in the backend.
+[2018-02-07T20:44:54.242Z]	<gkellogg>	... As a result, you can transform between different dialects.
+[2018-02-07T20:45:24.911Z]	<gkellogg>	pfrazee: Should vocabularies use URL identifiers? I imagine it's been discussed before.
+[2018-02-07T20:46:00.076Z]	<gkellogg>	... I want people to be free to make extensions to schemas, which may imply that they need to set up documents to maintain for very common tasks.
+[2018-02-07T20:46:30.382Z]	<gkellogg>	... dispite the advantages of URIs, there's something to be said for simply long strings.
+[2018-02-07T20:47:18.519Z]	<gkellogg>	manu: When we started, we though we might hard-code some common schemas, but we ultimately came to URLs as publishing is easy, but may still be too high a barrior.
+[2018-02-07T20:47:48.309Z]	<gkellogg>	... URLs don't have to be HTTP, they could be dat, or otherthings.
+[2018-02-07T20:48:04.077Z]	<gkellogg>	... Make up names and start using, then publish later.
+[2018-02-07T20:48:52.172Z]	<gkellogg>	... in JSON-LD processors, you can overload how documents are found, so a small shim can allow you to specify a new way of looking up things. This give you a kind of schema mechanism.
+[2018-02-07T20:50:30.932Z]	<manu>	gkellogg: You can use URNs today... you can even use bnodes... fundamentally it's an IRI. You don't need to be able to resolve/download. JSON-LD is an enabling technology for that, not an enforcing technology. DAT is just fine. URN is just fine Anything you want to use for that purpose. It might actually be something that is potentially dereferenceable.
+[2018-02-07T20:50:52.044Z]	<manu>	gkellogg: You may start off w/ something that's dereferenceable, describe a vocabulary, describe metadata on it.
+[2018-02-07T20:51:19.406Z]	<gkellogg>	pfrazee: if there was just a string used that didn't resolve, what would happen.
+[2018-02-07T20:51:32.218Z]	<gkellogg>	manu: then, you wouldn't know how to dereference in the future.
+[2018-02-07T20:51:49.519Z]	<gkellogg>	... You don't want to get into a possition where you don't know what protocol to use.
+[2018-02-07T20:53:02.911Z]	<manu>	gkellogg: THere have been some other things that have been talked about... document-relative properties... it's kind of a hard core RDF issue. Got a document that describe itself, why can't properties used in there relative to the document? Something we might add into 1.1 - fragment identifier that is looked up in the document.
+[2018-02-07T20:53:46.318Z]	<manu>	gkellogg: Another thing - property that is a URI that is not a property... nothing restricts you from doing that. Once you make use of JSON-LD algorithms, compact/expand/turn into RDF - URI pattern, in danger of being lost. 
+[2018-02-07T20:54:18.073Z]	<manu>	gkellogg: Surface syntax compatible w/ JSON-LD, useful as JSON. It does have long term consequences, that's why we use IRIs, that's why it ends up being a best practice.
+[2018-02-07T20:55:58.766Z]	<manu>	gkellogg: when testing, having terms relative to doc, have a message that is arbitrary properties, properties can't logically be the same. RDF allows you to make two properties similar... cool semantics that can be relied on when you get to reasoning. But that's a bit cart before the horse. First step is get people to publish what they mean. THey should use well known identifiers. If there are things that are document specific, use document stuff. Lib
+[2018-02-07T20:55:58.912Z]	<manu>	rary/framework specific, do that. You can go back and make "sameAs" assertions on URNs as well. But you can't dereference.
+[2018-02-07T20:56:36.519Z]	<gkellogg>	pfrazee: I'm not sure engineers will take time to publish schemas, you could use DAT, but if you use something that isn't maintained, the URL gets lost.
+[2018-02-07T20:56:58.238Z]	<gkellogg>	... We could push them to use short names, but then you're getting into a higher level of expectation.
+[2018-02-07T20:57:51.293Z]	<gkellogg>	manu: I don't think the standard workflow is that they must publish a context. We're saying, let's try to figure out a way so they don't have to do that. Perhaps a global context that things fall into while you're playing around. Only when you need interoperability do you cross that bridge.
+[2018-02-07T20:58:40.325Z]	<gkellogg>	... The only people that really end up publishing contexts and vocabularies are people that understand the semantics and data modeling. I don't think it would be good to count on your community to do that.
+[2018-02-07T20:59:09.567Z]	<gkellogg>	pfrazee: original web browsers were forgiving about HTML, which is what I want to see here.
+[2018-02-07T20:59:35.187Z]	<gkellogg>	manu: that's the thinking that went into JSON-LD. Developers should be able to not care and have fun and progressively enhance their data.
+[2018-02-07T20:59:48.018Z]	<gkellogg>	... It's only when interoperability is an issue that something should be published.
+[2018-02-07T21:00:07.825Z]	<gkellogg>	... Then, other developers either need to add something, or the framework does it for them.
+[2018-02-07T21:00:41.900Z]	<gkellogg>	pfrazee: I may open up an issue on IRIs, and start an issue on globbing.
+[2018-02-07T21:00:57.570Z]	<gkellogg>	... I'll let the tooling conversation playout online.
+[2018-02-07T21:01:49.752Z]	<gkellogg>	manu: There's a big group trying to decentralize the web (identifiers, credentials, ...). What they have in common is JSON-LD and Linked Data. We're trying to do it in a non-invasive way.
+[2018-02-07T21:02:32.810Z]	<gkellogg>	... I understand the knee-jerk reaction to RDF/Linked Data, and it's hard to get across to developers that haven't been involved in it. THe problem is, the more decentralized you get, the less assurance you have in the data that's consumed.
+[2018-02-07T21:03:36.968Z]	<gkellogg>	... We've been hitting the limits of JSON, either you need to create specific APIs for everything, or you you go to data interoperability and use common tooling; otherwise, we're always needing to create a specific solution for each problem, which doesn't scale.
+[2018-02-07T21:03:58.961Z]	<gkellogg>	... We're trying to make data-publishing easier.
+[2018-02-07T21:04:30.649Z]	<gkellogg>	... JSON is the dataformate people use now, but 10 years ago it was XML, now people are using CBOR. The benefit of JSON-LD is that you can transform between different syntaxes.
+[2018-02-07T21:05:02.277Z]	<gkellogg>	... When you express data, you can sign it independent of the actual serialization format. This creates forward extensibility.
+[2018-02-07T21:05:35.479Z]	<gkellogg>	... The downside is that it's a bit more complicated. JSON-LD tries to hide this complexity.
+[2018-02-07T21:05:57.467Z]	<gkellogg>	... We're moving to genric signing libraries.
+[2018-02-07T21:06:12.997Z]	<gkellogg>	... We're all in this for the same thing, to give people more power.
+[2018-02-07T21:06:26.568Z]	<gkellogg>	... decentralized systems are harder to build than centralized systems.
+[2018-02-07T21:07:26.317Z]	<gkellogg>	pfrazee: the question is how important precision is. Some of the communities are good with duck-typing, and don't want to worry about looking-forward solutions, but just be good enough.
+[2018-02-07T21:07:54.158Z]	<gkellogg>	... I feel optimistic we can make something happen.
+[2018-02-07T21:08:35.888Z]	<gkellogg>	manu: we're happy to jump in and provide feedback, and you might join the linked-data mailing list.
+[2018-02-07T21:08:37.098Z]	<gkellogg>	https://lists.w3.org/Archives/Public/public-lod/
+[2018-02-07T21:09:19.025Z]	<gkellogg>	... I also want to invite you to join the Web of Trust community.
+[2018-02-07T21:09:49.526Z]	<gkellogg>	... that community knows about secure-scuttlebutt, and they're people that write code to make things work.
+[2018-02-07T21:10:29.626Z]	<manu>	voip: connections?
+[2018-02-07T21:10:31.378Z]	<gkellogg>	agenda: https://lists.w3.org/Archives/Public/public-linked-json/2018Feb/0003.html
+[2018-02-07T21:10:36.484Z]	<manu>	voip: disconnect 9b
+[2018-02-07T21:10:42.643Z]	<manu>	voip: disconnect 9e
