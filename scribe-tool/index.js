@@ -230,7 +230,7 @@ async.waterfall([ function(callback) {
         '<ul>' +
          '<li><strong>Meetings:</strong> generally every other week</li>' +
          '<li><strong>Time:</strong> 1600 UTC, 8am San Francisco, 11am Boston, 4pm London</li>' +
-         '<li><strong>Where:</strong> <a href="https://getty.webex.com/getty/j.php?MTID=mb5aa0f737233e3ab2d085b44a2c2798d" target="_blank">WebEx</a> <dl><dt>Meeting number (access code):</dt><dd>624 671 489</dd><dt>Meeting password:</dt><dd>framing</dd><dt>Join by phone:</dt><dd>1-877-668-4493 Call-in toll-free number (US/Canada)</dd><dd>1-650-479-3208 Call-in toll number (US/Canada)</dd></dl></li>' +
+         '<li><strong>Where:</strong> <a href="https://getty.webex.com/getty/j.php?MTID=mac165a04deeeb5472390179711ce79f9" target="_blank">WebEx</a> <dl><dt>Meeting number (access code):</dt><dd>629 409 841</dd><dt>Meeting password:</dt><dd>framing</dd><dt>Join by phone:</dt><dd>1-877-668-4493 Call-in toll-free number (US/Canada)</dd><dd>1-650-479-3208 Call-in toll number (US/Canada)</dd></dl></li>' +
          '<li><strong>IRC:</strong> <a href="irc://freenode.net/#json-ld">irc://freenode.net/#json-ld</a> (<a href="http://webchat.freenode.net?channels=json-ld">join via WebIRC</a>)</li>' +
          '<li><strong>Duration:</strong> 60 minutes</li>' +
          '</ul>' +
