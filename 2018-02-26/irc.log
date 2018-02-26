@@ -1,0 +1,215 @@
+[2018-02-26T16:13:05.821Z]	<bigbluehat> ...and it'd be good to have them wrapped up as much as possible before voting ends
+[2018-02-26T16:13:05.821Z]	<bigbluehat> ...technical issues can stay open, for the WG to address after it's official
+[2018-02-26T16:13:05.821Z]	<bigbluehat> ...but the chairs and staff will need to discuss specifics of the issues list
+[2018-02-26T16:13:05.821Z]	<gkellogg> topic: Pull Requests
+[2018-02-26T16:13:05.821Z]	<bigbluehat> gkellogg: there are 3 open PRs that are under consideration
+[2018-02-26T16:13:05.821Z]	<bigbluehat> ...2 are pretty straightforward
+[2018-02-26T16:13:05.821Z]	<bigbluehat>	...unless someone wants to discuss these more now, I'm going to propose that we'll adopt them now
+[2018-02-26T16:13:22.114Z]	<gkellogg>	PROPOSAL: accept PR #594 and #593
+[2018-02-26T16:13:33.442Z]	<gkellogg>	+1
+[2018-02-26T16:13:40.892Z]	<azaroth>	+1
+[2018-02-26T16:13:42.539Z]	<iherman>	0 (I have not looked at them:-(
+[2018-02-26T16:13:48.550Z]	<niklasl>	+1 (with caveat that I haven't really looked at 593)
+[2018-02-26T16:13:51.612Z]	<PaoloC>	0
+[2018-02-26T16:13:51.883Z]	<TallTed>	+0
+[2018-02-26T16:14:11.690Z]	<bigbluehat>	https://github.com/json-ld/json-ld.org/pull/593
+[2018-02-26T16:14:18.656Z]	<bigbluehat>	...Update the Expansion Algorithm to use an explicit _frame expansion_ flag
+[2018-02-26T16:14:28.972Z]	<bigbluehat>	https://github.com/json-ld/json-ld.org/pull/594
+[2018-02-26T16:14:37.606Z]	<bigbluehat>	Fix compaction on scoped contexts based on @type
+[2018-02-26T16:15:13.219Z]	<bigbluehat>	+1
+[2018-02-26T16:15:18.326Z]	<gkellogg>	RESOLVED: accept PR #94 and #593
+[2018-02-26T16:15:30.086Z]	<bigbluehat>	gkellogg: we can always look at these more in the future
+[2018-02-26T16:15:37.069Z]	<bigbluehat>	Topic: Issues
+[2018-02-26T16:15:42.840Z]	<gkellogg>	topic: #488 Properties can not be relative IRI
+[2018-02-26T16:15:45.387Z]	<bigbluehat>	...TallTed is here to talk relative IRI resolution
+[2018-02-26T16:16:10.719Z]	<bigbluehat>	TallTed: the basic point is that we want to be able to use JSON-LD in the same way we use Turtle
+[2018-02-26T16:16:22.575Z]	<gkellogg>	https://github.com/json-ld/json-ld.org/issues/488
+[2018-02-26T16:16:39.933Z]	<bigbluehat>	...current the difference between the two formats handling of URIs is odd to say the least
+[2018-02-26T16:16:49.036Z]	<bigbluehat>	...especially the difference between property and values
+[2018-02-26T16:17:13.944Z]	<bigbluehat>	gkellogg: RDFa has a vocab attribute that works to make values relative
+[2018-02-26T16:17:23.734Z]	<bigbluehat>	...perhaps niklas's memory on this would be helpful
+[2018-02-26T16:17:43.648Z]	<bigbluehat>	...I believe we'd talked about relative URIs using concatenation rather than RFC3986's IRI resolution
+[2018-02-26T16:17:48.958Z]	<iherman>	q+
+[2018-02-26T16:17:59.013Z]	<gkellogg>	q?
+[2018-02-26T16:18:07.644Z]	<bigbluehat>	...and there was concern of undesirable effects
+[2018-02-26T16:18:53.602Z]	<bigbluehat>	niklasl: the confusion might be cleared up with the understanding that the value of keys is like pnames in turtle
+[2018-02-26T16:19:03.391Z]	<bigbluehat>	...and the value space of @id is similar to the < > space in turtle
+[2018-02-26T16:19:27.995Z]	<bigbluehat>	...with the caveat of the @type value...which maps to the short names of types in Turtle
+[2018-02-26T16:19:47.662Z]	<bigbluehat>	...consequently I'm not sure I quite see the conflict
+[2018-02-26T16:20:02.701Z]	<bigbluehat>	...if you don't use string concatenation, then you can't use anything ending in a #
+[2018-02-26T16:20:15.815Z]	<bigbluehat>	...because it doesn't survive the relativization process
+[2018-02-26T16:20:26.263Z]	<bigbluehat>	TallTed: I can see that it doesn't have a zero basis
+[2018-02-26T16:20:31.253Z]	<bigbluehat>	...but I fear the confusion will persist
+[2018-02-26T16:20:34.164Z]	<bigbluehat>	...and not just for us
+[2018-02-26T16:20:37.317Z]	<gkellogg>	q+
+[2018-02-26T16:20:38.751Z]	<bigbluehat>	...I understand the arguments
+[2018-02-26T16:20:50.013Z]	<bigbluehat>	...we'd like to express the same thing with a JSON-LD doc as a Turtle doc
+[2018-02-26T16:20:52.941Z]	<bigbluehat>	...that's what we need
+[2018-02-26T16:21:03.110Z]	<bigbluehat>	...and that relative URI is what we feel we need to do that
+[2018-02-26T16:21:23.120Z]	<gkellogg>	ack: iherman
+[2018-02-26T16:21:28.883Z]	<bigbluehat>	...that thing that makes it trivial to throw up a document without knowing the full URIs before you put it on the Web
+[2018-02-26T16:21:40.108Z]	<bigbluehat>	iherman: can you put an example where JSON-LD is different than Turtle
+[2018-02-26T16:21:55.182Z]	<bigbluehat>	https://github.com/json-ld/json-ld.org/issues/488
+[2018-02-26T16:22:10.886Z]	<bigbluehat>	niklasl: I believe the examples are linked from issue #488
+[2018-02-26T16:22:26.248Z]	<gkellogg>	For example, <#relative>
+[2018-02-26T16:22:57.863Z]	<bigbluehat>	gkellogg: I think it's relatively understood that it's defined relative to the document base
+[2018-02-26T16:23:06.982Z]	<TallTed>	https://github.com/digitalbazaar/jsonld.js/pull/225#issuecomment-361353162
+[2018-02-26T16:23:12.590Z]	<bigbluehat>	...and JSON-LD does not provide for that...well...it does, but in an unusual way
+[2018-02-26T16:23:21.023Z]	<bigbluehat>	...you can define @vocab and define properties relative to that
+[2018-02-26T16:23:30.584Z]	<niklasl>	"prop" {"@id": "some/path"} == :prop <some/path> != <prop> and <some/path> 
+[2018-02-26T16:23:31.496Z]	<bigbluehat>	...but there's no way to say that @vocab space is the same as document space
+[2018-02-26T16:23:32.796Z]	<gkellogg>	"@vocab": "@base"
+[2018-02-26T16:23:53.104Z]	<bigbluehat>	niklasl: the problem is that if you don't have a hash
+[2018-02-26T16:24:09.488Z]	<bigbluehat>	...the link I just posed has 2 different JSON markups
+[2018-02-26T16:24:30.564Z]	<bigbluehat>	niklasl: the problem is that if you don't have a hash/TallTed: the problem is that if you don't have a hash
+[2018-02-26T16:24:50.486Z]	<bigbluehat>	...so if the solution is just to put in the @vocab of "empty"...
+[2018-02-26T16:25:05.944Z]	<bigbluehat>	gkellogg: well...that wouldn't work because it's not resolved relative to the document base when empty
+[2018-02-26T16:25:18.304Z]	<bigbluehat>	...so we need some way of mapping @vocab to the document base
+[2018-02-26T16:25:28.079Z]	<gkellogg>	q?
+[2018-02-26T16:25:28.234Z]	<bigbluehat>	...which is why we've discussed @vocab: @base
+[2018-02-26T16:25:34.756Z]	<gkellogg>	ack: gkellogg
+[2018-02-26T16:25:57.976Z]	<bigbluehat>	gkellogg: my propose way of fixing this is to use @vocab: @base
+[2018-02-26T16:26:05.743Z]	<bigbluehat>	...to tie the vocab space to the document space
+[2018-02-26T16:26:24.067Z]	<niklasl>	q+
+[2018-02-26T16:26:32.696Z]	<bigbluehat>	...when that is done, then the IRI resolution switches from concatenation to IRI resolution from RFC3986
+[2018-02-26T16:26:34.045Z]	<gkellogg>	ack: niklasl
+[2018-02-26T16:26:46.218Z]	<bigbluehat>	https://tools.ietf.org/html/rfc3986
+[2018-02-26T16:27:08.872Z]	<bigbluehat>	niklasl: well, it gets complicated with #'s doesn't it?
+[2018-02-26T16:27:22.984Z]	<bigbluehat>	gkellogg: well, in Kingsley's example he was using hash relative ones
+[2018-02-26T16:27:42.559Z]	<bigbluehat>	...if it started with a hash, then it'd be fine
+[2018-02-26T16:27:50.418Z]	<bigbluehat>	...if it ended with a hash, then you'd end up with 2 hashes
+[2018-02-26T16:28:13.284Z]	<bigbluehat>	...however, if you used @vocab: @base, then it might replace the last hash component
+[2018-02-26T16:28:36.632Z]	<bigbluehat>	niklasl: I don't quite see the use case
+[2018-02-26T16:28:44.977Z]	<bigbluehat>	...it feels more academic than industrial
+[2018-02-26T16:28:57.574Z]	<bigbluehat>	TallTed: well, since this is driven by an industrial need
+[2018-02-26T16:29:04.854Z]	<bigbluehat>	niklasl: so in Turtle you do this now?
+[2018-02-26T16:29:06.660Z]	<bigbluehat>	TallTed: yes.
+[2018-02-26T16:29:13.726Z]	<bigbluehat>	niklasl: do you have an example you can publish?
+[2018-02-26T16:29:18.460Z]	<iherman>	q+
+[2018-02-26T16:29:39.853Z]	<gkellogg>	http://kingsley.idehen.net/public_home/kidehen/Public/Linked%20Data%20Documents/Nanotations/basic-test2.txt
+[2018-02-26T16:29:44.036Z]	<bigbluehat>	TallTed: not as such. but if you look at the pages we publish we have embedded Turtle, and we'd like JSON-LD islands also
+[2018-02-26T16:29:53.432Z]	<bigbluehat>	...it forces use to know where the page will live prior to publication
+[2018-02-26T16:30:08.010Z]	<bigbluehat>	...this is a little bit hand wavy, because it's not currently possible to do this
+[2018-02-26T16:30:16.983Z]	<bigbluehat>	...but ideally, someone can author a page
+[2018-02-26T16:30:29.738Z]	<bigbluehat>	...make some link data statements in various ways that are relative to that page
+[2018-02-26T16:30:38.484Z]	<bigbluehat>	...and in the Turtle space this works fine and has for years
+[2018-02-26T16:30:48.971Z]	<bigbluehat>	...but when we went to do this in JSON-LD, things got complicated
+[2018-02-26T16:31:02.018Z]	<bigbluehat>	niklasl: k. I can see that. but I still don't see the criticality of it
+[2018-02-26T16:31:13.594Z]	<bigbluehat>	...we really need to consider the implications of a change like this
+[2018-02-26T16:31:24.346Z]	<bigbluehat>	...I think it's more author for an author to be explicity
+[2018-02-26T16:31:27.372Z]	<gkellogg>	q?
+[2018-02-26T16:31:30.971Z]	<bigbluehat>	...but it's just opinion and not fact
+[2018-02-26T16:31:44.328Z]	<bigbluehat>	TallTed: well, consider you're authoring in an Intranet
+[2018-02-26T16:31:58.925Z]	<bigbluehat>	...and using author storage space IRIs
+[2018-02-26T16:32:13.762Z]	<bigbluehat>	...and when it comes time to publish, then all the embedded IRIs need updating
+[2018-02-26T16:32:15.144Z]	<gkellogg>	ack: iherman
+[2018-02-26T16:32:31.730Z]	<bigbluehat>	iherman: so. wearing my old semantic web hat
+[2018-02-26T16:32:48.766Z]	<bigbluehat>	...I think it's a bad idea if Turtle's expressivity and JSON-LD expressivity differ
+[2018-02-26T16:33:01.788Z]	<bigbluehat>	...I don't really care about RDF/XML...peace upon it
+[2018-02-26T16:33:10.464Z]	<bigbluehat>	...but Turtle is the format of the Semantic Web community
+[2018-02-26T16:33:17.805Z]	<bigbluehat>	...and JSON-LD can do well to learn from it
+[2018-02-26T16:33:40.588Z]	<bigbluehat>	...I do think it's a problem if there are too many similar, but incompatible serializations of RDF
+[2018-02-26T16:33:53.298Z]	<bigbluehat>	gkellogg: I think we can split my proposal into 2 parts
+[2018-02-26T16:33:57.171Z]	<bigbluehat>	...@vocab: @base
+[2018-02-26T16:34:13.589Z]	<bigbluehat>	...and separate from that is the way we construct IRIs using that
+[2018-02-26T16:34:27.172Z]	<bigbluehat>	...it's equally confusing if we use 2 IRI resolution systems
+[2018-02-26T16:34:40.390Z]	<bigbluehat>	...or conversely if we use string concat as with everywhere else
+[2018-02-26T16:34:56.262Z]	<bigbluehat>	iherman: @base is the document IRI if not redefined?
+[2018-02-26T16:35:01.587Z]	<bigbluehat>	...like in Turtle?
+[2018-02-26T16:35:04.036Z]	<bigbluehat>	gkellogg: yes.
+[2018-02-26T16:35:17.196Z]	<bigbluehat>	iherman: TallTed would that work as a solution?
+[2018-02-26T16:35:31.933Z]	<bigbluehat>	TallTed: I believe so, yes
+[2018-02-26T16:35:40.746Z]	<bigbluehat>	gkellogg: as always the devil's in the details
+[2018-02-26T16:36:01.034Z]	<bigbluehat>	...the bigger question is how @vocab: @base effects the IRI resolution
+[2018-02-26T16:36:04.843Z]	<bigbluehat>	TallTed: what are the options?
+[2018-02-26T16:36:18.294Z]	<bigbluehat>	gkellogg: currently, we resolve things against @vocab using string concatenation
+[2018-02-26T16:36:38.241Z]	<bigbluehat>	...whereas, if you use RFC3986 resolution, dot sequences get resolved
+[2018-02-26T16:37:00.023Z]	<bigbluehat>	...the last sequence of a hash gets replaced unless the IRI ends in a slash
+[2018-02-26T16:37:18.340Z]	<bigbluehat>	iherman: isn't it the same in Turtle
+[2018-02-26T16:37:27.559Z]	<bigbluehat>	niklasl: for the <> space, yes, but not for prefixes
+[2018-02-26T16:37:39.586Z]	<bigbluehat>	...so, for clarification, would it turn @type space into <> space?
+[2018-02-26T16:37:52.096Z]	<bigbluehat>	gkellogg: yeah. that's essentially the question
+[2018-02-26T16:38:04.281Z]	<bigbluehat>	...now as an example of that, @type is different than pretty much anything else
+[2018-02-26T16:39:10.340Z]	<gkellogg>	PROPOSAL: adopt @vocab: @base gramar, and use RFC3986 resolution in this case.
+[2018-02-26T16:39:16.530Z]	<bigbluehat>	Rob: while gkellogg is typing, I'm +1 to @vocab: @base and RFC3986 resolution
+[2018-02-26T16:39:46.824Z]	<gkellogg>	+1
+[2018-02-26T16:39:52.460Z]	<bigbluehat>	...anything we can do to improve the clarity around how resolution will also help
+[2018-02-26T16:39:57.323Z]	<TallTed>	+1
+[2018-02-26T16:40:04.247Z]	<niklasl>	+0.1 (I'm not sure about complexity, understanding and actual production value of it)
+[2018-02-26T16:40:07.813Z]	<iherman>	+1 (provided we do not find too many devils in the details)
+[2018-02-26T16:40:19.546Z]	<bigbluehat>	+1 (but I think defining the consequences is necessary)
+[2018-02-26T16:40:32.790Z]	<bigbluehat>	iherman: so. +1 is for moving toward a PR, correct?
+[2018-02-26T16:40:39.475Z]	<PaoloC>	+1
+[2018-02-26T16:40:41.678Z]	<gkellogg>	RESOLVED: adopt @vocab: @base gramar, and use RFC3986 resolution in this case.
+[2018-02-26T16:40:43.720Z]	<bigbluehat>	gkellogg: yes. we'll need consensus on the PR
+[2018-02-26T16:40:56.947Z]	<gkellogg>	topic: #333 Support JSON values that arenâ€™t mapped
+[2018-02-26T16:40:59.222Z]	<bigbluehat>	...onward. looks like we have 20 more minutes
+[2018-02-26T16:41:18.483Z]	<niklasl>	https://github.com/json-ld/json-ld.org/issues/333
+[2018-02-26T16:41:38.008Z]	<bigbluehat>	...essentially, it would be nice to have a JSON-native data type
+[2018-02-26T16:42:00.095Z]	<iherman>	The equivalent of rdf:HTML or rdf:XML, right?
+[2018-02-26T16:42:04.646Z]	<bigbluehat>	...for instance, if you were including GeoJSON, there's really no way to do that unless you're ignoring all of it or trying to interpret it all as JSON-LD
+[2018-02-26T16:42:34.282Z]	<bigbluehat>	...so my proposal would be to expand the  notation for @value
+[2018-02-26T16:42:52.099Z]	<bigbluehat>	...so, @value could hold an object or an array
+[2018-02-26T16:43:05.340Z]	<bigbluehat>	...something like "@value": [{"native": "json"}]
+[2018-02-26T16:43:48.477Z]	<bigbluehat>	...which could be mapped via a context as {@context: "json-value": {"@type": "jsonld:JSON"}, "json-value": {"native": "json"}}
+[2018-02-26T16:44:11.038Z]	<bigbluehat>	...given the need to define a datatype, we'll need to make this official as a WG, is that right iherman ?
+[2018-02-26T16:44:29.632Z]	<bigbluehat>	iherman: yes. we can explore it now, but to make it official, we'd have to do it normatively as part of a WG
+[2018-02-26T16:44:37.318Z]	<bigbluehat>	...and possibly even within the rdf: namespace
+[2018-02-26T16:44:54.361Z]	<bigbluehat>	gkellogg: well...the existing rdf: is part of RDF concepts, isn't it?
+[2018-02-26T16:45:12.821Z]	<niklasl>	rdf:XMLLiteral
+[2018-02-26T16:45:23.186Z]	<bigbluehat>	iherman: yeah. the details of making this happen are in the future, but it's not dissimilar to rdf:HTML and rdf:XMLLiteral
+[2018-02-26T16:45:37.635Z]	<bigbluehat>	gkellogg: so I think we can probably proceed forward
+[2018-02-26T16:45:56.460Z]	<bigbluehat>	iherman: to make it cleaner, we might put an explicit note that this is a temporary namespace URI and not the final one
+[2018-02-26T16:46:01.395Z]	<bigbluehat>	...and it's expected to be updated
+[2018-02-26T16:46:24.797Z]	<gkellogg>	PROPOSAL: adopt solution defined in https://github.com/json-ld/json-ld.org/issues/333#issuecomment-366766394 as an interum solution, with final selection of the datatype to a future WG.
+[2018-02-26T16:46:33.775Z]	<iherman>	+1
+[2018-02-26T16:46:35.033Z]	<bigbluehat>	Rob: noting that pure JSON-LD that never expand things to triples, won't see this, correct?
+[2018-02-26T16:46:54.084Z]	<bigbluehat>	gkellogg: well... not exactly. the processor will need to know when to keep it and/or process it
+[2018-02-26T16:47:00.291Z]	<niklasl>	+1 (detail: not just array and object, all of JSON preferably...)
+[2018-02-26T16:47:01.591Z]	<bigbluehat>	...one way would be to @type: @json
+[2018-02-26T16:47:17.230Z]	<niklasl>	yup...
+[2018-02-26T16:47:23.530Z]	<niklasl>	q+
+[2018-02-26T16:47:36.432Z]	<bigbluehat>	+1 (to move toward exploring as a PR)
+[2018-02-26T16:47:42.133Z]	<bigbluehat>	gkellogg: any other thoughts?
+[2018-02-26T16:47:53.208Z]	<bigbluehat>	niklasl: with the caveat that I think this should support all of JSON
+[2018-02-26T16:47:57.106Z]	<TallTed>	+0
+[2018-02-26T16:48:06.177Z]	<bigbluehat>	...numbers, booleans, etc.
+[2018-02-26T16:48:27.499Z]	<bigbluehat>	...if you have a system that needs something raw as "just JSON" it needs to avoid tripping those processors up
+[2018-02-26T16:48:46.941Z]	<bigbluehat>	gkellogg: where this might run into issues is that everything ends up as an array when processed
+[2018-02-26T16:49:10.593Z]	<bigbluehat>	...so it becomes impossible to know what's supposed to be a number intentionally and what would be separately stated to be a number
+[2018-02-26T16:49:16.362Z]	<bigbluehat>	...we do something similar with @set
+[2018-02-26T16:49:23.450Z]	<bigbluehat>	niklasl: it's going to be hard to understand I'm afraid
+[2018-02-26T16:49:49.910Z]	<bigbluehat>	iherman: we do need to watch for complexity
+[2018-02-26T16:50:03.975Z]	<bigbluehat>	...it is something we need to watch for as we move toward WG
+[2018-02-26T16:51:07.973Z]	<gkellogg>	RESOLVED: adopt solution defined in https://github.com/json-ld/json-ld.org/issues/333#issuecomment-366766394 as an interum solution, with final selection of the datatype to a future WG.
+[2018-02-26T16:51:35.481Z]	<gkellogg>	topic: #491 define how to specify the json-ld profile in a request
+[2018-02-26T16:52:11.960Z]	<bigbluehat>	gkellogg: so. when I make a request of the server that I want to expressly have it framed
+[2018-02-26T16:52:20.620Z]	<bigbluehat>	https://github.com/json-ld/json-ld.org/issues/491
+[2018-02-26T16:52:31.697Z]	<bigbluehat>	...similarly, how might I tell the server that I want it compacted
+[2018-02-26T16:53:00.556Z]	<bigbluehat>	...anyone invested in this one?
+[2018-02-26T16:53:08.175Z]	<bigbluehat>	...let's differ and ask again on a future call
+[2018-02-26T16:53:17.444Z]	<bigbluehat>	...to see if the major supports show up to argue its case
+[2018-02-26T16:53:31.730Z]	<gkellogg>	topic: #547 Content addressable context
+[2018-02-26T16:53:37.878Z]	<bigbluehat>	https://github.com/json-ld/json-ld.org/issues/547
+[2018-02-26T16:54:25.171Z]	<bigbluehat>	gkellogg: this one covers how to deal in part with cross protocol issues, but also means of resolving contexts where an HTTP IRI may not be reliable for other reasons (caches, etc)
+[2018-02-26T16:54:33.630Z]	<bigbluehat>	...there are many ideas explored in this issue
+[2018-02-26T16:54:55.550Z]	<iherman>	q+
+[2018-02-26T16:54:59.047Z]	<niklasl>	q-
+[2018-02-26T16:55:02.055Z]	<bigbluehat>	...as noted in the issue, the document loader already supports this by having it's own document cache
+[2018-02-26T16:55:08.320Z]	<gkellogg>	q?
+[2018-02-26T16:55:16.298Z]	<gkellogg>	ack: iherman
+[2018-02-26T16:55:26.678Z]	<bigbluehat>	iherman: why is this type of issue part of this type of specification?
+[2018-02-26T16:55:43.110Z]	<bigbluehat>	...this starts to get into protocol design
+[2018-02-26T16:55:56.569Z]	<bigbluehat>	...and perhaps not part of the language specification
+[2018-02-26T16:55:59.813Z]	<azaroth>	(regrets, arrived at meeting that I was on the train for, and fell off voice)
+[2018-02-26T16:56:20.677Z]	<bigbluehat>	gkellogg: we do use profiles for compacted, etc.
+[2018-02-26T16:56:33.800Z]	<bigbluehat>	...and there are real life use cases for this like Verifiable Claims, etc.
+[2018-02-26T16:56:40.907Z]	<bigbluehat>	iherman: k. well maybe its an editorial issue
+[2018-02-26T16:56:56.469Z]	<bigbluehat>	...perhaps it's cleaner to separate everything that's HTTP related into a separate document
+[2018-02-26T16:56:57.894Z]	<bigbluehat>	q+
+[2018-02-26T16:57:07.991Z]	<bigbluehat>	...it's a bit concerning to have the mixture of things in 2 places.
+[2018-02-26T16:57:10.710Z]	<gkellogg>	ack: bigbluehat
+[2018-02-26T16:58:06.102Z]	<gkellogg>	bigbluehat: I think we should defer this to another call, but it boils down to the lack of a promisorial nature of any URI thatâ€™s not matched to a content hash that includes itâ€™s on validation, so that it canâ€™t be used in a decentralized fashion.
+[2018-02-26T16:59:08.315Z]	<gkellogg>	â€¦ There is no way that the URI will mean something today and not tomorrow. It may be a protocol issue. when you state as a publisher what Iâ€™m giving you, and we need something more promisorial.
+[2018-02-26T16:59:27.124Z]	<gkellogg>	iherman: in a sense, this reinforces what I said: it is a problem, but not for this working group.
+[2018-02-26T17:00:05.351Z]	<gkellogg>	bigbluehat: maybe we just note in the document that are different IRIs that are more suitable.
