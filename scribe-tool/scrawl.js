@@ -6,7 +6,7 @@
 (function() {
   var $ = (typeof jQuery !== 'undefined') ? jQuery : undefined;
   /* Standard regular expressions to use when matching lines */
-  var commentRx = /^\[?(.*)\]?\s+<(.*)\>\s+(.*)$/;
+  var commentRx = /^\[?(\S*)\]\s+<([^>]*)>\s+(.*)$/;
   var scribeRx = /^(scribe|scribenick):.*$/i;
   var meetingRx = /^meeting:\s(.*)$/i;
   var totalPresentRx = /^total present:\s(.*)$/i;
