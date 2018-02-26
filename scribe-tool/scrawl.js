@@ -529,6 +529,11 @@
                textMode);
            }
          }
+         else if (!(nick in aliases)) {
+           rval = scrawl.error(
+             '(IRC nickname \'' + nick + '\' not recognized)' + line,
+             textMode);
+         }
          else
          {
            // the line is a scribe line by somebody else
