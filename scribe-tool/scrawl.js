@@ -743,7 +743,7 @@
     return rval;
   };
 
-  scrawl.generateMinutes = function(ircLog, textMode, date)
+  scrawl.generateMinutes = function(ircLog, textMode, date, haveAudio)
   {
     var rval = '';
     var minutes = '';
@@ -762,7 +762,7 @@
       'topics': [],
       'resolutions': [],
       'actions': [],
-      'audio': true
+      'audio': haveAudio
     };
 
     if(date) {

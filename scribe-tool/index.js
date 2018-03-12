@@ -28,6 +28,7 @@ if(!program.directory) {
 // setup global variables
 var dstDir = path.resolve(path.join(program.directory));
 var logFile = path.resolve(path.join(program.directory, 'irc.log'));
+var audioFile = path.resolve(path.join(program.directory, 'audio.ogg'));
 var indexFile = path.resolve(path.join(program.directory, 'index.html'));
 var htmlHeader = fs.readFileSync(
   __dirname + '/header.html', {encoding: 'utf8'});
@@ -36,6 +37,7 @@ var htmlFooter = fs.readFileSync(
 var peopleJson = fs.readFileSync(
   __dirname + '/people.json', {encoding: 'utf8'});
 var gLogData = '';
+var haveAudio = false;
 var gDate = path.basename(dstDir);
 gDate = gDate.match(/([0-9]{4}-[0-9]{2}-[0-9]{2})/)[1];
 
@@ -137,6 +139,11 @@ async.waterfall([ function(callback) {
     }
   });
 }, function(callback) {
+  fs.exists(audioFile, function(exists) {
+    haveAudio = exists;
+    callback();
+  });
+}, function(callback) {
   // read the IRC log file
   fs.readFile(logFile, 'utf8', callback);
 }, function(data, callback) {
@@ -146,7 +153,7 @@ async.waterfall([ function(callback) {
     htmlHeader +
     '<div><div><div class="container">' +
     '<div class="row"><div class="col-md-8 col-md-offset-2">' +
-    scrawl.generateMinutes(gLogData, 'html', gDate) +
+    scrawl.generateMinutes(gLogData, 'html', gDate, haveAudio) +
     '</div></div></div></div></div>' + htmlFooter;
   callback(null, minutes);
 }, function(minutes, callback) {
@@ -278,7 +285,7 @@ async.waterfall([ function(callback) {
     }
 
     // generate the body of the email
-    var content = scrawl.generateMinutes(gLogData, 'text', gDate);
+    var content = scrawl.generateMinutes(gLogData, 'text', gDate, haveAudio);
     var scribe = content.match(/Scribe:\n\s(.*)\n/g)[0]
       .replace(/\n/g, '').replace('Scribe:  ', '');
     content = 'Thanks to ' + scribe + ' for scribing this week! The minutes\n' +
@@ -335,7 +342,7 @@ async.waterfall([ function(callback) {
     }
 
     // generate the body of the email
-    var content = scrawl.generateMinutes(gLogData, 'text', gDate);
+    var content = scrawl.generateMinutes(gLogData, 'text', gDate, haveAudio);
     content = content.match(/Agenda(.|\n)*Organizer:/)[0].replace('Organizer:', '');
     var items = content.match(/Topics(.|\n)*(Action|Resolutions|.*)/)[0].match(/[0-9]{1,2}\. (.*)/g);
     var formattedItems = '';
@@ -420,7 +427,7 @@ async.waterfall([ function(callback) {
     }
     var content = {
       post_title: 'JSON-LD CG Meeting Minutes for ' + gDate,
-      post_content: scrawl.generateMinutes(gLogData, 'html', gDate)
+      post_content: scrawl.generateMinutes(gLogData, 'html', gDate, haveAudio)
     };
 
     if(process.env.SCRAWL_WP_USERNAME && process.env.SCRAWL_WP_PASSWORD) {
