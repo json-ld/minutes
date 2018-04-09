@@ -1,0 +1,214 @@
+[08:02am] <gkellogg>	agenda: https://lists.w3.org/Archives/Public/public-linked-json/2018Apr/0002.html
+[08:02am] Topic changed to "JSON for Linking Data:  https://json-ld.org/ ... if you have a question, stick around for the answer :)  Telco Agenda: https://lists.w3.org/Archives/Public/public-linked-json/2018Apr/0002.html" by azaroth.
+[08:04am] <gkellogg>	chair: azaroth
+[08:04am] <azaroth>	Present+ Rob_Sanderson
+[08:05am] <bigbluehat>	Present+ Benjamin_Young
+[08:06am] <azaroth>	Chair: azaroth
+[08:06am] <azaroth>	Present+ Rob_Sanderson
+[08:06am] <gkellogg>	present+ Gregg_Kellogg
+[08:07am] <gkellogg>	scribe: bigbluehat
+[08:07am] Topic changed to "Announcements?" by azaroth.
+[08:08am] Topic changed to "JSON for Linking Data:  https://json-ld.org/ ... if you have a question, stick around for the answer :)  Telco Agenda: https://lists.w3.org/Archives/Public/public-linked-json/2018Apr/0002.html" by azaroth.
+[2018-04-09T15:08:13.154Z]	<azaroth>	Topic: Announcements?
+[2018-04-09T15:08:30.596Z]	<bigbluehat>	azaroth: as far as anyone knows, the charter process is going well
+[2018-04-09T15:09:51.259Z]	<bigbluehat>	...anything else to cover? or should we dive into issues?
+[2018-04-09T15:09:48.651Z]	<azaroth>	TOPIC: Open PRs
+[2018-04-09T15:10:17.542Z]	<azaroth>	PR: https://github.com/json-ld/json-ld.org/pull/628
+[2018-04-09T15:10:23.340Z]	<bigbluehat>	topic: #628 Limit the use of `@none` in language and index maps to 1.1 only
+[2018-04-09T15:11:02.023Z]	<bigbluehat>	gkellogg: this allows the term selection only in 1.1 mode
+[2018-04-09T15:11:07.621Z]	<bigbluehat>	azaroth: yep. this looks good to me
+[2018-04-09T15:11:17.817Z]	<bigbluehat>	...as you said this is a bug fix
+[2018-04-09T15:11:21.773Z]	<bigbluehat>	...and to not do this would be wrong
+[2018-04-09T15:11:41.909Z]	<bigbluehat>	...any comments or objections?
+[2018-04-09T15:12:06.453Z]	<azaroth>	PROPOSAL: Accept #628
+[2018-04-09T15:12:08.899Z]	<azaroth>	+1
+[2018-04-09T15:12:09.528Z]	<gkellogg>	+1
+[2018-04-09T15:12:11.028Z]	<bigbluehat>	+1
+[2018-04-09T15:12:14.950Z]	<Herm>	+1
+[2018-04-09T15:12:30.643Z]	<azaroth>	RESOLVED: Accept #628
+[2018-04-09T15:12:40.750Z]	<bigbluehat>	topic: #629 Remove the `pruneBlankNodeIdentifiers` option for framing
+[2018-04-09T15:12:45.807Z]	<bigbluehat>	https://github.com/json-ld/json-ld.org/pull/629
+[2018-04-09T15:13:51.415Z]	<bigbluehat>	gkellogg: basically this says, when framing clean up the blank node identifiers
+[2018-04-09T15:14:01.775Z]	<bigbluehat>	...this removes pruneBlankNodeIdentifiers as an option
+[2018-04-09T15:14:08.966Z]	<bigbluehat>	...and makes this part of 1.1 proper
+[2018-04-09T15:15:12.557Z]	<taaz>	#628 has some bugs.  using <p> tag by mistake.  it's rendering wrong on the live site now.
+[2018-04-09T15:15:13.578Z]	<bigbluehat>	azaroth: if we were to leave pruneBlankeNodeIdentifiers in, the use is to get ride of any blank nodes only used once
+[2018-04-09T15:15:27.868Z]	<bigbluehat>	...so in 1.1 all of those go away as you would expect?
+[2018-04-09T15:15:43.044Z]	<bigbluehat>	gkellogg: yes. if they are not used for referencing
+[2018-04-09T15:16:06.537Z]	<bigbluehat>	azaroth: so. in 1.1 this happens automatically, so what is the 1.0 behavior?
+[2018-04-09T15:16:17.941Z]	<bigbluehat>	gkellogg: basically, all node objects get an ID during flattening
+[2018-04-09T15:16:31.007Z]	<bigbluehat>	...so anything that was embedded are now referenced
+[2018-04-09T15:16:57.956Z]	<bigbluehat>	...the default behavior is 1.1 is to remove any that are not necessary for linking
+[2018-04-09T15:17:27.133Z]	<bigbluehat>	azaroth: so if you were wanting features from 1.1, but for some reason you wanted the blank node identifiers kept around, then there'd be no way to do that?
+[2018-04-09T15:17:33.591Z]	<bigbluehat>	...not that I can think of why you'd want to keep them
+[2018-04-09T15:17:41.063Z]	<bigbluehat>	gkellogg: yes. there'd not be a way to keep them in 1.1
+[2018-04-09T15:18:11.546Z]	<bigbluehat>	azaroth: if you had a client which expected the @id to always be present, then that would break
+[2018-04-09T15:18:53.823Z]	<azaroth>	scribenick: azaroth
+[2018-04-09T15:20:22.693Z]	<azaroth>	bigbluehat: Some discussion in the verifiable claims group about "Developer Ergonomics". I think it's fine to strip them by default -- they're automatically assigned anyway, so would be fine to strip them as they're not part of the data.  Trying to think through what it means to that camp though ... probably it's better as there's no creation of data
+[2018-04-09T15:20:55.283Z]	<azaroth>	gkellogg: It only matters for framing.  If you rely on framing to get the shape from RDF, so you frame the results so it looks like the canonical from from Claims or anywhere else
+[2018-04-09T15:21:14.278Z]	<azaroth>	... without this you would not be able to get the expected form, especially where Claims make use of anonymous named graphs
+[2018-04-09T15:22:05.283Z]	<azaroth>	... an alternative was discussed that would retain the option and not prune them, but still do the identifiication.  It requires doing the work to find the removable ids, and then pass that through several functions, making the algorithm more complex for very little perceived benefit
+[2018-04-09T15:22:33.669Z]	<azaroth>	... the issue of pushback on JSON-LD as a format is an advocacy thing, and I encourage people to get involved and discuss the issues
+[2018-04-09T15:22:47.304Z]	<azaroth>	... was brought up in claims, but no follow through.
+[2018-04-09T15:22:54.212Z]	<azaroth>	bigbluehat: Great summary, thank you! 
+[2018-04-09T15:23:15.976Z]	<azaroth>	scribenick: bigbluehat
+[2018-04-09T15:23:36.191Z]	<bigbluehat>	azaroth: so. I think we've covered all the bases on this one
+[2018-04-09T15:23:51.163Z]	<bigbluehat>	...any further questions or comments on #629 or it's related issue #627?
+[2018-04-09T15:23:58.271Z]	<azaroth>	PROPOSAL: Accept #629
+[2018-04-09T15:24:00.279Z]	<azaroth>	+1
+[2018-04-09T15:24:04.420Z]	<gkellogg>	+1
+[2018-04-09T15:24:04.862Z]	<bigbluehat>	+1
+[2018-04-09T15:24:10.235Z]	<Herm>	+1
+[2018-04-09T15:24:27.183Z]	<azaroth>	RESOLVED:  Accept #629
+[2018-04-09T15:24:53.069Z]	<azaroth>	TOPIC:  Issues to Defer
+[2018-04-09T15:25:04.022Z]	<bigbluehat>	gkellogg: I'd like to treat these as a block
+[2018-04-09T15:25:13.175Z]	<bigbluehat>	...and not go into details on each one
+[2018-04-09T15:25:36.523Z]	<bigbluehat>	...basically, we'd like to wrap up the CG work and take long-term or hard-to-resolve things to the WG
+[2018-04-09T15:25:48.680Z]	<bigbluehat>	...the first is #246
+[2018-04-09T15:25:52.834Z]	<bigbluehat>	#246 Ignoring semantically meaningless nesting – this is mostly about people not liking the @nest keyword, and we can’t really solve that here.
+[2018-04-09T15:26:09.897Z]	<bigbluehat>	gkellogg: the work here is done, except for the bike shedding around the keyword @nest
+[2018-04-09T15:26:19.415Z]	<bigbluehat>	...we can either bikeshed or defer
+[2018-04-09T15:26:29.611Z]	<bigbluehat>	azaroth: I'd prefer we defer and avoid bikeshedding
+[2018-04-09T15:26:39.255Z]	<bigbluehat>	gkellogg: next is #333
+[2018-04-09T15:26:40.086Z]	<bigbluehat>	#333 Support JSON values that aren't mapped – I thought I might get to this, but I think it’s big enough that we shouldn’t introduce more FUD right now.
+[2018-04-09T15:26:54.518Z]	<bigbluehat>	gkellogg: I think the way that would work is to allow and expanded range for @value
+[2018-04-09T15:27:01.162Z]	<bigbluehat>	...there is some crossover with framing
+[2018-04-09T15:27:06.867Z]	<bigbluehat>	...which makes use of those references
+[2018-04-09T15:27:13.166Z]	<bigbluehat>	...it's too be an issue for us to tackle
+[2018-04-09T15:27:18.780Z]	<bigbluehat>	...so I recommend deferring
+[2018-04-09T15:27:27.472Z]	<bigbluehat>	azaroth: +1 to deferring that also
+[2018-04-09T15:27:38.052Z]	<bigbluehat>	...it's an important one to get into the spec and to get correct
+[2018-04-09T15:27:46.148Z]	<bigbluehat>	gkellogg: next is #397
+[2018-04-09T15:27:47.275Z]	<bigbluehat>	#397 Support @values for describing multidimensional containers (list of lists)
+[2018-04-09T15:28:06.875Z]	<bigbluehat>	gkellogg: this also handled some things related to GeoJSON--which uses lists of lists
+[2018-04-09T15:28:17.167Z]	<bigbluehat>	...there were some advocates on the Semantic Web mailing list
+[2018-04-09T15:28:31.627Z]	<bigbluehat>	...whom I encouraged to join the CG...and some did
+[2018-04-09T15:28:43.279Z]	<bigbluehat>	...it is something that if fixed would help developers
+[2018-04-09T15:28:50.700Z]	<bigbluehat>	...but it's big, so I suggest we defer it
+[2018-04-09T15:28:57.092Z]	<bigbluehat>	azaroth: the next is #491
+[2018-04-09T15:29:00.652Z]	<bigbluehat>	#491 Define how to specify the json-ld profile in a request to a server and include framing as an option
+[2018-04-09T15:29:26.164Z]	<bigbluehat>	azaroth: I brought up the list of lists at a conference, and there was a good bit of support
+[2018-04-09T15:29:32.108Z]	<bigbluehat>	...so solving this would be a great help
+[2018-04-09T15:29:37.264Z]	<bigbluehat>	gkellogg: now #491
+[2018-04-09T15:29:38.111Z]	<bigbluehat>	#491 Define how to specify the json-ld profile in a request to a server and include framing as an option
+[2018-04-09T15:30:04.034Z]	<bigbluehat>	...this one is how to further express HTTP headers and things to express framing, expansion, etc.
+[2018-04-09T15:30:14.331Z]	<bigbluehat>	...there are a number of security concerns here
+[2018-04-09T15:30:35.107Z]	<bigbluehat>	...if a client can provide frames, etc, to the server it could introduce many types of problems
+[2018-04-09T15:30:59.347Z]	<bigbluehat>	...we'd first envisioned this sort of work happening on the client
+[2018-04-09T15:31:08.470Z]	<bigbluehat>	...good ideas here, just not time to explore them in the CG
+[2018-04-09T15:31:18.147Z]	<bigbluehat>	gkellogg: #547  Content addressable contexts 
+[2018-04-09T15:31:38.244Z]	<bigbluehat>	...this one is for reusing context without retrieval, but still with integrity
+[2018-04-09T15:32:03.439Z]	<bigbluehat>	...there are also Verifiable Claim situations where you don't want to over-reveal your activities by retrieving contexts at claim verification time
+[2018-04-09T15:32:11.552Z]	<bigbluehat>	...it's also a great thing to explore, but alas...time
+[2018-04-09T15:32:20.290Z]	<bigbluehat>	gkellogg: now #581  Multi-version processing
+[2018-04-09T15:32:25.795Z]	<bigbluehat>	azaroth: I believe this is one of mine
+[2018-04-09T15:33:04.753Z]	<bigbluehat>	gkellogg: right now, if you don't state 1.1, it will be treated as 1.0--even if it includes 1.1 structure
+[2018-04-09T15:33:12.602Z]	<bigbluehat>	...the other question is do we need to state a version at all?
+[2018-04-09T15:33:26.529Z]	<bigbluehat>	...or are we going to expect all processors to be supportive of 1.1
+[2018-04-09T15:33:58.597Z]	<bigbluehat>	taaz: what's the objective in discussing these since we're just deferring them?
+[2018-04-09T15:34:37.107Z]	<bigbluehat>	azaroth: mainly we're looking for things we can close instead of defer
+[2018-04-09T15:34:58.514Z]	<bigbluehat>	taaz: well, this #581 is rather a big deal, and should probably be solved sooner rather than later
+[2018-04-09T15:35:24.857Z]	<bigbluehat>	gkellogg: we can certainly choose not to defer it, but we will need code and content written for a solution
+[2018-04-09T15:35:48.195Z]	<bigbluehat>	...we might also base it off whether the @context references 1.1
+[2018-04-09T15:36:15.375Z]	<bigbluehat>	...but to avoid bikeshedding this, we can either choose to defer it or decide the CG will address it
+[2018-04-09T15:36:21.287Z]	<bigbluehat>	taaz: it's a question of when
+[2018-04-09T15:36:29.321Z]	<bigbluehat>	...some of these have been deferred for 5+ years
+[2018-04-09T15:36:35.078Z]	<bigbluehat>	...and I'm just wondering what the process is here
+[2018-04-09T15:36:43.842Z]	<bigbluehat>	gkellogg: our expectation is that the WG is starting up in June
+[2018-04-09T15:36:53.249Z]	<bigbluehat>	...and we have to get our spec into a state to issue a final report
+[2018-04-09T15:37:02.222Z]	<bigbluehat>	...so we have to wrap things up at some point
+[2018-04-09T15:37:14.275Z]	<bigbluehat>	...but it's still April, so we do still have some time
+[2018-04-09T15:37:31.016Z]	<bigbluehat>	...however I'm personally limited in my time to address all these myself
+[2018-04-09T15:37:40.154Z]	<bigbluehat>	...if there are people who want to tackle these issues
+[2018-04-09T15:38:01.732Z]	<bigbluehat>	...we can choose not to differ #581
+[2018-04-09T15:38:07.610Z]	<bigbluehat>	azaroth: I agree with taaz 
+[2018-04-09T15:38:28.646Z]	<bigbluehat>	...this really is a unique issue as it's not a feature, but a question of is there a new version at all
+[2018-04-09T15:38:48.577Z]	<bigbluehat>	...if we get to June without a solution, then we can defer it then
+[2018-04-09T15:39:05.097Z]	<bigbluehat>	workergnome: I'm not familiar with W3C process, but how long would be a deferral be?
+[2018-04-09T15:39:15.388Z]	<bigbluehat>	gkellogg: it would be 2020 before a final recommendation would be published
+[2018-04-09T15:39:25.205Z]	<bigbluehat>	...but the WG could push for working drafts far sooner
+[2018-04-09T15:39:46.538Z]	<bigbluehat>	...essentially the WD could serve as a simple rubber stamp of what the CG has done
+[2018-04-09T15:39:50.968Z]	<bigbluehat>	...and then we would continue from there
+[2018-04-09T15:40:07.058Z]	<bigbluehat>	...all of these are points along the way where we show that the community has concluded and agrees
+[2018-04-09T15:40:34.947Z]	<bigbluehat>	workergnome: so this is more about getting the CG drafts as solid as possible before the WG starts, correct?
+[2018-04-09T15:40:37.611Z]	<bigbluehat>	azaroth: yes.
+[2018-04-09T15:41:13.567Z]	<bigbluehat>	azaroth: in order to get the WG prepared we need to get it focused on
+[2018-04-09T15:41:31.678Z]	<bigbluehat>	...so that it's not just reviewing the CG's work, but also knows where to go next
+[2018-04-09T15:41:37.181Z]	<bigbluehat>	...and if it's more solid, then the work is clearer
+[2018-04-09T15:42:00.278Z]	<bigbluehat>	...we had the same situation with the Open Annotation => Web Annotation transition
+[2018-04-09T15:42:12.727Z]	<bigbluehat>	...we chose to not open certain cans of worms before the WG came along
+[2018-04-09T15:42:30.986Z]	<bigbluehat>	...because it partly results in conversation bifurcation--which gets really really messy
+[2018-04-09T15:42:41.158Z]	<bigbluehat>	...so doing this cleanly is helpful
+[2018-04-09T15:42:57.143Z]	<bigbluehat>	...so for #581...should we set a deadline?
+[2018-04-09T15:43:12.950Z]	<bigbluehat>	gkellogg: let's defer on when to time the work on this, but yes, we'll keep it off the general defer list
+[2018-04-09T15:43:21.206Z]	<bigbluehat>	gkellogg: #583 Introducing @dir ?
+[2018-04-09T15:43:34.597Z]	<bigbluehat>	...this is iherman's idea for dealing with language direction in JSON-LD
+[2018-04-09T15:43:54.509Z]	<bigbluehat>	...it lacks support atm, but language direction is a concern across the W3C
+[2018-04-09T15:44:00.067Z]	<bigbluehat>	gkellogg: #584 Revisit empty string as term
+[2018-04-09T15:44:09.942Z]	<bigbluehat>	...is partly driven by PHP implementations
+[2018-04-09T15:44:26.543Z]	<bigbluehat>	...there are some reasons and scenarios where this is important, but it can wait for the WG
+[2018-04-09T15:44:33.365Z]	<bigbluehat>	gkellogg: #590 "Lax” IRIs
+[2018-04-09T15:44:52.915Z]	<bigbluehat>	...much of this one is about confusion over JSON-LD
+[2018-04-09T15:45:02.747Z]	<bigbluehat>	...but there may be work to clarify this further
+[2018-04-09T15:45:08.816Z]	<bigbluehat>	gkellogg: #595 Native support for schema:ListItem
+[2018-04-09T15:45:25.727Z]	<bigbluehat>	...this partly came about from dbrickly which might benefit schema.org
+[2018-04-09T15:45:32.368Z]	<bigbluehat>	...but at this point, I think it can wait for the WG
+[2018-04-09T15:45:39.852Z]	<bigbluehat>	gkellogg: lastly, #598 Warn or error if non-keyword strings having "@" are encountered
+[2018-04-09T15:45:59.090Z]	<bigbluehat>	...basically, do we want to reserve `@` as a JSON-LD keyword space
+[2018-04-09T15:46:29.759Z]	<bigbluehat>	...in 1.1 we've introduced new keywords which does introduce the risk that someone might have used @ + a string
+[2018-04-09T15:46:49.387Z]	<bigbluehat>	...and it has come up in the past, so we should probably at least raise an error
+[2018-04-09T15:46:56.424Z]	<bigbluehat>	_workergnome: is there any reason to not just solve this one?
+[2018-04-09T15:47:09.333Z]	<bigbluehat>	gkellogg: it raises some incompatibility with 1.0
+[2018-04-09T15:47:17.548Z]	<bigbluehat>	...and I didn't feel I had enough insight into it to make that call
+[2018-04-09T15:47:30.065Z]	<bigbluehat>	...and ideally we'd have more folks in the room when we do decide it
+[2018-04-09T15:47:40.517Z]	<bigbluehat>	taaz: maybe it could be a library-level option?
+[2018-04-09T15:47:48.877Z]	<bigbluehat>	gkellogg: well, even that should be in the spec also
+[2018-04-09T15:47:56.065Z]	<bigbluehat>	taaz: yeah...it should probably be one way or the other
+[2018-04-09T15:48:14.143Z]	<bigbluehat>	gkellogg: or perhaps some other way to announce keywords
+[2018-04-09T15:48:27.771Z]	<bigbluehat>	taaz: then let's defer it
+[2018-04-09T15:48:41.802Z]	<bigbluehat>	azaroth: it's not a critical blocking feature, so +1 to deferring
+[2018-04-09T15:48:54.358Z]	<bigbluehat>	gkellogg: so let's get a proposal to defer all these except #581
+[2018-04-09T15:49:00.461Z]	<azaroth>	PROPOSAL:  Defer #246, #333, #397, #491, #547, #583, #584, #590, #595, #598 ; Do not defer #581 
+[2018-04-09T15:49:01.519Z]	<bigbluehat>	azaroth: _workergnome are you cool with that?
+[2018-04-09T15:49:07.425Z]	<gkellogg>	+1
+[2018-04-09T15:49:10.331Z]	<bigbluehat>	+1
+[2018-04-09T15:49:12.054Z]	<azaroth>	+1
+[2018-04-09T15:49:25.069Z]	<taaz>	+1
+[2018-04-09T15:49:39.260Z]	<Herm>	+1
+[2018-04-09T15:50:11.989Z]	<_workergnome>	+1
+[2018-04-09T15:50:13.307Z]	<azaroth>	RESOLVED:  Defer #246, #333, #397, #491, #547, #583, #584, #590, #595, #598 ; Do not defer #581 
+[2018-04-09T15:50:37.539Z]	<bigbluehat>	azaroth: one of us will wrangle the github stuff after the call
+[2018-04-09T15:50:45.604Z]	<bigbluehat>	gkellogg: I also removed these from the 1.1 project as well
+[2018-04-09T15:50:47.548Z]	<azaroth>	TOPIC: Finishing up work and final reports
+[2018-04-09T15:51:00.718Z]	<gkellogg>	https://github.com/json-ld/json-ld.org/projects/2
+[2018-04-09T15:51:02.604Z]	<bigbluehat>	...and we can also use the project to manage what we'll do (or won't do) within the CG
+[2018-04-09T15:51:52.380Z]	<bigbluehat>	taaz: is this different than milestones?
+[2018-04-09T15:52:02.061Z]	<bigbluehat>	gkellogg: yes, this is a separate area that's managed manually
+[2018-04-09T15:52:16.473Z]	<bigbluehat>	taaz: that #628 PR had some errors in it, but it's already merged
+[2018-04-09T15:52:30.429Z]	<bigbluehat>	...it had a <p> tag in it, but was maybe to be something else
+[2018-04-09T15:53:31.334Z]	<bigbluehat>	azaroth: there's about 5 minutes left
+[2018-04-09T15:53:48.794Z]	<bigbluehat>	...and we should talk through how to finalize this, and what happens to the CG once the WG starts
+[2018-04-09T15:53:54.635Z]	<bigbluehat>	...closing the CG would be a nightmare
+[2018-04-09T15:54:08.246Z]	<bigbluehat>	...but we will make it clear that the WG is where the action is happening
+[2018-04-09T15:54:20.141Z]	<bigbluehat>	...in the annotation groups, we originally tried to juggle both
+[2018-04-09T15:54:37.755Z]	<bigbluehat>	...but ultimately it was more work than value
+[2018-04-09T15:55:05.082Z]	<bigbluehat>	...essentially, there's a good bit of IPR and discussion juggling mess that's best avoided
+[2018-04-09T15:55:38.488Z]	<bigbluehat>	...however, it does mean that non-Invited Experts, and non-Members will need to send in a submission request to the lists
+[2018-04-09T15:55:52.407Z]	<bigbluehat>	...are we OK with that approach?
+[2018-04-09T15:56:16.522Z]	<bigbluehat>	...or is there some other way to include CG members while the WG is going on without introducing confusions or issues?
+[2018-04-09T15:56:38.178Z]	<bigbluehat>	gkellogg: perhaps we should just check who's available to join the WG
+[2018-04-09T15:56:54.670Z]	<bigbluehat>	Herm: can an individual join?
+[2018-04-09T15:57:26.331Z]	<bigbluehat>	azaroth: there has been some push back against Invited Experts...so we need to be judicious with how we hand them out
+[2018-04-09T15:58:48.231Z]	<bigbluehat>	gkellogg: invited experts are essentially now provided for people already integral to the progress of the specifications or related projects
+[2018-04-09T15:59:04.002Z]	<bigbluehat>	...there are also some member organizations one can join and then come in under those affiliations
+[2018-04-09T15:59:28.767Z]	<bigbluehat>	...but that is something Herm or others can take up with the chairs and the team member for the group once we're chartered
+[2018-04-09T15:59:55.558Z]	<bigbluehat>	azaroth: one the WG is finished, we'll have more discussions about any other work that happens beyond the WG
+[2018-04-09T16:00:09.471Z]	<bigbluehat>	...as well as other work that might be best done in the CG
+[2018-04-09T16:00:23.161Z]	<bigbluehat>	...things that are deferred or considered out of scope for the WG
+[2018-04-09T16:00:31.414Z]	<bigbluehat>	...given the time, are there any final thoughts?
+[2018-04-09T16:01:01.475Z]	<bigbluehat>	...if something like that comes to mind
+[2018-04-09T16:01:05.795Z]	<bigbluehat>	...send a note to the CG mailing list
+[2018-04-09T16:01:15.363Z]	<bigbluehat>	...and we'll discuss there
+[2018-04-09T16:01:22.153Z]	<bigbluehat>	...next call in a couple weeks time
+[2018-04-09T16:01:24.606Z]	<bigbluehat>	...thanks all!
+[2018-04-09T16:01:26.518Z]	<Herm>	bye
