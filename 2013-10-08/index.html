@@ -205,9 +205,9 @@ ol {
 <div class="comment"><span class="name">Markus Lanthaler</span>: @base: "<a href="http://foo/bar"">http://foo/bar"</a> does compact "http://foo/bar" to "bar" IMO</div>
 <div class="comment"><span class="name">David I. Lehn</span>: <a href="https://github.com/digitalbazaar/pyld/issues/26">https://github.com/digitalbazaar/pyld/issues/26</a></div>
 <div class="comment"><span class="name">David I. Lehn</span>: <a href="https://github.com/digitalbazaar/pyld/issues/25">https://github.com/digitalbazaar/pyld/issues/25</a></div>
-<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0066-in.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0066-in.jsonld</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/compact-0066-in.jsonld">https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/compact-0066-in.jsonld</a></div>
 <div class="comment"><span class="name">David I. Lehn</span>: <a href="https://github.com/digitalbazaar/pyld/issues/24">https://github.com/digitalbazaar/pyld/issues/24</a></div>
-<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0066-out.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/compact-0066-out.jsonld</a></div>
+<div class="comment"><span class="name">Dave Longley</span>: <a href="https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/compact-0066-out.jsonld">https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/compact-0066-out.jsonld</a></div>
 <div class="comment"><span class="name">Manu Sporny</span>:  we'll add new tests after the PR phase.</div>
 <h1 id="topic-3" class="topic">Topic: Plan for Proposed Recommendation</h1>
 <div class="comment"><span class="name">Manu Sporny</span>:  we need to send out an official response to mike about today's discussion.</div>
@@ -216,7 +216,7 @@ ol {
 <div class="comment"><span class="name">Gregg Kellogg</span>:  concepts is still in LC, I believe</div>
 <div id="action-1" class="action">ACTION: Manu to request the RDF WG propose a way for JSON-LD to proceed to PR in spite of the RDF Concepts document being in LC.</div>
 <h1 id="topic-4" class="topic">Topic: rdflib Implementation Concerns</h1>
-<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0116-in.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0116-in.jsonld</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/toRdf-0116-in.jsonld">https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/toRdf-0116-in.jsonld</a></div>
 <div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="http:///example/o1">http:///example/o1</a></div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  these tests fail because the URL join implementation in Python's standard lib doesn't behave correctly.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: <a href="http://example/o0">http://example/o0</a></div>
@@ -225,19 +225,19 @@ ol {
 <div class="comment"><span class="name">Gregg Kellogg</span>:  this is a bug, we should just fix it.</div>
 <div class="comment"><span class="name">Markus Lanthaler</span>: don't care what we do about this but wanted to say that it is a valid IRI</div>
 <div class="comment"><span class="name">Manu Sporny</span>:  if changing this doesn't affect any other implementations, there's no need to update reports.</div>
-<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0102-in.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0102-in.jsonld</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/toRdf-0102-in.jsonld">https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/toRdf-0102-in.jsonld</a></div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  there's a similar one in 0102, which could be a problem in Python 2.5 through 3.3</div>
 <div class="comment"><span class="name">Niklas Lindström</span>: .. "/.././useless/../../"</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  I suspect the URL lib doesn't handle this properly.</div>
 <div class="comment"><span class="name">Dave Longley</span>: You should try posixpath.normpath(foo), that's what we use for our Python implementation</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  do you use URL lib too?</div>
 <div class="comment"><span class="name">Dave Longley</span>:  we use both.</div>
-<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0100-in.jsonld">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/toRdf-0100-in.jsonld</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. <a href="https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/toRdf-0100-in.jsonld">https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/toRdf-0100-in.jsonld</a></div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  Setting @base to null, when the result is a "hard" relative IRI, RDFlib still consumes it as RDF. I would pass the test if I set a flag about being more strict about not explicitly dealing with relative IRIs.</div>
 <div class="comment-continuation">… It expects to drop the triples with relative IRIs</div>
 <div class="comment"><span class="name">Dave Longley</span>:  the "produce generalized RDF" flag should allow these triples to be emitted.</div>
 <div class="comment"><span class="name">Niklas Lindström</span>:  The other problems are RDFLib limitations.</div>
 <div class="comment-continuation">… I also haven't disallowed lists of lists.</div>
-<div class="comment"><span class="name">Niklas Lindström</span>: .. the relevant test is <a href="https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/fromRdf-0008-in.nq">https://github.com/json-ld/json-ld.org/blob/master/test-suite/tests/fromRdf-0008-in.nq</a></div>
+<div class="comment"><span class="name">Niklas Lindström</span>: .. the relevant test is <a href="https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/fromRdf-0008-in.nq">https://github.com/json-ld/json-ld.org/blob/main/test-suite/tests/fromRdf-0008-in.nq</a></div>
 </body>
 </html>
