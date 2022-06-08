@@ -1,1 +1,35 @@
 All minutes for the JSON-LD telecons are provided here.
+
+## Minutes
+Minutes processed using https://w3c.github.io/scribejs/BrowserView/
+
+IRC Channel: #json-ld
+Nickname URL:
+Jekyll: Yes
+final: No
+Nickname URL: https://json-ld.org/minutes/nicknames.json
+Discussion Repository: json-ld/yaml-ld
+Action Repository: json-ld/json-ld.org
+
+## Nicknames from scribe-tool/people.json
+
+```ruby
+JSON_STATE = {
+                   :indent => "  ",
+                    :space => " ",
+             :space_before => "",
+                :object_nl => "\n",
+                 :array_nl => "\n",
+                    :depth => 0,
+    :buffer_initial_length => 1024
+}
+
+people = JSON.parse(File.read('scribe-tool/people.json'))
+File.open('nicknames.json', 'w') do |f|
+  f.write(people.keys.sort.inject([]) do |memo, r|
+    people[r]['alias'] ?
+      memo.append({name: r, nick: people[r]['alias']}) :
+      memo
+  end.to_json(JSON_STATE))
+end
+```
