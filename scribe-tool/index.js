@@ -13,25 +13,27 @@ program
   .option('-q, --quiet', 'Don\'t print status information to the console')
   .parse(process.argv);
 
-if(!program.directory) {
-  console.log('Error: You must specify a directory to process');
-  process.exit(1);
+var dstDir;
+var logFile;
+var indexFile;
+var gDate;
+
+if(program.directory) {
+  dstDir = path.resolve(path.join(program.directory));
+  logFile = path.resolve(path.join(program.directory, 'irc.log'));
+  indexFile = path.resolve(path.join(program.directory, 'index.html'));
+  gDate = path.basename(dstDir);
+  gDate = gDate.match(/([0-9]{4}-[0-9]{2}-[0-9]{2})/)[1];
 }
 
 // setup global variables
-var dstDir = path.resolve(path.join(program.directory));
-var logFile = path.resolve(path.join(program.directory, 'irc.log'));
-var indexFile = path.resolve(path.join(program.directory, 'index.html'));
 var htmlHeader = fs.readFileSync(
   __dirname + '/header.html', {encoding: 'utf8'});
 var htmlFooter = fs.readFileSync(
   __dirname + '/footer.html', {encoding: 'utf8'});
 var peopleJson = fs.readFileSync(
   __dirname + '/people.json', {encoding: 'utf8'});
-var gLogData = '';
 var haveAudio = false;
-var gDate = path.basename(dstDir);
-gDate = gDate.match(/([0-9]{4}-[0-9]{2}-[0-9]{2})/)[1];
 
 // configure scrawl
 scrawl.group = 'JSON-LD CG Telecon';
@@ -41,38 +43,34 @@ scrawl.people = JSON.parse(peopleJson);
 /*************************** Main Functionality ******************************/
 
 async.waterfall([ function(callback) {
-  // check to make sure the log file exists in the given directory
-  //console.log("dstDir:", dstDir, "\nlogFile:", logFile);
-  fs.exists(logFile, function(exists) {
-    if(exists) {
-      callback();
-    } else {
-      callback('Error: ' + logFile +
-        ' does not exist, required for processing.');
-    }
-  });
-}, function(callback) {
-  // read the IRC log file
-  fs.readFile(logFile, 'utf8', callback);
-}, function(data, callback) {
-  gLogData = data;
-  // generate the index.html file
-  var minutes =
-    htmlHeader +
-    '<div><div><div class="container">' +
-    '<div class="row"><div class="col-md-8 col-md-offset-2">' +
-    scrawl.generateMinutes(gLogData, 'html', gDate, haveAudio) +
-    '</div></div></div></div></div>' + htmlFooter;
-  callback(null, minutes);
-}, function(minutes, callback) {
-  // write the index.html file to disk
-  if(program.html) {
-    if(!program.quiet) {
-      console.log('scrawl: Writing', indexFile);
-    }
-    fs.writeFile(indexFile, minutes, {}, callback);
+  if(program.directory) {
+    // check to make sure the log file exists in the given directory
+    //console.log("dstDir:", dstDir, "\nlogFile:", logFile);
+    fs.exists(logFile, function(exists) {
+      if(exists) {
+        fs.readFile(logFile, 'utf8', function(data) {
+          // generate the index.html file
+          var minutes =
+            htmlHeader +
+            '<div><div><div class="container">' +
+            '<div class="row"><div class="col-md-8 col-md-offset-2">' +
+            scrawl.generateMinutes(data, 'html', gDate, haveAudio) +
+            '</div></div></div></div></div>' + htmlFooter;
+          // write the index.html file to disk
+          if(program.html) {
+            if(!program.quiet) {
+              console.log('scrawl: Writing', indexFile);
+            }
+            fs.writeFile(indexFile, minutes, {}, callback);
+          }
+        });
+      } else {
+        callback('Error: ' + logFile +
+          ' does not exist, required for processing.');
+      }
+    });
   } else {
-    callback();
+    callback()
   }
 }, function(callback) {
   // write the index.html file to disk
