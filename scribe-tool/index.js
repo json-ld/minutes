@@ -2,7 +2,7 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 var program = require('commander');
-var scrawl = require('./scrawl');
+var showdown  = require('showdown');
 var wp = require('wporg');
 
 program
@@ -14,13 +14,13 @@ program
   .parse(process.argv);
 
 var dstDir;
-var logFile;
+var mdFile;
 var indexFile;
 var gDate;
 
 if(program.directory) {
   dstDir = path.resolve(path.join(program.directory));
-  logFile = path.resolve(path.join(program.directory, 'irc.log'));
+  mdFile = path.resolve(path.join(program.directory, 'index.md'));
   indexFile = path.resolve(path.join(program.directory, 'index.html'));
   gDate = path.basename(dstDir);
   gDate = gDate.match(/([0-9]{4}-[0-9]{2}-[0-9]{2})/)[1];
@@ -35,10 +35,6 @@ var peopleJson = fs.readFileSync(
   __dirname + '/people.json', {encoding: 'utf8'});
 var haveAudio = false;
 
-// configure scrawl
-scrawl.group = 'JSON-LD CG Telecon';
-scrawl.people = JSON.parse(peopleJson);
-
 /************************* Utility Functions *********************************/
 /*************************** Main Functionality ******************************/
 
@@ -46,26 +42,27 @@ async.waterfall([ function(callback) {
   if(program.directory) {
     // check to make sure the log file exists in the given directory
     //console.log("dstDir:", dstDir, "\nlogFile:", logFile);
-    fs.exists(logFile, function(exists) {
+    fs.exists(mdFile, function(exists) {
       if(exists) {
-        fs.readFile(logFile, 'utf8', function(data) {
+        fs.readFile(mdFile, 'utf8', function(err, data) {
           // generate the index.html file
+          var converter = new showdown.Converter();
           var minutes =
             htmlHeader +
             '<div><div><div class="container">' +
             '<div class="row"><div class="col-md-8 col-md-offset-2">' +
-            scrawl.generateMinutes(data, 'html', gDate, haveAudio) +
-            '</div></div></div></div></div>' + htmlFooter;
+            converter.makeHtml(data)+
+          '</div></div></div></div></div>' + htmlFooter;
           // write the index.html file to disk
           if(program.html) {
             if(!program.quiet) {
-              console.log('scrawl: Writing', indexFile);
+              console.log('Writing', indexFile);
             }
             fs.writeFile(indexFile, minutes, {}, callback);
           }
         });
       } else {
-        callback('Error: ' + logFile +
+        callback('Error: ' + mdFile +
           ' does not exist, required for processing.');
       }
     });
@@ -76,7 +73,7 @@ async.waterfall([ function(callback) {
   // write the index.html file to disk
   if(program.index) {
     if(!program.quiet) {
-      console.log('scrawl: Writing meeting summaries...');
+      console.log('Writing meeting summaries...');
     }
     var minutesDir = __dirname + '/..';
     var logFiles = [];
