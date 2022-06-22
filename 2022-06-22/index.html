@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h2>JSON-LD Syntax and API</h2>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+<div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p>
+<h1 id="jsonldcgwgminutesdraft">JSON-LD CG/WG — Minutes (Draft)</h1>
+<p><strong>Date:</strong> 2022-06-22</p>
+<p>See also the <a href="https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86-3b894bdb1487">Agenda</a> and the <a href="https://www.w3.org/2022/06/22-json-ld-irc.txt">IRC Log</a></p>
+<h2 id="attendees">Attendees</h2>
+<p><strong>Present:</strong> Ted Thibodeau Jr., David I. Lehn, Pierre-Antoine Champin, Melinda Minch, Roberto Polli, Orie Steel, Niklas Lindström, Eric Prud'hommeaux, Chris Mungall</p>
+<p><strong>Regrets:</strong> </p>
+<p><strong>Guests:</strong> </p>
+<p><strong>Chair:</strong> Gregg Kellogg</p>
+<p><strong>Scribe(s):</strong> Orie Steel, Gregg Kellogg, Pierre-Antoine Champin</p>
+<h2 id="content">Content:</h2>
+<ul>
+<li><a href="#1-announcements-and-introductions.">1. Announcements and Introductions.</a></li>
+<li><a href="#2-yaml-ld.">2. YAML-LD.</a></li>
+<li><a href="#3-json-ld-star.">3. JSON-LD-star.</a></li>
+<li><a href="#4-json-ld-spec-updates.">4. JSON-LD Spec updates.</a></li>
+<li><a href="#5-schedule-next-call.">5. Schedule next call.</a></li>
+<li><a href="#6-resolutions">6. Resolutions</a></li>
+</ul>
+<hr />
+<h3 id="1announcementsandintroductions">1. Announcements and Introductions.</h3>
+<p><strong>Gregg Kellogg:</strong> the CG as been anointed to make updated to specs / publish new ones… by the JSON-LD WG..<br />
+… to start off, we have had a lot of interest in YAML-LD lately..<br />
+… I'm Editor of JSON-LD 1.0 / 1.1, I've worked in CGs as well..  </p>
+<p><strong>Niklas Lindström:</strong> I was also in the WG / co-author JSON-LD 1.0… I work a the national library of sweden, and we use jsonld.<br />
+… i've been interested in RDF * / JSON-lD *.  </p>
+<p><strong>Anatoly Scherbakov:</strong> I work at datafold, i'm a software developer, interested in semantic data… I'm building an open source project that works on knowledge graphs.<br />
+… I first learned of these 10 years ago, but only now I have a project to work on them, excited to be here..  </p>
+<p><strong>David I. Lehn:</strong> I work at Digital Bazaar, we've used JSON-LD for some time, current maintainer of jsonld.js… want to keep pushing the tech forward..  </p>
+<p><strong>Ted Thibodeau Jr.:</strong> I'm with OpenLink Software, I'm in all W3C groups..  </p>
+<p><strong>Philippe Le Hégaret:</strong> I'm the team contact for W3C for the JSON-LD WG..  </p>
+<p><strong>Roberto Polli:</strong> I work for video <code>&lt;inaudible&gt;</code> department of italy, interested in web apis…. interested in standardization… I'm also interested in standardizing… <inaudible>.  </p>
+<blockquote>
+  <p><em>Orie Steel:</em> Pierre-Antoine: I joined the W3C Team, I've helped shepherd the RDF WG /RDF <em>… interested in JSON-LD… and interested in augmenting it to cover RDF</em>.</p>
+</blockquote>
+<p><strong>Melinda Minch:</strong> I'm based in BC, CA, I work on the World Data System, international technology office, I was given a task to build federated search for arctic research data… I'm interested in research dataset markup..  </p>
+<p><strong>Orie Steel:</strong> I'm Orie Steel, CTO and founder of transumte. I'm an other of the DID spec and work with Verifiable Credentials..<br />
+… We apply JSON-LD DIDs for securing global trade documents for import/export..<br />
+… I'm interested in YAML-LD and YAML as a more human readable way of working with Linked Data..  </p>
+<p><strong>Gregg Kellogg:</strong> to repeat for those who are not present yet, we are using IRC.  </p>
+<blockquote>
+  <p><em>Melinda Minch:</em> melinda-minch has joined #json-ld.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> we use IRC for voting / recording minutes, etc..  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> Hi folks!.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> You can use a native IRC client if you like..  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://www.w3.org/groups/cg/json-ld/calendar">https://www.w3.org/groups/cg/json-ld/calendar</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> We have a F2F tentative in Vancouver.  </p>
+<blockquote>
+  <p><em>Melinda Minch:</em> like this? <code>@present+ Melinda Minch</code>.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/present">https://github.com/present</a> -&gt; @present.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> see the calendar.  </p>
+<h3 id="2yamlld">2. YAML-LD.</h3>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> in the WG, we used the github projects feature to manage the open issues.<br />
+… we have created a number of issues.<br />
+… focusing first on use cases.<br />
+… eventually we will look at spec / testing.<br />
+… there is one issue regarding the spec and media types.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld">https://github.com/json-ld/yaml-ld</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> the purpose of working issues, is to create use case documents or working towards a specification.<br />
+… typically we use pull requests, which means we will need to identify editors for each document managed in github.<br />
+… we are seeking editors.<br />
+… there is work required to transform use cases from issues.<br />
+… for example "compatibility with existing libraries".<br />
+… "as a developer I would like to use existing libraries so that work developing is easier…etc".<br />
+… we use "ReSpec" to document specs / use cases as HTML..<br />
+… we have a PR preview tool which helps visualizes the changes made.<br />
+… this allows for the community to review changes and make constructive comments.  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> Orie: to ease collaboration, it would be great to use bikeshed.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> rather than trying to do issue review in this meeting, I would like to move on to other issues.  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> for building the document out of markdown.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> any questions or comments before we move on/.  </p>
+<p><strong>Roberto Polli:</strong> we will not discussion issues?.  </p>
+<p><strong>Gregg Kellogg:</strong> I want to cover the agenda before getting to specific issues.<br />
+… and establish a regular call schedule.<br />
+… we may want to create different calls to cover other items.  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> +1 for different calls for different topics.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> for example JSON-LD *.<br />
+… there are also specification errata which needs to be addressed.<br />
+… the last thing I want to do is schedule our next call, and agree to recurring meetings.  </p>
+<p><strong>Pierre-Antoine Champin:</strong> I wanted to comment on bikeshed vs respec.<br />
+… from what I know, bikeshed is a markdown version of respec.<br />
+… if folks want to use markdown, i think respec may support it now.  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> whatever you prefer, as long as it's text :).</p>
+</blockquote>
+<p><strong>Orie Steel:</strong> I've used both, and I think bikeshed works well..<br />
+… It can be hard to use if it's not set up properly, and there's some additional chances for errors or risks..<br />
+… I think that bikeshed is worth the lift if the advanced featuers warrant..  </p>
+<p><strong>Gregg Kellogg:</strong> group has always used ReSpec… we have plugins / tools in ReSpec.<br />
+… AFAIK, every other RDF group has used ReSpec.<br />
+… my guess is that using ReSpec is probably an easier entry point.  </p>
+<blockquote>
+  <p><strong>Proposed resolution: Use ReSpec for spec and UCR documents..</strong> <em>(Gregg Kellogg)</em></p>
+  <p><em>Orie Steel:</em> +1.</p>
+  <p><em>Pierre-Antoine Champin:</em> +1.</p>
+  <p><em>Ted Thibodeau Jr.:</em> +1.</p>
+  <p><em>Anatoly Scherbakov:</em> +1.</p>
+  <p><em>Philippe Le Hégaret:</em> 0.</p>
+  <p><em>Melinda Minch:</em> 0.</p>
+  <p><em>Niklas Lindström:</em> +0 (no strong opinion).</p>
+  <p><em>Roberto Polli:</em> Can respec use .md ?.</p>
+</blockquote>
+<p><strong>Chris Mungall:</strong> sorry i joined late, should I be looking at something?.  </p>
+<blockquote>
+  <p><em>David I. Lehn:</em> +1, but i had never heard of bikeshed until just now, so not an informed vote.</p>
+  <p><em>Roberto Polli:</em> I just want to avoid diffing .xml docs.</p>
+  <p><em>Roberto Polli:</em> on PRs.</p>
+  <p><em>Eric Prud'hommeaux:</em> +0.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> ok so, last call for votes.  </p>
+<blockquote>
+  <p><strong><em>Resolution #1: Use ReSpec for spec and UCR documents..</em></strong></p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> we will use respec.<br />
+… any other discussion regarding YAML-LD ?.  </p>
+<h3 id="3jsonldstar">3. JSON-LD-star.</h3>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/json-ld-star">https://github.com/json-ld/json-ld-star</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> its fairly mature spec.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/json-ld-star/issues">https://github.com/json-ld/json-ld-star/issues</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> see the open issues, we hope to move it to a WG.  </p>
+<p><strong>Pierre-Antoine Champin:</strong> RDF-star is an extension of syntax and semantics to use triples as the subject or object of other triples.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> Draft JSON-LD-star spec: <a href="https://json-ld.github.io/json-ld-star/">https://json-ld.github.io/json-ld-star/</a>.</p>
+</blockquote>
+<p><strong>Pierre-Antoine Champin:</strong> this extension requires concrete syntax extensions, its been done for turtle… doing this for JSON-LD would cover this same update for JSON-LD.  </p>
+<p><strong>eric:</strong> is there a playground for JSON-LD star.  </p>
+<p><strong>Gregg Kellogg:</strong> I think there is only 1 implementation of JSON-LD start so far.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="http://rdf.greggkellogg.net/distiller?command=serialize&format=jsonld&output_format=jsonld">http://rdf.greggkellogg.net/distiller?command=serialize&format=jsonld&output_format=jsonld</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> in the ruby version there is an option to pickup jsonld.<br />
+… and serialize as JSON-LD *.  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> <a href="https://niklasl.github.io/ldtr/demo/?url=../test/data/diff-annotated.trig">https://niklasl.github.io/ldtr/demo/?url=../test/data/diff-annotated.trig</a>.</p>
+</blockquote>
+<p><strong>Niklas Lindström:</strong> I wanted to share a tool ^ right now its a simple demo of parse &amp; serialize, but it has some visualization.<br />
+… I have added turtle-start, trig-star and jsonld-star.<br />
+… you can use the tool to explore the formats.<br />
+… its a pseudo playgroun.  </p>
+<p><strong>eric:</strong> the bottom right corner ha a '&lt;&lt;' button which brings up an editor.  </p>
+<p><strong>Gregg Kellogg:</strong> would you consider a PR to the JSON-LD repo to include a link?.  </p>
+<p><strong>Niklas Lindström:</strong> I will look into that.  </p>
+<h3 id="4jsonldspecupdates">4. JSON-LD Spec updates.</h3>
+<p><strong>Gregg Kellogg:</strong> there are a number of proposed updates to JSON-LD spec and Errata.<br />
+… this is important work for the group to get too.<br />
+… pchampin and I have been following these issues.<br />
+… plh, any info about the process to apply the errata.  </p>
+<p><strong>Philippe Le Hégaret:</strong> the process was updated in Sep 2020, unfortunately, this was after JSON-LD was published.<br />
+… so the current JSON-LD Rec can not take advantage of the new process.<br />
+… because a recommendation have to "opt in" to the new process, and JSON-LD could not..<br />
+… The probability of the process evolving to make this retroactive is very low..  </p>
+<p><strong>Gregg Kellogg:</strong> so when the group is ready to address this modification,.<br />
+… we will need to dedicate some time to dive into the new process..  </p>
+<h3 id="5schedulenextcall">5. Schedule next call.</h3>
+<p><strong>Gregg Kellogg:</strong> I would propose that the group continues to use this timeslot, on a every-other-week basis.<br />
+… (with some exceptions during summer).<br />
+… every other week may not be enough in the future, but we can start with that..  </p>
+<blockquote>
+  <p><strong>Proposed resolution: go to every other week schedule in this timeslot, with the next meeting being July 6.</strong> <em>(Gregg Kellogg)</em></p>
+  <p><em>Niklas Lindström:</em> +1.</p>
+  <p><em>Gregg Kellogg:</em> +1.</p>
+  <p><em>Pierre-Antoine Champin:</em> <pchampin> +1.</p>
+  <p><em>David I. Lehn:</em> +1.</p>
+  <p><em>Philippe Le Hégaret:</em> 0.</p>
+  <p><em>Anatoly Scherbakov:</em> +1.</p>
+  <p><em>Melinda Minch:</em> 0.</p>
+  <p><em>Ted Thibodeau Jr.:</em> +0.</p>
+  <p><strong><em>Resolution #2: go to every other week schedule in this timeslot, with the next meeting being July 6.</em></strong></p>
+</blockquote>
+<p><strong>Philippe Le Hégaret:</strong> will not be able to attend these calls on a regular basis,.<br />
+… but let me know if you need me..  </p>
+<p><strong>Gregg Kellogg:</strong> ivan also said that he would try to attend, when possible..  </p>
+<p><strong>Ted Thibodeau Jr.:</strong> can we put these calls in the JSON-LD WG/CG calendar?.  </p>
+<p><strong>Gregg Kellogg:</strong> will do (already the case for this call).<br />
+… the minutes will also be included in the calendar, and validated during the next meeting.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> anyone having an issue they want to start with?.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> issue json-ld/yaml-ld#19.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/19">https://github.com/json-ld/yaml-ld/issues/19</a> -&gt; Issue 19 Polyglot Modeling (VladimirAlexiev) UCR.</p>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/issues">https://github.com/json-ld/yaml-ld/issues</a>.</p>
+</blockquote>
+<p><strong>Eric Prud'hommeaux:</strong> how are people supposed to add UCRs?.  </p>
+<p><strong>Gregg Kellogg:</strong> there is an issue template for UCRs in the <a href="https://github.com/json-ld/yaml-ld">https://github.com/json-ld/yaml-ld</a> repo.  </p>
+<blockquote>
+  <p><em>Eric Prud'hommeaux:</em> (meta Q to see if we're on the same page).</p>
+</blockquote>
+<p><strong>Eric Prud'hommeaux:</strong> do people want to exceed JSON expressivity, or just use YAML as a nicer syntax for JSON?.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> issue #8.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/json-ld.org/issues/8">https://github.com/json-ld/json-ld.org/issues/8</a> -&gt; Issue 8 [closed] Optimizing Compact Form (presbrey) spec-design, resolved, api.</p>
+  <p><em>Gregg Kellogg:</em> yaml-ld#8.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/8">https://github.com/json-ld/yaml-ld/issues/8</a> -&gt; Issue 8 Round-trip safe json-ld -&gt; yaml-ld -&gt; json-ld (ioggstream) UCR.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> I think there is an issue about that.<br />
+… (not the one above…).<br />
+… s/see/see/.  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> yaml-ld#17.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/17">https://github.com/json-ld/yaml-ld/issues/17</a> -&gt; Issue 17 YAML-LD datatypes (and tags for datatypes) (VladimirAlexiev) UCR.</p>
+  <p><em>Orie Steel:</em> +1 to JSON-LD and YAML-LD having a similar or identical set of capabilities.</p>
+  <p><em>Orie Steel:</em> +1 to exploring both the "identical" and the "enhanced" paths.. at least initially.</p>
+  <p><em>Orie Steel:</em> sorry I am talking now.</p>
+  <p><em>Orie Steel:</em> I can take back over scribing ir you like.</p>
+</blockquote>
+<p><strong>Roberto Polli:</strong> we can start with a minimal set of feature.<br />
+… allowing to serialize only roundtrippable data (except for comments).<br />
+… once we have it, we can consider expanding it.<br />
+… for example, leveraging YAML anchors in order to reuse JSON bits in several places.<br />
+… (as long as they are not creating cycles).<br />
+… also, it is important to define a media-type.  </p>
+<blockquote>
+  <p><em>Melinda Minch:</em> Is it a goal to make these formats round-trippable between each other, or anything like that?.</p>
+  <p><em>Roberto Polli:</em> ioggstream: q-.</p>
+  <p><em>Eric Prud'hommeaux:</em> interestingly, YAML might no offer much referencing advantage (<code>&amp;node</code> and <code>*node</code>) over JSON-LD 'cause it already had refs.</p>
+</blockquote>
+<p><strong>Orie Steel:</strong> roundtripping is important for interoperability.  </p>
+<blockquote>
+  <p><em>Eric Prud'hommeaux:</em> but not with the notion of copying data, more with re-using nodes.</p>
+</blockquote>
+<p><strong>Orie Steel:</strong> it is exciting to explore other features, but in a 2nd time.  </p>
+<p><strong>Niklas Lindström:</strong> worried about the complexity we might open up.  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> ericP: refs and *node are different. One happens at json-ld level, the other one at seralization level..</p>
+  <p><em>Anatoly Scherbakov:</em> I am uncertain how referencing can help; JSON-LD can assign an @id to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature?.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/id">https://github.com/id</a> -&gt; <code>@id</code>.</p>
+</blockquote>
+<p><strong>Niklas Lindström:</strong> my own colleagues already have problem with the RDF part of JSON-LD, they merely see JSON.  </p>
+<p><strong>Gregg Kellogg:</strong> thanks everyone, we have a lot to chew on.<br />
+… I encourage you to continue the discussion in the issues.<br />
+… From this discussion, I think we will start with a simple profile..  </p>
+<blockquote>
+  <p><em>Orie Steel:</em> thanks all!.</p>
+  <p><em>Anatoly Scherbakov:</em> Thank you all very much!.</p>
+  <p><em>Melinda Minch:</em> Thanks everyone, nice to meet you all.</p>
+  <p><em>Gregg Kellogg:</em> rssagent, bye.</p>
+</blockquote>
+<hr />
+<h3 id="6resolutions">6. Resolutions</h3>
+<ul>
+<li>Resolution #1: Use ReSpec for spec and UCR documents..</li>
+<li>Resolution #2: go to every other week schedule in this timeslot, with the next meeting being July 6.</li>
+</ul></div></div></div></div></div>    </div>
+  </body>
+</html>
