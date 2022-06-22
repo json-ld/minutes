@@ -139,7 +139,7 @@ async.waterfall([ function(callback) {
         '<p>All JSON-LD teleconferences are open to the public. Anyone may join and participate in the discussion. All teleconferences are announced at least 24 hours in advance on the <a href="http://lists.w3.org/Archives/Public/public-linked-json/">JSON-LD mailing list</a>.</p>' +
         '<ul>' +
          '<li><strong>Meetings:</strong> generally every other week</li>' +
-         '<li><strong>Time:</strong> 1800 UTC, 9am San Francisco, 12pm Boston, 6pm Berlin</li>' +
+         '<li><strong>Time:</strong> Every other Wednesday 1800 UTC, 9am San Francisco, 12pm Boston, 6pm Berlin</li>' +
          '<li><strong>Where:</strong> Zoom (details in <a href="https://www.w3.org/groups/cg/json-ld/calendar">W3C calendar</a>)</li>' +
          '<li><strong>IRC:</strong> <a href="irc://irc.w3.org/#json-ld">irc://irc.w3.org/#json-ld</a></li>' +
          '<li><strong>Duration:</strong> 60 minutes</li>' +
