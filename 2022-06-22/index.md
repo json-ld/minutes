@@ -75,8 +75,6 @@ See also the [Agenda](https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86
 
 > *Melinda Minch:* like this? `@present+ Melinda Minch`.
 
-> *ghurlbot:* [https://github.com/present](https://github.com/present) -> @present.
-
 **Gregg Kellogg:** see the calendar.  
 
 ### 2. YAML-LD.
@@ -277,10 +275,6 @@ See also the [Agenda](https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86
 
 **Eric Prud'hommeaux:** do people want to exceed JSON expressivity, or just use YAML as a nicer syntax for JSON?.  
 
-> *Gregg Kellogg:* issue #8.
-
-> *ghurlbot:* [https://github.com/json-ld/json-ld.org/issues/8](https://github.com/json-ld/json-ld.org/issues/8) -> Issue 8 [closed] Optimizing Compact Form (presbrey) spec-design, resolved, api.
-
 > *Gregg Kellogg:* yaml-ld#8.
 
 > *ghurlbot:* [https://github.com/json-ld/yaml-ld/issues/8](https://github.com/json-ld/yaml-ld/issues/8) -> Issue 8 Round-trip safe json-ld -> yaml-ld -> json-ld (ioggstream) UCR.
@@ -324,9 +318,7 @@ See also the [Agenda](https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86
 
 > *Roberto Polli:* ericP: refs and *node are different. One happens at json-ld level, the other one at seralization level..
 
-> *Anatoly Scherbakov:* I am uncertain how referencing can help; JSON-LD can assign an @id to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature?.
-
-> *ghurlbot:* [https://github.com/id](https://github.com/id) -> `@id`.
+> *Anatoly Scherbakov:* I am uncertain how referencing can help; JSON-LD can assign an `@id` to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature?.
 
 **Niklas Lindström:** my own colleagues already have problem with the RDF part of JSON-LD, they merely see JSON.  
 

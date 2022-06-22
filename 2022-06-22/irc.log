@@ -54,7 +54,6 @@
 16:14:09 <gkellogg> https://www.w3.org/groups/cg/json-ld/calendar
 16:14:30 <Orie> gkellogg: We have a F2F tentative in Vancouver
 16:14:34 <melinda-minch> like this? `@present+ Melinda Minch`
-16:14:34 <ghurlbot> https://github.com/present -> @present
 16:14:37 <Orie> ... see the calendar
 16:14:48 <niklasl> present+
 16:14:48 <gkellogg> zakim, next agendum
@@ -213,8 +212,6 @@
 16:46:50 <gkellogg> ack TallTed
 16:47:05 <gkellogg> q-
 16:47:36 <pchampin> ericP: do people want to exceed JSON expressivity, or just use YAML as a nicer syntax for JSON?
-16:47:45 <gkellogg> issue #8
-16:47:46 <ghurlbot> https://github.com/json-ld/json-ld.org/issues/8 -> Issue 8 [closed] Optimizing Compact Form (presbrey) spec-design, resolved, api
 16:47:53 <anatoly-scherbakov> q+
 16:47:56 <gkellogg> yaml-ld#8
 16:47:56 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/8 -> Issue 8 Round-trip safe json-ld -> yaml-ld -> json-ld (ioggstream) UCR
@@ -266,8 +263,7 @@
 16:58:04 <pchampin> niklas: worried about the complexity we might open up
 16:58:11 <ioggstream> ericP: refs and *node are different. One happens at json-ld level, the other one at seralization level.
 16:58:34 <gkellogg> q?
-16:58:36 <anatoly-scherbakov> I am uncertain how referencing can help; JSON-LD can assign an @id to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature?
-16:58:36 <ghurlbot> https://github.com/id -> @id
+16:58:36 <anatoly-scherbakov> I am uncertain how referencing can help; JSON-LD can assign an `@id` to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature?
 16:58:37 <pchampin> ... my own colleagues already have problem with the RDF part of JSON-LD, they merely see JSON
 16:58:46 <gkellogg> ack gkellogg
 16:59:05 <pchampin> gkellogg: thanks everyone, we have a lot to chew on
@@ -277,8 +273,6 @@
 16:59:53 <anatoly-scherbakov> Thank you all very much!
 16:59:53 <gkellogg> zakim, close meeting
 16:59:53 <Zakim> I don't understand 'close meeting', gkellogg
-16:59:54 <TallTed> s| https://github.com/id -> @id| |
-16:59:54 <TallTed> s/@id/`@id`/
 17:00:10 <gkellogg> zakim, end meeting
 17:00:10 <Zakim> As of this point the attendees have been Gregg_Kellogg, plh, dlehn, TallTed, pchampin, Orie, niklasl, melinda-minch, ericP, ChrisMungall
 17:00:11 <TallTed> Zakim, end meeting
