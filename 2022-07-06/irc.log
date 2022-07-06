@@ -1,0 +1,235 @@
+15:51:39 <RRSAgent> RRSAgent has joined #json-ld
+15:51:39 <RRSAgent> logging to https://www.w3.org/2022/07/06-json-ld-irc
+15:51:41 <Zakim> RRSAgent, make logs Public
+15:51:43 <Zakim> please title this meeting ("meeting: ..."), pchampin
+15:52:15 <gkellogg> agenda: https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220706T160000#agenda
+15:52:16 <agendabot> clear agenda
+15:52:16 <agendabot> agenda+ Announcements and Introductions
+15:52:16 <agendabot> agenda+ Approve Minutes
+15:52:16 <agendabot> agenda+ YAML-LD
+15:52:16 <agendabot> agenda+ Next call
+15:52:23 <gkellogg> gkellogg has changed the topic to: https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220706T160000#agenda
+15:53:24 <gkellogg> chair: gkellogg
+15:53:31 <gkellogg> present+
+15:56:06 <RobAtkinson> RobAtkinson has joined #json-ld
+16:01:14 <anatoly-scherbakov> present+
+16:01:14 <dlehn1> present+
+16:01:27 <RobAtkinson> present+
+16:01:37 <juuso-aut> present+
+16:01:43 <niklasl> present+
+16:02:07 <gkellogg> zakim, next agendum
+16:02:07 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:51 <bigbluehat> present+
+16:02:59 <Orie> Orie has joined #json-ld
+16:03:01 <gkellogg> scribe+ anatoly-scherbakov
+16:03:18 <RobAtkinson> q+
+16:03:28 <anatoly-scherbakov> gkellogg: Introductions. Juuso?
+16:03:53 <TallTed> TallTed has joined #json-ld
+16:04:38 <anatoly-scherbakov> juuso-aut: I am from Aalto university in Finland, finished my dissertation in December about Digital Twins. My background is Mechanical Engineering, but last 5-ish years I am getting more into programming. Now I am interested in YAML-LD initiative. Being new to W3C activity, will be watching how this goes.
+16:05:35 <anatoly-scherbakov> bigbluehat: I am Benjamin Young, coach of JSON-LD working group. Glad about this community group to be up and running, excited to be here.
+16:06:23 <TallTed> present+
+16:06:23 <pchampin> s/coach/co-chair/
+16:06:31 <pchampin> present+
+16:08:00 <anatoly-scherbakov> RobAtkinson: Engineer working on Semantic interoperability in general, looking to use about JSON-LD for that. Driving an activity to describe Geospatial data. Publishing Component data models, JSON-LD contexts. Facing a plethora of JSON Schemas and looking into using JSON-LD to manage that. Currently residing in the UK; it will be more difficult when I am in Australia but looking forward to continue working with this group.
+16:08:53 <anatoly-scherbakov> gkellogg: A long standing problem in W3C is finding a convenient time for meetings both from Europe and Americas.
+16:09:26 <Orie> present+
+16:09:31 <anatoly-scherbakov> RobAtkinson: NB - with the OGC (OpenGeospatial Consortium)
+16:09:57 <ioggstream> ioggstream has joined #json-ld
+16:11:18 <anatoly-scherbakov> VladimirAlexiev: I'm chief Data Architect at Ontotext, a BG semantic technologies company. I work in the KG Solutions group, focusing on industrial data in the last couple of years
+16:09:28 <anatoly-scherbakov> VladimirAlexiev: I am an informational architect for OntoText, a Semantic Technology company from Bulgaria.
+16:11:18 <anatoly-scherbakov> VladimirAlexiev: we've recently been acquired for ≈30M Euro and this will help us expand. My daily job is to explore ontologies, find interesting open data sets to build knowledge graphs, suggest how KGs can help machine learning and data science, participate in research problems. Last 2-3 years I am focused on industrial data: architecture, construction, manufacturing. We work on all sorts of data apart from life sciences.
+16:13:31 <anatoly-scherbakov> VladimirAlexiev: I started YAML-LD out of curiosity, saw a project on GitHub about Semantic data in YAML. Quite glad that people are showing interest in this. We need to decide some consensus: should YAML-LD deal with formatting issues or be limited to data model? This is the first meeting I am in, previously I contributed to SHACL, RDF-star, and a lot of issues in bunch of different projects. Looking forward to this effort.
+16:13:33 <gkellogg> zakim, next agendum
+16:13:33 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:13:41 <gkellogg> q?
+16:13:46 <VladimirAlexiev> VladimirAlexiev has joined #json-ld
+16:13:46 <VladimirAlexiev> present+
+16:13:53 <gkellogg> ack RobAtkinson
+16:13:56 <RobAtkinson> q-
+16:14:03 <gkellogg> zakim, next agendum
+16:14:03 <Zakim> agendum 2 -- Approve Minutes -- taken up [from agendabot]
+16:14:16 <gkellogg> https://json-ld.org/minutes/2022-06-22/
+16:14:43 <anatoly-scherbakov> gkellogg: let's review minutes from the previous minutes. If anyone has corrections present them here or issue a PR.
+16:14:51 <gkellogg> zakim, next agendum
+16:14:51 <Zakim> agendum 2 was just opened, gkellogg
+16:14:53 <anatoly-scherbakov> gkellogg: let's review minutes from the previous meeting. If anyone has corrections present them here or issue a PR.
+16:15:04 <gkellogg> zakim, next agendum
+16:15:04 <Zakim> agendum 3 -- YAML-LD -- taken up [from agendabot]
+16:15:12 <ioggstream> gkellogg: can I fix where I work ?
+16:15:19 <gkellogg> https://github.com/json-ld/yaml-ld/projects/1
+16:15:38 <gkellogg> yaml-ld#34
+16:15:38 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/34 -> Pull Request 34 Preliminary rules for discussion (ioggstream)
+16:15:56 <anatoly-scherbakov> gkellogg: Onto the body of the meeting, we have a number of open issues, there is a project that I've tried to use to organize the various PRs and issues around here. Taken the liberty of selecting some of them.
+16:17:56 <anatoly-scherbakov> ioggstream: This PR contains a basic concept about YAML, some examples. I think the PR is received a lot of comments. I think that it's okay just as it is. When you speak about strings or streams, the concept is a YAML document. The concept is fine, I hope there are no objections to merge it.
+16:18:24 <gkellogg> q?
+16:18:32 <VladimirAlexiev> +1 to approve PRs in this early stage quick, so we can proceed with adding more material
+16:18:34 <anatoly-scherbakov> gkellogg: We should faster merge these PRs on this stage. We can correct later by following PRs. I do not offer to vote on each of those if there are specific concerns we can discuss them.
+16:18:42 <gkellogg> yaml-ld#37
+16:18:43 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/37 -> Pull Request 37 Add remaining Use Case Issues. (gkellogg) UCR
+16:19:45 <anatoly-scherbakov> gkellogg: I put something to use case document. Some of these Use Cases are likely contradictory. We follow up with requirement sections referenced by use cases and potentially move use cases which are no longer pertinent to a separate section.
+16:19:51 <gkellogg> q?
+16:21:56 <anatoly-scherbakov> VladimirAlexiev: quite a lot of discussion on some cases, people say we don't want it. We need to discuss which UCR issues are real use cases. Then we will be able to draft sections of UCR spec. Some of them need to be reformatt4ed. We should agree about the format. I have tagged some people in my UCRs. To give an example, in polyglot modeling, I listed maybe 9 bullets with guesses on who might be interested. First of all[CUT]
+16:22:32 <ioggstream> +1 for using github and collect them after
+16:22:32 <anatoly-scherbakov> VladimirAlexiev: ... to Polyglot Modeling. We need to engage with these people. I am unsure what is the best way to capture use cases. In git? With tags: agreed vs rejected.
+16:22:45 <gkellogg> q?
+16:23:33 <RobAtkinson> q+
+16:23:39 <VladimirAlexiev> UCR spec: I think it's too early to collect UCRs in a doc. Maybe keep them as github issues, with some tags eg "UCR agreed but editing needed", "UCR agreed", "UCR rejected"
+16:24:08 <anatoly-scherbakov> ioggstream: we have a view of the document. We need to draft an MVP of the document. Then, once we identified general constraints of the MVP then we can add better identify reasons for use cases. There are maybe constraints we do not actually see. Probably once we get them it will be easier to manage work around use cases.
+16:24:19 <gkellogg> ack RobAtkinson
+16:25:21 <bigbluehat> q+
+16:25:30 <anatoly-scherbakov> RobAtkinson: what is the broad architecture? There seems to be a lot of JSON-LD use cases. Which of them are specific to YAML I am not really sure. What is the general use case around JSON-LD? Perhaps JSON-LD Framing? SHACL and ShEx validation? How can modular schemas be used together? I am surprised to see use cases specifically for YAML rather then JSON-LD as a whole.
+16:25:33 <gkellogg> ack bigbluehat
+16:25:37 <anatoly-scherbakov> q+
+16:25:41 <niklasl> +1 for "what is YAML-specific?"
+16:26:46 <gkellogg> q+
+16:26:46 <Orie> +1 to seperating the use cases for "use yaml features" vs "json compatibility"
+16:27:13 <gkellogg> ack anatoly-scherbakov
+16:27:15 <anatoly-scherbakov> bigbluehat: YAML provides capabilities JSON does not have. YAML at its core is a superset of JSON. Minimally, there is no real variance between JSON and YAML. You wouldn't need additional  use case docs. However, if we'd want to use special features of YAML then we would need use cases for these specific features. Multi documents, hypermedia, et cetera. It depends on the direction the group goes. is this a one to one mapp[CUT]
+16:27:18 <anatoly-scherbakov> ... extra features?
+16:27:24 <RobAtkinson> q-
+16:27:56 <niklasl> I should write an issue for this, but just a heads up: beware of YAML-complexities such as YAML-bombs: https://en.wikipedia.org/wiki/Billion_laughs_attack
+16:28:05 <VladimirAlexiev> +1 for "exploit extra YAML features". We're currently a bit in a "hammer seeks nail" mode ;-) but that's ok.
+16:28:18 <Orie> +1 to leaning into the "human write yaml" perspective.
+16:28:44 <anatoly-scherbakov> q-
+16:28:52 <gkellogg> ack gkellogg
+16:28:58 <niklasl> +1 too for "for humans to write"; YAML on the wire "scares" me...
+16:29:00 <gkellogg> scribe+ gkellogg
+16:29:00 <gkellogg> anatoly-scherbakov: YAML is human writable whereas JSON is machine writable. I suggest to lean towards that direction.
+16:29:08 <bigbluehat> YAML spec's "Relation to JSON" summary (fwiw) http://yaml.org/spec/1.2-old/spec.html#id2759572
+16:29:16 <VladimirAlexiev> "humans read & write yaml" suggests that all formatting/presentation issues are fair game, eg "use 2 spaces for indentation" should be specifiable in a "context/frame"
+16:29:42 <RobAtkinson> + for the delta to help folks understand scope and overlap
+16:29:49 <anatoly-scherbakov> gkellogg: I will create a proposal to put off use cases. We will not merge the branch in question. We should focus use cases on delta between JSON-LD and YAML-LD and on things that make sense for YAML-LD specifically.
+16:29:57 <TallTed> q+
+16:30:13 <gkellogg> proposal: delay merging UCR use cases, and focus on YAML-specific use cases
+16:30:36 <VladimirAlexiev> q+
+16:30:44 <pchampin> q+
+16:30:47 <ioggstream> gkellogg: +1 to focus on YAML-specific
+16:30:53 <gkellogg> q?
+16:30:58 <gkellogg> ack TallTed
+16:30:59 <RobAtkinson> we copuld have profiles - one for basic round trippable - one extended
+16:31:02 <anatoly-scherbakov> TallTed: There is an early goal that YAML-LD should be round-trippable with JSON-LD in either direction, lossless. That would seem to preclude making YAML-LD super-special and making use of its specific features that JSON does not support. Those would eliminate the round-tripping. I believe that is an intentional goal to maintain this round-trippability.
+16:31:03 <Orie> I think round tripping is ONLY relevant to the "JSON compatibility" case.
+16:31:04 <gkellogg> ack VladimirAlexiev
+16:32:10 <juuso-aut> q+
+16:32:13 <pchampin> q-
+16:32:24 <RobAtkinson> +1 for round-trippable to RDF - at OGC this is our use case - so we can perform CI/CT validation using SHACL/SHex etc.
+16:32:47 <anatoly-scherbakov> VladimirAlexiev: round-trippability is important. At what level? JSON-LD and YAML-LD both are round-trippable to RDF. I am not 100% sure that on serialization you can restore the `@nest` nodes. On YAML side you find presentation aspects. Extra features like multiple docs or others we still would not use round-trippability. We focus on YAML extras even though for some of them we might not see the use cases immediately. That'[CUT]
+16:32:59 <anatoly-scherbakov> ... YAML we might have much better presentation than JSON-LD*.
+16:33:03 <gkellogg> q?
+16:33:07 <gkellogg> ackk juuso-aut
+16:33:21 <gkellogg> q-
+16:33:26 <gkellogg> q-
+16:33:31 <gkellogg> ack juuso-aut
+16:33:31 <RobAtkinson> q+
+16:33:51 <gkellogg> q+
+16:34:02 <anatoly-scherbakov> juuso-aut: my opinion about round-tripping. I think we have a clear mission: first we need round-trippable YAML-LD system. After  that we can see if there is a demand for additional features of YAML. My opinion is that round-trippable YAML-LD standard is a priority.
+16:34:08 <gkellogg> ack RobAtkinson
+16:35:45 <gkellogg> ack gkellogg
+16:35:50 <anatoly-scherbakov> RobAtkinson: yaml-ld#35 was about formalizing profiles. One profile is interoperable, another has plus capabilities. This separation can help keep stuff simpler. Some specs in W3C are very complicated, lead to complex implementations. Separation of profiles should help make each of them simpler. My vote is round-trippability as a priority.
+16:35:51 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/35 -> Issue 35 [closed] Data round-tripping issues: create a JSON vocabulary (lanthaler) spec-design, api
+16:36:58 <Orie> We should acknowledge lossy and lossless paths
+16:37:09 <anatoly-scherbakov> gkellogg: I think it makes sense to consider what we mean by round-trippability. JSON-LD makes great pains that when you expand and then compact it you get what was originally expanded. "@nest" complicates that. Important thing is that there is no semantic loss or limited semantic loss when round-tripping content. Part of the reason YAML is interesting is because YAML does provide features like links and anchors. I'd hate[CUT]
+16:37:10 <ghurlbot> https://github.com/nest -> @nest
+16:37:11 <Orie> and give unique names to each potential path.
+16:37:13 <TallTed> +1 my round-tripping concern here is about semantic content, not about prettiness/presentation
+16:37:19 <anatoly-scherbakov> ...because they're not round-trippable. Hence the notion of extended profiles.
+16:37:48 <RobAtkinson> does this mean we need a best practice for internal links in JSON-LD - or maybe one or more formal profiles for different approaches?
+16:38:19 <RobAtkinson> +0
+16:38:27 <ioggstream> gkellogg: I propose to pospone the merge of yaml-ld#37
+16:38:28 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/37 -> Issue 37 [closed] Clarify prefix expansion (lanthaler) spec-bug, spec-editorial, syntax
+16:39:01 <gkellogg> proposal: do not merge UCR use cases and focus use cases on YAML-specific issues
+16:39:05 <VladimirAlexiev> Agree with bigbluehat: TallTed, we always have RDF for the semantic equivalence
+16:39:11 <gkellogg> +1
+16:39:13 <Orie> +1
+16:39:15 <TallTed> (My concern here is different from my regular concern with preservation of comments in Turtle, because neither JSON nor JSON-LD support comments.)
+16:39:15 <ioggstream> gkellogg: +1
+16:39:17 <VladimirAlexiev> +1 (too early)
+16:39:21 <dlehn1> +0
+16:39:22 <anatoly-scherbakov> +1
+16:39:22 <RobAtkinson> +0
+16:39:23 <bigbluehat> +1
+16:39:24 <niklasl> +1 (to distinguish what is YAML syntax specifics)
+16:39:24 <pchampin> +1
+16:39:34 <TallTed> +1 don't merge, but don't delete yet
+16:40:19 <RobAtkinson> comments in turtle is a bad idea IMHO ... we should provide better annotation practices.
+16:40:21 <juuso-aut> +1 (don't delete yet)
+16:41:00 <RobAtkinson> q+
+16:41:06 <VladimirAlexiev> q+
+16:41:11 <gkellogg> resolved: do not merge UCR use cases and focus use cases on YAML-specific issues
+16:41:14 <anatoly-scherbakov> TallTed: comments are a hot issue. Turtle files often have useful and vital content in comments and in white space. Turtle should be believe as such, should be treated as whole document, distinct from RDF content ingested into a KG. JSON/JSON-LD do not support comments at all. Until such time, comments do not exist. People do not rely so much on JSON representation because JSON is typically machine generated. Turtle is hu[CUT]
+16:41:18 <gkellogg> q?
+16:41:23 <gkellogg> ack RobAtkinson
+16:42:29 <ioggstream> YAML support comments, and that's a feature that people will use whether we like or not :)
+16:42:40 <anatoly-scherbakov> RobAtkinson: Turtle comments: in whole range of applications I saw a pattern: people tend to build turtle files built from bits and pieces of external ontologies, a lot of copy-paste. It is dangerous to depend on their content. I'd prefer we base our work on machine graphs not depending on formatting or comments. We will be much better off if we rely upon clear semantic statements.
+16:42:40 <anatoly-scherbakov> q+
+16:43:11 <niklasl> +1 "for syntax should be irrelevant" (in spite of me knowing it's never *really* irrelevant, alas)
+16:43:12 <gkellogg> ack VladimirAlexiev
+16:43:17 <anatoly-scherbakov> RobAtkinson: comments are a great problem for interoperability. I'd better see a consistent system of annotation across Turtle, JSON-LD, YAML-LD instead of relying on non machine readable| comments
+16:43:30 <gkellogg> q+
+16:44:19 <niklasl> +1 for "comments are editorial only"
+16:44:27 <Orie> +1 for "comments are editorial only"
+16:45:11 <anatoly-scherbakov> VladimirAlexiev: I think comments are super useful. Question: should YAML-LD preserve them though? YAML should be considered documents as their own. They can be manipulated, stored, replaced. This is legitimate. I think comments should be only used for editorial purposes. Like some hints for a future editor or a TODO. I do not think we should preserve comments in YAML because they might be anywhere in the doc instead of s[CUT]
+16:45:12 <juuso-aut> +1 for "comments are editorial only", at least for the first version
+16:45:41 <Orie> As someone who has abused comments for semantics... it's a huge anti pattern and mistake... expect comments to be stripped.
+16:45:42 <anatoly-scherbakov> ... Round-trippability will still not preserve details of formatting or comments. But we should keep them as part of parsing the event stream.
+16:45:43 <RobAtkinson> maybe like RDF^ we could treat comments as reifiable statements - but what to attach then to - the following object declaration?
+16:45:54 <gkellogg> ack anatoly-scherbakov
+16:45:55 <ioggstream> Let's scrub PRs
+16:45:55 <anatoly-scherbakov> gkellogg: Please keep comments short on point since we are short on time.
+16:46:35 <niklasl> RDF-star annotations is the way to go for *structured* comments on data that is relevant for sharing.
+16:46:43 <VladimirAlexiev> +1 for "comments are editorial only"
+16:46:49 <gkellogg> +1 to niklasl
+16:47:09 <gkellogg> ack gkellogg
+16:47:10 <anatoly-scherbakov> q-
+16:47:17 <ioggstream> q+
+16:47:24 <anatoly-scherbakov> anatoly-scherbakov: rdfs:comment can be used instead of comments.
+16:47:51 <TallTed> q?
+16:48:06 <gkellogg> yaml-ld#39
+16:48:07 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/39 -> Pull Request 39 Fix: #38. Stubs Conformance. (ioggstream)
+16:48:14 <anatoly-scherbakov> gkellogg: YAML-LD has a normative description how to serialize docs. rdfs:comment is a special property to describe comments. This might be of our future use cases.
+16:48:28 <anatoly-scherbakov> gkelogg: this is some more great content. I suggest to merge this and move on. Consider any details later.
+16:48:33 <gkellogg> yaml-ld#41
+16:48:34 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/41 -> Pull Request 41 Fix: #21. No specific YAML version. (ioggstream)
+16:48:36 <anatoly-scherbakov> gkellogg: this is some more great content. I suggest to merge this and move on. Consider any details later.
+16:48:57 <VladimirAlexiev> +1 for yaml-ld#39, yaml-ld#41
+16:49:12 <gkellogg> yaml-ld#50
+16:49:12 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/50 -> Pull Request 50 Implement Best Practices section (anatoly-scherbakov)
+16:49:15 <anatoly-scherbakov> gkellogg: there are questions about minimum version, what kind of version announcement might be required. I'd like to merge this and move on. We can raise issues to amend these things in the future.
+16:49:38 <gkellogg> q?
+16:49:44 <anatoly-scherbakov> gkellogg: Adding a Best Practices. I do not know if this goes into a spec. This is a community report though and these two might be combined together to be later split into two docs.
+16:52:21 <anatoly-scherbakov> ioggstream: We can discuss the Best practices once we're closed some issues and probably for those we need to start writing some code that processes some YAML files, see what happens, maybe try with different parsers and implementations. Then we can identify the best practices on actual implementation. Different communities which use YAML.
+16:53:41 <Orie> +1 to considering the users of YAML, specifically OAS, K8s
+16:54:27 <anatoly-scherbakov> ... We need to test what we invent for different YAML notifications. We need to write real test code in Python, Java and whatever and see if they work with the YAML-LD content we write, to see if they work properly.
+16:54:33 <Orie> Another yaml use case: https://csrc.nist.gov/publications/detail/sp/800-219/final
+16:55:20 <anatoly-scherbakov> ... We need to write test cases, to check whether it works or there is an exception — for Python, Java, Ruby or JavaScript.
+16:55:28 <VladimirAlexiev> +1 to talk to communities. Lots of DOAP is used by the Linux packages communities, and it would be great if we can get some OAS, K8S etc folks indoctrinated in sem tech by using YAML LD
+16:55:29 <pchampin> should we be concerned if some YAML implementations are not compliant with the YAML spec?? :-/
+16:55:30 <anatoly-scherbakov> gkellogg: I will attempt to do that in Ruby for YAML.
+16:55:35 <VladimirAlexiev> proposal: YAML is a lot about readability, so formatting/presentation options are fair game for YAML-LD
+16:55:36 <gkellogg> zakim, next agendum
+16:55:36 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:55:39 <gkellogg> q?
+16:55:40 <ioggstream> anatoly-scherbakov: :clap
+16:55:42 <ioggstream> q-
+16:55:46 <gkellogg> ack ioggstream
+16:56:03 <Orie> Excellent meeting 👏
+16:56:13 <niklasl> (Reminder to heed my warning about YAML bombs from above. Complex formats on the wire is risky.)
+16:56:38 <anatoly-scherbakov> VladimirAlexiev: can we vote for a proposal? It should be possible for YAML-LD to have some options that one can use to define max line length, number of spaces, indentation of objects, stuff like that.
+16:56:39 <ioggstream> imho we can file an issue and discuss later
+16:56:59 <ioggstream> we really need testcases for this kind of issues
+16:57:20 <VladimirAlexiev> Please vote in yaml-ld#42
+16:57:21 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/42 -> Issue 42 YAML presentation ("cosmetic") controls (VladimirAlexiev) UCR
+16:57:34 <ioggstream> https://github.com/ietf-wg-httpapi/mediatypes/blob/ioggstream-50-bis/test_yaml_json.py anatoly-scherbakov
+16:57:47 <ioggstream> could you provide something like that
+16:57:51 <anatoly-scherbakov> gkellogg: I believe there is an issue for this on GitHub. We need to allocate more debate time. Maybe we should put it up on the agenda for the next time, and this is a valid discussion topic. Let's close the meeting, our next call will be in 2 weeks same time. I will take responsibility for merging the PRs and we'll use that as a basis for further discussion. Thank you everyone for attending, this is a great group, exci[CUT]
+16:57:53 <gkellogg> zakim, end meeting
+16:57:53 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, dlehn, RobAtkinson, juuso-aut, niklasl, bigbluehat, TallTed, pchampin, Orie
+16:57:55 <Zakim> RRSAgent, please draft minutes
+16:57:55 <RRSAgent> I have made the request to generate https://www.w3.org/2022/07/06-json-ld-minutes.html Zakim
+16:57:58 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:58:02 <Zakim> Zakim has left #json-ld
+16:58:05 <gkellogg> rssagent, pointer
+16:58:12 <gkellogg> rrsagent, pointer
+16:58:12 <RRSAgent> See https://www.w3.org/2022/07/06-json-ld-irc#T16-58-12
+16:58:20 <gkellogg> rrsagent, bye
+16:58:20 <RRSAgent> I see no action items

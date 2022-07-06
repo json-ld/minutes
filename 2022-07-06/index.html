@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h2>JSON-LD Syntax and API</h2>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+<div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><p>%  — 2022-07-06</p>
+<p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p>
+<h1 id="minutes">— Minutes (Draft)</h1>
+<p><strong>Date:</strong> 2022-07-06</p>
+<p>See also the <a href="https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220706T160000#agenda">Agenda</a> and the <a href="https://www.w3.org/2022/07/06-json-ld-irc.txt">IRC Log</a></p>
+<h2 id="attendees">Attendees</h2>
+<p><strong>Present:</strong> Gregg Kellogg, Anatoly Scherbakov, David I. Lehn, Rob Atkinson, Juuso Autiosalo, Niklas Lindström, Benjamin Young, Ted Thibodeau Jr., Pierre-Antoine Champin, Orie Steel, Vladimir Alexiev</p>
+<p><strong>Regrets:</strong> </p>
+<p><strong>Guests:</strong> </p>
+<p><strong>Chair:</strong> Gregg Kellogg</p>
+<p><strong>Scribe(s):</strong> Anatoly Scherbakov</p>
+<h2 id="content">Content:</h2>
+<ul>
+<li><a href="#1-announcements-and-introductions.">1. Announcements and Introductions.</a></li>
+<li><a href="#2-approve-minutes.">2. Approve Minutes.</a></li>
+<li><a href="#3-yaml-ld.">3. YAML-LD.</a></li>
+<li><a href="#4-resolutions">4. Resolutions</a></li>
+</ul>
+<hr />
+<h3 id="1announcementsandintroductions">1. Announcements and Introductions.</h3>
+<p><strong>Gregg Kellogg:</strong> Introductions. Juuso?.  </p>
+<p><strong>Juuso Autiosalo</strong>: I am from Aalto university in Finland, finished my dissertation in December about Digital Twins. My background is Mechanical Engineering, but last 5-ish years I am getting more into programming. Now I am interested in YAML-LD initiative. Being new to W3C activity, will be watching how this goes..</p>
+<p><strong>Benjamin Young:</strong> I am Benjamin Young, co-chair of JSON-LD working group. Glad about this community group to be up and running, excited to be here..  </p>
+<p><strong>Rob Atkinson:</strong> Engineer working on Semantic interoperability in general, looking to use about JSON-LD for that. Driving an activity to describe Geospatial data. Publishing Component data models, JSON-LD contexts. Facing a plethora of JSON Schemas and looking into using JSON-LD to manage that. Currently residing in the UK; it will be more difficult when I am in Australia but looking forward to continue working with this group..  </p>
+<p><strong>Gregg Kellogg:</strong> A long standing problem in W3C is finding a convenient time for meetings both from Europe and Americas..  </p>
+<p><strong>Rob Atkinson:</strong> NB - with the OGC (OpenGeospatial Consortium).  </p>
+<p><strong>Vladimir Alexiev:</strong> I'm chief Data Architect at Ontotext, a BG semantic technologies company. I work in the KG Solutions group, focusing on industrial data in the last couple of years.<br />
+… I am an informational architect for OntoText, a Semantic Technology company from Bulgaria..<br />
+… we've recently been acquired for ≈30M Euro and this will help us expand. My daily job is to explore ontologies, find interesting open data sets to build knowledge graphs, suggest how KGs can help machine learning and data science, participate in research problems. Last 2-3 years I am focused on industrial data: architecture, construction, manufacturing. We work on all sorts of data apart from life sciences..<br />
+… I started YAML-LD out of curiosity, saw a project on GitHub about Semantic data in YAML. Quite glad that people are showing interest in this. We need to decide some consensus: should YAML-LD deal with formatting issues or be limited to data model? This is the first meeting I am in, previously I contributed to SHACL, RDF-star, and a lot of issues in bunch of different projects. Looking forward to this effort..  </p>
+<h3 id="2approveminutes">2. Approve Minutes.</h3>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> <a href="https://json-ld.org/minutes/2022-06-22/">https://json-ld.org/minutes/2022-06-22/</a>.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> let's review minutes from the previous minutes. If anyone has corrections present them here or issue a PR..<br />
+… let's review minutes from the previous meeting. If anyone has corrections present them here or issue a PR..  </p>
+<h3 id="3yamlld">3. YAML-LD.</h3>
+<blockquote>
+  <p><em>Roberto Polli:</em> gkellogg: can I fix where I work ?.</p>
+  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a>.</p>
+  <p><em>Gregg Kellogg:</em> yaml-ld#34.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/34">https://github.com/json-ld/yaml-ld/issues/34</a> -&gt; Pull Request 34 Preliminary rules for discussion (ioggstream).</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> Onto the body of the meeting, we have a number of open issues, there is a project that I've tried to use to organize the various PRs and issues around here. Taken the liberty of selecting some of them..  </p>
+<p><strong>Roberto Polli:</strong> This PR contains a basic concept about YAML, some examples. I think the PR is received a lot of comments. I think that it's okay just as it is. When you speak about strings or streams, the concept is a YAML document. The concept is fine, I hope there are no objections to merge it..  </p>
+<blockquote>
+  <p><em>Vladimir Alexiev:</em> +1 to approve PRs in this early stage quick, so we can proceed with adding more material.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> We should faster merge these PRs on this stage. We can correct later by following PRs. I do not offer to vote on each of those if there are specific concerns we can discuss them..  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> yaml-ld#37.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/37">https://github.com/json-ld/yaml-ld/issues/37</a> -&gt; Pull Request 37 Add remaining Use Case Issues. (gkellogg) UCR.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> I put something to use case document. Some of these Use Cases are likely contradictory. We follow up with requirement sections referenced by use cases and potentially move use cases which are no longer pertinent to a separate section..  </p>
+<p><strong>Vladimir Alexiev:</strong> quite a lot of discussion on some cases, people say we don't want it. We need to discuss which UCR issues are real use cases. Then we will be able to draft sections of UCR spec. Some of them need to be reformatt4ed. We should agree about the format. I have tagged some people in my UCRs. To give an example, in polyglot modeling, I listed maybe 9 bullets with guesses on who might be interested. First of all[CUT].  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> +1 for using github and collect them after.</p>
+</blockquote>
+<p><strong>Vladimir Alexiev:</strong> … to Polyglot Modeling. We need to engage with these people. I am unsure what is the best way to capture use cases. In git? With tags: agreed vs rejected..  </p>
+<blockquote>
+  <p><em>Vladimir Alexiev:</em> UCR spec: I think it's too early to collect UCRs in a doc. Maybe keep them as github issues, with some tags eg "UCR agreed but editing needed", "UCR agreed", "UCR rejected".</p>
+</blockquote>
+<p><strong>Roberto Polli:</strong> we have a view of the document. We need to draft an MVP of the document. Then, once we identified general constraints of the MVP then we can add better identify reasons for use cases. There are maybe constraints we do not actually see. Probably once we get them it will be easier to manage work around use cases..  </p>
+<p><strong>Rob Atkinson:</strong> what is the broad architecture? There seems to be a lot of JSON-LD use cases. Which of them are specific to YAML I am not really sure. What is the general use case around JSON-LD? Perhaps JSON-LD Framing? SHACL and ShEx validation? How can modular schemas be used together? I am surprised to see use cases specifically for YAML rather then JSON-LD as a whole..  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> +1 for "what is YAML-specific?".</p>
+  <p><em>Orie Steel:</em> +1 to seperating the use cases for "use yaml features" vs "json compatibility".</p>
+</blockquote>
+<p><strong>Benjamin Young:</strong> YAML provides capabilities JSON does not have. YAML at its core is a superset of JSON. Minimally, there is no real variance between JSON and YAML. You wouldn't need additional use case docs. However, if we'd want to use special features of YAML then we would need use cases for these specific features. Multi documents, hypermedia, et cetera. It depends on the direction the group goes. is this a one to one mapp[CUT].<br />
+… extra features?.  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> I should write an issue for this, but just a heads up: beware of YAML-complexities such as YAML-bombs: <a href="https://en.wikipedia.org/wiki/Billion_laughs_attack">https://en.wikipedia.org/wiki/Billion<em>laughs</em>attack</a>.</p>
+  <p><em>Vladimir Alexiev:</em> +1 for "exploit extra YAML features". We're currently a bit in a "hammer seeks nail" mode ;-) but that's ok..</p>
+  <p><em>Orie Steel:</em> +1 to leaning into the "human write yaml" perspective..</p>
+  <p><em>Niklas Lindström:</em> +1 too for "for humans to write"; YAML on the wire "scares" me….</p>
+</blockquote>
+<p><strong>Anatoly Scherbakov</strong>: YAML is human writable whereas JSON is machine writable. I suggest to lean towards that direction..</p>
+<blockquote>
+  <p><em>Benjamin Young:</em> YAML spec's "Relation to JSON" summary (fwiw) <a href="http://yaml.org/spec/1.2-old/spec.html#id2759572">http://yaml.org/spec/1.2-old/spec.html#id2759572</a>.</p>
+  <p><em>Vladimir Alexiev:</em> "humans read &amp; write yaml" suggests that all formatting/presentation issues are fair game, eg "use 2 spaces for indentation" should be specifiable in a "context/frame".</p>
+  <p><em>Rob Atkinson:</em> + for the delta to help folks understand scope and overlap.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> I will create a proposal to put off use cases. We will not merge the branch in question. We should focus use cases on delta between JSON-LD and YAML-LD and on things that make sense for YAML-LD specifically..  </p>
+<blockquote>
+  <p><strong>Proposed resolution: delay merging UCR use cases, and focus on YAML-specific use cases.</strong> <em>(Gregg Kellogg)</em></p>
+  <p><em>Roberto Polli:</em> gkellogg: +1 to focus on YAML-specific.</p>
+  <p><em>Rob Atkinson:</em> we copuld have profiles - one for basic round trippable - one extended.</p>
+</blockquote>
+<p><strong>Ted Thibodeau Jr.:</strong> There is an early goal that YAML-LD should be round-trippable with JSON-LD in either direction, lossless. That would seem to preclude making YAML-LD super-special and making use of its specific features that JSON does not support. Those would eliminate the round-tripping. I believe that is an intentional goal to maintain this round-trippability..  </p>
+<blockquote>
+  <p><em>Orie Steel:</em> I think round tripping is ONLY relevant to the "JSON compatibility" case..</p>
+  <p><em>Rob Atkinson:</em> +1 for round-trippable to RDF - at OGC this is our use case - so we can perform CI/CT validation using SHACL/SHex etc..</p>
+</blockquote>
+<p><strong>Vladimir Alexiev:</strong> round-trippability is important. At what level? JSON-LD and YAML-LD both are round-trippable to RDF. I am not 100% sure that on serialization you can restore the <code>@nest</code> nodes. On YAML side you find presentation aspects. Extra features like multiple docs or others we still would not use round-trippability. We focus on YAML extras even though for some of them we might not see the use cases immediately. That'[CUT].<br />
+… YAML we might have much better presentation than JSON-LD*..  </p>
+<p><strong>Juuso Autiosalo</strong>: my opinion about round-tripping. I think we have a clear mission: first we need round-trippable YAML-LD system. After that we can see if there is a demand for additional features of YAML. My opinion is that round-trippable YAML-LD standard is a priority..</p>
+<p><strong>Rob Atkinson:</strong> yaml-ld#35 was about formalizing profiles. One profile is interoperable, another has plus capabilities. This separation can help keep stuff simpler. Some specs in W3C are very complicated, lead to complex implementations. Separation of profiles should help make each of them simpler. My vote is round-trippability as a priority..  </p>
+<blockquote>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/35">https://github.com/json-ld/yaml-ld/issues/35</a> -&gt; Issue 35 [closed] Data round-tripping issues: create a JSON vocabulary (lanthaler) spec-design, api.</p>
+  <p><em>Orie Steel:</em> We should acknowledge lossy and lossless paths.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> I think it makes sense to consider what we mean by round-trippability. JSON-LD makes great pains that when you expand and then compact it you get what was originally expanded. <code>@nest</code> complicates that. Important thing is that there is no semantic loss or limited semantic loss when round-tripping content. Part of the reason YAML is interesting is because YAML does provide features like links and anchors. I'd hate[CUT].  </p>
+<blockquote>
+  <p><em>Orie Steel:</em> and give unique names to each potential path..</p>
+  <p><em>Ted Thibodeau Jr.:</em> +1 my round-tripping concern here is about semantic content, not about prettiness/presentation.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> because they're not round-trippable. Hence the notion of extended profiles..  </p>
+<blockquote>
+  <p><em>Rob Atkinson:</em> does this mean we need a best practice for internal links in JSON-LD - or maybe one or more formal profiles for different approaches?.</p>
+  <p><em>Rob Atkinson:</em> +0.</p>
+  <p><em>Roberto Polli:</em> gkellogg: I propose to pospone the merge of yaml-ld#37.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/37">https://github.com/json-ld/yaml-ld/issues/37</a> -&gt; Issue 37 [closed] Clarify prefix expansion (lanthaler) spec-bug, spec-editorial, syntax.</p>
+  <p><strong>Proposed resolution: do not merge UCR use cases and focus use cases on YAML-specific issues.</strong> <em>(Gregg Kellogg)</em></p>
+  <p><em>Vladimir Alexiev:</em> Agree with bigbluehat: TallTed, we always have RDF for the semantic equivalence.</p>
+  <p><em>Gregg Kellogg:</em> +1.</p>
+  <p><em>Orie Steel:</em> +1.</p>
+  <p><em>Ted Thibodeau Jr.:</em> (My concern here is different from my regular concern with preservation of comments in Turtle, because neither JSON nor JSON-LD support comments.).</p>
+  <p><em>Roberto Polli:</em> gkellogg: +1.</p>
+  <p><em>Vladimir Alexiev:</em> +1 (too early).</p>
+  <p><em>David I. Lehn:</em> +0.</p>
+  <p><em>Anatoly Scherbakov:</em> +1.</p>
+  <p><em>Rob Atkinson:</em> +0.</p>
+  <p><em>Benjamin Young:</em> +1.</p>
+  <p><em>Niklas Lindström:</em> +1 (to distinguish what is YAML syntax specifics).</p>
+  <p><em>Pierre-Antoine Champin:</em> +1.</p>
+  <p><em>Ted Thibodeau Jr.:</em> +1 don't merge, but don't delete yet.</p>
+  <p><em>Rob Atkinson:</em> comments in turtle is a bad idea IMHO … we should provide better annotation practices..</p>
+  <p><em>Juuso Autiosalo:</em> +1 (don't delete yet).</p>
+  <p><strong><em>Resolution #1: do not merge UCR use cases and focus use cases on YAML-specific issues.</em></strong></p>
+</blockquote>
+<p><strong>Ted Thibodeau Jr.:</strong> comments are a hot issue. Turtle files often have useful and vital content in comments and in white space. Turtle should be believe as such, should be treated as whole document, distinct from RDF content ingested into a KG. JSON/JSON-LD do not support comments at all. Until such time, comments do not exist. People do not rely so much on JSON representation because JSON is typically machine generated. Turtle is hu[CUT].  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> YAML support comments, and that's a feature that people will use whether we like or not :).</p>
+</blockquote>
+<p><strong>Rob Atkinson:</strong> Turtle comments: in whole range of applications I saw a pattern: people tend to build turtle files built from bits and pieces of external ontologies, a lot of copy-paste. It is dangerous to depend on their content. I'd prefer we base our work on machine graphs not depending on formatting or comments. We will be much better off if we rely upon clear semantic statements..  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> +1 "for syntax should be irrelevant" (in spite of me knowing it's never <em>really</em> irrelevant, alas).</p>
+</blockquote>
+<p><strong>Rob Atkinson:</strong> comments are a great problem for interoperability. I'd better see a consistent system of annotation across Turtle, JSON-LD, YAML-LD instead of relying on non machine readable| comments.  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> +1 for "comments are editorial only".</p>
+  <p><em>Orie Steel:</em> +1 for "comments are editorial only".</p>
+</blockquote>
+<p><strong>Vladimir Alexiev:</strong> I think comments are super useful. Question: should YAML-LD preserve them though? YAML should be considered documents as their own. They can be manipulated, stored, replaced. This is legitimate. I think comments should be only used for editorial purposes. Like some hints for a future editor or a TODO. I do not think we should preserve comments in YAML because they might be anywhere in the doc instead of s[CUT].  </p>
+<blockquote>
+  <p><em>Juuso Autiosalo:</em> +1 for "comments are editorial only", at least for the first version.</p>
+  <p><em>Orie Steel:</em> As someone who has abused comments for semantics… it's a huge anti pattern and mistake… expect comments to be stripped..</p>
+</blockquote>
+<p><strong>Vladimir Alexiev:</strong> Round-trippability will still not preserve details of formatting or comments. But we should keep them as part of parsing the event stream..  </p>
+<blockquote>
+  <p><em>Rob Atkinson:</em> maybe like RDF^ we could treat comments as reifiable statements - but what to attach then to - the following object declaration?.</p>
+  <p><em>Roberto Polli:</em> Let's scrub PRs.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> Please keep comments short on point since we are short on time..  </p>
+<blockquote>
+  <p><em>Niklas Lindström:</em> RDF-star annotations is the way to go for <em>structured</em> comments on data that is relevant for sharing..</p>
+  <p><em>Vladimir Alexiev:</em> +1 for "comments are editorial only".</p>
+  <p><em>Gregg Kellogg:</em> +1 to niklasl.</p>
+  <p><em>Anatoly Scherbakov:</em> anatoly-scherbakov: rdfs:comment can be used instead of comments..</p>
+  <p><em>Gregg Kellogg:</em> yaml-ld#39.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/39">https://github.com/json-ld/yaml-ld/issues/39</a> -&gt; Pull Request 39 Fix: #38. Stubs Conformance. (ioggstream).</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> YAML-LD has a normative description how to serialize docs. rdfs:comment is a special property to describe comments. This might be of our future use cases..  </p>
+<p><strong>gkelogg:</strong> this is some more great content. I suggest to merge this and move on. Consider any details later..  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> yaml-ld#41.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/41">https://github.com/json-ld/yaml-ld/issues/41</a> -&gt; Pull Request 41 Fix: #21. No specific YAML version. (ioggstream).</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> this is some more great content. I suggest to merge this and move on. Consider any details later..  </p>
+<blockquote>
+  <p><em>Vladimir Alexiev:</em> +1 for yaml-ld#39, yaml-ld#41.</p>
+  <p><em>Gregg Kellogg:</em> yaml-ld#50.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/50">https://github.com/json-ld/yaml-ld/issues/50</a> -&gt; Pull Request 50 Implement Best Practices section (anatoly-scherbakov).</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> there are questions about minimum version, what kind of version announcement might be required. I'd like to merge this and move on. We can raise issues to amend these things in the future..<br />
+… Adding a Best Practices. I do not know if this goes into a spec. This is a community report though and these two might be combined together to be later split into two docs..  </p>
+<p><strong>Roberto Polli:</strong> We can discuss the Best practices once we're closed some issues and probably for those we need to start writing some code that processes some YAML files, see what happens, maybe try with different parsers and implementations. Then we can identify the best practices on actual implementation. Different communities which use YAML..  </p>
+<blockquote>
+  <p><em>Orie Steel:</em> +1 to considering the users of YAML, specifically OAS, K8s.</p>
+</blockquote>
+<p><strong>Roberto Polli:</strong> We need to test what we invent for different YAML notifications. We need to write real test code in Python, Java and whatever and see if they work with the YAML-LD content we write, to see if they work properly..  </p>
+<blockquote>
+  <p><em>Orie Steel:</em> Another yaml use case: <a href="https://csrc.nist.gov/publications/detail/sp/800-219/final">https://csrc.nist.gov/publications/detail/sp/800-219/final</a>.</p>
+</blockquote>
+<p><strong>Roberto Polli:</strong> We need to write test cases, to check whether it works or there is an exception — for Python, Java, Ruby or JavaScript..  </p>
+<blockquote>
+  <p><em>Vladimir Alexiev:</em> +1 to talk to communities. Lots of DOAP is used by the Linux packages communities, and it would be great if we can get some OAS, K8S etc folks indoctrinated in sem tech by using YAML LD.</p>
+  <p><em>Pierre-Antoine Champin:</em> should we be concerned if some YAML implementations are not compliant with the YAML spec?? :-/.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> I will attempt to do that in Ruby for YAML..  </p>
+<blockquote>
+  <p><strong>Proposed resolution: YAML is a lot about readability, so formatting/presentation options are fair game for YAML-LD.</strong> <em>(Vladimir Alexiev)</em></p>
+  <p><em>Roberto Polli:</em> anatoly-scherbakov: :clap.</p>
+  <p><em>Orie Steel:</em> Excellent meeting 👏.</p>
+  <p><em>Niklas Lindström:</em> (Reminder to heed my warning about YAML bombs from above. Complex formats on the wire is risky.).</p>
+</blockquote>
+<p><strong>Vladimir Alexiev:</strong> can we vote for a proposal? It should be possible for YAML-LD to have some options that one can use to define max line length, number of spaces, indentation of objects, stuff like that..  </p>
+<blockquote>
+  <p><em>Roberto Polli:</em> imho we can file an issue and discuss later.</p>
+  <p><em>Roberto Polli:</em> we really need testcases for this kind of issues.</p>
+  <p><em>Vladimir Alexiev:</em> Please vote in yaml-ld#42.</p>
+  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/42">https://github.com/json-ld/yaml-ld/issues/42</a> -&gt; Issue 42 YAML presentation ("cosmetic") controls (VladimirAlexiev) UCR.</p>
+  <p><em>Roberto Polli:</em> <a href="https://github.com/ietf-wg-httpapi/mediatypes/blob/ioggstream-50-bis/test_yaml_json.py">https://github.com/ietf-wg-httpapi/mediatypes/blob/ioggstream-50-bis/test<em>yaml</em>json.py</a> anatoly-scherbakov.</p>
+  <p><em>Roberto Polli:</em> could you provide something like that.</p>
+</blockquote>
+<p><strong>Gregg Kellogg:</strong> I believe there is an issue for this on GitHub. We need to allocate more debate time. Maybe we should put it up on the agenda for the next time, and this is a valid discussion topic. Let's close the meeting, our next call will be in 2 weeks same time. I will take responsibility for merging the PRs and we'll use that as a basis for further discussion. Thank you everyone for attending, this is a great group, exci[CUT].  </p>
+<blockquote>
+  <p><em>Gregg Kellogg:</em> rssagent, pointer.</p>
+</blockquote>
+<hr />
+<h3 id="4resolutions">4. Resolutions</h3>
+<ul>
+<li>Resolution #1: do not merge UCR use cases and focus use cases on YAML-specific issues.</li>
+</ul></div></div></div></div></div>    </div>
+  </body>
+</html>

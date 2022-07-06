@@ -1,7 +1,7 @@
 ![W3C Logo](https://www.w3.org/Icons/w3c_home)
 
 
-# JSON-LD CG/WG — Minutes (Draft)
+# JSON-LD CG/WG — Minutes
 
 
 **Date:** 2022-06-22
