@@ -3,10 +3,8 @@
 ![W3C Logo](https://www.w3.org/Icons/w3c_home)
 
 
-#  — Minutes
+# JSON-LD CG — Minutes
 
-
-{: .draft_notice}
 
 **Date:** 2022-07-06
 

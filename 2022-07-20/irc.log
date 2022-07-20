@@ -1,0 +1,223 @@
+15:50:39 <RRSAgent> RRSAgent has joined #json-ld
+15:50:39 <RRSAgent> logging to https://www.w3.org/2022/07/20-json-ld-irc
+15:50:42 <Zakim> RRSAgent, make logs Public
+15:50:42 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:50:52 <gkellogg> agenda: https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220720T160000
+15:50:52 <agendabot> clear agenda
+15:50:52 <agendabot> agenda+ Announcements and Introductions
+15:50:52 <agendabot> agenda+ Approve Minutes
+15:50:52 <agendabot> agenda+ YAML-LD
+15:50:52 <agendabot> agenda+ Next call
+15:51:04 <gkellogg> chair: gkellogg
+15:51:12 <gkellogg> present+
+15:51:19 <gkellogg> regrets+ pchampin
+16:00:32 <roba> roba has joined #json-ld
+16:01:43 <juuso-aut> juuso-aut has joined #json-ld
+16:01:45 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:01:52 <anatoly-scherbakov> present+
+16:01:59 <juuso-aut> present+
+16:02:02 <niklasl> niklasl has joined #json-ld
+16:02:40 <roba> present+
+16:04:52 <gkellogg> zakim, next agendum
+16:04:52 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:05:25 <Orie> Orie has joined #json-ld
+16:05:32 <Orie> is this the channel?
+16:05:46 <gkellogg> scribe+ anatoly-scherbakov
+16:05:51 <Orie> present+
+16:05:58 <niklasl> I'm about to, some technical difficulties
+16:06:06 <gkellogg> https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220720T160000
+16:06:34 <gkellogg> https://w3c.github.io/rdf-star-wg-charter/
+16:07:16 <niklasl> present+
+16:07:21 <anatoly-scherbakov> gkellogg: There is an upcoming vote for RDF-star working group. If you're a part of the member organization, encourage your W3C representative to support the creation of this working group. This is more about metadata about RDF statements. We'll touch every RDF spec over time to add an ability to extend itself.
+16:07:43 <gkellogg> https://www.w3.org/2022/09/TPAC/Overview.html
+16:08:51 <anatoly-scherbakov> gkellogg: Secondly, TPAC planning. It is coming pretty soon on our calendars, it is not too far ahead. We do have a two-hour slot on Monday afternoon Vancouver time for face-to-face meeting. This will be a hybrid meeting. Ideally, we'll finish issues that are hard to close otherwise. We will arrive with a recommendation or a report of the working group to move it towards a candidate proposal and to a final recommendation [CUT]
+16:08:56 <roba> is there a specific link for the vote process for RDF-star I can forward?
+16:08:57 <gkellogg> https://www.w3.org/events/meetings/6b900451-f0a7-46b0-8668-3cc20e0b026c
+16:09:32 <juuso-aut_> juuso-aut_ has joined #json-ld
+16:09:39 <anatoly-scherbakov> gkellogg: for that, we need to come up with an agenda and specific tasks for the meeting. About the voting process: I'll add something into the minutes about the voting process. There is typically a call for that.
+16:09:51 <gkellogg> zakim, next agendum
+16:09:51 <Zakim> agendum 2 -- Approve Minutes -- taken up [from agendabot]
+16:09:59 <gkellogg> https://json-ld.org/minutes/2022-07-06/
+16:10:37 <anatoly-scherbakov> gkellogg: Without further discussion we are approving these minutes and moving on.
+16:10:40 <gkellogg> zakim, next agendum
+16:10:40 <Zakim> agendum 2 was just opened, gkellogg
+16:11:00 <gkellogg> https://github.com/json-ld/yaml-ld/pulls
+16:11:11 <gkellogg> yaml-ld#58
+16:11:12 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/58 -> Pull Request 58 Propose YAML-LD document definition (anatoly-scherbakov) spec
+16:11:29 <anatoly-scherbakov> q+
+16:11:32 <gkellogg> scribe+ gkellogg
+16:12:13 <dlehn1> present+
+16:12:03 <gkellogg> anatoly-scherbakov: I'm trying to add a definition of a YAML-LD document, as a YAML document that can be treated as JSON-LD if converted.
+16:12:24 <gkellogg> ... This definition is still incomplete, as I don't have a specification for this conversion process, as it's not in the YAML spec.
+16:12:33 <gkellogg> ... That's the main focus of the change.
+16:12:50 <gkellogg> ... Additionally, there is are references and a discussion of a YAML stream.
+16:13:16 <gkellogg> ... I have some reviews (TallTed and gkellogg), and there are some open questions in the PR.
+16:13:27 <anatoly-scherbakov> q-
+16:13:32 <gkellogg> ... I'm happy to answer any questions on the PR.
+16:13:36 <gkellogg> scribe-
+16:13:38 <gkellogg> q?
+16:14:38 <anatoly-scherbakov> gkellogg: The PR is not expected to be perfect but it adds something useful. No need to resolve every known issue in its PR itself, but it is useful to add editor notes to point out issues and areas needing further development.
+16:14:57 <gkellogg> https://json-ld.org/minutes/2022-07-06/
+16:15:46 <gkellogg> yaml-ld#12
+16:15:46 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/12 -> Issue 12 Convert JSON-LD to YAML-LD using standard YAML libraries (pchampin) UCR
+16:16:05 <anatoly-scherbakov> gkellogg: once you're satisfied go ahead and go forward with merging the PR...
+16:16:26 <roba> q+
+16:16:27 <anatoly-scherbakov> gkellogg: issue 12 relates to the question about a standardized YAML to JSON conversion process.
+16:16:28 <gkellogg> q?
+16:16:59 <anatoly-scherbakov> roba: There was a discussion about YAML-LD profiles to restrict the roundtripping process and using SHACL or ShEx for validation.
+16:17:15 <anatoly-scherbakov> gkellogg: They operate on semantic level whereas basic or extended profiles are more about YAML syntax.
+16:17:28 <anatoly-scherbakov> roba: Some validation mechanism, a schema validation, is still needed.
+16:17:52 <anatoly-scherbakov> gkellogg: does JSON Schema allow to validate YAML-specific structures? It probably would require types beyond those supported by JSON.
+16:18:07 <anatoly-scherbakov> roba: You can assert that a given string is actually a URI for example.
+16:18:51 <Orie> See also: https://json-schema.org/understanding-json-schema/reference/string.html#built-in-formats
+16:19:03 <anatoly-scherbakov> gkellogg: It would be worth to develop JSON Schema usable to verify whether a YAML document conforms to the Basic profile or not. The processor should make a best effort to interpret whatever it receives. Basic profile is more inclined towards the roundtripping commitment. But we didn't discuss what we want to do about types beyond basic JSON types.
+16:19:29 <anatoly-scherbakov> gkellogg: or, whether it is possible to use YAML anchors. When you convert to JSON-LD all that information is being lost.
+16:19:30 <gkellogg> q?
+16:20:42 <anatoly-scherbakov> gkellogg: We can define JSON to YAML conversion fairly strightforwardly. YAML only encodes lists, maps and simple values. Maybe adding a section for that and creating GitHub issues (going to do that...)
+16:20:49 <roba> q+
+16:21:01 <gkellogg> action: gkellogg to add section outlining conversion to JSON.
+16:21:02 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/782 -> action 782 add section outlining conversion to JSON. (on ) due 27 Jul 2022
+16:21:02 <gkellogg> q?
+16:21:08 <gkellogg> ack roba
+16:22:29 <anatoly-scherbakov> roba: My concept of round-tripping is to be lossless. Can we capture YAML-specific things in a special format inside JSON to preserve them? Or, there should be a round-trippable basic subset. It is hard to articulate a whole picture of the whole process.
+16:23:08 <juuso-aut_> q+
+16:23:45 <anatoly-scherbakov> gkellogg: We need to define what we mean under round-tripping. Easiest target to reach is semantic round-tripping. Anything that can be expressed in YAML-LD can be transformed to JSON-LD and then back to YAML-LD, all of these formats expressing the same semantic information. Your point is: what happens to the extra structure that might be in YAML-LD? This is similar to JSON-LD framing, where information expressed in JSON-[CUT]
+16:24:01 <anatoly-scherbakov> ... JSON-LD won't be preserved in the same format where it was.
+16:25:11 <gkellogg> q?
+16:25:14 <anatoly-scherbakov> gkellogg: Maybe some extensions to framing or an analog to framing which can help transform basic formatted data to extended formatted data. If some component of a YAML-LD doc was in a shared tag, how do you convey that? Perhaps by something similar to RDF-star though it's not its use case.
+16:25:16 <gkellogg> ack juuso-aut_
+16:26:42 <anatoly-scherbakov> juuso-aut_: We need round-trippable YAML-LD as a subset, as a basic profile. We have so many JSON-LD processors — they have to know whether the document is round-trippable or not. When we need extended YAML features then we clearly state that we cannot use an existing JSON-LD processor because it is not compatible. It makes it clearer if we state whether it is round-trippable or not.
+16:26:50 <roba> so we need to formalise this basic profile as an artefact with governance
+16:26:57 <anatoly-scherbakov> gkellogg: Perhaps the definition of the basic profile is that it is round-trippable.
+16:28:05 <niklasl> q+
+16:28:07 <anatoly-scherbakov> roba: I am happy to participate in development of this profile definitions
+16:28:12 <gkellogg> q?
+16:29:15 <gkellogg> action: roba to contribute section on the basic profile.
+16:29:16 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/783 -> action 783 contribute section on the basic profile. (on ) due 27 Jul 2022
+16:29:19 <anatoly-scherbakov> (My apologies, I had to pause scribing as I had an issue with my headset. Continuing now.)
+16:29:53 <anatoly-scherbakov> ggkellogg: we can always move the auto-created issue to the YAML-LD repo.
+16:30:02 <gkellogg> ack niklasl
+16:30:11 <anatoly-scherbakov> roba: this might also apply to any expression of JSON-LD actually so it can stay there.
+16:31:29 <anatoly-scherbakov> niklasl: I am not entirely comfortable about calling it the Basic profile. I do not see how we can do anything beyond what is already round-trippable. Using framing — it is possible to get somewhat further, and the other thing I can see difficult to round-trip are anchors and references. They're not going to be round-trippable. This is beneath what triples are about, you cannot represent that. Let's try avoiding trying [CUT]
+16:31:44 <anatoly-scherbakov> gkellogg: do you believe it is beyond what we might do by extending JSON-LD framing?
+16:32:01 <roba> isnt the issue the graph you can "reason" over - or at least query..
+16:32:32 <anatoly-scherbakov> niklasl: I think JSON-LD Framing itself is on the border of semantics and representation itself, where we are working on presentation, templating systems and whatnot. It is important to grasp this and get it right.
+16:32:52 <gkellogg> q?
+16:33:11 <anatoly-scherbakov> ...: it could be the same thing as to serialize and preserve comments as we don't have comments in JSON. We've not seen anyone asking about preserving XML comments in RDF/XML as Turtle comments. Which would be horrible to do.
+16:33:48 <gkellogg> q+
+16:34:33 <anatoly-scherbakov> roba: The issue about controlling the serialization is orthogonal to graph isomorphism. If we semantically capture the same information. If there's information in YAML-LD that cannot be implemented as a graph then we should ignore it in the basic profile.
+16:34:55 <anatoly-scherbakov> roba: is all this about structure preservation or semantic preservation?
+16:35:21 <anatoly-scherbakov> niklasl: structure preservation is tricky; you have to use framing to be able to get to the original structure.
+16:35:56 <anatoly-scherbakov> roba: how can additional semantics be expressed in YAML-LD in a way that JSON-LD can't express? Would like to see examples of that.
+16:36:22 <gkellogg> ack gkellogg
+16:36:33 <anatoly-scherbakov> niklasl: so should round-tripping be semantic one or structural one? Perhaps we should split these issues and tackle semantic transformation first.
+16:37:25 <niklasl> YAML-LD *might* be able to represent certain datatyped literals more succinctly. That ought to be all...
+16:37:57 <anatoly-scherbakov> gkellogg: JSON-LD can express anything that any one RDF serialization can. If YAML-LD can express _more_ then it expresses things that no other RDF serialization can express. JSON-LD has a few built-in data types, boolean and numeric. Numeric has very low fidelity. YAML-LD can losslessly express integers and floats. There is some potential of preserving that information or possibly round-tripping it back and expressing it[CUT]
+16:38:57 <niklasl> q+
+16:39:08 <anatoly-scherbakov> ...: YAML can express datetimes as per 1.2.2 spec and there is a question where that will remain. There is a possibility to use that, but maybe outside the basic profile. Extended profile can express a YAML datetime as a value object in JSON-LD. But structural round-tripping is probably not reasonable for us to preserve.
+16:39:52 <gkellogg> q?
+16:39:58 <gkellogg> ack niklasl
+16:39:59 <anatoly-scherbakov> gkellogg: we don't probably want to even burden JSON-LD Framing with these features, say to convert a YAML document without anchors to a document that does use them. We might try doing this with purely YAML means but this might be outside of our current scope.
+16:40:13 <roba> do we need to define extended profiles of json-ld - with extra annotation elements or schema rules for this additional information?
+16:40:53 <anatoly-scherbakov> niklasl: I pull back on my obsession about the Basic profile if Extended profile is going to be about better handling of data types and structures, to enable YAML-LD to inline types when converting to JSON-LD.
+16:41:32 <gkellogg> q+ to discuss different sense of extended profile.
+16:41:40 <roba> q+
+16:42:38 <anatoly-scherbakov> niklasl: It's good to avoid confusing this with structural preservation of the document tree itself. YAML and JSON can preserve that structure at the syntactic level and we can talk about that but I am uncertain how that fits the whole picture. I made a tool for JSON-LD as an AST to represent how you enter a Turtle or an RDF/XML document, to preserve the QNames, the order of properties. I only did that to teach people tha[CUT]
+16:43:04 <anatoly-scherbakov> ... thing. We should actually avoid specifying things like that, they are pure syntax.
+16:43:26 <anatoly-scherbakov> (Sure, will make line breaks more often.)
+16:43:44 <anatoly-scherbakov> gkellogg: Do you think this experience can apply to YAML-LD?
+16:44:01 <anatoly-scherbakov> niklasl: It might but in the cases I've done this for it was just to represent more or less native RDF
+16:44:20 <anatoly-scherbakov> ... formats, like RDF/XML, which is a subset of XML. But YAML is not a subset of RDF. I don't
+16:44:44 <gkellogg> q?
+16:44:46 <anatoly-scherbakov> ... think my experiment applies to the YAML case in full.
+16:44:50 <gkellogg> ack gkellogg
+16:44:52 <Zakim> gkellogg, you wanted to discuss different sense of extended profile.
+16:44:57 <niklasl> The tool I mentioned (and its rationale): https://github.com/niklasl/ldtr#rationale
+16:45:50 <anatoly-scherbakov> ggkellogg: Round-tripping aspect is something of a best effort. We can say that round-tripping
+16:46:04 <anatoly-scherbakov> ... the Extended profile is out of scope of this group, it is a research topic or should be done
+16:46:11 <anatoly-scherbakov> ...  at the YAML level rather than YAML-LD level.
+16:46:22 <gkellogg> q?
+16:46:37 <niklasl> +1 to "best effort"
+16:46:41 <gkellogg> ack roba
+16:47:10 <anatoly-scherbakov> roba: To recap my action items: difference between semantic and syntactic round-tripping; profile of YAML that is datetype safe against JSON-LD and does not use extra data types;
+16:47:41 <anatoly-scherbakov> ... Maybe an extended profile of JSON-LD that allows to capture that extended information, say fine-grained data types. This might require extensions to JSON-LD or inline data structures with additional information.
+16:47:55 <anatoly-scherbakov> ... There seem to be three different pieces that I can identify here. The syntactic round-tripping issue
+16:48:07 <anatoly-scherbakov> ... is I think much more process.
+16:48:32 <gkellogg> proposal: extensive round-tripping to preserve original YAML shape is out-of-scope.
+16:48:47 <anatoly-scherbakov> +1
+16:48:48 <gkellogg> q?
+16:48:48 <niklasl> +1
+16:48:50 <gkellogg> +1
+16:48:53 <roba> +1
+16:49:01 <dlehn1> +0
+16:49:10 <juuso-aut_> 0+
+16:49:24 <gkellogg> resolved: extensive round-tripping to preserve original YAML shape is out-of-scope.
+16:49:42 <gkellogg> q?
+16:49:49 <gkellogg> yaml-ld#57
+16:49:49 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/57 -> Issue 57 YARRRML Lessons learned (bjdmeest) UCR
+16:49:50 <anatoly-scherbakov> gkellogg: Anything else on round-tripping? I think we've got enough to chew on.
+16:50:20 <niklasl> (syntax always gets in the way of semantics; unfortunately, there are no semantic without syntax ;) )
+16:50:22 <anatoly-scherbakov> ... this is a great contribution. Does anything know more about YARRRML?
+16:50:30 <anatoly-scherbakov> ... Would someone like to track this issue and research it to report back?
+16:50:59 <gkellogg> yaml-ld#35
+16:50:59 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/35 -> Issue 35 Defining various interoperability profiles (ioggstream) UCR
+16:51:50 <anatoly-scherbakov> gkellogg: This recaps the discussion we just had. But we haven't talked about multiple documents.
+16:52:11 <anatoly-scherbakov> ... Multiple documents are separated by dividers between them. This is similar to how JSON-LD processor
+16:52:28 <anatoly-scherbakov> ... treats <script> tags in HTML, about whether you process one, or multiple JSON-LD docs
+16:52:42 <anatoly-scherbakov> ... embedded in an HTML document. This might give a hint as to how to process multiple YAML-LD
+16:52:47 <anatoly-scherbakov> ... documents in a YAML-LD stream.
+16:52:54 <gkellogg> yaml-ld#13
+16:52:54 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/13 -> Issue 13 Define anchor usage in yaml-ld (ioggstream) UCR
+16:53:36 <anatoly-scherbakov> gkellogg: This might be one aspect of the Extended profile. This is related to a transformation
+16:53:48 <anatoly-scherbakov> ... from YAML to JSON, so that YAML-LD can be processed by a JSON-LD processor.
+16:54:27 <anatoly-scherbakov> ... My guess: anchors are just unfolded during the transformation, replacing references with
+16:54:31 <anatoly-scherbakov> ... their values.
+16:54:37 <roba> isnt this core to a YAML-LD syntax?
+16:55:07 <gkellogg> q?
+16:55:42 <anatoly-scherbakov> roba: Wouldn't this be a natural part of YAML syntax?
+16:55:42 <niklasl> q+
+16:56:01 <anatoly-scherbakov> gkellogg: anchors are probably a part of the Extended profile. Which should explain the transformation process from YAML to JSON.
+16:56:15 <anatoly-scherbakov> roba: is this Extended profile or YAML or Extended profile of YAML-LD that supports anchors?
+16:56:42 <anatoly-scherbakov> gkellogg: Extended profile is the use of YAML expressions beyond what we define as Basic profile. Among them will be anchors and references.
+16:56:51 <anatoly-scherbakov> ... we'd need to discuss how to treat them when parsed.
+16:56:56 <juuso-aut_> q+
+16:57:04 <anatoly-scherbakov> roba: do we have working examples for these?
+16:57:20 <gkellogg> q?
+16:57:23 <gkellogg> ack niklasl
+16:57:25 <anatoly-scherbakov> gkellogg: I think this issue has some. Let's direct further discussion to issue #13 as we're short on time.
+16:57:26 <ghurlbot> https://github.com/json-ld/json-ld.org/issues/13 -> Issue 13 [closed] API return values (null values vs. Exceptions, framing) (lanthaler) spec-design, api
+16:57:50 <anatoly-scherbakov> niklasl: when you parse YAML you get arrays, objects, literals — we cannot see anchors or references already.
+16:57:56 <anatoly-scherbakov> ... they've been expanded by the parser.
+16:58:14 <anatoly-scherbakov> gkellogg: there should be. But' there's no normative description of a YAML to JSON transformation.
+16:59:05 <anatoly-scherbakov> niklasl: reading YAML in a programming language you get something that can be easily converted to JSON. This is not some in-memory representation with unresolved references.
+16:59:40 <anatoly-scherbakov> niklasl: some JSON parsers cannot handle empty keys in JSON, for example. We probably cannot access the internal memory structure of unresolved YAML tree normally.
+16:59:49 <gkellogg> q?
+17:00:04 <anatoly-scherbakov> roba: isn't this coming back to questions of syntax contrary to semantics?
+17:00:45 <anatoly-scherbakov> roba: anchors seem to be syntactic choice about how to serialize the document. If we think serialization shape out of scope then it is up to YAML processor to handle anchors. And it does not matter whether we use them when converting back to YAML.
+17:01:28 <anatoly-scherbakov> gkellogg: it does require some discussion.
+17:01:29 <gkellogg> ack juuso-aut_
+17:01:48 <niklasl> https://en.wikipedia.org/wiki/Billion_laughs_attack (see the YAML bomb example)
+17:02:20 <roba> seems to be YAML syntax - not a YAML-LD concern?
+17:02:25 <anatoly-scherbakov> juuso-aut_: A random YAML to JSON transformer seems to resolve the anchors, they just diappear. Are we okay with processors doing it their own way? Or do we want to specify it?
+17:02:33 <anatoly-scherbakov> gkellogg: we need a normative definition of how that's done.
+17:02:44 <gkellogg> zakim, next agendum
+17:02:44 <Zakim> agendum 3 -- YAML-LD -- taken up [from agendabot]
+17:02:58 <gkellogg> https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220803T160000
+17:03:12 <niklasl> +1 to we should say something, if for nothing else then to explicitly state that yaml anhcors are *not* the same as "RDF references".
+17:03:28 <anatoly-scherbakov> gkellogg: Next meeting is on Aug 3rd. Thanks everyone for great contributions. We don't have that many meetings before our face to face. If you're able to do some PRs against the spec that would be wonderful. Talk in two weeks!
+17:03:30 <roba> probably cant make this time zone again - but will work on a PR and debate via issue
+17:03:38 <gkellogg> zakim, end meeting
+17:03:38 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, juuso-aut, roba, Orie, niklasl, dlehn
+17:03:40 <Zakim> RRSAgent, please draft minutes
+17:03:40 <RRSAgent> I have made the request to generate https://www.w3.org/2022/07/20-json-ld-minutes.html Zakim
+17:03:43 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:03:48 <Zakim> Zakim has left #json-ld
+17:05:37 <niklasl> niklasl has left #json-ld
+17:06:36 <gkellogg> rrsagent, bye
+17:06:36 <RRSAgent> I see 2 open action items saved in https://www.w3.org/2022/07/20-json-ld-actions.rdf :
+17:06:36 <RRSAgent> ACTION: gkellogg to add section outlining conversion to JSON. [1]
+17:06:36 <RRSAgent>   recorded in https://www.w3.org/2022/07/20-json-ld-irc#T16-21-01
+17:06:36 <RRSAgent> ACTION: roba to contribute section on the basic profile. [2]
+17:06:36 <RRSAgent>   recorded in https://www.w3.org/2022/07/20-json-ld-irc#T16-29-15
+17:06:39 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/784 -> action 784 add section outlining conversion to JSON. [1] (on ) due 27 Jul 2022
+17:06:42 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/785 -> action 785 contribute section on the basic profile. [2] (on ) due 27 Jul 2022
