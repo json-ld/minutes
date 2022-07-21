@@ -77,7 +77,7 @@ div.action {
 div.comment {
   font-family: 'Droid Serif', serif;
   margin-top: 0.5em;
-  font-size: 1.25em;
+  //font-size: 1.25em;
 }
 
 div.comment-continuation {
@@ -116,271 +116,199 @@ div.resolution {
   <body>
     <div class="wrapper">
       <h1>The W3C JSON-LD Community Group</h1>
-      <h2>JSON-LD Syntax and API</h2>
       <h3><a href="../">Go Back</a></h3>
 
       <hr>
-<div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p>
-<h1 id="jsonldcgwgminutes">JSON-LD CG/WG — Minutes</h1>
-<p><strong>Date:</strong> 2022-06-22</p>
-<p>See also the <a href="https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86-3b894bdb1487">Agenda</a> and the <a href="https://www.w3.org/2022/06/22-json-ld-irc.txt">IRC Log</a></p>
-<h2 id="attendees">Attendees</h2>
-<p><strong>Present:</strong> Ted Thibodeau Jr., David I. Lehn, Pierre-Antoine Champin, Melinda Minch, Roberto Polli, Orie Steel, Niklas Lindström, Eric Prud'hommeaux, Chris Mungall</p>
-<p><strong>Regrets:</strong> </p>
-<p><strong>Guests:</strong> </p>
-<p><strong>Chair:</strong> Gregg Kellogg</p>
-<p><strong>Scribe(s):</strong> Orie Steel, Gregg Kellogg, Pierre-Antoine Champin</p>
-<h2 id="content">Content:</h2>
-<ul>
-<li><a href="#1-announcements-and-introductions.">1. Announcements and Introductions.</a></li>
-<li><a href="#2-yaml-ld.">2. YAML-LD.</a></li>
-<li><a href="#3-json-ld-star.">3. JSON-LD-star.</a></li>
-<li><a href="#4-json-ld-spec-updates.">4. JSON-LD Spec updates.</a></li>
-<li><a href="#5-schedule-next-call.">5. Schedule next call.</a></li>
-<li><a href="#6-resolutions">6. Resolutions</a></li>
-</ul>
-<hr />
-<h3 id="1announcementsandintroductions">1. Announcements and Introductions.</h3>
-<p><strong>Gregg Kellogg:</strong> the CG as been anointed to make updated to specs / publish new ones… by the JSON-LD WG..<br />
-… to start off, we have had a lot of interest in YAML-LD lately..<br />
-… I'm Editor of JSON-LD 1.0 / 1.1, I've worked in CGs as well..  </p>
-<p><strong>Niklas Lindström:</strong> I was also in the WG / co-author JSON-LD 1.0… I work a the national library of sweden, and we use jsonld.<br />
-… i've been interested in RDF * / JSON-lD *.  </p>
-<p><strong>Anatoly Scherbakov:</strong> I work at datafold, i'm a software developer, interested in semantic data… I'm building an open source project that works on knowledge graphs.<br />
-… I first learned of these 10 years ago, but only now I have a project to work on them, excited to be here..  </p>
-<p><strong>David I. Lehn:</strong> I work at Digital Bazaar, we've used JSON-LD for some time, current maintainer of jsonld.js… want to keep pushing the tech forward..  </p>
-<p><strong>Ted Thibodeau Jr.:</strong> I'm with OpenLink Software, I'm in all W3C groups..  </p>
-<p><strong>Philippe Le Hégaret:</strong> I'm the team contact for W3C for the JSON-LD WG..  </p>
-<p><strong>Roberto Polli:</strong> I work for video <code>&lt;inaudible&gt;</code> department of italy, interested in web apis…. interested in standardization… I'm also interested in standardizing… <inaudible>.  </p>
-<blockquote>
-  <p><em>Orie Steel:</em> Pierre-Antoine: I joined the W3C Team, I've helped shepherd the RDF WG /RDF <em>… interested in JSON-LD… and interested in augmenting it to cover RDF</em>.</p>
-</blockquote>
-<p><strong>Melinda Minch:</strong> I'm based in BC, CA, I work on the World Data System, international technology office, I was given a task to build federated search for arctic research data… I'm interested in research dataset markup..  </p>
-<p><strong>Orie Steel:</strong> I'm Orie Steel, CTO and founder of transumte. I'm an other of the DID spec and work with Verifiable Credentials..<br />
-… We apply JSON-LD DIDs for securing global trade documents for import/export..<br />
-… I'm interested in YAML-LD and YAML as a more human readable way of working with Linked Data..  </p>
-<p><strong>Gregg Kellogg:</strong> to repeat for those who are not present yet, we are using IRC.  </p>
-<blockquote>
-  <p><em>Melinda Minch:</em> melinda-minch has joined #json-ld.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> we use IRC for voting / recording minutes, etc..  </p>
-<blockquote>
-  <p><em>Roberto Polli:</em> Hi folks!.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> You can use a native IRC client if you like..  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="https://www.w3.org/groups/cg/json-ld/calendar">https://www.w3.org/groups/cg/json-ld/calendar</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> We have a F2F tentative in Vancouver.  </p>
-<blockquote>
-  <p><em>Melinda Minch:</em> like this? <code>@present+ Melinda Minch</code>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> see the calendar.  </p>
-<h3 id="2yamlld">2. YAML-LD.</h3>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> in the WG, we used the github projects feature to manage the open issues.<br />
-… we have created a number of issues.<br />
-… focusing first on use cases.<br />
-… eventually we will look at spec / testing.<br />
-… there is one issue regarding the spec and media types.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld">https://github.com/json-ld/yaml-ld</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> the purpose of working issues, is to create use case documents or working towards a specification.<br />
-… typically we use pull requests, which means we will need to identify editors for each document managed in github.<br />
-… we are seeking editors.<br />
-… there is work required to transform use cases from issues.<br />
-… for example "compatibility with existing libraries".<br />
-… "as a developer I would like to use existing libraries so that work developing is easier…etc".<br />
-… we use "ReSpec" to document specs / use cases as HTML..<br />
-… we have a PR preview tool which helps visualizes the changes made.<br />
-… this allows for the community to review changes and make constructive comments.  </p>
-<blockquote>
-  <p><em>Roberto Polli:</em> Orie: to ease collaboration, it would be great to use bikeshed.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> rather than trying to do issue review in this meeting, I would like to move on to other issues.  </p>
-<blockquote>
-  <p><em>Roberto Polli:</em> for building the document out of markdown.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> any questions or comments before we move on/.  </p>
-<p><strong>Roberto Polli:</strong> we will not discussion issues?.  </p>
-<p><strong>Gregg Kellogg:</strong> I want to cover the agenda before getting to specific issues.<br />
-… and establish a regular call schedule.<br />
-… we may want to create different calls to cover other items.  </p>
-<blockquote>
-  <p><em>Niklas Lindström:</em> +1 for different calls for different topics.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> for example JSON-LD *.<br />
-… there are also specification errata which needs to be addressed.<br />
-… the last thing I want to do is schedule our next call, and agree to recurring meetings.  </p>
-<p><strong>Pierre-Antoine Champin:</strong> I wanted to comment on bikeshed vs respec.<br />
-… from what I know, bikeshed is a markdown version of respec.<br />
-… if folks want to use markdown, i think respec may support it now.  </p>
-<blockquote>
-  <p><em>Roberto Polli:</em> whatever you prefer, as long as it's text :).</p>
-</blockquote>
-<p><strong>Orie Steel:</strong> I've used both, and I think bikeshed works well..<br />
-… It can be hard to use if it's not set up properly, and there's some additional chances for errors or risks..<br />
-… I think that bikeshed is worth the lift if the advanced featuers warrant..  </p>
-<p><strong>Gregg Kellogg:</strong> group has always used ReSpec… we have plugins / tools in ReSpec.<br />
-… AFAIK, every other RDF group has used ReSpec.<br />
-… my guess is that using ReSpec is probably an easier entry point.  </p>
-<blockquote>
-  <p><strong>Proposed resolution: Use ReSpec for spec and UCR documents..</strong> <em>(Gregg Kellogg)</em></p>
-  <p><em>Orie Steel:</em> +1.</p>
-  <p><em>Pierre-Antoine Champin:</em> +1.</p>
-  <p><em>Ted Thibodeau Jr.:</em> +1.</p>
-  <p><em>Anatoly Scherbakov:</em> +1.</p>
-  <p><em>Philippe Le Hégaret:</em> 0.</p>
-  <p><em>Melinda Minch:</em> 0.</p>
-  <p><em>Niklas Lindström:</em> +0 (no strong opinion).</p>
-  <p><em>Roberto Polli:</em> Can respec use .md ?.</p>
-</blockquote>
-<p><strong>Chris Mungall:</strong> sorry i joined late, should I be looking at something?.  </p>
-<blockquote>
-  <p><em>David I. Lehn:</em> +1, but i had never heard of bikeshed until just now, so not an informed vote.</p>
-  <p><em>Roberto Polli:</em> I just want to avoid diffing .xml docs.</p>
-  <p><em>Roberto Polli:</em> on PRs.</p>
-  <p><em>Eric Prud'hommeaux:</em> +0.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> ok so, last call for votes.  </p>
-<blockquote>
-  <p><strong><em>Resolution #1: Use ReSpec for spec and UCR documents..</em></strong></p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> we will use respec.<br />
-… any other discussion regarding YAML-LD ?.  </p>
-<h3 id="3jsonldstar">3. JSON-LD-star.</h3>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/json-ld-star">https://github.com/json-ld/json-ld-star</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> its fairly mature spec.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/json-ld-star/issues">https://github.com/json-ld/json-ld-star/issues</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> see the open issues, we hope to move it to a WG.  </p>
-<p><strong>Pierre-Antoine Champin:</strong> RDF-star is an extension of syntax and semantics to use triples as the subject or object of other triples.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> Draft JSON-LD-star spec: <a href="https://json-ld.github.io/json-ld-star/">https://json-ld.github.io/json-ld-star/</a>.</p>
-</blockquote>
-<p><strong>Pierre-Antoine Champin:</strong> this extension requires concrete syntax extensions, its been done for turtle… doing this for JSON-LD would cover this same update for JSON-LD.  </p>
-<p><strong>eric:</strong> is there a playground for JSON-LD star.  </p>
-<p><strong>Gregg Kellogg:</strong> I think there is only 1 implementation of JSON-LD start so far.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="http://rdf.greggkellogg.net/distiller?command=serialize&format=jsonld&output_format=jsonld">http://rdf.greggkellogg.net/distiller?command=serialize&format=jsonld&output_format=jsonld</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> in the ruby version there is an option to pickup jsonld.<br />
-… and serialize as JSON-LD *.  </p>
-<blockquote>
-  <p><em>Niklas Lindström:</em> <a href="https://niklasl.github.io/ldtr/demo/?url=../test/data/diff-annotated.trig">https://niklasl.github.io/ldtr/demo/?url=../test/data/diff-annotated.trig</a>.</p>
-</blockquote>
-<p><strong>Niklas Lindström:</strong> I wanted to share a tool ^ right now its a simple demo of parse &amp; serialize, but it has some visualization.<br />
-… I have added turtle-start, trig-star and jsonld-star.<br />
-… you can use the tool to explore the formats.<br />
-… its a pseudo playgroun.  </p>
-<p><strong>eric:</strong> the bottom right corner ha a '&lt;&lt;' button which brings up an editor.  </p>
-<p><strong>Gregg Kellogg:</strong> would you consider a PR to the JSON-LD repo to include a link?.  </p>
-<p><strong>Niklas Lindström:</strong> I will look into that.  </p>
-<h3 id="4jsonldspecupdates">4. JSON-LD Spec updates.</h3>
-<p><strong>Gregg Kellogg:</strong> there are a number of proposed updates to JSON-LD spec and Errata.<br />
-… this is important work for the group to get too.<br />
-… pchampin and I have been following these issues.<br />
-… plh, any info about the process to apply the errata.  </p>
-<p><strong>Philippe Le Hégaret:</strong> the process was updated in Sep 2020, unfortunately, this was after JSON-LD was published.<br />
-… so the current JSON-LD Rec can not take advantage of the new process.<br />
-… because a recommendation have to "opt in" to the new process, and JSON-LD could not..<br />
-… The probability of the process evolving to make this retroactive is very low..  </p>
-<p><strong>Gregg Kellogg:</strong> so when the group is ready to address this modification,.<br />
-… we will need to dedicate some time to dive into the new process..  </p>
-<h3 id="5schedulenextcall">5. Schedule next call.</h3>
-<p><strong>Gregg Kellogg:</strong> I would propose that the group continues to use this timeslot, on a every-other-week basis.<br />
-… (with some exceptions during summer).<br />
-… every other week may not be enough in the future, but we can start with that..  </p>
-<blockquote>
-  <p><strong>Proposed resolution: go to every other week schedule in this timeslot, with the next meeting being July 6.</strong> <em>(Gregg Kellogg)</em></p>
-  <p><em>Niklas Lindström:</em> +1.</p>
-  <p><em>Gregg Kellogg:</em> +1.</p>
-  <p><em>Pierre-Antoine Champin:</em> <pchampin> +1.</p>
-  <p><em>David I. Lehn:</em> +1.</p>
-  <p><em>Philippe Le Hégaret:</em> 0.</p>
-  <p><em>Anatoly Scherbakov:</em> +1.</p>
-  <p><em>Melinda Minch:</em> 0.</p>
-  <p><em>Ted Thibodeau Jr.:</em> +0.</p>
-  <p><strong><em>Resolution #2: go to every other week schedule in this timeslot, with the next meeting being July 6.</em></strong></p>
-</blockquote>
-<p><strong>Philippe Le Hégaret:</strong> will not be able to attend these calls on a regular basis,.<br />
-… but let me know if you need me..  </p>
-<p><strong>Gregg Kellogg:</strong> ivan also said that he would try to attend, when possible..  </p>
-<p><strong>Ted Thibodeau Jr.:</strong> can we put these calls in the JSON-LD WG/CG calendar?.  </p>
-<p><strong>Gregg Kellogg:</strong> will do (already the case for this call).<br />
-… the minutes will also be included in the calendar, and validated during the next meeting.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a>.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> anyone having an issue they want to start with?.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> issue json-ld/yaml-ld#19.</p>
-  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/19">https://github.com/json-ld/yaml-ld/issues/19</a> -&gt; Issue 19 Polyglot Modeling (VladimirAlexiev) UCR.</p>
-  <p><em>Gregg Kellogg:</em> <a href="https://github.com/json-ld/yaml-ld/issues">https://github.com/json-ld/yaml-ld/issues</a>.</p>
-</blockquote>
-<p><strong>Eric Prud'hommeaux:</strong> how are people supposed to add UCRs?.  </p>
-<p><strong>Gregg Kellogg:</strong> there is an issue template for UCRs in the <a href="https://github.com/json-ld/yaml-ld">https://github.com/json-ld/yaml-ld</a> repo.  </p>
-<blockquote>
-  <p><em>Eric Prud'hommeaux:</em> (meta Q to see if we're on the same page).</p>
-</blockquote>
-<p><strong>Eric Prud'hommeaux:</strong> do people want to exceed JSON expressivity, or just use YAML as a nicer syntax for JSON?.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> yaml-ld#8.</p>
-  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/8">https://github.com/json-ld/yaml-ld/issues/8</a> -&gt; Issue 8 Round-trip safe json-ld -&gt; yaml-ld -&gt; json-ld (ioggstream) UCR.</p>
-</blockquote>
-<p><strong>Gregg Kellogg:</strong> I think there is an issue about that.<br />
-… (not the one above…).<br />
-… s/see/see/.  </p>
-<blockquote>
-  <p><em>Gregg Kellogg:</em> yaml-ld#17.</p>
-  <p><em>ghurlbot:</em> <a href="https://github.com/json-ld/yaml-ld/issues/17">https://github.com/json-ld/yaml-ld/issues/17</a> -&gt; Issue 17 YAML-LD datatypes (and tags for datatypes) (VladimirAlexiev) UCR.</p>
-  <p><em>Orie Steel:</em> +1 to JSON-LD and YAML-LD having a similar or identical set of capabilities.</p>
-  <p><em>Orie Steel:</em> +1 to exploring both the "identical" and the "enhanced" paths.. at least initially.</p>
-  <p><em>Orie Steel:</em> sorry I am talking now.</p>
-  <p><em>Orie Steel:</em> I can take back over scribing ir you like.</p>
-</blockquote>
-<p><strong>Roberto Polli:</strong> we can start with a minimal set of feature.<br />
-… allowing to serialize only roundtrippable data (except for comments).<br />
-… once we have it, we can consider expanding it.<br />
-… for example, leveraging YAML anchors in order to reuse JSON bits in several places.<br />
-… (as long as they are not creating cycles).<br />
-… also, it is important to define a media-type.  </p>
-<blockquote>
-  <p><em>Melinda Minch:</em> Is it a goal to make these formats round-trippable between each other, or anything like that?.</p>
-  <p><em>Roberto Polli:</em> ioggstream: q-.</p>
-  <p><em>Eric Prud'hommeaux:</em> interestingly, YAML might no offer much referencing advantage (<code>&amp;node</code> and <code>*node</code>) over JSON-LD 'cause it already had refs.</p>
-</blockquote>
-<p><strong>Orie Steel:</strong> roundtripping is important for interoperability.  </p>
-<blockquote>
-  <p><em>Eric Prud'hommeaux:</em> but not with the notion of copying data, more with re-using nodes.</p>
-</blockquote>
-<p><strong>Orie Steel:</strong> it is exciting to explore other features, but in a 2nd time.  </p>
-<p><strong>Niklas Lindström:</strong> worried about the complexity we might open up.  </p>
-<blockquote>
-  <p><em>Roberto Polli:</em> ericP: refs and *node are different. One happens at json-ld level, the other one at seralization level..</p>
-  <p><em>Anatoly Scherbakov:</em> I am uncertain how referencing can help; JSON-LD can assign an <code>@id</code> to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature?.</p>
-</blockquote>
-<p><strong>Niklas Lindström:</strong> my own colleagues already have problem with the RDF part of JSON-LD, they merely see JSON.  </p>
-<p><strong>Gregg Kellogg:</strong> thanks everyone, we have a lot to chew on.<br />
-… I encourage you to continue the discussion in the issues.<br />
-… From this discussion, I think we will start with a simple profile..  </p>
-<blockquote>
-  <p><em>Orie Steel:</em> thanks all!.</p>
-  <p><em>Anatoly Scherbakov:</em> Thank you all very much!.</p>
-  <p><em>Melinda Minch:</em> Thanks everyone, nice to meet you all.</p>
-  <p><em>Gregg Kellogg:</em> rssagent, bye.</p>
-</blockquote>
-<hr />
-<h3 id="6resolutions">6. Resolutions</h3>
-<ul>
-<li>Resolution #1: Use ReSpec for spec and UCR documents..</li>
-<li>Resolution #2: go to every other week schedule in this timeslot, with the next meeting being July 6.</li>
-</ul></div></div></div></div></div>    </div>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG/WG</h1>
+<h2>Minutes for 2022-06-22</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="undefined">Philippe Le Hégaret</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="undefined">Pierre-Antoine Champin</a>, <a href="undefined">Orie Steel</a>, <a href="undefined">Niklas Lindström</a>, <a href="undefined">Melinda Minch</a>, <a href="undefined">Eric Prud'hommeaux</a>, <a href="undefined">Chris Mungall</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Orie Steel, Gregg Kellogg, Pierre-Antoine Champin</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86-3b894bdb1487">https://www.w3.org/events/meetings/043b29e7-f596-41d3-9c86-3b894bdb1487</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">YAML-LD</a><li><a href="#topic-3">JSON-LD-star</a><li><a href="#topic-4">JSON-LD Spec updates</a><li><a href="#topic-5">Schedule next call</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1"> Use ReSpec for spec and UCR documents.</a><li><a href="#resolution-2">go to every other week schedule in this timeslot, with the next meeting being July 6</a></ol></dd></dl>
+</div>
+<h1 id="topic-1" class="topic">Topic: Announcements and Introductions</h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Gregg Kellogg</span>:  The CG as been anointed to make updated to specs  / publish new ones... by the JSON-LD WG. [scribe assist by Orie Steel] <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Orie Steel</span>: ... To start off, we have had a lot of interest in YAML-LD lately. <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Gregg Kellogg</span>:  I&apos;m Editor of JSON-LD 1.0 / 1.1, I&apos;ve worked in CGs as well. [scribe assist by Orie Steel] <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I was also in the WG / co-author JSON-LD 1.0... I work a the national library of sweden, and we use jsonld [scribe assist by Orie Steel] <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Orie Steel</span>: ... I&apos;ve been interested in RDF * / JSON-lD * <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Anatoly Scherbakov</span>:  I work at datafold, i&apos;m a software developer, interested in semantic data... I&apos;m building an open source project that works on knowledge graphs [scribe assist by Orie Steel] <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Orie Steel</span>: ... I first learned of these 10 years ago, but only now I have a project to work on them, excited to be here. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Orie Steel</span>: DaveLehn: I work at Digital Bazaar, we&apos;ve used JSON-LD for some time, current maintainer of jsonld.js... want to keep pushing the tech forward. <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I&apos;m with OpenLink Software, I&apos;m in all W3C groups. [scribe assist by Orie Steel] <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Philippe Le H&#233;garet</span>:  I&apos;m the team contact for W3C for the JSON-LD WG. [scribe assist by Orie Steel] <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Roberto Polli</span>:  I work for video &lt;inaudible&gt; department of italy, interested in web apis.... interested in standardization... I&apos;m also interested in standardizing... &lt;inaudible&gt; [scribe assist by Orie Steel] <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I joined the W3C Team, I&apos;ve helped shepherd the RDF WG /RDF *... interested in JSON-LD... and interested in augmenting it to cover RDF* [scribe assist by Orie Steel] <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Melinda Minch</span>:  I&apos;m based in BC, CA, I work on the World Data System, international technology office, I was given a task to build federated search for arctic research data... I&apos;m interested in research dataset markup. [scribe assist by Orie Steel] <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Orie Steel</span>:  I&apos;m Orie Steel, CTO and founder of transumte. I&apos;m an other of the DID spec and work with Verifiable Credentials. [scribe assist by Gregg Kellogg] <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Gregg Kellogg</span>: ... We apply JSON-LD DIDs for securing global trade documents for import/export. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Gregg Kellogg</span>: ... I&apos;m interested in YAML-LD and YAML as a more human readable way of working with Linked Data. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Gregg Kellogg</span>:  To repeat for those who are not present yet, we are using IRC [scribe assist by Orie Steel] <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Orie Steel</span>: ... We use IRC for voting / recording minutes, etc. <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Roberto Polli</span>: Hi folks! <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Orie Steel</span>: ... You can use a native IRC client if you like. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://www.w3.org/groups/cg/json-ld/calendar">https://www.w3.org/groups/cg/json-ld/calendar</a> <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Gregg Kellogg</span>:  We have a F2F tentative in Vancouver [scribe assist by Orie Steel] <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Melinda Minch</span>: Like this? `@present+ Melinda Minch` <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Orie Steel</span>: ... See the calendar <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<h1 id="topic-2" class="topic">Topic: YAML-LD</h1>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a> <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Gregg Kellogg</span>:  In the WG, we used the github projects feature to manage the open issues [scribe assist by Orie Steel] <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Orie Steel</span>: ... We have created a number of issues <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Orie Steel</span>: ... Focusing first on use cases <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Orie Steel</span>: ... Eventually we will look at spec / testing <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Orie Steel</span>: ... There is one issue regarding the spec and media types <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/yaml-ld">https://github.com/json-ld/yaml-ld</a> <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Orie Steel</span>: ... The purpose of working issues, is to create use case documents or working towards a specification <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Orie Steel</span>: ... Typically we use pull requests, which means we will need to identify editors for each document managed in github <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Orie Steel</span>: ... We are seeking editors <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Orie Steel</span>: ... There is work required to transform use cases from issues <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Orie Steel</span>: ... For example &quot;compatibility with existing libraries&quot; <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Orie Steel</span>: ... &quot;As a developer I would like to use existing libraries so that work developing is easier...etc&quot; <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Orie Steel</span>: ... We use &quot;ReSpec&quot; to document specs / use cases as HTML. <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Orie Steel</span>: ... We have a PR preview tool which helps visualizes the changes made <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Orie Steel</span>: ... This allows for the community to review changes and make constructive comments <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Orie Steel</span>:  To ease collaboration, it would be great to use bikeshed [scribe assist by Roberto Polli] <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Orie Steel</span>: ... Rather than trying to do issue review in this meeting, I would like to move on to other issues <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Roberto Polli</span>: For building the document out of markdown <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Orie Steel</span>: ... Any questions or comments before we move on/ <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="comment"><span class="name">Roberto Polli</span>:  We will not discussion issues? [scribe assist by Orie Steel] <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Gregg Kellogg</span>:  I want to cover the agenda before getting to specific issues [scribe assist by Orie Steel] <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="comment"><span class="name">Orie Steel</span>: ... And establish a regular call schedule <a id="link-47" style="display:none;" href="#47">✪</a></div>
+<div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="comment"><span class="name">Orie Steel</span>: ... We may want to create different calls to cover other items <a id="link-48" style="display:none;" href="#48">✪</a></div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 For different calls for different topics <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Orie Steel</span>: ... For example JSON-LD * <a id="link-50" style="display:none;" href="#50">✪</a></div>
+<div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="comment"><span class="name">Orie Steel</span>: ... There are also specification errata which needs to be addressed <a id="link-51" style="display:none;" href="#51">✪</a></div>
+<div onmouseout="$('#link-52').hide()" onmouseover="$('#link-52').show()" id="52" class="comment"><span class="name">Orie Steel</span>: ...  The last thing I want to do is schedule our next call, and agree to recurring meetings <a id="link-52" style="display:none;" href="#52">✪</a></div>
+<div onmouseout="$('#link-53').hide()" onmouseover="$('#link-53').show()" id="53" class="comment"><span class="name">Orie Steel</span>: Pierre: I wanted to comment on bikeshed vs respec <a id="link-53" style="display:none;" href="#53">✪</a></div>
+<div onmouseout="$('#link-54').hide()" onmouseover="$('#link-54').show()" id="54" class="comment"><span class="name">Orie Steel</span>: ... From what I know, bikeshed is a markdown version of respec <a id="link-54" style="display:none;" href="#54">✪</a></div>
+<div onmouseout="$('#link-55').hide()" onmouseover="$('#link-55').show()" id="55" class="comment"><span class="name">Orie Steel</span>: ... If folks want to use markdown, i think respec may support it now <a id="link-55" style="display:none;" href="#55">✪</a></div>
+<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Roberto Polli</span>: Whatever you prefer, as long as it&apos;s text :) <a id="link-56" style="display:none;" href="#56">✪</a></div>
+<div onmouseout="$('#link-57').hide()" onmouseover="$('#link-57').show()" id="57" class="comment"><span class="name">Orie Steel</span>:  I&apos;ve used both, and I think bikeshed works well. [scribe assist by Gregg Kellogg] <a id="link-57" style="display:none;" href="#57">✪</a></div>
+<div onmouseout="$('#link-58').hide()" onmouseover="$('#link-58').show()" id="58" class="comment"><span class="name">Gregg Kellogg</span>: ... It can be hard to use if it&apos;s not set up properly, and there&apos;s some additional chances for errors or risks. <a id="link-58" style="display:none;" href="#58">✪</a></div>
+<div onmouseout="$('#link-59').hide()" onmouseover="$('#link-59').show()" id="59" class="comment"><span class="name">Gregg Kellogg</span>: ... I think that bikeshed is worth the lift if the advanced featuers warrant. <a id="link-59" style="display:none;" href="#59">✪</a></div>
+<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">Gregg Kellogg</span>:  Group has always used ReSpec... we have plugins / tools in ReSpec [scribe assist by Orie Steel] <a id="link-60" style="display:none;" href="#60">✪</a></div>
+<div onmouseout="$('#link-61').hide()" onmouseover="$('#link-61').show()" id="61" class="comment"><span class="name">Orie Steel</span>: ... AFAIK, every other RDF group has used ReSpec <a id="link-61" style="display:none;" href="#61">✪</a></div>
+<div onmouseout="$('#link-62').hide()" onmouseover="$('#link-62').show()" id="62" class="comment"><span class="name">Orie Steel</span>: ... My guess is that using ReSpec is probably an easier entry point <a id="link-62" style="display:none;" href="#62">✪</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  Use ReSpec for spec and UCR documents.</div>
+<div onmouseout="$('#link-63').hide()" onmouseover="$('#link-63').show()" id="63" class="comment"><span class="name">Orie Steel</span>: +1 <a id="link-63" style="display:none;" href="#63">✪</a></div>
+<div onmouseout="$('#link-64').hide()" onmouseover="$('#link-64').show()" id="64" class="comment"><span class="name">Pierre-Antoine Champin</span>: +1 <a id="link-64" style="display:none;" href="#64">✪</a></div>
+<div onmouseout="$('#link-65').hide()" onmouseover="$('#link-65').show()" id="65" class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1 <a id="link-65" style="display:none;" href="#65">✪</a></div>
+<div onmouseout="$('#link-66').hide()" onmouseover="$('#link-66').show()" id="66" class="comment"><span class="name">Anatoly Scherbakov</span>: +1 <a id="link-66" style="display:none;" href="#66">✪</a></div>
+<div onmouseout="$('#link-67').hide()" onmouseover="$('#link-67').show()" id="67" class="comment"><span class="name">Philippe Le H&#233;garet</span>: 0 <a id="link-67" style="display:none;" href="#67">✪</a></div>
+<div onmouseout="$('#link-68').hide()" onmouseover="$('#link-68').show()" id="68" class="comment"><span class="name">Melinda Minch</span>: 0 <a id="link-68" style="display:none;" href="#68">✪</a></div>
+<div onmouseout="$('#link-69').hide()" onmouseover="$('#link-69').show()" id="69" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +0 (No strong opinion) <a id="link-69" style="display:none;" href="#69">✪</a></div>
+<div onmouseout="$('#link-70').hide()" onmouseover="$('#link-70').show()" id="70" class="comment"><span class="name">Roberto Polli</span>: Can respec use .md ? <a id="link-70" style="display:none;" href="#70">✪</a></div>
+<div onmouseout="$('#link-71').hide()" onmouseover="$('#link-71').show()" id="71" class="comment"><span class="name">Chris Mungall</span>:   Sorry i joined late, should I be looking at something? [scribe assist by Orie Steel] <a id="link-71" style="display:none;" href="#71">✪</a></div>
+<div onmouseout="$('#link-72').hide()" onmouseover="$('#link-72').show()" id="72" class="comment"><span class="name">David I. Lehn</span>: +1, But i had never heard of bikeshed until just now, so not an informed vote <a id="link-72" style="display:none;" href="#72">✪</a></div>
+<div onmouseout="$('#link-73').hide()" onmouseover="$('#link-73').show()" id="73" class="comment"><span class="name">Roberto Polli</span>: I just want to avoid diffing .xml docs <a id="link-73" style="display:none;" href="#73">✪</a></div>
+<div onmouseout="$('#link-74').hide()" onmouseover="$('#link-74').show()" id="74" class="comment"><span class="name">Roberto Polli</span>: On PRs <a id="link-74" style="display:none;" href="#74">✪</a></div>
+<div onmouseout="$('#link-75').hide()" onmouseover="$('#link-75').show()" id="75" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>: +0 <a id="link-75" style="display:none;" href="#75">✪</a></div>
+<div onmouseout="$('#link-76').hide()" onmouseover="$('#link-76').show()" id="76" class="comment"><span class="name">Gregg Kellogg</span>:  Ok so, last call for votes [scribe assist by Orie Steel] <a id="link-76" style="display:none;" href="#76">✪</a></div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong>  Use ReSpec for spec and UCR documents.</div>
+<div onmouseout="$('#link-77').hide()" onmouseover="$('#link-77').show()" id="77" class="comment"><span class="name">Orie Steel</span>: ... We will use respec <a id="link-77" style="display:none;" href="#77">✪</a></div>
+<div onmouseout="$('#link-78').hide()" onmouseover="$('#link-78').show()" id="78" class="comment"><span class="name">Orie Steel</span>: ... Any other discussion regarding YAML-LD ? <a id="link-78" style="display:none;" href="#78">✪</a></div>
+<h1 id="topic-3" class="topic">Topic: JSON-LD-star</h1>
+<div onmouseout="$('#link-79').hide()" onmouseover="$('#link-79').show()" id="79" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld-star">https://github.com/json-ld/json-ld-star</a> <a id="link-79" style="display:none;" href="#79">✪</a></div>
+<div onmouseout="$('#link-80').hide()" onmouseover="$('#link-80').show()" id="80" class="comment"><span class="name">Orie Steel</span>: ... Its fairly mature spec <a id="link-80" style="display:none;" href="#80">✪</a></div>
+<div onmouseout="$('#link-81').hide()" onmouseover="$('#link-81').show()" id="81" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/json-ld-star/issues">https://github.com/json-ld/json-ld-star/issues</a> <a id="link-81" style="display:none;" href="#81">✪</a></div>
+<div onmouseout="$('#link-82').hide()" onmouseover="$('#link-82').show()" id="82" class="comment"><span class="name">Orie Steel</span>: ... See the open issues, we hope to move it to a WG <a id="link-82" style="display:none;" href="#82">✪</a></div>
+<div onmouseout="$('#link-83').hide()" onmouseover="$('#link-83').show()" id="83" class="comment"><span class="name">Orie Steel</span>: Pierre: RDF-star is an extension of syntax and semantics to use triples as the subject or object of other triples <a id="link-83" style="display:none;" href="#83">✪</a></div>
+<div onmouseout="$('#link-84').hide()" onmouseover="$('#link-84').show()" id="84" class="comment"><span class="name">Gregg Kellogg</span>: Draft JSON-LD-star spec: <a href="https://json-ld.github.io/json-ld-star/">https://json-ld.github.io/json-ld-star/</a> <a id="link-84" style="display:none;" href="#84">✪</a></div>
+<div onmouseout="$('#link-85').hide()" onmouseover="$('#link-85').show()" id="85" class="comment"><span class="name">Orie Steel</span>: ... This extension requires concrete syntax extensions, its been done for turtle... doing this for JSON-LD would cover this same update for JSON-LD <a id="link-85" style="display:none;" href="#85">✪</a></div>
+<div onmouseout="$('#link-86').hide()" onmouseover="$('#link-86').show()" id="86" class="comment"><span class="name">Eric Korb</span>:  Is there a playground for JSON-LD star [scribe assist by Orie Steel] <a id="link-86" style="display:none;" href="#86">✪</a></div>
+<div onmouseout="$('#link-87').hide()" onmouseover="$('#link-87').show()" id="87" class="comment"><span class="name">Gregg Kellogg</span>:  I think there is only 1 implementation of JSON-LD start so far [scribe assist by Orie Steel] <a id="link-87" style="display:none;" href="#87">✪</a></div>
+<div onmouseout="$('#link-88').hide()" onmouseover="$('#link-88').show()" id="88" class="comment"><span class="name">Gregg Kellogg</span>: <a href="http://rdf.greggkellogg.net/distiller?command=serialize&amp;format=jsonld&amp;output_format=jsonld">http://rdf.greggkellogg.net/distiller?command=serialize&amp;format=jsonld&amp;output_format=jsonld</a> <a id="link-88" style="display:none;" href="#88">✪</a></div>
+<div onmouseout="$('#link-89').hide()" onmouseover="$('#link-89').show()" id="89" class="comment"><span class="name">Gregg Kellogg</span>:  In the ruby version there is an option to pickup jsonld [scribe assist by Orie Steel] <a id="link-89" style="display:none;" href="#89">✪</a></div>
+<div onmouseout="$('#link-90').hide()" onmouseover="$('#link-90').show()" id="90" class="comment"><span class="name">Orie Steel</span>: ... And serialize as JSON-LD * <a id="link-90" style="display:none;" href="#90">✪</a></div>
+<div onmouseout="$('#link-91').hide()" onmouseover="$('#link-91').show()" id="91" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: <a href="https://niklasl.github.io/ldtr/demo/?url=../test/data/diff-annotated.trig">https://niklasl.github.io/ldtr/demo/?url=../test/data/diff-annotated.trig</a> <a id="link-91" style="display:none;" href="#91">✪</a></div>
+<div onmouseout="$('#link-92').hide()" onmouseover="$('#link-92').show()" id="92" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I wanted to share a tool ^ right now its a simple demo of parse &amp; serialize, but it has some visualization [scribe assist by Orie Steel] <a id="link-92" style="display:none;" href="#92">✪</a></div>
+<div onmouseout="$('#link-93').hide()" onmouseover="$('#link-93').show()" id="93" class="comment"><span class="name">Orie Steel</span>: ... I have added turtle-start, trig-star and jsonld-star <a id="link-93" style="display:none;" href="#93">✪</a></div>
+<div onmouseout="$('#link-94').hide()" onmouseover="$('#link-94').show()" id="94" class="comment"><span class="name">Orie Steel</span>: ... You can use the tool to explore the formats <a id="link-94" style="display:none;" href="#94">✪</a></div>
+<div onmouseout="$('#link-95').hide()" onmouseover="$('#link-95').show()" id="95" class="comment"><span class="name">Orie Steel</span>: ... Its a pseudo playgroun <a id="link-95" style="display:none;" href="#95">✪</a></div>
+<div onmouseout="$('#link-96').hide()" onmouseover="$('#link-96').show()" id="96" class="comment"><span class="name">Eric Korb</span>:  The bottom right corner has an editor [scribe assist by Orie Steel] <a id="link-96" style="display:none;" href="#96">✪</a></div>
+<div onmouseout="$('#link-97').hide()" onmouseover="$('#link-97').show()" id="97" class="comment"><span class="name">Gregg Kellogg</span>:  Would you consider a PR to the JSON-LD repo to include a link? [scribe assist by Orie Steel] <a id="link-97" style="display:none;" href="#97">✪</a></div>
+<div onmouseout="$('#link-98').hide()" onmouseover="$('#link-98').show()" id="98" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I will look into that [scribe assist by Orie Steel] <a id="link-98" style="display:none;" href="#98">✪</a></div>
+<h1 id="topic-4" class="topic">Topic: JSON-LD Spec updates</h1>
+<div onmouseout="$('#link-99').hide()" onmouseover="$('#link-99').show()" id="99" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>: S/right corner has an editor/right corner ha a &apos;&lt;&lt;&apos; button which brings up an editor/ <a id="link-99" style="display:none;" href="#99">✪</a></div>
+<div onmouseout="$('#link-100').hide()" onmouseover="$('#link-100').show()" id="100" class="comment"><span class="name">Gregg Kellogg</span>:  There are a number of proposed updates to JSON-LD spec and Errata [scribe assist by Orie Steel] <a id="link-100" style="display:none;" href="#100">✪</a></div>
+<div onmouseout="$('#link-101').hide()" onmouseover="$('#link-101').show()" id="101" class="comment"><span class="name">Orie Steel</span>: ... This is important work for the group to get too <a id="link-101" style="display:none;" href="#101">✪</a></div>
+<div onmouseout="$('#link-102').hide()" onmouseover="$('#link-102').show()" id="102" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Pchampin and I have been following these issues <a id="link-102" style="display:none;" href="#102">✪</a></div>
+<div onmouseout="$('#link-103').hide()" onmouseover="$('#link-103').show()" id="103" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Plh, any info about the process to apply the errata <a id="link-103" style="display:none;" href="#103">✪</a></div>
+<div onmouseout="$('#link-104').hide()" onmouseover="$('#link-104').show()" id="104" class="comment"><span class="name">Philippe Le H&#233;garet</span>:  The process was updated in Sep 2020, unfortunately, this was after JSON-LD was published [scribe assist by Pierre-Antoine Champin] <a id="link-104" style="display:none;" href="#104">✪</a></div>
+<div onmouseout="$('#link-105').hide()" onmouseover="$('#link-105').show()" id="105" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... So the current JSON-LD Rec can not take advantage of the new process <a id="link-105" style="display:none;" href="#105">✪</a></div>
+<div onmouseout="$('#link-106').hide()" onmouseover="$('#link-106').show()" id="106" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Because a recommendation have to &quot;opt in&quot; to the new process, and JSON-LD could not. <a id="link-106" style="display:none;" href="#106">✪</a></div>
+<div onmouseout="$('#link-107').hide()" onmouseover="$('#link-107').show()" id="107" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... The probability of the process evolving to make this retroactive is very low. <a id="link-107" style="display:none;" href="#107">✪</a></div>
+<div onmouseout="$('#link-108').hide()" onmouseover="$('#link-108').show()" id="108" class="comment"><span class="name">Gregg Kellogg</span>:  So when the group is ready to address this modification, [scribe assist by Pierre-Antoine Champin] <a id="link-108" style="display:none;" href="#108">✪</a></div>
+<div onmouseout="$('#link-109').hide()" onmouseover="$('#link-109').show()" id="109" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... We will need to dedicate some time to dive into the new process. <a id="link-109" style="display:none;" href="#109">✪</a></div>
+<h1 id="topic-5" class="topic">Topic: Schedule next call</h1>
+<div onmouseout="$('#link-110').hide()" onmouseover="$('#link-110').show()" id="110" class="comment"><span class="name">Gregg Kellogg</span>:  I would propose that the group continues to use this timeslot, on a every-other-week basis [scribe assist by Pierre-Antoine Champin] <a id="link-110" style="display:none;" href="#110">✪</a></div>
+<div onmouseout="$('#link-111').hide()" onmouseover="$('#link-111').show()" id="111" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... (With some exceptions during summer) <a id="link-111" style="display:none;" href="#111">✪</a></div>
+<div onmouseout="$('#link-112').hide()" onmouseover="$('#link-112').show()" id="112" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Every other week may not be enough in the future, but we can start with that. <a id="link-112" style="display:none;" href="#112">✪</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  go to every other week schedule in this timeslot, with the next meeting being July 6</div>
+<div onmouseout="$('#link-113').hide()" onmouseover="$('#link-113').show()" id="113" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 <a id="link-113" style="display:none;" href="#113">✪</a></div>
+<div onmouseout="$('#link-114').hide()" onmouseover="$('#link-114').show()" id="114" class="comment"><span class="name">Gregg Kellogg</span>: +1 <a id="link-114" style="display:none;" href="#114">✪</a></div>
+<div onmouseout="$('#link-115').hide()" onmouseover="$('#link-115').show()" id="115" class="comment"><span class="name">Pierre-Antoine Champin</span>: &lt;Pchampin&gt; +1 <a id="link-115" style="display:none;" href="#115">✪</a></div>
+<div onmouseout="$('#link-116').hide()" onmouseover="$('#link-116').show()" id="116" class="comment"><span class="name">David I. Lehn</span>: +1 <a id="link-116" style="display:none;" href="#116">✪</a></div>
+<div onmouseout="$('#link-117').hide()" onmouseover="$('#link-117').show()" id="117" class="comment"><span class="name">Philippe Le H&#233;garet</span>: 0 <a id="link-117" style="display:none;" href="#117">✪</a></div>
+<div onmouseout="$('#link-118').hide()" onmouseover="$('#link-118').show()" id="118" class="comment"><span class="name">Anatoly Scherbakov</span>: +1 <a id="link-118" style="display:none;" href="#118">✪</a></div>
+<div onmouseout="$('#link-119').hide()" onmouseover="$('#link-119').show()" id="119" class="comment"><span class="name">Melinda Minch</span>: 0 <a id="link-119" style="display:none;" href="#119">✪</a></div>
+<div onmouseout="$('#link-120').hide()" onmouseover="$('#link-120').show()" id="120" class="comment"><span class="name">Ted Thibodeau Jr.</span>: +0 <a id="link-120" style="display:none;" href="#120">✪</a></div>
+<div id="resolution-2" class="resolution"><strong>RESOLUTION:</strong> go to every other week schedule in this timeslot, with the next meeting being July 6</div>
+<div onmouseout="$('#link-121').hide()" onmouseover="$('#link-121').show()" id="121" class="comment"><span class="name">Philippe Le H&#233;garet</span>:  Will not be able to attend these calls on a regular basis, [scribe assist by Pierre-Antoine Champin] <a id="link-121" style="display:none;" href="#121">✪</a></div>
+<div onmouseout="$('#link-122').hide()" onmouseover="$('#link-122').show()" id="122" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... But let me know if you need me. <a id="link-122" style="display:none;" href="#122">✪</a></div>
+<div onmouseout="$('#link-123').hide()" onmouseover="$('#link-123').show()" id="123" class="comment"><span class="name">Gregg Kellogg</span>:  Ivan also said that he would try to attend, when possible. [scribe assist by Pierre-Antoine Champin] <a id="link-123" style="display:none;" href="#123">✪</a></div>
+<div onmouseout="$('#link-124').hide()" onmouseover="$('#link-124').show()" id="124" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Can we put these calls in the JSON-LD WG/CG calendar? [scribe assist by Pierre-Antoine Champin] <a id="link-124" style="display:none;" href="#124">✪</a></div>
+<div onmouseout="$('#link-125').hide()" onmouseover="$('#link-125').show()" id="125" class="comment"><span class="name">Gregg Kellogg</span>:  Will do (already the case for this call) [scribe assist by Pierre-Antoine Champin] <a id="link-125" style="display:none;" href="#125">✪</a></div>
+<div onmouseout="$('#link-126').hide()" onmouseover="$('#link-126').show()" id="126" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... The minutes will also be included in the calendar, and validated during the next meeting <a id="link-126" style="display:none;" href="#126">✪</a></div>
+<div onmouseout="$('#link-127').hide()" onmouseover="$('#link-127').show()" id="127" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a> <a id="link-127" style="display:none;" href="#127">✪</a></div>
+<div onmouseout="$('#link-128').hide()" onmouseover="$('#link-128').show()" id="128" class="comment"><span class="name">Gregg Kellogg</span>:  Anyone having an issue they want to start with? [scribe assist by Pierre-Antoine Champin] <a id="link-128" style="display:none;" href="#128">✪</a></div>
+<div onmouseout="$('#link-129').hide()" onmouseover="$('#link-129').show()" id="129" class="comment"><span class="name">Gregg Kellogg</span>: Issue json-ld/yaml-ld#19 <a id="link-129" style="display:none;" href="#129">✪</a></div>
+<div onmouseout="$('#link-130').hide()" onmouseover="$('#link-130').show()" id="130" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/19">https://github.com/json-ld/yaml-ld/issues/19</a> -&gt; Issue 19 Polyglot Modeling (VladimirAlexiev) UCR <a id="link-130" style="display:none;" href="#130">✪</a></div>
+<div onmouseout="$('#link-131').hide()" onmouseover="$('#link-131').show()" id="131" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/yaml-ld/issues">https://github.com/json-ld/yaml-ld/issues</a> <a id="link-131" style="display:none;" href="#131">✪</a></div>
+<div onmouseout="$('#link-132').hide()" onmouseover="$('#link-132').show()" id="132" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>:  How are people supposed to add UCRs? [scribe assist by Pierre-Antoine Champin] <a id="link-132" style="display:none;" href="#132">✪</a></div>
+<div onmouseout="$('#link-133').hide()" onmouseover="$('#link-133').show()" id="133" class="comment"><span class="name">Gregg Kellogg</span>:  There is an issue template for UCS in the <a href="https://github.com/json-ld/yaml-ld">https://github.com/json-ld/yaml-ld</a> repo [scribe assist by Pierre-Antoine Champin] <a id="link-133" style="display:none;" href="#133">✪</a></div>
+<div onmouseout="$('#link-134').hide()" onmouseover="$('#link-134').show()" id="134" class="comment"><span class="name">Pierre-Antoine Champin</span>: S/UCS/UCRs/ <a id="link-134" style="display:none;" href="#134">✪</a></div>
+<div onmouseout="$('#link-135').hide()" onmouseover="$('#link-135').show()" id="135" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>: (Meta Q to see if we&apos;re on the same page) <a id="link-135" style="display:none;" href="#135">✪</a></div>
+<div onmouseout="$('#link-136').hide()" onmouseover="$('#link-136').show()" id="136" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>:  Do people want to exceed JSON expressivity, or just use YAML as a nicer syntax for JSON? [scribe assist by Pierre-Antoine Champin] <a id="link-136" style="display:none;" href="#136">✪</a></div>
+<div onmouseout="$('#link-137').hide()" onmouseover="$('#link-137').show()" id="137" class="comment"><span class="name">Gregg Kellogg</span>: Yaml-ld#8 <a id="link-137" style="display:none;" href="#137">✪</a></div>
+<div onmouseout="$('#link-138').hide()" onmouseover="$('#link-138').show()" id="138" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/8">https://github.com/json-ld/yaml-ld/issues/8</a> -&gt; Issue 8 Round-trip safe json-ld -&gt; yaml-ld -&gt; json-ld (ioggstream) UCR <a id="link-138" style="display:none;" href="#138">✪</a></div>
+<div onmouseout="$('#link-139').hide()" onmouseover="$('#link-139').show()" id="139" class="comment"><span class="name">Gregg Kellogg</span>:  I think there is an issue about that [scribe assist by Pierre-Antoine Champin] <a id="link-139" style="display:none;" href="#139">✪</a></div>
+<div onmouseout="$('#link-140').hide()" onmouseover="$('#link-140').show()" id="140" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... (Not the one above...) <a id="link-140" style="display:none;" href="#140">✪</a></div>
+<div onmouseout="$('#link-141').hide()" onmouseover="$('#link-141').show()" id="141" class="comment"><span class="name">Pierre-Antoine Champin</span>: ...S/not the one/see/ <a id="link-141" style="display:none;" href="#141">✪</a></div>
+<div onmouseout="$('#link-142').hide()" onmouseover="$('#link-142').show()" id="142" class="comment"><span class="name">Gregg Kellogg</span>: Yaml-ld#17 <a id="link-142" style="display:none;" href="#142">✪</a></div>
+<div onmouseout="$('#link-143').hide()" onmouseover="$('#link-143').show()" id="143" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/17">https://github.com/json-ld/yaml-ld/issues/17</a> -&gt; Issue 17 YAML-LD datatypes (and tags for datatypes) (VladimirAlexiev) UCR <a id="link-143" style="display:none;" href="#143">✪</a></div>
+<div onmouseout="$('#link-144').hide()" onmouseover="$('#link-144').show()" id="144" class="comment"><span class="name">Pierre-Antoine Champin</span>: S/not the one/see/ <a id="link-144" style="display:none;" href="#144">✪</a></div>
+<div onmouseout="$('#link-145').hide()" onmouseover="$('#link-145').show()" id="145" class="comment"><span class="name">Orie Steel</span>: +1 To JSON-LD and YAML-LD having a similar or identical set of capabilities <a id="link-145" style="display:none;" href="#145">✪</a></div>
+<div onmouseout="$('#link-146').hide()" onmouseover="$('#link-146').show()" id="146" class="comment"><span class="name">Orie Steel</span>: +1 To exploring both the &quot;identical&quot; and the &quot;enhanced&quot; paths.. at least initially <a id="link-146" style="display:none;" href="#146">✪</a></div>
+<div onmouseout="$('#link-147').hide()" onmouseover="$('#link-147').show()" id="147" class="comment"><span class="name">Orie Steel</span>: Sorry I am talking now <a id="link-147" style="display:none;" href="#147">✪</a></div>
+<div onmouseout="$('#link-148').hide()" onmouseover="$('#link-148').show()" id="148" class="comment"><span class="name">Orie Steel</span>: I can take back over scribing ir you like <a id="link-148" style="display:none;" href="#148">✪</a></div>
+<div onmouseout="$('#link-149').hide()" onmouseover="$('#link-149').show()" id="149" class="comment"><span class="name">Roberto Polli</span>:  We can start with a minimal set of feature [scribe assist by Pierre-Antoine Champin] <a id="link-149" style="display:none;" href="#149">✪</a></div>
+<div onmouseout="$('#link-150').hide()" onmouseover="$('#link-150').show()" id="150" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Allowing to serialize only roundtrippable data (except for comments) <a id="link-150" style="display:none;" href="#150">✪</a></div>
+<div onmouseout="$('#link-151').hide()" onmouseover="$('#link-151').show()" id="151" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Once we have it, we can consider expanding it <a id="link-151" style="display:none;" href="#151">✪</a></div>
+<div onmouseout="$('#link-152').hide()" onmouseover="$('#link-152').show()" id="152" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... For example, leveraging YAML anchors in order to reuse JSON bits in several places <a id="link-152" style="display:none;" href="#152">✪</a></div>
+<div onmouseout="$('#link-153').hide()" onmouseover="$('#link-153').show()" id="153" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... (As long as they are not creating cycles) <a id="link-153" style="display:none;" href="#153">✪</a></div>
+<div onmouseout="$('#link-154').hide()" onmouseover="$('#link-154').show()" id="154" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... Also, it is important to define a media-type <a id="link-154" style="display:none;" href="#154">✪</a></div>
+<div onmouseout="$('#link-155').hide()" onmouseover="$('#link-155').show()" id="155" class="comment"><span class="name">Melinda Minch</span>: Is it a goal to make these formats round-trippable between each other, or anything like that? <a id="link-155" style="display:none;" href="#155">✪</a></div>
+<div onmouseout="$('#link-156').hide()" onmouseover="$('#link-156').show()" id="156" class="comment"><span class="name">Roberto Polli</span>:  Q- [scribe assist by Roberto Polli] <a id="link-156" style="display:none;" href="#156">✪</a></div>
+<div onmouseout="$('#link-157').hide()" onmouseover="$('#link-157').show()" id="157" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>: Interestingly, YAML might no offer much referencing advantage (`&amp;node` and `*node`) over JSON-LD &apos;cause it already had refs <a id="link-157" style="display:none;" href="#157">✪</a></div>
+<div onmouseout="$('#link-158').hide()" onmouseover="$('#link-158').show()" id="158" class="comment"><span class="name">Orie Steel</span>:  Roundtripping is important for interoperability [scribe assist by Pierre-Antoine Champin] <a id="link-158" style="display:none;" href="#158">✪</a></div>
+<div onmouseout="$('#link-159').hide()" onmouseover="$('#link-159').show()" id="159" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>: But not with the notion of copying data, more with re-using nodes <a id="link-159" style="display:none;" href="#159">✪</a></div>
+<div onmouseout="$('#link-160').hide()" onmouseover="$('#link-160').show()" id="160" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... It is exciting to explore other features, but in a 2nd time <a id="link-160" style="display:none;" href="#160">✪</a></div>
+<div onmouseout="$('#link-161').hide()" onmouseover="$('#link-161').show()" id="161" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Worried about the complexity we might open up [scribe assist by Pierre-Antoine Champin] <a id="link-161" style="display:none;" href="#161">✪</a></div>
+<div onmouseout="$('#link-162').hide()" onmouseover="$('#link-162').show()" id="162" class="comment"><span class="name">Eric Prud&apos;hommeaux</span>:  Refs and *node are different. One happens at json-ld level, the other one at seralization level. [scribe assist by Roberto Polli] <a id="link-162" style="display:none;" href="#162">✪</a></div>
+<div onmouseout="$('#link-163').hide()" onmouseover="$('#link-163').show()" id="163" class="comment"><span class="name">Anatoly Scherbakov</span>: I am uncertain how referencing can help; JSON-LD can assign an `@id` to a node, which can be used multiple times all over the document. Do we have to encourage a duplicate feature? <a id="link-163" style="display:none;" href="#163">✪</a></div>
+<div onmouseout="$('#link-164').hide()" onmouseover="$('#link-164').show()" id="164" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... My own colleagues already have problem with the RDF part of JSON-LD, they merely see JSON <a id="link-164" style="display:none;" href="#164">✪</a></div>
+<div onmouseout="$('#link-165').hide()" onmouseover="$('#link-165').show()" id="165" class="comment"><span class="name">Gregg Kellogg</span>:  Thanks everyone, we have a lot to chew on [scribe assist by Pierre-Antoine Champin] <a id="link-165" style="display:none;" href="#165">✪</a></div>
+<div onmouseout="$('#link-166').hide()" onmouseover="$('#link-166').show()" id="166" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... I encourage you to continue the discussion in the issues <a id="link-166" style="display:none;" href="#166">✪</a></div>
+<div onmouseout="$('#link-167').hide()" onmouseover="$('#link-167').show()" id="167" class="comment"><span class="name">Pierre-Antoine Champin</span>: ... From this discussion, I think we will start with a simple profile. <a id="link-167" style="display:none;" href="#167">✪</a></div>
+<div onmouseout="$('#link-168').hide()" onmouseover="$('#link-168').show()" id="168" class="comment"><span class="name">Orie Steel</span>: Thanks all! <a id="link-168" style="display:none;" href="#168">✪</a></div>
+<div onmouseout="$('#link-169').hide()" onmouseover="$('#link-169').show()" id="169" class="comment"><span class="name">Anatoly Scherbakov</span>: Thank you all very much! <a id="link-169" style="display:none;" href="#169">✪</a></div>
+<div onmouseout="$('#link-170').hide()" onmouseover="$('#link-170').show()" id="170" class="comment"><span class="name">Melinda Minch</span>: Thanks everyone, nice to meet you all <a id="link-170" style="display:none;" href="#170">✪</a></div>
+<div onmouseout="$('#link-171').hide()" onmouseover="$('#link-171').show()" id="171" class="comment"><span class="name">Gregg Kellogg</span>: Rssagent, bye <a id="link-171" style="display:none;" href="#171">✪</a></div>
+</div></div></div></div></div>    </div>
   </body>
 </html>
