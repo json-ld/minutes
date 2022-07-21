@@ -11,29 +11,5 @@ Discussion Repository: json-ld/yaml-ld
 Action Repository: json-ld/json-ld.org
 
 ```sh
-../scribejs/main.js -c scribejs.config -d 2022-06-10 -o 2022-06-10/index.md
 (cd scribe-tool; ./publish.sh ../2022-02-11)
-```
-
-## Nicknames from scribe-tool/people.json
-
-```ruby
-JSON_STATE = {
-                   :indent => "  ",
-                    :space => " ",
-             :space_before => "",
-                :object_nl => "\n",
-                 :array_nl => "\n",
-                    :depth => 0,
-    :buffer_initial_length => 1024
-}
-
-people = JSON.parse(File.read('scribe-tool/people.json'))
-File.open('nicknames.json', 'w') do |f|
-  f.write(people.keys.sort.inject([]) do |memo, r|
-    people[r]['alias'] ?
-      memo.append({name: r, nick: people[r]['alias']}) :
-      memo
-  end.to_json(JSON_STATE))
-end
 ```
