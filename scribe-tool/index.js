@@ -2,6 +2,7 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 var program = require('commander');
+var scrawl = require('./scrawl');
 var showdown  = require('showdown');
 var wp = require('wporg');
 
@@ -14,12 +15,15 @@ program
   .parse(process.argv);
 
 var dstDir;
+var logFile;
 var mdFile;
 var indexFile;
+var gLogData = '';
 var gDate;
 
 if(program.directory) {
   dstDir = path.resolve(path.join(program.directory));
+  logFile = path.resolve(path.join(program.directory, 'irc.log'));
   mdFile = path.resolve(path.join(program.directory, 'index.md'));
   indexFile = path.resolve(path.join(program.directory, 'index.html'));
   gDate = path.basename(dstDir);
@@ -34,6 +38,10 @@ var htmlFooter = fs.readFileSync(
 var peopleJson = fs.readFileSync(
   __dirname + '/people.json', {encoding: 'utf8'});
 var haveAudio = false;
+
+// configure scrawl
+scrawl.group = 'JSON-LD CG Telecon';
+scrawl.people = JSON.parse(peopleJson);
 
 /************************* Utility Functions *********************************/
 /*************************** Main Functionality ******************************/
@@ -62,8 +70,32 @@ async.waterfall([ function(callback) {
           }
         });
       } else {
-        callback('Error: ' + mdFile +
-          ' does not exist, required for processing.');
+        fs.exists(logFile, function(exists) {
+          if(exists) {
+            // read the IRC log file
+            fs.readFile(logFile, 'utf8', function(err, data) {
+              gLogData = data;
+              // generate the index.html file
+              var minutes =
+                htmlHeader +
+                '<div><div><div class="container">' +
+                '<div class="row"><div class="col-md-8 col-md-offset-2">' +
+                scrawl.generateMinutes(gLogData, 'html', gDate, haveAudio) +
+                '</div></div></div></div></div>' + htmlFooter;
+
+              // write the index.html file to disk
+              if(program.html) {
+                if(!program.quiet) {
+                  console.log('Writing', indexFile);
+                }
+                fs.writeFile(indexFile, minutes, {}, callback);
+              }
+            });
+          } else {
+            callback('Error: neither' + mdFile + ' nor ' + logFile +
+              ' exist, required for processing.');
+          }
+        });
       }
     });
   } else {
