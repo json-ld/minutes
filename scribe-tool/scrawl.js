@@ -11,11 +11,11 @@
   const meetingRx = /^meeting:\s(.*)$/i;
   const totalPresentRx = /^total present:\s(.*)$/i;
   const dateRx = /^date:\s(.*)$/i;
-  const chairRx = /^chair:.*$/i;
+  const chairRx = /^chair[:+\-].*$/i;
   const audioRx = /^audio:\s?(.*)$/i;
   const proposalRx = /^(proposal|proposed):.*$/i;
-  const presentRx = /^present[:+](.*)$/i;
-  const regretsRx = /^regrets[:+](.*)$/i;
+  const presentRx = /^present[:+\-](.*)$/i;
+  const regretsRx = /^regrets[:+\-](.*)$/i;
   const resolutionRx = /^(resolution|resolved): ?(.*)$/i;
   const useCaseRx = /^(use case|usecase):\s?(.*)$/i;
   const agendumRx = /^agendum \d+\s+\-\- (.*) \-\-/i
@@ -30,6 +30,9 @@
   const voteRx = /^[+-][01]\s.*|[+-][01]$/i;
   const agendaRx = /^agenda:\s*((https?):.*)$/i;
   const urlRx = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)/;
+
+  // Based on https://github.com/w3c/scribe2/blob/51a2e428fb1d6edf1fe1d1eba756c81d9b109cdd/scribe.perl#L820
+  var replaceRx = /^ *(s|i)(\/|\|)(.*?)\2(.*?)(?:\2([gG*])? *)?$/;
 
   // Compatability code to make this work in both node.js and the browser
   const scrawl = {};
@@ -104,6 +107,7 @@
     }
   }
 
+  // FIXME: integrate changes from CCG, considering overlap with processPeople
   scrawl.generateAliases = function()
   {
     const rval = {};
@@ -363,217 +367,270 @@
     scrawl.htmlFooter = footer;
   };
 
+  scrawl.preprocessLine = function(context, lines, lineNumber)
+  {
+    const line = lines[lineNumber];
+    const match = commentRx.exec(line);
+    if(!match)
+    {
+      return;
+    }
+    const [_, time, nick, msg] = match;
+
+    // check for a substitution
+    const replaceMatch = replaceRx.exec(msg);
+    if(replaceMatch)
+    {
+      const [_, cmd, delim, old, replacement, modifier] = replaceMatch;
+      if (cmd !== 's')
+      {
+        console.error(`command not supported on line ${lineNumber}: ${line}`);
+        return;
+      }
+      const maxReplaces = modifier === 'g' || modifier === 'G' ? Infinity : 1;
+      const endLineN = modifier === 'G' ? lines.length-1 : lineNumber-1;
+      let numReplaces = 0;
+      for(let i = endLineN; i >= 0; i--)
+      {
+        const line = lines[i];
+        const newLine = line.replace(old, replacement);
+        if(line !== newLine)
+        {
+          lines[i] = newLine;
+          console.log('Replacing', JSON.stringify(old), 'with', JSON.stringify(replacement), ' on line', i)
+          if(++numReplaces >= maxReplaces)
+          {
+            break;
+          }
+        }
+      }
+      lines[lineNumber] = '';
+    }
+  }
+
   scrawl.processLine = function(context, line, textMode)
   {
      let rval = '';
      const match = commentRx.exec(line);
 
-     if(match)
+     if(!match)
      {
-       const time = match[1];
-       const nick = match[2].toLowerCase();
-       const msg = match[3];
+       return;
+     }
+     const [_, time, _nick, msg] = match;
+     const nick = _nick.toLowerCase();
 
-       // check for a scribe line
-       if(msg.search(scribeRx) !== -1)
-       {
+     // check for a scribe line
+     if(msg.search(scribeRx) !== -1)
+     {
+       if(nick === 'transcriber') {
+         context.scribe.push(nick)
+         context.scribenick.push(nick)
+         rval = scrawl.information('Our Robot Overlords are scribing.');
+       } else {
          // 'scribe' collects all scribes in the meeting
          scrawl.processPeople(context, 'scribe', nick, msg, false);
 
          // 'scribenick' maintains list of current scribes
          scrawl.processPeople(context, 'scribenick', nick, msg, true);
-       }
-       else if(msg.search(chairRx) !== -1)
-       {
-         scrawl.processPeople(context, 'chair', nick, msg, true);
-       }
-       // check for meeting line
-       else if(msg.search(meetingRx) !== -1)
-       {
-         const meeting = msg.match(meetingRx)[1];
-         context.group = meeting;
-       }
-       // check for regrets line
-       else if(msg.search(regretsRx) !== -1)
-       {
-         scrawl.processPeople(context, 'regrets', nick, msg, true);
-       }
-       // check for present line
-       else if(msg.search(presentRx) !== -1)
-       {
-         scrawl.processPeople(context, 'present', nick, msg, true);
-       }
-       // check for audio line
-       else if(msg.search(audioRx) !== -1)
-       {
-         context.audio = false;
-       }
-       // check for date line
-       else if(msg.search(dateRx) !== -1)
-       {
-         const date = msg.match(dateRx)[1];
-         context.date = new Date(date);
-       }
-       // check for topic line
-       else if(msg.search(topicRx) !== -1)
-       {
-         const topic = msg.match(topicRx)[1];
-         context.topics = context.topics.concat(topic);
-         rval = scrawl.topic(topic, context.topics.length, textMode);
-       }
-         // Agenda handling: the agendum display should be converted into a bona fide topic
-       else if(nick === 'zakim' && msg.search(agendumRx) !== -1 )
-       {
-         const topic = msg.match(agendumRx)[1];
-         context.topics = context.topics.concat(topic);
-         rval = scrawl.topic(topic, context.topics.length, textMode);
-       }
-       // check for action line
-       else if(nick !== 'rrsagent' && msg.search(actionRx) !== -1)
-       {
-         const action = msg.match(actionRx)[1];
-         context.actions = context.actions.concat(action);
-         rval = scrawl.action(action, context.actions.length, textMode);
-       }
-       // check for Agenda line
-       else if(msg.search(agendaRx) !== -1)
-       {
-         const agenda = msg.match(agendaRx)[1];
-         context.agenda = agenda;
-       }
-       // check for proposal line
-       else if(msg.search(proposalRx) !== -1)
-       {
-         const proposal = msg.split(':')[1];
-         rval = scrawl.proposal(proposal, textMode);
-       }
-       // check for resolution line
-       else if(msg.search(resolutionRx) !== -1)
-       {
-         const resolution = msg.match(resolutionRx)[2];
-         context.resolutions = context.resolutions.concat(resolution);
-         rval = scrawl.resolution(
-           resolution, context.resolutions.length, textMode);
-       }
-       // check for use case line
-       else if(msg.search(useCaseRx) !== -1)
-       {
-         const usecase = msg.match(useCaseRx)[2];
-         rval = scrawl.usecase(usecase, textMode);
-       }
-       else if(msg.search(totalPresentRx) !== -1)
-       {
-         context.totalPresent = msg.match(totalPresentRx)[1];
-       }
-       else if(nick.search(botRx) !== -1 || msg.search(botRx) !== -1 )
-       {
-         // the line is from or is addressed to a channel bot, ignore it
-       }
-       else if(nick.search(allowedBotRx) !== -1)
-       {
-         // add line without other processing
-         rval = scrawl.scribe(msg, textMode);
-       }
-       else if( msg.search(junkRx) !== -1 )
-       {
-         // Other junk lines
-       }
-       else if(msg.search(queueRx) !== -1)
-       {
-         // the line is queue management, ignore it
-       }
-       // the line is a +1/-1 vote
-       else if(msg.search(voteRx) !== -1)
-       {
-         if(nick in context.aliases)
-         {
-           rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
-           //scrawl.present(context, nick);
+
+         if(!(msg.includes('scribe-'))) {
+           rval = scrawl.information(
+            context.scribe[context.scribe.length-1] +
+            ' is scribing.', textMode);
          }
        }
-       // the line is by a scribe
-       else if(context.scribenick.includes(nick))
+     }
+     else if(msg.search(chairRx) !== -1)
+     {
+       scrawl.processPeople(context, 'chair', nick, msg, true);
+     }
+     // check for meeting line
+     else if(msg.search(meetingRx) !== -1)
+     {
+       const meeting = msg.match(meetingRx)[1];
+       context.group = meeting;
+     }
+     // check for regrets line
+     else if(msg.search(regretsRx) !== -1)
+     {
+       scrawl.processPeople(context, 'regrets', nick, msg, true);
+     }
+     // check for present line
+     else if(msg.search(presentRx) !== -1)
+     {
+       scrawl.processPeople(context, 'present', nick, msg, true);
+     }
+     // check for audio line
+     else if(msg.search(audioRx) !== -1)
+     {
+       context.audio = false;
+     }
+     // check for date line
+     else if(msg.search(dateRx) !== -1)
+     {
+       const date = msg.match(dateRx)[1];
+       context.date = new Date(date);
+     }
+     // check for topic line
+     else if(msg.search(topicRx) !== -1)
+     {
+       const topic = msg.match(topicRx)[1];
+       context.topics = context.topics.concat(topic);
+       rval = scrawl.topic(topic, context.topics.length, textMode);
+     }
+       // Agenda handling: the agendum display should be converted into a bona fide topic
+     else if(nick === 'zakim' && msg.search(agendumRx) !== -1 )
+     {
+       const topic = msg.match(agendumRx)[1];
+       context.topics = context.topics.concat(topic);
+       rval = scrawl.topic(topic, context.topics.length, textMode);
+     }
+     // check for action line
+     else if(nick !== 'rrsagent' && msg.search(actionRx) !== -1)
+     {
+       const action = msg.match(actionRx)[1];
+       context.actions = context.actions.concat(action);
+       rval = scrawl.action(action, context.actions.length, textMode);
+     }
+     // check for Agenda line
+     else if(msg.search(agendaRx) !== -1)
+     {
+       const agenda = msg.match(agendaRx)[1];
+       context.agenda = agenda;
+     }
+     // check for proposal line
+     else if(msg.search(proposalRx) !== -1)
+     {
+       const proposal = msg.split(':')[1];
+       rval = scrawl.proposal(proposal, textMode);
+     }
+     // check for resolution line
+     else if(msg.search(resolutionRx) !== -1)
+     {
+       const resolution = msg.match(resolutionRx)[2];
+       context.resolutions = context.resolutions.concat(resolution);
+       rval = scrawl.resolution(
+         resolution, context.resolutions.length, textMode);
+     }
+     // check for use case line
+     else if(msg.search(useCaseRx) !== -1)
+     {
+       const usecase = msg.match(useCaseRx)[2];
+       rval = scrawl.usecase(usecase, textMode);
+     }
+     else if(msg.search(totalPresentRx) !== -1)
+     {
+       context.totalPresent = msg.match(totalPresentRx)[1];
+     }
+     else if(nick.search(botRx) !== -1 || msg.search(botRx) !== -1 )
+     {
+       // the line is from or is addressed to a channel bot, ignore it
+     }
+     else if(nick.search(allowedBotRx) !== -1)
+     {
+       // add line without other processing
+       rval = scrawl.scribe(msg, textMode);
+     }
+     else if( msg.search(junkRx) !== -1 )
+     {
+       // Other junk lines
+     }
+     else if(msg.search(queueRx) !== -1)
+     {
+       // the line is queue management, ignore it
+     }
+     // the line is a +1/-1 vote
+     else if(msg.search(voteRx) !== -1)
+     {
+       if(nick in context.aliases)
        {
-         if(msg.indexOf('…') === 0 || msg.indexOf('...') === 0)
-         {
-           // the line is a scribe continuation
-           rval = scrawl.scribeContinuation(msg, textMode);
-         }
-         else if(msg.indexOf(':') !== -1)
-         {
-           const alias = msg.split(':', 1)[0].replace(' ', '').toLowerCase();
+         rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
+         //scrawl.present(context, nick);
+       }
+     }
+     // the line is by a scribe
+     else if(context.scribenick.includes(nick))
+     {
+       if(msg.indexOf('…') === 0 || msg.indexOf('...') === 0)
+       {
+         // the line is a scribe continuation
+         rval = scrawl.scribeContinuation(msg, textMode);
+       }
+       else if(msg.indexOf(':') !== -1)
+       {
+         const alias = msg.split(':', 1)[0].replace(' ', '').toLowerCase();
 
-           if(alias in context.aliases)
-           {
-              // the line is a comment made by somebody else that was
-              // scribed
-              const cleanedMessage = msg.split(':').splice(1).join(':');
+         if(alias in context.aliases)
+         {
+            // the line is a comment made by somebody else that was
+            // scribed
+            const cleanedMessage = msg.split(':').splice(1).join(':');
 
-              //scrawl.present(context, alias);
-              rval = scrawl.scribe(
-                cleanedMessage, textMode, context.aliases[alias]);
-           }
-           else
-           {
-              // The scribe is noting something and there just happens
-              // to be a colon in it
-              rval = scrawl.scribe(msg, textMode);
-           }
+            //scrawl.present(context, alias);
+            rval = scrawl.scribe(
+              cleanedMessage, textMode, context.aliases[alias]);
          }
          else
          {
-           // The scribe is noting something
-           rval = scrawl.scribe(msg, textMode);
-         }
-       }
-       // the line is a comment by somebody else
-       else if(!context.scribenick.includes(nick))
-       {
-         if(msg.indexOf(':') !== -1)
-         {
-           const alias = msg.split(':', 1)[0].replace(' ', '').toLowerCase();
-
-           if(alias in context.aliases)
-           {
-              // the line is a scribe assist
-              const cleanedMessage = msg.split(':').splice(1).join(':');
-
-              //scrawl.present(context, alias);
-              rval = scrawl.scribe(cleanedMessage, textMode,
-                context.aliases[alias], context.aliases[nick]);
-           }
-           else if(alias.indexOf('http') === 0)
-           {
-             rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
-           }
-           else if(nick in context.aliases)
-           {
-             //scrawl.present(context, nick);
-             rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
-           }
-           else
-           {
-             rval = scrawl.error(
-               '(IRC nickname \'' + nick + '\' not recognized)' + line,
-               textMode);
-           }
-         }
-         else if (!(nick in context.aliases)) {
-           rval = scrawl.error(
-             '(IRC nickname \'' + nick + '\' not recognized)' + line,
-             textMode);
-         }
-         else
-         {
-           // the line is a scribe line by somebody else
-           //scrawl.present(context, nick);
-           rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
+            // The scribe is noting something and there just happens
+            // to be a colon in it
+            rval = scrawl.scribe(msg, textMode);
          }
        }
        else
        {
-         rval = scrawl.error('(Strange line format)' + line, textMode);
+         // The scribe is noting something
+         rval = scrawl.scribe(msg, textMode);
        }
+     }
+     // the line is a comment by somebody else
+     else if(!context.scribenick.includes(nick))
+     {
+       if(msg.indexOf(':') !== -1)
+       {
+         const alias = msg.split(':', 1)[0].replace(' ', '').toLowerCase();
+
+         if(alias in context.aliases)
+         {
+            // the line is a scribe assist
+            const cleanedMessage = msg.split(':').splice(1).join(':');
+
+            //scrawl.present(context, alias);
+            rval = scrawl.scribe(cleanedMessage, textMode,
+              context.aliases[alias], context.aliases[nick]);
+         }
+         else if(alias.indexOf('http') === 0)
+         {
+           rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
+         }
+         else if(nick in context.aliases)
+         {
+           //scrawl.present(context, nick);
+           rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
+         }
+         else
+         {
+           rval = scrawl.error(
+             '(IRC nickname \'' + nick + '\' not recognized)' + line,
+             textMode);
+         }
+       }
+       else if (!(nick in context.aliases)) {
+         rval = scrawl.error(
+           '(IRC nickname \'' + nick + '\' not recognized)' + line,
+           textMode);
+       }
+       else
+       {
+         // the line is a scribe line by somebody else
+         //scrawl.present(context, nick);
+         rval = scrawl.scribe(msg, textMode, context.aliases[nick]);
+       }
+     }
+     else
+     {
+       rval = scrawl.error('(Strange line format)' + line, textMode);
      }
 
      return rval;
@@ -600,6 +657,9 @@
     for(const name of context.present) {
       const person = scrawl.people[name] || {};
       person['name'] = name;
+      if(person.homepage === undefined) {
+        person.homepage = 'https://json-ld.org/'
+      }
       present.push(person)
     }
 
@@ -608,6 +668,9 @@
       for(const name of context.regrets) {
         const person = scrawl.people[name] || {};
         person['name'] = name;
+        if(person.homepage === undefined) {
+          person.homepage = 'https://json-ld.org/'
+        }
         regrets.push(person)
       }
     }
@@ -787,7 +850,7 @@
   {
     let minutes = '';
     const ircLines = ircLog.split('\n');
-    const aliases = scrawl.generateAliases();
+    const aliases = scrawl.generateAliases(ircLog);
     scrawl.counter = 0;
 
     // initialize the IRC log scanning context
@@ -808,6 +871,12 @@
     if(date) {
       context.date = new Date(date);
       context.date.setHours(36);
+    }
+
+    // pre-process each IRC log line
+    for(var i = 0; i < ircLines.length; i++)
+    {
+      scrawl.preprocessLine(context, ircLines, i);
     }
 
     // process each IRC log line
