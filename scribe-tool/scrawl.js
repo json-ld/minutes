@@ -26,7 +26,7 @@
   const botRx = /^(rrsagent|zakim|agendabot).*$/i;
   const allowedBotRx = /^(ghurlbot).*$/i;
   const junkRx = / has (joined|left|changed)/i;
-  const queueRx = /^q[+-?]\s.*|^q[+-?].*|^ack\s+.*|^ack$/i;
+  const queueRx = /^qq?[+-?]\s.*|^qq?[+-?].*|^ack\s+.*|^ack$/i;
   const voteRx = /^[+-][01]\s.*|[+-][01]$/i;
   const agendaRx = /^agenda:\s*((https?):.*)$/i;
   const urlRx = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)/;
