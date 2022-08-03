@@ -1,0 +1,112 @@
+15:57:23 <RRSAgent> RRSAgent has joined #json-ld
+15:57:23 <RRSAgent> logging to https://www.w3.org/2022/08/03-json-ld-irc
+15:57:25 <Zakim> RRSAgent, make logs Public
+15:57:26 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:57:33 <gkellogg> meeting: JSON-LD CG
+15:57:49 <gkellogg> agenda: https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220803T160000
+15:57:49 <agendabot> clear agenda
+15:57:49 <agendabot> agenda+ Announcements and Introductions
+15:57:49 <agendabot> agenda+ TPAC Planning
+15:57:49 <agendabot> agenda+ Approve Minutes
+15:57:49 <agendabot> agenda+ YAML-LD
+15:57:51 <agendabot> agenda+ Next call
+15:58:03 <gkellogg> chair: gkellogg
+15:58:11 <gkellogg> regrets: niklasl
+15:58:14 <gkellogg> present+
+15:58:14 <gkellogg> scribe+ juuso-aut
+16:01:18 <anatoly-scherbakov> present+
+16:01:19 <dlehn1> present+
+16:01:54 <juuso-aut> juuso-aut has joined #json-ld
+16:02:11 <TallTed> present+
+16:02:16 <juuso-aut> present+
+16:02:27 <gkellogg> zakim, next agendum
+16:02:27 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:03:07 <gkellogg> zakim, pick a victim
+16:03:07 <Zakim> Not knowing who is chairing or who scribed recently, I propose juuso-aut
+16:03:45 <gkellogg> zakim, next agendum
+16:03:45 <Zakim> agendum 2 -- TPAC Planning -- taken up [from agendabot]
+16:04:08 <gkellogg> https://www.w3.org/events/meetings/6b900451-f0a7-46b0-8668-3cc20e0b026c
+16:05:11 <gkellogg> Doodle poll for attendancehttps://doodle.com/meeting/participate/id/boYLoNBe
+16:05:11 <gkellogg> Please indicate on the Doodle poll what hours you might attend, either in person or remote.
+16:05:11 <gkellogg> We'll focus on YAML-LD issues in the first couple of hours and move on to other JSON-LD issues and liaison later.
+16:06:07 <bigbluehat> present+
+16:06:09 <gkellogg> zakim, next agendum
+16:06:09 <Zakim> agendum 3 -- Approve Minutes -- taken up [from agendabot]
+16:06:17 <gkellogg> https://json-ld.org/minutes/2022-07-20/
+16:06:22 <juuso-aut> gkellogg: TPAC coming in september, four hour timeslot. Hopefully 2 hours for YAML-LD. Put up a Doodle poll. Organized as hybrid event.
+16:07:01 <gkellogg> Without objections, minutes approved.
+16:07:12 <gkellogg> Zakim, next agendum
+16:07:12 <Zakim> agendum 4 -- YAML-LD -- taken up [from agendabot]
+16:07:21 <gkellogg> https://github.com/json-ld/yaml-ld/projects/1
+16:07:38 <gkellogg> yaml-ld#65
+16:08:08 <gkellogg> https://github.com/json-ld/yaml-ld/pull/65
+16:09:15 <gkellogg> Without objection merge #56
+16:09:44 <gkellogg> https://github.com/json-ld/yaml-ld/pull/70
+16:11:01 <juuso-aut> gkellogg: Converting YAML to internal representation: We shouldn't have to work on, but have to. Comments? No objections.
+16:11:11 <bigbluehat> +1 to holding off until further exploration of extended profile happens
+16:11:27 <gkellogg> q?
+16:12:01 <gkellogg> resolved: hold off on merging #70 until more discussion of an extended profile.
+16:12:57 <gkellogg> https://github.com/json-ld/yaml-ld/issues/36
+16:13:33 <gkellogg> Serializing JSON or YAML literal in YAML-LD
+16:14:20 <juuso-aut> gkellogg: Any opinions on how to deal with JSON objects in YAML?
+16:15:35 <juuso-aut> dlehn: I am behind in following the issues to provide meaningful input to conversation. Looks good.
+16:15:57 <ghurlbot> ghurlbot has joined #json-ld
+16:19:24 <gkellogg> IMO, the main issue is simply turning YAML into the internal representation.
+16:20:16 <juuso-aut> gkellogg: Best thing to do is to simplify as far as possible.
+16:22:16 <anatoly-scherbakov> q+
+16:22:24 <juuso-aut> gkellogg: point of JSON literals is to serialize in RDF and not so much on YAML etc.
+16:22:31 <gkellogg> IMO any JSON-lD processor should be able to deal with alias nodes that are not ill formed.
+16:22:33 <gkellogg> q/
+16:22:35 <gkellogg> q?
+16:22:40 <gkellogg> ack anatoly-scherbakov
+16:24:02 <gkellogg> q+
+16:24:34 <anatoly-scherbakov> q-
+16:24:41 <gkellogg> q-
+16:24:58 <juuso-aut> anatoly-scherbakov: agree on the main idea of the issue: standard processor must be able to convert JSON-LD to YAML-LD. Also, convenience context is great idea.
+16:25:42 <juuso-aut> gkellogg: agree. also vice versa transformation should work as well.
+16:27:26 <juuso-aut> gkellogg: context can't be aliased on the first time it is being used, but could be aliased after that, but the group has agreed that it is not necessary
+16:27:32 <gkellogg> q?
+16:27:45 <anatoly-scherbakov> q+
+16:28:09 <gkellogg> ack anatoly-scherbakov
+16:28:10 <bigbluehat> `@context` signals that you're looking at JSON-LD in the same way that `$schema` does for JSON Schema. I'd be opposed to allowing it to be aliased (as I'd also opposed that in the WG) as it's a clear signal and makes processing and finding JSON-LD (and eventually YAML-LD) much simpler (especially if the file extension is generic `.json` and if there is no media type provided)
+16:29:49 <bigbluehat> q+
+16:29:51 <gkellogg> q?
+16:29:57 <gkellogg> ack bigbluehat
+16:30:02 <juuso-aut> anatoly-scherbakov: group might want to share information on YAML-LD. Should we publish a website to help developers? E.g. including a playground, translation libraries in different languages. Do you think this would be good idea?
+16:31:17 <gkellogg> q+
+16:31:54 <juuso-aut> bigbluehat: Promotion is good idea. However, the JSON-LD website is enough, as there is not so much people in the community. We could e.g. enable YAML-LD in the existing JSON-LD playground.
+16:32:01 <gkellogg> ack gkellogg
+16:32:39 <bigbluehat> +1 for promoting YAML-LD on https://json-ld.org/ (and happy to help make that happen)
+16:34:26 <juuso-aut> gkellogg: json-ld.org needs a page for YAML-LD to promote it. Would like to see the playground support YAML-LD and it should be possible. However, yaml-ld.dev might be still useful. Its playground could be a version of the JSON-LD playground. Would anatoly be available to lead the new website?
+16:35:04 <bigbluehat> q+
+16:35:25 <juuso-aut> anatoly-scherbakov: May not have time and language profiency to implement. Main concern was to ask if there is interest in this.
+16:36:10 <juuso-aut> gkellogg: The existing page is actually in PHP. Benjamin has experience in this
+16:37:55 <gkellogg> A quick search whois yamlld.org is available
+16:38:53 <juuso-aut> bigbluehat: GitHub Pages is probably not good as technology has evolved. yaml-ld.org was registered in 2018, maybe by someone we know. Also, the semantic web is already filled with dead links because of dead domain names.
+16:39:55 <juuso-aut> bigbluehat: json-ld.org has good reputation. But still the community is limited, so concentrating efforts would be good idea.
+16:40:41 <bigbluehat> q+ to talk about playground work
+16:40:50 <gkellogg> ack bigbluehat
+16:40:50 <Zakim> bigbluehat, you wanted to talk about playground work
+16:41:44 <juuso-aut> bigbluehat: extending the playground would be most useful effort
+16:43:21 <juuso-aut> gkellogg: jsonld.js is now official library for RDF. Would be useful for people to work on it.
+16:43:44 <juuso-aut> gkellogg: generate issue on promotion?
+16:44:10 <gkellogg> action: gkellogg to create issues for updating json-ld.org for yaml-ld
+16:44:11 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/786 -> action 786 create issues for updating json-ld.org for yaml-ld (on ) due 10 Aug 2022
+16:44:22 <juuso-aut> bigbluehat: issue to create a page for YAML-LD
+16:44:35 <gkellogg> q?
+16:44:42 <gkellogg> zakim, next agendum
+16:44:42 <Zakim> agendum 5 -- Next call -- taken up [from agendabot]
+16:44:42 <juuso-aut> gkellogg: I will create some issues
+16:45:50 <juuso-aut> gkellogg: anyone not able to attend next time? => no mentions
+16:46:00 <gkellogg> rrsagent, pointer
+16:46:00 <RRSAgent> See https://www.w3.org/2022/08/03-json-ld-irc#T16-46-00
+16:46:06 <gkellogg> zakim, end meeting
+16:46:06 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, dlehn, TallTed, juuso-aut, bigbluehat
+16:46:09 <Zakim> RRSAgent, please draft minutes
+16:46:09 <RRSAgent> I have made the request to generate https://www.w3.org/2022/08/03-json-ld-minutes.html Zakim
+16:46:12 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:46:16 <Zakim> Zakim has left #json-ld
+16:46:19 <gkellogg> rrsagent, bye
+16:46:19 <RRSAgent> I see 1 open action item saved in https://www.w3.org/2022/08/03-json-ld-actions.rdf :
+16:46:19 <RRSAgent> ACTION: gkellogg to create issues for updating json-ld.org for yaml-ld [1]
+16:46:19 <RRSAgent>   recorded in https://www.w3.org/2022/08/03-json-ld-irc#T16-44-10
