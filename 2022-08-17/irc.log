@@ -55,10 +55,10 @@
 16:13:27 <pchampin> s/value node object/value object/
 16:13:48 <niklasl> Gregg: in JSON-LD 1.1 we specifically created an internal representation in order to support e.g. a YAML processor. A YAML-LD processor would create this internal representation, not a JSON structure.
 16:14:24 <niklasl> ... A YAML processor could create, natively other datatyped values.
-16:15:13 <niklasl> You would not need to quote those types of things. YAML tags allows to define other datatypes, and an extended profile would define how to interpret that as an internal JSON-LD representation.
+16:15:13 <niklasl> ... You would not need to quote those types of things. YAML tags allows to define other datatypes, and an extended profile would define how to interpret that as an internal JSON-LD representation.
 16:15:51 <niklasl> ... Almost all non-RDF algorithms should work to create general RDF literals. That doesn't affect any of the algorithms until serialization time.
 16:16:24 <gkellogg> q?
-16:16:27 <niklasl> A use-native-types option tells a processor to allow these and support more native values beyond what is available in JSON.
+16:16:27 <niklasl> ... A use-native-types option tells a processor to allow these and support more native values beyond what is available in JSON.
 16:17:12 <niklasl> Anatoly: So a piece of software needs to be forked or extended to parse more specific YAML features?
 16:18:15 <niklasl> Gregg: yes to do an extended profile we might do so, but another way to do so, as suggested by Pierre-Antoine, it may be done by putting the burden on the YAML-LD to emit JSON-LD expanded form for specific tagged values in the YAML source.
 16:19:02 <niklasl> ... So the tagged values would produce value objects. The reason I shyed off from that was that it wouldn't support clean round-tripping.
