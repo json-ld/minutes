@@ -1,0 +1,179 @@
+15:59:19 <RRSAgent> RRSAgent has joined #json-ld
+15:59:19 <RRSAgent> logging to https://www.w3.org/2022/08/17-json-ld-irc
+15:59:20 <Zakim> inviting RRSAgent
+15:59:21 <Zakim> RRSAgent, make logs Public
+15:59:22 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:59:29 <gkellogg> meeting: JSON-LD CG
+15:59:51 <gkellogg> agenda: https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220817T160000#agenda
+15:59:51 <agendabot> clear agenda
+15:59:51 <agendabot> agenda+ Announcements and Introductions
+15:59:51 <agendabot> agenda+ Approve Minutes
+15:59:51 <agendabot> agenda+ YAML-LD
+15:59:51 <agendabot> agenda+ TPAC
+15:59:53 <agendabot> agenda+ Next call
+16:00:04 <gkellogg> chair: gkellogg
+16:00:04 <gkellogg> scribe+ niklasl
+16:00:14 <gkellogg> present+
+16:01:08 <juuso-aut> present+
+16:01:47 <TallTed> present+
+16:01:49 <gkellogg> zakim, next agendum
+16:01:49 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:21 <juuso-aut> FYI, just added new issue on adding "How to read this document" section: https://github.com/json-ld/yaml-ld/issues/73
+16:02:43 <niklasl> Announcements: Pierre-Antoine set up our official (w3c) repos to ensure that commits are properly checked.
+16:03:27 <niklasl> Gregg: you need to associated your account names with your github id; sent these to Pierre-Antoine.
+16:03:42 <gkellogg> zakim, next agendum
+16:03:42 <Zakim> agendum 2 -- Approve Minutes -- taken up [from agendabot]
+16:03:49 <gkellogg> https://json-ld.org/minutes/2022-08-03/
+16:03:57 <pchampin> present+
+16:04:12 <bigbluehat> present+
+16:04:58 <dlehn1> present+
+16:05:16 <gkellogg> juuso-aut: introduce yaml-ld#73
+16:05:17 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/73 -> Issue 73 Add section: How to read this document (juusoautiosalo)
+16:05:24 <gkellogg> zakim, next agendum
+16:05:24 <Zakim> agendum 3 -- YAML-LD -- taken up [from agendabot]
+16:05:29 <niklasl> Juuso suggests to add issue 173 to agenda if there is time.
+16:06:39 <niklasl> Gregg: to complete work on the spec we need to go through certain steps:
+16:06:54 <niklasl> ... Define limitations on use of YAML Alias Nodes, for profiles (basic? extended?).
+16:07:05 <gkellogg> q?
+16:07:44 <gkellogg> JSON profile: PR yaml-ld#12
+16:07:44 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/12 -> Issue 12 Convert JSON-LD to YAML-LD using standard YAML libraries (pchampin) UCR
+16:07:48 <pchampin> +1 to keep that out of the base profile
+16:07:53 <niklasl> gkellogg: My feeling is to keep it out of the most basic profile. The more specific yaml-ld profile can go beyond this.
+16:08:42 <niklasl> ... What is undefined is what a processor should do if it operates under a basic profile and sees features it cannot handle.
+16:08:56 <niklasl> ... Either best effort or throw error.
+16:09:16 <anatoly-scherbakov> q+
+16:09:46 <gkellogg> q?
+16:09:50 <niklasl> Gregg: in my implementation a basic profile works well and ignore unknown tags. Aliases need to be specified by an option.
+16:09:54 <gkellogg> ack anatoly-scherbakov
+16:10:57 <pchampin> q+
+16:11:11 <gkellogg> q?
+16:11:16 <niklasl> Anatoly: it is not entirely clear how to implement the distinction of a profile. In my view we were going from yaml to json, then process that as json-ld. If we go beyond that basic profile, do we need to go beyond regular processors because we need to support special tags and to handle anchors/references.
+16:11:19 <gkellogg> ack pchampin
+16:11:45 <gkellogg> q+
+16:12:39 <gkellogg> ack gkellogg
+16:12:47 <niklasl> Pierre-Antoine: my two cents: other profiles would not need dedicated yaml processors; specific yaml constructs would need to be intricately processed, e.g. a string with a specific tag would be translated into a specific value node object with a specific datatype.
+16:13:27 <pchampin> s/value node object/value object/
+16:13:48 <niklasl> Gregg: in JSON-LD 1.1 we specifically created an internal representation in order to support e.g. a YAML processor. A YAML-LD processor would create this internal representation, not a JSON structure.
+16:14:24 <niklasl> ... A YAML processor could create, natively other datatyped values.
+16:15:13 <niklasl> You would not need to quote those types of things. YAML tags allows to define other datatypes, and an extended profile would define how to interpret that as an internal JSON-LD representation.
+16:15:51 <niklasl> ... Almost all non-RDF algorithms should work to create general RDF literals. That doesn't affect any of the algorithms until serialization time.
+16:16:24 <gkellogg> q?
+16:16:27 <niklasl> A use-native-types option tells a processor to allow these and support more native values beyond what is available in JSON.
+16:17:12 <niklasl> Anatoly: So a piece of software needs to be forked or extended to parse more specific YAML features?
+16:18:15 <niklasl> Gregg: yes to do an extended profile we might do so, but another way to do so, as suggested by Pierre-Antoine, it may be done by putting the burden on the YAML-LD to emit JSON-LD expanded form for specific tagged values in the YAML source.
+16:19:02 <niklasl> ... So the tagged values would produce value objects. The reason I shyed off from that was that it wouldn't support clean round-tripping.
+16:19:06 <pchampin> q+
+16:19:35 <gkellogg> q?
+16:19:46 <niklasl> ... So you would need that in the context instead of in the, by the YAML-LD work, extended internal representation.
+16:21:01 <niklasl> Anatoly: so the extended profile promises more. So if the internal representation knows more about how the data looked, we can in certain cases reproduce the particular YAML constructs. Probably this excludes the possibility to roundtrip anchors though.
+16:21:45 <pchampin> q-
+16:22:04 <niklasl> .... So the extended representation gives us more for the extended profile to be roundtrippable.
+16:22:47 <niklasl> Gregg: Yes, you could expand an internal YAML-LD and compact it and get back the same. No, aliases can probably not be maintained.
+16:23:23 <niklasl> ... Only if you serialize the exact same memory object, if it detects that the same object is being serialized in two places.
+16:23:42 <niklasl> ... Round-tripping those structures is outside our scope.
+16:23:50 <anatoly-scherbakov> q-
+16:23:54 <niklasl> Anatoly: sounds logical. Same situation in Python.
+16:24:19 <niklasl> Gregg: If we use these as parameters, we have a way to extend the document to describe these things.
+16:25:12 <niklasl> ... We need to spell out e.g. using the I18N namespace, so go beyond XSD to allow for more native datatypes.
+16:25:45 <niklasl> ... Whether the document itself has a processing instruction for YAML-LD we can discuss further.
+16:26:07 <niklasl> Gregg: Also, the points of defining extension points to JSON-LD API and a full test suite needs to be addressed.
+16:26:22 <gkellogg> q?
+16:26:31 <niklasl> ... It would be great to see some contributions here.
+16:26:40 <anatoly-scherbakov> q+
+16:26:47 <gkellogg> ack anatoly-scherbakov
+16:27:01 <niklasl> Anatoly: is there any work plan written down anywhere?
+16:27:42 <niklasl> Gregg: I could create a proposal to adopt a work plan, and determine how we want to use github to address these steps, doing PRS, and/or using milestones.
+16:27:54 <gkellogg> proposal: adopt the work plan as laid out in the agenda
+16:28:01 <gkellogg> +1
+16:28:06 <TallTed> +1
+16:28:10 <anatoly-scherbakov> +1
+16:28:12 <pchampin> +1
+16:28:13 <niklasl> +1
+16:28:14 <bigbluehat> +1
+16:28:17 <dlehn1> +1
+16:28:35 <gkellogg> resolved: adopt the work plan as laid out in the agenda
+16:28:58 <niklasl> Gregg: We'll use this as a basis for our time at TPAC.
+16:29:16 <niklasl> ... We have 4 hours. We could spend the first 2 hours for YAML-LD.
+16:30:24 <niklasl> Anatoly: Regarding using Github issues and projects; I usually like small completable issues.
+16:30:59 <gkellogg> q?
+16:31:05 <niklasl> ... To easier organize your time for participation. Something that takes more than a day might get postponed since it cannot be planned into a working day.
+16:31:42 <niklasl> Gregg: milestones are a good way to keep things linear over time.
+16:32:11 <niklasl> Anatoly: with github I've only used issues, but I assume there are kanban-like means for organization as well.
+16:32:46 <niklasl> Gregg: for organizing if we create a meta-issue for it, we can attach tags and sub-issues to keep track of things.
+16:33:05 <niklasl> ... I'm open to other ways to manage this work too.
+16:33:44 <niklasl> Benjamin: We used issues mainly, in a fairly loose setup, to organize testing and recording what needed doing and assigning issues.
+16:34:23 <anatoly-scherbakov> q+
+16:34:40 <gkellogg> q?
+16:34:57 <niklasl> ... I'm for using projects. Anyone who've worked with W3C groups knows that deadlines will probably move, since this is often [work beyond regular work days].
+16:35:22 <gkellogg> ack anatoly-scherbakov
+16:35:35 <niklasl> ... Its up to us to call for participation and let people manage their time.
+16:36:00 <niklasl> Anatoly: Regarding the TPAC, could you explain more about what is is and for regarding the regular W3C process.
+16:36:42 <niklasl> Gregg: W3C has a technical plenary (TPAC). It is held 12 september in Vancouver Canada. We have a 4 hour group slot for YAML-LD.
+16:37:44 <niklasl> ... This is an opportunity for W3C groups to meet and work together. Since we're still in a pandemic, it will be a hybrid meeting to allow for remote participation. There is a doodle poll linked from the agenda (it had to be recreated so please fill in again).
+16:38:20 <niklasl> ... Other W3C groups can join too so we can work in a wider context. For instance the payment group relying on JSON-LD.
+16:39:18 <gkellogg> q?
+16:39:28 <niklasl> ... This is a timeslot for us to get a lot of work done, and possibly meet face to face. It is an opportunity to get a lot of progress both for YAML-LD and JSON-LD-star. (RDF-star will also participate at TPAC.)
+16:40:03 <gkellogg> https://www.w3.org/events/meetings/6b900451-f0a7-46b0-8668-3cc20e0b026c
+16:40:05 <niklasl> Anatoly: thank you! I hope to join virtually, and on site in future time. Is there a link for the TPAC agenda?
+16:40:25 <niklasl> Gregg: [pasted agenda link].
+16:40:44 <niklasl> ... People can present things as well.
+16:41:22 <niklasl> ... opportunity to present the current work and create liaisons with other groups.
+16:42:01 <niklasl> Gregg: not so much papers but for slides about a topic you could work on during the TPAC [correct?]
+16:42:12 <gkellogg> q?
+16:42:22 <gkellogg> tapic: issue yaml-ld#73
+16:42:23 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/73 -> Issue 73 Add section: How to read this document (juusoautiosalo)
+16:42:32 <anatoly-scherbakov> q-
+16:44:17 <anatoly-scherbakov> q+
+16:44:25 <niklasl> Juuso: A section on how to read this document would be beneficial to set up the rest of the document. For instance the audience, and the prerequisites for understanding the specification. What we require readers to know before reading the YAML-LD (just as JSON-LD requires familiarity with JSON). Do we require familiarity with YAML and JSON-LD?
+16:44:42 <gkellogg> q?
+16:45:06 <niklasl> ... As reference, the JSON-LD does not require knowledge of RDF.
+16:45:38 <gkellogg> ack anatoly-scherbakov
+16:45:47 <niklasl> ... Is this a conscious choice? We need to be clear if knowledge of JSON-LD is needed.
+16:46:33 <gkellogg> q+
+16:46:48 <pchampin_> pchampin_ has joined #json-ld
+16:46:49 <niklasl> Anatoly: A very valid point. In my POV YAML-LD is an effort to democratize linked data. Thus it would be inhumane to require readers (students, doctors etc) to read the intricasies of JSON-LD syntax.
+16:47:53 <niklasl> ... Some people believe the JSON-LD spec is too complicated. I do not wholly agree; it is a honking great idea. But certain parts are difficult. It would be an obstacle for YAML-LD.
+16:48:04 <gkellogg> ack gkellogg
+16:48:18 <anatoly-scherbakov> ack
+16:48:21 <anatoly-scherbakov> q-
+16:48:51 <bigbluehat> q+
+16:49:41 <niklasl> Gregg: Parts of the spec should not require any deep understanding of JSON-LD. In a similar way not all who use JSON-LD knows all details of the spec. For instance a primer should be produced for this purpose. But the full spec, with profiles etc. would be impossible to understand without the JSON-LD syntax and API spec.
+16:49:55 <niklasl> ... Compare to how many use HTML who have not read the full HTML spec.
+16:50:09 <niklasl> ... So a YAML-LD Primer would be good.
+16:50:23 <gkellogg> q?
+16:50:31 <niklasl> ... A "how to read this document" section would be great to see a PR for.
+16:51:06 <niklasl> [Juuho and Anatoly both are interested in writing that section.]
+16:51:15 <niklasl> Anatoly: as a separate document?
+16:52:27 <niklasl> Gregg: first include this as section of this spec. We might let the CG take up this work at some point to take the reports towards a recommendation. A rec trac could split out a Primer, API and profiles documents. But for now lets keep them in a single document for now.
+16:52:38 <niklasl> Anatoly: Agreed. It eases management.
+16:52:43 <gkellogg> zakim, next agendum
+16:52:43 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:52:47 <gkellogg> q?
+16:52:56 <gkellogg> ack bigbluehat
+16:53:22 <niklasl> Benjamin: I love the intent that YAML-LD would increase the use of LD. A Primer would be great.
+16:54:11 <niklasl> ... I've been worried about a far more complex situation if advanced profiles. But having this point of view to ease adoption is good.
+16:54:50 <niklasl> ... Lets keep promoting this tech as simple and obvious. And address what is perceived as complex.
+16:55:04 <gkellogg> zakim, next agendum
+16:55:04 <niklasl> Gregg: Agree. Something for the use case document.
+16:55:04 <Zakim> agendum 4 -- TPAC -- taken up [from agendabot]
+16:55:10 <gkellogg> Call for presentations at September 12 TPAC meeting
+16:55:50 <gkellogg> zakim, next agendum
+16:55:50 <Zakim> agendum 4 was just opened, gkellogg
+16:56:05 <pchampin> I can definitely prepare something about RDF-star
+16:56:11 <gkellogg> Participation poll:  https://doodle.com/meeting/organize/id/aMj3LPBb
+16:56:34 <niklasl> Gregg: please indicate your interest (whether local or remote).
+16:56:36 <gkellogg> zakim, next agendum
+16:56:36 <Zakim> agendum 5 -- Next call -- taken up [from agendabot]
+16:56:51 <TallTed> next call is Aug 31, can't be Sept 31 (as that doesn't exist)
+16:56:51 <gkellogg> Next call on September 31
+16:57:14 <gkellogg> s/September/August/
+16:57:33 <gkellogg> zakim, end meeting
+16:57:33 <Zakim> As of this point the attendees have been anatoly-scherbakov, niklasl, gkellogg, juuso-aut, TallTed, pchampin, bigbluehat, dlehn
+16:57:35 <Zakim> RRSAgent, please draft minutes
+16:57:35 <RRSAgent> I have made the request to generate https://www.w3.org/2022/08/17-json-ld-minutes.html Zakim
+16:57:39 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:57:44 <Zakim> Zakim has left #json-ld
+16:57:48 <gkellogg> rrsagent, pointer
+16:57:48 <RRSAgent> See https://www.w3.org/2022/08/17-json-ld-irc#T16-57-48
+16:57:53 <gkellogg> rrsagent, bye
+16:57:53 <RRSAgent> I see no action items
