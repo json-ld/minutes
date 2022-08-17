@@ -419,13 +419,18 @@
      }
      const [_, time, _nick, msg] = match;
      const nick = _nick.toLowerCase();
+     const nickName = context.aliases[nick];
 
      // check for a scribe line
      if(msg.search(scribeRx) !== -1)
      {
        if(nick === 'transcriber') {
-         context.scribe.push(nick)
-         context.scribenick.push(nick)
+         if(!(nick in context.aliases))
+         {
+           context.aliases[nick] = 'Transcriber'
+         }
+         context.scribe.push('Transcriber')
+         context.scribenick.push('Transcriber')
          rval = scrawl.information('Our Robot Overlords are scribing.');
        } else {
          // 'scribe' collects all scribes in the meeting
@@ -550,7 +555,7 @@
        }
      }
      // the line is by a scribe
-     else if(context.scribenick.includes(nick))
+     else if(context.scribenick.includes(nickName))
      {
        if(msg.indexOf('…') === 0 || msg.indexOf('...') === 0)
        {
@@ -585,7 +590,7 @@
        }
      }
      // the line is a comment by somebody else
-     else if(!context.scribenick.includes(nick))
+     else if(!context.scribenick.includes(nickName))
      {
        if(msg.indexOf(':') !== -1)
        {
