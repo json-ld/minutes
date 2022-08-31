@@ -1,0 +1,197 @@
+15:57:48 <RRSAgent> RRSAgent has joined #json-ld
+15:57:48 <RRSAgent> logging to https://www.w3.org/2022/08/31-json-ld-irc
+15:57:50 <Zakim> RRSAgent, make logs Public
+15:57:51 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:57:56 <gkellogg> meeting: JSON-LD CG
+15:58:28 <gkellogg> agenda: https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220831T160000
+15:58:28 <agendabot> clear agenda
+15:58:28 <agendabot> agenda+ Announcements and Introductions
+15:58:28 <agendabot> agenda+ Approve Minutes
+15:58:28 <agendabot> agenda+ YAML-LD
+15:58:28 <agendabot> agenda+ Next call
+15:58:36 <gkellogg> chair+ gkellogg
+15:58:41 <gkellogg> chair+ pchampin
+15:59:08 <gkellogg> present+
+16:00:32 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:00:37 <anatoly-scherbakov> present+
+16:01:59 <dlehn1> present+
+16:02:46 <niklasl> niklasl has joined #json-ld
+16:02:50 <gkellogg> zakimm, next agendum
+16:03:47 <gkellogg> pchampin: The repo manager will require that a contribution be non-substantisve
+16:03:59 <gkellogg> zakim, next agenudum
+16:03:59 <Zakim> I don't understand 'next agenudum', gkellogg
+16:04:02 <juuso-aut> juuso-aut has joined #json-ld
+16:04:07 <juuso-aut> present+
+16:04:19 <gkellogg> zakim, next agendum
+16:04:19 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:05:05 <bigbluehat> present+
+16:05:11 <pchampin> scribe+
+16:05:42 <melindaminch> melindaminch has joined #json-ld
+16:05:52 <niklasl> present+
+16:05:58 <melindaminch> present+
+16:06:21 <pchampin> gkellogg: today is the last day of the JSON-LD working group charter
+16:06:33 <pchampin> ... I was surprised to learn this.
+16:06:37 <bigbluehat> q+
+16:06:57 <pchampin> ... I hope we can discuss a charter extension during TPAC,
+16:07:07 <pchampin> ... so we can handle this work to the WG.
+16:07:27 <pchampin> bigbluehat: how did you find out? Did you get a notification?
+16:08:03 <pchampin> gkellogg: this was raised by Ivan on a github issue
+16:09:32 <pchampin> bigbluehat: strange that there were no notification
+16:09:59 <gkellogg> zakim, next agendum
+16:09:59 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:09:59 <pchampin> pchampin: I assume that WG are assumed to self monitor their charter deadline as part of their "day-to-day" activity
+16:10:07 <gkellogg> q?
+16:10:09 <pchampin> ... does not work well for so called "maintenance group" though
+16:10:16 <gkellogg> ack bigbluehat
+16:10:19 <pchampin> ... should be reported to the Process CG
+16:10:21 <gkellogg> zakim, next agendum
+16:10:21 <Zakim> agendum 2 -- Approve Minutes -- taken up [from agendabot]
+16:10:29 <gkellogg> https://json-ld.org/minutes/2022-08-17/
+16:10:56 <gkellogg> moving on
+16:11:00 <gkellogg> zakim, next agendum
+16:11:00 <Zakim> agendum 2 was just opened, gkellogg
+16:11:41 <pchampin> gkellogg: there was a bug in the generated minutes, I had to regenerate all of them
+16:11:43 <gkellogg> zakim, next agendum
+16:11:43 <Zakim> agendum 3 -- YAML-LD -- taken up [from agendabot]
+16:11:53 <gkellogg> https://github.com/json-ld/yaml-ld/projects/1
+16:12:29 <gkellogg> topic: yaml-ld#77
+16:12:30 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/77 -> Pull Request 77 Definition of yaml-ld namespace documents (gkellogg) needs discussion, spec
+16:13:06 <pchampin> gkellogg: I setup to do a number of updates. Apologies for the massive update that resulted.
+16:13:55 <pchampin> ... began with the yaml-ld namespace, to institude a convenience contexte aliasing `@` keywords to `$` keywords
+16:14:05 <pchampin> ... Roberto Polli was quite critical about it.
+16:14:18 <pchampin> ... Unfortunately, he could not join today (conflicting IETF meeting).
+16:14:38 <pchampin> ... Q: is this context specific to YAML?
+16:15:04 <gkellogg> https://www.w3.org/ns/yaml-ld/v1
+16:15:51 <pchampin> gkellogg: following the practice of the Verifiable Credential group, it semmed like a good idea to version the context
+16:16:06 <pchampin> ... a future version of JSON-LD may introduce new keywords.
+16:16:39 <pchampin> ... Suggestion for implementations to cache that context.
+16:16:59 <pchampin> TallTed: I previously suggested to use a w3id namespace, but that would not be a good ID.
+16:17:17 <pchampin> ... Namespaces in the w3.org NS are more recognized.
+16:18:18 <pchampin> gkellogg: we would need pchampin to setup the yaml-ld namespace on w3.org
+16:18:45 <pchampin> ... ivan has done that in the past for other namespaces, with content-negociation (JSON-LD + HTML version)
+16:19:42 <pchampin> pchampin: we can also set the Cache-control HTTP header to make the caching happen
+16:19:51 <bigbluehat> q+
+16:20:25 <gkellogg> scribe+
+16:20:35 <pchampin> ack bigbluehat
+16:20:53 <gkellogg> bigbluehat: We discussed previously to use a convenience context, which uses the "+" but doesn't replace it. (See https://github.com/json-ld/convenience-context)
+16:21:06 <gkellogg> ... We discussed the potential conflict with JSON schema.
+16:21:26 <gkellogg> ... I'd support a context which "hides" the "@" symbol, but I don't think switching makes sense.
+16:21:49 <gkellogg> ... It's confusing to the developer to use "$" in one place and "@" elsewhere.
+16:22:17 <anatoly-scherbakov> q+
+16:22:23 <gkellogg> ... I'd think we'd do that outside of the YAML-LD spec. My preference is to use the "@keyword" form.
+16:22:49 <gkellogg> ... The "$" thing is asking for trouble.
+16:22:57 <gkellogg> q?
+16:23:00 <pchampin> q?
+16:23:06 <pchampin> ack anatoly-scherbakov
+16:23:39 <gkellogg> anatoly-scherbakov: I think I agree, in the sense of using "$" could be factored out of the spec. I proposed putting it in the Best Practices area.
+16:24:08 <gkellogg> ... My approach to YAML-LD is it must be accessible to people that don't know what JavaScript it.
+16:24:11 <bigbluehat> q+
+16:24:28 <gkellogg> ... YAML has it's own community and is perhaps more accessible to non-computer professionals.
+16:24:51 <gkellogg> ... I don't insist on that, and the convenience context can be placed anywhere.
+16:25:21 <gkellogg> ... I think inclusion of the "$" helps usability by the general audience.
+16:25:34 <pchampin> q+
+16:25:38 <anatoly-scherbakov> q-
+16:25:42 <gkellogg> ... I think such simplifications in syntax might be useful for getting wider adoption.
+16:25:43 <pchampin> ack bigbluehat
+16:26:06 <gkellogg> bigbluehat: I'd say that JSON-LD's widest adoption is among people who don't know JavaScript, or even JSON-LD.
+16:26:24 <gkellogg> ... We don't have a lot of JSON-LD typed by hand, but by genertors.
+16:26:42 <anatoly-scherbakov> q+
+16:26:53 <gkellogg> ... The SEO folks don't know what JSON-LD is; if they're not working in Wordpress, they're copying and pasting from online examples.
+16:27:14 <gkellogg> ... I question the use-case without a justifiable audience.
+16:27:29 <dlehn1> q+
+16:27:36 <pchampin> q-
+16:27:53 <gkellogg> ... I don't think more than a convenience context is warranted.
+16:28:17 <gkellogg> ... The use of DSLs in YAML is already wide-spread, which would continue here.
+16:28:44 <pchampin> ack anatoly-scherbakov
+16:29:02 <gkellogg> anatoly-scherbakov: I see your point, and don't want to scare off people.
+16:29:18 <gkellogg> ... We don't yet see the use case, as the applications for which it is applicable don't yet exist.
+16:29:46 <gkellogg> ... People like to get code everywhere; structure as code, security as code.
+16:29:58 <gkellogg> ... Structured Data as code should come next.
+16:30:45 <gkellogg> ... visusal interfaces for describing complex data can be too cumbersome, and people end up wiring code.
+16:31:09 <gkellogg> ... YAML folks do end up inventing their own languages and syntaxes.
+16:31:24 <gkellogg> ... A convenience context might be thought of a kind of example for how to do this.
+16:31:33 <gkellogg> q+
+16:31:44 <anatoly-scherbakov> q-
+16:31:52 <pchampin> ack dlehn
+16:32:20 <gkellogg> dlehn1: As far as requiring quotes, the YAML folks wanted to preserve "@", IIRC. It could take years to undo this.
+16:32:38 <gkellogg> ... In a lot of cases having contexts to override keywords seems like a good approach.
+16:32:44 <pchampin> ack gkellogg
+16:33:45 <pchampin> gkellogg: from the discussion, it seems that we should consider the convenience context as a separate thing, mentioned in the BP document
+16:34:30 <pchampin> PROPOSAL: turn PR yaml-ld#77 to draft, and consider move this to Best Practices
+16:34:30 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/77 -> Pull Request 77 Definition of yaml-ld namespace documents (gkellogg) needs discussion, spec
+16:34:38 <gkellogg> +1
+16:34:45 <pchampin> <pchampin> +1
+16:34:46 <niklasl> +1
+16:34:54 <TallTed> +1
+16:34:55 <bigbluehat> +1
+16:34:59 <dlehn1> +1
+16:35:07 <juuso-aut> +1
+16:35:16 <melindaminch> +1
+16:35:24 <anatoly-scherbakov> +1
+16:35:27 <pchampin> RESOLVED: turn PR yaml-ld#77 to draft, and consider move this to Best Practices
+16:36:01 <gkellogg> pchampin: Okay, let's move this over to a future best-practices document.
+16:36:18 <pchampin> topic: yaml-ld#78
+16:36:19 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/78 -> Pull Request 78 Spec progress (gkellogg) spec
+16:36:54 <pchampin> gkellogg: this PR is sort of a brain-dump, following the implementation that I am working on
+16:37:08 <pchampin> ... my time will be limited with the coming 2 working groups (RCH and RDF-star)
+16:37:17 <pchampin> ... I wanted to get things done in the spec
+16:37:35 <pchampin> ... Some parts are controversial -- we have discussed them but didn't come to a resolution.
+16:37:56 <pchampin> ... The idea is to spell out the details of how you convert between YAML and the internal representation
+16:38:14 <pchampin> ... taking into account the additional capabilities of YAML compared to JSON
+16:39:08 <pchampin> ... 2 profiles: JSON prodile has a 1-to-1 relationship between JSON and YAML (no tags, no anchors/node aliases for document compaction)
+16:39:56 <pchampin> ... the language makes use of the concepts of the YAML spec
+16:40:35 <pchampin> ... Since YAML tags are essentially URLs, this makes them a good candidate for representing typed literals.
+16:40:56 <pchampin> ... To capture that, the idea is to extend the internal representation by allowing RDF literals in them.
+16:41:18 <gkellogg> q?
+16:41:23 <niklasl> q+
+16:41:23 <pchampin> ... Interestingly, this does not require any change in the JSON-LD API algorithms, except for passing RDF literals through.
+16:41:46 <gkellogg> anatoly-scherbakov: I think this is great work; thanks for moving it forward.
+16:41:49 <pchampin> ack niklasl
+16:42:02 <gkellogg> niklasl: I'm sorry I haven't had a chance to read the PR in detail.
+16:42:34 <pchampin> niklasl: can you elaborate on the rationale for extending the internal representation,
+16:42:50 <pchampin> ... rather than using JSON-LD value objects (`@value`, `@type`)?
+16:42:51 <gkellogg> https://github.com/json-ld/yaml-ld/pull/78#discussion_r956308533
+16:43:23 <pchampin> gkellogg: value objects would create complications in round tripping
+16:44:20 <pchampin> ... the value of the JSON-LD processor is to keep track of the context where an attribute is used
+16:44:41 <pchampin> ... imagine that `@value` and `@type` are aliased, this would be hard to manage
+16:45:22 <pchampin> ... Imagine also that a YAML-LD contains a tagged scalar in one place, and a value object in another place;
+16:45:49 <pchampin> ... if you expand and compact again, you may not be able to reconstruct an identical YAML-LD document.
+16:45:59 <pchampin> q?
+16:46:59 <gkellogg> pchampin: When you say it doesn't change the algorithms in JSON-LD API; it changes them in a trivial way.
+16:47:02 <niklasl> q+
+16:47:11 <gkellogg> ... I"m a bit concerned in how it changes the algorithms.
+16:47:30 <gkellogg> ... When we talk about round-tripping, we should be more explicit.
+16:48:03 <gkellogg> ... The argument is about expansion/compaction there are already things you'll lose
+16:48:33 <pchampin> ack niklasl
+16:48:33 <gkellogg> ... I'm not sure if it's important enough for changing the algorithms.
+16:49:34 <gkellogg> niklasl: Thanks for the elaborations. Would it technically be possible to use a new keyword "not compatible" for a literal object so it would be treated specially?
+16:49:51 <gkellogg> ... The reason for that would be to represent it somehow in JSON-LD?
+16:50:26 <gkellogg> ... Is there a risk that someone already uses aliases?
+16:50:51 <gkellogg> ... I'm not sure that complicating the algorithms is warranted.
+16:51:21 <pchampin> q?
+16:52:53 <pchampin> gkellogg: adding a keyword to JSON-LD would be even more disruptive
+16:53:23 <pchampin> ... note also that the extended internal representation can not be represented in JSON
+16:53:33 <pchampin> ... the PR proposes a "down-conversion" to JSON
+16:53:55 <niklasl> q+
+16:53:58 <pchampin> ... currently converts RDF literals to the closest JSON-LD form (e.g. xsd:decimal to number)
+16:54:22 <pchampin> ... unknown datatypes become strings; an alternative would be to convert them to value objects
+16:54:31 <gkellogg> ack niklasl
+16:54:59 <gkellogg> niklasl: I see the point about not serializing in JSON.
+16:55:31 <gkellogg> ... What if a compactor would compact to the most compact form available? In YAML that would involved tagged scalar valiues.
+16:55:52 <gkellogg> ... I'd expect someone using YAML to want that all the time.
+16:56:54 <gkellogg> zakim, next agendum
+16:56:54 <Zakim> agendum 4 -- Next call -- taken up [from agendabot]
+16:57:19 <pchampin> gkellogg: we have a 4 hour time-slot during TPAC
+16:57:50 <pchampin> ... on 12 Sep, Vancouver time; this is a hybrid meeting, don't hesitate to join
+16:57:59 <pchampin> q?
+16:58:05 <TallTed> For future reference -- "If the current agendum has been open for less than a minute use `close this agendum` explicitly to permit moving to the next agendum." -- from https://www.w3.org/2001/12/zakim-irc-bot.html
+16:58:11 <gkellogg> zakim, end meeting
+16:58:11 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, dlehn, juuso-aut, bigbluehat, niklasl, melindaminch
+16:58:13 <Zakim> RRSAgent, please draft minutes
+16:58:13 <RRSAgent> I have made the request to generate https://www.w3.org/2022/08/31-json-ld-minutes.html Zakim
+16:58:16 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:58:21 <Zakim> Zakim has left #json-ld
+16:58:31 <gkellogg> rrsagent, pointer
+16:58:31 <RRSAgent> See https://www.w3.org/2022/08/31-json-ld-irc#T16-58-31
+16:58:35 <gkellogg> rrsagent, bye
+16:58:35 <RRSAgent> I see no action items

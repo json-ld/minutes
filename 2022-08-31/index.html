@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2022-08-31</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="https://json-ld.org/">Juuso Autiosalo</a>, <a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="https://json-ld.org/">Melinda Minch</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg, Pierre-Antoine Champin</dd>
+<dt>Scribe(s)</dt><dd>Pierre-Antoine Champin, Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220831T160000">https://www.w3.org/events/meetings/37dfdfbe-ffa4-4fff-9589-0bdc12401128/20220831T160000</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">Approve Minutes</a><li><a href="#topic-3">YAML-LD</a><li><a href="#topic-4">yaml-ld#77</a><li><a href="#topic-5">yaml-ld#78</a><li><a href="#topic-6">Next call</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">turn PR yaml-ld#77 to draft, and consider move this to Best Practices</a></ol></dd></dl>
+</div>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Pierre-Antoine Champin</span>:  The repo manager will require that a contribution be non-substantisve [scribe assist by Gregg Kellogg] <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<h1 id="topic-1" class="topic">Topic: Announcements and Introductions</h1>
+<div class="information">Pierre-Antoine Champin is scribing.</div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Gregg Kellogg</span>:  Today is the last day of the JSON-LD working group charter <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div class="comment-continuation">... I was surprised to learn this.</div>
+<div class="comment-continuation">... I hope we can discuss a charter extension during TPAC,</div>
+<div class="comment-continuation">... so we can handle this work to the WG.</div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Benjamin Young</span>:  How did you find out? Did you get a notification? <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Gregg Kellogg</span>:  This was raised by Ivan on a github issue <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Benjamin Young</span>:  Strange that there were no notification <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I assume that WG are assumed to self monitor their charter deadline as part of their &quot;day-to-day&quot; activity <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div class="comment-continuation">... does not work well for so called &quot;maintenance group&quot; though</div>
+<div class="comment-continuation">... should be reported to the Process CG</div>
+<h1 id="topic-2" class="topic">Topic: Approve Minutes</h1>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://json-ld.org/minutes/2022-08-17/">https://json-ld.org/minutes/2022-08-17/</a> <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Gregg Kellogg</span>: Moving on <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Gregg Kellogg</span>:  There was a bug in the generated minutes, I had to regenerate all of them <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<h1 id="topic-3" class="topic">Topic: YAML-LD</h1>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/yaml-ld/projects/1">https://github.com/json-ld/yaml-ld/projects/1</a> <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<h1 id="topic-4" class="topic">Topic: yaml-ld#77</h1>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/77">https://github.com/json-ld/yaml-ld/issues/77</a> -&gt; Pull Request 77 Definition of yaml-ld namespace documents (gkellogg) needs discussion, spec <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Gregg Kellogg</span>:  I setup to do a number of updates. Apologies for the massive update that resulted. <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div class="comment-continuation">... began with the yaml-ld namespace, to institude a convenience contexte aliasing `@` keywords to `$` keywords</div>
+<div class="comment-continuation">... Roberto Polli was quite critical about it.</div>
+<div class="comment-continuation">... Unfortunately, he could not join today (conflicting IETF meeting).</div>
+<div class="comment-continuation">... Q: is this context specific to YAML?</div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://www.w3.org/ns/yaml-ld/v1">https://www.w3.org/ns/yaml-ld/v1</a> <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Gregg Kellogg</span>:  Following the practice of the Verifiable Credential group, it semmed like a good idea to version the context <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div class="comment-continuation">... a future version of JSON-LD may introduce new keywords.</div>
+<div class="comment-continuation">... Suggestion for implementations to cache that context.</div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I previously suggested to use a w3id namespace, but that would not be a good ID. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div class="comment-continuation">... Namespaces in the w3.org NS are more recognized.</div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Gregg Kellogg</span>:  We would need pchampin to setup the yaml-ld namespace on w3.org <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div class="comment-continuation">... ivan has done that in the past for other namespaces, with content-negociation (JSON-LD + HTML version)</div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Pierre-Antoine Champin</span>:  We can also set the Cache-control HTTP header to make the caching happen <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Benjamin Young</span>:  We discussed previously to use a convenience context, which uses the &quot;+&quot; but doesn&apos;t replace it. (See <a href="https://github.com/json-ld/convenience-context)">https://github.com/json-ld/convenience-context)</a> <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div class="comment-continuation">... We discussed the potential conflict with JSON schema.</div>
+<div class="comment-continuation">... I&apos;d support a context which &quot;hides&quot; the &quot;@&quot; symbol, but I don&apos;t think switching makes sense.</div>
+<div class="comment-continuation">... It&apos;s confusing to the developer to use &quot;$&quot; in one place and &quot;@&quot; elsewhere.</div>
+<div class="comment-continuation">... I&apos;d think we&apos;d do that outside of the YAML-LD spec. My preference is to use the &quot;@keyword&quot; form.</div>
+<div class="comment-continuation">... The &quot;$&quot; thing is asking for trouble.</div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Anatoly Scherbakov</span>:  I think I agree, in the sense of using &quot;$&quot; could be factored out of the spec. I proposed putting it in the Best Practices area. <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... My approach to YAML-LD is it must be accessible to people that don&apos;t know what JavaScript it.</div>
+<div class="comment-continuation">... YAML has it&apos;s own community and is perhaps more accessible to non-computer professionals.</div>
+<div class="comment-continuation">... I don&apos;t insist on that, and the convenience context can be placed anywhere.</div>
+<div class="comment-continuation">... I think inclusion of the &quot;$&quot; helps usability by the general audience.</div>
+<div class="comment-continuation">... I think such simplifications in syntax might be useful for getting wider adoption.</div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Benjamin Young</span>:  I&apos;d say that JSON-LD&apos;s widest adoption is among people who don&apos;t know JavaScript, or even JSON-LD. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div class="comment-continuation">... We don&apos;t have a lot of JSON-LD typed by hand, but by genertors.</div>
+<div class="comment-continuation">... The SEO folks don&apos;t know what JSON-LD is; if they&apos;re not working in Wordpress, they&apos;re copying and pasting from online examples.</div>
+<div class="comment-continuation">... I question the use-case without a justifiable audience.</div>
+<div class="comment-continuation">... I don&apos;t think more than a convenience context is warranted.</div>
+<div class="comment-continuation">... The use of DSLs in YAML is already wide-spread, which would continue here.</div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Anatoly Scherbakov</span>:  I see your point, and don&apos;t want to scare off people. <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div class="comment-continuation">... We don&apos;t yet see the use case, as the applications for which it is applicable don&apos;t yet exist.</div>
+<div class="comment-continuation">... People like to get code everywhere; structure as code, security as code.</div>
+<div class="comment-continuation">... Structured Data as code should come next.</div>
+<div class="comment-continuation">... visusal interfaces for describing complex data can be too cumbersome, and people end up wiring code.</div>
+<div class="comment-continuation">... YAML folks do end up inventing their own languages and syntaxes.</div>
+<div class="comment-continuation">... A convenience context might be thought of a kind of example for how to do this.</div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">David I. Lehn</span>:  As far as requiring quotes, the YAML folks wanted to preserve &quot;@&quot;, IIRC. It could take years to undo this. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div class="comment-continuation">... In a lot of cases having contexts to override keywords seems like a good approach.</div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Gregg Kellogg</span>:  From the discussion, it seems that we should consider the convenience context as a separate thing, mentioned in the BP document <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div class="proposal"><strong>PROPOSAL:</strong>  turn PR yaml-ld#77 to draft, and consider move this to Best Practices</div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/77">https://github.com/json-ld/yaml-ld/issues/77</a> -&gt; Pull Request 77 Definition of yaml-ld namespace documents (gkellogg) needs discussion, spec <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Gregg Kellogg</span>: +1 <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Pierre-Antoine Champin</span>: &lt;Pchampin&gt; +1 <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Ted Thibodeau Jr.</span>: +1 <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Benjamin Young</span>: +1 <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">David I. Lehn</span>: +1 <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Juuso Autiosalo</span>: +1 <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Melinda Minch</span>: +1 <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Anatoly Scherbakov</span>: +1 <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> turn PR yaml-ld#77 to draft, and consider move this to Best Practices</div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Okay, let&apos;s move this over to a future best-practices document. <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<h1 id="topic-5" class="topic">Topic: yaml-ld#78</h1>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/78">https://github.com/json-ld/yaml-ld/issues/78</a> -&gt; Pull Request 78 Spec progress (gkellogg) spec <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Gregg Kellogg</span>:  This PR is sort of a brain-dump, following the implementation that I am working on <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div class="comment-continuation">... my time will be limited with the coming 2 working groups (RCH and RDF-star)</div>
+<div class="comment-continuation">... I wanted to get things done in the spec</div>
+<div class="comment-continuation">... Some parts are controversial -- we have discussed them but didn&apos;t come to a resolution.</div>
+<div class="comment-continuation">... The idea is to spell out the details of how you convert between YAML and the internal representation</div>
+<div class="comment-continuation">... taking into account the additional capabilities of YAML compared to JSON</div>
+<div class="comment-continuation">... 2 profiles: JSON prodile has a 1-to-1 relationship between JSON and YAML (no tags, no anchors/node aliases for document compaction)</div>
+<div class="comment-continuation">... the language makes use of the concepts of the YAML spec</div>
+<div class="comment-continuation">... Since YAML tags are essentially URLs, this makes them a good candidate for representing typed literals.</div>
+<div class="comment-continuation">... To capture that, the idea is to extend the internal representation by allowing RDF literals in them.</div>
+<div class="comment-continuation">... Interestingly, this does not require any change in the JSON-LD API algorithms, except for passing RDF literals through.</div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Anatoly Scherbakov</span>:  I think this is great work; thanks for moving it forward. <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I&apos;m sorry I haven&apos;t had a chance to read the PR in detail. <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Can you elaborate on the rationale for extending the internal representation, <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div class="comment-continuation">... rather than using JSON-LD value objects (`@value`, `@type`)?</div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="information"><a href="https://github.com/json-ld/yaml-ld/pull/78#discussion_r956308533">https://github.com/json-ld/yaml-ld/pull/78#discussion_r956308533</a> <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Gregg Kellogg</span>:  Value objects would create complications in round tripping <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div class="comment-continuation">... the value of the JSON-LD processor is to keep track of the context where an attribute is used</div>
+<div class="comment-continuation">... imagine that `@value` and `@type` are aliased, this would be hard to manage</div>
+<div class="comment-continuation">... Imagine also that a YAML-LD contains a tagged scalar in one place, and a value object in another place;</div>
+<div class="comment-continuation">... if you expand and compact again, you may not be able to reconstruct an identical YAML-LD document.</div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Pierre-Antoine Champin</span>:  When you say it doesn&apos;t change the algorithms in JSON-LD API; it changes them in a trivial way. <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div class="comment-continuation">... I&quot;m a bit concerned in how it changes the algorithms.</div>
+<div class="comment-continuation">... When we talk about round-tripping, we should be more explicit.</div>
+<div class="comment-continuation">... The argument is about expansion/compaction there are already things you&apos;ll lose</div>
+<div class="comment-continuation">... I&apos;m not sure if it&apos;s important enough for changing the algorithms.</div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Thanks for the elaborations. Would it technically be possible to use a new keyword &quot;not compatible&quot; for a literal object so it would be treated specially? <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div class="comment-continuation">... The reason for that would be to represent it somehow in JSON-LD?</div>
+<div class="comment-continuation">... Is there a risk that someone already uses aliases?</div>
+<div class="comment-continuation">... I&apos;m not sure that complicating the algorithms is warranted.</div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Gregg Kellogg</span>:  Adding a keyword to JSON-LD would be even more disruptive <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div class="comment-continuation">... note also that the extended internal representation can not be represented in JSON</div>
+<div class="comment-continuation">... the PR proposes a &quot;down-conversion&quot; to JSON</div>
+<div class="comment-continuation">... currently converts RDF literals to the closest JSON-LD form (e.g. xsd:decimal to number)</div>
+<div class="comment-continuation">... unknown datatypes become strings; an alternative would be to convert them to value objects</div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I see the point about not serializing in JSON. <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div class="comment-continuation">... What if a compactor would compact to the most compact form available? In YAML that would involved tagged scalar valiues.</div>
+<div class="comment-continuation">... I&apos;d expect someone using YAML to want that all the time.</div>
+<h1 id="topic-6" class="topic">Topic: Next call</h1>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Gregg Kellogg</span>:  We have a 4 hour time-slot during TPAC <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div class="comment-continuation">... on 12 Sep, Vancouver time; this is a hybrid meeting, don&apos;t hesitate to join</div>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="comment"><span class="name">Ted Thibodeau Jr.</span>: For future reference -- &quot;If the current agendum has been open for less than a minute use `close this agendum` explicitly to permit moving to the next agendum.&quot; -- from <a href="https://www.w3.org/2001/12/zakim-irc-bot.html">https://www.w3.org/2001/12/zakim-irc-bot.html</a> <a id="link-47" style="display:none;" href="#47">✪</a></div>
+undefined</div></div></div></div></div>    </div>
+  </body>
+</html>
