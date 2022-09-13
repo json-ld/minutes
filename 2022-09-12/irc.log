@@ -1,0 +1,912 @@
+20:04:10 <RRSAgent> RRSAgent has joined #json-ld
+20:04:10 <RRSAgent> logging to https://www.w3.org/2022/09/12-json-ld-irc
+20:04:10 <gkellogg> agenda: https://www.w3.org/events/meetings/6b900451-f0a7-46b0-8668-3cc20e0b026c
+20:04:12 <Zakim> RRSAgent, make logs Public
+20:04:13 <Zakim> please title this meeting ("meeting: ..."), pchampin
+20:04:13 <Orie> present+
+20:04:17 <kdeangs1> kdeangs1 has joined #json-ld
+20:04:20 <cel> scribe+
+20:04:21 <domel> present+
+20:04:27 <cel> topic: Introductions
+20:04:28 <jvanulde> present+
+20:04:39 <ivan> present+ ivan, TallTed, Phila, mkhraisha
+20:04:57 <betehess> betehess has joined #json-ld
+20:05:06 <betehess> present+
+20:05:06 <cel> present+
+20:05:08 <cel> mprorock: Mike Prorock, one of the co-chairs of the Credentials Community Group, working on Verifiable Credential work items, doing JSON-LD / linked data items
+20:05:23 <cel> phila: Phil Archer, GS1, RCH WG, canonicalizing your stuff
+20:05:33 <bigbluehat> present+
+20:05:40 <cel> pchampin: from W3C, co-editor with Greg on JSON-LD 1.1
+20:06:07 <cel> betehess: Alex from Netflix, doing GraphQL federation
+20:06:08 <pchampin> scribe+
+20:06:22 <pchampin> charles Lehner: independant observer, DID and VC person
+20:06:25 <pchampin> scribe-
+20:06:31 <cel> cel: Charles Lehner, independent, VCs/DIDs related
+20:06:48 <cel> gkellogg: Greg Kellogg, co-editor of specs
+20:07:34 <cel> ivan: staff contact previously for this WG and for DID WG
+20:08:28 <cel> jvanulde: from Canada, cross-border work, as observer
+20:08:47 <cel> Javad: observer
+20:09:05 <cel> kdeangs1: working with Phil
+20:09:18 <cel> Mahmoud: Maven Net, supply chains
+20:10:01 <cel> anatoly-scherbakov: Republic of Romania. Interested in YAML-LD for bringing linked data to the mainstream, for people to use semantic data in their daily lives
+20:10:28 <mprorock> mprorock has joined #json-ld
+20:10:32 <cel> benjamin: co-chair of JSON-LD WG that was and is about to be again - and of community group, working for John Wiley and Sons as a principal architect
+20:10:45 <mprorock> present+
+20:10:51 <cel> dan: Daniel, working at Google, TypeScript, privacy
+20:11:19 <cel> dominik: Dominik Tomaszuk, extremely interested in YAML-LD
+20:12:04 <cel> JeffWaters: AC Rep for DISA, just joined this last week
+20:12:24 <cel> ... I was a rep in the old days when we were members earlier on. A great fan of JSON-LD and all the work you all are doing; interested in catching up
+20:12:37 <cel> ... Interested in this being used more in our organization/agency; looking forward to advocating
+20:13:20 <cel> dlehn1: David Lehn from Digital Bazaar, working on JSON-LD since it started. doing implementations in JavaScript and Python
+20:13:42 <cel> juuso-aut: Juoso Autisado. post-doctoral researcher on digital prints
+20:13:54 <cel> ... interested in describing digital prints with JSON-LD and hopefully YAML-LD in the future
+20:14:28 <cel> Orie: Orie Steele, CTO and co-founder of Transmute; working on verifiable credentials for supply chains; IETF COSE and JOSE cryptographic representations
+20:14:41 <cel> ... YAML-LD and pieces; interested in overlap of formats here at W3C
+20:15:12 <cel> TallTed: Ted Thibodeau, Open Link Software, working here for ~20 years; distributed identity, RDF; you'll see me in a group
+20:15:45 <cel> Timothe: Timothée Haudebourg..., working on Rust JSON-LD library, at Spruce
+20:16:11 <cel> kristina: Kristina from Microsoft, co-chair Verifiable Credentials WG
+20:16:24 <cel> masaki: WebRTC, joining here for my curiosity
+20:16:47 <cel> GeunHyung_Kim: Geunhyung Kim, JSON-LD linked data ecosystem
+20:17:07 <cel> kang: Seukyoon Kang, from South Korea, first time at W3C, interested in many things
+20:17:19 <cel> gkellogg: Welcome everyone, thank you for meeting with us today.
+20:17:32 <kristina> kristina has joined #json-ld
+20:17:35 <kristina> present+
+20:17:58 <dlehn1> present+
+20:18:03 <GeunHyung_Kim> GeunHyung_Kim has joined #json-ld
+20:18:15 <GeunHyung_Kim> present+
+20:18:17 <cel> gkellogg: We have been meeting every other week on Wednesdays; WG page has more info; everyone is welcome to join
+20:18:17 <pchampin> https://www.w3.org/groups/wg/json-ld/calendar
+20:18:31 <cel> ... Mostly discussing YAML-LD, but the community is for everything discussing JSON-LD
+20:19:19 <cel> gkellogg: Arguably, JSON-LD is one of the most successful linked data formats ever, which probably surprises people working on RDF/semantic-web standards all this time...
+20:19:25 <lukasz> lukasz has joined #json-ld
+20:19:32 <cel> ... Over 43% of all websites have some JSON-LD
+20:19:43 <cel> ... Web Data Commons reports...
+20:20:08 <cel> ... JSON-LD is used as a native way to represent RDF, but also simply because it's JSON.
+20:20:21 <cel> ... For describing SHEX expressions, tabular data, and a number of other places.
+20:20:51 <cel> ... By and large most people interacting with JSON-LD don't realize they are interacting with a linked data format. That's by design, to make it easy for people to use it
+20:20:54 <TallTed> present+
+20:21:09 <cel> bigbluehat: I think a lot of that growth is attributable to schema.org, and its "rich snippets" for search engines
+20:21:22 <cel> ... But also a huge growth of publishers (e.g. John Wiley and Sons) using it...
+20:21:28 <cel> ... and for web annotations.
+20:21:52 <cel> ... Our e-reader includes Apache Annotator
+20:21:58 <cel> ... Embedded use cases...
+20:22:12 <cel> ... Over the last 5-6 years it's grown exponentially,
+20:22:17 <cel> ... and into places we didn't expect initially
+20:22:54 <cel> gkellogg: I think much of the success of JSON-LD is largely tied to the success of schema.org - as one of the 3 recommended serializations for expressing info about schema.org
+20:22:54 <pchampin> q?
+20:23:16 <cel> topic: YAML-LD
+20:23:32 <cel> gkellogg: YAMl-LD is basically a way of expressing linked data in YAML.
+20:23:40 <cel> ... It does that by basically mirroring what JSON-LD provides.
+20:24:02 <cel> ... JSON and YAML are largely interchangeable. YAML is commonly used in configuration files - more human readable.
+20:24:21 <cel> ... For example, a YAML document may have a context declaring a common vocabulary; that's used to determine all the lines that come after that.
+20:24:36 <cel> ... In this case I've used a Turtle interpretation. Usually we use literals...
+20:24:40 <cel> ... [slide 15]
+20:24:45 <GeunHyung_Kim_> GeunHyung_Kim_ has joined #json-ld
+20:25:45 <cel> ... Quoted string is because many YAML interpreters interpret certain values in certain ways. For date formats though, that may be obsoleted.
+20:25:57 <cel> ... Extended YAML-LD. [slide 16]
+20:26:07 <cel> ... Basic YAML is mostly 1:1 with JSON.
+20:26:24 <cel> ... YAML has more funtionality. Effectively, data types for scalar values.
+20:26:48 <cel> ... In this example we provide a data type for our date format, that allows expressing an RDF literal.
+20:26:56 <cel> ... It's under debate...
+20:27:16 <cel> ... YAML allows the ability to tag nodes with a URI; that's used for internal formats to describe things as integers, booleans, maps, arrays.
+20:27:32 <cel> ... It's extensible by declaring a tag at the top, like a prefix in Turtle, or a term in a context in JSON-LD.
+20:27:48 <cel> ... This exists outside JSON-LD. An open issue is how to best take advantage of these capabilities.
+20:27:57 <wayne> wayne has joined #json-ld
+20:28:03 <cel> ... YAML also allows you to share nodes by putting effectively a node label, and then reference it later on.
+20:28:12 <cel> ... Microdata has a similar capability.
+20:28:28 <cel> ... This was addressed in JSON-LD. We have some ways of including references in JSON-LD but typically only to nodes rather than scalars.
+20:28:36 <cel> ... We can actually create references to scalars in YAML.
+20:28:50 <cel> ... As noted in the shortcomings, I've used a string representation for the XSD URI.
+20:29:08 <cel> ... rather than a hash. Most tools don't allow a hash, so need some escaping. %23 is equivalent to #.
+20:29:21 <pchampin> q?
+20:29:47 <cel> ... There is also a potential to use other data types for expressing things like language. In JSON-LD v1.1 we introduced a proposal for one way of representing language - in particular, text direction - in JSON-LD - and therefore in RDF.
+20:29:58 <cel> ... That is to use a URI which encodes in it a language and a text direction.
+20:30:14 <cel> ... One shortcoming of RDF is it doesn't have the ability to encode text direction, like other formats such as XML do.
+20:30:39 <cel> ... Ivan is responsible for coming up with the i18n namespaces with a semantic such that you can append information to the URI, such that you can extract both language and text direction.
+20:30:45 <cel> ... That means you can only encode language.
+20:31:12 <plh> plh has joined #json-ld
+20:31:24 <mprorock> q+
+20:31:28 <cel> ... e.g. en-US could be encoded using this mechanism
+20:32:10 <cel> ... JSON-LD 1.1 introduced the concept of an internal representation. Rather than operating entirely on JSON concepts, it operates on a more abstract representation of the structures that are encoded in JSON. Arrays, maps, numbers, strings, boolean values, and null.
+20:32:30 <cel> ... Here we see (slide 18) a representation in YAML on the left that might appear using these various capabilities
+20:33:06 <cel> ... At the top is a document with a tag for the specific version of YAML. It includes a mapping, encoding the scalar values for context, which represents a map, which has a scalar value @vocab, which has a value which is the namespace.
+20:33:23 <cel> ... By using YAML you can use the internal structure
+20:33:52 <cel> ... to turn into JSON-LD. Can also use anything that can represent these types, like CBOR.
+20:34:10 <cel> ... to turn not into JSON but into the internal representation used by JSON-LD API mechanisms such as expand, compact...
+20:34:22 <cel> ... Then can serialize back to YAML or JSON.
+20:34:30 <cel> ... That provides our basic interoperability between these formats.
+20:35:12 <cel> Javad: 2/3 small questions... Is the format fixed?
+20:35:28 <cel> gkellogg: Undergoing active development. Nothing is fixed; seeking more feedback and better ideas
+20:35:58 <cel> Javad: Does this make the processing more expensive, since have to process the whole value?
+20:36:13 <manu> q+
+20:36:14 <cel> gkellogg: Yes, this is why we separated the basic YAML-LD from the extended YAML-LD
+20:36:42 <cel> ... You should be able to implement the basic YAML-LD JSON profile... But there are more capabilities that YAML provides that are of interest to people to be able to express more JSON-LD
+20:36:54 <cel> ... The ability to use tags potentially reduces the dependency on a (JSON-LD) context.
+20:37:25 <cel> ... Right now may use a term definition for date; that has a type when used as a property; this provides a different way of doing that, that's built into YAML.
+20:37:36 <cel> ... Another important capability is to have references to nodes
+20:38:09 <cel> Javad: From a sensor perspective, sensors could send JSON/RDF-annotated data. Every time there is a reading, they just send that part - a partial record
+20:38:32 <cel> ... Is there a way at the record level to refer to an IRI to say which document something should be a part of?
+20:38:53 <cel> gkellogg: This is related to NDJSON. Line-delimited JSON; each line is its own JSON document
+20:39:48 <cel> ... YAML content has the concept of a stream composed of many documents. How do you relate a stream of documents to JSON which does not have a stream concept (no way of talking about multiple documents); that's a shortcoming we should consider; this might be a way to deal with sensor networks that might want to output complete information that is about a subset of a document, by line
+20:40:07 <cel> ... The way to associate it would be like in JSON-LD; an object with an identifier, properties and values
+20:40:18 <cel> ... The data model being an RDF dataset means that the effect of processing these documents is additive
+20:40:20 <Timothe> Timothe has joined #json-ld
+20:40:30 <cel> ... So you are building up a dataset after processing each of these
+20:40:43 <cel> ... Similar to have embedded script tags in HTML are treated
+20:41:02 <pchampin> q?
+20:41:04 <cel> ... The way JSON-LD algorithms currently treat it is that all the documents are basically serialized into an array
+20:41:13 <pchampin> ack mprorock
+20:41:44 <cel> mprorock: About i18n, lang tags... is anyone looking at training models like Common Crawl with that? I'm doing natural language processing, this comes up a lot...
+20:41:57 <cel> ... The language flag, when looking at multi-lingual models, seems like it could be helpful
+20:42:13 <cel> ... Anyone doing that, other than for display hints?
+20:42:17 <cel> ivan: No (short answer)
+20:43:07 <cel> ... What really led to this issue - I don't think this would be easy to train - There are situations where you have a text, say in Hebrew, in which you mix latin characters. These bidirectional things are always the stumbling block. The fact that these could not be expressed in RDF came up time and time again.
+20:43:16 <cel> ... Our arms were twisted in JSON-LD by assuming we solved it
+20:43:32 <cel> ... I don't know if training models handle these edge cases
+20:43:34 <pchampin> q?
+20:43:43 <cel> mprorock: Knowing you could attach the tag is part of the factorization
+20:44:06 <cel> gkellogg: Providing this... is likely not a primary source. You might be trying to extract truth from unknown sources... text direction...
+20:44:24 <pchampin> q?
+20:44:32 <cel> mprorock: And knowing the intent of the author. e.g. a description about something... what did you mean by that? Are there additional hints?
+20:44:35 <pchampin> ack manu
+20:44:50 <cel> manu: Question... You were talking about going from JSON to the internal JSON-LD model and back out to YAML...
+20:45:05 <cel> ... Have you looked at the way CBOR-LD skips that intermediate step? Goes straight from CBOR-LD to JSON-LD without the intermediate step
+20:45:25 <cel> ... Do you feel we have now a generalized mechanism to go through the internal representation - or you think going through another model is viable?
+20:45:39 <phila_> ack manu
+20:45:42 <cel> gkellogg: JSON is a serialization format. Algorithms can't really operate directly on the serialization; they can operate on the representation of the serialization
+20:45:50 <cel> ... We operate on numbers, not the serialization of numbers, for instance
+20:46:04 <cel> ... The internal representation was put in 1.1 as a way of being able to operate on "objects" to do programming.
+20:46:19 <cel> ... You might be pointing at an issue that is under active discussion... Is that internal representation sufficient?
+20:46:48 <cel> ... i.e. are arrays/maps/numbers/strings/booleans enough? certainly is for JSON-LD interop. For a basic profile to be able to express in YAML exactly what can be expressed in JSON.
+20:47:02 <cel> ... But there are things that can't be expressed in JSON. like a native datetime format. similar in CBOR.
+20:47:17 <mprorock> q+
+20:47:18 <cel> ... So I have a proposal for an extended representation - to be able to convey other primitive data types - specifically, RDF literals
+20:47:42 <cel> ... This date format, for instances... where we see xsd:date of "2022-09-12", you could see the RDF literal for that
+20:47:53 <cel> ... If that is native, it would be conveyed through the JSON-LD algorithms as-is.
+20:48:10 <cel> ... The algorithms where that is not true is to/from-RDF.
+20:48:41 <cel> manu: Is the internal representation mandatory? CBOR-LD in practice doesn't; just reads bytes and translates CBOR
+20:48:57 <cel> ... If we were to standardize CBOR-LD, would we need to define how it goes through the internal representation?
+20:49:19 <cel> pchampin: Are you saying it goes through the CBOR-LD representation to CBOR without the internal representation?
+20:49:38 <cel> manu: Yes, It's a straight translation... I wonder if we need language that is is okay, or if it's not
+20:49:48 <cel> gkellogg: I think it's okay, like the basic YAML-LD representation
+20:50:26 <cel> ... There might be some advantages of instead targetting an internal representation, if this group decides to go through some extended mechanism to make fuller use...
+20:50:47 <cel> ... This date would expand into a value object, which includes a value and a type component.
+20:51:06 <cel> ... Problem is that in a compacted format, you don't know without processing, whether the value has e.g. type "date"
+20:51:21 <cel> ... When re-serializing back to JSON, you can't serialize to string without processing the context
+20:51:52 <cel> ... By maintaining a more native representation... JSON-LD currently just passes through numbers... There might be some advantages if you want to deal with CBOR structures that are not simply expressed in the base JSON typing.
+20:52:04 <pchampin> q?
+20:52:09 <cel> ... I don't believe it's required to define mapping to/from the internal representation if you don't need to take advantage of those features
+20:52:32 <cel> manu: So maybe a rule of thumb is that if you don't need to do JSON-LD processing with those algorithms, you don't need to go through the internal representation
+20:52:58 <cel> gkellogg: The APIs... may say turn into the internal representation by parsing, then the last step is implied to serialize - implied e.g. by HTTP Accept headers
+20:53:16 <cel> ... YAML-LD may have to detect application/ld+yaml to parse, then serialize back to JSON
+20:53:30 <cel> ... Presumably CBOR-LD has similar requirements
+20:53:35 <mprorock> q-
+20:54:27 <cel> gkellogg: This goes on (slide 19) to how we might represent an extended YAML-LD profile.
+20:54:50 <cel> ... The example on the left is what a JSON representation of YAML might be.
+20:55:10 <cel> ... We have a couple scalar values there with type information. e.g. name is xsd:string, date is xsd:date
+20:55:23 <cel> ... One way of dealing with these expanded values is simply to represent them as value objects.
+20:55:54 <dezell> dezell has joined #json-ld
+20:56:03 <cel> ... That is the natural way you might do it. But in order to take advantage of the JSON-LD context... that might require reserialization, if date is defined with xsd:date, we're not doing it that way if we recompact it we now have it with a string object rather than a value object.
+20:56:16 <cel> ... Having done that I've sortof lost the ability to turn it into YAML using these node tags
+20:56:38 <cel> ... Although the advantage is that is doesn't require change to the internal representation, it introduces some disadvantages for how we manipulate the data.
+20:57:04 <cel> ... The alternative is that we carry these extended values, e.g. rather than using a value object we use a literal object, encoding things you expect from a literal (value, type, language)
+20:57:22 <cel> ... Advantags is that it goes through JSON-LD algorithms unchanged, since it only deals with expanded values (ignoring string values of other types)
+20:57:35 <cel> ... but it's no longer representable as JSON; requiring us to extend the internal representation to do that.
+20:57:49 <cel> ... There are also thoughts of doing this on IRIs and blank nodes.
+20:58:06 <cel> ... That's our introduction to what the group has done so far
+20:58:13 <cel> ... We have a number of open issues
+20:58:31 <cel> ... Want to move forward on this open pull request...
+20:59:26 <pchampin> https://github.com/json-ld/yaml-ld/pull/78
+20:59:49 <cel> ... PR adds a section on how to convert YAML into the internal representation
+21:00:30 <cel> ... Targetting a broad audience, for people to understand what YAML-LD is.
+21:00:38 <kangseukyoon> kangseukyoon has joined #json-ld
+21:00:41 <cel> ... One issue is to split out into a "YAML-LD primer"
+21:00:53 <cel> ... for people wanting to use it without getting into the algorithmic details
+21:01:13 <cel> ... YAML-LD is fundamentally YAML. Most people will interact it with it as such, rather than as a linked-data format
+21:01:34 <phila_> scribe: phila_
+21:02:21 <phila_> gkellogg: IMO, we should use the extended internal representation
+21:02:34 <phila_> gkellogg works through draft spec
+21:03:00 <phila_> gkellogg: Turns YAML into the internal representation, which takes advantage of the YAML spec to create the internal graph
+21:03:33 <phila_> ... the tools such as {} do provide entry points into this internmedia representation that provide more of the sturctured representation, no interpretation of data types
+21:03:41 <phila_> ... this presumes that mechanism is available
+21:03:59 <phila_> ... so process first involves creating interal representation graph then interpreate that
+21:04:17 <kristina> kristina has joined #json-ld
+21:04:27 <phila_> ... so YAML does have the capability of describing multiple docs (YAML stream)
+21:04:44 <phila_> gkellogg: JSON doesn't have a way of doing that
+21:04:52 <phila_> ... this is an area we need to explore further
+21:05:02 <phila_> ... we have a need to describe multiple different docs
+21:05:32 <phila_> gkellogg: [Continues through doc]
+21:05:41 <phila_> gkellogg: in JSON a map is an object
+21:06:17 <phila_> ... Recusive steps here, create an array composing of the constituent parts
+21:06:28 <phila_> ... YAML has a mapkey that can be any other node type
+21:06:52 <phila_> ... YAML-LD restricts that a string scalar. Anything else wouldn't be possible to deal with the JSON-LD algorithms, so that's a concession
+21:07:16 <phila_> ... by doing this recursively, you get back to the internal mapping
+21:07:34 <phila_> ... Interpreting scalars... this is where we get into some more changes from the base.
+21:07:43 <phila_> ... We keep the notion of an extended YAML flag
+21:07:54 <phila_> ... So processor has to be running in an extended YAML mode
+21:08:12 <phila_> gkellogg: Basic YAML types are used for tag namespace
+21:08:22 <phila_> ... might be an str for a sstring etc.
+21:08:32 <phila_> ... there are other primitives that YAMl provides
+21:08:40 <phila_> ... Then we have some special processing.
+21:08:53 <phila_> ... If in the i18n namespace then it's processed differently
+21:09:03 <phila_> ... so you can interpret the "_" character
+21:09:48 <phila_> gkellogg: YAML distinguishes some number types - YAML distinguishes integer and float, JSON does not
+21:10:14 <phila_> ... Could have a float that looks like an integer. Should be able to serialise back out as a float, even it's an integer
+21:10:31 <phila_> gkellogg: Code for alias nodes. Introduces potential for looping
+21:10:54 <phila_> ... An alias cannot refer to a labelled node before it's been encountered, but might have a recursive set of nodes.
+21:11:03 <phila_> ... YAML has a way of dealing with that so we're OK
+21:11:17 <phila_> gkellogg: Then there's the turning the extended internal rep back into YAML
+21:11:41 <phila_> gkellogg: There's an open PR here that's a month old now. So an action is whether we want to merge this PR
+21:11:56 <phila_> gkellogg: Or what do we want to do with an extended internal rep?
+21:11:58 <pchampin> q?
+21:12:02 <phila_> gkellogg: Invites opinions
+21:12:29 <phila_> gkellogg: If we elect to go ahead and merge, we can still change it.
+21:12:43 <tanishio> tanishio has joined #json-ld
+21:13:12 <pchampin> PROPOSED: merge PR 78
+21:13:30 <TallTed> +1 merge #78 and iterate with smaller changes as needed
+21:13:31 <ghurlbot> https://github.com/json-ld/yaml-ld/pulls/78 -> Issue 78 Spec progress
+21:13:39 <gkellogg> +1
+21:14:01 <phila_> pchampin: Just to comment on bigbluehat's comment - yes, smaller PRs are better
+21:14:05 <bigbluehat> +0 still concerned about the $ prefix...but we can address that as a follow-up
+21:14:13 <TallTed> (this would be yaml-ld #78, not json-ld.org #78)
+21:14:19 <pchampin> +1
+21:14:21 <bigbluehat> https://github.com/json-ld/yaml-ld/pull/78
+21:14:29 <juuso-aut> +1
+21:14:30 <jeffwaters> jeffwaters has joined #json-ld
+21:14:32 <phila_> gkellogg: In general yes. Each small would be smaller. I apologise for the grand PR. Apologies to TallTed as there are so many lines to review
+21:14:56 <phila_> gkellogg: What is proposed here is already implemented in my distiller
+21:14:57 <pchampin> http://rdf.greggkellogg.net/distiller
+21:15:05 <phila_> ... my time is becoming more and more scarce
+21:15:12 <domel> +1
+21:15:38 <phila_> bigbluehat: We're for ever in your debt Gregg :-)
+21:15:47 <phila_> gkellogg: It provides a more fleshed-out spec
+21:15:55 <TallTed> soooooo much easier to do via github than via the old w3 wiki!
+21:16:05 <phila_> pchampin: This is will make it easier now that we have a lot of things put down for future dicusssion
+21:16:08 <pchampin> q?
+21:16:16 <phila_> bigbluehat: It means we have more to complain about
+21:16:16 <mkhraisha> +1
+21:16:19 <dlehn1> +1
+21:16:19 <mprorock> +1
+21:16:22 <manu> +1 to merge PR78
+21:16:24 <Timothe> +1
+21:17:00 <phila_> [Some discussion about who can vote in a CG]
+21:17:14 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+21:17:24 <pchampin> RESOLVED: merge PR 78
+21:17:36 <phila_> Topic: Issues
+21:18:59 <phila_> [Discussion of what to discuss]
+21:19:37 <pchampin> subtopic: https://github.com/json-ld/yaml-ld/issues/55
+21:19:40 <phila_> gkellogg: Wants to talk about @-keywords with $-keywords
+21:19:53 <phila_> gkellogg: Why not allow YAML to work with $? Was a suggestion
+21:20:16 <phila_> ivan: Why not use the € sign?
+21:20:20 <Timothe> €ontext
+21:20:37 <phila_> gkellogg: People have pointed out you don't really need to do this except for context
+21:21:03 <phila_> ... Benjamin went further and suggested no character was necessary
+21:21:39 <phila_> gkellogg: @ container can only be used within a context, and within a context defn, you can't use aliases
+21:22:05 <cel1> cel1 has joined #json-ld
+21:22:16 <phila_> ... However, schema.org ... one way of disposing of this issue is by suggesting that by publishing this context, under json-ld, simply use this context
+21:22:20 <manu> q+ to ask if this is really a huge issue? Most JSON-LD we're seeing aliases `@` keywords?
+21:22:24 <bigbluehat> 1+
+21:22:28 <bigbluehat> q+
+21:22:34 <phila_> ... You can't create a context in YAML-LD without quotes but that's a specific context
+21:22:36 <pchampin> ack manu
+21:22:37 <Zakim> manu, you wanted to ask if this is really a huge issue? Most JSON-LD we're seeing aliases `@` keywords?
+21:22:39 <phila_> ack manu
+21:22:52 <phila_> manu: I wonder whether this is a big issue
+21:22:52 <pchampin> q+
+21:23:13 <phila_> ... We talked about this in the JSON-LD WG. We started with $ but the jquery people didn't like that.
+21:23:22 <phila_> ... Mist things that we're seeing are aliasing id and type
+21:23:35 <phila_> ... schema.org is an exception, but even they alias id and type
+21:23:42 <phila_> ... So I'm not sure who is being impacted by this
+21:23:43 <gkellogg> gkellogg has joined #json-ld
+21:23:52 <phila_> ... It feels like it is not being driven by data
+21:24:16 <phila_> manu: My suggestion is that we don't do anything about this until someone tells us we need to.
+21:24:55 <phila_> manu: bigbluehat is always talking about a default context - that could be a processing instruction
+21:25:04 <phila_> gkellogg: No one's talking about a default context
+21:25:10 <pchampin> q?
+21:25:16 <phila_> manu: We should act if we have real data
+21:25:20 <pchampin> ack bigbluehat
+21:25:21 <phila_> bigbluehat: I agree with Manu
+21:25:36 <pchampin> q-
+21:25:49 <phila_> bigbluehat: I didn't want to see another prefix happen. I didn't want YAML-LD grow weird features
+21:25:52 <pchampin> q+
+21:26:47 <phila_> bigbluehat: ... I feel like this is a nuke to kill a chicken. It's not a big problem
+21:27:17 <phila_> bigbluehat: You can alias the main terns with or without a prefix to suit your use case - we can say that, to help avoid implementers coming up with their own ideas
+21:27:26 <pchampin> q?
+21:27:33 <phila_> [Apologies to bigbluehat I missed some of that]
+21:27:52 <phila_> gkellogg: This was proposed by members coming from YAML and were more identifying with the types of problems that YAML people face
+21:28:01 <phila_> ... IS there anyine here that can represente that position?
+21:28:07 <phila_> [crickets]
+21:28:15 <phila_> ack pchampin
+21:28:34 <phila_> pchampin: I'm on the side of people coming from JSON-LD, but if I can play devil's advocate...
+21:28:48 <phila_> ... I think the ambition is to open LD to other people who are not using it currently
+21:29:10 <phila_> pchampin: The initial idea was to have this magaic transformation from $ to  keywords
+21:29:17 <phila_> ... Some people prefer standard mechanisms
+21:29:48 <phila_> pchampin: From this start, we kept looking for something that was a different prefix that wasn't a prefix
+21:29:53 <phila_> ... I;m all for getting rid of the $
+21:30:04 <phila_> ... That works well in the data but not in the context
+21:30:11 <phila_> ... Newcomers will not write context
+21:30:27 <phila_> ... The people who do write contexts can handle the complexity of quoting stuff
+21:30:32 <pchampin> q?
+21:30:58 <phila_> gkellogg: I'll also point out that using YAML-LD does not mean that you're entirely in the YAML ecosystem. a YAML doc can reference a JSON-LD doc
+21:31:10 <phila_> ... with the YAML extensions, it would be possible to mix and match
+21:31:11 <bradley> bradley has joined #json-ld
+21:31:19 <phila_> ... take account of accept headers etc
+21:31:27 <phila_> gkellogg: I'd like to propose that we close issues 11 and 55
+21:31:38 <manu> +1 to close issues 11 and 55
+21:31:39 <phila_> ... perhaps consider them for a best practices doc
+21:31:47 <bigbluehat> q+
+21:31:47 <TallTed> +1
+21:31:50 <pchampin> https://github.com/json-ld/yaml-ld/issues/55
+21:31:52 <pchampin> https://github.com/json-ld/yaml-ld/issues/11
+21:32:04 <pchampin> ack bigbluehat
+21:32:11 <phila_> bigbluehat: Are we removing these items? I think the $ got merged in 78?
+21:32:27 <phila_> gkellogg: PR 78 doesn't include any $ signs
+21:32:32 <phila_> pchampin: I think there are in the examples
+21:32:45 <phila_> bigbluehat: As long as closure means removing
+21:32:59 <juuso-aut> +1
+21:33:03 <phila_> gkellogg: It means we're going to move on
+21:33:05 <bigbluehat> +1 to close "wontfix" (at least not now ;))
+21:33:08 <bigbluehat> https://github.com/json-ld/convenience-context
+21:33:16 <Timothe> +1
+21:33:17 <pchampin> PROPOSED: close issues 11 and 55 as "won't fix"
+21:33:22 <bigbluehat> +1
+21:33:23 <gkellogg> +1
+21:33:24 <pchampin> +1
+21:33:24 <phila_> [discussion of we're resolving]
+21:33:29 <dlehn1> +1
+21:33:29 <Timothe> +1
+21:33:31 <juuso-aut> +1
+21:33:31 <mkhraisha> +1
+21:33:32 <TallTed> +1
+21:33:35 <anatoly-scherbakov> +1
+21:33:39 <ivan> +1
+21:33:46 <bradley> bradley has left #json-ld
+21:33:51 <cel> +1
+21:33:57 <pchampin> RESOLVED: close issues 11 and 55 as "won't fix"
+21:34:17 <phila_> gkellogg: As for the convenience context we can revisit that when we come to the best practice
+21:34:26 <phila_> Topic: Conformance tests
+21:34:42 <pchampin> https://github.com/json-ld/yaml-ld/issues/20
+21:34:59 <phila_> gkellogg: We don't have any! One suggestion was to re-create the JSON-LD tests for YAMl-LD. I think that would be be overkill
+21:35:06 <phila_> gkellogg: We do need conformance tests
+21:35:20 <phila_> ... Having set up a basic direction, I think we can use basic conformance tests
+21:35:27 <phila_> ... And encourage more implementations
+21:35:40 <phila_> ... I'd love to see json-ld.js used as a basis for YAML-LD
+21:35:55 <phila_> ... So issue 20 is a call for contributions
+21:36:13 <pchampin> q?
+21:36:14 <phila_> gkellogg: I can put forward the basic infrastructure but it tends to be a lot of fiddly work creating hte inputs and outputs
+21:36:37 <phila_> subtopic: https://github.com/json-ld/yaml-ld/issues/20
+21:36:39 <pchampin> https://github.com/json-ld/yaml-ld/issues/42
+21:36:47 <phila_> subtopic: https://github.com/json-ld/yaml-ld/issues/42
+21:36:56 <phila_> [Apologies for mess]
+21:37:07 <phila_> gkellogg: My proposal is that we close this as being out of scope
+21:37:35 <phila_> ... It's about how many spaces to leave off, etc. These are things that serialisers define for me
+21:37:41 <phila_> ivan: These are religious discussions
+21:37:54 <phila_> gkellogg: Should we have some way of representing how it might be serialised?
+21:38:03 <phila_> ... YAML has more capabilities, meta tags etc.
+21:38:11 <phila_> ... I don't think it's a duty of this group
+21:38:19 <pchampin> q+
+21:38:26 <phila_> ack pchampin
+21:38:46 <phila_> pchampin: The same kind of question could be asked of JSON. Has it ever been raised?
+21:38:54 <phila_> gkellogg: Only in canonicalization
+21:38:58 <pchampin> ack pchampin
+21:39:02 <phila_> ivan: That has a clear reason, yes
+21:39:17 <phila_> ivan: But I don't remember this being discussed in the JSON-LD list
+21:39:32 <phila_> pchampin: The RFC for c14n of JSON is about JSON, not JSON-LD
+21:40:02 <phila_> gkellogg: My proposal is that we close this as being out of scope
+21:40:07 <pchampin> PROPOSED: close issue 42 as out of scope
+21:40:09 <pchampin> +1
+21:40:12 <TallTed> +1
+21:40:14 <gkellogg> +1
+21:40:16 <juuso-aut> +1
+21:40:19 <Timothe> +1
+21:40:19 <ivan> +1
+21:40:22 <bigbluehat> +1
+21:40:27 <dlehn1> +1
+21:40:29 <domel> +1
+21:40:51 <pchampin> RESOLVED: close issue 42 as out of scope
+21:41:06 <phila_> subtopic: https://github.com/json-ld/yaml-ld/issues/54
+21:41:21 <phila_> gkellogg: This involved melding JSON schema with contexts
+21:41:44 <manu> q+
+21:41:44 <pchampin> q?
+21:41:45 <phila_> ... There has been some desire to use context as a schema [paraphrase]
+21:41:52 <phila_> ack manu
+21:41:58 <pchampin> ack manu
+21:42:03 <phila_> manu: Every time we've discussed this, we've decided to keep them separate
+21:42:28 <ivan> q+
+21:42:31 <phila_> ... We don't want to commit to a schema language. There are different schema languages for different serialisations
+21:43:20 <phila_> manu: In the JSON-LD world, even though schema and context play nicely together, I worry about other shape languages and if we commit to using schema for context, we might get into trouble
+21:43:25 <pchampin> q+
+21:43:28 <phila_> ... So I don't see an argument for mergig the two
+21:43:31 <phila_> ack ivan
+21:43:34 <pchampin> ack ivan
+21:43:37 <bigbluehat> q+ to ask that we stay the simple(r) course :)
+21:44:07 <phila_> ivan: I may be out of touch by now but the problem I have with JSON schema is that it's not stable. We offered those folks a W3C WG if they're ready.
+21:44:27 <phila_> ... We were turned down as they were on version 7, and from one version to another they may not keep interop
+21:44:38 <pchampin> q-
+21:44:42 <phila_> ... It's not a stable partner so we can't use it normatively
+21:44:56 <gkellogg> q?
+21:45:02 <Kristina> Kristina has joined #json-ld
+21:45:06 <phila_> ack bigbluehat
+21:45:06 <Zakim> bigbluehat, you wanted to ask that we stay the simple(r) course :)
+21:45:11 <pchampin> ack bigbluehat
+21:45:16 <Orie> There is also OAS, which builds on JSON Schema and defines APIs.... very useful.
+21:45:46 <phila_> bigbluehat: I would echo the same things. It seems to be a recurring problem with YAML-LD. All these weird appendages that seems to scrape in other issues
+21:46:02 <Orie> +1 to JSON Schema / OAS / YAML stuff being its own spec, not directly related to YAML-LD
+21:46:04 <phila_> ... It might be cool, but it would be its own spec and not part f YAML
+21:46:22 <Orie> we'll keep using JSON Schema as it is... its working for us.
+21:46:27 <phila_> bigbluehat: There would be high hills to climb through JSON-schema's lack of stability (not for lack of interest)
+21:46:47 <phila_> bigbluehat: It's not YAML-LD related as such
+21:46:50 <Orie> +1 to embedding LD in OAS not being YAML-LD related.
+21:46:52 <gkellogg> q+
+21:46:58 <phila_> ack g
+21:47:19 <phila_> gkellogg: I'd say that we should close this as being out of scope
+21:47:33 <ivan> q+
+21:47:38 <phila_> ... schemas are closely related to JSON-LD. If there were a subgroup that wanted to pursue this, OK, we can create the repos
+21:47:50 <gkellogg> ack ivan
+21:48:35 <phila_> ivan: I'd have the more fundamental proposition. It comes back to the misconception - when people look at an RDF vocab, they see it as a constraint. It's not, it's a licence to infer
+21:48:41 <pchampin> q+
+21:48:48 <phila_> ... A context is a mapping from JSOn to the RDF
+21:48:50 <Orie> I'm happy to continue to merge JSON Schema + JSON-LD in CG work :) ... as I said, its been working fine for what we are doing.
+21:49:10 <phila_> ... That's very different than a schema language that constrains what is and isn't valid.
+21:49:33 <manu> +1 to what Ivan is saying
+21:49:36 <phila_> ivan: So even if schema were stable, it's not the right choice as it mixes up vocabs and context. Not the same
+21:49:36 <pchampin> q?
+21:49:40 <Timothe> +1 totally agree with that
+21:49:40 <phila_> ack p
+21:49:45 <gkellogg> q?
+21:49:50 <mprorock> mprorock has joined #json-ld
+21:49:59 <phila_> pchampin: Big +1 that this has noting to do with YAML-LD
+21:50:21 <phila_> ... but I must disagree with what Ivan said. There is indeed a misconception of what RDFS etc. do
+21:50:33 <phila_> ... this misconception has been reduced now that we have SHACL/ShEx
+21:50:50 <phila_> ... we do agree that JSON-LD contexts are not vocabs
+21:51:11 <Orie> +1 to comfort defining vocabs though schemas... thats what we do.
+21:51:22 <Orie> but thats not what YAML-LD is about...
+21:51:26 <mprorock> +1 orie
+21:51:33 <Orie> it might be what OAS-LD would be about...
+21:51:39 <manu> q+ to note that people do find defining things using JSON Schema.
+21:51:45 <phila_> pchampin: It so happens that people are more comfortable sharing a voc as a constraint. I don't thnik there's a probem to map ...
+21:51:46 <manu> q+ to note that people do find defining things using JSON Schema useful
+21:51:48 <manu> q-
+21:51:51 <manu> q+ to note that people do find defining things using JSON Schema useful.
+21:52:22 <Orie> See also - https://blog.spruceid.com/introducing-treeldr-a-canopy-across-your-data-schemas/
+21:52:27 <phila_> ivan: That's not what I said. Is it possible to combine a JSON schema with SHACL? I'm not sure. Trying to combine those is likely to be difficult.
+21:52:49 <manu> q?
+21:52:49 <gkellogg> q?
+21:52:49 <phila_> ivan: They sort of do the same thing - setting up constraints. But that's not the same as a JSON-LD context
+21:52:56 <phila_> pchampin: I agree with that
+21:53:18 <phila_> pchampin: The value I see in trying to bring together JSON schema and JSON-LD context - JSON schemas are used to define shared vocabs.
+21:53:43 <phila_> pchampin: On the WEb, those terms can have an IRI. They may not be considered an RDF voc, there's low hanging fruit there
+21:53:57 <pchampin> q?
+21:54:00 <phila_> pchampin: It could make it easier for people to adopt JSON-LD
+21:54:00 <mprorock> +1
+21:54:03 <pchampin> ack manu
+21:54:03 <Zakim> manu, you wanted to note that people do find defining things using JSON Schema useful.
+21:54:03 <phila_> ack manu
+21:54:10 <mprorock> q+
+21:54:33 <phila_> manu: I want to agree with PA - this keeps coming up. The traceability folks have created the ability to take a schema and use that as a context
+21:54:38 <Orie> example: https://w3c-ccg.github.io/traceability-vocab/openapi/components/schemas/credentials/BillOfLadingCertificate.yml ... --> ... https://github.com/w3c-ccg/traceability-vocab/blob/gh-pages/contexts/traceability-v1.jsonld#L250
+21:54:40 <phila_> ... I think we're going to keep seeing it
+21:55:00 <phila_> manu: We are seeing a pattern where people want to create a shape along with a JSON-LD context
+21:55:16 <phila_> manu: It's a large discussion than just YAML-LD. It's an ecosystem discussion
+21:55:29 <Orie> And for humans: https://w3id.org/traceability#BillOfLadingCertificate
+21:55:34 <phila_> manu: This is for the broader LC community
+21:55:46 <phila_> ack mprorock
+21:56:23 <phila_> mprorock: I think it is a broader ecosystem need. VCs using JSON-LD makes sense, but there's a need to constrain what the VC can contain
+21:56:35 <phila_> q+ phila
+21:56:43 <pchampin> scribe+
+21:56:54 <gkellogg> ack phila_
+21:57:05 <gkellogg> ack phila
+21:57:08 <pchampin> phila_: one other thing that might come up in RCH is canonicalization against a shape
+21:57:36 <pchampin> ... take some data and some shape, and output a canonical form that excludes anything that's not in the shape
+21:57:53 <gkellogg> q+
+21:58:05 <pchampin> scribe-
+21:58:06 <phila_> gkellogg: This sounds like framing
+21:58:17 <phila_> gkellogg: Maybe there's something adjacent to framing that can be used
+21:58:32 <phila_> ... Might be useful for output formatting
+21:58:41 <phila_> ... How do I order the properties of an object etc.
+21:58:55 <phila_> gkellogg: JSON objects are unordered
+21:59:08 <phila_> ... Lots of discussions about this
+21:59:09 <kristina> kristina has joined #json-ld
+21:59:25 <pchampin> q?
+21:59:29 <pchampin> ack gkellogg
+21:59:44 <phila_> gkellogg: I don't think there's any action we can take on this issue, except to point back to this conversation for future ferernce
+21:59:52 <Orie> I feel like we have confirmed that "JSON Schema" and "OAS" are not related to YAML-LD.
+22:00:05 <phila_> pchampin: There's a comment from Orie that this is not a YAML issue specifically.
+22:00:06 <cel> s/ferernce/reference/
+22:00:32 <manu> scribe+
+22:01:10 <manu> Topic: Issue 63 - YAML Streams and JSON Sequences
+22:01:20 <pchampin> https://github.com/json-ld/yaml-ld/issues/63
+22:01:40 <manu> gkellogg: Touched on this earlier, JSON-LD doesn't have concept of multiple documents. How did we deal w/ YAML streams? Treat each document in there as its own JSON-LD document and process accordingly.
+22:02:28 <manu> gkellogg: JSON-LD defined as API, might need sequences API calls and recompose  possibly, YAML-LD, compact things in stream, do them in sequence? Seems that this needs to bounce back up to JSON-LD. Is there an analog?
+22:02:33 <pchampin> q+
+22:02:36 <bigbluehat> q+
+22:03:03 <manu> pchampin: My concern regarding that, I can see a number of use caess, sensor use case earlier.
+22:03:19 <pchampin> ack pchampin
+22:03:21 <manu> pchampin: I'm not sure if we can come up with a unique way of dealing with those things. That might be just a lack of imagination.
+22:03:29 <pchampin> ack bigbluehat
+22:04:15 <manu> bigbluehat: Yes, would like to see this happen, not expressly YAML related... YAML's origin is out of mime documents and email containers, where you were sending a bundle that was all inerrelated. First document was foundational, other documents were attachments.
+22:05:25 <anatoly-scherbakov> Thank you very much all, I will unfortunately have to leave. It was quite interesting to participate, thank you again!
+22:05:28 <manu> bigbluehat: Newline deliminated JSON and JSON -- server sent events, event notifications, JSON - what's coming next... YAML multidoc is understood as a unit together. Context documents being sent together in stream. For most newline deliminted JSON, interesting things to explore here, what's been done for Link header for example on bare JSON documents.
+22:05:42 <pchampin> YAML streams in the YAML spec: https://yaml.org/spec/1.2.2/#92-streams
+22:06:23 <manu> bigbluehat: For example, if you start w/ context, maybe that context applies to everything in the stream. Where should these happen, where shouldn't they happen, this isn't only about YAML.
+22:06:25 <pchampin> q?
+22:06:25 <gkellogg> q+
+22:06:32 <gkellogg> ack g
+22:07:20 <manu> gkellogg: There is a broader concept of LD streams, could have applications in JSON-LD, fits in nicely with YAML... but why not other formats, why not NTriple streams? One could argue that NTriples are another multidocument mechanism since all statements stand on their own.
+22:09:02 <manu> gkellogg: There might be a notion of stream documents, each element of stream could have its own format. Does each have its own location? Even though this issue isn't about YAML streams, it begs for additional work for LD Streams and until that happens, with regard to this issue... there are two ways forward, 1) YAML-LD is only defined for streams in a single document, or 2) YAML-LD streams are treated the way multiple script elements are treated,
+22:09:02 <manu> that algorithm creates an array, merges content to it, that's the only way you can really do this until something bigger/better happens.
+22:09:05 <gkellogg> q?
+22:09:16 <manu> phila: Linked Data fragments was similar.
+22:09:35 <manu> gkellogg: Yes, it was, had more to do with SPARQL querying...
+22:09:41 <bigbluehat> https://linkeddatafragments.org/
+22:10:02 <bigbluehat> https://www.w3.org/TR/json-ld11-streaming/
+22:10:15 <manu> gkellogg: There was work done on JSON-LD streaming, but specifically took into consideration open pipe on which you were continuously interpreting.
+22:10:29 <manu> gkellogg: These are all references that should be considered.
+22:10:52 <pchampin> q?
+22:11:10 <manu> gkellogg: We can leave this for a future meeting noting this discussion.
+22:11:10 <bigbluehat> JSON-LD Streaming note was about parsing a *single* JSON documents as it was streamed into the parser (which is very different than a stream of individual JSON-LD docs)--just to clarify relationships.
+22:11:43 <manu> Topic: YAML-LD Datatypes
+22:11:46 <pchampin> https://github.com/json-ld/yaml-ld/issues/17
+22:12:23 <pchampin> https://github.com/json-ld/yaml-ld/issues/79
+22:12:24 <manu> gkellogg: We were running against issues w/ existing YAML-LD tool set. Notion of having IRI tags, might be dealt with term within YAML namespace, interpret item as IRI, scalars treated as literals.
+22:12:48 <manu> gkellogg: This is of less use given short syntax to create node reference, doesn't buy us much more than that.
+22:13:11 <manu> gkellogg: we might be able to define a regex to refer to values, first time validation ... value interpreting as IRI.
+22:13:11 <mprorock_> mprorock_ has joined #json-ld
+22:13:14 <pchampin> https://github.com/json-ld/yaml-ld/issues/83
+22:13:19 <gkellogg> q?
+22:14:01 <manu> Topic: YAML-LD Primer
+22:14:22 <pchampin> https://github.com/json-ld/yaml-ld/issues/81
+22:15:17 <manu> gkellogg: There seems to be a desire to not over burden the specification with extra language, desire for Primer -- We will create a  yamlld-primer, and yamlld-bp for best practices, We can then focus on each one.
+22:15:45 <manu> ivan: We are fighting in another group to try and figure out a way to do multi-publilcation, let's not bring that here.
+22:16:04 <manu> q+
+22:16:19 <manu> gkellogg: Does anyone have anything specific they'd like to have in a primer?
+22:16:25 <manu> gkellogg: Convenience contexts?
+22:16:25 <gkellogg> ack manu
+22:16:29 <gkellogg> scribe+
+22:16:49 <gkellogg> manu: I'd argue against a Primer. I'm not sure if we have data on how much they're read.
+22:17:13 <pchampin> scribe+
+22:17:22 <gkellogg> ... If people want to know about it, they typically look at the spec, or Best Practices.
+22:17:30 <phila> q?
+22:17:30 <pchampin> manu: I don't know how often people read primers
+22:17:39 <ivan> q+
+22:17:46 <gkellogg> ... I'm not sure we have enough data to validate the effort needed to do this work. Instead, keep it in the spec.
+22:17:58 <pchampin> ... That content might be more useful at the begining of the document
+22:18:13 <pchampin> ack ivan
+22:18:23 <gkellogg> ... If you can't explain it in three n pages, then you probably haven't done a good enough job.
+22:18:27 <gkellogg> scribe-
+22:18:35 <pchampin> scribe-
+22:18:35 <mprorock_> q+
+22:19:17 <manu> iherman: The OWL Primer was well received, but it was difficult work to boil those concepts down. There are cases where it works.
+22:19:27 <phila> q+
+22:19:52 <manu> iherman: We are heading for a case where VCs will be several specifications, that might be a place where a Primer might work well. OWN is complex because there are 2-3 core specifications plus a bunch of additional things.
+22:20:29 <manu> iherman: In this case, maybe it's not the case, YAML-LD might only need to be one specification. Then it becomes a matter of personal style.
+22:20:35 <gkellogg> q+ to disuss the value of json-ld.org and maybe yaml-ld.org
+22:20:41 <gkellogg> ack manu
+22:20:43 <pchampin> ack mprorock_
+22:20:47 <gkellogg> q= manu
+22:20:51 <gkellogg> ack mprorock_
+22:21:40 <manu> mprorock: Something inbetween, what is the audience, there is normal webdev folks, the other side is broader linked data developer... when you're coming in from normal enterprise stuff and they come into this, we've gota figure out how to bridge this concepts back here... there is not another resource to introduce people to this.
+22:22:04 <pchampin> q+
+22:22:09 <manu> mprorock: Who is the Primer for? Normal webdev folks for HTML end user facing content... vs. low level developers using this stuff.
+22:22:19 <pchampin> ack phila
+22:23:21 <manu> phila: The first W3C spec I read was the RDF primer, which help me understood RDF... suggestion might be, with YAML-LD, could add to RDF 1.1 primer, there is a whole ecosystem here, LD always needs primers... why would you do this? Why is it better?
+22:23:51 <manu> mprorock: Yes, especially for people that were not around in the beginning, dealing with a new breed of developers learning Python/Java... they don't have the context, they don't even know what IRC is.
+22:23:56 <pchampin> q?
+22:23:58 <gkellogg> q?
+22:25:00 <manu> iherman: One thing I like in the OWL primer, how has the nice feature for 5 serializations of same concept, not all of them are RDF specific, but what they did is same trick as VC spec, you can choose which syntax you want to see... having Linked Data primer which puts together YAML/JSON-LD for example, can choose and compare like in the VC spec.
+22:25:26 <manu> iherman: I think that's very helpful, not to do a YAML primer, but a Linked Data for the masses primer, that would make a lot of sense.
+22:26:08 <manu> gkellogg: We need to come back to json-ld.org, its easy to add resources to there, the playground is invaluable, thank you Dave Lehn for keeping this thing going.
+22:26:19 <manu> gkellogg: The efforts are appreciated.
+22:27:20 <manu> gkellogg: Should we have yaml-ld.org domain? Could have it's own fork of JSON-LD Playground... some of upcoming work on playground might make it more suitable to do that... basic profile of YAML, to get that into something that works w/ jsonld.js -- given there's only so much developer time, having online resources might be better use of our time.
+22:27:21 <pchampin> q?
+22:27:21 <gkellogg> q?
+22:27:24 <manu> ack gkellogg
+22:27:24 <Zakim> gkellogg, you wanted to disuss the value of json-ld.org and maybe yaml-ld.org
+22:27:43 <gkellogg> ack pchampin
+22:28:51 <manu> pchampin: Reconsider if we can put the thig in the front of the spec, unless there is a large amount of specs... we should consider the audience. It was pointed out how JSON-LD was deliberately made easy for end users even if it's more complex for developers. There are different parts of the spec, more for end user, JSON-LD API is more for end developers... that's one thing we should sconsider, Primer could address different audnece thatn spec itself.
+22:28:52 <pchampin> q?
+22:29:05 <manu> gkellogg: These things are solved by people that step forward to do the work.
+22:29:14 <cel> s/sconsider/consider/
+22:29:14 <manu> rrsagent, draft minutes
+22:29:14 <RRSAgent> I have made the request to generate https://www.w3.org/2022/09/12-json-ld-minutes.html manu
+22:48:22 <ivan_> ivan_ has joined #json-ld
+23:02:49 <phila> phila has joined #json-ld
+23:04:46 <cel> scribe+
+23:04:46 <cel> topic: JSON-LD-star
+23:05:49 <cel> pchampin: RDF* is an extention of RDF
+23:06:02 <gkellogg> s/RDF*/RDF-star/
+23:06:11 <cel> ... An RDF-star working group has been created; goal to integrate changes into the RDF specification
+23:06:20 <cel> ... A CG report has been published by the RDF-dev WG
+23:06:24 <cel> s/WG/CG/
+23:06:51 <cel> ... In order to support this, Greg and I have started working on JSON-LD-STAR
+23:07:02 <cel> ... Embedded nodes: a special node object representing a quoted triple
+23:07:20 <cel> ... You could state a triple whose subject or object is another triple
+23:07:42 <cel> ... Important to understand is that the statement is not "endorsed" by the subject
+23:08:02 <cel> ... In JSON, we allow the value for @id to be an object
+23:08:18 <cel> ... The rest is JSON-LD as usual
+23:08:46 <cel> ... The object of belief is this node object [looking at example]
+23:09:06 <cel> ... Triple-STAR... want to be able to both assert a triple in your graph, and also quote it as a subject of another triple
+23:09:23 <cel> ... Example: "Alice is working for ACME" ["Annotation syntax" slide]
+23:09:28 <cel> ... I want to say something about that fact
+23:09:49 <cel> ... that it's true since 2019, and the role is seniorManager
+23:10:16 <cel> ... In Turtle-STAR we could represent this with three triples in a row... This syntax here is more convenient
+23:10:35 <cel> ... New @annotation keyword - we decided to put in the object of the annotated triple
+23:11:11 <cel> ... Up to this point "@id": "#acme"... it's JSON-LD as usual. Then "@annotation": {... - this is a quoted triple generated from above
+23:11:37 <cel> ... It could be called metadata
+23:11:51 <cel> ... Property Graph model...
+23:12:03 <cel> ... Given the appropriate content, NGSI could be interpreted as RDF-STAR
+23:12:29 <cel> phila: If I have another triple, i.e. working for ACME, does the annotation apply to both?
+23:12:34 <cel> pchampin: No, only to one
+23:12:39 <cel> phila: But I could make another?
+23:12:43 <kdeangs1> q+
+23:12:47 <cel> pchampin: You would put it in another block
+23:13:04 <cel> ... If you want to annotate triples for the same thing, it has to be repeated. We kept that for RDF-STAR
+23:13:12 <cel> ... RDF-STAR is about talking about individual triples
+23:13:33 <cel> ... Arguably if you have the same annotation for multiple triples, what you are trying to do is annotate a graph, which is not in scope
+23:13:48 <cel> ... Some say RDF should be able to annotate whole graphs rather than individual triples
+23:13:54 <cel> gkellogg: that's more what Annotation 3 does
+23:13:58 <cel> pchampin: yes
+23:14:06 <cel> gkellogg: Key is you have annotations applying to a relationship
+23:14:13 <cel> ... You can have as many things as you want in that annotation
+23:14:16 <bigbluehat> s/Annotation 3/Notation 3
+23:14:24 <cel> ...  You can have other things in the object, but they are not related to that particular annotation
+23:14:42 <cel> ... You could say working for ACME Corporation - that would be fine - but the annotation only applies to that relationship
+23:14:57 <gkellogg> q?
+23:15:22 <ivan_> q+
+23:15:29 <cel> KevinDean: annotation applies to the predicate of workingFor... although you could join them together to make a complete statement, the ACME as a subsidiary is separate
+23:15:34 <gkellogg> ack kdeangs1
+23:15:40 <gkellogg> ack kdeangs
+23:15:42 <cel> Mahmoud: Are there limits on what you can put on an annotation?
+23:15:52 <cel> s/KevinDean/kdeangs1/
+23:16:03 <cel> phila: Yes... the only thing you can't do here is to put an id
+23:16:11 <cel> s/phila/Pierre-Antoine/
+23:16:17 <cel> ... The subject is the quoted triple.
+23:16:23 <cel> ... Except for that, we don't put any limit on it
+23:16:32 <cel> gkellogg: Yes, in fact annotations can have annotations.
+23:16:42 <Timothe> q+
+23:16:44 <cel> Pierre-Antoine: Annotations on annotations, like in Turtle-STARR
+23:16:47 <gkellogg> ack ivan_
+23:17:02 <mkhraisha> mkhraisha has joined #json-ld
+23:17:19 <cel> ivan_: More an RDF-STAR question than JSON-LD-STAR: In this case, are all the statements there valid RDF statements?
+23:17:38 <cel> ... Previously you said "Bob is a genius" - this is not asserted; in this case, everything is asserted?
+23:17:49 <cel> pchampin: Right. Annotations are useful when a quoted triple in the subject position is also asserted
+23:18:16 <cel> ... Basically you don't want to repeat it; since you write it once to assert it, it seems natural to add those annotations after that, without having to repeat that statement in double-brackets
+23:18:23 <cel> gkellogg: It's only when the quoted triple is in...
+23:18:27 <cel> pchampin: subject position.
+23:19:09 <cel> gkellogg: If this was to be expanded out... You could have a quoted triple in the subject or in the object. In Turtle it only works in the object...? Is it symmetric in turtle-star?
+23:19:19 <cel> ... The triple has to be asserted, and has to be in the appropriate position?
+23:19:27 <cel> pchampin: Yes, same as in Turtle
+23:19:36 <cel> ... "Alice is working for ACME" ... "since 2019"
+23:20:08 <TallTed> This will almost certainly be more easily comprehended by explaining via Turtle-star notation, and then presenting comparable JSON-LD-star.
+23:20:13 <cel> ivan_: We began to discuss this yesterday. If the whole thing there is part of a named graph, that means that all the asserted triples, and the annotation triples, are all part of a named graph
+23:20:15 <cel> pchampin: right
+23:20:22 <TallTed> q+
+23:20:33 <cel> ivan_: Is it possible to make annotation of a triple part of a node graph, where the annotations themselves are not part of the named graph?
+23:20:38 <gkellogg> q?
+23:20:58 <cel> pchampin: To segregate them, no... then you would have to use the embedded node representation
+23:21:09 <cel> ... in Trig-Star, the annotations only work within a given node graph
+23:21:22 <cel> ... Maybe there is a way in JSON-LD-STAR, i don't know
+23:21:38 <cel> ivan_: I ask because in VCs, people wanted to put additional metadata into a VC structure
+23:21:55 <cel> ... A problem is that we have a strict separation of a graph that gets hashed and signed, and annotations that may or may not be part of the graph
+23:22:04 <cel> ... We want to use them as metadata that should not influence the signature
+23:22:26 <cel> ... That is the case we have here, to put annotations on the graph without them being in the graph (and therefore interfering with the security)
+23:22:32 <cel> ... Worth keeping an eye on
+23:22:43 <cel> pchampin: Very interesting use case; please submit an issue!
+23:22:51 <gkellogg> ack Timothe
+23:23:32 <cel> Timothe: I don't understand why you can't put an id on an annotation. Is it something to do with circular statements?
+23:23:34 <manu> q+
+23:24:05 <cel> gkellogg: The subject of an annotation is the triple. If you put an id on there, it would no longer be an annotation on that triple, it would be on that particular id; that is why it's not alloewd
+23:24:14 <cel> Timothe: I would understand it as an id for the triple itself
+23:24:17 <manu> q+ to note that the way we made statements about a graph is to use the @graph syntax... concerned about the interplay here, might be conceptually difficult
+23:24:26 <cel> ... If you oculd put an id on the triple, you could talk aobut statements...
+23:24:37 <gkellogg> q?
+23:24:47 <gkellogg> ack TallTed
+23:24:50 <cel> TallTed: You can do that, but not using RDF-STAR. This is a new thing; shortcuts for a few things that does not necessarily replace the things we've already been using for 10-15 years now
+23:25:11 <cel> ... A few things, fairly confusing to people... 1 is that JSON, no matter how you use it, is a tangled syntax, difficult to read straight off-the-bad
+23:25:24 <cel> ... Also using RDF-STAR makes it more complicated
+23:25:25 <betehess> betehess has joined #json-ld
+23:25:35 <cel> ... I suggest first present it as Turtle-STAR.
+23:25:49 <cel> ... Then the comparable JSON-LD-STAR could be presented
+23:26:03 <cel> ... [points out error in slide about seniorManager/seniorDeveloper]
+23:26:05 <gkellogg> ack manu
+23:26:05 <Zakim> manu, you wanted to note that the way we made statements about a graph is to use the @graph syntax... concerned about the interplay here, might be conceptually difficult
+23:26:07 <cel> pchampin: Thanks
+23:26:19 <cel> manu: I'm concerned about the syntax in general, but specifically around verifiable credentials
+23:26:34 <cel> ... The graph annotation has been a touchy subject around VCs. difficult to get the group to understand the most basic graph annotation
+23:26:42 <cel> ... This could throw a bomb into people's understanding of verifiable credentials
+23:26:52 <cel> ... I understand this could get us there faster, just not sure about choosing to use it
+23:26:59 <cel> ... If we're concerned about lone developers understanding it.
+23:27:05 <cel> ... Trying to keep to a simpler syntax.
+23:27:09 <cel> s/oculd/could/
+23:27:31 <cel> ... We may want to see if we could use this in a VC; get feedback from that group, to see if it makes things easier to reason about
+23:27:50 <cel> gkellogg: This could be data that could be signed by a credential. Can a credential sign an RDF-STAR graph?
+23:28:07 <cel> ... Would there be some use in using JSON-LD-STAR/RDF-STAR in the credential itself, like in an annotation?
+23:28:35 <cel> ... Typically I think in VCs you have an object where something's value is a graph, and the other statements are about that graph. That's not an RDF distinction, although JSON-LD makes it conveniently happen.
+23:28:45 <cel> ... Is there a way to use this to clean that up? I don't think so, because this is about triples, not graphs.
+23:28:53 <manu> q+
+23:29:06 <gkellogg> q?
+23:29:09 <cel> ... But I think that would be a useful thing to explore, in some group, maybe it would be in RDF-STAR's mandate to consider that, as already out there in the wild
+23:29:12 <TallTed> "Unnamed Named Graphs" a/k/a "Blank Graphs"
+23:29:25 <cel> ivan_: Problem we might have process-wise; by the time we need a normative reference to these things, it might not be there yet
+23:29:41 <cel> ... So we have a problem in the sync of the work. We have a schedule on the RCH WG
+23:30:03 <gkellogg> ack manu
+23:30:05 <cel> ... I'm a little worried as a staff contact about bringing in RDF-STAR and JSON-LD-STAR into the picture with normative references, that becomes a bit difficult
+23:30:06 <phila> q+
+23:30:11 <cel> manu: Certainly we don't want to do that for VC 2.0
+23:30:23 <cel> ... But a use case to consider; if something blows up, it's a clear sign something is not right
+23:30:36 <cel> ... A VC has effectively 3 graphs: the graph of the credential subject, of the credential itself, and of the proof.
+23:31:14 <cel> ... You could argue that some of them are annotations... A proof block could be viewed as an annotation of the main graph.  That's a complex enough use case, with broad use, that could show if on the right path
+23:31:20 <cel> ... All the complexity is hidden
+23:31:20 <gkellogg> q?
+23:31:22 <gkellogg> ack phila
+23:31:24 <cel> ivan_: That may be a problem
+23:31:38 <cel> phila: trying to understand having an annotation on a credential
+23:31:45 <cel> ... A credential says "this thing is true"...
+23:31:58 <cel> ... You can't stop people from writing gibberish. I could see a case that credentials would say "no annotations"
+23:32:04 <cel> manu: Yes, it would just confuse people
+23:32:08 <cel> ivan_: We had issues raising that
+23:32:29 <cel> gkellogg: Canonical example: Louis Clark believes Superman can fly. Is that something you could sign if expressed in RDF-STAR?
+23:32:38 <cel> manu: You could express it today as a verifiable credential
+23:32:44 <cel> gkellogg: But can't claim fact...
+23:32:56 <cel> manu: VCs are just statements
+23:33:05 <gkellogg> q?
+23:33:06 <cel> gkellogg: That's the issue...
+23:33:40 <cel> TallTed: We know that stuff said in a quoted triple... It's a black box; even though it looks like RDF, not really. Until it's asserted. Then it becomes something you can reason over. Makes sense?
+23:33:43 <cel> manu: No
+23:33:53 <cel> TallTed: Trying again. Triple "Alice is working for ACME"
+23:34:07 <cel> ... Annotation syntax: first we assert it, then annotate with info about the role and year
+23:34:28 <cel> ... If we use the quoted syntax instead... We have a triple that says "Bob is a genius". That is a quotation, not a statement
+23:34:40 <phila> q+ to tale about embedded node
+23:34:43 <cel> ... Alice believes Bob is a Genius. We don't know if that is true... Just that Alice believes something
+23:35:04 <cel> pchampin: We know it, because those are the terms in the triple, but we don't really care. It's just a triple, that has those things
+23:35:19 <cel> TallTed: If you treat that as a subject-predicat-object triple, it fits into the data model
+23:35:27 <cel> ... You can use named graphs to get around this in some ways
+23:35:34 <cel> pchampin: I see your point
+23:35:46 <phila> q-
+23:35:46 <cel> gkellogg: We have a whole working group for RDF-STAR; I encourage participation in that.
+23:35:58 <cel> ... This topic was allocated 15 minutes; we've spent 35
+23:36:23 <cel> pchampin: Use cases such as the VC one... Issues could be opened.
+23:36:35 <cel> ivan_: I didn't realize, I thought JSON-LD-STAR was on the charter of the JSON-LD WG
+23:36:45 <cel> gkellogg: JSON-LD was an ongoing WG...
+23:36:51 <cel> ivan_: We could put it in the charter...?
+23:37:01 <TallTed> here be dragons!
+23:37:08 <cel> pchampin: That could work
+23:37:34 <cel> phila: I think thinking will be clearer if you have a non-subjective triple
+23:37:41 <cel> ... "This box is red"
+23:38:02 <cel> pchampin: Alice's belief that the box is red
+23:38:21 <kristina> kristina has joined #json-ld
+23:38:23 <cel> gkellogg: The ramifications of JSON-LD 1.1 being out there... One concern which goes back to the core WG work...
+23:38:24 <TallTed> sure.  `Alice said, "Bob is a genius."` or `Alice said, "Bob has a 250 IQ."`
+23:39:01 <bigbluehat> q+
+23:39:13 <cel> ... The cost and signalling that happens, in this case... Potentially every access to something which uses JSON-LD, going to fetch the context, even though we have many descriptions about caching and reducing that, we did not put anything in overtly to limit that other than suggestions of how to overcome that
+23:39:14 <phila> (aside, what I tried to say is that it's the 'believes' predicate that's the problem, not the annotation)
+23:39:19 <cel> ... An ongoing issue that may need some resolution
+23:39:25 <cel> ... [JSON-LD 1.1 slide]
+23:39:28 <manu> q+
+23:39:34 <cel> ... Hash links could help
+23:40:09 <bigbluehat> https://twitter.com/danbri/status/1560188981568061442
+23:40:28 <TallTed> (re aside -- Yes. Hence my changing from "believes" to "stated." Which is actually the formulation I used months ago, coining this quotation example.)
+23:40:29 <cel> bigbluehat: about danbri, this was a conversation Greg, Dan, I and others were having
+23:40:46 <cel> ... Mid-stream, it's parcel and part about what JSON-LD should care about
+23:40:50 <bigbluehat> very rough review https://docs.google.com/document/d/1Jo4-dTDo1osL3Mr9-THqwKywWu-NiFGagFTQV5mr-N8/edit#
+23:40:56 <cel> ... He shares a Google Doc ^
+23:41:02 <cel> ... of the situation and his perspective on it
+23:41:17 <cel> ... Many folks commented on it, pointing out different options. Dan's scratch pad of working through it
+23:41:29 <cel> ... tldr is to just do vocab, and context statements as needed
+23:41:59 <cel> ... Interesting comments, pointing out the flaw that Dan is trying to highlight. There is one where Rob says that there is some degree of trust needed, that contexts referencing other contexts is just going to work.
+23:42:19 <pchampin> TallTed +1, "believes" also a can of worm.... I made those slides to quickly :-/
+23:42:21 <cel> ... Don't think that is going to fly. There has to be some higher level of stability or digitized trust that can be leaned on when doing context resolution
+23:42:24 <kdeangs1> q+
+23:42:33 <cel> ... I don't think we can ignore those; or it will be built for us.
+23:42:49 <ivan_> ack bigbluehat
+23:43:16 <cel> gkellogg: Ongoing issue. I think the issue of retrieval of resources on the web is general, it hits everything. Even Turtle, by referencing other vocabularies, is implicitly requiring that those vocabularies be dereferenced for reasoning... subclass relationships... Not typically done...
+23:43:25 <cel> ... Typically people take JSON-LD, that requires retrieving
+23:43:44 <cel> ivan_: I think there is a difference. In Turtle, if you have the URLs, then the only reason to dereference is if you perform any kind of inference.
+23:43:51 <cel> ... As part of the inference process, yes, you fetch those URLs
+23:44:03 <cel> ... In JSON-LD, in theory, you have to dereference them every time...
+23:44:20 <cel> gkellogg: Every time you use one of the APIs that require it... Expansion...
+23:44:24 <kdeangs1> q-
+23:44:31 <cel> ... It may be more common in some regimes... SPARQL entailment...
+23:45:12 <cel> manu: I know this doesn't fix or change anything; but I don't understand how it's just a JSON-LD problem. Every browser fetches things, affecting how pages render, run JavaScript... Seems like a strange complaint
+23:45:33 <cel> ... On an airplane I couldn't work on ReSpec because no WiFi. People don't get upset about that, but about JSON-LD contexts?
+23:45:37 <cel> ... Just cache forever.
+23:45:48 <cel> ... Even if you use hash-links, you still have to fetch content and cache it.
+23:45:50 <pchampin> q+
+23:45:56 <cel> manu: Just tell people to cache it?
+23:46:01 <ivan_> ack manu
+23:46:12 <cel> gkellogg: I suggest if you do some severe rate-limitting, that could solve the problem.
+23:46:17 <pchampin> q-
+23:46:18 <phila> q+
+23:46:28 <cel> manu: e.g. reject every 4th request.
+23:46:37 <cel> gkellogg: e.g. exponential delay
+23:46:44 <cel> manu: Need to decide where to do this. W3C, IETF...
+23:46:53 <cel> ... If we need to push this forward (hash-link spect)...
+23:47:00 <cel> s/spect/spec/
+23:47:11 <cel> ... On the other side, we'll still get these complaints
+23:47:11 <phila> q-
+23:47:18 <cel> gkellogg: Basic problem of caching things on the web.
+23:47:23 <mkhraisha> q+
+23:47:24 <cel> ... Hash links doesn't solve it in and of itself.
+23:47:38 <cel> manu: Still will have bad implementations going to the Web every time
+23:47:40 <mkhraisha> q-
+23:47:43 <cel> Mahmoud: Hash links still useful
+23:47:54 <phila> Mention of rate limiting reminds me of work going on right now in the IETF HTTP API WG on this https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-ratelimit-headers
+23:48:10 <cel> pchampin: Yes, caching and hash-links provide solutions (to respective problems)
+23:48:29 <cel> gkellogg: JSON-LD WG started/ended on August 31st
+23:48:49 <cel> gkellogg: YAML-LD work and JSON-LD-STAR work needs the WG
+23:48:58 <cel> ... Backlog of issues is on the table for the WG.
+23:49:41 <cel> Phillipe: Publishing, I'll get fixed after TPAC. We need a new charter for the upcoming 2 years. My understanding is we keep doing what we're doing. I've prepared a draft charter, sent a link earlier today to it.
+23:49:43 <pchampin> https://w3c.github.io/charter-drafts/2022/json-ld-2022.html
+23:49:43 <GeunHyung_Kim_> GeunHyung_Kim_ has joined #json-ld
+23:49:54 <phila> s/Philippe/plh/
+23:50:20 <cel> plh: Shouldn't be controversial at all
+23:50:29 <cel> plh: Benjamin still chair, ok?
+23:50:32 <cel> bigbluehat: Fine
+23:50:41 <cel> plh: Copied some stuff from Wikipedia
+23:50:58 <cel> ... Some text to be helpful if never heard of JSON-LD
+23:51:13 <cel> ... Added sentence about Community Group
+23:51:25 <cel> ... Out of scope didn't change; list of deliverables didn't change
+23:51:37 <cel> ... Updated wording; I don't know if in practice it makes any change at all.
+23:51:46 <cel> gkellogg: Other deliver about YAML-LD note?
+23:51:55 <cel> plh: It's a "such as" - not meant to be restrictive; just as examples.
+23:51:59 <cel> ... Coordination section did not change.
+23:52:11 <phila> s/Phillipe/plh
+23:52:11 <cel> ... Repeating sentence about JSON for Linking Data CG
+23:52:24 <cel> ... May want to add sentence about RDF-STAR WG?
+23:52:35 <cel> gkellogg: RCH?
+23:52:39 <cel> pchampin: Couldn't hurt
+23:52:56 <cel> plh: If you want to be reminded to check with a group, it should be listed here.
+23:53:11 <cel> ... If not, don't expect to be asked about it
+23:53:17 <cel> ... Other sections unchanged.
+23:53:29 <cel> ivan_: Would list RDF-STAR and RCH?
+23:53:36 <cel> plh: Alright, I'll add those two.
+23:54:07 <cel> plh: If you want to work on JSON-LD-STAR in the WG... this is pretty vague; I don't think anything here would restrict you from doing so.
+23:54:16 <cel> gkellogg: It is pretty mature; developed in the JSON-LD CG
+23:54:39 <cel> ivan_: Would JSON-LD-STAR become a recommendation or a note?
+23:54:48 <cel> plh: As a new version of JSON-LD?
+23:55:06 <cel> pchampin: RDF-STAR WG will be publishing RDF 1.2 which would include STAR features. That's a new version
+23:55:16 <cel> ... Logically it would be JSON-LD 1.2; that's maintenance
+23:55:26 <cel> plh: I don't want to prejudice you from making that decision down the line
+23:55:30 <cel> gkellogg: The group may want to decide...
+23:55:35 <cel> plh: Nothing here would prevent that
+23:56:06 <cel> plh: I will start the review of it, crank the wheel. Eventually you'll get a new WG.
+23:56:12 <cel> gkellogg: Fortunately the chair doesn't expire
+23:56:26 <cel> ivan_: Started the extension?
+23:56:29 <cel> plh: I will start it
+23:56:36 <cel> ... Just cannot publish TR right now
+23:56:51 <cel> pchampin: Out of scope section?
+23:57:04 <cel> ivan_: It just says don't do what another WG is doing
+23:57:10 <cel> plh: OK, will remove it
+23:57:34 <cel> gkellogg: We have all sorts of leftover stuff
+23:57:40 <cel> topic: JSON-LD 1.1 API
+23:57:53 <cel> gkellogg: Erratum on syntax
+23:58:04 <cel> ... [moving through slides 33+]
+23:58:19 <cel> ... Most urgent is the erratum. How are they supposed to be addressed?
+23:58:36 <cel> ... Pierre-Antoine and I have been working on them, presumably in a vacuum
+23:58:52 <cel> ... These are things to be developed in the community group when there is sufficient interest
+23:59:06 <cel> ivan_: For erratum, you can do the same thing as the VC WG did in maintenance, publish an update
+23:59:21 <cel> gkellogg: I think we should continue to update the erratum document and the editor's draft
+23:59:41 <cel> ivan_: There is a process now to republish the recomendation if it's only a certain category of changes
+23:59:48 <cel> manu: These are greater changes?
+23:59:51 <cel> ivan_: These are all erratum
+00:00:02 <cel> gkellogg: One of them is substantive; most are editorial
+00:00:23 <cel> manu: Be very careful with the new process; it caught me by surprise that there was an enormous amount of documentation...
+00:00:31 <cel> gkellogg: Using the process you went through
+00:00:55 <cel> ivan_: As long as editorial, no problem. If you have substantive changes that need to go through AC approval, then there is something very heavily editorial to do...
+00:01:18 <cel> ... Produce a document showing the previous and new; not just a diff... Manually create a diff on the parts with substantive changes.
+00:01:26 <cel> manu: Have to manually create the diff...
+00:01:32 <cel> ivan_: Now there are some tools to make it easier
+00:01:44 <cel> gkellogg: API has one substantial issue
+00:01:50 <cel> ivan_: Then leave that (open)
+00:02:05 <cel> ... Put together all the editorial changes, and get rid of the erratum. It give you a cosy feeling!
+00:02:21 <cel> gkellogg: Thank you everyone!
+00:02:40 <cel> ... I encourage your continued participation
+00:02:54 <manu> rrsagent, draft minutes
+00:02:54 <RRSAgent> I have made the request to generate https://www.w3.org/2022/09/13-json-ld-minutes.html manu
+00:02:57 <cel> ... Slides will be up; any corrections please send and we'll make them manually
+00:05:12 <gkellogg> gkellogg has joined #json-ld
+00:05:38 <gkellogg> zakim, end meeting
+00:05:38 <Zakim> As of this point the attendees have been anatoly-scherbakov, pchampin, juuso-aut, ivan, TallTed, cel, phila_, mkhraisha, Orie, domel, jvanulde, betehess, bigbluehat, mprorock,
+00:05:41 <Zakim> ... kristina, dlehn, GeunHyung_Kim
+00:05:41 <Zakim> RRSAgent, please draft minutes
+00:05:41 <RRSAgent> I have made the request to generate https://www.w3.org/2022/09/13-json-ld-minutes.html Zakim

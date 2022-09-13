@@ -415,7 +415,7 @@
 
      if(!match)
      {
-       return;
+       return '';
      }
      const [_, time, _nick, msg] = match;
      const nick = _nick.toLowerCase();
