@@ -159,8 +159,13 @@
 
     if(textMode === 'html')
     {
-      rval = '<h1 id="topic-' + id + '" class="topic">Topic: ' +
-       scrawl.htmlencode(msg) + '</h1>\n';
+      rval = '<h1 onmouseout="$(\'#link-topic-' + id + '\').hide()" ' +
+        'onmouseover="$(\'#link-topic-' + id + '\').show()" ' +
+        'id="topic-' + id + '" class="topic">\n';
+      rval += 'Topic: ' +
+        scrawl.htmlencode(msg) + '\n';
+      rval += '<a id="link-topic-' + id +
+        '" style="display:none;" href="#topic-'+ id + '">✪</a></h1>\n';
     }
     else
     {
