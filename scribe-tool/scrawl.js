@@ -228,9 +228,13 @@
 
     if(textMode === 'html')
     {
-      rval = '<div id="resolution-' + id + '" class="resolution">' +
-        '<strong>RESOLUTION:</strong> ' +
-        scrawl.htmlencode(msg) + '</div>\n';
+      rval = '<div onmouseout="$(\'#link-res-' + id + '\').hide()" ' +
+        'onmouseover="$(\'#link-res-' + id + '\').show()" ' +
+        'id="resolution-' + id + '" class="resolution">\n';
+      rval += '<strong>RESOLUTION:</strong> ' +
+        scrawl.htmlencode(msg) + '\n';
+      rval += '<a id="link-res-' + id +
+        '" style="display:none;" href="#resolution-'+ id + '">✪</a></div>\n';
     }
     else
     {
