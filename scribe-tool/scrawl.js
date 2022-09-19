@@ -19,7 +19,7 @@
   const resolutionRx = /^(resolution|resolved): ?(.*)$/i;
   const useCaseRx = /^(use case|usecase):\s?(.*)$/i;
   const agendumRx = /^agendum \d+\s+\-\- (.*) \-\-/i
-  const topicRx = /^topic:\s*(.*)$/i;
+  const topicRx = /^((?:sub)?topic):\s*(.*)$/i;
   const actionRx = /^action:\s*(.*)$/i;
   const voipRx = /^voip.*$/i;
   const toVoipRx = /^voip.{0,4}:.*$/i;
@@ -159,17 +159,18 @@
 
     if(textMode === 'html')
     {
-      rval = '<h1 onmouseout="$(\'#link-topic-' + id + '\').hide()" ' +
+      const [h, t] = Number.isInteger(id) ? ['h1', 'Topic'] : ['h2', 'Subtopic'];
+      rval = '<' + h + ' onmouseout="$(\'#link-topic-' + id + '\').hide()" ' +
         'onmouseover="$(\'#link-topic-' + id + '\').show()" ' +
         'id="topic-' + id + '" class="topic">\n';
-      rval += 'Topic: ' +
+      rval += t + ': ' +
         scrawl.htmlencode(msg) + '\n';
       rval += '<a id="link-topic-' + id +
-        '" style="display:none;" href="#topic-'+ id + '">✪</a></h1>\n';
+        '" style="display:none;" href="#topic-'+ id + '">✪</a></' + h + '>\n';
     }
     else
     {
-      rval = '\nTopic: ' + msg + '\n\n';
+      rval = '\n' + t + ' ' + msg + '\n\n';
     }
 
     return rval;
@@ -489,9 +490,16 @@
      // check for topic line
      else if(msg.search(topicRx) !== -1)
      {
-       const topic = msg.match(topicRx)[1];
-       context.topics = context.topics.concat(topic);
-       rval = scrawl.topic(topic, context.topics.length, textMode);
+       const [_, cmd, topic] = msg.match(topicRx);
+       if(cmd.toLowerCase() == 'topic') {
+         context.topics = context.topics.concat(topic);
+         context.subTopicIndex = 0;
+         rval = scrawl.topic(topic, context.topics.length, textMode);
+       } else {
+         // subTopic
+         context.subTopicIndex += 0.1;
+         rval = scrawl.topic(topic, context.subTopicIndex + context.topics.length, textMode);
+       }
      }
        // Agenda handling: the agendum display should be converted into a bona fide topic
      else if(nick === 'zakim' && msg.search(agendumRx) !== -1 )
