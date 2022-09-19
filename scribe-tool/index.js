@@ -139,7 +139,7 @@ async.waterfall([ function(callback) {
               topic: [],
               resolution: []
             };
-            summary.topic = data.match(/topic: (.*)/ig);
+            summary.topic = data.match(/(?<!sub)topic: (.*)/ig);
             summary.resolution = data.match(/resolved: (.*)/ig);
 
             // strip extraneous information
