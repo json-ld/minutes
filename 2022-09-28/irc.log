@@ -1,0 +1,138 @@
+16:04:50 <RRSAgent> RRSAgent has joined #json-ld
+16:04:50 <RRSAgent> logging to https://www.w3.org/2022/09/28-json-ld-irc
+16:04:53 <Zakim> RRSAgent, make logs Public
+16:04:54 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:04:56 <gkellogg> meeting: JSON-LD CG
+16:05:08 <gkellogg> agenda: https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20220928T120000
+16:05:08 <agendabot> clear agenda
+16:05:08 <agendabot> agenda+ Announcements and Introductions
+16:05:08 <agendabot> agenda+ Approve Minutes
+16:05:08 <agendabot> agenda+ YAML-LD
+16:05:08 <agendabot> agenda+ Next call
+16:05:13 <gkellogg> chair: gkellogg
+16:05:17 <pchampin> present+
+16:05:23 <gkellogg> present+
+16:05:23 <melindaminch> present+
+16:05:28 <TallTed> present+
+16:05:31 <gkellogg> zakim, next agendum
+16:05:40 <Dominik_Tomaszuk> Dominik_Tomaszuk has joined #json-ld
+16:05:45 <niklasl> present+
+16:06:33 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:06:37 <anatoly-scherbakov> present+
+16:06:58 <Vladimir> scribe+
+16:07:04 <Dominik_Tomaszuk> present+
+16:07:23 <Vladimir> vladimir: presents himself
+16:07:48 <gkellogg> scribe+
+16:07:48 <gkellogg> topic: Announcements and Introductions
+16:08:12 <gkellogg> Vladimir: I work at Ontotext, and have seen activity around this which I find quite interesting.
+16:08:31 <gkellogg> ... YAML is easier to read and write than JSON, and can be as pretty or prettier than Turtle.
+16:08:50 <gkellogg> zakim, next agendum
+16:09:14 <Vladimir> ... Yet, YAML is a superset of JSON and if we leverage these features, we can get further prettiness
+16:08:50 <gkellogg> topic: Approve Minutes
+16:09:00 <gkellogg> https://json-ld.org/minutes/2022-09-12/
+16:09:46 <bigbluehat> present+
+16:10:16 <gkellogg> Vladimir: Interesting discussion on datatypes and YAML-LD-star.
+16:10:22 <gkellogg> zakim, next agendum
+16:10:22 <gkellogg> topic: YAML-LD
+16:11:04 <gkellogg> subtopic: Face-to-Face Q&A
+16:11:15 <Vladimir> gkellogg: if people want to discuss YAML-LD, now's a good time
+16:12:20 <dlehn1> present+
+16:12:44 <cel1> regrets+
+16:12:46 <niklasl> +1 for "ndjson-ld" (we're using lots of that internally)
+16:13:17 <gkellogg> Vladimir: I think streams there are two concepts being confused.
+16:13:55 <gkellogg> ... This relates to how you can use anchors, they can occur in different documents within a stream
+16:14:16 <gkellogg> ... On the other hand, a stream might remain open.
+16:14:33 <gkellogg> ... Also notes rubenwork's work on streaming JSON.
+16:15:00 <gkellogg> ... These are different things. It makes sense that YAML streams could be the chunks.
+16:15:02 <gkellogg> q?
+16:15:04 <niklasl> q+
+16:15:16 <Vladimir> gkellogg: talks about YAML streams, and maybe a more general concept of "LD streams" that can be instantiated for YAML and JSON
+16:15:56 <bigbluehat> https://www.w3.org/TR/json-ld11-streaming/
+16:16:02 <gkellogg> ack niklasl
+16:16:56 <Vladimir> let's not forget to standardize MIME types. We implemented ndjson-ld in rdf4j, but made up some custom MIME type
+16:17:27 <gkellogg> s/let's/niklasl: let's/
+16:17:56 <Vladimir> niklasl: ndjson is a simple pragmatic way to do streaming. consider it as "one page of a note" or a data unit that's quite independent
+16:18:22 <gkellogg> q?
+16:18:28 <gkellogg> zakim, next agendum
+16:18:28 <Zakim> agendum 4 -- Next call -- taken up [from agendabot]
+16:18:28 <Vladimir> Vladimir: And so then, can't we map YAML streams to NDJSON: one piece per line?
+16:18:46 <gkellogg> s/agendum 4 -- Next call -- taken up [from agendabot]//
+16:19:06 <gkellogg> Vladimir: Maybe we can just map YAML streams to NDJSON.
+16:20:35 <Vladimir> gkellogg: there's a general feeling that streaming is important, so let's take up to standardize it
+16:20:41 <gkellogg> action: gkellogg to create a repo for NDJSON-LD
+16:20:42 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/796 -> action 796 create a repo for NDJSON-LD (on ) due  5 Oct 2022
+16:21:28 <gkellogg> subtopic: YAML-LD datatypes (and tags for datatypes) yaml-ld#17
+16:21:28 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/17 -> Issue 17 YAML-LD datatypes (and tags for datatypes) (VladimirAlexiev) UCR, spec
+16:21:39 <pchampin>  The devil is in the details, and in the bnodes :-D
+16:22:06 <gkellogg> Vladimir: I think we should use YAML tags in the form that datatypes are used for RDF.
+16:22:28 <gkellogg> ... JSON-LD is more verbose, and the YAML syntax is more concise.
+16:22:59 <gkellogg> ... In many case the context will relieve you of this need, but there are cases where the graph is heterogeneus
+16:23:15 <gkellogg> ... May be a problem with parsers.
+16:23:16 <gkellogg> q+
+16:23:36 <gkellogg> ... This also relates to YAML schemas, and how to attach types.
+16:23:45 <gkellogg> ... YAML had a schema including dates, but have backed up.
+16:24:10 <gkellogg> ... My proposal would be that the WG will declare a %TAG |xsd| ...
+16:24:33 <gkellogg> ... But, implementers will need to use a better parser that supports tags.
+16:24:52 <gkellogg> ... This is also important for numbers.
+16:25:09 <gkellogg> ... We had trouble in xxx group, where the number would be mis-interpreted.
+16:26:03 <gkellogg> ... Then we need to look at a YAML parsers matrix to determine how widely available it is.
+16:26:15 <gkellogg> q?
+16:26:55 <Vladimir> gkellogg: the current "spec" refers to a basic profile, which doesn't include tags but only basic YAML values
+16:27:50 <Vladimir> ... and an Extended profile that includes XSD datatypes, and tags for URLs (is it absolute, or relative...)
+16:28:41 <Vladimir> ... Gregg has an implementation that uses the YAML parse tree.
+16:30:03 <Vladimir> ... Also in JSON-LD (discussion between Gregg and Antoine at TPAC), there is a movement towards handling more datatypes, and not mangling literals with default treatment of numbers
+16:30:06 <gkellogg> q?
+16:30:33 <gkellogg> Distiller: http://rdf.greggkellogg.net/distiller?command=serialize
+16:31:06 <gkellogg> Vladimir: What about URLs?
+16:31:43 <gkellogg> ... In a heterogeneous dataset, the same value could be either a string or a resource.
+16:32:30 <Vladimir> ... can we have a single tag !id or !uri that would handle absolute, relative and CURIEs?
+16:33:26 <Vladimir> s/same value could be/same field could contain/
+16:34:02 <niklasl> q+
+16:34:06 <Vladimir> gkellogg: we want to explore some more use cases of URLs before deciding
+16:34:36 <gkellogg> Vladimir: Can we decide this issue?
+16:35:29 <Vladimir> ... let's not forget custom datatypes, eg geo:wktLiteral, geo:gmlLiteral, 5-10 more in GeoSPARQL 1.1, and the tentative rdf:JSON and rdf:YAML
+16:38:36 <Vladimir> gkellogg: questions of quoting: is !xsd!integer '123' the same as !xsd!integer 123 and same as 123, or different?
+16:38:48 <gkellogg> q?
+16:38:55 <gkellogg> q-
+16:38:58 <gkellogg> ack niklasl
+16:39:12 <niklasl> author: someone!tag-key => as if author was defined in the context with "@type": <tag-key>; then if e.g. someone!uri was encountered, *and* uri is defined as an alias of "@id", this is short for {"@id": "someone"}
+16:41:06 <Vladimir> ... the tag comes before the value, eg !tag-key someone
+16:39:12 <ghurlbot> https://github.com/type -> @type
+16:39:13 <ghurlbot> https://github.com/id -> @id
+16:42:07 <Vladimir> gkellogg: tags should be declared in %TAG not in context, else we'll go against the grain of YAML
+16:44:13 <gkellogg> subtopic: test suite
+16:44:14 <gkellogg> https://github.com/json-ld/yaml-ld/pull/86
+16:46:56 <Vladimir> Vladimir: I'll try to contribute to this. I grok the yamlld tests, but not how they are linked into the spec
+16:45:20 <gkellogg> q?
+16:46:55 <gkellogg> subtopic: Serializing JSON or YAML literal in YAML-LD yaml-ld#36
+16:46:55 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/36 -> Issue 36 Serializing JSON or YAML literal in YAML-LD (gkellogg) spec
+16:47:52 <gkellogg> Vladimir: I gave an example from Elastic Search. This connector can be used in indexing.
+16:48:05 <gkellogg> ... Fields have types and other attributes.
+16:48:31 <gkellogg> ... Currently, we implement this in JSON. There's a SPARQL INSERT involved.
+16:48:48 <gkellogg> ... We've wanted to turn that into a better notation, as you can't use prefixes.
+16:49:12 <gkellogg> ... We're thinking of converting it to proper RDF; the question is how to write it.
+16:49:31 <gkellogg> ... If we allow JSON and YAML literals, it would help with the interpretation of that data.
+16:50:05 <gkellogg> ... If JSON was done because it was popular, it makes sense that you be able to store YAML as a literal.
+16:50:20 <gkellogg> ... A good example is GeoJSON. In JSON-LD 1.1, it can be interpreted.
+16:50:32 <gkellogg> ... But, it comes out as a nested list of lists.
+16:50:55 <gkellogg> ... There are textual formats for GeoJSON.
+16:51:17 <gkellogg> ... I think we should have a YAML literal.
+16:51:19 <gkellogg> q?
+16:53:37 <Vladimir> gkellogg: there's the JCS spec to canonize a JSON literal. We don't have such a thing for YAML
+16:54:09 <Vladimir> ... the value of canonization is that then you can compare literals for equality, so that value equality will coincide with lexical equality
+16:54:51 <Vladimir> Vladimir: Ok, I see but 1. RDF doesn't even canonize simple things like xsd:boolean, numbers (123 vs 0123), and even URLs
+16:56:51 <Vladimir> ... 2. We could tackle YAML canonization, in fact I'd like to have that (and standardize pretty-printing parameters, and the ability to capture them in YAML-LD)
+16:57:08 <gkellogg> gkellogg: Sorry, out of time for today. We can contniue on next call. Please send in discussion topics for next meeting agenda.
+16:57:08 <gkellogg> zakim, end meeting
+16:57:08 <Zakim> As of this point the attendees have been pchampin, gkellogg, melindaminch, TallTed, niklasl, anatoly-scherbakov, Dominik_Tomaszuk, bigbluehat, dlehn
+16:57:10 <Zakim> RRSAgent, please draft minutes
+16:57:10 <RRSAgent> I have made the request to generate https://www.w3.org/2022/09/28-json-ld-minutes.html Zakim
+16:57:13 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:57:17 <Zakim> Zakim has left #json-ld
+16:57:20 <gkellogg> rrsagent, pointer
+16:57:20 <RRSAgent> See https://www.w3.org/2022/09/28-json-ld-irc#T16-57-20
+16:57:25 <gkellogg> rrsagent, bye
+16:57:25 <RRSAgent> I see 1 open action item saved in https://www.w3.org/2022/09/28-json-ld-actions.rdf :
+16:57:25 <RRSAgent> ACTION: gkellogg to create a repo for NDJSON-LD [1]
+16:57:25 <RRSAgent>   recorded in https://www.w3.org/2022/09/28-json-ld-irc#T16-20-41
+16:57:27 <ghurlbot> Created https://github.com/json-ld/json-ld.org/issues/797 -> action 797 create a repo for NDJSON-LD [1] (on ) due  5 Oct 2022
