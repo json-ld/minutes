@@ -1,0 +1,126 @@
+09:00:00 <gkellogg> meeting: JSON-LD CG
+09:00:00 <anatoly-scherbakov> present+
+09:00:00 <gkellogg> agenda: https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20221012T120000
+09:00:00 <gkellogg> present+
+09:00:00 <gkellogg> chair+
+09:00:00 <gkellogg> zakim, next agendum
+09:00:00 <gkellogg> topic: Announcements and Introductions
+09:00:00 <pchampin> present+
+09:00:00 <anatoly-scherbakov> scribe+
+09:00:00 <anatoly-scherbakov> gkellogg: Introductions! Leonard — would you please introduce yourself?
+leonardr has joined (~leonardr@11c9e7f5.public.cloak)
+09:00:00 <TallTed> present+
+09:00:00 <leonardr> present+
+09:00:00 <anatoly-scherbakov> leonardr: Senior principal architect @ Adobe, responsibilities: PDF architecture, Content Authenticity Initiative. C2PA is an open standards body we founded. Representing Adobe at W3C, ISO, IETF, etc.
+09:00:00 <gkellogg> topic: Approve Minutes
+09:00:00 <gkellogg> https://json-ld.org/minutes/2022-09-28/
+09:00:00 <anatoly-scherbakov> gkellogg: Approving minutes from the last time... without objections, we'll accept those and move on.
+09:00:00 <gkellogg> topic: NDJSON-LD
+09:00:00 <gkellogg> https://github.com/json-ld/ndjson-ld
+pchampin thinks that  "zakim, close agendum 2" would do the trick
+09:00:00 <gkellogg> https://github.com/json-ld/ndjson-ld/issues/1
+09:00:00 <anatoly-scherbakov> gkellogg: we have a repo for NDJSON-LD, and Nicholas has volunteered to spend time on that. That prompted leonardr to jump in and discuss. It is based upon NDJSON and similar to JSON Lines and a few more similar formats, very similar to each other. It is possible for one spec to handle multiple different formats though only one of them has a well defined media type.
+TallTed agrees. see https://www.w3.org/2001/12/zakim-irc-bot#nextitem
+09:00:00 <gkellogg> q?
+09:00:00 <anatoly-scherbakov> leonardr: I don't have a preference between them. Trying to understand what the use case is? What are we trying to accomplish specifically? Obviously JSON-LD and YAML-LD make sense for this group. Why is it making sense to tackle the problem of JSON Records, and how are we going to solve it?
+09:00:00 <anatoly-scherbakov> gkellogg: YAML is a string format that supports multiple embedded documents in a file. In order to do an LD version of YAML, we need to decide how to deal with them. If there was a JSON-LD line streaming format (or a general streaming format for RDF in general even) it would be useful to do. We'd just process each document in a YAML stream using JSON-LD methods.
+09:00:00 <pchampin> q+
+09:00:00 <gkellogg> ack pchampin
+09:00:00 <anatoly-scherbakov> gkellogg: potentially, any RDF format might have a way to describe a stream of records. One use case might be an open connection for actual streaming of real time data. There's a JSON-LD streaming spec. If you want to operate upon completely separate records it would be useful.
+09:00:00 <anatoly-scherbakov> pchampin: another use case comes from the SOLID system. They have performance issues serializing large "containers" (connections). Potentially, having a streaming JSON-LD format could help that.
+09:00:00 <niklasl> present+
+09:00:00 <gkellogg> https://github.com/json-ld/ndjson-ld/issues/3
+09:00:00 <anatoly-scherbakov> gkellogg: Would be useful to put these into issue 3 to start collecting them. Ultimately, the spec (itself or a companion document) should list a few use cases.
+09:00:00 <anatoly-scherbakov> gkellogg: Nicholas, could you describe for instance your motivation for NDJSON-LD?
+09:00:00 <anatoly-scherbakov> niklasl: we've used a line-based format for internal purposes. Thinking of publishing data in such a format. We had raw dumps we published and just declared every line was a separate JSON-LD document.
+09:00:00 <anatoly-scherbakov> niklasl: we are missing a clear definition though, and it is unspecified how to associate a JSON-LD context with such a document.
+09:00:00 <anatoly-scherbakov> niklasl: for us, HTTP response header specified the context; the document itself didn't.
+09:00:00 <gkellogg> subtopic: Blank Node Scope
+09:00:00 <gkellogg> https://github.com/json-ld/ndjson-ld/issues/4
+09:00:00 <anatoly-scherbakov> gkellogg: if every record is a JSON-LD document, it might have its own context. Or it can be provided externally — as an HTTP header, or an API parameter
+09:00:00 <anatoly-scherbakov> ... Now, regarding the blank nodes scope. We've discussed it for YAML-LD before.
+09:00:00 <anatoly-scherbakov> gkellogg: tag definitions and blank node names might be independent between documents. For instance, if we're collecting random documents we might have unexpected consequences if the labels or tags overlap. In the streaming applications though, we might want to share labels (for computing differences, etc) but we won't be able to.
+09:00:00 <gkellogg> q?
+09:00:00 <leonardr> q+
+09:00:00 <anatoly-scherbakov> gkellogg: Next steps on NDJSON-LD — Nicholas?
+09:00:00 <gkellogg> q+
+09:00:00 <gkellogg> q+ to discuss the needs for an API for YAML-LD to relate to.
+09:00:00 <dlehn1> present+
+09:00:00 <anatoly-scherbakov> niklasl: I do not lack anything other than time. I should write the simplest thing imaginable first, probably... Blank nodes: I do not have a strong opinion on this, we're not using blank node identifiers. JSON-LD document can be an RDF dataset and that is an interesting complication. So every line can represent multiple datasets/graphs.
+09:00:00 <anatoly-scherbakov> niklasl: this does not influence blank nodes question though.
+09:00:00 <anatoly-scherbakov> niklasl: In TriG documents, afaik blank node ids are shared throughout the whole document.
+09:00:00 <anatoly-scherbakov> gkellogg: different use cases might drive conflicting requirements.
+09:00:00 <gkellogg> ack leonardr
+Zakim sees gkellogg on the speaker queue
+09:00:00 <gkellogg> ack me
+09:00:00 <Zakim> gkellogg, you wanted to discuss the needs for an API for YAML-LD to relate to.
+Zakim sees no one on the speaker queue
+09:00:00 <anatoly-scherbakov> leonardr: There is a difference whether we address a homogenuous case (all documents share a context or grammar) vs the case where documents are heteregenuous (potentially unrelated to each other) - but they happen to share one data stream. Do we want to solve both cases? What are we gaining or losing by doing so?
+09:00:00 <anatoly-scherbakov> gkellogg: NDJSON-LD should be an extension of JSON-LD API because YAML-LD calls upon it. Algorithms operate to transform → JSON-LD internal representation. Consequently, we rely upon that. Regarding the purpose of all this: if we pre-suppose an API and one of this API entry points relates to RDF transformation then doing something multi-dataset becomes really challenging.
+09:00:00 <anatoly-scherbakov> gkellogg: especially when we think we're collecting unrelated and maybe conflicting records. It would simplify the problem if all the records relate to a single dataset. Unless we have compelling use cases which suggest otherwise.
+09:00:00 <anatoly-scherbakov> gkellogg: we might introduce a "meta" record to specify meta parameters. Like Turtle with their `"@prefix"` parameters in the header.
+09:00:00 <ghurlbot> https://github.com/prefix -> `@prefix`
+09:00:00 <gkellogg> q?
+09:00:00 <niklasl> +1 for "meta-records"; could e.g. set the context initially (corollary: first row of a TSV as columns)
+09:00:00 <anatoly-scherbakov> niklasl: going to continue the work on NDJSON-LD.
+09:00:00 <gkellogg> topic: YAML-LD
+09:00:00 <gkellogg> subtopic: test suite
+09:00:00 <gkellogg> yaml-ld#87
+09:00:00 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/87 -> Pull Request 87 WIP: More tests (gkellogg) test:missing-coverage
+09:00:00 <anatoly-scherbakov> gkellogg: This is an issue to work on the test suite. Quite a bit to be done to it yet. Would be useful to reference normative statements in the spec to the tests which test those statements (a practice by Ivan) - but that adds more work.
+09:00:00 <pchampin> +1 linking the spec text to the tests is really cool
+09:00:00 <gkellogg> subtopic: YAML Streams and JSON Sequences yaml-ld#63
+09:00:00 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/63 -> Issue 63 YAML Streams and JSON Sequences (ioggstream) spec
+09:00:00 <anatoly-scherbakov> gkellogg: that's what pushed NDJSON-LD
+09:00:00 <anatoly-scherbakov> gkellogg: Roberto proposes to map a YAML-LD to a sequence of JSON-LD files
+09:00:00 <anatoly-scherbakov> gkellogg: proposing to update the spec with a hypothetical mapping to NDJSON-LD so as we can start to flush out the missing components of the spec right now. I will spend some time on that.
+09:00:00 <gkellogg> q?
+09:00:00 <anatoly-scherbakov> leonardr: does this only apply to streams, or also for a YAML-LD file that contains multiple documents?
+09:00:00 <anatoly-scherbakov> gkellogg: in YAML, stream is a sequence of documents separated by "---". This has a well defined meaning within YAML. In YAML-LD spec, part of the process is to convert YAML-LD into Internal Representation, which includes splitting stream into individual documents.
+09:00:00 <anatoly-scherbakov> gkellogg: what if a stream contains a single document? Does it yield that document, or a stream with that document? For NDJSON-LD probably that's the latter, and for YAML-LD this might depend upon HTTP media type or an API method perhaps (different methods for streams vs documents). This is a subject of consideration.
+09:00:00 <anatoly-scherbakov> leonardr: makes sense. I am thinking of this in respect to having physical files more than something else.
+09:00:00 <anatoly-scherbakov> gkellogg: in file representation or, say, in a multipart/MIME email, or in a stream where you process records as they come through, — this can be hard in API sense. API endpoints create promises and you might expect the promise to fulfill only once the entire stream is processed. Might be not adequate for a real time stream. But we might just focus on the "closed" use case and leave the "open stream" use case for later.
+09:00:00 <anatoly-scherbakov> gkellogg: we need to list use cases for both and look at the other W3C work on realtime processing and open data streams to see if we can find any relevance.
+09:00:00 <gkellogg> subtopic: Extended Internal Representation yaml-ld#84
+09:00:00 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/84 -> Issue 84 Downgrading from Extended Internal Representation should use value objects (gkellogg) enhancement, spec
+09:00:00 <anatoly-scherbakov> gkellogg: current spec describes the extended internal representation. The motivation is: if, when parsing YAML-LD in extended mode, you have node tags then they can be passed through the JSON-LD algorithms without interpretation. Pierre-Antoine had another idea: add information into JSON objects and forcing algorithm to ignore that information. Pierre-Antoine referred to a related work by Niklas.
+09:00:00 <gkellogg> Niklas's work on the LDTR project: https://github.com/niklasl/ldtr
+09:00:00 <anatoly-scherbakov> pchampin: I came over that only recently and it just rang a bell. For YAML-LD, another option would be to stick to existing internal representation — but we'll lose ability to round-trip from and to YAML-specific notations (tags to represent data types for instance).
+09:00:00 <anatoly-scherbakov> pchampin: Extending the internal representation aims to convey YAML-specific extended syntactic constructs which don't exist in JSON.
+09:00:00 <anatoly-scherbakov> pchampin: at TPAC, we mused with the idea that an extended representation can be extended to support Turtle and other RDF serializations.
+09:00:00 <niklasl> q+
+09:00:00 <gkellogg> ack niklasl
+09:00:00 <anatoly-scherbakov> niklasl: That's right. That was the point of my idea which I did twice. Originally, I wrote a very simple Turtle and TriG parser using a parser generator library for JS. I thought of it as of a teaching tool for the developers and metadata librarians.
+09:00:00 <anatoly-scherbakov> niklasl: to some extent, it has worked like that. Then, I got carried away and did the same for RDF/XML as well. It's a bit dangerous as an idea because it is not what RDF is about. RDF is about semantics and triples.
+09:00:00 <pchampin> q+
+09:00:00 <gkellogg> q+ to discuss work on S-Expressions
+09:00:00 <anatoly-scherbakov> niklasl: the attraction of JSON-LD is to get away from abstract model and to get into something concrete.
+09:00:00 <pchampin> q-
+09:00:00 <anatoly-scherbakov> niklasl: abstract syntax tree for RDF is a viable idea.
+09:00:00 <anatoly-scherbakov> gkellogg: is intermediate representation itself transcribable? It is printable for debugging purposes probably. but does it relate somehow into the extended JSON-LD representation, how does that match?
+09:00:00 <anatoly-scherbakov> niklasl: JSON is a string representation but it is materialized in (especially dynamic) programming languages very similarly
+09:00:00 <gkellogg> ack me
+09:00:00 <Zakim> gkellogg, you wanted to discuss work on S-Expressions
+09:00:00 <anatoly-scherbakov> niklasl: I didn't consider a formal internal representation at all when doing that
+09:00:00 <niklasl> The implementation in question: https://github.com/niklasl/ldtr
+09:00:00 <anatoly-scherbakov> gkellogg: In SPARQL, in N3 my parser abstract syntax tree was forming S-expressions which are serializable in LISP-like fashion. This might be extended to other formats and be a way of expressing these internal formats. You want similar things everywhere: URIs, prefixes, IRIs, literals.
+09:00:00 <anatoly-scherbakov> gkellogg: having S-expression representation of RDF and then of SPARQL  might be useful.
+09:00:00 <gkellogg> q?
+09:00:00 <anatoly-scherbakov> gkellogg: at RDF level, a triple is a fundamental building block. In SPARQL you also have operators. This doesn't deal with recursive statements though but still might be worth exploring.
+09:00:00 <anatoly-scherbakov> niklasl: was thinking of doing something similar for SPARQL.
+09:00:00 <gkellogg> topic: Next call
+09:00:00 <leonardr> +1 to skip
+09:00:00 <anatoly-scherbakov> gkellogg: the next date would be Oct 27. I won't be able to be available at that time. Maybe someone is going to lead that meeting, or otherwise we can skip that meeting.
+09:00:00 <pchampin> no objection to skipping
+09:00:00 <niklasl> no objection
+09:00:00 <gkellogg> Next meeting on November 9. https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20221109T120000
+09:00:00 <anatoly-scherbakov> gkellogg: W3C calendar should automatically adjust to daylight saving time shifts.
+09:00:00 <gkellogg> may be one hour later outside of the US.
+09:00:00 <anatoly-scherbakov> pchampin: in Europe this call will be one hour later.
+09:00:00 <anatoly-scherbakov> q+
+Zakim sees anatoly-scherbakov on the speaker queue
+09:00:00 <anatoly-scherbakov> gkellogg: continuing to work on the test suites.
+09:00:00 <gkellogg> ack anatoly-scherbakov
+Zakim sees no one on the speaker queue
+09:00:00 <gkellogg> zakim, end meeting
+09:00:00 <Zakim> As of this point the attendees have been anatoly-scherbakov, pchampin, TallTed, leonardr, Dominik_T, present, dlehn

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2022-10-12</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="https://json-ld.org/">Pierre-Antoine Champin</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="https://json-ld.org/">Leonard Rosenthol</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="http://dil.lehn.org/">David I. Lehn</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Anatoly Scherbakov</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20221012T120000">https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20221012T120000</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">Approve Minutes</a><li><a href="#topic-3">NDJSON-LD</a><li><a href="#topic-4">YAML-LD</a><li><a href="#topic-5">Next call</a></ol></dd></dl>
+</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<div class="information">Anatoly Scherbakov is scribing.</div>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Gregg Kellogg</span>:  Introductions! Leonard &#8212; would you please introduce yourself? <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Leonard Rosenthol</span>:  Senior principal architect @ Adobe, responsibilities: PDF architecture, Content Authenticity Initiative. C2PA is an open standards body we founded. Representing Adobe at W3C, ISO, IETF, etc. <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: Approve Minutes
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://json-ld.org/minutes/2022-09-28/">https://json-ld.org/minutes/2022-09-28/</a> <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Gregg Kellogg</span>:  Approving minutes from the last time... without objections, we&apos;ll accept those and move on. <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<h1 onmouseout="$('#link-topic-3').hide()" onmouseover="$('#link-topic-3').show()" id="topic-3" class="topic">
+Topic: NDJSON-LD
+<a id="link-topic-3" style="display:none;" href="#topic-3">✪</a></h1>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/ndjson-ld">https://github.com/json-ld/ndjson-ld</a> <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/ndjson-ld/issues/1">https://github.com/json-ld/ndjson-ld/issues/1</a> <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Gregg Kellogg</span>:  We have a repo for NDJSON-LD, and Nicholas has volunteered to spend time on that. That prompted leonardr to jump in and discuss. It is based upon NDJSON and similar to JSON Lines and a few more similar formats, very similar to each other. It is possible for one spec to handle multiple different formats though only one of them has a well defined media type. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Leonard Rosenthol</span>:  I don&apos;t have a preference between them. Trying to understand what the use case is? What are we trying to accomplish specifically? Obviously JSON-LD and YAML-LD make sense for this group. Why is it making sense to tackle the problem of JSON Records, and how are we going to solve it? <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Gregg Kellogg</span>:  YAML is a string format that supports multiple embedded documents in a file. In order to do an LD version of YAML, we need to decide how to deal with them. If there was a JSON-LD line streaming format (or a general streaming format for RDF in general even) it would be useful to do. We&apos;d just process each document in a YAML stream using JSON-LD methods. <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Gregg Kellogg</span>:  Potentially, any RDF format might have a way to describe a stream of records. One use case might be an open connection for actual streaming of real time data. There&apos;s a JSON-LD streaming spec. If you want to operate upon completely separate records it would be useful. <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Another use case comes from the SOLID system. They have performance issues serializing large &quot;containers&quot; (connections). Potentially, having a streaming JSON-LD format could help that. <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/ndjson-ld/issues/3">https://github.com/json-ld/ndjson-ld/issues/3</a> <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Gregg Kellogg</span>:  Would be useful to put these into issue 3 to start collecting them. Ultimately, the spec (itself or a companion document) should list a few use cases. <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Gregg Kellogg</span>:  Nicholas, could you describe for instance your motivation for NDJSON-LD? <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  We&apos;ve used a line-based format for internal purposes. Thinking of publishing data in such a format. We had raw dumps we published and just declared every line was a separate JSON-LD document. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  We are missing a clear definition though, and it is unspecified how to associate a JSON-LD context with such a document. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  For us, HTTP response header specified the context; the document itself didn&apos;t. <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<h2 onmouseout="$('#link-topic-3.1').hide()" onmouseover="$('#link-topic-3.1').show()" id="topic-3.1" class="topic">
+Subtopic: Blank Node Scope
+<a id="link-topic-3.1" style="display:none;" href="#topic-3.1">✪</a></h2>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/json-ld/ndjson-ld/issues/4">https://github.com/json-ld/ndjson-ld/issues/4</a> <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Gregg Kellogg</span>:  If every record is a JSON-LD document, it might have its own context. Or it can be provided externally &#8212; as an HTTP header, or an API parameter <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... Now, regarding the blank nodes scope. We&apos;ve discussed it for YAML-LD before.</div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Gregg Kellogg</span>:  Tag definitions and blank node names might be independent between documents. For instance, if we&apos;re collecting random documents we might have unexpected consequences if the labels or tags overlap. In the streaming applications though, we might want to share labels (for computing differences, etc) but we won&apos;t be able to. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Gregg Kellogg</span>:  Next steps on NDJSON-LD &#8212; Nicholas? <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I do not lack anything other than time. I should write the simplest thing imaginable first, probably... Blank nodes: I do not have a strong opinion on this, we&apos;re not using blank node identifiers. JSON-LD document can be an RDF dataset and that is an interesting complication. So every line can represent multiple datasets/graphs. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  This does not influence blank nodes question though. <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  In TriG documents, afaik blank node ids are shared throughout the whole document. <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Gregg Kellogg</span>:  Different use cases might drive conflicting requirements. <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Leonard Rosenthol</span>:  There is a difference whether we address a homogenuous case (all documents share a context or grammar) vs the case where documents are heteregenuous (potentially unrelated to each other) - but they happen to share one data stream. Do we want to solve both cases? What are we gaining or losing by doing so? <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Gregg Kellogg</span>:  NDJSON-LD should be an extension of JSON-LD API because YAML-LD calls upon it. Algorithms operate to transform &#8594; JSON-LD internal representation. Consequently, we rely upon that. Regarding the purpose of all this: if we pre-suppose an API and one of this API entry points relates to RDF transformation then doing something multi-dataset becomes really challenging. <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Gregg Kellogg</span>:  Especially when we think we&apos;re collecting unrelated and maybe conflicting records. It would simplify the problem if all the records relate to a single dataset. Unless we have compelling use cases which suggest otherwise. <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Gregg Kellogg</span>:  We might introduce a &quot;meta&quot; record to specify meta parameters. Like Turtle with their `&quot;@prefix&quot;` parameters in the header. <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="information"><a href="https://github.com/prefix">https://github.com/prefix</a> -&gt; `@prefix` <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 For &quot;meta-records&quot;; could e.g. set the context initially (corollary: first row of a TSV as columns) <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Going to continue the work on NDJSON-LD. <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<h1 onmouseout="$('#link-topic-4').hide()" onmouseover="$('#link-topic-4').show()" id="topic-4" class="topic">
+Topic: YAML-LD
+<a id="link-topic-4" style="display:none;" href="#topic-4">✪</a></h1>
+<h2 onmouseout="$('#link-topic-4.1').hide()" onmouseover="$('#link-topic-4.1').show()" id="topic-4.1" class="topic">
+Subtopic: test suite
+<a id="link-topic-4.1" style="display:none;" href="#topic-4.1">✪</a></h2>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>: Yaml-ld#87 <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/87">https://github.com/json-ld/yaml-ld/issues/87</a> -&gt; Pull Request 87 WIP: More tests (gkellogg) test:missing-coverage <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Gregg Kellogg</span>:  This is an issue to work on the test suite. Quite a bit to be done to it yet. Would be useful to reference normative statements in the spec to the tests which test those statements (a practice by Ivan) - but that adds more work. <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Pierre-Antoine Champin</span>: +1 Linking the spec text to the tests is really cool <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<h2 onmouseout="$('#link-topic-4.2').hide()" onmouseover="$('#link-topic-4.2').show()" id="topic-4.2" class="topic">
+Subtopic: YAML Streams and JSON Sequences yaml-ld#63
+<a id="link-topic-4.2" style="display:none;" href="#topic-4.2">✪</a></h2>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/63">https://github.com/json-ld/yaml-ld/issues/63</a> -&gt; Issue 63 YAML Streams and JSON Sequences (ioggstream) spec <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Gregg Kellogg</span>:  That&apos;s what pushed NDJSON-LD <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Gregg Kellogg</span>:  Roberto proposes to map a YAML-LD to a sequence of JSON-LD files <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Gregg Kellogg</span>:  Proposing to update the spec with a hypothetical mapping to NDJSON-LD so as we can start to flush out the missing components of the spec right now. I will spend some time on that. <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Leonard Rosenthol</span>:  Does this only apply to streams, or also for a YAML-LD file that contains multiple documents? <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Gregg Kellogg</span>:  In YAML, stream is a sequence of documents separated by &quot;---&quot;. This has a well defined meaning within YAML. In YAML-LD spec, part of the process is to convert YAML-LD into Internal Representation, which includes splitting stream into individual documents. <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Gregg Kellogg</span>:  What if a stream contains a single document? Does it yield that document, or a stream with that document? For NDJSON-LD probably that&apos;s the latter, and for YAML-LD this might depend upon HTTP media type or an API method perhaps (different methods for streams vs documents). This is a subject of consideration. <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Leonard Rosenthol</span>:  Makes sense. I am thinking of this in respect to having physical files more than something else. <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="comment"><span class="name">Gregg Kellogg</span>:  In file representation or, say, in a multipart/MIME email, or in a stream where you process records as they come through, &#8212; this can be hard in API sense. API endpoints create promises and you might expect the promise to fulfill only once the entire stream is processed. Might be not adequate for a real time stream. But we might just focus on the &quot;closed&quot; use case and leave the &quot;open stream&quot; use case for later. <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Gregg Kellogg</span>:  We need to list use cases for both and look at the other W3C work on realtime processing and open data streams to see if we can find any relevance. <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<h2 onmouseout="$('#link-topic-4.3').hide()" onmouseover="$('#link-topic-4.3').show()" id="topic-4.3" class="topic">
+Subtopic: Extended Internal Representation yaml-ld#84
+<a id="link-topic-4.3" style="display:none;" href="#topic-4.3">✪</a></h2>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/84">https://github.com/json-ld/yaml-ld/issues/84</a> -&gt; Issue 84 Downgrading from Extended Internal Representation should use value objects (gkellogg) enhancement, spec <a id="link-47" style="display:none;" href="#47">✪</a></div>
+<div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="comment"><span class="name">Gregg Kellogg</span>:  Current spec describes the extended internal representation. The motivation is: if, when parsing YAML-LD in extended mode, you have node tags then they can be passed through the JSON-LD algorithms without interpretation. Pierre-Antoine had another idea: add information into JSON objects and forcing algorithm to ignore that information. Pierre-Antoine referred to a related work by Niklas. <a id="link-48" style="display:none;" href="#48">✪</a></div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Gregg Kellogg</span>: Niklas&apos;s work on the LDTR project: <a href="https://github.com/niklasl/ldtr">https://github.com/niklasl/ldtr</a> <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I came over that only recently and it just rang a bell. For YAML-LD, another option would be to stick to existing internal representation &#8212; but we&apos;ll lose ability to round-trip from and to YAML-specific notations (tags to represent data types for instance). <a id="link-50" style="display:none;" href="#50">✪</a></div>
+<div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Extending the internal representation aims to convey YAML-specific extended syntactic constructs which don&apos;t exist in JSON. <a id="link-51" style="display:none;" href="#51">✪</a></div>
+<div onmouseout="$('#link-52').hide()" onmouseover="$('#link-52').show()" id="52" class="comment"><span class="name">Pierre-Antoine Champin</span>:  At TPAC, we mused with the idea that an extended representation can be extended to support Turtle and other RDF serializations. <a id="link-52" style="display:none;" href="#52">✪</a></div>
+<div onmouseout="$('#link-53').hide()" onmouseover="$('#link-53').show()" id="53" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  That&apos;s right. That was the point of my idea which I did twice. Originally, I wrote a very simple Turtle and TriG parser using a parser generator library for JS. I thought of it as of a teaching tool for the developers and metadata librarians. <a id="link-53" style="display:none;" href="#53">✪</a></div>
+<div onmouseout="$('#link-54').hide()" onmouseover="$('#link-54').show()" id="54" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  To some extent, it has worked like that. Then, I got carried away and did the same for RDF/XML as well. It&apos;s a bit dangerous as an idea because it is not what RDF is about. RDF is about semantics and triples. <a id="link-54" style="display:none;" href="#54">✪</a></div>
+<div onmouseout="$('#link-55').hide()" onmouseover="$('#link-55').show()" id="55" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  The attraction of JSON-LD is to get away from abstract model and to get into something concrete. <a id="link-55" style="display:none;" href="#55">✪</a></div>
+<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Abstract syntax tree for RDF is a viable idea. <a id="link-56" style="display:none;" href="#56">✪</a></div>
+<div onmouseout="$('#link-57').hide()" onmouseover="$('#link-57').show()" id="57" class="comment"><span class="name">Gregg Kellogg</span>:  Is intermediate representation itself transcribable? It is printable for debugging purposes probably. but does it relate somehow into the extended JSON-LD representation, how does that match? <a id="link-57" style="display:none;" href="#57">✪</a></div>
+<div onmouseout="$('#link-58').hide()" onmouseover="$('#link-58').show()" id="58" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  JSON is a string representation but it is materialized in (especially dynamic) programming languages very similarly <a id="link-58" style="display:none;" href="#58">✪</a></div>
+<div onmouseout="$('#link-59').hide()" onmouseover="$('#link-59').show()" id="59" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I didn&apos;t consider a formal internal representation at all when doing that <a id="link-59" style="display:none;" href="#59">✪</a></div>
+<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: The implementation in question: <a href="https://github.com/niklasl/ldtr">https://github.com/niklasl/ldtr</a> <a id="link-60" style="display:none;" href="#60">✪</a></div>
+<div onmouseout="$('#link-61').hide()" onmouseover="$('#link-61').show()" id="61" class="comment"><span class="name">Gregg Kellogg</span>:  In SPARQL, in N3 my parser abstract syntax tree was forming S-expressions which are serializable in LISP-like fashion. This might be extended to other formats and be a way of expressing these internal formats. You want similar things everywhere: URIs, prefixes, IRIs, literals. <a id="link-61" style="display:none;" href="#61">✪</a></div>
+<div onmouseout="$('#link-62').hide()" onmouseover="$('#link-62').show()" id="62" class="comment"><span class="name">Gregg Kellogg</span>:  Having S-expression representation of RDF and then of SPARQL  might be useful. <a id="link-62" style="display:none;" href="#62">✪</a></div>
+<div onmouseout="$('#link-63').hide()" onmouseover="$('#link-63').show()" id="63" class="comment"><span class="name">Gregg Kellogg</span>:  At RDF level, a triple is a fundamental building block. In SPARQL you also have operators. This doesn&apos;t deal with recursive statements though but still might be worth exploring. <a id="link-63" style="display:none;" href="#63">✪</a></div>
+<div onmouseout="$('#link-64').hide()" onmouseover="$('#link-64').show()" id="64" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Was thinking of doing something similar for SPARQL. <a id="link-64" style="display:none;" href="#64">✪</a></div>
+<h1 onmouseout="$('#link-topic-5').hide()" onmouseover="$('#link-topic-5').show()" id="topic-5" class="topic">
+Topic: Next call
+<a id="link-topic-5" style="display:none;" href="#topic-5">✪</a></h1>
+<div onmouseout="$('#link-65').hide()" onmouseover="$('#link-65').show()" id="65" class="comment"><span class="name">Leonard Rosenthol</span>: +1 To skip <a id="link-65" style="display:none;" href="#65">✪</a></div>
+<div onmouseout="$('#link-66').hide()" onmouseover="$('#link-66').show()" id="66" class="comment"><span class="name">Gregg Kellogg</span>:  The next date would be Oct 27. I won&apos;t be able to be available at that time. Maybe someone is going to lead that meeting, or otherwise we can skip that meeting. <a id="link-66" style="display:none;" href="#66">✪</a></div>
+<div onmouseout="$('#link-67').hide()" onmouseover="$('#link-67').show()" id="67" class="comment"><span class="name">Pierre-Antoine Champin</span>: No objection to skipping <a id="link-67" style="display:none;" href="#67">✪</a></div>
+<div onmouseout="$('#link-68').hide()" onmouseover="$('#link-68').show()" id="68" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: No objection <a id="link-68" style="display:none;" href="#68">✪</a></div>
+<div onmouseout="$('#link-69').hide()" onmouseover="$('#link-69').show()" id="69" class="comment"><span class="name">Gregg Kellogg</span>: Next meeting on November 9. <a href="https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20221109T120000">https://www.w3.org/events/meetings/164de972-9959-44a0-a925-3905f7685c0f/20221109T120000</a> <a id="link-69" style="display:none;" href="#69">✪</a></div>
+<div onmouseout="$('#link-70').hide()" onmouseover="$('#link-70').show()" id="70" class="comment"><span class="name">Gregg Kellogg</span>:  W3C calendar should automatically adjust to daylight saving time shifts. <a id="link-70" style="display:none;" href="#70">✪</a></div>
+<div onmouseout="$('#link-71').hide()" onmouseover="$('#link-71').show()" id="71" class="comment"><span class="name">Gregg Kellogg</span>: May be one hour later outside of the US. <a id="link-71" style="display:none;" href="#71">✪</a></div>
+<div onmouseout="$('#link-72').hide()" onmouseover="$('#link-72').show()" id="72" class="comment"><span class="name">Pierre-Antoine Champin</span>:  In Europe this call will be one hour later. <a id="link-72" style="display:none;" href="#72">✪</a></div>
+<div onmouseout="$('#link-73').hide()" onmouseover="$('#link-73').show()" id="73" class="comment"><span class="name">Gregg Kellogg</span>:  Continuing to work on the test suites. <a id="link-73" style="display:none;" href="#73">✪</a></div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>
