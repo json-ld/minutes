@@ -1,0 +1,158 @@
+17:00:10 <RRSAgent> RRSAgent has joined #json-ld
+17:00:14 <RRSAgent> logging to https://www.w3.org/2023/02/15-json-ld-irc
+17:00:14 <Zakim> RRSAgent, make logs Public
+17:00:15 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+17:00:22 <gkellogg> meeting: JSON-LD CG
+17:00:53 <gkellogg> agenda: https://www.w3.org/events/meetings/cc5608da-eddd-4857-b849-293bcd25e8ad/20230215T120000
+17:00:54 <agendabot> clear agenda
+17:00:54 <agendabot> agenda+ Announcements and Introductions
+17:00:54 <agendabot> agenda+ YAML-LD
+17:00:54 <agendabot> agenda+ Next Steps
+17:01:06 <gkellogg> chair: gkellogg
+17:01:17 <gkellogg> present+
+17:01:20 <anatoly-scherbakov> present+
+17:03:24 <gkellogg> zakim, next agendum
+17:03:25 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:04:16 <TallTed> present+
+17:04:17 <juuso-aut> juuso-aut has joined #json-ld
+17:04:23 <juuso-aut> present+
+17:04:30 <gkellogg> scribe+ anatoly-scherbakov
+17:04:35 <anatoly-scherbakov> scribe+
+17:04:40 <bigbluehat> present+
+17:05:20 <anatoly-scherbakov> gkellogg: We had a WG meeting two weeks ago, one of items on agenda is to publish the YAML-LD spec.
+17:05:40 <bigbluehat> q+
+17:05:47 <anatoly-scherbakov> gkellogg: One of items for this meeting is: can we make progress on moving towards a recommendation?
+17:06:23 <anatoly-scherbakov> bigbluehat: Need to finalize the draft so that the WG can pickup the work and finalize it as a recommendation.
+17:06:34 <anatoly-scherbakov> gkellogg: welcome Alexandra!
+17:07:50 <anatoly-scherbakov> alexandra: hi! I work at measure.io. Trying to learn more about the industry, especially about JSON-LD. I am from North Carolina, US.
+17:07:56 <gkellogg> zakim, next agendum
+17:07:57 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+17:08:01 <gkellogg> q?
+17:08:05 <gkellogg> ack bigbluehat
+17:08:11 <gkellogg> zakim, next agendum
+17:08:11 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+17:09:06 <anatoly-scherbakov> gkellogg: When we last worked on YAML-LD spec we split the Use Cases document. I have been busy in WG lately. Looking for people to take up the work on YAML-LD.
+17:09:23 <gkellogg> q?
+17:09:24 <anatoly-scherbakov> gkellogg: primary thing WG is interested in is publication of the core spec. What can we do to get that into shape?
+17:10:09 <anatoly-scherbakov> gkellogg: spec is pretty detailed, it supports both basic & extended profiles. I feel extended profile is too ambitious to be specified right now.
+17:10:54 <anatoly-scherbakov> gkellogg: tags and IRIs in them are not widely supported in libraries and tooling
+17:11:30 <TallTed> s/IRIs in them/IRIs with hashes in them/
+17:11:35 <anatoly-scherbakov> gkellogg: the extended internal representation and parsing of YAML documents including special tags should probably be moved into an informative appendix. Not be a part of core feature set.
+17:11:55 <anatoly-scherbakov> gkellogg: we should be able to just leverage JSON-LD core processing methods for YAML-LD.
+17:12:19 <anatoly-scherbakov> gkellogg: we need people interested in bringing the document into a final state when, as a CG, we can publish it as a final report.
+17:12:28 <anatoly-scherbakov> q+
+17:12:35 <gkellogg> ack anatoly-scherbakov
+17:12:41 <gkellogg> scribe+
+17:12:59 <gkellogg> anatoly-scherbakov: For some time, I didn't understand the benefits of tags and the features of the extended representation.
+17:13:13 <gkellogg> ... That was because I was mostly relying on contexts, but at some point
+17:13:36 <gkellogg> ... I got an impression that using such tags would be beneficial for improving an editor's experience.
+17:13:59 <gkellogg> ... Since the spec postulates the existence of an extended internal representation,
+17:14:26 <gkellogg> ... we would need special processing rules for extending an extended document to the plain document.
+17:14:51 <gkellogg> ... That might replace all objects that are represented as tags as normal JSON-LD representations.
+17:15:21 <gkellogg> ... Those questions could be mute if we decide to postpone until later.
+17:15:54 <anatoly-scherbakov> gkellogg: I looked into transforming Extended format straight to JSON-LD with value objects. How do we get back to original YAML representation with tags though?
+17:16:33 <anatoly-scherbakov> gkellogg: idea of the Extended representation was that we'd be able to represent literals with tags. On JSON-LD side we can process them as RDF literals but we can get them back to tags for YAML.
+17:17:17 <anatoly-scherbakov> gkellogg: Conversion to JSON-LD value objects might be an extension to a library or a CLI. My implementation is basically a subclass, a JSON-LD Extended Loader.
+17:17:43 <anatoly-scherbakov> gkellogg: It provides DocumentLoader for YAML-LD and extensions for core methods.
+17:18:30 <anatoly-scherbakov> gkellogg: that is a route that can be taken. These issues are open enough and we could continue on that forever. We might instead prefer to leave them into an not normative sections and invite people to experiment.
+17:18:30 <gkellogg> q?
+17:19:27 <anatoly-scherbakov> gkellogg: we need people to continue work on this spec because I am busy with other work and it is unclear how to proceed unless people step up.
+17:19:52 <TallTed> q?
+17:19:54 <bigbluehat> q+
+17:20:14 <gkellogg> anatoly-scherbakov: I tried to do some contributions, and I would have said I'm eager to do that, but I'm concerned about my availability to contribute.
+17:20:49 <gkellogg> ... Since LD is a spare-time effort for me, and I have my own project that touches YAML-LD, but it also consumes a majority of my time.
+17:21:07 <gkellogg> ... I could try doing something, but I can't promise.
+17:21:48 <gkellogg> ... Maybe we can do some small tickets to split the work into small pieces, such as "remove extended profile into an informative appendix".
+17:22:03 <gkellogg> q?
+17:22:35 <TallTed> TallTed: I will continue polishing via suggestions on PRs, and may be able to take a whack at the doc, section-by-section, but cannot make promises of delivery date, as things stand
+17:23:17 <anatoly-scherbakov> gkellogg: creating small issues is probably a good idea. It can help engaging people and encourage to participate
+17:23:51 <anatoly-scherbakov> gkellogg: question is who is going to actually drive the effort. There is no deadline, WG is recently re-chartered, it has two years. There might be updates to core JSON-LD spec during that time
+17:23:59 <anatoly-scherbakov> gkellogg: work is also going on in RDF-star.
+17:25:05 <anatoly-scherbakov> bigbluehat: maybe many of us are here not only because of YAML-LD. I wonder if key things people are interested in are in YAML-LD or perhaps in JSON-LD, RDF-star or other topics.
+17:26:08 <anatoly-scherbakov> gkellogg: A lot of work is going on around JSON-LD, there are outstanding feature requests; JSON-LD-Star is being worked on but blocked on RDF-star
+17:26:28 <anatoly-scherbakov> gkellogg: Verifiable Credentials group uses CBOR-LD, that's only an ongoing effort. They also want to arrive at some form of a standard.
+17:26:44 <anatoly-scherbakov> gkellogg: what brings people today? What are we interested in working on?
+17:26:48 <anatoly-scherbakov> gkellogg: Ted?
+17:27:25 <anatoly-scherbakov> TallTed: my fingers are on almost anything Identity or LD related. We use RDF and LOD in my company.
+17:27:48 <anatoly-scherbakov> TallTed: I do everything except code.
+17:28:48 <anatoly-scherbakov> juuso-aut: I still want to see YAML-LD published as a recommendation. For me, Extended representation isn't needed much though :) Unfortunately I am overloaded with work currently
+17:29:52 <anatoly-scherbakov> juuso-aut: I would like to find time to work on this spec but I am not familiar with the internal representation and the tooling around the spec. In my university, I could try asking if someone else might be interested in contributing.
+17:30:29 <anatoly-scherbakov> gkellogg: contributing to issues and PRs, reading changes, asking questions, making suggestions is a great way to contribute. Basic internal representation is basically just JSON.
+17:31:09 <anatoly-scherbakov> gkellogg: we can do a lot with just that. If you have students they might be interested in test contributions, implementations — all suitable projects for students.
+17:31:32 <anatoly-scherbakov> gkellogg: this is probably not enough for a doctoral thesis but still might be interesting.
+17:31:49 <anatoly-scherbakov> juuso-aut: have we already decided we do not do the extended representation or is this a decision to be made still?
+17:32:13 <anatoly-scherbakov> gkellogg: there is not enough people here to decide finally. We can create an issue and invite everyone to comment on that.
+17:32:29 <anatoly-scherbakov> gkellogg: I feel trying to accomplish less leads to higher probability for success.
+17:32:46 <anatoly-scherbakov> gkellogg: Extended representation might be something the WG might want to work on.
+17:32:53 <TallTed> TallTed: small bites are almost always done faster, better, more, than big bites
+17:34:00 <anatoly-scherbakov> alexandra: Trying to understand the basics and see what further topics I might be interested in. Listen, see what people are talking about and get acquainted with what's happening. Still interested to contribute.
+17:35:03 <anatoly-scherbakov> gkellogg: that's how many people take part in such activity, and all contributions are appreciated. Rarely it happens that I make a PR and there is no feedback to it.
+17:35:14 <gkellogg> zakim, next agendum
+17:35:14 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+17:35:17 <gkellogg> q?
+17:35:22 <gkellogg> ack bigbluehat
+17:35:53 <gkellogg> zakim, next agendum!
+17:35:53 <Zakim> I don't understand 'next agendum!', gkellogg
+17:36:01 <gkellogg> zakim, next agendum
+17:36:01 <Zakim> agendum 3 -- Next Steps -- taken up [from agendabot]
+17:36:30 <anatoly-scherbakov> bigbluehat: thank you all for being here. There is a lot of JSON-LD out there, great when people get interested in the technology. I'd like Mastodon folks be here too.
+17:36:55 <anatoly-scherbakov> gkellogg: JSON vs JSON-LD people seems to be permanent thread at Verifiable Credentials
+17:38:05 <TallTed> +1 recruit via "AMA about JSON-LD"
+17:38:06 <anatoly-scherbakov> bigbluehat: JSON-LD is not a finalized tech. It still could benefit from dev evangelism and community outreach. CG are the closest thing to this. I've been wondering about changing the model of such meetings to invite more people, even new people, those who're maybe not ready to contribute to the spec right away but are interested in the technology.
+17:38:34 <juuso-aut> q+
+17:38:38 <TallTed> s/AMA about JSON-LD/AMA about JSON-LD, YAML-LD, etc./
+17:38:47 <anatoly-scherbakov> bigbluehat: get more people in the group and more people to do the work.
+17:39:39 <anatoly-scherbakov> gkellogg: this is a great idea. Mastodon is exposing people to JSON-LD but kind of indirectly. Encouraging people to participate would be great and drive some momentum.
+17:40:27 <anatoly-scherbakov> gkellogg: Next baby steps might be to make a couple little changes, start the pebble rolling down the hill. We can meet, say, in 4 weeks time — 15 of March
+17:40:52 <anatoly-scherbakov> gkellogg: I will update the calendar and post the agenda soon to boost visibility
+17:40:56 <gkellogg> q?
+17:41:02 <gkellogg> ack juuso-aut
+17:41:28 <TallTed> TallTed: I expect to be here 2023-03-15
+17:41:54 <TallTed> q+
+17:41:57 <anatoly-scherbakov> juuso-aut: Thanks Benjamin for welcoming us to this community. I talked about JSON-LD inside our organization and advertisiing around our reearch group. It seems to be a great fit for what we're doing. Thanks for all the work you've already done.
+17:42:00 <gkellogg> ack TallTed
+17:42:57 <anatoly-scherbakov> TallTed: there was a discussion about structured data islands into web pages. We have a thing named Structure Data Injector which puts into web pages chunks of structured data, and are then digested by search engines.
+17:43:36 <anatoly-scherbakov> gkellogg: Embeds in HTML pages are probably the widest deployment of JSON-LD
+17:43:56 <anatoly-scherbakov> bigbluehat: YAML is not a great thing to stick into HTML because HTML editors don't like whitespace.
+17:44:37 <anatoly-scherbakov> gkellogg: JSON-LD in <script> tags wasn't a thing first when JSON-LD started development. Not before schema.org adoption.
+17:45:01 <anatoly-scherbakov> TallTed: big challenge is that you have escape things differently when embedding into <script> tag, that happens for Turtle and JSON-LD both.
+17:45:09 <bigbluehat> q+
+17:45:20 <anatoly-scherbakov> TallTed: we have to put into <script> and comment it. It is still being parsed.
+17:45:20 <gkellogg> ack bigbluehat
+17:45:29 <bigbluehat> data blocks https://www.w3.org/TR/html5/semantics-scripting.html#data-block
+17:46:01 <anatoly-scherbakov> bigbluehat: HTML spec has Data blocks. If there is a <script> tag which doesn't specify it is JS then it is going to be ignored.
+17:46:27 <bigbluehat> data-block-extract https://github.com/WileyLabs/data-block-extract
+17:46:38 <anatoly-scherbakov> bigbluehat: it might depend on whether it is XHTML vs HTML etc, but it's an existing feature that has been there for decades. I built a tool to extract those data blocks from CLI
+17:47:26 <anatoly-scherbakov> gkellogg: CDATA isn't really a part of HTML anymore, and XHTML is considered dead. But the idea that you can put stuff into <script> tag and it doesn't require HTML escaping is promising.
+17:47:31 <bigbluehat> q+
+17:48:14 <anatoly-scherbakov> TallTed: whitespace remains in the source. You can see all the whitespace in the source. Viewing it as HTML will of course eliminate all the whitespace.
+17:48:37 <gkellogg> ack bigbluehat
+17:49:34 <anatoly-scherbakov> bigbluehat: YAML block might be indented, shifted over together with the <script> tag — and that might confuse the YAML parser.
+17:50:04 <anatoly-scherbakov> gkellogg: YAML has to start on a new line, not immediately after the <script> tag.
+17:50:39 <anatoly-scherbakov> bigbluehat: HTML has to strip whitespace. JS can live with that.
+17:51:51 <anatoly-scherbakov> bigbluehat: code editor auto indents HTML. If I type YAML into it then I have to fight the editor
+17:52:25 <anatoly-scherbakov> gkellogg: YAML processors should work off the first line they see. It can't be completely left justified.
+17:52:37 <anatoly-scherbakov> TallTed: I had once to split out such leading characters.
+17:53:06 <anatoly-scherbakov> gkellogg: it still should work if all the lines have the same indentation level
+17:53:47 <anatoly-scherbakov> gkellogg: if you insert Markdown into HTML then you have the same indentation considerations
+17:54:09 <anatoly-scherbakov> TallTed: damn you technology!!!
+17:54:31 <anatoly-scherbakov> gkellogg: thanks everyone for showing up! get comments and PRs. we will meet again in 4 weeks.
+17:54:46 <gkellogg> zakim, end meeting
+17:54:47 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, TallTed, juuso-aut, bigbluehat
+17:54:48 <Zakim> RRSAgent, please draft minutes
+17:54:49 <RRSAgent> I have made the request to generate https://www.w3.org/2023/02/15-json-ld-minutes.html Zakim
+17:54:57 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:54:57 <Zakim> Zakim has left #json-ld
+17:55:02 <gkellogg> rrsagent, pointer
+17:55:02 <RRSAgent> See https://www.w3.org/2023/02/15-json-ld-irc#T17-55-02
+17:55:20 <gkellogg> rrsagent, bye
+17:55:20 <RRSAgent> I see no action items
+17:56:32 <RRSAgent> RRSAgent has joined #json-ld
+17:56:32 <RRSAgent> logging to https://www.w3.org/2023/02/15-json-ld-irc
+17:56:38 <TallTed> present+ alexandra
+17:56:44 <TallTed> RRSAgent, draft minutes
+17:56:46 <RRSAgent> I have made the request to generate https://www.w3.org/2023/02/15-json-ld-minutes.html TallTed
+17:57:22 <TallTed> RRSAgent, bye
+17:57:31 <TallTed> RRSAgent, make logs public
+17:57:41 <TallTed> RRSAgent, bye
+17:57:41 <RRSAgent> I see no action items
