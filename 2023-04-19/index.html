@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2023-04-19</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="https://json-ld.org/">Alexandra Hitson</a>, <a href="https://json-ld.org/">Pierre-Antoine Champin</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/bb5c23f8-2745-43da-8f4d-131e5dd8737b">https://www.w3.org/events/meetings/bb5c23f8-2745-43da-8f4d-131e5dd8737b</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">YAML-LD</a><li><a href="#topic-3">Open Discussion</a><li><a href="#topic-4">Next call</a></ol></dd></dl>
+</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Gregg Kellogg</span>:  Call for membership of JSON-LD WG <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Anatoly Scherbakov</span>:  I&apos;d be interested in being there. <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="information"><a href="https://www.w3.org/2002/09/wbs/1/CGS-TPAC2023/">https://www.w3.org/2002/09/wbs/1/CGS-TPAC2023/</a> <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="information"><a href="https://www.w3.org/2018/json-ld-wg/">https://www.w3.org/2018/json-ld-wg/</a> <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: YAML-LD
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="information">Anatoly-scherbakov_: The work on YAML-LD isn&apos;t yet complete. <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div class="comment-continuation">... I&apos;ve added a non-normative section comparing JSON and YAML by their feature sets, showing that YAML has some extra features.</div>
+<div class="comment-continuation">... I started on another section discussing extended YAML-LD.</div>
+<div class="comment-continuation">... I describe the goal of using those features for describing nodes.</div>
+<div class="comment-continuation">... I&apos;ve created some issues, one completed and merged. ANother is in a draft state.</div>
+<div class="comment-continuation">... There is also a note on examples.</div>
+<div class="comment-continuation">... The examples of YAML-LD in the spec should be universally themed, meaning that they should each address a different topic.</div>
+<div class="comment-continuation">... For example, an example of my cat with names in different languages, others talk about different people.</div>
+<div class="comment-continuation">... It would be more cohesive if they all related to a single topic.</div>
+<div class="comment-continuation">... The most straightforward choice might be to have examples about the specification itself.</div>
+<div class="comment-continuation">... This could be written in different variations, say using anchors.</div>
+<div class="comment-continuation">... There hasn&apos;t been discussion about it yet.</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: json-ld/yaml-ld#94
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/94">https://github.com/json-ld/yaml-ld/issues/94</a> -&gt; Issue 94 Unify YAML-LD &amp; JSON-LD examples (anatoly-scherbakov) <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/94">https://github.com/json-ld/yaml-ld/issues/94</a> : Unify YAML-LD &amp; JSON-LD examples <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="information">Anatoly-scherbakov_: Also, thanks to TallTed for his help. <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: json-ld/yaml-ld#88
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="information">Anatoly-scherbakov_: Maybe we should reiterate the general plan: That&apos;s described in json-ld/yaml-ld#88, as a diagram. <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/88">https://github.com/json-ld/yaml-ld/issues/88</a> -&gt; Issue 88 Leave YAML-LD Extended profile out of bounds of the Community Report (anatoly-scherbakov) <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/88">https://github.com/json-ld/yaml-ld/issues/88</a> : Leave YAML-LD Extended profile out of bounds of the Community Report <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div class="comment-continuation">... Right now I&apos;m documenting motivations for the extended profile.</div>
+<div class="comment-continuation">... What&apos;s next is to complete work on the extended profile.</div>
+<div class="comment-continuation">... Also, there are tasks on the extended test suite, where we can document downgrade tests using the JSON profile.</div>
+<div class="comment-continuation">... My progress has been slow, I&apos;m afraid, as I&apos;ve also been occupied with experiments.</div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">David I. Lehn</span>:  I like the diagram. Are there implementations that implement these different features. <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="information">Anatoly-scherbakov_: Yes, the diagram was taken from YAML-LD. <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div class="comment-continuation">... I haven&apos;t been using any extended profile features, just the JSON profile using our convenience context.</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: Other YAML-LD issues
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Gregg Kellogg</span>:  There are some problems with expressing IRIs containing a &apos;#&apos; in many YAML parsers. <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="information">Anatoly-scherbakov_: I haven&apos;t looked further into it. I think the syntax for tags in YAML is rather convoluted. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div class="comment-continuation">... YAML feels like a concise language, but the tag definitions do not.</div>
+<div class="comment-continuation">... To assign types, I&apos;ve either used the `$type1 property, or rely on OWL to assign types based on the domain/range.</div>
+<div class="comment-continuation">... I haven&apos;t felt a pressing need to use the tag syntax.</div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 For looking for pressing practical needs <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I had a discussion about YAML-LD when you stick to the &quot;good parts&quot;. <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div class="comment-continuation">... It would be beneficially for YAML-LD to stay within that subset.</div>
+<div class="comment-continuation">... I&apos;d recommend that we keep YAML-LD to using the well-implemented subset commonly implemented.</div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="information">Anatoly-scherbakov_: My intention for using YAML-LD was to enable non-specialists (who may have not read the spec) to write YAML-LD easily. <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div class="comment-continuation">... It can be effective as a DSL; they want something very simple.</div>
+<div class="comment-continuation">... That&apos;s the motivation of moving the extended profile out of the spec, and move it into a non-normative section to fuel further discussion.</div>
+<div class="comment-continuation">... That way, the experimental features may be pushed forward at some point in the future.</div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Gregg Kellogg</span>:  Our goal is to get the spec into a position where we present the spec to the WG. Then, we should get this onto Recommendation track later this year. <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Gregg Kellogg</span>:  Let&apos;s push the thing forward and get it to the state of a final report. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<h1 onmouseout="$('#link-topic-3').hide()" onmouseover="$('#link-topic-3').show()" id="topic-3" class="topic">
+Topic: Open Discussion
+<a id="link-topic-3" style="display:none;" href="#topic-3">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: Errata/updates to JSON-LD specs
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">David I. Lehn</span>: <a href="https://github.com/digitalbazaar/jsonld.js/pull/506">https://github.com/digitalbazaar/jsonld.js/pull/506</a> <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div class="comment-continuation">... JSON-LD framing has an issue that&apos;s affecting us.</div>
+<div class="comment-continuation">... It&apos;s a fairly small change about not sure what to do about this one.</div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="information">Anatoly-scherbakov_: I want to ask for a consultation, but let&apos;s come back to that. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">David I. Lehn</span>:  There was a test added to the test suite, but it needs more coverage. <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Gregg Kellogg</span>:  I believe I implement the test. <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Pierre-Antoine Champin</span>:  About updating the recommendation; once the WG is active we can probably make some changes for that. <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: YAML-LD use cases
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="information">Anatoly-scherbakov_: I&apos;m developing a YAML-LD application for some time. My concern is that I might be doing something that is not generally interesting to people. <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div class="comment-continuation">... How can I ask for feedback on this?</div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="information">Anatoly-scherbakov_: I&apos;ll create an issue on the YAML-LD repo as a use case and solicit feedback. <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I was going to ask about open issues for the JSON-LD WG. Should we update it, or is there an an erratum. <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div class="comment-continuation">... I&apos;d need to set aside some real work time to be able to devote time on this.</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: RDF-star
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Pierre-Antoine Champin</span>:  At the moment, neither the RDF-star nor JSON-LD are chartered to do JSON-LD star <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div class="comment-continuation">... This doesn&apos;t mean that it couldn&apos;t happen in those working groups, but there may need to be some re-chartering.</div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I&apos;m interested in the JSON-LD star and would have time to work on it actively. <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div class="comment-continuation">... There are a number of leads cropping up for atomic provenance.</div>
+<div class="comment-continuation">... I&apos;ve thought of joining RDF-star as well, but was worried it would take up all my time.</div>
+<div class="comment-continuation">... There are many interesting things happening in our data when trying to annotate provenance and starting to use that elsewhere.</div>
+<div class="comment-continuation">... I&apos;m glad niklas has time to work on it, and would like to collaborate.</div>
+<div class="comment-continuation">... The more active work there is on the spec, the more chance there is that it would not be objected to.</div>
+<div class="comment-continuation">... It would be best to continue to incubate in the CG to make it acceptable.</div>
+<div class="comment-continuation">... The semantics discussion is taking a lot of time, but it&apos;s also quite important.</div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  It&apos;s hard to say away, but I&apos;m resisting :) <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div class="comment-continuation">... When we work with the JSON-LD star we use it as JSON. It&apos;s sort of like programming in &quot;C&quot;, it&apos;s dangerous.</div>
+<div class="comment-continuation">... That gets aggravated if you try to discuss provenance without controlled semantics.</div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Gregg Kellogg</span>:  Status of JSON-LD-star (&amp; &#8658; YAML-LD-star) is fairly stable. Depends on what happens with Annotations. There&apos;s not much work left for the spec. <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>:  Feel free to take part in discussions, issues, mailing lists. <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Pierre-Antoine Champin</span>: +1 <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Gregg Kellogg</span>:  Sounds like there are use cases to contribute. There&apos;re ways to contribute without diving in too deep. Your contributions have been quite useful in the past <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: YAML-LD deadlines
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="information">Anatoly-scherbakov_: I wanted to ask about any deadlines, or calendar for prepariing the YAML-LD spec for the WG. <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Gregg Kellogg</span>:  None, but we should capture the momentum. Once we&apos;ve wrapped up the predominant issues, maybe just defer them, &#8212; and come up with an MVP useful spec. Then the CG votes on whether we want to advance it. <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Gregg Kellogg</span>:  If a final report exists it doesn&apos;t mean there will be no more. But it creates a published snapshot that can be used as input for the WG. <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Gregg Kellogg</span>:  Let&apos;s triage issues, address them, and move forward. Would be good to have something by June. <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Gregg Kellogg</span>:  YAML-LD-star won&apos;t get to the final report now but we should be tracking JSON-LD-star changes which YAML-LD* is related to. Let&apos;s not use YAML specific features at this point. Maybe later. <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Ted Thibodeau Jr.</span>: <a href="https://www.w3.org/groups/wg/json-ld/calendar">https://www.w3.org/groups/wg/json-ld/calendar</a> <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<h1 onmouseout="$('#link-topic-4').hide()" onmouseover="$('#link-topic-4').show()" id="topic-4" class="topic">
+Topic: Next call
+<a id="link-topic-4" style="display:none;" href="#topic-4">✪</a></h1>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Gregg Kellogg</span>:  Next meeting: 10th of May <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Gregg Kellogg</span>:  Next call tentatively scheduled for May 10th. <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Pierre-Antoine Champin</span>:  FWIW, May 10 overlaps the AC meeting. <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="information">Next meeting on May 3, agenda to be discussed. <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Difference is considerations of patent issues. <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div class="comment-continuation">... It&apos;s important to do those things to make sure we don&apos;t encumber liabilities.</div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>

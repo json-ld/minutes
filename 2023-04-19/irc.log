@@ -1,0 +1,203 @@
+16:00:32 <RRSAgent> RRSAgent has joined #json-ld
+16:00:36 <RRSAgent> logging to https://www.w3.org/2023/04/19-json-ld-irc
+16:00:55 <TallTed> meeting: JSON-LD CG
+16:01:29 <TallTed> Zakim, start meeting
+16:01:29 <Zakim> RRSAgent, make logs Public
+16:01:31 <Zakim> please title this meeting ("meeting: ..."), TallTed
+16:01:38 <TallTed> meeting: JSON-LD CG
+16:01:43 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:01:51 <TallTed> present+
+16:01:51 <anatoly-scherbakov> present+
+16:02:18 <gkellogg> agenda: https://beta.w3.org/events/meetings/bb5c23f8-2745-43da-8f4d-131e5dd8737b/
+16:02:18 <TallTed> agenda: https://www.w3.org/events/meetings/bb5c23f8-2745-43da-8f4d-131e5dd8737b
+16:02:19 <agendabot> clear agenda
+16:02:19 <agendabot> agenda+ Announcements and Introductions
+16:02:19 <agendabot> agenda+ YAML-LD
+16:02:19 <agendabot> agenda+ Open Discussion
+16:02:19 <agendabot> agenda+ Next call
+16:02:21 <agendabot> clear agenda
+16:02:23 <agendabot> agenda+ Announcements and Introductions
+16:02:26 <agendabot> agenda+ YAML-LD
+16:02:28 <agendabot> agenda+ Open Discussion
+16:02:30 <agendabot> agenda+ Next call
+16:02:41 <gkellogg> present+
+16:02:44 <gkellogg> chair: gkellogg
+16:03:26 <gkellogg> scribe+
+16:03:42 <gkellogg> zakim, next agendum
+16:03:42 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:04:17 <anatoly-scherbakov_> anatoly-scherbakov_ has joined #json-ld
+16:04:27 <dlehn> present+
+16:04:43 <gkellogg> gkellogg: call for membership of JSON-LD WG
+16:05:37 <gkellogg> anatoly-scherbakov: I'd be interested in being there.
+16:05:45 <gkellogg> https://www.w3.org/2002/09/wbs/1/CGS-TPAC2023/
+16:07:15 <TallTed> present+ dlehn
+16:07:30 <niklasl> niklasl has joined #json-ld
+16:07:54 <TallTed> present+ niklasl
+16:08:25 <gkellogg> https://www.w3.org/2018/json-ld-wg/
+16:09:29 <gkellogg> zakim, next agendum
+16:09:29 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:09:57 <gkellogg> anatoly-scherbakov_: The work on YAML-LD isn't yet complete.
+16:10:21 <gkellogg> ... I've added a non-normative section comparing JSON and YAML by their feature sets, showing that YAML has some extra features.
+16:10:39 <TallTed> RRSAgent, draft minutes
+16:10:40 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html TallTed
+16:10:47 <gkellogg> ... I started on another section discussing extended YAML-LD.
+16:10:56 <gkellogg> ... I describe the goal of using those features for describing nodes.
+16:11:12 <gkellogg> ... I've created some issues, one completed and merged. ANother is in a draft state.
+16:11:26 <gkellogg> ... There is also a note on examples.
+16:11:52 <gkellogg> ... The examples of YAML-LD in the spec should be universally themed, meaning that they should each address a different topic.
+16:12:16 <gkellogg> ... For example, an example of my cat with names in different languages, others talk about different people.
+16:12:31 <gkellogg> ... It would be more cohesive if they all related to a single topic.
+16:12:48 <gkellogg> ... The most straightforward choice might be to have examples about the specification itself.
+16:13:14 <gkellogg> ... This could be written in different variations, say using anchors.
+16:13:32 <gkellogg> ... There hasn't been discussion about it yet.
+16:14:25 <gkellogg> subtopic: json-ld/yaml-ld#94
+16:14:26 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/94 -> Issue 94 Unify YAML-LD & JSON-LD examples (anatoly-scherbakov)
+16:14:37 <Github> https://github.com/json-ld/yaml-ld/issues/94 : Unify YAML-LD & JSON-LD examples
+16:14:37 <gkellogg> anatoly-scherbakov_: Also, thanks to TallTed for his help.
+16:14:57 <Alexandra> Alexandra has joined #json-ld
+16:15:29 <gkellogg> q?
+16:16:06 <anatoly-scherbakov_> subtopic: json-ld/yaml-ld#88
+16:16:11 <gkellogg> anatoly-scherbakov_: Maybe we should reiterate the general plan: That's described in json-ld/yaml-ld#88, as a diagram.
+16:16:12 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/88 -> Issue 88 Leave YAML-LD Extended profile out of bounds of the Community Report (anatoly-scherbakov)
+16:16:13 <Github> https://github.com/json-ld/yaml-ld/issues/88 : Leave YAML-LD Extended profile out of bounds of the Community Report
+16:16:27 <gkellogg> ... Right now I'm documenting motivations for the extended profile.
+16:16:33 <TallTed> s|json-ld/ysml-ld#94||
+16:16:39 <gkellogg> ... What's next is to complete work on the extended profile.
+16:16:48 <TallTed> RRSAgent, draft minutes
+16:16:49 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html TallTed
+16:17:07 <gkellogg> ... Also, there are tasks on the extended test suite, where we can document downgrade tests using the JSON profile.
+16:17:33 <TallTed> s|https://github.com/json-ld/ysml-ld/issues/94 -> Issue 94 [not found]||
+16:17:45 <gkellogg> ... My progress has been slow, I'm afraid, as I've also been occupied with experiments.
+16:18:01 <dlehn> q+
+16:18:07 <gkellogg> ack dlehn
+16:18:23 <TallTed> RRSAgent, draft minutes
+16:18:24 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html TallTed
+16:18:38 <gkellogg> dlehn: I like the diagram. Are there implementations that implement these different features.
+16:18:48 <gkellogg> anatoly-scherbakov_: Yes, the diagram was taken from YAML-LD.
+16:19:33 <gkellogg> ... I haven't been using any extended profile features, just the JSON profile using our convenience context.
+16:19:34 <gkellogg> q+
+16:19:40 <gkellogg> ack me
+16:20:15 <niklasl> q+
+16:20:48 <TallTed> present+ Alexandra
+16:21:19 <gkellogg> subtopic: Other YAML-LD issues
+16:21:19 <gkellogg> gkellogg: There are some problems with expressing IRIs containing a '#' in many YAML parsers.
+16:21:39 <gkellogg> anatoly-scherbakov_: I haven't looked further into it. I think the syntax for tags in YAML is rather convoluted.
+16:22:06 <gkellogg> ... YAML feels like a concise language, but the tag definitions do not.
+16:22:51 <gkellogg> ... To assign types, I've either used the `$type1 property, or rely on OWL to assign types based on the domain/range.
+16:23:08 <gkellogg> ... I haven't felt a pressing need to use the tag syntax.
+16:23:09 <gkellogg> q?
+16:23:11 <niklasl> +1 for looking for pressing practical needs
+16:23:12 <gkellogg> ack niklasl
+16:24:06 <gkellogg> niklasl: I had a discussion about YAML-LD when you stick to the "good parts".
+16:24:21 <gkellogg> ... It would be beneficially for YAML-LD to stay within that subset.
+16:24:36 <anatoly-scherbakov_> q+
+16:24:56 <gkellogg> ... I'd recommend that we keep YAML-LD to using the well-implemented subset commonly implemented.
+16:24:58 <gkellogg> q?
+16:25:34 <gkellogg> anatoly-scherbakov_: My intention for using YAML-LD was to enable non-specialists (who may have not read the spec) to write YAML-LD easily.
+16:25:55 <gkellogg> ... It can be effective as a DSL; they want something very simple.
+16:26:25 <gkellogg> ... That's the motivation of moving the extended profile out of the spec, and move it into a non-normative section to fuel further dicussion.
+16:26:32 <gkellogg> s/dicussion/discussion/
+16:26:57 <gkellogg> ... That way, the experimental features may be pushed forward at some point in the future.
+16:27:01 <gkellogg> q?
+16:27:04 <gkellogg> ack anatoly-scherbakov_
+16:27:52 <anatoly-scherbakov_> gkellogg: Our goal is to get the spec into a position where we present the spec to the WG. Then, we should get this onto Recommendation track later this year.
+16:28:26 <anatoly-scherbakov_> gkellogg: Let's push the thing forward and get it to the state of a final report.
+16:28:29 <gkellogg> zakim, next agendum
+16:28:29 <Zakim> agendum 3 -- Open Discussion -- taken up [from agendabot]
+16:28:29 <gkellogg> subtopic: Errata/updates to JSON-LD specs
+16:28:38 <dlehn> q+
+16:28:42 <anatoly-scherbakov_> q+
+16:28:47 <gkellogg> ack dlehn
+16:29:02 <niklasl> q+
+16:29:06 <gkellogg> dlehn: DB has the json-ld.org domain which has changed to a different registrar.
+16:29:28 <dlehn> https://github.com/digitalbazaar/jsonld.js/pull/506
+16:29:30 <gkellogg> ... JSON-LD framing has an issue that's affecting us.
+16:29:49 <gkellogg> ... It's a fairly small change about not sure what to do about this one.
+16:29:54 <gkellogg> q+
+16:30:13 <gkellogg> ack anatoly-scherbakov_
+16:30:41 <gkellogg> anatoly-scherbakov_: I want to ask for a consultation, but let's come back to that.
+16:30:44 <gkellogg> ack niklasl
+16:31:27 <gkellogg> ack me
+16:32:48 <gkellogg> dlehn: There was a test added to the test suite, but it needs more coverage.
+16:33:11 <gkellogg> gkellogg: I believe I implement the test.
+16:34:59 <gkellogg> pchampin: About updating the recommendation; once the WG is active we can probably make some changes for that.
+16:35:08 <TallTed> present+ pchampin
+16:35:26 <TallTed> RRSAgent, draft minutes
+16:35:27 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html TallTed
+16:35:38 <gkellogg> q?
+16:28:29 <gkellogg> subtopic: YAML-LD use cases
+16:36:27 <gkellogg> anatoly-scherbakov_: I'm developing a YAML-LD application for some time. My concern is that I might be doing something that is not generally interesting to people.
+16:36:40 <gkellogg> ... How can I ask for feedback on this?
+16:38:39 <gkellogg> anatoly-scherbakov_: I'll create an issue on the YAML-LD repo as a use case and solicit feedback.
+16:38:41 <gkellogg> q?
+16:39:21 <gkellogg> niklasl: I was going to ask about open issues for the JSON-LD WG. Should we update it, or is there an an erratum.
+16:39:38 <gkellogg> ... I'd need to set aside some real work time to be able to devote time on this.
+16:43:11 <pchampin> q+
+16:28:29 <gkellogg> subtopic: RDF-star
+16:43:46 <gkellogg> pchampin: At the moment, neither the RDF-star nor JSON-LD are chartered to do JSON-LD star
+16:43:58 <niklasl> q+
+16:44:13 <gkellogg> ... This doesn't mean that it couldn't happen in those working groups, but there may need to be some re-chartering.
+16:44:44 <gkellogg> niklasl: I'm interested in the JSON-LD star and would have time to work on it actively.
+16:44:46 <pchampin> q+
+16:45:10 <gkellogg> ... There are a number of leads cropping up for atomic provenance.
+16:45:11 <gkellogg> q+
+16:45:35 <gkellogg> ... I've thought of joining RDF-star as well, but was worried it would take up all my time.
+16:45:58 <gkellogg> ... There are many interesting things happening in our data when trying to annotate provenance and starting to use that elsewhere.
+16:46:02 <gkellogg> q?
+16:46:07 <gkellogg> ack pchampin
+16:46:25 <gkellogg> ... I'm glad niklas has time to work on it, and would like to collaborate.
+16:46:45 <gkellogg> ... The more active work there is on the spec, the more chance there is that it would not be objected to.
+16:46:56 <anatoly-scherbakov_> q+
+16:47:06 <gkellogg> ... It would be best to continue to incubate in the CG to make it acceptable.
+16:47:17 <gkellogg> q?
+16:47:38 <gkellogg> ... The semantics discussion is taking a lot of time, but it's also quite important.
+16:47:48 <gkellogg> q?
+16:47:53 <gkellogg> ack niklasl
+16:48:07 <gkellogg> niklasl: It's hard to say away, but I'm resisting :)
+16:48:36 <gkellogg> ... When we work with the JSON-LD star we use it as JSON. It's sort of like programming in "C", it's dangerous.
+16:49:08 <gkellogg> ... That gets aggravated if you try to discuss provenance without controlled semantics.
+16:49:09 <gkellogg> q?
+16:49:13 <gkellogg> ack me
+16:50:03 <anatoly-scherbakov_> gkellogg: Status of JSON-LD* (& ⇒ YAML-LD*) is fairly stable. Depends on what happens with Annotations. There's not much work left for the spec.
+16:50:21 <pchampin> s/JSON-LD*/JSON-LD-star/
+16:50:32 <pchampin> s/YAML-LD*/YAML-LD-star/
+16:50:50 <anatoly-scherbakov_> gkellogg: Feel free to take part in discussions, issues, mailing lists.
+16:50:57 <pchampin> +1
+16:51:23 <gkellogg> q?
+16:51:23 <TallTed> RRSAgent, draft minutes
+16:51:24 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html TallTed
+16:51:30 <anatoly-scherbakov_> gkellogg: Sounds like there are use cases to contribute. There're ways to contribute without diving in too deep. Your contributions have been quite useful in the past
+16:28:29 <gkellogg> subtopic: YAML-LD deadlines
+16:51:52 <gkellogg> anatoly-scherbakov_: I wanted to ask about any deadlines, or calendar for prepariing the YAML-LD spec for the WG.
+16:53:39 <anatoly-scherbakov_> gkellogg: None, but we should capture the momentum. Once we've wrapped up the predominant issues, maybe just defer them, — and come up with an MVP useful spec. Then the CG votes on whether we want to advance it.
+16:54:01 <anatoly-scherbakov_> gkellogg: if a final report exists it doesn't mean there will be no more. But it creates a published snapshot that can be used as input for the WG.
+16:54:30 <anatoly-scherbakov_> gkellogg: Let's triage issues, address them, and move forward. Would be good to have something by June.
+16:55:16 <anatoly-scherbakov_> gkellogg: YAML-LD* won't get to the final report now but we should be tracking JSON-LD* changes which YAML-LD* is related to. Let's not use YAML specific features at this point. Maybe later.
+16:55:34 <gkellogg> s/YAML-LD*/YAML-LD-star/g
+16:55:42 <gkellogg> q?
+16:55:49 <anatoly-scherbakov_> q-
+16:56:12 <TallTed> s/JSON-LD*/JSON-LD-star/g
+16:56:29 <TallTed> https://www.w3.org/groups/wg/json-ld/calendar
+16:56:36 <gkellogg> zakim, next agendum
+16:56:36 <Zakim> agendum 4 -- Next call -- taken up [from agendabot]
+16:56:48 <anatoly-scherbakov_> gkellogg: next meeting: 10th of May
+16:56:55 <pchampin> q+
+16:57:04 <gkellogg> gkellogg: next call tentatively scheduled for May 10th.
+16:57:08 <gkellogg> ack pchampin
+16:57:24 <gkellogg> pchampin: FWIW, May 10 overlaps the AC meeting.
+16:58:02 <anatoly-scherbakov_> +1
+16:59:23 <gkellogg> next meeting on May 3, agenda to be discussed.
+16:59:44 <gkellogg> TallTed: Difference is considerations of patent issues.
+17:00:03 <gkellogg> ... It's important to do those things to make sure we don't encumber liabilities.
+17:01:57 <TallTed> RRSAgent, draft minutes
+17:01:58 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html TallTed
+17:02:04 <gkellogg> zakim, end meeting
+17:02:04 <Zakim> As of this point the attendees have been TallTed, anatoly-scherbakov, gkellogg, dlehn, niklasl, Alexandra, pchampin
+17:02:06 <Zakim> RRSAgent, please draft minutes
+17:02:07 <RRSAgent> I have made the request to generate https://www.w3.org/2023/04/19-json-ld-minutes.html Zakim
+17:02:12 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:02:13 <Zakim> Zakim has left #json-ld
+17:02:21 <gkellogg> rrsagent, pointer
+17:02:21 <RRSAgent> See https://www.w3.org/2023/04/19-json-ld-irc#T17-02-21
+17:02:36 <gkellogg> rrsagent, bye
+17:02:36 <RRSAgent> I see no action items
