@@ -1,0 +1,84 @@
+16:00:02 <RRSAgent> RRSAgent has joined #json-ld
+16:00:06 <RRSAgent> logging to https://www.w3.org/2023/05/03-json-ld-irc
+16:00:06 <Zakim> RRSAgent, make logs Public
+16:00:07 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:00:11 <gkellogg> meeting: JSON-LD CG
+16:00:26 <gkellogg> agenda: https://www.w3.org/events/meetings/59430e2c-7ebc-4cc1-9389-b3942d721faa/20230510T120000
+16:00:26 <agendabot> clear agenda
+16:00:26 <agendabot> agenda+ Announcements and Introductions
+16:00:26 <agendabot> agenda+ YAML-LD
+16:00:26 <agendabot> agenda+ Open Discussion
+16:00:26 <agendabot> agenda+ Next call
+16:00:38 <gkellogg> chair: gkellogg
+16:00:45 <gkellogg> present+
+16:01:07 <TallTed> TallTed has changed the topic to: JSON-LD CG — 2023-05-03 Agenda: https://www.w3.org/events/meetings/59430e2c-7ebc-4cc1-9389-b3942d721faa/20230510T120000
+16:06:41 <gkellogg> agendabot: clear agenda
+16:07:00 <gkellogg> Meeting called due to lack of attendence.
+16:08:40 <niklasl> niklasl has joined #json-ld
+16:09:46 <gkellogg> s/Meeting called due to lack of attendence.//
+16:10:04 <Alexandra_> Alexandra_ has joined #json-ld
+16:10:07 <dlehn> present+
+16:10:10 <TallTed> present+
+16:10:11 <pchampin> present+
+16:10:12 <niklasl> present+
+16:10:39 <gkellogg> topic: JSON-LD WG issues
+16:10:42 <gkellogg> https://github.com/orgs/w3c/projects/4
+16:11:18 <niklasl> +1
+16:11:19 <gkellogg> scribe: gkellogg
+16:11:20 <niklasl> q+
+16:11:43 <gkellogg> gkellogg: The project shows a large backlog of issues.
+16:12:30 <gkellogg> niklasl: I haven't looked at all the issues here, just those I've raised.
+16:12:51 <gkellogg> ... I wonder if it's worthwhile to start merging things.
+16:15:12 <gkellogg> gkellogg: what does it take for the WG to allow editorial and substantive PR merges to the JSON-LD specs?
+16:16:58 <niklasl> q+
+16:17:08 <gkellogg> ... What do we need to do to be sure the ED is in sufficient state to update/CR?
+16:17:12 <pchampin> https://beta.w3.org/standards/history/vc-data-model-1.1/
+16:17:26 <gkellogg> pchampin: Don't think we need to go through CR?
+16:17:56 <gkellogg> gkellogg: what process did the group go through?
+16:17:57 <pchampin> https://www.w3.org/TR/2022/REC-vc-data-model-20220303/#revision-history
+16:18:11 <gkellogg> pchampin: There's a revision history. "Changes since Recommendation".
+16:19:15 <gkellogg> gkellogg: There must be cases where process requires going back through CR.
+16:20:16 <pchampin> https://beta.w3.org/2021/Process-20211102/#update-reqs
+16:20:26 <gkellogg> ... There is a ReSpec feature for adding commit messages to the document.
+16:21:00 <gkellogg> ... Process requires wide review of changes.
+16:22:41 <gkellogg> q?
+16:23:03 <gkellogg> dlehn: Is there a list of items in the project page?
+16:26:34 <gkellogg> gkellogg: The list is currently manually managed, could use some automation.
+16:27:32 <gkellogg> topic: JSON-LD-star
+16:27:50 <gkellogg> gkellogg: Something the group might need to look at after another REC.
+16:28:58 <gkellogg> dlehn: Would that be a 2.0?
+16:29:45 <gkellogg> niklasl: I don't know what the definition for backwards compatible would be, if we add annotations if we add node references?
+16:30:16 <gkellogg> ... You could have code that looked at the number of keys to determine if it's a node reference.
+16:32:02 <manu_> manu_ has joined #json-ld
+16:32:08 <niklasl> q-
+16:33:37 <gkellogg> Discussion about what it means to be "backwards compatible".
+16:37:51 <gkellogg> niklasl: I need to write up more about our RDF-star use cases. For example, "atomic provenance".
+16:39:17 <gkellogg> ... Back to JSON-LD: two of my issues relate to the behavior of implementations vs the spec.
+16:39:47 <niklasl> https://github.com/w3c/json-ld-api/issues/565
+16:40:50 <gkellogg> niklasl: This issue is about processing a revers term. The behavior of the algoritm would be consistent with implementations if the added text was added.
+16:41:45 <gkellogg> ... I think that the implementations are right, and the spec should be updated.
+16:42:14 <gkellogg> pchampin: I'm assuming that this is under-tested as well?
+16:42:43 <gkellogg> niklasl: I have about three things that don't process properly without this change.
+16:44:20 <gkellogg> TallTed: The question is what behavior is actually correct, so there shouldn't be patent considerations in dicussing it in the CG.
+16:46:26 <gkellogg> ... We need to draw a line between the CG and WG. The rules are different.
+16:46:38 <gkellogg> ... Some topics need to be disucssed in the WG.
+16:52:08 <gkellogg> gkellogg: issues up for discussion need an owner, and people need to prepare for discussion.
+16:52:19 <gkellogg> topic: next call
+16:52:47 <gkellogg> gkellogg: next call on May 17th and moving to every-other week meetings.
+16:54:19 <gkellogg> agendbot: make minutes public
+16:54:34 <Alexandra_> Alexandra_ has left #json-ld
+16:54:34 <gkellogg> rrsagent, make minutes public
+16:54:34 <RRSAgent> I'm logging. I don't understand 'make minutes public', gkellogg.  Try /msg RRSAgent help
+16:54:45 <gkellogg> rrsagent, publish minutes
+16:54:47 <RRSAgent> I have made the request to generate https://www.w3.org/2023/05/03-json-ld-minutes.html gkellogg
+16:55:02 <gkellogg> zakim, end meeting
+16:55:02 <Zakim> As of this point the attendees have been gkellogg, dlehn, TallTed, pchampin, niklasl
+16:55:04 <Zakim> RRSAgent, please draft minutes
+16:55:06 <RRSAgent> I have made the request to generate https://www.w3.org/2023/05/03-json-ld-minutes.html Zakim
+16:55:11 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:55:12 <Zakim> Zakim has left #json-ld
+16:55:14 <Alexandra> Alexandra has joined #json-ld
+16:55:16 <gkellogg> rrsagent, pointer
+16:55:16 <RRSAgent> See https://www.w3.org/2023/05/03-json-ld-irc#T16-55-16
+16:55:24 <gkellogg> rrsagent, bye
+16:55:24 <RRSAgent> I see no action items
