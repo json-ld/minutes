@@ -1,0 +1,131 @@
+15:55:05 <RRSAgent> RRSAgent has joined #json-ld
+15:55:10 <RRSAgent> logging to https://www.w3.org/2023/05/17-json-ld-irc
+15:55:10 <Zakim> RRSAgent, make logs Public
+15:55:11 <Zakim> please title this meeting ("meeting: ..."), gkellogg_
+15:55:15 <gkellogg_> meeting: JSON-LD CG
+15:55:42 <gkellogg_> agenda: https://www.w3.org/events/meetings/071c8a3f-1002-4d82-a123-e33294dcdc22/20230517T120000
+15:55:43 <agendabot> clear agenda
+15:55:43 <agendabot> agenda+ Announcements and Introductions
+15:55:43 <agendabot> agenda+ YAML-LD
+15:55:43 <agendabot> agenda+ JSON-LD Issue Discussion
+15:55:43 <agendabot> agenda+ Open Discussion
+15:55:45 <agendabot> agenda+ Next call
+15:55:54 <gkellogg_> chair: gkellogg
+15:56:04 <gkellogg_> present+
+15:56:49 <TallTed> calendar has not been updated with non-MIT zoom...
+15:57:23 <gkellogg_> I'll need to get pchampin to update that.
+15:55:15 <gkellogg_> scribe+
+16:01:26 <niklasl> niklasl has joined #json-ld
+16:03:56 <TallTed> present+
+16:04:05 <pchampin> pchampin has joined #json-ld
+16:04:06 <TallTed> RRSAgent, draft minutes
+16:04:08 <RRSAgent> I have made the request to generate https://www.w3.org/2023/05/17-json-ld-minutes.html TallTed
+16:04:16 <pchampin> present+
+16:04:48 <gkellogg_> zakim, next open item 1
+16:04:48 <Zakim> I don't understand 'next open item 1', gkellogg_
+16:04:55 <gkellogg_> zakim, open item 1
+16:04:55 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:05:19 <niklasl> present+
+16:06:07 <gkellogg_> zakim, close item 1
+16:06:07 <Zakim> agendum 1, Announcements and Introductions, closed
+16:06:08 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:06:08 <Zakim> 2. YAML-LD [from agendabot]
+16:07:10 <gkellogg_> zakim, close item 2
+16:07:10 <Zakim> agendum 2, YAML-LD, closed
+16:07:11 <Zakim> I see 3 items remaining on the agenda; the next one is
+16:07:11 <Zakim> 3. JSON-LD Issue Discussion [from agendabot]
+16:08:27 <gkellogg_> subtopic: Generally suggest creating and merging PRs for editorial ErratumRiased. What are the documentation requirements?
+16:09:26 <gkellogg_> gkellogg: requirements for updating EDs.
+16:10:12 <dlehn> present+
+16:11:07 <gkellogg_> pchampin: I believe that as long as we're making corrections and not adding features, the WG can publisher a new REC without restarting the cycle.
+16:11:33 <gkellogg_> ... I think it means going back to CR.
+16:12:20 <bigbluehat> present+
+16:12:32 <pchampin> https://beta.w3.org/2021/Process-20211102/#revised-rec-substantive
+16:13:11 <gkellogg_> ... It can be published as CR.
+16:14:20 <gkellogg_> gkellogg: want to be sure we don't create too much work for ourselves.
+16:15:35 <gkellogg_> ... We need some WG approval to move forward.
+16:15:56 <gkellogg_> bigbluehat: We could create a call, but maybe we can do this over email.
+16:16:39 <TallTed> "barring objection by [datetime]..."
+16:17:13 <gkellogg_> gkellogg: suggest an email to provide authorization to update the ED with PRs to update errata.
+16:18:01 <gkellogg_> pchampin: We can't really give such general authorization. I'd be more comfortable if merging has some specific requirements for merging.
+16:18:07 <gkellogg_> bigbluehat: Agree.
+16:19:52 <gkellogg_> gkellogg: suggest using the normal GitHub approval process with PRs open for at least a week before mergine.
+16:20:00 <gkellogg_> s/mergine/merging/
+16:20:19 <gkellogg_> subtopic: Issue w3c/json-ld-syntax#33 – "Kill IRI"
+16:20:19 <ghurlbot> https://github.com/w3c/json-ld-syntax/issues/33 -> Issue 355 Kill "IRI"? (dhh1128) defer-future-version, ErratumRaised
+16:20:58 <gkellogg_> gkellogg: suggest closing.
+16:21:02 <niklasl> q+
+16:21:07 <gkellogg_> ack niklasl
+16:21:56 <gkellogg_> niklasl: I agree with closing the issue. I'd just like to reflect on the general issue with the term "IRI". I've used the term "link ID", but that creates just another term.
+16:22:57 <gkellogg_> s/33/355/g
+16:23:44 <gkellogg_> subtopic: w3cjson-ld-api#552 – Change "Lexicographical Order" (and related) to "Unicode code point order" (also w3c/json-ld-framing#141)
+16:23:44 <ghurlbot> https://github.com/w3c/json-ld-framing/issues/141 -> Issue 141 Change "Lexicographical Order" (and related) to "Unicode code point order". (gkellogg) i18n-tracker, spec:substantive, ErratumRaised
+16:24:55 <gkellogg_> gkellogg: I'll create a PR for that.
+16:25:06 <gkellogg_> subtopic: PR w3c/json-ld-api#559 – Add JSON literal tests.
+16:25:07 <ghurlbot> https://github.com/w3c/json-ld-api/issues/559 -> Pull Request 559 Add JSON literal tests. (davidlehn)
+16:26:29 <gkellogg_> dlehn: This requires more discussion, as it changes semantics.
+16:27:12 <gkellogg_> gkellogg: relates to w3c/json-ld-api#550
+16:27:13 <ghurlbot> https://github.com/w3c/json-ld-api/issues/550 -> Issue 550 Blank node as predicate tests (gkellogg) test:needs implementation, test:missing-coverage
+16:27:55 <gkellogg_> dlehn: It relates to general problems with the `@json` type. There need to be some changes to the spec.
+16:28:25 <gkellogg_> relates to w3c/json-ld-api#560
+16:28:25 <ghurlbot> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (davidlehn) test:missing-coverage
+16:28:31 <gkellogg_> s/550/560/g
+16:28:41 <gkellogg_> dlehn: We need to discuss this further.
+16:29:27 <gkellogg_> subtopic: PR w3c/json-ld-framing#146 – fixed frame on type @json
+16:29:28 <ghurlbot> https://github.com/w3c/json-ld-framing/issues/146 -> Pull Request 146 fixed frame on type `@json` (pasquale95)
+16:31:30 <dlehn> q+
+16:31:31 <gkellogg_> Relates to https://github.com/w3c/json-ld-framing/issues/142
+16:32:21 <gkellogg_> ack dlehn
+16:32:40 <gkellogg_> dlehn: There is a fix for this, but I haven't been clear on what do do about this.
+16:32:59 <gkellogg_> ... Reading the comments, it's unclear if this is something that was supported.
+16:34:14 <gkellogg_> gkellogg: at least we need to fix some documentation about the use of `@json` when framing.
+16:35:07 <gkellogg_> ... Improvements might be to improve documentation and continue to investigate.
+16:36:42 <gkellogg_> niklasl: There are some other issues that could be worked on that aren't JSON-LD-star, but I'll propose for a later call.
+16:37:03 <gkellogg_> ... I think the WG needs to discuss further.
+16:37:46 <gkellogg_> topic: JSON-LD-star
+16:38:37 <pchampin> scribe+
+16:38:54 <pchampin> gkellogg_: JSON-LD-star is pretty mature, but hindered by the progress on Turtle-star and co.
+16:39:32 <pchampin> ... In the abstract syntax of RDF-star, there are asserted triples (as in RDF 1.1) and quoted triples (written << S P O >>).
+16:39:55 <pchampin> ... Annotation syntax is syntactic sugar to make a triple asserted and quoted at the same time.
+16:40:32 <pchampin> ... Other issues (transparency/opacity) do not impact JSON-LD-star.
+16:41:28 <gkellogg_> pchampin: No, I think that transparency issues don't impact the syntax, but that being said, it seems to me that the annotation syntax is put in question, because the rationale was based on use cases, that might be incompatible with emerging semantics.
+16:41:46 <gkellogg_> ... From the discussions around RDF semantics, there may be alternative suggestions.
+16:42:50 <gkellogg_> niklasl: I haven't yet joined any discussions on semantics. I'm still trying to make a cohesive description of my position.
+16:43:28 <gkellogg_> ... I understand why transparency issues make it risky. I'm still worried about the quoted triple concept, and how it may be related to named graphs.
+16:44:03 <pchampin> q+
+16:44:08 <gkellogg_> ... In the library community, we want to keep track of atomic provenance, and there is some confusing about the semantics of named graphs, which relates to the transparency issue.
+16:44:26 <gkellogg_> ... I understand that RDF-star isn't chartered to change the semantics of named graphs.
+16:44:56 <gkellogg_> pchampin: Whether the group has that charter or not I can't say. At the moment, they have no semantics, which is why quoted triples don't relate to them.
+16:45:52 <gkellogg_> ... that's why there is no such formal relationship. Named graphs were introduced when they already had many implementations. The WG at the time tried, but couldn't agree to that.
+16:46:13 <gkellogg_> ... We have a more free slate with quoted triples. We did what we could, given the legacy.
+16:46:55 <gkellogg_> ... Once we have that, maybe we could propose a way to encode named graphs using quoted triples, which may be a route forward for the semantics of named graphs.
+16:47:16 <gkellogg_> niklasl: I have some usability issues with RDF-star quoted triples, which I'm trying out in relation to our use cases.
+16:47:47 <gkellogg_> ... One of the things that bugged me is that, although surface syntaxes are irrelevant, I think it needs to be easy to see what's going on.
+16:48:08 <gkellogg_> ... Annotations are easier to see.
+16:48:56 <gkellogg_> ... I'd like to be able to bundle "diffused" predicates under the same subject. Some of the issues in JSON-LD-star were when I declared a keyword in a context declared as `@reverse` of `rdf:subject`.
+16:49:36 <gkellogg_> ... This was useful when trying to present other views with annotations, even though the semantics are wrong.
+16:50:06 <gkellogg_> ... I come back to the ergonomics of named graphs; they're almost in RDF-star, but not quite and there's a disconnect.
+16:50:36 <gkellogg_> ... I'm fairly comfortable with the lack of semantics, but since they don't have semantics, I don't need to worry about entailment.
+16:52:15 <gkellogg_> gkellogg: the dual view of surface syntax and underlying semantics has been fraught.
+16:52:35 <gkellogg_> niklasl: JSON-LD has a lot of support for named graphs, which gets confusing.
+16:53:20 <gkellogg_> ... Another problem with JSON-LD-star syntax, is understandable given Turtle-star, but there's code that relies on `@id` being a string.
+16:53:44 <gkellogg_> ... It would also be good to be able to group statements about the same subject.
+16:54:12 <gkellogg_> ... I believe that the surface syntax and semantics are both equally important, as people will just intuit meaning.
+16:54:36 <pchampin> https://www2.slideshare.net/PatHayes/blogic-iswc-2009-invited-talk
+16:54:44 <gkellogg_> ... I remember Pat Hayes did a presentation on "BLogic", where he talked about sufaces.
+16:55:14 <gkellogg_> pchampin: There's a CG working on Surfaces. A group of people are interested in implementing this in Notation3.
+16:55:30 <gkellogg_> niklasl: The relation to Notation3 is interesting.
+16:56:06 <gkellogg_> ... There was an email in one of the groups, from Melvin where he was concerned about something related.
+16:56:24 <gkellogg_> ... A worry that RDF-star will add something that's not understandable unless we're careful.
+16:56:53 <gkellogg_> ... I"m having a hard time explaining quotation and named graphs to librarians. Analogies work.
+16:57:58 <pchampin> https://www.w3.org/TR/swbp-n-aryRelations/
+16:58:28 <gkellogg_> pchampin: There's an old document about modeling N-ary relations, which the RDF-star WG should consider.
+16:58:48 <gkellogg_> ... Perhaps update in the light of named graphs and quoted triples. Too much choice is its own problem.
+16:59:29 <gkellogg_> zakim, end meeting
+16:59:29 <Zakim> As of this point the attendees have been gkellogg_, TallTed, pchampin, niklasl, dlehn, bigbluehat
+16:59:32 <Zakim> RRSAgent, please draft minutes
+16:59:33 <RRSAgent> I have made the request to generate https://www.w3.org/2023/05/17-json-ld-minutes.html Zakim
+17:00:10 <Zakim> I am happy to have been of service, gkellogg_; please remember to excuse RRSAgent.  Goodbye
+17:00:10 <Zakim> Zakim has left #json-ld
+17:00:10 <gkellogg_> rrsagent, pointer
+17:00:10 <RRSAgent> See https://www.w3.org/2023/05/17-json-ld-irc#T17-00-10-2
