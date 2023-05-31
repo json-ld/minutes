@@ -1,0 +1,162 @@
+15:56:50 <RRSAgent> RRSAgent has joined #json-ld
+15:56:54 <RRSAgent> logging to https://www.w3.org/2023/05/31-json-ld-irc
+15:56:54 <Zakim> RRSAgent, make logs Public
+15:56:55 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:57:02 <gkellogg> meeting: JSON-LD CG
+15:57:24 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230531T120000
+15:57:25 <agendabot> clear agenda
+15:57:25 <agendabot> agenda+ Announcements and Introductions
+15:57:25 <agendabot> agenda+ YAML-LD
+15:57:25 <agendabot> agenda+ JSON-LD Issue Discussion
+15:57:25 <agendabot> agenda+ Open Discussion
+15:57:27 <agendabot> agenda+ Next call
+15:57:40 <gkellogg> chair: gkellogg
+15:59:12 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+15:59:16 <anatoly-scherbakov> present+
+16:00:26 <gkellogg> present+
+16:00:30 <Alexandra> Alexandra has joined #json-ld
+16:00:50 <pchampin> present+
+16:01:59 <gkellogg> zakim, next agendum
+16:01:59 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:35 <gkellogg> scribe: gkellogg
+16:03:10 <gkellogg> gkellogg: we have a tentative slot on Tuesday at TPAC.
+16:03:11 <TallTed> TallTed has joined #json-ld
+16:04:23 <pchampin> q+
+16:04:35 <gkellogg> anatoly-scherbakov: Do I need to stay for the whole meeting?
+16:05:47 <gkellogg> pchampin: Currently, JSON-LD is scheduled Monday afternoon at TPAC, but still tentative
+16:05:49 <TallTed> TallTed has changed the topic to: JSON-LD CG — 2023-05-31 Agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230531T120000
+16:05:53 <TallTed> present+
+16:06:36 <gkellogg> ... VC is on Thursday and Friday, RDF-star on Tuesday.
+16:08:03 <gkellogg> pchampin: Solid WG is currently on Tuesday afternoon, which overlaps RDF-star.
+16:08:25 <gkellogg> zakim, next item
+16:08:25 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:08:29 <pchampin> s/Tuesday afternoon, which overlaps RDF-star/Monday afternoon, which overlaps with JSON-LD/
+16:08:29 <gkellogg> q?
+16:08:32 <pchampin> q-
+16:08:38 <gkellogg> zakim, next item
+16:08:39 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:09:07 <Armao> Armao has joined #json-ld
+16:10:17 <gkellogg> anatoly-scherbakov: I missed the last meeting due to confusion with the calendar.
+16:10:38 <gkellogg> ... I've been working on YAML-LD, slowly making updates to the spec.
+16:10:52 <dlehn> present+
+16:11:12 <anatoly-scherbakov> https://github.com/json-ld/yaml-ld/pull/99
+16:11:29 <gkellogg> json-ld/yaml-ld#99
+16:11:30 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/99 -> Pull Request 99 #97: Document Extended â Basic conversion (anatoly-scherbakov)
+16:11:55 <gkellogg> anatoly-scherbakov: Most changes so far are non-normative and discuss the extended profile.
+16:12:20 <anatoly-scherbakov> https://github.com/json-ld/yaml-ld/pull/100/
+16:12:38 <gkellogg> ... I've also started working on json-ld/yaml-ld#100. The purpose is to unify the theme of our exampltes.
+16:12:38 <ghurlbot> https://github.com/json-ld/yaml-ld/issues/100 -> Pull Request 100 #94 Unify examples (anatoly-scherbakov)
+16:13:14 <gkellogg> ... The examples don't have a similar subject, so I've been working on a single theme for examples.
+16:13:40 <gkellogg> ... I need to go through the spec again to look for bugs.
+16:14:39 <gkellogg> ... First is to get these PRs merged. Then, there are some repeating examples.
+16:14:53 <gkellogg> ... Then a review to polish the spec.
+16:16:04 <gkellogg> gkellogg: once the group issues a final CG report, it can be taken up by the JSON-LD WG.
+16:16:24 <gkellogg> zakim, next item
+16:16:24 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:17:06 <niklasl> q+
+16:17:46 <gkellogg> gkellogg: There was discussion on the last meeting about merging PRs to update the EDs for future publication.
+16:18:19 <niklasl> https://github.com/w3c/json-ld-api/issues/565
+16:18:34 <gkellogg> niklasl: I suggested an issue we might talk about. w3c/json-ld-api#565
+16:18:35 <ghurlbot> https://github.com/w3c/json-ld-api/issues/565 -> Issue 565 The algorithm for processing a reverse term returns too early (niklasl) ErratumRaised
+16:19:04 <gkellogg> niklasl: The spec text has an early return, which is shouldn't do.
+16:19:40 <gkellogg> ... This is what the distiller and playground both do, so it is in practice what's happening.
+16:21:41 <gkellogg> ... I've changed my implementation. It doesn't result in changes to existing tests.
+16:23:20 <gkellogg> gkellogg: we need tests that cover this area. If we added a test for the current algorithm, existing implementations would fail.
+16:24:07 <gkellogg> niklasl: Both positive and negative tests would be useful.
+16:25:02 <gkellogg> ... It affects expansion, compaction, and RDF variations.
+16:25:40 <pchampin> scribe+
+16:25:47 <pchampin> subtopic: JSON-LD-star
+16:26:06 <pchampin> gkellogg: I felt that it was premature to add annotation in JSON-LD-star
+16:26:08 <niklasl> q+
+16:26:17 <pchampin> ... but I added it in Turtle-star and SPARQL-star
+16:26:52 <pchampin> ... I think that an annotation syntax is important, even if its behavior is still not quite determined
+16:27:11 <pchampin> ... There has been confusion in the market place with the annotation syntax in SPARQL-star
+16:28:10 <gkellogg> pchampin: I'm curious about confusion with SPARQL-star. The semantics should be orthogonal as long as RDF/SPARQL behavior is really syntactic sugar.
+16:28:27 <gkellogg> ... We should follow the principle of "least surprise".
+16:29:15 <gkellogg> ... The annotation syntax in the CG report was fine by me, although there are some corner-cases where it gives surprise results.
+16:29:21 <anatoly-scherbakov> `{$id: joe, rdfs:label: Hacker}: {probability: 0.5}`    # is this something YAML-LD-Star could look like?
+16:29:29 <gkellogg> q?
+16:29:35 <gkellogg> ack niklasl
+16:30:05 <gkellogg> niklasl: I appreciate the annotation syntax; if you have quoted triples, it's likely that you would also assert them
+16:30:26 <gkellogg> ... I'm trying to go through library use cases, but hard to find enough time.
+16:30:38 <anatoly-scherbakov> Or say...
+16:30:59 <gkellogg> ... There are cases when using unasserted triples, but that's different than how quoted triples work.
+16:31:39 <gkellogg> ... We have graphic descriptions of some text, which might be automatically classified and we want to describe that process.
+16:32:06 <gkellogg> ... We might have a suggestion for a classification, which would not assert the triple.
+16:32:28 <gkellogg> ... The JSON-LD algorithm discussed earlier is an example of this kind of markup.
+16:32:55 <niklasl> https://github.com/w3c/json-ld-api/issues/565
+16:33:14 <gkellogg> ... Another case, in w3c/json-ld-api#565, there's something I've been reluctant to suggest.
+16:33:15 <ghurlbot> https://github.com/w3c/json-ld-api/issues/565 -> Issue 565 The algorithm for processing a reverse term returns too early (niklasl) spec:substantive, test:needs tests, ErratumRaised
+16:33:29 <gkellogg> ... It might only be something for JSON-LD-star.
+16:34:10 <gkellogg> ... I have a single annotation, but the visual grouping makes sense.
+16:34:42 <gkellogg> ... It would be nice to have a keyword, such as `@quoted` for grouping unasserted triples.
+16:34:43 <ghurlbot> https://github.com/quoted -> @quoted
+16:35:08 <gkellogg> ... What happens that it is opaque, but it might not look that way.
+16:35:31 <gkellogg> I use named graphs for similar purposes, and consider them unasserted.
+16:36:38 <gkellogg> ... The thing with `@quoted` is that it might be a better form than having one triple in an `@id`, which is a problem for many use cases.
+16:36:38 <ghurlbot> https://github.com/id -> @id
+16:37:10 <pchampin> s|https://github.com/id -> @id||
+16:37:13 <anatoly-scherbakov> q+
+16:37:43 <TallTed> s|https://github.com/quoted -> @quoted||
+16:38:10 <pchampin> :linkoping :population 1234 {| :source :wikidata |}.
+16:38:19 <pchampin> |≠
+16:38:24 <pchampin> :linkoping :population 01234 {| :source :wikidata |}.
+16:38:52 <gkellogg> pchampin: The Turtle-star example does not entail the following because the lexical form of the integer is not the same.
+16:39:22 <gkellogg> ... The asserted triple is entailed, but the annotation does not propagate to the inferred triple.
+16:39:43 <gkellogg> ... The triple looks transparent, but it's also opaque, which is confusing.
+16:40:05 <gkellogg> ... We need to balance expectations and ergonomics.
+16:40:29 <gkellogg> niklasl: I think ergonomics trumps a lot in practice.
+16:40:59 <gkellogg> ... I think RDF is as stable as it is because of the formalism. I still think named graphs should play a role.
+16:41:33 <gkellogg> ... I do have a suggestion for Turtle-star that should come up later.
+16:42:10 <gkellogg> ... I used "%" to quote predicate/object pairs.
+16:42:30 <gkellogg> ... That unifies the annotation syntax with quoted triples.
+16:43:24 <gkellogg> ... The `@quoted` idea works well for JSON-LD, but may not work elsewhere.
+16:43:24 <ghurlbot> https://github.com/quoted -> @quoted
+16:43:30 <gkellogg> ack anatoly-scherbakov
+16:44:07 <gkellogg> anatoly-scherbakov: As I understand it, it's effectively able to make annotations on graph edges.
+16:44:32 <gkellogg> ... I have a YAML segment to do something similar.
+16:45:51 <gkellogg> pchampin: That case is what RDF-star is about. That example is interesting, but a bit scary for how it opens to some feature specific changes.
+16:46:27 <TallTed> because Zoom chat is not logged...
+16:46:27 <TallTed> example 1
+16:46:28 <TallTed> ```
+16:46:28 <TallTed> {$id: joe, rdfs:label: Hacker}:
+16:46:28 <TallTed>   probability: 0.5
+16:46:29 <TallTed>   prov:wasDerivedFrom: joehacker.org
+16:46:31 <TallTed> ```
+16:46:33 <TallTed> example 2
+16:46:35 <TallTed> ```
+16:46:37 <TallTed> <x> a :Organization {| :statedIn <v2> |} ;
+16:46:39 <TallTed>     % a :Person {| :statedIn <v1> ; :retractedIn <v2> |} ;
+16:46:41 <TallTed>     % :employs <y> {| :suggestedBy <q> {| :statedIn <v2> |} |} .
+16:46:43 <TallTed> ```
+16:47:02 <pchampin> gkellogg: syntax matters, but it has to flow nicely into the abstract syntax
+16:47:35 <gkellogg> q?
+16:47:40 <pchampin> ... syntactic layers can keep people away from the triples, which could be dangerous
+16:47:46 <gkellogg> zakim, next agendum
+16:47:58 <gkellogg> zakim, close item 4
+16:47:58 <Zakim> agendum 4, Open Discussion, closed
+16:47:59 <Zakim> I see 1 item remaining on the agenda:
+16:50:04 <TallTed> example 3 -- "Quoted P-O-pairs" version:
+16:50:04 <TallTed> ```
+16:50:04 <TallTed> $id: joe
+16:50:04 <TallTed>   $quoted:
+16:50:04 <TallTed>     rdfs:label: Hacker
+16:50:05 <TallTed>     $annotation:
+16:50:07 <TallTed>       probability: 0.5
+16:50:09 <TallTed>       prov:wasDerivedFrom: joehacker.org
+16:50:11 <TallTed> ```
+16:50:13 <TallTed> example 4 -- (lost to closed zoom)
+16:47:58 <gkellogg> topic: Next call
+16:48:27 <anatoly-scherbakov> q+
+16:48:55 <pchampin> anatoly-scherbakov: two weeks is good, it is stimulating
+16:49:03 <gkellogg> gkellogg: there has been some push-back on a two week schedule. It helps focus things.
+16:49:40 <gkellogg> zakim, end meeting
+16:49:40 <Zakim> As of this point the attendees have been anatoly-scherbakov, gkellogg, pchampin, TallTed, dlehn
+16:49:42 <Zakim> RRSAgent, please draft minutes
+16:49:44 <RRSAgent> I have made the request to generate https://www.w3.org/2023/05/31-json-ld-minutes.html Zakim
+16:49:52 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:49:52 <Zakim> Zakim has left #json-ld
+16:50:02 <gkellogg> rrsagent, pointer
+16:50:02 <RRSAgent> See https://www.w3.org/2023/05/31-json-ld-irc#T16-50-02
+16:50:38 <gkellogg> rrsagent, bye
+16:50:38 <RRSAgent> I see no action items
