@@ -1,0 +1,159 @@
+15:56:43 <RRSAgent> RRSAgent has joined #json-ld
+15:56:47 <RRSAgent> logging to https://www.w3.org/2023/06/14-json-ld-irc
+15:56:47 <Zakim> RRSAgent, make logs Public
+15:56:48 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:56:58 <gkellogg> meeting: JSON-LD CG
+15:57:18 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230614T120000
+15:57:18 <agendabot> clear agenda
+15:57:18 <agendabot> agenda+ Announcements and Introductions
+15:57:18 <agendabot> agenda+ YAML-LD
+15:57:18 <agendabot> agenda+ JSON-LD Issue Discussion
+15:57:18 <agendabot> agenda+ Open Discussion
+15:57:20 <agendabot> agenda+ Next call
+15:57:32 <gkellogg> chair: gkellogg
+15:57:34 <gkellogg> present+
+15:58:09 <gkellogg> zakim, open item 1
+15:58:09 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+15:59:06 <TallTed> present+
+15:59:17 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+15:59:19 <anatoly-scherbakov> present+
+16:02:44 <gkellogg> TPAC page up: https://www.w3.org/2023/09/TPAC/
+16:02:55 <niklasl> niklasl has joined #json-ld
+16:04:49 <dlehn> present+
+16:04:49 <saumer> present+
+16:05:23 <gkellogg> saumer: working with cultural arts and Ruby in JSON-LD.
+16:06:10 <Alexandra> Alexandra has joined #json-ld
+16:06:15 <gkellogg> zakim, next agendum
+16:06:15 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:06:57 <gkellogg> anatoly-scherbakov: I haven't been able to do much of use recently. There is a draft PR with examples, but it requires more review.
+16:07:14 <gkellogg> ... I think that the most uncertain thing in the spec is the conversion from YAML to JSON.
+16:07:32 <gkellogg> ... It seems that it is not standardized, particularly as there are multiple versions of YAML.
+16:07:47 <gkellogg> ... Do we need to formalize the process, as it is rather vague?
+16:08:05 <pchampin> scribe+
+16:08:31 <pchampin> gkellogg: I don't think it is our role to standardize that
+16:08:52 <pchampin> ... there is a JSON profile for YAML, we could use that
+16:09:22 <saumier> saumier has joined #json-ld
+16:09:36 <pchampin> ... there are multiple ways from JSON to YAML
+16:09:55 <saumier> Hi all.
+16:10:07 <pchampin> ... we, OTOH, are not going strictly from YAML to JSON, but from YAML to the internal representation
+16:10:28 <pchampin> ... there are not multiple ways you can do that
+16:10:59 <gkellogg> anatoly-scherbakov: For the features we're using, we can consider it straightforward.
+16:11:11 <gkellogg> ... YAML has a deprecated feature, where some integers are interpreted as base 60 rather than base 10. Version 1.2 cancels that, but it is still persistent.
+16:11:27 <pchampin> gkellogg: my feeling is that we should stick to the JSON profile
+16:12:04 <niklasl> Is the YAML JSON profile official? (Is there a link?)
+16:12:08 <pchampin> ... (aside about CBOR)
+16:12:49 <pchampin> ... we may consider other profiles in the future
+16:13:19 <pchampin> ... but we should first look to solidify the base profile first
+16:13:46 <pchampin> q+
+16:14:04 <gkellogg> ack pchampin
+16:14:25 <gkellogg> pchampin: About the question of profiles, there are two ways to look at YAML-LD:
+16:14:35 <gkellogg> ... First would be a way of writing JSON-LD using YAML.
+16:15:14 <gkellogg> ... The other would be to make existing YAML data interpretable as JSON-LD. We can't then assume that that data will directly correlate with our data model.
+16:15:17 <niklasl> q+
+16:15:23 <gkellogg> ... This may help us figure out what to focus on.
+16:15:26 <gkellogg> ack niklasl
+16:16:03 <gkellogg> I agree with pchampin that we need to spell this out. The second option may be too difficult in practice. There is still much JSON that can't be interpreted as JSON-LD, and JSON is simple.
+16:16:27 <gkellogg> pchampin: Just like JSON-LD doesn't cover 100% of JSON in the wild, neither will YAML-LD cover 100% of YAML in the wild.
+16:16:55 <gkellogg> niklasl: Blind spots come from the data model being used; if it wasn't designed as triples, it can have all kinds of trouble.
+16:17:14 <pchampin> scribe+
+16:17:29 <pchampin> gkellogg: in JSON 1.0, we tried to hard to accomodate many JSON "dialects"
+16:17:34 <pchampin> ... let's focus on simple things first
+16:17:46 <pchampin> ... W3C now supports the "living standard" model
+16:18:08 <pchampin> ... we should aim for a simple First Public Working Draft, on which people can then comment
+16:18:11 <gkellogg> q?
+16:18:21 <gkellogg> zakim, next agendum
+16:18:21 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:18:51 <gkellogg> subtopic: w3c/json-ld-api#566
+16:18:52 <ghurlbot> https://github.com/w3c/json-ld-api/issues/566 -> Pull Request 566 Fix context processing for reverse terms (niklasl)
+16:19:44 <gkellogg> niklasl: Last time we talked about why to make the change. It solves w3c/json-ld-api#565, but I think remaining issues have been solved.
+16:19:45 <ghurlbot> https://github.com/w3c/json-ld-api/issues/565 -> Issue 565 The algorithm for processing a reverse term returns too early (niklasl) spec:substantive, test:needs tests, ErratumRaised
+16:20:12 <gkellogg> ... I couldn't find any documentation about adding tests. I found something to add, but wasn't sure how to do this.
+16:20:35 <gkellogg> ... In this case, I figured that there might be many tests are round-tripable, and maybe we should make that explicit.
+16:22:05 <pchampin> gkellogg: we usually duplicate expansion tests in the toRdf and fromRdf test suites
+16:22:31 <pchampin> ... because not all implementations of toRdf and fromRdf rely on an explicit expansion step
+16:22:36 <pchampin> ... this is burdensome...
+16:23:23 <pchampin> ... remember that it is a 10-years old test suite, with a lot of legacy
+16:23:53 <pchampin> ... adding instructions about how to add tests in the README would be a welcome PR :)
+16:24:28 <gkellogg> niklasl: The from- and to-rdf tests would be useful as well.
+16:24:58 <gkellogg> dlehn: The there are some overlap between expansion and toRdf tests, so you can't simply use the same test numbering.
+16:25:17 <gkellogg> ... We had a mess in the past, and we've spent some time cleaning them up.
+16:25:33 <gkellogg> ... But, there are probably some missing tests.
+16:25:59 <gkellogg> niklasl: I didn't really see any obvious problems. If I devise an ambitious new naming scheme, we'll see ...
+16:26:29 <gkellogg> ... In this case, as there's a standard, I'm not too troubled with duplication.
+16:27:31 <pchampin> gkellogg: a matrix structure could be more appropriate than the manifest structure
+16:28:04 <pchampin> ... [discussion about the naming conventions for the tests]
+16:29:06 <pchampin> ... ideally testing infrastructure do not rely on test names
+16:29:34 <pchampin> ... once we achieve consensus on this PR, the question is "what next?"
+16:30:00 <pchampin> ... I think that we agreed that, given sufficient participation by the members of the WG, we could merge them
+16:30:15 <pchampin> ... leaving time to people to react
+16:35:31 <anatoly-scherbakov> q+
+16:35:33 <gkellogg> q?
+16:39:43 <gkellogg> zakim, next agendum
+16:39:43 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:39:50 <gkellogg> ack anatoly-scherbakov
+16:39:55 <gkellogg> zakim, next agendum
+16:39:55 <Zakim> agendum 4 -- Open Discussion -- taken up [from agendabot]
+16:40:06 <dlehn> q+
+16:40:10 <saumier> q+
+16:40:11 <gkellogg> ack dlehn
+16:40:27 <anatoly-scherbakov> q+
+16:40:42 <gkellogg> dlehn: The Verifiable Credentials group has a PR for doing data integrity, which includes JSON-LD contexts.
+16:40:57 <dlehn> https://github.com/w3c/vc-data-model/pull/1140
+16:41:22 <gkellogg> ... It seems like something that the JSON-LD group may want to weigh in on.
+16:41:58 <pchampin> gkellogg: there are groups out there doing cross-sectional work (e.g. i18n)
+16:42:37 <pchampin> ... JSON-LD is not one of them, and it would be strange for us to be the only arbitres for how to use it
+16:42:50 <pchampin> ... maybe we may add something to the Best Practices
+16:43:04 <pchampin> dlehn: do we have a Data Integrity BP?
+16:43:25 <pchampin> gkellogg: Data Integrity is not really related to JSON-LD is it?
+16:43:32 <pchampin> dlehn: people would argue that it is
+16:43:52 <pchampin> ... we had discussions in the past about using hashlinks, etc...
+16:44:03 <pchampin> gkellogg: I think we found that hashlinks were the solution
+16:44:13 <pchampin> dlehn: yeah... some people disagree with that
+16:44:36 <pchampin> gkellogg: I think some groups should be chartered to deal with this.
+16:44:44 <pchampin> ... Not a job for a JSON-LD maintenance WG.
+16:45:10 <pchampin> dlehn: we could add small things that would make these use-cases easier.
+16:45:43 <pchampin> ... some properties that are metadata, part of the processing, rather than data
+16:46:09 <pchampin> gkellogg: we looked at SRI (Sub-Resource Integrity) but did go far
+16:46:43 <pchampin> ... addressing it would need specific people
+16:46:45 <gkellogg> q?
+16:47:01 <niklasl> q+
+16:47:02 <gkellogg> ack saumier
+16:47:33 <gkellogg> saumier: Is the JSON-LD-star work exclusively part of this group? Or is there a relationship with the RDF-star group?
+16:47:55 <pchampin> gkellogg: JSON-LD-star is a product of the JSON-LD Community Group, strongly related to the work of the RDF-star WG
+16:48:09 <anatoly-scherbakov> q-
+16:48:26 <pchampin> ... it made more sense to keep it in the JSON-LD group than adopted by the RDF-star WG
+16:48:58 <pchampin> ... a lot still needs to be done, pending the progress of the RDF-star WG
+16:49:37 <pchampin> ... the annotation syntax is what is holding this work back, but the RDF-star WG is making progress on that front
+16:50:17 <pchampin> https://github.com/json-ld/json-ld-star
+16:50:28 <niklasl> +1
+16:50:51 <niklasl> My recent thoughts: https://github.com/json-ld/json-ld-star/issues/45
+16:50:57 <gkellogg> q?
+16:51:00 <gkellogg> ack niklasl
+16:51:01 <pchampin> gkellogg: still time to look at alternative representations of quoted triples
+16:51:32 <gkellogg> niklasl: I pasted the link to my thoughts on JSON-LD-star. Maybe we can take it up in the next meeting.
+16:52:14 <gkellogg> ... One of the things which is tricky is that people tend to want to use annotations to say things that are about the object, and not the assertion.
+16:52:45 <gkellogg> ... You could imagine a shortcut using OWL to talk about the object in the context of the assertion, which might be useful.
+16:52:56 <gkellogg> ... [more discussion of RDF-star semantics].
+16:53:55 <gkellogg> ... But, JSON-LD is about making things possible, and adding a checksum to a link makes a statement, which may not be captured semanticallly.
+16:54:21 <gkellogg> ... It's unclear about if I can go from my assertions to the paper where they were originally asserted.
+16:55:36 <gkellogg> ... [allusion to Escher's picture of a dragon biting it's own tail].
+16:51:32 <niklasl> https://en.wikipedia.org/wiki/Dragon_(M._C._Escher) ;)
+16:51:32 <niklasl> In Gödel, Escher, Bach, Douglas Hofstadter interprets the dragon's tail-bite as an image of self-reference, and his inability to become truly three-dimensional as a visual metaphor for a lack of transcendence, the inability to "jump out of the system"
+16:56:12 <gkellogg> zakim, next agendum
+16:56:12 <Zakim> agendum 5 -- Next call -- taken up [from agendabot]
+16:56:19 <gkellogg> next meeting June 28th.
+16:56:43 <saumier> Thanks
+16:56:51 <niklasl> +1 that's the one
+16:57:10 <gkellogg> rrsagent, draft minutes
+16:57:11 <RRSAgent> I have made the request to generate https://www.w3.org/2023/06/14-json-ld-minutes.html gkellogg
+16:57:21 <gkellogg> rrsagent, pointer
+16:57:21 <RRSAgent> See https://www.w3.org/2023/06/14-json-ld-irc#T16-57-21
+16:57:27 <gkellogg> zakim, end meeting
+16:57:27 <Zakim> As of this point the attendees have been gkellogg, TallTed, anatoly-scherbakov, dlehn
+16:57:29 <Zakim> RRSAgent, please draft minutes
+16:57:30 <RRSAgent> I have made the request to generate https://www.w3.org/2023/06/14-json-ld-minutes.html Zakim
+16:57:35 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:57:36 <Zakim> Zakim has left #json-ld
+16:57:38 <niklasl> https://en.wikipedia.org/wiki/Dragon_(M._C._Escher) ;)
+16:57:56 <gkellogg> rrsagent, bye
+16:57:56 <RRSAgent> I see no action items
