@@ -1,0 +1,135 @@
+15:57:47 <RRSAgent> RRSAgent has joined #json-ld
+15:57:51 <RRSAgent> logging to https://www.w3.org/2023/06/28-json-ld-irc
+15:57:51 <Zakim> RRSAgent, make logs Public
+15:57:52 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:57:55 <gkellogg> meeting: JSON-LD CG
+15:57:55 <gkellogg> scribe: gkellogg
+15:58:04 <anatoly-scherbakov> present+
+15:58:08 <TallTed> present+
+15:58:10 <TallTed> without warning, my ISP has begun updating cable in my area today, so my service is intermittent at best. I'll join by zoom on my phone, but that will not support IRC
+15:58:10 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230628T120000/#agenda
+15:58:11 <agendabot> clear agenda
+15:58:11 <agendabot> agenda+ Announcements and Introductions
+15:58:11 <agendabot> agenda+ YAML-LD
+15:58:11 <agendabot> agenda+ JSON-LD Issue Discussion
+15:58:11 <agendabot> agenda+ JSON-LD-star
+15:58:13 <agendabot> agenda+ Open Discussion
+15:58:16 <agendabot> agenda+ Next call
+15:58:20 <gkellogg> present+
+15:58:24 <gkellogg> chair: gkellogg
+16:00:57 <niklasl> niklasl has joined #json-ld
+16:01:50 <gkellogg> zakim, next agendum
+16:01:50 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:01:51 <niklasl> present+
+16:03:06 <gregory> gregory has joined #json-ld
+16:03:32 <gkellogg> TPAC attendance.
+16:04:10 <bigbluehat> present+
+16:04:22 <pchampin> present+
+16:05:35 <pchampin> https://www.w3.org/2023/09/TPAC/registration.html
+16:05:36 <gkellogg> niklasl: Is the deadline for registration soon? There is also a physical conference I might need to attend.
+16:06:52 <gkellogg> pchampin: Registration up until Sept 2.
+16:07:43 <gkellogg> zakim, next agendum
+16:07:43 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:08:49 <gkellogg> anatoly-scherbakov: I've been working on unification of the spec, but also some more general changes.
+16:09:45 <gkellogg> ... In the spec, I've tried to reduce the number of vocabularies we use, focusing on schema.org.
+16:10:15 <gkellogg> ... Ive rearranged some text for clarity, and added some elements comparing JSON and YAML.
+16:10:30 <gkellogg> ... I've changed some longer sentences to lists.
+16:12:00 <dlehn> present+
+16:12:55 <gkellogg> ... FAQ moved to different sections. Comments are mentioned as explicitly being discarded.
+16:17:26 <gkellogg> ... YAML streams not supported, might relate to NDJSON-LD.
+16:19:08 <niklasl> +1, same as for JSON-as-JSON-LD
+16:19:28 <niklasl> (re. YAML as YAML-LD)
+16:20:28 <gkellogg> ... In addition to move the section on examples, I've moved the section on aliases, and used consistent examples.
+16:22:57 <gkellogg> ... references to YAML-LD convenience context.
+16:24:59 <TallTed> TallTed has joined #json-ld
+16:25:48 <niklasl> (could be https://json-ld.github.io/convenience-context/context.jsonld but the convenient-context repo needs to be configured to serve one branch as github-pages)
+16:26:06 <gkellogg> ... A goal I have is to gather feedback and look for format/grammar errors.
+16:26:15 <gkellogg> q?
+16:26:47 <gregory> +q
+16:26:55 <gkellogg> ack gregory
+16:27:33 <gkellogg> gregory: When writing schema.org, should there be a "/" or not? Most examples don't use a "/".
+16:27:50 <gkellogg> anatoly-scherbakov: I may have confused the context with the namespace definition
+16:28:03 <gkellogg> TallTed: Pronounced "Slash" not "Back Slash"
+16:29:52 <gkellogg> ... No problem including it, but not necessary as a context reference.
+16:30:47 <niklasl> q+
+16:30:48 <gkellogg> dlehn: It's important that people map it correctly.
+16:31:00 <gkellogg> gregory: Safe to include the "/"
+16:31:29 <gkellogg> anatoly-scherbakov: Consistency is good, so we might want to stick with one convention.
+16:32:42 <gkellogg> dlehn: Depending on the processor, if is caching contexts, it might hit in one case and not in another.
+16:32:55 <niklasl> The actual context document used comes from the response link header: link: </docs/jsonldcontext.jsonld>; rel="alternate"; type="application/ld+json"
+16:33:28 <pchampin> I think it is ok with the FIRST slash of the path, though
+16:33:47 <gkellogg> TallTed: When you get a resource ending with a "/", you're technically getting a container. The default behavior is to return "index.html", or whatever is configured.
+16:34:06 <niklasl> Serves do not see whether you requested https://schema.org  or https://schema.org/, they GET a "/"
+16:34:42 <niklasl> (this is special for "just domain" requests, they DO differ between "/a" and "/a/")
+16:35:50 <gkellogg> anatoly-scherbakov: I'd love to have more help in reviewing the quality of the text.
+16:36:25 <gkellogg> ... After that, I'm thinking about generating some of the parts of the spec from YAML-LD itself.
+16:37:11 <TallTed> `Serves do not see whether you requested https://schema.org  or https://schema.org/, they GET a "/"` That's inaccurate, but yes, we can discuss elsewhere/elsewhen
+16:38:08 <gkellogg> ... I'm developing a tool for turning YAML-LD descriptions into tables.
+16:38:14 <TallTed> (Subtle nuances are very important when acting on specs, which is why I'm hammering on these things in *writing* such specs.)
+16:38:50 <gkellogg> q?
+16:38:54 <gkellogg> ack niklasl
+16:39:04 <gkellogg> zakim, next agendum
+16:39:27 <niklasl> TallTed: Agree, details are crucial. I just tried CURL, it does that, but it might also be inaccurate (as many browsers are).
+16:39:49 <TallTed> s/TallTed:/TallTed --/
+16:39:04 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:39:39 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/415
+16:41:51 <ghurlbot> https://github.com/w3c/json-ld-syntax/issues/415 -> Pull Request 415 Add structured suffix (OR13) spec:substantive
+16:40:48 <pchampin> q+
+16:41:17 <gkellogg> ack pchampin
+16:41:50 <gkellogg> pchampin: I had a look at w3c/json-ld-syntax#415, but I'm a bit uncomfortable with the duplication with the application/ld+json registration.
+16:42:15 <gkellogg> ... Would it be possible to have the text in one place, and others point to it?
+16:42:47 <TallTed> q+
+16:44:11 <gkellogg> TallTed: The registrations are handled by humans, so I don't think they need to be fully self-sufficient, but they should be easy. Replication may vary.
+16:44:38 <gkellogg> ... I've looked at several, and there is no real consistency. We should aim for comprehension.
+16:45:44 <gkellogg> q?
+16:45:44 <TallTed> q-
+16:45:44 <gkellogg> subtopic: w3c/json-ld-api#559
+16:45:44 <ghurlbot> https://github.com/w3c/json-ld-api/issues/559 -> Pull Request 559 Add JSON literal tests. (davidlehn)
+16:45:55 <gkellogg> dlehn: Still needs discussion. Needs spec updates.
+16:46:42 <niklasl> https://github.com/w3c/json-ld-api/pull/566
+16:46:49 <gkellogg> subtopic: w3c/json-ld-api#566
+16:46:49 <ghurlbot> https://github.com/w3c/json-ld-api/issues/566 -> Pull Request 566 Fix context processing for reverse terms (niklasl)
+16:47:26 <gkellogg> niklasl: I did some recent updates, so it's ready for another pass. The "changes" section may need some improvement. The others are fairly technically simple.
+16:48:00 <gkellogg> q?
+16:48:16 <gkellogg> ... It's only about three words, but they're particularly important.
+16:48:40 <gkellogg> zakim, next agendum
+16:48:40 <Zakim> agendum 4 -- JSON-LD-star -- taken up [from agendabot]
+16:49:18 <niklasl> subtopic: https://github.com/json-ld/json-ld-star/issues/45
+16:49:32 <gkellogg> niklasl: If anyone's had time to look at json-ld/json-ld-star#45, there is some background and motivation.
+16:49:33 <ghurlbot> https://github.com/json-ld/json-ld-star/issues/45 -> Issue 45 Keeping quoted triples sharing subject within one node object (niklasl)
+16:49:54 <gregory> very iterested but didn't have time to review.
+16:49:55 <MacTed> MacTed has joined #json-ld
+16:50:04 <gkellogg> gkellogg: might need to wait for more work on RDF-star.
+16:50:05 <pchampin> I haven't either, unfortunately... :-/
+16:50:27 <gkellogg> niklasl: I promised to add use cases for RDF-star, so I can pick things out of this.
+16:51:04 <gkellogg> ... Syntax does matter, as that's how people interact with the semantics. This one points to an interesting issue that I'm having a hard time separating from data access.
+16:51:16 <pchampin> q+
+16:51:22 <MacTed> MacTed has joined #json-ld
+16:51:55 <gkellogg> ... It's still pretty relevant. This example also pokes at the trickiness with opacity of quoted triples without getting into it too deeply.
+16:52:00 <gkellogg> ack pchampin
+16:52:41 <gkellogg> pchampin: I haven't been able to look at it in depth, but IIRC, you're worried about the asymmetry of subject vs object. That's not JSON-LD specific, but exists in RDF.
+16:53:20 <gkellogg> niklasl: It does have the same asymmetry, but I've avoided that. JSON-LD allows nesting which Turtle doesn't. I'd like to be able to do something like this in Turtle as well.
+16:54:07 <gkellogg> ... The use cases are abstracted from real use cases, and they are related to Wikidata use cases.
+16:54:14 <MacTed> RRSAgent, draft minutes
+16:54:16 <RRSAgent> I have made the request to generate https://www.w3.org/2023/06/28-json-ld-minutes.html MacTed
+16:54:24 <niklasl> https://github.com/Kungbib/wikidatalab
+16:54:24 <gregory> I am also working on wikidata representation with rdf star
+16:54:29 <gkellogg> ... I've experimented with representing using RDF-star.
+16:55:21 <gkellogg> ... Wikidata uses kind of real reification; I would expect that once RDF-star is a standard, something like this would be used with Wikidata.
+16:55:59 <gkellogg> ... Going back to this issue, some facts in Wikidata might not be approved, but you'd still want to combine them together, so it gets into quoting pretty heavilly.
+16:56:48 <gkellogg> ... The second JSON-LD example shows using it with a custom context and traditional reification and it becomes more readable than JSON-LD-star quoted triples.
+16:57:41 <anatoly-scherbakov> q+
+16:58:03 <gkellogg> anatoly-scherbakov: If there is no quorum then the TPAC meeting might not happen.
+16:59:18 <niklasl> (Re: "GET /", if I read https://datatracker.ietf.org/doc/html/rfc2616#section-5.1.2 correctly, you cannot issue a fully empty HTTP GET, i.e. "/" is necessary in the protocol...?)
+16:59:47 <gkellogg> rrsagent, pointer
+16:59:47 <RRSAgent> See https://www.w3.org/2023/06/28-json-ld-irc#T16-59-47
+16:59:56 <gkellogg> zakim, end meeting
+16:59:56 <Zakim> As of this point the attendees have been anatoly-scherbakov, TallTed, gkellogg, niklasl, bigbluehat, pchampin, dlehn
+17:00:30 <Zakim> RRSAgent, please draft minutes
+17:00:31 <RRSAgent> I have made the request to generate https://www.w3.org/2023/06/28-json-ld-minutes.html Zakim
+17:00:37 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:00:37 <Zakim> Zakim has left #json-ld
+17:00:37 <gkellogg> rrsagent, bye
+17:00:37 <RRSAgent> I see no action items
+17:00:37 <gkellogg> rrsagent, goodbye
+17:00:37 <RRSAgent> I'm logging. I don't understand 'goodbye', gkellogg.  Try /msg RRSAgent help
