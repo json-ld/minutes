@@ -1,0 +1,142 @@
+15:59:38 <RRSAgent> RRSAgent has joined #json-ld
+15:59:42 <RRSAgent> logging to https://www.w3.org/2023/07/12-json-ld-irc
+15:59:42 <Zakim> RRSAgent, make logs Public
+16:00:13 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:00:13 <gkellogg> meeting: JSON-LD CG
+16:00:13 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230712T120000/
+16:00:13 <agendabot> clear agenda
+16:00:13 <agendabot> agenda+ Announcements and Introductions
+16:00:13 <agendabot> agenda+ YAML-LD
+16:00:13 <agendabot> agenda+ JSON-LD Issue Discussion
+16:00:13 <agendabot> agenda+ JSON-LD-star
+16:00:13 <agendabot> agenda+ Open Discussion
+16:00:13 <agendabot> agenda+ Next call
+16:00:13 <gkellogg> present+
+16:00:13 <gkellogg> chair: gkellogg
+16:00:13 <gkellogg> scribe: gkellogg
+16:00:13 <gkellogg> zakim,  next agendum
+16:00:13 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:00:18 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:00:27 <anatoly-scherbakov> present+
+16:00:53 <TallTed> present+
+16:01:10 <TallTed> RRSAgent, draft minutes
+16:01:11 <RRSAgent> I have made the request to generate https://www.w3.org/2023/07/12-json-ld-minutes.html TallTed
+16:01:32 <TallTed> RRSAgent, make logs public
+16:01:57 <gkellogg> zakim, close item
+16:01:57 <Zakim> I don't understand 'close item', gkellogg
+16:02:04 <gkellogg> zakim, close agendum
+16:02:04 <Zakim> I don't understand 'close agendum', gkellogg
+16:02:13 <gkellogg> zakim, close item 1
+16:02:13 <Zakim> agendum 1, Announcements and Introductions, closed
+16:02:14 <niklasl> present+
+16:02:14 <Zakim> I see 5 items remaining on the agenda; the next one is
+16:02:14 <Zakim> 2. YAML-LD [from agendabot]
+16:02:21 <gkellogg> zakim, next item
+16:02:21 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:02:44 <gkellogg> subtopic: PR json-ld/yaml-ld#100 – Unify examples
+16:02:56 <gb> https://github.com/json-ld/yaml-ld/issues/100 -> #100
+16:03:07 <gkellogg> Merged already
+16:03:34 <gkellogg> anatoly-scherbakov: I didn't do any additional commits after the discussion from the last meeting.
+16:03:46 <Alexandra> Alexandra has joined #json-ld
+16:04:02 <gkellogg> subtopic: PR json-ld/yaml-ld#104 – schema.org @context does not require a trailing slash
+16:04:03 <gb> https://github.com/json-ld/yaml-ld/issues/104 -> Pull Request 104 [closed] #94 schema.org `@context` does not require a trailing slash (anatoly-scherbakov)
+16:04:36 <anatoly-scherbakov> https://github.com/json-ld/yaml-ld/pull/110
+16:04:48 <gkellogg> Replaced by 110
+16:05:28 <gkellogg> anatoly-scherbakov: I want to double-check.
+16:06:31 <gkellogg> subtopic: PR json-ld/yaml-ld#106 – Reference two Convenience contexts from json-ld.org
+16:06:32 <gb> https://github.com/json-ld/yaml-ld/issues/106 -> Pull Request 106 #94 Reference two Convenience contexts from json-ld.org (anatoly-scherbakov)
+16:07:14 <gkellogg> Also see https://github.com/json-ld/json-ld.org/pull/808
+16:09:04 <gkellogg> anatoly-scherbakov: I used an existing context as a basis for context.jsonld.
+16:09:42 <niklasl> q+
+16:10:11 <gkellogg> anatoly-scherbakov: The schema.org context does similar things with the `id` keyword.
+16:10:13 <gkellogg> ack niklasl
+16:10:52 <gkellogg> niklasl: I agree with anatoly-scherbakov; the generic context feels generic enough for other things. The "$" version could also be used in other cases.
+16:12:02 <gkellogg> niklasl: Also, regarding filenames; I'd recommend not using "$" in a filename, although it's legal, but string expansion/interpolation is common, and could trip up people.
+16:12:22 <gkellogg> ... perhaps "dollar_convenience.jsonld"
+16:13:00 <gkellogg> I think we can merge both pull requests after that change.
+16:13:12 <gkellogg> subtopic: PR json-ld/yaml-ld#107 – List supported YAML features concisely
+16:13:24 <gb> https://github.com/json-ld/yaml-ld/issues/107 -> Pull Request 107 #94 List supported YAML features concisely (anatoly-scherbakov)
+16:14:45 <gkellogg> anatoly-scherbakov: From information POV, I thought it would be beneficial to have a section that concisely says what we support.
+16:15:05 <gkellogg> Give until end of week then merge.
+16:15:15 <gkellogg> subtopic: PR json-ld/yaml-ld#108 – Reference external example files
+16:15:17 <gb> https://github.com/json-ld/yaml-ld/issues/108 -> Pull Request 108 #94 Reference external example files (anatoly-scherbakov)
+16:15:43 <gkellogg> anatoly-scherbakov: I wrote several yaml-ld files and added links to them.
+16:16:25 <gkellogg> ... not quite ready to merge.
+16:16:42 <gkellogg> subtopic: PR json-ld/yaml-ld#109 – Implement a Structured Abstract
+16:16:42 <gb> https://github.com/json-ld/yaml-ld/issues/109 -> Pull Request 109 #94 Implement a Structured Abstract (anatoly-scherbakov)
+16:17:13 <gkellogg> anatoly-scherbakov: From requirements at a conference, I encountered "structured abstracts".
+16:18:03 <gkellogg> anatoly-scherbakov: I won't be at TPAC.
+16:19:07 <gkellogg> zakim, next agendum
+16:19:07 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:19:20 <gkellogg> subtopic: PR w3c/json-ld-syntax#415 – Add structured suffix (changes requested)
+16:19:20 <gb> https://github.com/w3c/json-ld-syntax/issues/415 -> Pull Request 415 Add structured suffix (OR13) spec:substantive
+16:20:39 <gkellogg> TallTed: I'm not sure what's going on with this.
+16:21:52 <gkellogg> gkellogg: we may do a follow-on PR for style.
+16:22:04 <gkellogg> subtopic: PR w3c/json-ld-api#586 – Fix context processing for reverse terms (needs reviews. IPR clear?)
+16:22:05 <gb> https://github.com/w3c/json-ld-api/issues/586 -> Issue 586 [not found]
+16:22:44 <gkellogg> s/586/566/
+16:22:45 <gkellogg> https://github.com/w3c/json-ld-api/pull/566
+16:23:45 <gkellogg> niklasl: I'm close to being able to join the WG after changing affiliation to DCMI.
+16:24:24 <gkellogg> niklasl: I merged TallTed's suggestions earlier.
+16:24:39 <gkellogg> zakim, next agendum
+16:24:39 <Zakim> agendum 4 -- JSON-LD-star -- taken up [from agendabot]
+16:24:48 <gkellogg> subtopic: json-ld/json-ld-star#45 – Keeping quoted triples sharing subject within one node object
+16:24:49 <gb> https://github.com/json-ld/json-ld-star/issues/45 -> Issue 45 Keeping quoted triples sharing subject within one node object (niklasl)
+16:25:48 <gkellogg> niklasl: I think pchampin probably would like to chime it. I need to extract parts of this as a use case for RDF-star.
+16:25:55 <gkellogg> ... There are a lot of things going on htere.
+16:26:02 <gkellogg> s/htere/there/
+16:26:21 <gkellogg> ... It would be nice to use JSON-LD to succinctly describe this use case.
+16:26:53 <TallTed> s/chime it/chime in/
+16:27:09 <gkellogg> ... It's related to the open questions on annotations in RDF-star. What appears to be transparent should be opaque.
+16:27:31 <gkellogg> ... It might easier to go forward with if the annotation syntax questions are resolved.
+16:29:15 <gkellogg> niklasl: This uses but doesn't adequately discuss the relationship between quoted triples and named graphs.
+16:29:16 <dlehn> present+
+16:29:40 <gkellogg> ... It would be interesting to see how graph terms (from N3) might relate to quoted triples.
+16:30:09 <gkellogg> ... The relationship between named graphs and quoted triples. For the examples in the PR frame the ideas.
+16:31:05 <gkellogg> ... The named graphs are used as two versions of the library catalog. The latest version is mirrored, but the core system stores different versions.
+16:31:42 <gkellogg> ... The second example is like the union of both versions using a custom algorithm to make a "blame view", which uses quoted triples to show what has been said.
+16:32:06 <gkellogg> ... Also, there's a quoted triple in the original, that is a "suggestion". So, it combines related use cases.
+16:32:22 <gkellogg> ... One use case is making suggestions, the other showing version history.
+16:33:02 <gkellogg> gkellogg: there is also a `@quoted` keyword.
+16:33:28 <gkellogg> niklasl: That comes from a case where I have a lot of quotes, and serializing using existing formates makes a lot of assertions on the same subject.
+16:34:04 <gkellogg> ... It would be nice to have an editing interface using a representation which groups quotes about the same subject syntactically in a tree would be useful.
+16:34:33 <gkellogg> ... Just like is used for other forms within RDF serializations, but there is no different semantics.
+16:35:23 <gkellogg> niklasl: This is an issue, not a PR.
+16:35:47 <gkellogg> gkellogg: it would be good to disentangle into more primitive issues.
+16:37:55 <gkellogg> zakim, next agendum
+16:37:55 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+16:38:08 <gkellogg> subtopic: TPAC
+16:38:45 <gkellogg> gkellogg: proposal to give up the TPAC slot.
+16:38:51 <anatoly-scherbakov> +1
+16:38:53 <gkellogg> niklasl: I agree
+16:39:23 <gkellogg> TallTed: I don't usually attend in person.
+16:39:41 <gkellogg> anatoly-scherbakov: I was looking forward to it, but my own financial limitations make it hard.
+16:40:27 <gkellogg> dlehn: were there any other topics.
+16:42:58 <gkellogg> ... I'd also like to present something on "safe mode", which we've added to our implementation. But, that would involve me talking about it.
+16:43:18 <gkellogg> ... There are some other issues about JSON literals.
+16:44:03 <niklasl> q+
+16:44:48 <gkellogg> ... Some of the topics are good for people to think of over time, but in person time can be very constructive.
+16:46:07 <gkellogg> ack niklasl
+16:46:18 <niklasl> https://github.com/w3c/json-ld-api/issues/558
+16:46:25 <gkellogg> niklasl: Another topic of interest is on RDF lists in JSON-LD.
+16:46:46 <gkellogg> It's about being able to compact lists with terms in them.
+16:47:09 <gkellogg> ... Also, I don't know if there's interest in expression N3 in JSON-LD.
+16:49:01 <gkellogg> ... This could crop up laster, as lists are used heavily in N3.
+16:50:56 <gkellogg> ... I appreciate that RDF lists can be reduced to triples, but conceptually, they should perhaps be considered their own resources.
+16:51:21 <gkellogg> ... Might relate to some notion of "abstract syntax trees"
+16:51:50 <gkellogg> ... All RDF libraries have convenience methods for lists.
+16:52:29 <gkellogg> ... I'm playing with hand-writing a SPARQL parser to see if I can represent SPARQL in JSON-LD.
+16:53:25 <gkellogg> ... We have use cases which would be promising if there was a JSON representation of SPARQL.
+16:54:55 <gkellogg> dlehn: We could fill up the TPAC time talking about the future.
+16:56:08 <gkellogg> zakim, end meeting
+16:56:08 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, TallTed, niklasl, dlehn
+16:56:11 <Zakim> RRSAgent, please draft minutes
+16:56:12 <RRSAgent> I have made the request to generate https://www.w3.org/2023/07/12-json-ld-minutes.html Zakim
+16:56:18 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:56:18 <Zakim> Zakim has left #json-ld
+16:56:35 <gkellogg> rrsagent, pointer
+16:56:35 <RRSAgent> See https://www.w3.org/2023/07/12-json-ld-irc#T16-56-35
+16:56:50 <gkellogg> rrsagent, goodbye
+16:56:50 <RRSAgent> I'm logging. I don't understand 'goodbye', gkellogg.  Try /msg RRSAgent help
+16:56:59 <gkellogg> rrsagent, please leave
+16:56:59 <RRSAgent> I see no action items

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2023-07-12</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="http://dil.lehn.org/">David I. Lehn</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230712T120000/">https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230712T120000/</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">YAML-LD</a><li><a href="#topic-3">JSON-LD Issue Discussion</a><li><a href="#topic-4">JSON-LD-star</a><li><a href="#topic-5">Open Discussion</a></ol></dd></dl>
+</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: YAML-LD
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR json-ld/yaml-ld#100 &#8211; Unify examples
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/100">https://github.com/json-ld/yaml-ld/issues/100</a> -&gt; #100 <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="information">Merged already <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Anatoly Scherbakov</span>:  I didn&apos;t do any additional commits after the discussion from the last meeting. <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR json-ld/yaml-ld#104 &#8211; schema.org @context does not require a trailing slash
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/104">https://github.com/json-ld/yaml-ld/issues/104</a> -&gt; Pull Request 104 [closed] #94 schema.org `@context` does not require a trailing slash (anatoly-scherbakov) <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Anatoly Scherbakov</span>: <a href="https://github.com/json-ld/yaml-ld/pull/110">https://github.com/json-ld/yaml-ld/pull/110</a> <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="information">Replaced by 110 <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Anatoly Scherbakov</span>:  I want to double-check. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR json-ld/yaml-ld#106 &#8211; Reference two Convenience contexts from json-ld.org
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/106">https://github.com/json-ld/yaml-ld/issues/106</a> -&gt; Pull Request 106 #94 Reference two Convenience contexts from json-ld.org (anatoly-scherbakov) <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="information">Also see <a href="https://github.com/json-ld/json-ld.org/pull/808">https://github.com/json-ld/json-ld.org/pull/808</a> <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Anatoly Scherbakov</span>:  I used an existing context as a basis for context.jsonld. <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Anatoly Scherbakov</span>:  The schema.org context does similar things with the `id` keyword. <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I agree with anatoly-scherbakov; the generic context feels generic enough for other things. The &quot;$&quot; version could also be used in other cases. <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Also, regarding filenames; I&apos;d recommend not using &quot;$&quot; in a filename, although it&apos;s legal, but string expansion/interpolation is common, and could trip up people. <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div class="comment-continuation">... perhaps &quot;dollar_convenience.jsonld&quot;</div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="information">I think we can merge both pull requests after that change. <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR json-ld/yaml-ld#107 &#8211; List supported YAML features concisely
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/107">https://github.com/json-ld/yaml-ld/issues/107</a> -&gt; Pull Request 107 #94 List supported YAML features concisely (anatoly-scherbakov) <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Anatoly Scherbakov</span>:  From information POV, I thought it would be beneficial to have a section that concisely says what we support. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="information">Give until end of week then merge. <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR json-ld/yaml-ld#108 &#8211; Reference external example files
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/108">https://github.com/json-ld/yaml-ld/issues/108</a> -&gt; Pull Request 108 #94 Reference external example files (anatoly-scherbakov) <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Anatoly Scherbakov</span>:  I wrote several yaml-ld files and added links to them. <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... not quite ready to merge.</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR json-ld/yaml-ld#109 &#8211; Implement a Structured Abstract
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/109">https://github.com/json-ld/yaml-ld/issues/109</a> -&gt; Pull Request 109 #94 Implement a Structured Abstract (anatoly-scherbakov) <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Anatoly Scherbakov</span>:  From requirements at a conference, I encountered &quot;structured abstracts&quot;. <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Anatoly Scherbakov</span>:  I won&apos;t be at TPAC. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<h1 onmouseout="$('#link-topic-3').hide()" onmouseover="$('#link-topic-3').show()" id="topic-3" class="topic">
+Topic: JSON-LD Issue Discussion
+<a id="link-topic-3" style="display:none;" href="#topic-3">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR w3c/json-ld-syntax#415 &#8211; Add structured suffix (changes requested)
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="information"><a href="https://github.com/w3c/json-ld-syntax/issues/415">https://github.com/w3c/json-ld-syntax/issues/415</a> -&gt; Pull Request 415 Add structured suffix (OR13) spec:substantive <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I&apos;m not sure what&apos;s going on with this. <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Gregg Kellogg</span>:  We may do a follow-on PR for style. <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PR w3c/json-ld-api#586 &#8211; Fix context processing for reverse terms (needs reviews. IPR clear?)
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="information"><a href="https://github.com/w3c/json-ld-api/issues/566">https://github.com/w3c/json-ld-api/issues/566</a> -&gt; Issue 586 [not found] <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="information"><a href="https://github.com/w3c/json-ld-api/pull/566">https://github.com/w3c/json-ld-api/pull/566</a> <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I&apos;m close to being able to join the WG after changing affiliation to DCMI. <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I merged TallTed&apos;s suggestions earlier. <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<h1 onmouseout="$('#link-topic-4').hide()" onmouseover="$('#link-topic-4').show()" id="topic-4" class="topic">
+Topic: JSON-LD-star
+<a id="link-topic-4" style="display:none;" href="#topic-4">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: json-ld/json-ld-star#45 &#8211; Keeping quoted triples sharing subject within one node object
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="information"><a href="https://github.com/json-ld/json-ld-star/issues/45">https://github.com/json-ld/json-ld-star/issues/45</a> -&gt; Issue 45 Keeping quoted triples sharing subject within one node object (niklasl) <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I think pchampin probably would like to chime in. I need to extract parts of this as a use case for RDF-star. <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div class="comment-continuation">... There are a lot of things going on there.</div>
+<div class="comment-continuation">... It would be nice to use JSON-LD to succinctly describe this use case.</div>
+<div class="comment-continuation">... It&apos;s related to the open questions on annotations in RDF-star. What appears to be transparent should be opaque.</div>
+<div class="comment-continuation">... It might easier to go forward with if the annotation syntax questions are resolved.</div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  This uses but doesn&apos;t adequately discuss the relationship between quoted triples and named graphs. <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div class="comment-continuation">... It would be interesting to see how graph terms (from N3) might relate to quoted triples.</div>
+<div class="comment-continuation">... The relationship between named graphs and quoted triples. For the examples in the PR frame the ideas.</div>
+<div class="comment-continuation">... The named graphs are used as two versions of the library catalog. The latest version is mirrored, but the core system stores different versions.</div>
+<div class="comment-continuation">... The second example is like the union of both versions using a custom algorithm to make a &quot;blame view&quot;, which uses quoted triples to show what has been said.</div>
+<div class="comment-continuation">... Also, there&apos;s a quoted triple in the original, that is a &quot;suggestion&quot;. So, it combines related use cases.</div>
+<div class="comment-continuation">... One use case is making suggestions, the other showing version history.</div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>:  There is also a `@quoted` keyword. <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  That comes from a case where I have a lot of quotes, and serializing using existing formates makes a lot of assertions on the same subject. <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div class="comment-continuation">... It would be nice to have an editing interface using a representation which groups quotes about the same subject syntactically in a tree would be useful.</div>
+<div class="comment-continuation">... Just like is used for other forms within RDF serializations, but there is no different semantics.</div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  This is an issue, not a PR. <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Gregg Kellogg</span>:  It would be good to disentangle into more primitive issues. <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<h1 onmouseout="$('#link-topic-5').hide()" onmouseover="$('#link-topic-5').show()" id="topic-5" class="topic">
+Topic: Open Discussion
+<a id="link-topic-5" style="display:none;" href="#topic-5">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: TPAC
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Gregg Kellogg</span>:  Proposal to give up the TPAC slot. <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Anatoly Scherbakov</span>: +1 <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I agree <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I don&apos;t usually attend in person. <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Anatoly Scherbakov</span>:  I was looking forward to it, but my own financial limitations make it hard. <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">David I. Lehn</span>:  Were there any other topics. <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div class="comment-continuation">... I&apos;d also like to present something on &quot;safe mode&quot;, which we&apos;ve added to our implementation. But, that would involve me talking about it.</div>
+<div class="comment-continuation">... There are some other issues about JSON literals.</div>
+<div class="comment-continuation">... Some of the topics are good for people to think of over time, but in person time can be very constructive.</div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: <a href="https://github.com/w3c/json-ld-api/issues/558">https://github.com/w3c/json-ld-api/issues/558</a> <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Another topic of interest is on RDF lists in JSON-LD. <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="information">It&apos;s about being able to compact lists with terms in them. <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div class="comment-continuation">... Also, I don&apos;t know if there&apos;s interest in expression N3 in JSON-LD.</div>
+<div class="comment-continuation">... This could crop up laster, as lists are used heavily in N3.</div>
+<div class="comment-continuation">... I appreciate that RDF lists can be reduced to triples, but conceptually, they should perhaps be considered their own resources.</div>
+<div class="comment-continuation">... Might relate to some notion of &quot;abstract syntax trees&quot;</div>
+<div class="comment-continuation">... All RDF libraries have convenience methods for lists.</div>
+<div class="comment-continuation">... I&apos;m playing with hand-writing a SPARQL parser to see if I can represent SPARQL in JSON-LD.</div>
+<div class="comment-continuation">... We have use cases which would be promising if there was a JSON representation of SPARQL.</div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">David I. Lehn</span>:  We could fill up the TPAC time talking about the future. <a id="link-46" style="display:none;" href="#46">✪</a></div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>
