@@ -24,7 +24,7 @@
   const voipRx = /^voip.*$/i;
   const toVoipRx = /^voip.{0,4}:.*$/i;
   const botRx = /^(rrsagent|zakim|agendabot).*$/i;
-  const allowedBotRx = /^(ghurlbot).*$/i;
+  const allowedBotRx = /^(ghurlbot|gb).*$/i;
   const junkRx = / has (joined|left|changed)/i;
   const queueRx = /^qq?[+-?]\s.*|^qq?[+-?].*|^ack\s+.*|^ack$/i;
   const voteRx = /^[+-][01]\s.*|[+-][01]$/i;
