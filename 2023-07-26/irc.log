@@ -1,0 +1,101 @@
+15:59:05 <RRSAgent> RRSAgent has joined #json-ld
+15:59:09 <RRSAgent> logging to https://www.w3.org/2023/07/26-json-ld-irc
+15:59:13 <gkellogg> meeting: JSON-LD CG
+15:59:30 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230726T120000/
+15:59:30 <agendabot> clear agenda
+15:59:30 <agendabot> agenda+ Announcements and Introductions
+15:59:30 <agendabot> agenda+ YAML-LD
+15:59:30 <agendabot> agenda+ JSON-LD Issue Discussion
+15:59:30 <agendabot> agenda+ Open Discussion
+15:59:31 <agendabot> agenda+ Next call
+15:59:36 <Zakim> RRSAgent, make logs Public
+15:59:38 <Zakim> please title this meeting ("meeting: ..."), gkellog__
+15:59:39 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+15:59:52 <gkellogg> meeting: JSON-LD CG
+16:00:01 <gkellogg> chair: gkellogg
+16:00:03 <gkellogg> present+
+16:00:21 <anatoly-scherbakov> present+
+16:00:32 <gkellogg> regrets+ pchampin, niklasl
+16:01:02 <gkellogg> zakim, next agendum
+16:01:02 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:01:45 <TallTed> present+
+16:01:52 <TallTed> RRSAgent, draft minutes
+16:01:53 <RRSAgent> I have made the request to generate https://www.w3.org/2023/07/26-json-ld-minutes.html TallTed
+16:02:07 <TallTed> RRSAgent, make logs Public
+16:02:47 <gkellogg> subtopic: WoT desire to meet at TPAC
+16:04:46 <gkellogg> gkellogg: At this point, WoT would like to meet during the monday afternoon JSON-LD CG slot, so we'll plan on keeping it reserved for discussions related to JSON-LD.
+16:05:13 <anatoly-scherbakov> q+
+16:05:43 <gkellogg> zakim, next item
+16:05:43 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellog__
+16:05:50 <gkellogg> zakim, close item 1
+16:05:50 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellog__
+16:06:03 <gkellogg> ack anatoly-scherbakov
+16:06:07 <gkellogg> zakim, close item 1
+16:06:07 <Zakim> agendum 1, Announcements and Introductions, closed
+16:06:08 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:06:08 <Zakim> 2. YAML-LD [from agendabot]
+16:06:12 <gkellogg> zakim, next agendum
+16:06:12 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:06:29 <gkellogg> anatoly-scherbakov: Some example changes made.
+16:06:41 <gkellogg> ... The convenience contexts are published and referenced.
+16:06:51 <gkellogg> ... I've fixed some other example bugs.
+16:07:13 <dlehn> present+
+16:07:19 <gkellogg> ... Regarding next steps, I need to review the text again, and I haven't done anything regarding the test suite.
+16:07:31 <gkellogg> ack dlehn
+16:07:48 <anatoly-scherbakov> q-
+16:08:15 <gkellogg> gkellogg: Do you have you're own implementation?
+16:08:40 <gkellogg> anatoly-scherbakov: I have code to read YAML files and uses PyLd to process the results as if it were JSON-LD.
+16:09:20 <gkellogg> ... I was thinking of adding a YAML-LD plugin to the rdflib of the JSON-LD processor.
+16:09:37 <gkellogg> ... It should be possible to implement such a plugin.
+16:11:45 <gkellogg> gkellogg: further steps to review spec and work with the test suite.
+16:12:00 <gkellogg> ... Looking for more people to review the spec and raise issues.
+16:12:26 <gkellogg> gkellogg: I'll review and look at updates to the test suite.
+16:12:48 <gkellogg> zakim, open agendum 5
+16:12:48 <Zakim> agendum 5 -- Next call -- taken up [from agendabot]
+16:14:08 <gkellogg> gkellogg: suggest not meeting in August, and focusing on moving YAML-LD to a final report in September.
+16:16:22 <gkellogg> ... Next steps to wrap up work, and move to final report.
+16:18:39 <dlehn> q+
+16:18:47 <gkellogg> ack dlehn
+16:19:08 <anatoly-scherbakov> q+
+16:19:09 <gkellogg> dlehn: We have open issues in JSON-LD, do we want to discuss.
+16:20:40 <TallTed> Issue triage is often a worthwhile call activity, assuming reasonable attendance.
+16:20:41 <gkellogg> gkellogg: moving JSON-LD issues into PRs is most effective.
+16:21:29 <TallTed> q+
+16:21:40 <gkellogg> ack TallTed
+16:21:49 <gkellogg> ack anatoly-scherbakov
+16:22:06 <TallTed> q+ to discuss triage
+16:22:21 <gkellogg> anatoly-scherbakov: We have convenience contexts on the JSON-LD website, maybe we can archive the repo?
+16:23:23 <gkellogg> ... I'll try to participate on Sept 6, but may be traveling.
+16:23:24 <anatoly-scherbakov> q-
+16:23:42 <gkellogg> ack TallTed
+16:23:42 <Zakim> TallTed, you wanted to discuss triage
+16:23:57 <anatoly-scherbakov> Perhaps the repository https://github.com/json-ld/convenience-context could be archived, because the text of JSON-LD Convenience Context is already stored at json-ld.org repo and website.
+16:24:33 <gkellogg> TallTed: We need a quorum to usefully triage issues. The shepherding is to prod contributors to work on it.
+16:24:54 <gkellogg> ... It's worth doing a triage run in September.
+16:26:28 <gkellogg> ... Triage helps to prioritize the issues. F2F time is best then telecons for getting work done.
+16:26:47 <gkellogg> JSON-LD project view: https://github.com/orgs/w3c/projects/4
+16:28:59 <dlehn> q+
+16:29:09 <gkellogg> Proposal is to keep meetings on books, work through JSON-LD issues, and the "Discuss-Call" tab on the JSON-LD project page.
+16:30:27 <gkellogg> TallTed: Worth a poke on the mailing list to plead for participation.
+16:30:30 <gkellogg> ack dlehn
+16:30:58 <gkellogg> dlehn: One of the issues I'd like to discuss is JSON-LD processing issues and literals.
+16:31:49 <gkellogg> ... Regarding w3c/json-ld-api#559 Add JSON literal tests.
+16:32:21 <gb> https://github.com/w3c/json-ld-api/issues/559 -> Pull Request 559 Add JSON literal tests. (by davidlehn)
+16:32:25 <gb> https://github.com/s//issues/449 -> #449
+16:32:31 <gkellogg> Also, w3c/json-ld-api#560.
+16:32:32 <gb> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (by davidlehn) [test:missing-coverage] [ErratumRaised]
+16:32:52 <TallTed> s|https://github.com/s//issues/449 -> #449||
+16:32:59 <gkellogg> gkellogg: we'll plan to spend time on those issues specifically next meeting.
+16:33:09 <TallTed> s|https://github.com/w3c/json-ld-api/issues/449 -> CLOSED Issue 449 no jld:PositiveSyntaxTest instruction (by roptat) [spec:editorial] [wr:commenter-agreed] [wr:spec-updated-partial]||
+16:33:18 <TallTed> RRSAgent, draft minutes
+16:33:19 <RRSAgent> I have made the request to generate https://www.w3.org/2023/07/26-json-ld-minutes.html TallTed
+16:33:41 <gkellogg> zakim, end meeting
+16:33:41 <Zakim> As of this point the attendees have been gkellog__, anatoly-scherbakov, TallTed, dlehn
+16:33:43 <Zakim> RRSAgent, please draft minutes
+16:33:45 <RRSAgent> I have made the request to generate https://www.w3.org/2023/07/26-json-ld-minutes.html Zakim
+16:33:50 <Zakim> I am happy to have been of service, gkellog__; please remember to excuse RRSAgent.  Goodbye
+16:33:51 <Zakim> Zakim has left #json-ld
+16:33:58 <gkellogg> rrsagent, pointer
+16:33:58 <RRSAgent> See https://www.w3.org/2023/07/26-json-ld-irc#T16-33-58
+16:34:32 <gkellogg> rrsagent, bye
+16:34:32 <RRSAgent> I see no action items
