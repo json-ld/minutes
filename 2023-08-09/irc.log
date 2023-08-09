@@ -1,0 +1,130 @@
+15:58:27 <RRSAgent> RRSAgent has joined #json-ld
+15:58:31 <RRSAgent> logging to https://www.w3.org/2023/08/09-json-ld-irc
+15:58:31 <Zakim> RRSAgent, make logs Public
+15:58:32 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:58:37 <gkellogg> meeting: JSON-LD CG
+15:58:50 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/?recurrenceId=20230809T120000
+15:58:51 <agendabot> clear agenda
+15:58:51 <agendabot> agenda+ Announcements and Introductions
+15:58:51 <agendabot> agenda+ YAML-LD
+15:58:51 <agendabot> agenda+ JSON-LD Issue Discussion
+15:58:51 <agendabot> agenda+ Open Discussion
+15:58:53 <agendabot> agenda+ Next call
+15:59:01 <gkellogg> zakim, next item
+15:59:01 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+15:59:16 <gkellogg> present+
+15:59:19 <gkellogg> chair: gkellogg
+15:59:41 <niklasl> niklasl has joined #json-ld
+16:00:10 <gkellogg> regrets+ saumier
+16:01:30 <Alex_> Alex_ has joined #json-ld
+16:01:41 <niklasl> present+
+16:01:50 <gkellogg> zakim, close item 1
+16:01:50 <Zakim> agendum 1, Announcements and Introductions, closed
+16:01:51 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:01:51 <Zakim> 2. YAML-LD [from agendabot]
+16:01:57 <gkellogg> zakim, next agendum
+16:01:57 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:01:58 <TallTed> present+
+16:02:06 <Alex_> present+
+16:02:12 <gkellogg> zakim, close item 2
+16:02:12 <Zakim> agendum 2, YAML-LD, closed
+16:02:13 <Zakim> I see 3 items remaining on the agenda; the next one is
+16:02:13 <Zakim> 3. JSON-LD Issue Discussion [from agendabot]
+16:02:16 <gkellogg> zakim next agendum
+16:02:18 <dlehn1> present+
+16:02:24 <gkellogg> zakim, next agendum
+16:02:24 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:02:50 <gkellogg> https://github.com/orgs/w3c/projects/4
+16:03:23 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/pull/417
+16:04:06 <gkellogg> https://github.com/w3c/json-ld-framing/pull/153
+16:04:17 <gkellogg> https://github.com/w3c/json-ld-api/pull/574
+16:05:09 <gkellogg> subtopic: https://github.com/w3c/json-ld-framing/pull/154
+16:06:40 <bigbluehat> present+
+16:07:16 <gkellogg> dlehn: Not sure how the framing profile parameter
+16:09:16 <niklasl> gkellogg: 'framed' was discussed as signifying a document that had been framed
+16:09:44 <niklasl> ... these things are probably not used (don't break any tests)
+16:09:48 <gkellogg> gkellogg: the "framed" fragment was intended to indicate documents that had been framed rather that that is a frame.
+16:10:08 <gkellogg> TallTed: I don't think it's likely to break anything, and it's certainly broken now.
+16:10:43 <niklasl> https://www.w3.org/ns/json-ld#frame: As an IRI, this link relation is used to associate a JSON-LD frame with a JSON-LD document. In an HTTP request header, specifies the location of a frame to use for framing.
+16:11:08 <niklasl> https://www.w3.org/ns/json-ld#framed:  This profile URI is used to request or specify framed JSON-LD document form.
+16:11:30 <gkellogg> bigbluehat: Not at Weily anymore, now at Digital Bazaar. Still working on status updates.
+16:11:58 <gkellogg> subtopic: https://github.com/w3c/json-ld-api/pull/572
+16:12:35 <TallTed> s/Weily/Wiley/
+16:12:41 <gkellogg> dlehn: Haven't looked at it quite yet.
+16:13:27 <gkellogg> gkellogg: propose merging
+16:14:26 <gkellogg> subtopic: https://github.com/w3c/json-ld-api/pull/559
+16:14:39 <gkellogg> dlehn: This is still in draft, as more is needed.
+16:15:15 <gkellogg> gkellogg: open since february.
+16:15:34 <gkellogg> ... 58 files change.
+16:15:57 <gkellogg> dlehn: Several tests added.
+16:16:22 <gkellogg> ... Also related is w3c/json-ld-api#560
+16:16:22 <gb> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (by davidlehn) [test:missing-coverage] [ErratumRaised]
+16:16:47 <gkellogg> ... There are other links in there, including the issue from jsonld.js.
+16:16:59 <gkellogg> ... The problem is that when you're using a JSON literal, how to you deal with arrays?
+16:17:34 <gkellogg> ... When you're reading it, it can be interpreted as a set of literals within the array, or a single literal that is an array.
+16:17:52 <gkellogg> ... It involves spec changes, as we didn't have tests for this originally.
+16:18:15 <gkellogg> ... We could say it only works with objects, but that seems like an unreasonable restriction.
+16:19:00 <niklasl> q+
+16:19:10 <gkellogg> ... The tests just cover some use cases, but the overall issue hits different aspects of the spec.
+16:19:55 <gkellogg> ... It's about declaring things so you can handle the use case, but it means that `@container` might mean something different for JSON arrays.
+16:21:53 <gkellogg> gkellogg: there are different ways that the container attribute might be interpreted.
+16:22:18 <gkellogg> ... Do you process it differently with and without the array description?
+16:22:45 <gkellogg> ... We need some basic rules, but you need to be more explicit about it.
+16:23:04 <gkellogg> dlehn: I worked on my implementation until it seemed to do what you would expect.
+16:23:18 <gkellogg> ... You'd need to know about this when dealing with JSON types that are arrays.
+16:23:45 <gkellogg> niklasl: Are there use cases in the wild that would be problematic?
+16:24:09 <gkellogg> ... I could imagine coordinates used as JSON lists that might be misintrepreted.
+16:24:37 <niklasl> "jsonLists": {"@set": [ [1, 2, 3], [4, 5, 6] ]}
+16:24:44 <gkellogg> ... I agree that it's odd that you can't use arrays as literals; if you need to use both, you might use "set" containers.
+16:25:00 <gkellogg> ... And a container version of that.
+16:25:54 <gkellogg> gkellogg: does w3c/json-ld-api#560 comprehensively reference the problem and proposed solutions?
+16:25:55 <gb> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (by davidlehn) [test:missing-coverage] [ErratumRaised]
+16:26:22 <gkellogg> dlehn: That is what I attempted to do. The jsonld.js issue referenced is what started this.
+16:26:44 <gkellogg> ... Using a set container might not seem right either.
+16:27:50 <gkellogg> gkellogg: seems like a fairly big change to tackle in this forum.
+16:28:01 <gkellogg> dlehn: I haven't seen a bit outcry to fix this issue.
+16:28:36 <gkellogg> gkellogg: maybe defer a bit longer?
+16:28:50 <niklasl> q+
+16:28:52 <gkellogg> dlehn: I don't think I've pushed all the changes that make this work.
+16:29:19 <gkellogg> niklasl: Would it be a normative change.
+16:29:43 <gkellogg> dlehn: I didn't write spec text, but I believe it would be a normative change.
+16:30:23 <niklasl> https://github.com/w3c/json-ld-api/issues/558
+16:30:29 <gkellogg> niklasl: I'm more keen to solve RDF List issues.
+16:31:12 <gkellogg> ... I'm more in favor of making a change sooner rather than later.
+16:32:21 <gkellogg> gkellogg: I think we're on the road to JSON-LD 1.2, but it's probably a couple of years out.
+16:32:42 <gkellogg> niklasl: I'd like to work on issues like this.
+16:33:11 <gkellogg> gkellogg: propose investigating further and bringing it up again in the next meeting.
+16:33:17 <gkellogg> subtopic: https://github.com/w3c/json-ld-api/issues/558
+16:34:18 <gkellogg> niklasl: I hope that this isn't _too_ normative a change.
+16:34:30 <gkellogg> ... It's an undesireable behavior.
+16:34:38 <gkellogg> gkellogg: I think that makes it an erratum.
+16:36:45 <gkellogg> ... There is an erratum lifecycle we can stick with.
+16:37:07 <gkellogg> ... The changed algorithm would make current implementations misbehave?
+16:38:36 <gkellogg> ... the WG is chartered to do this work, subject to time an process.
+16:40:39 <gkellogg> subtopic: json-ld-syntax#355
+16:41:11 <gkellogg> gkellogg: this was a proposal to replace the term "IRI" with "URL".
+16:43:05 <gkellogg> ... Propose doing a PR to change references for IRI into RDF 1.2 Concepts.
+16:43:38 <bigbluehat> https://www.w3.org/TR/rdf12-concepts/
+16:44:16 <bigbluehat> There's a note about it in the RDF 1.2 Concepts doc: https://www.w3.org/TR/rdf12-concepts/#h-note-3
+16:44:19 <bigbluehat> maybe we do the same?
+16:44:21 <bigbluehat> q+
+16:44:30 <niklasl> q-
+16:45:35 <gkellogg> ack bigbluehat
+16:45:39 <gkellogg> bigbluehat: I suggest we follow RDF 1.2. Many people use the terms interchangeably.
+16:45:44 <niklasl> https://www.w3.org/TR/rdf12-concepts/#section-IRIs
+16:46:38 <gkellogg> ... The key is that there is a difference between IRI and URL.
+16:47:17 <gkellogg> ... Beyond simply being the right term, there are practical implications.
+16:47:29 <niklasl> https://xkcd.com/927/  ... :/
+16:49:25 <gkellogg> q?
+16:51:40 <gkellogg> zakim, close meeting
+16:51:40 <Zakim> I don't understand 'close meeting', gkellogg
+16:51:59 <gkellogg> zakim, end meeting
+16:51:59 <Zakim> As of this point the attendees have been gkellogg, niklasl, TallTed, Alex_, dlehn, bigbluehat
+16:52:03 <Zakim> RRSAgent, please draft minutes
+16:52:04 <RRSAgent> I have made the request to generate https://www.w3.org/2023/08/09-json-ld-minutes.html Zakim
+16:52:11 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:52:11 <Zakim> Zakim has left #json-ld
+16:52:16 <gkellogg> rrsagent, pointer
+16:52:16 <RRSAgent> See https://www.w3.org/2023/08/09-json-ld-irc#T16-52-16
+16:52:36 <gkellogg> rrsagent, bye
+16:52:36 <RRSAgent> I see no action items
