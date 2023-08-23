@@ -1,0 +1,135 @@
+15:56:48 <RRSAgent> RRSAgent has joined #json-ld
+15:56:52 <RRSAgent> logging to https://www.w3.org/2023/08/23-json-ld-irc
+15:56:52 <Zakim> RRSAgent, make logs Public
+15:56:53 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:57:02 <gkellogg> meeting: JSON-LD CG
+15:57:13 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20230823T120000/
+15:57:14 <agendabot> clear agenda
+15:57:14 <agendabot> agenda+ Announcements and Introductions
+15:57:14 <agendabot> agenda+ YAML-LD
+15:57:14 <agendabot> agenda+ JSON-LD Issue Discussion
+15:57:14 <agendabot> agenda+ Open Discussion
+15:57:16 <agendabot> agenda+ Next call
+15:57:26 <gkellogg> chair: gkellogg
+16:06:17 <gkellogg> scribe+
+15:57:30 <gkellogg> present+
+15:57:45 <gkellogg> zakim, open item 1
+15:57:45 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:00:11 <pchampin> present+
+16:00:16 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:00:19 <anatoly-scherbakov> present+
+16:00:47 <bigbluehat> present+
+16:01:04 <TallTed> present+
+16:01:19 <niklasl> niklasl has joined #json-ld
+16:01:32 <niklasl> present+
+16:02:00 <gkellogg> gkellogg: suggest skippping sept 6 meeting due to unavailability of chair
+16:03:25 <gkellogg> gkellogg: joint meeting with RCH and WoT at TPAC, details to come.
+16:04:33 <gkellogg> gkellogg: remote participation at TPAC can be effective.
+16:05:22 <gkellogg> niklas: I'd like to participate in some of the meetings.
+16:06:07 <gkellogg> anatoly-scherbakov: I'm traveling on September 6th.
+16:06:16 <pchampin> I might also be unavailable on Sep 6
+16:06:41 <gkellogg> gkellogg: September 6th meeting is canceled, next is September 20th.
+16:06:55 <gkellogg> zakim, next item
+16:06:55 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:07:21 <gkellogg> anatoly-scherbakov: Since our last meeting, a couple of PRs have been opened and merged.
+16:07:41 <gkellogg> ... Most important thing is the test suite, where I made some changes.
+16:07:54 <gkellogg> PR json-ld/yaml-ld#117 is in the test suite.
+16:07:55 <gb> https://github.com/json-ld/yaml-ld/issues/117 -> Pull Request 117 Rename test file (PR #8 for issue #94) (by anatoly-scherbakov)
+16:08:32 <gkellogg> .. In implementing a plugin, I created a test runner to implement the tests and realized that implementing a YAML-LD plugin is not entirely sufficient.
+16:08:47 <gkellogg> ... What I need is an implementation of the JSON-LD API for YAML-LD, making a new library.
+16:09:07 <gkellogg> ... I'm exploring that implementation, based on PyLd.
+16:09:28 <gkellogg> ... In addition to the JSON-LD API methods, it needs to do some YAML-specific verification.
+16:09:54 <gkellogg> ... I'll try to improve the test suite to cover more areas that aren't covered.
+16:10:09 <gkellogg> ... I don't anticipate any large changes to the spec.
+16:10:59 <gkellogg> gkellogg: need to decide what to do with extended tests.
+16:11:13 <gkellogg> anatoly-scherbakov: I'll see if we can move any of those over.
+16:11:39 <gkellogg> gkellogg: i"m behind in my implementation
+16:11:44 <gkellogg> zakim, next agendum
+16:11:44 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:12:06 <gkellogg> https://github.com/orgs/w3c/projects/4
+16:12:50 <gkellogg> subtopic: w3c/json-ld-syntax#418
+16:12:50 <gb> https://github.com/w3c/json-ld-syntax/issues/418 -> Pull Request 418 Update references to RFC3987 with RDF12-CONCEPTS. (by gkellogg) [spec:editorial]
+16:14:29 <gkellogg> gkellogg: RDF 1.2 defines IRIs now, so makes sense to start updating references.
+16:15:42 <gkellogg> ... Also may allow updating text direction.
+16:16:15 <gkellogg> pchampin: It may be questioned if it is in scope for a maintenance group.
+16:17:38 <gkellogg> gkellogg: JSON-LD-star may also need to reference RDF 1.2.
+16:17:52 <dlehn> present+
+16:18:02 <gkellogg> subtopic: w3c/json-ld-framing#154
+16:18:03 <gb> https://github.com/w3c/json-ld-framing/issues/154 -> Pull Request 154 Change IANA Considerations to make the profile parameter required (by gkellogg) [spec:substantive]
+16:19:13 <gkellogg> gkellogg: udpates profile parameter for framing IANA considerations.
+16:20:30 <gkellogg> TallTed: The idea was for using application/frame+ld+json, but it feels odd right now.
+16:20:40 <gkellogg> But, I do like using a full URI for that parameter.
+16:21:14 <gkellogg> ... Not all specs use full IRIs for profile parameters, which can be simple text.
+16:22:04 <gkellogg> subtopic: w3c/json-ld-api#559 needs more feedback.
+16:22:05 <gb> https://github.com/w3c/json-ld-api/issues/559 -> Pull Request 559 Add JSON literal tests. (by davidlehn)
+16:22:29 <gkellogg> subtopic: w3c/json-ld-framing#146
+16:22:30 <gb> https://github.com/w3c/json-ld-framing/issues/146 -> Pull Request 146 fixed frame on type `@json` (by pasquale95)
+16:23:36 <gkellogg> gkellogg: tagged with defer-future-version.
+16:24:52 <gkellogg> gkellogg: I think it is actually a necessary change.
+16:25:20 <gkellogg> ... Seems like a change we do want to make, though.
+16:25:42 <gkellogg> dlehn: I think we could use more tests for this part of the spec to make clear what the expected behavior is.
+16:26:17 <gkellogg> subtopic: w3c/json-ld-bp#44
+16:26:17 <gb> https://github.com/w3c/json-ld-bp/issues/44 -> Pull Request 44 Update specStatus to "unofficial". (by gkellogg)
+16:27:49 <gkellogg> gkellogg: WG could decide to publish the best practices, which would indirectly solve the problem.
+16:28:12 <gkellogg> https://w3c.github.io/json-ld-bp/
+16:28:40 <gkellogg> gkellogg: last published version is a bad link.
+16:29:15 <gkellogg> pchampin: This version link points to a TR space URL, which doesn't exist.
+16:29:53 <niklasl> q+
+16:30:29 <dlehn> for reference: https://github.com/w3c/respec/wiki/specStatus
+16:30:32 <gkellogg> https://pr-preview.s3.amazonaws.com/w3c/json-ld-bp/pull/44.html
+16:30:56 <pchampin> setting specStatus to 'ED' seems to do the right thing: https://w3c.github.io/json-ld-bp/?specStatus=ED
+16:31:17 <pchampin> ah, no, not the "latest published version"...
+16:31:17 <gkellogg> gkellogg: maybe can be discussed at TPAC.
+16:31:41 <gkellogg> ... Or, the maintanence group could just go ahead and publish the note
+16:32:03 <gkellogg> pchampin: Still a bunch of fixmes left, and some other incomplete text.
+16:32:17 <gkellogg> niklasl: Seems to be missing some examples
+16:32:22 <gkellogg> s/pchampin/niklasl/
+16:32:48 <gkellogg> ... Best to accept the PR, change to "unofficial", and try to get some examples.
+16:33:00 <dlehn> maybe related https://github.com/w3c/respec/issues/3594
+16:33:00 <gkellogg> TallTed: Pushing it as a note, does not imply it is complete.
+16:33:07 <gkellogg> ... We could do that at any time.
+16:33:19 <pchampin> q-
+16:33:55 <pchampin> +1 to publish it as a draft note, and the set the editors' draft specStatus to ED
+16:34:25 <gkellogg> gkellogg: how do we proceed with a request to publish it as a draft.
+16:34:43 <gkellogg> ... Probably needs a WG resolution to published.
+16:35:18 <gkellogg> bigbluehat: We need to get the group together.
+16:35:21 <TallTed> PROPOSAL: publish Best Practices as DRAFT NOTE
+16:35:34 <gkellogg> +1
+16:35:38 <bigbluehat> +1
+16:35:47 <TallTed> s|it as|https://w3c.github.io/json-ld-bp/ as|
+16:36:11 <pchampin> +1
+16:36:14 <niklasl> +0
+16:36:45 <gkellogg> resolved: publish BP as DRAFT NOTE
+16:37:14 <gkellogg> gkellogg: this a CG resolution, and bigbluehat will send a WG email to suggest doing this publication.
+16:37:56 <gkellogg> pchampin: Currently, we have no chair, so can't really do that. Probably fixed at TPAC.
+16:38:38 <gkellogg> ... People have changed affiliations before, and that hasn't been a problem. I'm meeting with Phillipe to tomorrow, and maybe we can resolve that.
+16:40:20 <gkellogg> subtopic: w3c/json-ld-api#558
+16:40:20 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised]
+16:40:06 <niklasl> https://github.com/w3c/json-ld-api/issues/558
+16:40:41 <gkellogg> niklasl: Not sure I've discussed in a meeting.
+16:41:06 <gkellogg> ... Basically, if a JSON-LD context has a term which is a list container with type vocab, it expands as expected, but not compact as expected.
+16:41:26 <gkellogg> ... It's not a bug, per se, as it compacts, but creates an unexpected result.
+16:42:02 <gkellogg> ... I uupdated my implementation, and I don't believe it has any adverse side-effects. It introduces a new sub-algorithm, so it's normative, but pretty simple.
+16:42:29 <gkellogg> ... I wouldn't expect it to land until JSON-LD 1.2.
+16:43:23 <gkellogg> gkellogg: can proceed with a PR given sufficient support.
+16:43:32 <gkellogg> niklasl: I'll work on a PR.
+16:44:00 <gkellogg> q?
+16:44:04 <gkellogg> ack niklasl
+16:45:34 <gkellogg> dlehn: Do such issues need to be open?
+16:45:50 <gkellogg> gkellogg: it would be nice to clean up the issue list.
+16:46:48 <pchampin> q+
+16:47:01 <gkellogg> ... Ivan's implementation drives the errata document
+16:47:03 <gkellogg> ack pchampin
+16:47:31 <gkellogg> pchampin: I haven't spent time on it, but we should be able to change it if necessary.
+16:47:46 <gkellogg> ... I think things should change in errata until the updated spec is in PR.
+16:48:45 <gkellogg> pchampin: I'll look at the code to see what it does, and what we can do.
+16:48:55 <gkellogg> zakim, next item
+16:48:55 <Zakim> agendum 4 -- Open Discussion -- taken up [from agendabot]
+16:49:47 <gkellogg> bigbluehat: The meeting time has become very difficult, like to see if we can change to a different time.
+16:50:04 <gkellogg> ... Maybe we could bump to Thursdays.
+16:50:54 <gkellogg> gkellogg: I'll send a doodle, and see how people would feel.
+16:51:40 <gkellogg> ... Potentially, and how earlier on thusdays.
+16:51:51 <anatoly-scherbakov> fine for me too
+16:52:53 <gkellogg> zakim, end meeting
+16:52:53 <Zakim> As of this point the attendees have been gkellogg, pchampin, anatoly-scherbakov, bigbluehat, TallTed, niklasl, dlehn
+16:52:55 <Zakim> RRSAgent, please draft minutes
