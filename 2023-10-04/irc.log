@@ -1,0 +1,235 @@
+16:01:07 <RRSAgent> RRSAgent has joined #json-ld
+16:01:11 <RRSAgent> logging to https://www.w3.org/2023/10/04-json-ld-irc
+16:01:11 <Zakim> RRSAgent, make logs Public
+16:01:12 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:01:18 <gkellogg> meeting: JSON-LD CG
+16:01:31 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231004T120000/
+16:01:31 <agendabot> clear agenda
+16:01:31 <agendabot> agenda+ Announcements and Introductions
+16:01:31 <agendabot> agenda+ YAML-LD
+16:01:31 <agendabot> agenda+ JSON-LD Issue Discussion
+16:01:31 <agendabot> agenda+ Open Discussion
+16:01:33 <agendabot> agenda+ Next call
+16:01:39 <gkellogg> chair: gkellogg
+16:01:42 <gkellogg> scribe+
+16:01:45 <gkellogg> present+
+16:02:28 <gkellogg> zakim, next agendum
+16:02:28 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:30 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:02:30 <TallTed> present+
+16:02:32 <niklasl> niklasl has joined #json-ld
+16:02:34 <anatoly-scherbakov> present+
+16:02:34 <gkellogg> zakim, close item 1
+16:02:34 <Zakim> agendum 1, Announcements and Introductions, closed
+16:02:35 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:02:35 <Zakim> 2. YAML-LD [from agendabot]
+16:02:36 <niklasl> present+
+16:02:41 <gkellogg> zakim, next agendum
+16:02:41 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:03:07 <dlehn> present+
+16:03:11 <gkellogg> anatoly-scherbakov: I couldn't join last time, but I've been working on various YAML-LD things.
+16:03:18 <gkellogg> ... [screenshare]
+16:03:58 <gkellogg> ... I've made about four pull requests in the last month, mostly related to the test suite.
+16:04:22 <gkellogg> ... Basic and Extended tests have been merged, so we now have a single test manifest.
+16:05:03 <gkellogg> ... We've discussed using the extractAllScript flag to work with YAML streams.
+16:05:36 <gkellogg> ... We need some more tests, for example to check for keys that are not strings, which are not permitted in JSON-LD, but are in YAML (not -LD)
+16:06:05 <pchampin> present+
+16:06:13 <gkellogg> ... I have my own implementation in Python (python-yaml-ld) to run tests.
+16:07:14 <gkellogg> ... For example, the expand function deviates a bit from the JSON-LD spec, which is more inline with Python coding standards.
+16:07:31 <gkellogg> ... It uses PyLd for doing the heavy lifting.
+16:07:44 <gkellogg> ... Doesn't do compact, quite yet.
+16:08:21 <bigbluehat> present+
+16:08:33 <gkellogg> ack bigbluehat
+16:08:43 <dlehn> q+
+16:08:53 <gkellogg> ack dlehn
+16:09:18 <gkellogg> dlehn: You said you're using PyLd; does it still work okay? It's pretty out of date
+16:09:49 <bigbluehat> https://github.com/digitalbazaar/pyld
+16:10:09 <gkellogg> anatoly-scherbakov: Presently, to satisfy the test suite, I haven't encountered any issues.
+16:10:54 <gkellogg> ... I did submit an issue some time ago. It was referenced recently in an issue for rdflib, where people were discussing removing the existing support and use PyLd instead.
+16:11:14 <gkellogg> ... They're concerned that PyLd hasn't been updated in a while.
+16:11:27 <gkellogg> ... Do you plan to continue supporting PyLd
+16:11:35 <pchampin> last commit on PyLD Aug 6, 2020
+16:11:48 <gkellogg> dlehn: We'd love to, but we really don't have the time as it's not something we use.
+16:12:08 <gkellogg> ... On my todo list was to do some updates to match the safe mode from jsonld.js.
+16:12:30 <gkellogg> ... Definitely looking for people to help support the library.
+16:13:04 <niklasl> q+
+16:13:06 <gkellogg> anatoly-scherbakov: I'd like to help, if I can.
+16:13:29 <gkellogg> ... Not sure, where to start, though. Maybe we can circle back to this.
+16:13:32 <gkellogg> ack niklasl
+16:14:11 <gkellogg> niklasl: I mentioned that I have my own implementation, but I don't want to detract from PyLd. Still maintained by looking carefully at the spec.
+16:14:30 <gkellogg> ... I'd like to make sure we have a good string interoperable test suite.
+16:15:08 <gkellogg> ... I "transpiled" Python version to Java.
+16:15:59 <gkellogg> gkellogg: curious about the YAML 1.2 version declaration.
+16:17:35 <gkellogg> anatoly-scherbakov: In the industry, YAML is moved in multiple contexts and I've seen multiple YAML files, but never seen the version directive.
+16:17:51 <gkellogg> gkellogg: best to get rid of the declaration.
+16:17:52 <niklasl> +1 for that
+16:17:55 <gkellogg> zakim, next agendum
+16:17:55 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:18:23 <gkellogg> subtopic: Base Direction.
+16:19:03 <pchampin> q+
+16:19:20 <gkellogg> gkellogg: could obsolete existing i18n datatype and rdf:CompoundLiteral.
+16:20:02 <dlehn> q+
+16:20:08 <gkellogg> ack pchampin
+16:20:26 <gkellogg> pchampin: +1 for how you framed it: a future version could obsolete the other forms.
+16:20:51 <gkellogg> ... As a maintanence group, we can't make a normative reference to RDF 1.2 until it's in CR.
+16:21:37 <gkellogg> ... We can't publish an update JSON-LD containing this until RDF moves to CR.
+16:21:54 <gkellogg> ack dlehn
+16:22:13 <gkellogg> dlehn: What's the story with C14N output?
+16:22:34 <gkellogg> ... Mostly for language tag canon
+16:23:51 <anatoly-scherbakov> q+
+16:24:21 <gkellogg> ... I think both old forms will be obsoleted.
+16:24:23 <gkellogg> ack anatoly-scherbakov
+16:25:15 <gkellogg> anatoly-scherbakov: My understanding of JSON-LD is vague, but if the industry accepts JSON-LD-star, will it mean that that will incompass those other things?
+16:27:04 <gkellogg> ... RDF-star is a draft, and there is a remote time when it's considered ready.
+16:28:08 <niklasl> q+
+16:28:26 <gkellogg> ... How does RDF-star play with OWL.
+16:29:34 <gkellogg> ... I'm using named graphs to herd my data, but I haven't gotten into a situation where information from different sources.
+16:29:43 <gkellogg> ack niklasl
+16:29:57 <pchampin> q+
+16:30:03 <gkellogg> niklasl: I wanted to +1 whet gkellogg said about the RDF-star direction.
+16:30:45 <gkellogg> ... To the questions of quoted graphs, pchampin and I have been exploring the use of named graphs instead.
+16:31:03 <gkellogg> ... Regarding OWL, I use it, but it may be somewhat outdated by SHACL.
+16:31:08 <TallTed> q+
+16:31:33 <gkellogg> ... I hope it might come back into fashion. One of the aspects of named graphs is that, in practice, it is a way to isolate data.
+16:32:06 <gkellogg> ... There's an aspect of what quotation is, but these are things being discussed.
+16:32:31 <gkellogg> ... I hope they will converge that doesn't complicate things too much. Including provenance.
+16:32:48 <gkellogg> ... I think this corresponds to how named graphs are used in JSON-LD.
+16:32:49 <gkellogg> q?
+16:32:58 <gkellogg> ack pchampin
+16:33:10 <anatoly-scherbakov> q+
+16:33:32 <gkellogg> pchampin: Let's not frame OWL vs SHACL as being competitors, although it is spoken.
+16:33:57 <gkellogg> ... OWL2 was published in 2012, based on RDF 1.0. I think it's considered quite mature and still working.
+16:34:21 <gkellogg> ... It works with RDF 1.1 pretty well. I hope that RDF 1.2 will still be "OWL friendly".
+16:34:51 <gkellogg> ... The RDF-star WG needs to be careful to not break it further.
+16:35:07 <gkellogg> ... No signs of a new WG anytime soone.
+16:35:12 <gkellogg> ack TallTed
+16:35:39 <gkellogg> TallTed: I wouldn't say that OWL is out of fashion. Many people find it overly complex for use cases.
+16:36:02 <gkellogg> ... Nothing wrong with that. There are simpler pieces of OWL that are in wide-use.
+16:36:23 <gkellogg> ... owl:sameAs has been misused because of misunderstanding.
+16:36:42 <gkellogg> ... Other concepts are easier to use and quite useful.
+16:37:04 <gkellogg> ... SHACL and ShEx are indeed orthogonal, but some people use it as an alternative.
+16:37:08 <niklasl> For reference, "another way" of using OWL: https://github.com/niklasl/ldtvm/
+16:38:03 <gkellogg> ... The RDF-star WG should consider that OWL needs to be considered.
+16:38:05 <pchampin> +1 to all TallTed said
+16:38:07 <gkellogg> ack anatoly-scherbakov
+16:38:13 <niklasl> +1
+16:38:36 <gkellogg> anatoly-scherbakov: One of the most important use cases is related to YAML-LD. Using OWL, I can reduce the amount of data I need to enter manually.
+16:39:08 <gkellogg> ... Type inference is pretty useful. SHACL and ShEx are more validation languages.
+16:39:08 <TallTed> q+
+16:39:12 <pchampin> to add to TallTed's point that some parts of OWL are more used than others: https://www.researchgate.net/publication/301094549_RDFS-Plus
+16:39:14 <gkellogg> ack TallTed
+16:39:15 <niklasl> q+
+16:39:27 <pchampin> q+
+16:39:31 <gkellogg> TallTed: I don't think it's off topic. It's useful to have cross-focus discussions.
+16:39:47 <pchampin> q-
+16:40:14 <gkellogg> ... Type inference is a perfectly good use of OWL. The open-world assumption means that there is no enforcement in RDF.
+16:41:03 <gkellogg> anatoly-scherbakov: I think that's one of the most important traits of linked data.
+16:41:39 <gkellogg> ... Not practical to run against all the linked data in the world.
+16:41:50 <TallTed> q+
+16:41:57 <gkellogg> ... But useful for small pieces.
+16:41:59 <gkellogg> ack niklasl
+16:42:08 <TallTed> +1 exactly
+16:42:24 <gkellogg> I agree with what everyone has said. And, there is no real competition.
+16:42:50 <gkellogg> ... The library world is working towards using RDF.
+16:43:06 <gkellogg> q?
+16:43:38 <gkellogg> niklasl: OWL works with a controlled dataset. But a lot of the data is wrong :)
+16:44:00 <gkellogg> ... The strength of RDF is that data has semantics.
+16:44:27 <gkellogg> ... I advise implementors to at least support sub-cassing. Without that, they'll loose much of the power.
+16:44:32 <gkellogg> ack TallTed
+16:45:19 <gkellogg> TallTed: When we talk about knowledge; all you have to do is break it. Everything comes down to Air, Fire, Water, and Spirit as an alternative the Hydrogen, Oxygen, etc.
+16:45:44 <gkellogg> ... To be eternally true, and given the lack of temporality, RDF has tripped up many people.
+16:45:51 <gkellogg> ... Named graphs are important.
+16:45:53 <niklasl> +1 to that too!
+16:46:03 <anatoly-scherbakov> +1!
+16:46:17 <gkellogg> subtopic: rdf:JSON datatype w3c/rdf-concepts#65.
+16:46:18 <gb> https://github.com/w3c/rdf-concepts/issues/65 -> Issue 65 Value space of rdf:JSON datatype (by gkellogg) [spec:substantive]
+16:48:20 <pchampin> q+
+16:48:24 <gkellogg> ack pchampin
+16:48:56 <gkellogg> pchampin: The value space is something ideal (platonic); implementations will have some representation of the value space.
+16:49:18 <gkellogg> ... As long as there is no change in the consequence of how it is defined, I don't really care.
+16:49:41 <gkellogg> ... My feeling is that going from JCS to INFRA would have no practical change.
+16:51:12 <gkellogg> q?
+16:52:02 <niklasl> q+
+16:52:03 <TallTed> changing value space *probably* fine, but if it has no practical effect, what's the point of the change?
+16:52:05 <gkellogg> gkellogg: looking for some feedback on using I-JSON
+16:52:08 <gkellogg> ack niklasl
+16:52:49 <gkellogg> niklasl: I speculate, as my own use of JSON literals is pretty literal. I think it makes sense to limit the space to I-JSON to improve interoperability.
+16:53:15 <gkellogg> ... Maybe there are some odd parsers, but that doesn't bode well for interoperability.
+16:53:35 <pchampin> +1, I would expect that non-I-JSON data would have a lot of interop issues anyway
+16:53:50 <gkellogg> ack pchampin
+16:55:28 <gkellogg> topic: JSON-LD python libraries (PyLd)
+16:55:37 <gkellogg> anatoly-scherbakov: I want to talk about how we can support this work.
+16:56:11 <gkellogg> dlehn: We haven't had time to work on the code-base; I see there are 53 issues and 19 pull requests, which may or may not be relevant.
+16:56:23 <gkellogg> ... I haven't had the time to update testing.
+16:56:52 <gkellogg> ... I did need to do a bunch of update to jsonld.js, so similar fixes are probably needed in PyLd as well.
+16:57:14 <bigbluehat> q+
+16:57:22 <gkellogg> ... Help is needed.
+16:57:50 <gkellogg> ... There are also some performance issues.
+16:58:12 <gkellogg> ... I think it's being used widely, but there are alternatives now.
+16:58:38 <gkellogg> bigbluehat: I think it's clear that PyLd isn't critical for DB now, so it's dropped down the list.
+16:59:04 <gkellogg> ... However, it is critical for others. It would be helpful to curate the issues and PRs.
+16:59:27 <gkellogg> ... We can watch for things from this group that would be easier to vet.
+17:00:34 <bigbluehat> scribe+
+17:00:46 <bigbluehat> gkellogg: as an open source maintainer, PRs are nicer than issues
+17:00:54 <bigbluehat> ... but even so...they take review time
+17:01:15 <bigbluehat> ... so it might be useful is someone emerges as a fellow core contributor
+17:01:28 <bigbluehat> ... as a practical means of moving things forward
+17:01:44 <bigbluehat> ... I did that myself during the 1.1 stuff--but I was under contract
+17:01:52 <bigbluehat> ... and I know a few things about JSON-LD
+17:01:54 <bigbluehat> q+
+17:02:03 <gkellogg> ack bigbluehat
+17:02:21 <niklasl> q+
+17:02:22 <gkellogg> bigbluehat: Exactly, it needs more help to pull an open-source project.
+17:02:40 <gkellogg> ... It doesn't need to stay a corporate thing
+17:02:41 <gkellogg> q+
+17:03:04 <gkellogg> ... I'm actually at DB in a developer-advocacy role right now.
+17:03:12 <gkellogg> ack niklasl
+17:03:27 <anatoly-scherbakov> q+
+17:03:32 <gkellogg> niklasl: I've been thinking about how to work together more on these things.
+17:03:52 <gkellogg> ... I'm not sure how close PyLd it is to the algorithms in JSON-LD 1.1.
+17:04:22 <gkellogg> dlehn: I don't know, off hand, but the JavaScript and Python code we started with may predate the spec.
+17:05:00 <gkellogg> niklasl: I smoked out some bugs recently, and there are similar behaviors between Gregg's code and the playground.
+17:05:27 <gkellogg> ... There are similar spec bugs
+17:05:44 <gkellogg> dlehn: The spec and the code was built at the same time, so they may be a bit out of sync.
+17:05:56 <gkellogg> ack me
+17:07:21 <gkellogg> niklasl: I think context caching wasn't too diffucult.
+17:07:53 <bigbluehat> 1+
+17:07:56 <bigbluehat> q+
+17:08:26 <gkellogg> q?
+17:08:33 <gkellogg> ack anatoly-scherbakov
+17:08:52 <gkellogg> anatoly-scherbakov: Regarding issue triage; I'll add that to my TODO list.
+17:08:59 <niklasl> q+
+17:09:10 <gkellogg> ... I'm concerned about my availability, I'll try to look into it further.
+17:09:24 <gkellogg> ... Maybe we could schedule time to discuss on the next call.
+17:09:38 <gkellogg> ... I'd appriciate others also looking at those issues.
+17:10:01 <gkellogg> ... Regarding the organization, I do think that being in the DB organization creates a perception of support.
+17:10:44 <gkellogg> ... Maybe moving it to another organization would be a good idea. Perhaps. it could co-reside with a YAML-LD implementation.
+17:11:03 <gkellogg> q?
+17:11:38 <gkellogg> anatoly-scherbakov: Regarding developer advocacy; it makes me sad that there are so few developers that know what linked data is.
+17:12:01 <gkellogg> ... Most developers have know idea. General advocacy on linked data would be useful.
+17:12:24 <gkellogg> ... What can be used to interest more developers?
+17:12:36 <gkellogg> ack bigbluehat
+17:12:56 <gkellogg> bigbluehat: These are all topics which are near to my heart.
+17:13:16 <gkellogg> ... I think it's unlikely that any libraries will leave the DB organization.
+17:13:37 <gkellogg> ... It's hard to spin up a new organization.
+17:14:03 <gkellogg> ... The ones that last have a very active developer community.
+17:14:26 <gkellogg> ... But, we are looking at several different approaches to managing multiple open source libraries.
+17:14:55 <gkellogg> ... In the meantime, we have an open contributor policy.
+17:15:18 <gkellogg> q?
+17:16:37 <gkellogg> ... Having me in a full-time position should be a good signal that DB is serious about this.
+17:16:46 <gkellogg> ack niklasl
+17:17:17 <gkellogg> niklasl: i think that governance is important, and I've been distressed about how other libraries have languished.
+17:17:44 <gkellogg> ... You can't be both stable and a test-bed. Adding governance is important.
+17:17:44 <niklasl> https://github.com/niklasl/trld
+17:18:00 <gkellogg> ... For anyone who has time, I'd like people to consider my implementation.
+17:18:31 <gkellogg> ... I can't guarantee stability.
+17:19:12 <gkellogg> ... the TrLd license is CRLD-BSD, sort of an unlicensed.
+17:19:16 <bigbluehat> 0BSD
+17:19:18 <niklasl> 0BSD
+17:19:27 <gkellogg> s/CRLD-BSD/0BSD/
+17:20:14 <gkellogg> niklasl: One of the things it has is its own transpiler, which allows us to get Java and JavaScript out of it, which has been useful.
+17:20:22 <dlehn> should that go into the homepage implementation list?
+17:20:34 <gkellogg> ... I hope it can provide some inspiration.
+17:21:41 <gkellogg> zakim, end meeting
+17:21:41 <Zakim> As of this point the attendees have been gkellogg, TallTed, anatoly-scherbakov, niklasl, dlehn, pchampin, bigbluehat
+17:21:43 <Zakim> RRSAgent, please draft minutes
