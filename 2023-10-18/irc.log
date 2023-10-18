@@ -1,0 +1,159 @@
+15:59:45 <RRSAgent> RRSAgent has joined #json-ld
+15:59:50 <RRSAgent> logging to https://www.w3.org/2023/10/18-json-ld-irc
+15:59:50 <Zakim> RRSAgent, make logs Public
+15:59:51 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:59:54 <gkellogg> meeting: JSON-LD CG
+16:00:05 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231018T120000/
+16:00:05 <agendabot> clear agenda
+16:00:05 <agendabot> agenda+ Announcements and Introductions
+16:00:05 <agendabot> agenda+ YAML-LD
+16:00:05 <agendabot> agenda+ JSON-LD Issue Discussion
+16:00:05 <agendabot> agenda+ Maintaining Open Source tools (PyLd)
+16:00:07 <agendabot> agenda+ Open Discussion
+16:00:10 <agendabot> agenda+ Next call
+16:00:19 <gkellogg> chair: gkellogg
+16:00:22 <gkellogg> scribe+ gkellogg
+16:00:24 <gkellogg> present+
+16:00:43 <gkellogg> zakim, open next item
+16:00:43 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:00:49 <anatoly-scherbakov> present+
+16:02:37 <gkellogg> zakim, close item 1
+16:02:37 <Zakim> agendum 1, Announcements and Introductions, closed
+16:02:38 <Zakim> I see 5 items remaining on the agenda; the next one is
+16:02:38 <Zakim> 2. YAML-LD [from agendabot]
+16:02:42 <gkellogg> zakim, open item 2
+16:02:42 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:02:52 <niklasl> niklasl has joined #json-ld
+16:03:21 <gkellogg> anatoly-scherbakov: The only change I've managed is to remove the %YAML 1.2 from some files and tests.
+16:03:38 <gkellogg> ... There was some discussion on this issue.
+16:04:21 <niklasl> present+
+16:04:55 <gkellogg> gkellogg: using YAML 1.2 was a problem for Linux tests.
+16:05:32 <gkellogg> anatoly-scherbakov: I agree that we should allow implementations that are based on libraries not yet supporting YAML 1.2.
+16:05:54 <gkellogg> ... We could either revert the change, or change the test runner implement.
+16:05:59 <anatoly-scherbakov_> anatoly-scherbakov_ has joined #json-ld
+16:06:37 <gkellogg> gkellogg: test runners are per implementation.
+16:08:46 <gkellogg> ... I don't think we have tests that depend on any specific YAML 1.2 information.
+16:09:02 <anatoly-scherbakov_> My concern is that an explicit %YAML 1.2 header would be perceived by users as an indication that such a header is required for YAML-LD files when they look at the spec and the test suite for inspiration.
+16:10:10 <gkellogg> TallTed: My concern that the spec says it's based on 1.2.2, but it doesn't say what specifically it depends upon.
+16:10:43 <gkellogg> ... Either the header declaration is necessary, or its not. If it's necessary to run on 1.2, the header should remain, otherewise, it should be removed.
+16:11:36 <niklasl> So in YAML 1.1: x: yes becomes {"x": true}?
+16:11:58 <niklasl> But in 1.2 it becomes {"x": "yes"}?
+16:12:51 <niklasl> q+
+16:13:13 <gkellogg> TallTed: Did the issue arise due to GitHub CI processing?
+16:13:42 <gkellogg> gkellogg: For my implementation, yes.
+16:13:59 <anatoly-scherbakov_> q+
+16:14:11 <gkellogg> TallTed: I'd suggest that we raise an issue against GitHub CI that indicates that the version of LibYAML used is out of date.
+16:14:36 <gkellogg> ... Secondly, we should note that if implementations run into issues, they should let us know.
+16:15:09 <gkellogg> ... For now, remove the declarations, because we don't need it. We can put it back if we need it in the future.
+16:16:37 <gkellogg> ... Roberto may be able to shed some light on these things.
+16:16:59 <gkellogg> TallTed: I think we used 1.2.2 because it was the current spec.
+16:18:00 <gkellogg> gkellogg: situation is similar to RDF/XML on XML 1.0 vs 1.1.
+16:18:34 <gkellogg> niklasl: The JSON-LD internal model is called the "Internal Representation".
+16:19:07 <gkellogg> ... We might just want to put in a note about YAML version dependencies on limitations/features of YAML 1.2.
+16:19:27 <gkellogg> ... There are implementations that use older libraries, and may have some issues.
+16:20:26 <gkellogg> ... RDF/XML was only recently updated to be based on XML 1.1.
+16:20:48 <gkellogg> ... The "yes" behavior in YAML is odd.
+16:23:17 <gkellogg> ... It makes sense to base on the stable version of YAML, but note specific dependencies, if any, informatively.
+16:23:25 <anatoly-scherbakov_> 1) We can try installing a particular version of libyaml on Github CI via apt-get; 2) also, the PR has been already merged when Gregg had approved it; 3) YAML 1.1 accepts "y" as boolean True, which is probably not a good thing. 1.2 doesn't do that. So I'd prefer 1.2.
+16:23:49 <gkellogg> ... It's the subset of processed YAML which is the relationship to the JSON-LD internal representation.
+16:24:07 <pchampin> arriving
+16:24:10 <pchampin> present+
+16:24:59 <gkellogg> zakim, next agendum
+16:24:59 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:25:02 <gkellogg> q?
+16:25:06 <gkellogg> ack niklasl
+16:25:14 <gkellogg> ack anatoly-scherbakov_
+16:25:35 <gkellogg> anatoly-scherbakov_: I prefer YAML 1.2 because of obscurities.
+16:25:58 <gkellogg> ... I'd like to have some time to talk with dlehn about PyLd.
+16:26:05 <gkellogg> zakim, next agendum
+16:26:05 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:27:03 <gkellogg> subtopic: Continued discussion on RDF-star proposals for graph terms, and the implication to JSON-LD
+16:27:37 <gkellogg> niklasl: The current proposals for JSON-LD-star use an object for the value of at-id.
+16:28:07 <gkellogg> ... But, code that I've written that uses JSON-LD as just JSON will trip up on that variation.
+16:28:13 <anatoly-scherbakov_> q+
+16:28:45 <gkellogg> ... That does relate to the use of graph terms vs triple terms.
+16:28:47 <pchampin> q+
+16:28:57 <gkellogg> ... This also gets into type/token issues.
+16:29:01 <gkellogg> ack pchampin
+16:29:11 <anatoly-scherbakov_> Is the JSON literal opaque? Thus, fields of the JSON object cannot express semantic information, is that correct?
+16:29:12 <gkellogg> ack anatoly-scherbakov_
+16:34:40 <anatoly-scherbakov_> I thought that the ability to have named graph a subject of a triple already existed. So isn't the graph-based syntax already in use today?
+16:36:06 <anatoly-scherbakov_> @pchampin I think there is severe echo at your mic
+16:36:06 <gb> https://github.com/pchampin -> @pchampin
+16:36:15 <gkellogg> q?
+16:36:57 <gkellogg> niklasl: The description of the type/token use of graph terms seems right.
+16:37:11 <gkellogg> ... From JSON-LD, we need to look at where we are with JSON-LD now.
+16:37:46 <gkellogg> ... Given that we have named graphs, and blank graphs. And naming with a blank graph can't change between a token and a type.
+16:38:13 <gkellogg> ... Everywhere an at-graph occurs, it's an occurrence.
+16:38:33 <gkellogg> ... Whatever we come up with for graph terms in JSON-LD is the answer.
+16:39:06 <gkellogg> ... Perhaps at-graph with at-type would distinguish between type/token.
+16:39:07 <niklasl> "x": {"@graph": {...}}
+16:39:07 <gb> https://github.com/graph -> @graph
+16:39:21 <niklasl> "x": {"@type": "@graph", "@graph": {...}}
+16:39:21 <gb> https://github.com/type -> @type
+16:40:09 <pchampin> "x": {"@id": "@graph", "@graph": {...}}
+16:40:09 <gb> https://github.com/id -> @id
+16:40:13 <gkellogg> pchampin: niklasl's proposal is interesting, but ...
+16:40:50 <gkellogg> ... This might be a way to mark that the id isn't a blank node, but something else.
+16:41:14 <gkellogg> ... I urge us to wait until the RDF-star WG comes to a conclusion before we go too far here.
+16:41:42 <gkellogg> ... There are different forces at play, and there are constraints on what we can do.
+16:41:57 <anatoly-scherbakov_> q+
+16:42:26 <gkellogg> ... But, I agree that if quoted triples are to be replaced by terms, recycling @graph seems like a good idea.
+16:42:37 <anatoly-scherbakov_> What is the difference between a graph term and a named graph?
+16:42:48 <gkellogg> ... Do we overload a keyword, or do something new.
+16:43:29 <niklasl> q+
+16:44:01 <pchampin> q+
+16:44:25 <gkellogg> ack anatoly-scherbakov_
+16:45:02 <gkellogg> anatoly-scherbakov_: What's the difference between a graph term and named graph?
+16:45:10 <gkellogg> ... I feel that in current RDF I can do this, I can talk about properties of statements.
+16:46:31 <gkellogg> niklasl: The problem with named graphs when talking about triples is that when I don't use JSON-LD, I prefer to have shorthands, which don't exist.
+16:46:58 <gkellogg> ... Named graphs are flat, so you can't have one inside another.
+16:47:10 <gkellogg> ... I can't annotate an annotation.
+16:47:28 <pchampin> RRSAgent, make minutes
+16:47:30 <RRSAgent> I have made the request to generate https://www.w3.org/2023/10/18-json-ld-minutes.html pchampin
+16:47:38 <gkellogg> ... RDF-star is useful for doing these things.
+16:47:53 <gkellogg> ... We need to devise a way to correlate the named graph with these annotations.
+16:48:06 <pchampin> s|https://github.com/id -> @id|
+16:48:06 <gb> https://github.com/id -> @id
+16:48:13 <gkellogg> ... They're similar to appendices.
+16:48:16 <pchampin> s|https://github.com/type -> @type|
+16:48:17 <gb> https://github.com/type -> @type
+16:48:44 <gkellogg> ... In practice, the Union graph in quad stores creates a restriction.
+16:49:01 <anatoly-scherbakov_> so can it be said that named graphs' problem is OWL/reasoning problem?
+16:49:26 <gkellogg> ... We might need to fall back to reification. No way to make an assertion that isn't in a union graph.
+16:50:48 <gkellogg> q?
+16:50:54 <gkellogg> ack niklasl
+16:50:59 <gkellogg> ack pchampin
+16:51:10 <gkellogg> pchampin: Not much to add.
+16:51:41 <pchampin> q+
+16:51:52 <gkellogg> anatoly-scherbakov_: Is it correct that the main problem is the logical consistency of the world we're modeling, and contradictions are a problem.
+16:52:11 <gkellogg> niklasl: Named graphs don't "kill" anything, as there is no semantics defined.
+16:52:36 <gkellogg> TallTed: There's no formal semantics defined, but in practice there is; people are using it.
+16:52:58 <gkellogg> ... Named graphs contradicting each other isn't a problem, it's the merged graph that's a problem.
+16:53:02 <pchampin> I should have said "there is no standard formal semantics for named graphs"
+16:53:26 <gkellogg> ... When you introduce named graphs, you can say "graph a came from George, whom we trust".
+16:53:38 <gkellogg> ... Another statement we might say we don't trust.
+16:54:10 <gkellogg> ... This is the challenge of the way RDF was defined originally, as RDF statements are considered to be true for all time.
+16:54:20 <anatoly-scherbakov_> q+
+16:54:34 <gkellogg> ... That's the impetus behind RDF-star.
+16:55:18 <pchampin> TallTed except that saying "graph A comes from George", the standard semantics sees "A comes from George"... It does not relate A to the triples that are stored in your named graph.
+16:55:57 <gkellogg> gkellogg: merge graphs don't actually have a formally defined semantics.
+16:56:02 <anatoly-scherbakov_> Yes it was very clear, thanks @TallTed. In SPARQL, even if we're querying against the merge graph (like in rdflib), we can use `GRAPH {…}` clause to choose named graph to query from.
+16:56:02 <gb> https://github.com/TallTed -> @TallTed
+16:56:14 <gkellogg> TallTed: Same for the "default graph".
+16:56:18 <gkellogg> q?
+16:56:30 <gkellogg> q-
+16:56:32 <gkellogg> q-
+16:56:38 <gkellogg> q- pchampin
+16:56:43 <gkellogg> q- anatoly-scherbakov_
+16:56:53 <pchampin> gb, names off
+16:56:53 <gb> pchampin, OK.
+16:57:07 <pchampin> s|https://github.com/TallTed -> @TallTed|
+16:57:10 <gkellogg> niklasl: I agree with what TallTed said.
+16:57:19 <pchampin> s|https://github.com/id -> @id|
+16:57:27 <pchampin> s|https://github.com/type -> @type|
+16:57:39 <pchampin> s|https://github.com/graph -> @graph|
+16:57:46 <pchampin> RRSAgent, make minutes
+16:57:47 <RRSAgent> I have made the request to generate https://www.w3.org/2023/10/18-json-ld-minutes.html pchampin
+16:58:46 <pchampin> s|https://github.com/pchampin -> @pchampin|
+17:00:50 <pchampin> RRSAgent, make minutes
