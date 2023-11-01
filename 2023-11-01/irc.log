@@ -1,0 +1,163 @@
+16:03:02 <RRSAgent> RRSAgent has joined #json-ld
+16:03:06 <RRSAgent> logging to https://www.w3.org/2023/11/01-json-ld-irc
+16:03:26 <bigbluehat> meeting: JSON-LD CG
+16:03:29 <bigbluehat> zakim, start meeting
+16:03:29 <Zakim> RRSAgent, make logs Public
+16:03:31 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:03:40 <bigbluehat> meeting: JSON-LD CG
+16:03:44 <TallTed> RRSAgent, draft minutes
+16:03:45 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/01-json-ld-minutes.html TallTed
+16:03:52 <TallTed> RRSAgent, make logs public
+16:04:20 <TallTed> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/?recurrenceId=20230531T120000
+16:04:21 <agendabot> clear agenda
+16:04:21 <agendabot> agenda+ Announcements and Introductions
+16:04:21 <agendabot> agenda+ YAML-LD
+16:04:21 <agendabot> agenda+ JSON-LD Issue Discussion
+16:04:21 <agendabot> agenda+ Open Discussion
+16:04:23 <agendabot> agenda+ Next call
+16:04:43 <gkellogg> present+
+16:04:46 <gkellogg> chair: gkellogg
+16:04:48 <TallTed> Zakim, open agendum 1
+16:04:48 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:04:51 <gkellogg> scribe+
+16:05:09 <gkellogg> zakim, next item
+16:05:09 <Zakim> agendum 1 was just opened, gkellogg
+16:05:17 <gkellogg> zakim, close item 1
+16:05:17 <Zakim> agendum 1, Announcements and Introductions, closed
+16:05:18 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:05:18 <Zakim> 2. YAML-LD [from agendabot]
+16:05:22 <gkellogg> zakim, next item
+16:05:22 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:05:49 <gkellogg> anatoly-scherbakov: I've introduced a few more tests to verify that keys must be strings.
+16:06:07 <gkellogg> ... I've also adjusted my own implementation accordingly.
+16:06:28 <gkellogg> ... We had some more discussions about the treatment of types supported by YAML, but not JSON.
+16:06:35 <TallTed> i/meeting: JSON-LD CG/scribe: gkellogg
+16:06:54 <TallTed> RRSAgent, draft minutes
+16:06:56 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/01-json-ld-minutes.html TallTed
+16:07:04 <gkellogg> gkellogg: what's the remaining work to do?
+16:07:12 <TallTed> present+
+16:07:21 <TallTed> present+ anatoly-scherbakov
+16:07:23 <gkellogg> anatoly-scherbakov: We have a suggestion to use extractAllScripts as a way to handle YAML-LD streams.
+16:07:27 <TallTed> present+ bigbluehat
+16:07:57 <gkellogg> ... Generally, I think we're getting to the end.
+16:08:06 <TallTed> present+ gsaumier-finch
+16:08:21 <TallTed> RRSAgent, draft minutes
+16:08:22 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/01-json-ld-minutes.html TallTed
+16:09:08 <gkellogg> zakim, next agendum
+16:09:08 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:09:17 <gsaumier-finch> I am willing to help proof read the YAML-LD
+16:09:47 <gkellogg> regrets+ niklasl
+16:09:51 <gkellogg> regrets+ pchampin
+16:10:05 <gkellogg> gkellogg: No particular issues to discuss on JSON-LD
+16:10:27 <gkellogg> subtopic: New work on JSON-LD
+16:11:04 <gkellogg> bigbluehat: The VCWG is adopting some of JSON-LD language value objects.
+16:11:12 <dlehn> present+
+16:11:26 <gkellogg> ... They're falling down rabbit holes of term aliases and the like.
+16:12:11 <gkellogg> ... JSON-LD does a comprehensive support for languages.
+16:12:44 <gkellogg> ... We have language value objects, but if aliased, it becomes difficult to understand when looking just at the JSON.
+16:13:18 <gkellogg> ... The proposal is to write a note extracting the processing steps and expression of @language/@value/@direction into a standalone note.
+16:13:43 <gkellogg> ... This could be extracted to its own note that could describe a pattern useful outside of JSON-LD itself.
+16:14:28 <gsaumier-finch> Also @container: @language is very powerful and used frequently in my group
+16:14:32 <gkellogg> ... This would put in a single place best practices for describing language text in JSON.
+16:14:47 <gkellogg> q?
+16:15:08 <gkellogg> ... I think the "@" symbol is an immportant part of this.
+16:15:56 <gkellogg> bigbluehat: I think the core foundation should be language value objects.
+16:16:33 <gkellogg> ... We can then describe ways of extending this, including language maps.
+16:17:18 <gkellogg> bigbluehat: I think a WG note is the way to go, but work can happen in the CG.
+16:18:06 <gkellogg> ... I'd start in the JSON-LD CG.
+16:18:51 <gsaumier-finch> q+
+16:19:10 <gkellogg> ack gsaumier-finch
+16:19:24 <bigbluehat> q+
+16:19:32 <gkellogg> gsaumier-finch: There's not concern in the context with getting rid of the "@", to be clear?
+16:19:56 <gkellogg> bigbluehat: Because it would exist outside of JSON-LD, we would loose aliasing functionality.
+16:20:33 <gkellogg> ... I'm proposing that we use the expanded forms outside of JSON-LD. If a pattern is established without these, there's a danger that different systems would behave differently.
+16:21:07 <gkellogg> ... This would allow libraries to process these expanded value objects without needing to do other JSON-LD processing.
+16:21:42 <gkellogg> ... Once you use aliases, the meaning becomes less clear.
+16:21:57 <gkellogg> ... Note that schema.org/value is a thing that could be mistaken.
+16:22:25 <gkellogg> gsaumier-finch: When we use @container: @language; in that form, the languages don't have at-signs.
+16:23:06 <gkellogg> ... This creates a nicely compact representation that avoids a lot of use of @language.
+16:23:17 <bigbluehat> q+
+16:25:22 <gkellogg> bigbluehat: We can point to the language map bits from JSON-LD, but the pattern is for using the expanded value objects with @language
+16:25:47 <gkellogg> ... I think the note is something to involve the I18N folks in.
+16:26:14 <gkellogg> ... I'd keep @none in there.
+16:26:36 <gkellogg> gkellogg: I don't think that has meaning in the expanded representation.
+16:26:53 <gkellogg> bigbluehat: We want to avoid people adding other properties inside a language object.
+16:27:37 <gsaumier-finch> I'll stop aliasing @none as none in the contexts ;-)
+16:29:23 <gkellogg> gkellogg: next step is to discuss with @pchampin as staff contact.
+16:29:39 <gkellogg> zakim, next item
+16:29:39 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:29:41 <gkellogg> q?
+16:29:49 <gkellogg> ack bigbluehat
+16:29:53 <gkellogg> zakim, next item
+16:29:53 <Zakim> agendum 4 -- Open Discussion -- taken up [from agendabot]
+16:29:57 <TallTed> RRSAgent, draft minutes
+16:29:58 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/01-json-ld-minutes.html TallTed
+16:30:04 <anatoly-scherbakov> q+
+16:30:08 <gkellogg> ack anatoly-scherbakov
+16:30:34 <TallTed> subtopic: PyLD
+16:30:17 <gkellogg> anatoly-scherbakov: I'd like to discuss PyLd.
+16:30:40 <gkellogg> ... The PyLd library is probably the most popular python library.
+16:31:12 <gkellogg> ... It seems that DB has not been focusing on it, as it's no longer on their critical path and needs attention.
+16:31:38 <gkellogg> ... My understanding is that it is a product targeted at developers.
+16:31:57 <gkellogg> ... In order to get it up to speed, we'd need to ensure that testing of the library is easy.
+16:32:34 <gkellogg> ... The library has a test runner, and to run it, you need to clone the test repositories locally. I started something to do those as git submodules.
+16:32:51 <gkellogg> ... There also should be a way to write these in the library itself.
+16:33:10 <gkellogg> ... Many people write their tests in an ad-hoc way, as there is no standard way to do this already.
+16:33:43 <gkellogg> ... It should also run test during CI/Pull Requests.
+16:34:05 <gkellogg> ... Secondly, we should address open Pull Requests. Not all of them are ready to go, but they require a systematic review.
+16:34:39 <gkellogg> ... I've reviewed some, and they are suffering from bit-rot.
+16:35:03 <gkellogg> ... There is still a lot of interest in the community.
+16:35:18 <gkellogg> ... Even though JSON-LD is still not in the mainstream.
+16:35:33 <bigbluehat> q+
+16:35:38 <gkellogg> ... Lastly, the issues need to be audited. But, we should address open PRs first.
+16:35:53 <gkellogg> ... This would enhance the experience of developers using the library.
+16:36:13 <gkellogg> ... Hopefully, this can lead to a more regular release process.
+16:36:37 <gkellogg> q?
+16:36:41 <gkellogg> ack bigbluehat
+16:36:52 <dlehn> q+
+16:36:57 <gkellogg> bigbluehat: I agree on your priorities.
+16:37:15 <gkellogg> ... It's going to be about chipping through them together, and noting what seems to be ready.
+16:37:30 <gkellogg> ... There are a few changes that seem simple, but aren't.
+16:38:43 <gkellogg> ... If anyone depends on the library and wants to contribute, we need contributions that help with triaging the submissions.
+16:39:22 <anatoly-scherbakov> q+
+16:39:28 <gkellogg> q?
+16:39:32 <gkellogg> ack dlehn
+16:39:56 <gkellogg> dlehn: Thanks for helping out with this stuff, and I've been slow in being able to look at things.
+16:40:05 <gkellogg> ... I need some help on polishing things up.
+16:40:32 <gkellogg> ... Some of the testing infrastructure needs some work. We have a similar pattern of testing in jsonld.js
+16:40:35 <gkellogg> q+
+16:41:03 <gkellogg> ... I thought we had an independent test runner, but I don't see it looking at it.
+16:41:19 <gkellogg> ... In JS we use Mocha, not sure what to use in Python.
+16:41:42 <gkellogg> ... We do need tests, and getting the infrastructure in place is important.
+16:42:15 <bigbluehat> q+
+16:42:20 <gkellogg> ack anatoly-scherbakov
+16:42:48 <gkellogg> anatoly-scherbakov: It is a lot of work. I think the most widely use testing platform is PyTest.
+16:43:12 <gkellogg> ... We could also add some code coverage tests, which can also help with pull requests.
+16:43:23 <gkellogg> ack me
+16:43:52 <dlehn> q+
+16:44:42 <bigbluehat> q-
+16:45:15 <gkellogg> q?
+16:45:19 <gkellogg> ack dlehn
+16:45:44 <gkellogg> dlehn: As far as testing goes, we do run the tests in jsonld.js all the time.
+16:46:23 <gkellogg> ... When we're working on an implementation it's easy to work on things locally, but we should encourage that such tests get into the main test suite.
+16:46:46 <anatoly-scherbakov> q+
+16:47:02 <gkellogg> ... The long term goal is that every implementation can run the same tests.
+16:47:05 <gkellogg> ack anatoly-scherbakov
+16:47:42 <gkellogg> anatoly-scherbakov: As an example of python-specific things. There's an "expand" function and it follows python conventions.
+16:48:07 <gkellogg> ... However, it uses a signature that's not familiar to most developers, where kwargs are more common.
+16:48:23 <anatoly-scherbakov> q-
+16:48:23 <gkellogg> ... Perhaps we could support both styles. This would improve the developer experience.
+16:48:42 <dlehn> +1, awaiting a PR :-)
+16:50:58 <gkellogg> q?
+16:51:26 <gkellogg> dlehn: I can add some access to the repo for people that want more access.
+16:52:04 <gkellogg> anatoly-scherbakov: I have created some PRs.
+16:52:45 <gkellogg> dlehn: Mostly an issue of time.
+16:53:06 <gkellogg> bigbluehat: Keep doing what you're doing.
+16:53:16 <gkellogg> ... Create an issue saying what PRs can be merged.
+16:53:25 <gkellogg> q?
+16:53:52 <gsaumier-finch> Thanks.
+16:53:56 <gkellogg> zakim, end meeting
+16:53:56 <Zakim> As of this point the attendees have been gkellogg, TallTed, anatoly-scherbakov, bigbluehat, gsaumier-finch, dlehn
+16:53:58 <Zakim> RRSAgent, please draft minutes
+16:53:59 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/01-json-ld-minutes.html Zakim
+16:54:05 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye

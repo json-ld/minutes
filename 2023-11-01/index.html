@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2023-11-01</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="https://json-ld.org/">gsaumier-finch</a>, <a href="http://dil.lehn.org/">David I. Lehn</a></dd>
+<dt>Regrets</dt><dd><a href="https://json-ld.org/">Niklas Lindström</a>, <a href="https://json-ld.org/">Pierre-Antoine Champin</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/?recurrenceId=20230531T120000">https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/?recurrenceId=20230531T120000</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">YAML-LD</a><li><a href="#topic-3">JSON-LD Issue Discussion</a><li><a href="#topic-4">Open Discussion</a></ol></dd></dl>
+</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: YAML-LD
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Anatoly Scherbakov</span>:  I&apos;ve introduced a few more tests to verify that keys must be strings. <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div class="comment-continuation">... I&apos;ve also adjusted my own implementation accordingly.</div>
+<div class="comment-continuation">... We had some more discussions about the treatment of types supported by YAML, but not JSON.</div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Ted Thibodeau Jr.</span>: I/meeting: JSON-LD CG/scribe: gkellogg <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Gregg Kellogg</span>:  What&apos;s the remaining work to do? <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Anatoly Scherbakov</span>:  We have a suggestion to use extractAllScripts as a way to handle YAML-LD streams. <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div class="comment-continuation">... Generally, I think we&apos;re getting to the end.</div>
+<h1 onmouseout="$('#link-topic-3').hide()" onmouseover="$('#link-topic-3').show()" id="topic-3" class="topic">
+Topic: JSON-LD Issue Discussion
+<a id="link-topic-3" style="display:none;" href="#topic-3">✪</a></h1>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">gsaumier-finch</span>: I am willing to help proof read the YAML-LD <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Gregg Kellogg</span>:  No particular issues to discuss on JSON-LD <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: New work on JSON-LD
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Benjamin Young</span>:  The VCWG is adopting some of JSON-LD language value objects. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div class="comment-continuation">... They&apos;re falling down rabbit holes of term aliases and the like.</div>
+<div class="comment-continuation">... JSON-LD does a comprehensive support for languages.</div>
+<div class="comment-continuation">... We have language value objects, but if aliased, it becomes difficult to understand when looking just at the JSON.</div>
+<div class="comment-continuation">... The proposal is to write a note extracting the processing steps and expression of @language/@value/@direction into a standalone note.</div>
+<div class="comment-continuation">... This could be extracted to its own note that could describe a pattern useful outside of JSON-LD itself.</div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">gsaumier-finch</span>: Also @container: @language is very powerful and used frequently in my group <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div class="comment-continuation">... This would put in a single place best practices for describing language text in JSON.</div>
+<div class="comment-continuation">... I think the &quot;@&quot; symbol is an immportant part of this.</div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Benjamin Young</span>:  I think the core foundation should be language value objects. <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div class="comment-continuation">... We can then describe ways of extending this, including language maps.</div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Benjamin Young</span>:  I think a WG note is the way to go, but work can happen in the CG. <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div class="comment-continuation">... I&apos;d start in the JSON-LD CG.</div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">gsaumier-finch</span>:  There&apos;s not concern in the context with getting rid of the &quot;@&quot;, to be clear? <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Benjamin Young</span>:  Because it would exist outside of JSON-LD, we would loose aliasing functionality. <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div class="comment-continuation">... I&apos;m proposing that we use the expanded forms outside of JSON-LD. If a pattern is established without these, there&apos;s a danger that different systems would behave differently.</div>
+<div class="comment-continuation">... This would allow libraries to process these expanded value objects without needing to do other JSON-LD processing.</div>
+<div class="comment-continuation">... Once you use aliases, the meaning becomes less clear.</div>
+<div class="comment-continuation">... Note that schema.org/value is a thing that could be mistaken.</div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">gsaumier-finch</span>:  When we use @container: @language; in that form, the languages don&apos;t have at-signs. <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div class="comment-continuation">... This creates a nicely compact representation that avoids a lot of use of @language.</div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Benjamin Young</span>:  We can point to the language map bits from JSON-LD, but the pattern is for using the expanded value objects with @language <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div class="comment-continuation">... I think the note is something to involve the I18N folks in.</div>
+<div class="comment-continuation">... I&apos;d keep @none in there.</div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Gregg Kellogg</span>:  I don&apos;t think that has meaning in the expanded representation. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Benjamin Young</span>:  We want to avoid people adding other properties inside a language object. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">gsaumier-finch</span>: I&apos;ll stop aliasing @none as none in the contexts ;-) <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Gregg Kellogg</span>:  Next step is to discuss with @pchampin as staff contact. <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<h1 onmouseout="$('#link-topic-4').hide()" onmouseover="$('#link-topic-4').show()" id="topic-4" class="topic">
+Topic: Open Discussion
+<a id="link-topic-4" style="display:none;" href="#topic-4">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: PyLD
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Anatoly Scherbakov</span>:  I&apos;d like to discuss PyLd. <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... The PyLd library is probably the most popular python library.</div>
+<div class="comment-continuation">... It seems that DB has not been focusing on it, as it&apos;s no longer on their critical path and needs attention.</div>
+<div class="comment-continuation">... My understanding is that it is a product targeted at developers.</div>
+<div class="comment-continuation">... In order to get it up to speed, we&apos;d need to ensure that testing of the library is easy.</div>
+<div class="comment-continuation">... The library has a test runner, and to run it, you need to clone the test repositories locally. I started something to do those as git submodules.</div>
+<div class="comment-continuation">... There also should be a way to write these in the library itself.</div>
+<div class="comment-continuation">... Many people write their tests in an ad-hoc way, as there is no standard way to do this already.</div>
+<div class="comment-continuation">... It should also run test during CI/Pull Requests.</div>
+<div class="comment-continuation">... Secondly, we should address open Pull Requests. Not all of them are ready to go, but they require a systematic review.</div>
+<div class="comment-continuation">... I&apos;ve reviewed some, and they are suffering from bit-rot.</div>
+<div class="comment-continuation">... There is still a lot of interest in the community.</div>
+<div class="comment-continuation">... Even though JSON-LD is still not in the mainstream.</div>
+<div class="comment-continuation">... Lastly, the issues need to be audited. But, we should address open PRs first.</div>
+<div class="comment-continuation">... This would enhance the experience of developers using the library.</div>
+<div class="comment-continuation">... Hopefully, this can lead to a more regular release process.</div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Benjamin Young</span>:  I agree on your priorities. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div class="comment-continuation">... It&apos;s going to be about chipping through them together, and noting what seems to be ready.</div>
+<div class="comment-continuation">... There are a few changes that seem simple, but aren&apos;t.</div>
+<div class="comment-continuation">... If anyone depends on the library and wants to contribute, we need contributions that help with triaging the submissions.</div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">David I. Lehn</span>:  Thanks for helping out with this stuff, and I&apos;ve been slow in being able to look at things. <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div class="comment-continuation">... I need some help on polishing things up.</div>
+<div class="comment-continuation">... Some of the testing infrastructure needs some work. We have a similar pattern of testing in jsonld.js</div>
+<div class="comment-continuation">... I thought we had an independent test runner, but I don&apos;t see it looking at it.</div>
+<div class="comment-continuation">... In JS we use Mocha, not sure what to use in Python.</div>
+<div class="comment-continuation">... We do need tests, and getting the infrastructure in place is important.</div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Anatoly Scherbakov</span>:  It is a lot of work. I think the most widely use testing platform is PyTest. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div class="comment-continuation">... We could also add some code coverage tests, which can also help with pull requests.</div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">David I. Lehn</span>:  As far as testing goes, we do run the tests in jsonld.js all the time. <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div class="comment-continuation">... When we&apos;re working on an implementation it&apos;s easy to work on things locally, but we should encourage that such tests get into the main test suite.</div>
+<div class="comment-continuation">... The long term goal is that every implementation can run the same tests.</div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Anatoly Scherbakov</span>:  As an example of python-specific things. There&apos;s an &quot;expand&quot; function and it follows python conventions. <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div class="comment-continuation">... However, it uses a signature that&apos;s not familiar to most developers, where kwargs are more common.</div>
+<div class="comment-continuation">... Perhaps we could support both styles. This would improve the developer experience.</div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">David I. Lehn</span>: +1, Awaiting a PR :-) <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">David I. Lehn</span>:  I can add some access to the repo for people that want more access. <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Anatoly Scherbakov</span>:  I have created some PRs. <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">David I. Lehn</span>:  Mostly an issue of time. <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Benjamin Young</span>:  Keep doing what you&apos;re doing. <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div class="comment-continuation">... Create an issue saying what PRs can be merged.</div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">gsaumier-finch</span>: Thanks. <a id="link-30" style="display:none;" href="#30">✪</a></div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>
