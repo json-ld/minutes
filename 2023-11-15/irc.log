@@ -1,0 +1,200 @@
+16:59:39 <RRSAgent> RRSAgent has joined #json-ld
+16:59:44 <RRSAgent> logging to https://www.w3.org/2023/11/15-json-ld-irc
+16:59:44 <Zakim> Zakim has joined #json-ld
+16:59:57 <gkellogg> meeting: JSON-LD CG
+17:00:04 <pchampin> present+
+17:00:05 <TallTed> present+
+17:00:10 <niklasl> niklasl has joined #json-ld
+17:00:11 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231115T120000/
+17:00:14 <agendabot> clear agenda
+17:00:14 <agendabot> agenda+ Announcements and Introductions
+17:00:14 <agendabot> agenda+ YAML-LD
+17:00:14 <agendabot> agenda+ JSON-LD Issue Discussion
+17:00:14 <agendabot> agenda+ Open Discussion
+17:00:14 <agendabot> agenda+ Next call
+17:00:21 <gkellogg> chair: gkellogg
+17:00:23 <gkellogg> present+
+17:00:23 <niklasl> present+
+17:00:25 <gkellogg> scribe+
+17:00:31 <gkellogg> zakim, next agendum
+17:00:31 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:00:41 <TallTed> TallTed has changed the topic to: JSON-LD CG/WG -- 2023-11-15 Agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231115T120000/
+17:01:19 <gkellogg> zakim, close item 1
+17:01:19 <Zakim> agendum 1, Announcements and Introductions, closed
+17:01:20 <Zakim> I see 4 items remaining on the agenda; the next one is
+17:01:20 <Zakim> 2. YAML-LD [from agendabot]
+17:01:23 <gkellogg> zakim, next agendum
+17:01:23 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+17:01:46 <gkellogg> anatoly-scherbakov: No YAML-LD updates this meeting.
+17:02:11 <gkellogg> ... We need to advertise the spec to a wider audience, and do a self-review.
+17:02:12 <dlehn> present+
+17:02:53 <bigbluehat> present+
+17:03:08 <bigbluehat> q+
+17:03:20 <gkellogg> gkellogg: I'll send an update to the semweeb mailing list.
+17:03:26 <gkellogg> zakim, next item
+17:03:26 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+17:03:29 <gkellogg> q?
+17:03:34 <gkellogg> ack bigbluehat
+17:03:58 <gkellogg> bigbluehat: I'd like to see about adding CBOR-LD to the CG with the same intention
+17:03:59 <pchampin> +1 to that
+17:04:23 <gkellogg> q?
+17:04:27 <gkellogg> zakim, next item
+17:04:27 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:04:40 <gkellogg> https://github.com/orgs/w3c/projects/4
+17:05:00 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/421
+17:05:00 <gb> https://github.com/w3c/json-ld-syntax/issues/421 -> Issue 421 JSON-LD Context similarity to XML External Entity attack (by hmottestad)
+17:06:07 <bigbluehat> q+
+17:06:14 <gkellogg> gkellogg: something for BP, which needs to be published.
+17:06:20 <gkellogg> ack bigbluehat
+17:07:08 <bigbluehat> latest Best Practices Note https://w3c.github.io/json-ld-bp/
+17:07:08 <bigbluehat> topic: Spinning up Working/Maintanence Group
+17:07:19 <gkellogg> pchampin: We don't need to make a decision on a call, it can be done on email.
+17:07:38 <TallTed> q+
+17:07:53 <gkellogg> ... Not clear what quorum is required. But, we probably need a +1 from some number of the members group
+17:08:09 <bigbluehat> q+
+17:08:29 <gkellogg> ack bigbluehat
+17:08:40 <gkellogg> ack TallTed
+17:09:36 <pchampin> q+
+17:09:47 <gkellogg> TallTed: I think the CG and WG are effectively the same group, but the agendas should be separate.
+17:09:57 <anatoly-scherbakov> Don't think I am a member of the WG :)
+17:10:11 <gkellogg> ... CBOR-LD is not in a charter, but a CG could agree to add it to its plate.
+17:10:35 <gkellogg> ... Then it needs to get past the WG and needs to be added to the charter.
+17:11:12 <pchampin> https://www.w3.org/2023/01/json-ld-wg-charter.html#ig-other-deliverables
+17:11:40 <bigbluehat> q+
+17:11:53 <gkellogg> ack bigbluehat
+17:12:09 <gkellogg> bigbluehat: In the other delieverables, it mentions YAML, but that thay're non-normative.
+17:12:50 <gkellogg> ... By and large, as it's actually implanted, and the CG members cross over with the WG.
+17:13:16 <gkellogg> ... We need to refresh our charter periodically, in any case.
+17:14:22 <gkellogg> ... In the list of Other Delivereables, YAML-LD, CBOR-LD, and the best practices note.
+17:15:18 <gkellogg> ack pchampin
+17:15:56 <gkellogg> pchampin: Technically, this meeting appears in the calendar of both groups. I'm not sure if that's enough process wise to do work here, and the agenda hasn't been explicit.
+17:16:32 <gkellogg> ... The WG charter says we can publish non-normative docs, but I had a discussion about the use of notes by some groups to bypass rec-track documents.
+17:16:53 <bigbluehat> q+
+17:16:58 <gkellogg> ... Therefore, I think the YAML-LD spec is intended to be REC-track, not a note.
+17:17:21 <gkellogg> ... We could publish a note with some guidance, but a proper spec needs a re-charter.
+17:17:25 <gkellogg> ack bigbluehat
+17:17:49 <gkellogg> bigbluehat: I'm not trying to be sneaky. The CG stuff caries similar weight to a WG note.
+17:18:05 <gkellogg> ... But, I agree that both of these should be REC-track notes.
+17:18:45 <pchampin> scribe+
+17:19:06 <pchampin> gkellogg: I thing we should have an *explicit* WG meeting, in the normal time slot,
+17:19:44 <pchampin> ... with an agenda that explictly looks towards the anticipated final report for YAML-LD and long standing work on CBOR-LD,
+17:19:52 <pchampin> ... as items to take up in a new charter.
+17:19:59 <TallTed> +1 for having such explicit WG (and CG) agenda items whenever possible
+17:21:03 <pchampin> ... We could probably address that in a 2 year new charter.
+17:21:21 <pchampin> ... For maintenance of the core spec, we are pending progress in the RDF-star WG.
+17:21:40 <pchampin> ... If we can organize a WG discussion in 2 weeks, that includes the CBOR-LD note,
+17:21:52 <bigbluehat> q+
+17:21:53 <pchampin> ... we would need someone who would be up for it.
+17:22:28 <gkellogg> bigbluehat: Actually, dlongley asked me to put CBOR-LD on the agenda.
+17:22:52 <gkellogg> ... To get to REC, we'd need another implementation.
+17:23:08 <gkellogg> topic: CBOR-LD
+17:23:46 <pchampin> gkellogg: as I recall, the CBOR-LD spec by Digital Bazaar is not entirely congruent to YAML-LD.
+17:24:00 <pchampin> ... It does not describe how to map CBOR into the internal representation, etc.
+17:24:07 <pchampin> q+
+17:24:14 <bigbluehat> ack bigbluehat
+17:24:24 <pchampin> ... It focuses on how to build a context that makes the data more compact in CBOR.
+17:24:26 <dlehn> q+
+17:24:28 <gkellogg> q?
+17:24:32 <gkellogg> ack pchampin
+17:24:58 <gkellogg> pchampin: +1 to that, we have two specs; I contributed to one, and the DB version should be another spec.
+17:25:30 <gkellogg> ... We should have both a systematic conversion, and something on the context.
+17:25:33 <gkellogg> q
+17:25:35 <gkellogg> q?
+17:25:41 <gkellogg> ack dlehn
+17:25:55 <anatoly-scherbakov> q+
+17:26:02 <gkellogg> dlehn: I agree with what's being said. DBs use of CBOR has been mostly for compression.
+17:26:28 <pchampin> scribe-
+17:26:56 <pchampin> both specs are https://w3c.github.io/json-ld-cbor/ and https://digitalbazaar.github.io/cbor-ld-spec/
+17:27:32 <TallTed> "JSON-LD 1.1 in CBOR"-- https://w3c.github.io/json-ld-cbor/
+17:27:32 <TallTed> "CBOR-LD 1.0"-- https://digitalbazaar.github.io/cbor-ld-spec/
+17:28:02 <gkellogg> q?
+17:28:06 <pchampin> gkellogg: do we want to have this discussion in the CG first? Or do we call a meeting for rechartering right now?
+17:28:08 <gkellogg> ack anatoly-scherbakov
+17:28:18 <pchampin> scribe+
+17:28:32 <gkellogg> anatoly-scherbakov: Not sure how to organize the process, but I'd welcome a CBOR-LD standard.
+17:28:57 <gkellogg> ... I don't have experience with CBOR. Is there some intention to include it in PyLd.
+17:29:06 <gkellogg> dlehn: I think it would be separate.
+17:29:54 <pchampin> gkellogg: a Python library for YAML-LD would rely on PyLD, but keep the YAML-specifics out of it
+17:30:12 <pchampin> ... That's how I did it in Ruby.
+17:30:28 <gkellogg> q?
+17:30:45 <pchampin> ... Requires some work to change the content negotiation on remote context retrieval.
+17:30:46 <niklasl> .. LDProcessor<WireFormat> ;)
+17:31:22 <gkellogg> bigbluehat: I'll organize the next meeting as a WG meeting.
+17:32:09 <gkellogg> topic: JSON-LD issues
+17:32:27 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/421
+17:32:28 <gb> https://github.com/w3c/json-ld-syntax/issues/421 -> Issue 421 JSON-LD Context similarity to XML External Entity attack (by hmottestad)
+17:32:33 <gkellogg> gkellogg: any thoughts on this?
+17:32:47 <dlehn> q+
+17:32:51 <gkellogg> ... My thought was to make it an item for BP.
+17:32:56 <gkellogg> ack dlehn
+17:33:16 <gkellogg> dlehn: Are there examples of the problems? It's kind of generic
+17:33:42 <gkellogg> ... I asked for specific attacks, but it's hard to give advice when you don't have specifics.
+17:33:59 <gkellogg> ... There are specific attacks that might not apply to us.
+17:35:00 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/420
+17:35:01 <gb> https://github.com/w3c/json-ld-syntax/issues/420 -> Issue 420 feature request: support `$schema` as an alias for `@context` (by pchampin)
+17:35:31 <gkellogg> pchampin: I explained the rationale in the issue.
+17:36:17 <gkellogg> ... my idea is that usually when you want to specify a JSON as a schema, it would be good to provide both a schema and a context.
+17:36:46 <gkellogg> ... Both formats are nice enough that they could work together. The context is ignored by schema, and the schema is ignored by the context.
+17:37:03 <anatoly-scherbakov> q+
+17:37:18 <gkellogg> ... We could say that instead of providing `@context`, you could provide `$schema`, which would have a similar affect.
+17:37:40 <bigbluehat> q+
+17:38:01 <gkellogg> ... There are sometimes confusion about contexts vs schemas, that this might help with.
+17:38:31 <gkellogg> ... Putting them the same file, though, could be confusing.
+17:39:31 <pchampin> gkellogg: you can also put a context and a JSON-schema in the same file. Maybe you could put the schema also in the same file!
+17:40:09 <pchampin> ... I had similar discussion with Mastodon people, about how they are annoyed by the JSON-LD parts.
+17:40:27 <niklasl> +0.9 for schema referencing context, -0.9 for context referencing schema... I think. :)
+17:40:37 <pchampin> ... This adresses issues that have long been raised in the community.
+17:40:47 <gkellogg> q?
+17:40:50 <gkellogg> ack anatoly-scherbakov
+17:41:20 <gkellogg> anatoly-scherbakov: My feeling is that this change would increase the confusion by mixing concerns.
+17:41:43 <gkellogg> ... Validation and expansion are separate concenrs.
+17:42:10 <niklasl> q+
+17:42:14 <gkellogg> ... I think the schema can be created from a context, but not the other way around. Combining them may be counterproductive.
+17:42:19 <gkellogg> ack bigbluehat
+17:42:47 <gkellogg> bigbluehat: I'm a -1 on this issue, as affordances, they imply different formats and intentions.
+17:42:59 <gkellogg> ... We'd also be squatting on another namespace.
+17:43:26 <niklasl> ... RDF Schema :P
+17:43:37 <gkellogg> ... JSON schema is just surface syntax enforcing.
+17:43:55 <pchampin> q+
+17:44:01 <gkellogg> ... The Context is only about term mapping
+17:44:33 <gkellogg> ... Things like framing get to the point where they provide surface syntax, but people have long wanted to use a context as a schema.
+17:44:47 <gkellogg> ... Now with `@protected`, it looks even more like a schema.
+17:45:00 <gkellogg> ... They get close, but they're not the same thing.
+17:45:18 <gkellogg> ... I think there needs to be more work to describe surface syntaxes.
+17:46:31 <gkellogg> ... It ends up, you need both. There are other tools that have a way to express both, and then generate a context and a JSON schema, along with RDF/OWL.
+17:46:47 <gkellogg> ... This feels a bit like transformation conversations from before.
+17:47:19 <gkellogg> ... There are people in the JSON schema community that would like to address this.
+17:48:07 <gkellogg> ... Papering over it is scary; unless a JSON-LD 2.0 makes substantial changes.
+17:48:11 <gkellogg> q?
+17:48:53 <gkellogg> ... Weily used to have a JSON-LD context file where we baked in everything.
+17:49:11 <gkellogg> ack niklasl
+17:49:45 <gkellogg> niklasl: I agree with what bigbluehat said. I'm not sure we'd every be able to do such a think in JSON-LD 2.0.
+17:50:13 <gkellogg> ... I'd like to keep the issue open, because it tracks the needs of the larger JSON community.
+17:50:46 <gkellogg> ... For now, I'd rather see something to clarify what this means.
+17:51:17 <bigbluehat> a spec that uses both together quite happily: https://www.w3.org/TR/wot-thing-description11/
+17:51:17 <gkellogg> ... I think of Linked Data as drawing maps, vs XML laying railroad tracks.
+17:51:44 <bigbluehat> q+
+17:51:46 <gkellogg> ... I'd like to keep this open for now, and try to get developers more into the RDF mindset.
+17:51:56 <gkellogg> ack pchampin
+17:52:00 <bigbluehat> https://www.w3.org/2019/wot/json-schema
+17:52:22 <gkellogg> pchampin: I agree with the concerns that are raised, and that it is conflating concerns.
+17:52:51 <gkellogg> ... However, the two things aren't completely decoupled, and the uber-formats that exist are an indication of that.
+17:53:05 <gkellogg> ... Maybe SHACL shapes have a place.
+17:53:21 <gkellogg> ... It can be dangerous, but has some nice features.
+17:53:22 <gkellogg> q?
+17:53:26 <gkellogg> ack bigbluehat
+17:53:46 <gkellogg> bigbluehat: I dropped a link to the JSON Schema in RDF for Web of Things.
+17:54:10 <gkellogg> ... Every thing description is both a schema and a context.
+17:54:53 <gkellogg> ... If you wanted to take a context with `@protected` and through in some schema, it would fail right now, but it could be interesting to explore.
+17:56:44 <gkellogg> zakim, end meeting
+17:56:45 <Zakim> As of this point the attendees have been pchampin, TallTed, gkellogg, niklasl, dlehn, bigbluehat
+17:56:46 <Zakim> RRSAgent, please draft minutes
+17:56:48 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/15-json-ld-minutes.html Zakim
+17:56:50 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:56:54 <Zakim> Zakim has left #json-ld
+17:56:55 <gkellogg> rrsagent, pointer
+17:56:55 <RRSAgent> See https://www.w3.org/2023/11/15-json-ld-irc#T17-56-55
+17:57:07 <gkellogg> rrsagent, bye
+17:57:19 <gkellogg> rrsagent, make logs public
+17:57:35 <gkellogg> rrsagent, bye
+17:57:35 <RRSAgent> I see no action items
