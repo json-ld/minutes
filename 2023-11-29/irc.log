@@ -1,0 +1,201 @@
+17:02:42 <RRSAgent> RRSAgent has joined #json-ld
+17:02:46 <RRSAgent> logging to https://www.w3.org/2023/11/29-json-ld-irc
+17:02:46 <gkellogg> meeting: JSON-LD CG
+17:02:48 <Zakim> RRSAgent, make logs Public
+17:02:49 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+17:03:01 <gkellogg> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231129T120000/
+17:03:01 <agendabot> clear agenda
+17:03:01 <agendabot> agenda+ Announcements and Introductions
+17:03:01 <agendabot> agenda+ YAML-LD
+17:03:01 <agendabot> agenda+ CBOR-LD
+17:03:01 <agendabot> agenda+ JSON-LD Issue Discussion
+17:03:03 <agendabot> agenda+ Open Discussion
+17:03:06 <agendabot> agenda+ Next call
+17:03:07 <gkellogg> present+
+17:03:08 <gkellogg> chair+
+17:03:12 <gkellogg> scribe+
+17:03:20 <TallTed> TallTed has changed the topic to: JSON-LD CG/WG -- 2023-11-29 Agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231129T120000/
+17:03:25 <gkellogg> zakim, close item 1
+17:03:25 <Zakim> agendum 1, Announcements and Introductions, closed
+17:03:26 <Zakim> I see 5 items remaining on the agenda; the next one is
+17:03:26 <Zakim> 2. YAML-LD [from agendabot]
+17:03:40 <niklasl> niklasl has joined #json-ld
+17:04:09 <gkellogg> zakim, open item 2
+17:04:09 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+17:04:46 <gkellogg> gkellogg: email sent to semweb mailing list on YAML-LD and CBOR-LD
+17:04:59 <gkellogg> zakim, next item
+17:04:59 <Zakim> agendum 2 was just opened, gkellogg
+17:05:01 <dlehn> present+
+17:05:07 <gsaumier-finch> present+
+17:05:07 <gkellogg> zakim, close item 2
+17:05:07 <Zakim> agendum 2, YAML-LD, closed
+17:05:08 <Zakim> I see 4 items remaining on the agenda; the next one is
+17:05:08 <Zakim> 3. CBOR-LD [from agendabot]
+17:05:16 <TallTed> present+
+17:28:59 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+17:05:26 <bigbluehat> present+
+17:06:29 <bigbluehat> scribe+
+17:06:29 <gkellogg> dlehn: I'm not too familiar with CBOR-LD.
+17:06:32 <niklasl> present+
+17:06:56 <bigbluehat> gkellogg: I think we discussed modeling the CBOR-LD spec on the YAML-LD spec.
+17:07:02 <bigbluehat> ... most of it is about content types
+17:07:07 <bigbluehat> ... and then transforming
+17:07:22 <bigbluehat> ... into the internal representation and back
+17:07:40 <bigbluehat> ... there was some discussion on how to deal with extra semantic capabilities
+17:07:47 <bigbluehat> ... like date and datetime in YAML
+17:07:56 <bigbluehat> ... CBOR has similar functionality
+17:07:59 <dlehn> q+
+17:08:05 <bigbluehat> ... but not sure we're making use of any of those
+17:08:20 <niklasl> "CBOR is based on the wildly successful JSON data model: numbers, strings, arrays, maps (called objects in JSON), and a few values such as false, true, and null."
+17:08:20 <bigbluehat> ... pchampin do you recall using any of those?
+17:08:30 <bigbluehat> pchampin: the idea was to specify how CBOR was first translated into JSON
+17:08:46 <gkellogg> pchampin: In my version, the idea was to specify how CBOR is translated into JSON (using hints from spec), and then the traditional JSON-LD processing.
+17:08:47 <bigbluehat> ... there are some hints in the CBOR spec, but not fully specified
+17:09:07 <gkellogg> ... For producing CBOR-LD from JSON-LD, there are some decisions. For example, how numbers are converted.
+17:09:10 <bigbluehat> ... and for producing CBOR-LD from JSON-LD there were many questions around numbers
+17:09:29 <gkellogg> ... It boils down to a mapping between the base syntaxes.
+17:10:05 <gkellogg> ... There's also a potential CBOR datatype.
+17:11:21 <bigbluehat> gkellogg: when I was looking at the CBOR spec, if there was no decimal, it's an int, but if not, it's a float
+17:11:28 <bigbluehat> ... all JSON numbers would go across as doubles
+17:11:53 <bigbluehat> ... and then you would detect the actual int's and compress those things
+17:12:02 <bigbluehat> pchampin: I'll take your word for that
+17:12:35 <bigbluehat> ... the idea was to aim at the most compact representation
+17:12:58 <bigbluehat> q+
+17:13:06 <gkellogg> ack dlehn
+17:13:23 <bigbluehat> JSON-LD in CBOR (by pchampin?) - https://w3c.github.io/json-ld-cbor/
+17:13:29 <gkellogg> dlehn: I'm not sure the direction we are taking; we have a spec and implementation which may not be aligned.
+17:13:45 <gkellogg> ... I think one of the things in ours is we're keeping the same structure, just using CBOR.
+17:13:48 <bigbluehat> CBOR-LD (by Digital Bazaar) - https://digitalbazaar.github.io/cbor-ld-spec/
+17:14:01 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:14:02 <gkellogg> ... We have a special codex and known values.
+17:14:18 <gkellogg> ... For example, there's a codex for dealing with base64 data.
+17:14:27 <anatoly-scherbakov> present+
+17:14:29 <pchampin> https://w3c.github.io/json-ld-cbor/#serialize
+17:14:43 <pchampin> s/#serialize//
+17:15:22 <bigbluehat> gkellogg: the best I can tell, the Digital Bazaar version is targeting JSON-LD in the form of an object rather than an array of objects
+17:15:39 <bigbluehat> ... and the keys and the like are turned into indices
+17:15:54 <bigbluehat> ... and additionally requires external contexts
+17:16:10 <bigbluehat> ... and that seems to go against current trend in practice of inlining contexts
+17:16:45 <bigbluehat> ... and there are magic numbers to signal if your encoding compact or expanded form in the CBOR document
+17:17:24 <bigbluehat> ... there are also a number of other compression opportunities we should discuss
+17:18:00 <bigbluehat> ... we do need to be able to handle more use cases than are currently called for in there
+17:18:08 <bigbluehat> ... and maintaining binary compatibility
+17:18:11 <gkellogg> q?
+17:18:15 <gkellogg> ack bigbluehat
+17:18:18 <pchampin> scribe+
+17:18:22 <bigbluehat> ... but we may not need to restrict ourselves to that
+17:19:12 <pchampin> bigbluehat: we have the 2 specs; we need to decide if we want to compare them in terms of pros/cons
+17:19:29 <gkellogg> q+
+17:19:34 <pchampin> ... or expand on Digital Bazaar's version as it is already implemented.
+17:20:23 <pchampin> ... The "JSON-LD in CBOR" spec echoes a lot of what we did in YAML-LD spec.
+17:20:51 <pchampin> ... It is not taking advantage of special things that CBOR can do.
+17:21:18 <pchampin> ... The "CBOR-LD" spec uses a number of CBOR-specific things.
+17:21:51 <gkellogg> ack me
+17:21:54 <pchampin> ... As far as I know, there is only one "CBOR-LD" implementation.
+17:22:06 <pchampin> scribe-
+17:23:22 <bigbluehat> gkellogg: I see the two specs as being largely orthoginal
+17:23:40 <pchampin> +1, I also see them as orthogonal
+17:23:41 <bigbluehat> ... maybe we come out with a base CBOR-LD spec along the lines of YAML-LD
+17:23:59 <pchampin> s/orthoginal/orthogonal
+17:24:03 <bigbluehat> ... and a compressed one that is more inline with what's in the current CBOR-LD 1.0 spec
+17:24:07 <gkellogg> q?
+17:24:31 <bigbluehat> ... with an eye toward how to signal these different types of CBOR encodings of JSON-LD
+17:24:41 <gkellogg> gkellogg: anyone else plan on their own CBOR-LD implementation?
+17:24:44 <anatoly-scherbakov_> anatoly-scherbakov_ has joined #json-ld
+17:26:08 <gkellogg> dlehn: From the DB perspective, we're using this stuff and moving it forward as needs. But, we'd like to have a wider viewpoint.
+17:26:23 <gkellogg> ... We haven't put forward the effort to consider all the use cases.
+17:26:45 <gkellogg> ... I'm not sure how alternate approaches would factor in.
+17:28:59 <gkellogg> zakim, next agendum
+17:29:05 <gsaumier-finch> Aside, could someone share the link to the YAML-LD spec? I am having trouble finding it. Thanks in advance.
+17:29:08 <gkellogg> zakim, close 3
+17:29:08 <Zakim> I don't understand 'close 3', gkellogg
+17:29:15 <gkellogg> zakim, close item 3
+17:29:15 <Zakim> agendum 3, CBOR-LD, closed
+17:29:16 <Zakim> I see 3 items remaining on the agenda; the next one is
+17:29:16 <Zakim> 4. JSON-LD Issue Discussion [from agendabot]
+17:29:20 <gkellogg> zakim, open item 4
+17:29:20 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:29:36 <dlehn> q+
+17:29:46 <gkellogg> ack dlehn
+17:29:51 <anatoly-scherbakov_> gsaumier-finch: https://json-ld.github.io/yaml-ld/spec/
+17:29:59 <gkellogg> dlehn: I have some issues that have come up in jsonld.js.
+17:30:22 <bigbluehat> q+
+17:30:22 <gkellogg> ... We have people that have questions about defining terms such as "a:b" and "a/b".
+17:30:26 <gkellogg> q+
+17:30:27 <dlehn> https://github.com/digitalbazaar/jsonld.js/issues/542
+17:30:27 <gb> https://github.com/digitalbazaar/jsonld.js/issues/542 -> CLOSED Issue 542 how to handle a legacy context (by lemoustachiste)
+17:30:33 <dlehn> https://github.com/digitalbazaar/jsonld.js/issues/543
+17:30:33 <gb> https://github.com/digitalbazaar/jsonld.js/issues/543 -> Issue 543 Forward slash in JSON key treated as error (by jakubklimek)
+17:30:59 <gkellogg> ... This is mostly a usability thing, but people still have data that does it.
+17:31:11 <gkellogg> q?
+17:31:16 <pchampin> scribe+
+17:31:21 <gkellogg> ack me
+17:31:28 <pchampin> scribe-
+17:33:14 <pchampin> q+
+17:33:58 <gkellogg> dlehn: I wasn't sure where it is discussed in the spec.
+17:34:13 <gkellogg> ... Maybe we can call that out better.
+17:34:40 <niklasl> q+
+17:34:50 <gkellogg> ack bigbluehat
+17:35:07 <gkellogg> bigbluehat: I was wondering about how to best surface issues. Should we just make issues on the spec?
+17:35:18 <pchampin> q-
+17:36:07 <gkellogg> ... There's also the json-ld.org repo for issues.
+17:36:35 <gkellogg> ... It's mainly wanting a single location to point to.
+17:37:23 <gkellogg> ... The community needs some guidance for doing this.
+17:38:08 <gkellogg> ... Right now it's a big bucket.
+17:39:08 <pchampin> q+
+17:39:20 <niklasl> This seems to be explained at https://www.w3.org/TR/json-ld11/#iri-expansion-within-a-context but I cannot find the corresponding error code at https://www.w3.org/TR/json-ld11-api/#jsonlderrorcode
+17:39:43 <gkellogg> ... The discussions feature in GitHub is useful, and could be turned on in json-ld.org, and route people there.
+17:40:03 <gkellogg> ... That results in issues that can't be closed.
+17:40:42 <gkellogg> q?
+17:40:43 <dlehn> we can point people to https://stackoverflow.com/questions/tagged/json-ld too
+17:40:47 <gkellogg> ack niklasl
+17:41:16 <gkellogg> niklasl: I think I found the place where this is mentioned in the JSON-LD syntax spec, but can't find the error code for it, or where it's explicitly handled.
+17:41:34 <gkellogg> ... My implementation doesn't through an error, which I would have thought it would.
+17:42:21 <gkellogg> ... I checked the playground, but it didn't through an error until I had data.
+17:43:09 <gkellogg> dlehn: I think the JS implementation doesn't see the problem until parsing the data.
+17:45:38 <pchampin> what about [14.2.4.2](https://w3.org/TR/json-ld11-api#ctd-contains-colon)?
+17:45:40 <gkellogg> niklasl: I don't recognize the rule, but I could mis-remember.
+17:46:34 <pchampin> https://www.w3.org/TR/json-ld11-api/#ctd-contains-colon
+17:46:51 <gkellogg> q?
+17:46:56 <gkellogg> ack pchampin
+17:47:14 <gkellogg> pchampin: Going back to the previous discussion on where issues belong ...
+17:47:24 <pchampin> https://github.com/logseq/logseq/issues/new/choose
+17:47:33 <gkellogg> ... Recently, I tried to submit an issue on a repo, and ended up with the previoius
+17:48:13 <gkellogg> ... Three of the four are not templets, but links. Maybe we can use a similar trick on json-ld.org, which would put them in the spec repo if appropriate.
+17:48:13 <bigbluehat> q+
+17:48:20 <gkellogg> ack bigbluehat
+17:48:28 <niklasl> q+
+17:48:40 <gkellogg> ... I'm happy to do that, if you have suggestions on what you'd like to see.
+17:48:47 <bigbluehat> https://github.com/orgs/json-ld/discussions
+17:48:55 <gkellogg> gkellogg: Let's start with the json-ld.org repo.
+17:49:27 <gkellogg> bigbluehat: I did turn on discussion on json-ld.org repo, and is essentially json-ld.org's discussion space. Maybe we'll catch other people there.
+17:49:45 <gkellogg> TallTed: I think we should note that discussions are really a Q&A space and not really a discussion space.
+17:50:23 <gkellogg> ... The initial post is a question, and follow-ons are answers; it's not really a threaded discussion
+17:50:48 <gkellogg> ... NNTP and email lists are more discussions.
+17:50:50 <gkellogg> q?
+17:50:53 <gkellogg> ack niklasl
+17:51:12 <gkellogg> niklasl: I checked my code and commented that bit out as I failed some tests.
+17:51:36 <gkellogg> ... It's probably because it was a 1.0 tests that I didn't detect.
+17:51:41 <gkellogg> q?
+17:51:41 <anatoly-scherbakov_> q+
+17:51:47 <gkellogg> ack anatoly-scherbakov_
+17:51:57 <anatoly-scherbakov_> https://github.com/json-ld/yaml-ld/pull/128 & https://github.com/json-ld/yaml-ld/pull/129; dlehn: https://github.com/digitalbazaar/pyld/pull/182
+17:52:19 <gkellogg> anatoly-scherbakov_: I wanted to share some updates; since the last meeting I submitted some YAML-LD PRs.
+17:52:30 <gkellogg> ... They are worth another look.
+17:53:25 <gkellogg> ... I shared the spec in a couple of groups without getting any feedback.
+17:55:30 <niklasl> ... Actually.. create term definition step 14.2.4.2, should it have a "If processing mode is not json-ld-1.0" check  before it raises the error ...?
+17:57:32 <gkellogg> ... Another update, the PyLd library has some PRs I've submitted against it.
+17:57:55 <gkellogg> ... It enables git sub-modules and changes the tests to run against the sub-modules, which should improve developer experience.
+17:58:04 <gkellogg> ... Maybe dlehn and bigbluehat could look at that.
+17:58:38 <gkellogg> ... If that's okay, I'll prepare a PR to address an issue about logging and reacting on skipped keys.
+17:59:34 <gkellogg> zakim, end meeting
+17:59:34 <Zakim> As of this point the attendees have been pchampin, gkellogg, dlehn, gsaumier-finch, TallTed, bigbluehat, niklasl, anatoly-scherbakov
+17:59:36 <Zakim> RRSAgent, please draft minutes
+17:59:37 <RRSAgent> I have made the request to generate https://www.w3.org/2023/11/29-json-ld-minutes.html Zakim
+17:59:45 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:59:45 <Zakim> Zakim has left #json-ld
+17:59:47 <niklasl> If anyone has time to check my last question in IRC? (Checked, and I believe that the processing mode test should be added there. – gk)
+17:59:49 <gkellogg> rrsagent, pointer
+17:59:49 <RRSAgent> See https://www.w3.org/2023/11/29-json-ld-irc#T17-59-49
+18:00:04 <gkellogg> rrsagent, bye
+18:00:04 <RRSAgent> I see no action items
