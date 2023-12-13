@@ -1,0 +1,289 @@
+17:00:40 <RRSAgent> RRSAgent has joined #json-ld
+17:00:45 <RRSAgent> logging to https://www.w3.org/2023/12/13-json-ld-irc
+17:01:03 <TallTed> present+
+17:01:08 <TallTed> RRSAgent, draft minutes
+17:01:10 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:01:21 <TallTed> RRSAgent, make logs public
+17:02:35 <bigbluehat> meeting: JSON-LD WG
+17:02:51 <bigbluehat> agenda: https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231213T120000/
+17:02:51 <agendabot> bigbluehat, sorry, I did not recognize any agenda in https://www.w3.org/events/meetings/1ab7df94-bb06-440e-a6b9-bc9022018c57/20231213T120000/
+17:03:08 <dlehn> present+
+17:03:21 <bigbluehat> chair+
+17:03:31 <bigbluehat> present+
+17:03:46 <gkellogg> present+
+17:03:47 <dlongley> present+
+17:04:44 <anatoly-scherbakov> present+
+17:05:57 <TallTed> RRSAgent, draft minutes
+17:06:28 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:06:34 <pchampin> present+
+17:06:34 <manu> manu has joined #json-ld
+17:06:34 <anatoly-scherbakov> scribe+
+17:06:34 <anatoly-scherbakov> bigbluehat: we are going to discuss the future of the WG, future publications and the road ahead
+17:06:34 <bigbluehat> topic: Announcements and Introductions
+17:06:34 <TallTed> RRSAgent, draft minutes
+17:06:35 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:06:41 <gkellogg> q+
+17:06:41 <anatoly-scherbakov> bigbluehat: Any announcements or introductions?
+17:06:41 <manu> q+
+17:06:41 <bigbluehat> ack gkellogg
+17:07:21 <anatoly-scherbakov> gkellogg: YAML-LD Final Report was published yesterday. Posted on CG blog on it.
+17:07:21 <TallTed> i/scribe+/scribe: anatoly-scherbakov
+17:07:21 <bigbluehat> ack manu
+17:07:21 <dlongley> q+ to also say hi
+17:07:25 <anatoly-scherbakov> manu: hello and greetings!
+17:07:35 <bigbluehat> ack dlongley
+17:07:35 <Zakim> dlongley, you wanted to also say hi
+17:07:36 <TallTed> RRSAgent, draft minutes
+17:07:37 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:07:51 <anatoly-scherbakov> dlongley: great to see everyone!
+17:07:59 <bigbluehat> topic: Updates from the CG
+17:08:16 <niklasl> niklasl has joined #json-ld
+17:08:18 <anatoly-scherbakov> bigbluehat: any further updates from the CG for Dave and Manu?
+17:08:20 <niklasl> present+
+17:08:34 <anatoly-scherbakov> gkellogg: CG was working on YAML-LD, and driving JSON-LD issues.
+17:08:51 <anatoly-scherbakov> gkellogg: Latest ones revolve around `@nest` and scoped contexts.
+17:09:18 <anatoly-scherbakov> gkellogg: We introduced CBOR-LD a few weeks ago and discussed it a bit last week. Looking forward to hear about DigitalBazaar's work on that.
+17:09:22 <pchampin> q+
+17:09:32 <bigbluehat> ack pchampin
+17:09:36 <anatoly-scherbakov> bigbluehat: thanks! A lot of work has accumulated to the point that we're looking into formalizing it.
+17:09:54 <niklasl> q+
+17:10:06 <bigbluehat> ack niklasl
+17:10:07 <anatoly-scherbakov> pchampin: I discussed with colleagues about Linked Data in WoT scenarios; they're interested in CBOR-LD and might join the WG.
+17:10:38 <anatoly-scherbakov> niklasl: we've been talking about JSON-LD-Star and RDF-Star and thinking how to integrate these.
+17:11:10 <bigbluehat> topic: Plans/desire to publish Best Practises doc, YAML-LD, and a CBOR-related specification
+17:11:49 <anatoly-scherbakov> bigbluehat: Let's start with low-hanging fruit
+17:11:53 <bigbluehat> subtopic: Best Practices
+17:12:11 <TallTed> s/Best Practises/Best Practices
+17:12:14 <gkellogg> https://w3c.github.io/json-ld-bp/
+17:12:22 <anatoly-scherbakov> bigbluehat: the question about Best Practices has been there for a while. Do we need to post it as a separate note?
+17:12:48 <bigbluehat> current charter: https://www.w3.org/2023/01/json-ld-wg-charter.html
+17:13:01 <anatoly-scherbakov> pchampin: I agree; I need to check with the charter and not everyone might agree
+17:13:15 <gkellogg> q+
+17:13:34 <bigbluehat> ack gkellogg
+17:14:12 <anatoly-scherbakov> gkellogg: there was never a resolution to publish the BP as a Note. It shows the last published version and that leads to a 404. Might be a problem with ReSpec
+17:14:40 <anatoly-scherbakov> gkellogg: we can certainly publish it as a Draft Note, even if it is incomplete
+17:15:01 <anatoly-scherbakov> gkellogg: there is also a Best Practices document in the CG but it's been removed from the UI
+17:15:04 <anatoly-scherbakov> bigbluehat: do they differ?
+17:15:09 <anatoly-scherbakov> gkellogg: they're different
+17:15:40 <anatoly-scherbakov> bigbluehat: maybe some resolving is in order. The Charter only spells out maintenance of JSON-LD normative documents and also allows non-normative documents
+17:16:03 <anatoly-scherbakov> bigbluehat: to make YAML-LD and CBOR-LD normative we need to move formally as a group to re-charter
+17:16:12 <anatoly-scherbakov> q+
+17:16:20 <bigbluehat> subtopic: YAML-LD
+17:16:25 <pchampin> scribe+
+17:16:25 <gkellogg> scribe+
+17:16:40 <pchampin> anatoly-scherbakov: nice to meet Manu and Dave
+17:16:41 <gkellogg> scribe-
+17:16:59 <pchampin> ... is it ok for the group to be named JSON-LD if we extend the scope to YAML-LD, CBOR-LD... ?
+17:17:15 <pchampin> ... Should we find an Umbrella term?
+17:17:28 <manu> I agree with Anatoly, we should shift the WG name given the expanded scope.
+17:17:30 <manu> q+
+17:17:31 <dlongley> JSON-LD and others! WG :)? ... JSON-LD and Derivatives WG (doesn't sound as friendly)
+17:17:34 <pchampin> ... Also other formats such as CSV, Parquet... could be addressed.
+17:17:36 <bigbluehat> ack anatoly-scherbakov
+17:17:38 <bigbluehat> ack manu
+17:17:51 <anatoly-scherbakov> manu: agree with Anatoly, makes sense to rename the group to focus on expanded scope
+17:17:52 <dlongley> Expanded JSON-LD Universe WG
+17:17:56 <gkellogg> q+
+17:18:00 <bigbluehat> ack gkellogg
+17:18:20 <anatoly-scherbakov> gkellogg: there is a standard for CSV for LD, its ten years old and has moderate use
+17:18:34 <niklasl> q+
+17:18:53 <bigbluehat> https://www.w3.org/TR/tabular-data-primer/
+17:19:00 <anatoly-scherbakov> gkellogg: "tabular data on the web" it is. It probably needs to be revisited, needs periodic updates. I think though that CBOR is definitely inspired by JSON, YAML and JSON developed together
+17:19:25 <anatoly-scherbakov> gkellogg: it might be confusing to try to come up with some other name (Linked Data Working Group? - that is too broad maybe)
+17:19:30 <dlongley> JSON-LD Umbrella WG
+17:19:41 <anatoly-scherbakov> gkellogg: but we can probably stick with the JSON-LD as group name as we're working on things closely related to JSON-LD
+17:19:53 <pchampin> q+
+17:19:57 <bigbluehat> ack niklasl
+17:19:58 <anatoly-scherbakov> bigbluehat: agree, and let's move on though
+17:20:29 <anatoly-scherbakov> niklasl: I agree this is a tricky question; I am leaning towards what Gregg said. One the reasons of JSON-LD success is because it is RDF channeled through JSON
+17:21:25 <gkellogg> CSV on the web came out before JSON-LD 1.0 was standardized
+17:21:45 <anatoly-scherbakov> niklasl: CSV on the Web saw lower adoption. Something about JSON is very useful, I do not know how to call it more abstractly so that it rings as well as it does now
+17:22:02 <anatoly-scherbakov> niklasl: there's something in the simplicity of JSON-LD itself
+17:22:12 <gkellogg> INFRA-LD
+17:22:19 <anatoly-scherbakov> niklasl: leaving JSON behind we miss the point how we got here
+17:22:21 <bigbluehat> ack pchampin
+17:23:11 <niklasl> "Not-XML-LD"
+17:23:13 <dlongley> JSON-LD and Friends
+17:23:13 <bigbluehat> q+
+17:23:15 <anatoly-scherbakov> pchampin: My own opinion: I agree Tabular Data on the Web would deserve a refresh. Having one group for all kinds of data formats wouldn't be optimal though. We are focusing on JSON, one particular shape of data
+17:23:15 <manu> agree that we need to focus in the new WG.
+17:23:24 <bigbluehat> +1
+17:23:40 <anatoly-scherbakov> pchampin: other concerns, other languages, should probably be addressed by other groups
+17:24:04 <anatoly-scherbakov> pchampin: JSON-LD WG should care about JSON and very similar formats
+17:24:08 <dlongley> +1 that JSON-LD is the unifier / north star / commonality
+17:24:24 <anatoly-scherbakov> bigbluehat: thanks everyone! Let'
+17:24:27 <bigbluehat> ack bigbluehat
+17:24:32 <anatoly-scherbakov> bigbluehat: thanks everyone! Let's keep JSON in focus
+17:24:33 <gkellogg> rssagent, make logs public
+17:24:46 <gkellogg> rssagent, generate minutes
+17:24:56 <manu> q+
+17:25:02 <bigbluehat> ack manu
+17:25:04 <anatoly-scherbakov> bigbluehat: CG report for YAML-LD published, thanks Gregg! what's the future of this format in the WG?
+17:25:13 <gkellogg> rrsagent, generate minutes
+17:25:15 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html gkellogg
+17:25:21 <dlongley> +1 to YAML-LD going standards track
+17:25:28 <anatoly-scherbakov> manu: I support YAML-LD to go to Standards Track, as long as someone can help moving it through the process
+17:25:59 <anatoly-scherbakov> manu: it provides a signal that we're onto something, these patterns are useful in other syntaxes, it allows the RDF data model to shine
+17:26:19 <anatoly-scherbakov> manu: in the other syntaxes you can express the same data model: JSON-LD - YAML-LD - CBOR-LD and back, that's a good thing
+17:26:45 <anatoly-scherbakov> manu: we should take this to Standards Track. What about implementations?
+17:26:46 <anatoly-scherbakov> q+
+17:26:50 <pchampin> scribe+
+17:27:09 <pchampin> anatoly-scherbakov: the first implementation of YAML-LD is probably gkellogg's
+17:27:26 <pchampin> ... I'm developing a Python implementation, based on PYLD, alpha stage at this point.
+17:27:54 <pchampin> ... It passes the YAML-LD test suite. My next step is to run the JSON-LD test suite.
+17:28:19 <pchampin> ... I'm using it in a little project of mine: browser and knowledge workspace for LD, mostly based on YAML-LD.
+17:28:35 <pchampin> scribe-
+17:28:39 <anatoly-scherbakov> niklasl: this gets us two baseline implementations. Moving through WG will be about that. Any other notices about implementations?
+17:28:48 <bigbluehat> subtopic: CBOR-LD & JSON-LD in CBOR
+17:29:28 <gkellogg> https://w3c.github.io/json-ld-cbor/
+17:29:34 <anatoly-scherbakov> niklasl: let's move on to CBOR-LD. The questions about it are centered about progressing CBOR-LD spec to match implementations
+17:29:39 <gkellogg> https://digitalbazaar.github.io/cbor-ld-spec/
+17:29:46 <manu> q+
+17:29:49 <anatoly-scherbakov> bigbluehat: what level of compression should we use?
+17:29:50 <bigbluehat> ack anatoly-scherbakov
+17:29:51 <anatoly-scherbakov> q-
+17:29:54 <bigbluehat> ack manu
+17:30:06 <manu> Introduction to CBOR-LD: https://lists.w3.org/Archives/Public/public-json-ld-wg/2020Jul/att-0004/Introduction_to_CBOR-LD.pdf
+17:30:25 <pchampin> s/niklasl: let's move/bigbluehat: let's move
+17:30:30 <gkellogg> q+
+17:30:40 <dlongley> i believe there are three implementations, one in Rust, one in Java
+17:30:44 <anatoly-scherbakov> manu: putting the link about CBOR-LD abortions. There are presentations from 2020 we published, they go over the basics. CBOR-LD has 2-3 implementations so far: JS, Rust and something else
+17:30:46 <dlongley> one in JavaScript
+17:31:21 <anatoly-scherbakov> manu: primary reason was Verifiable Credentials, we had a program in the US with the National Association of Convenience Stores about digital age verification program
+17:31:34 <anatoly-scherbakov> manu: the goal was privacy preserving age verification
+17:31:57 <anatoly-scherbakov> manu: so that we can prove your age without disclosing any other PII
+17:32:35 <anatoly-scherbakov> manu: that was in 2018-2019. One of the things they needed was ability to scan the verifiable credential which was a JSON-LD document
+17:33:01 <anatoly-scherbakov> manu: thus we needed a very high density bar code so that the old hardware can scan and handle it, we needed to get a JSON-LD document down to 350 bytes
+17:33:31 <anatoly-scherbakov> manu: that's why CBOR-LD came into existence, we needed to compress digitally signed JSON-LD so that it could fit into a QR code. We're now in production
+17:34:13 <anatoly-scherbakov> manu: about 4-6 months ago, California department of Motor Vehicles launched their digital driver's license which includes a CBOR-LD QR code
+17:34:35 <anatoly-scherbakov> manu: in California you can now show that QR code which is CBOR-LD and prove your age
+17:34:48 <anatoly-scherbakov> Well IMHO that's really super cool
+17:35:11 <anatoly-scherbakov> manu: the rollout is still happening but I wanted to make a point that it is already in production and in practical use
+17:35:21 <TallTed> s/Well IMHO/anatoly-scherbakov: Well IMHO
+17:35:35 <TallTed> RRSAgent, draft minutes
+17:35:37 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:35:43 <anatoly-scherbakov> manu: we put a version number on the version that's out there so that W3C WG can introduce breaking changes in a new version
+17:35:58 <anatoly-scherbakov> manu: spec is not in a good shape, it is out of date from the implementation
+17:36:14 <TallTed> s/rssagent, make logs public//
+17:36:20 <dlongley> q+ to quickly mention that existing implementations include a non-compression mode
+17:36:22 <TallTed> s/rssagent, generate minutes//
+17:36:23 <dlongley> -q
+17:36:26 <dlongley> q-
+17:36:33 <anatoly-scherbakov> manu: we've talked about the plan to merge the changes in current spec and the reality of implementations
+17:37:01 <anatoly-scherbakov> manu: we have an uncompressed mode in the spec. Even that saves a number of bytes, but compression is what the real users are interested in
+17:37:05 <TallTed> RRSAgent, draft minutes
+17:37:07 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:37:19 <anatoly-scherbakov> manu: we also are working with governments about integrating CBOR-LD into their digital ID systems
+17:37:40 <anatoly-scherbakov> manu: that's kind of where we are with CBOR-LD
+17:37:44 <bigbluehat> ack gkellogg
+17:37:45 <TallTed> s/dlongley, you wanted to also say hi//
+17:38:26 <anatoly-scherbakov> gkellogg: I think the two different documents address different things. Pierre-Antoine's expresses basic JSON with CBOR compatible with JSON-LD. DigitalBazaar's version is mostly about how you provide that with semantic compaction.
+17:38:43 <anatoly-scherbakov> gkellogg: YAML-LD sets a pattern we probably want to stick with — it is mostly API centric
+17:39:11 <anatoly-scherbakov> gkellogg: it mostly involves transformation between YAML and JSON-LD Internal Representation. Compression doesn't happen in CBOR, it can happen in Internal Representation
+17:39:52 <anatoly-scherbakov> gkellogg: A concern I had: CBOR-LD 1.0 version doesn't have a parallel in core CBOR
+17:39:54 <bigbluehat> q?
+17:40:07 <dlongley> q+ to say that current implementations have tags and versions
+17:40:12 <anatoly-scherbakov> pchampin: Gregg summarized this very well
+17:40:12 <bigbluehat> ack dlongley
+17:40:12 <Zakim> dlongley, you wanted to say that current implementations have tags and versions
+17:40:31 <anatoly-scherbakov> dlongley: about magic numbers: current implementations have tags indicating their CBOR-LD and version numbers
+17:40:44 <anatoly-scherbakov> dlongley: implementations support that; not sure if spec reflects it
+17:41:42 <manu> q+
+17:41:44 <anatoly-scherbakov> gkellogg: the current spec doesn't detail that. Not sure how the tag structure with JSON-LD in it extracted from a CBOR document is distinguished against any other CBOR structure
+17:41:46 <bigbluehat> ack manu
+17:42:26 <anatoly-scherbakov> manu: CBOR has a registry, tags are registered there, what we need is to request new numbers in the registry which are granted on first come first serve basis. You don't need an official structure to claim them
+17:42:52 <anatoly-scherbakov> manu: if we're an official WG it makes it even easier to register our signature bytes in the CBOR tags registry
+17:43:41 <anatoly-scherbakov> bigbluehat: do we want to move forward as chartered, keeping YAML-LD as a Note or a Draft Note, and bringing CBOR-LD spec to the status of a Note?
+17:43:54 <gkellogg> q+
+17:44:03 <anatoly-scherbakov> bigbluehat: or we feel we are ready to bring these to Standards Track sooner and recharter the WG at this point?
+17:44:09 <bigbluehat> subtopic: rechartering?
+17:44:12 <bigbluehat> ack gkellogg
+17:44:26 <pchampin> q+
+17:44:33 <anatoly-scherbakov> gkellogg: I think there is sufficient implementation done for both to move to the Recommendation Track
+17:44:34 <dlongley> +1 to gregg
+17:44:44 <manu> q+ to speak to level of effort for CBOR-LD and current production trajectory
+17:45:00 <anatoly-scherbakov> gkellogg: I do not know if publishing CBOR-LD as a Note makes a difference. Bringing it to Rec Track will improve visibility and hopefully drive participation
+17:45:22 <anatoly-scherbakov> gkellogg: Updated Charter should also help other things, like fostering JSON-LD specs
+17:45:49 <anatoly-scherbakov> gkellogg: Charter doesn't specifically need to mention RDF-Star
+17:45:53 <bigbluehat> ack pchampin
+17:46:07 <anatoly-scherbakov> bigbluehat: currently the charter only calls for maintenance, i.e. non breaking changes
+17:46:24 <anatoly-scherbakov> pchampin: errata is appropriate; not sure how breaking a change might be to fix a bug
+17:46:36 <TallTed> RRSAgent, draft minutes
+17:46:37 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html TallTed
+17:46:45 <anatoly-scherbakov> pchampin: the Note track and the Rec track are meant for different kinds of documents
+17:47:04 <anatoly-scherbakov> pchampin: it would be a pushback if we post a spec as a Note and then move it to Rec
+17:47:09 <TallTed> s/dlongley, you wanted to say that current implementations have tags and versions//
+17:47:41 <anatoly-scherbakov> pchampin: it is Rec material. Falling back to Note track if we are not allowed to push it to Rec wouldn't work. It is a document meant to be a Recommendation, not a Best Practices, not a Note
+17:47:53 <anatoly-scherbakov> pchampin: even if we could, having it on Note track can do it better than a CG report
+17:48:01 <bigbluehat> q?
+17:48:11 <anatoly-scherbakov> pchampin: we will continue working on it in the CG of course until the WG is allowed to take it to Rec track
+17:48:11 <bigbluehat> ack manu
+17:48:11 <Zakim> manu, you wanted to speak to level of effort for CBOR-LD and current production trajectory
+17:48:39 <anatoly-scherbakov> manu: we want to move CBOR-LD out of digiatlbazaar github repo and move it to JSON-LD Github repo
+17:49:20 <anatoly-scherbakov> manu: can we do that? secondly, CBOR-LD is way behind where YAML-LD spec is. Problem is, many of us are heads down in Verifiable Credentials WG trying to get about five specs to Rec track
+17:49:35 <anatoly-scherbakov> manu: we do not have much bandwidth to work on this spec. Maybe it becomes easier next summer
+17:50:05 <anatoly-scherbakov> manu: we're discussing going into production with CBOR-LD systems with national and state governments. They don't necessarily want to wait until the standard is done
+17:50:26 <anatoly-scherbakov> manu: but they want an acknowledgement of W3C that W3C is looking forward to standardize CBOR-LD
+17:50:33 <niklasl> q+
+17:50:38 <bigbluehat> q+
+17:50:58 <anatoly-scherbakov> manu: CBOR-LD as a Note doesn't make a lot of sense, we'd like it to go to Rec track
+17:51:28 <anatoly-scherbakov> manu: a new WG charter mentioning CBOR-LD could be a signal to the governments and buy us a bit of time to get the spec into proper shape
+17:51:59 <anatoly-scherbakov> manu: YAML-LD is further along and we could recharter the group putting both in scope, and focus on YAML-LD first then switching to CBOR-LD later
+17:52:10 <anatoly-scherbakov> manu: and we only have 6 months to get CBOR-LD done
+17:52:27 <pchampin> +1
+17:52:31 <anatoly-scherbakov> manu: publishing a new charter would be a positive signal to the community that we're working on these
+17:52:33 <bigbluehat> ack niklasl
+17:52:33 <niklasl> +1
+17:53:03 <gkellogg> q+
+17:53:13 <anatoly-scherbakov> niklasl: sounds like a good idea. I think what we define should be very minimalistic, kind of glue code defining the serialization.
+17:53:45 <anatoly-scherbakov> niklasl: this could also say that JSON-LD is beyond JSON. Contextual Compaction of Linked Data with a kind of Framing is the overarching theme here
+17:53:56 <bigbluehat> ack bigbluehat
+17:54:17 <anatoly-scherbakov> bigbluehat: suggesting we take an action today to bring CBOR-LD into CG space
+17:54:34 <anatoly-scherbakov> bigbluehat: let's start its life there, it will need much discussion and activity
+17:54:40 <bigbluehat> ack gkellogg
+17:55:03 <anatoly-scherbakov> gkellogg: nominally it's a CG action but we are highly overlapped and we can resolve to do that
+17:55:40 <manu> agree, gkellogg -- we should write all of the concerns / issues we have down into the issue tracker
+17:55:46 <anatoly-scherbakov> gkellogg: manu mentioned that there are open issues with the spec. Would be great if github issues reflect those. this will make it easier for people to contribute
+17:56:06 <bigbluehat> PROPOSAL: Bring Digital Bazaar's CBOR-LD 1.0 editor's draft https://digitalbazaar.github.io/cbor-ld-spec/ into the JSON-LD CG for future work.
+17:56:13 <manu> +1
+17:56:14 <anatoly-scherbakov> +1
+17:56:14 <gkellogg> +1
+17:56:14 <dlongley> +1
+17:56:15 <TallTed> +1
+17:56:16 <niklasl> +1
+17:56:19 <pchampin> +1
+17:56:20 <bigbluehat> +1
+17:56:22 <dlehn> +1
+17:56:31 <bigbluehat> RESOLVED: Bring Digital Bazaar's CBOR-LD 1.0 editor's draft https://digitalbazaar.github.io/cbor-ld-spec/ into the JSON-LD CG for future work.
+17:56:41 <TallTed> technically, "adopt Digital Bazaar's CBOR-LD"
+17:56:44 <gkellogg> rrsagent, generate minutes
+17:56:45 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html gkellogg
+17:56:58 <anatoly-scherbakov> bigbluehat: resolved. David you apparently hold the super powers, can you do the actual moving please?
+17:57:12 <anatoly-scherbakov> dlehn: eventually it will be moved to W3C and we will have to move it again?
+17:57:34 <anatoly-scherbakov> gkellogg: yes if the WG is rechartered. We'll move the repos from the CG to the WG github org, but this might take months
+17:57:58 <anatoly-scherbakov> dlongley: this will mean broken links
+17:58:11 <dlongley> s/dlongley: this will mean/dlehn: this will mean/
+17:58:41 <anatoly-scherbakov> bigbluehat: we can't get it into W3C repo now because it is CG material
+17:59:08 <anatoly-scherbakov> bigbluehat: there is an ambient consensus about rechartering
+17:59:10 <anatoly-scherbakov> gkellogg: let's do a proposal
+17:59:37 <bigbluehat> PROPOSAL: Recharter the JSON-LD WG to focus on YAML-LD and CBOR-LD
+17:59:41 <manu> +1
+17:59:43 <anatoly-scherbakov> +1
+17:59:43 <dlongley> +1
+17:59:43 <gkellogg> +1
+17:59:46 <pchampin> +1
+17:59:47 <bigbluehat> +1
+17:59:47 <TallTed> +1
+17:59:53 <dlehn> +1
+17:59:56 <niklasl> +1 (not excluding RDF-star alignment?)
+18:00:24 <bigbluehat> RESOLVED: Recharter the JSON-LD WG to focus on YAML-LD and CBOR-LD
+18:00:25 <anatoly-scherbakov> bigbluehat: this resolution doesn't need to be exclusive, it just signals we want to recharter
+18:00:45 <anatoly-scherbakov> bigbluehat: we are still continuing the maintenance of JSON-LD core specs and other things
+18:00:53 <manu> rrsagent, draft minutes
+18:00:54 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html manu
+18:01:06 <anatoly-scherbakov> bigbluehat: we'll likely not have another CG call before the end of the year, we'll get back to this in January
+18:01:13 <TallTed> s/manu, you wanted to speak to level of effort for CBOR-LD and current production trajectory//
+18:01:28 <gkellogg> rrsagent, generate minutes
+18:01:29 <RRSAgent> I have made the request to generate https://www.w3.org/2023/12/13-json-ld-minutes.html gkellogg
+18:01:35 <gkellogg> rrsagent, pointer
+18:01:35 <RRSAgent> See https://www.w3.org/2023/12/13-json-ld-irc#T18-01-35
