@@ -1,0 +1,152 @@
+16:54:48 <RRSAgent> RRSAgent has joined #json-ld
+16:54:52 <RRSAgent> logging to https://www.w3.org/2024/01/10-json-ld-irc
+16:54:52 <Zakim> RRSAgent, make logs Public
+16:54:53 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:55:04 <gkellogg> agenda: https://www.w3.org/events/meetings/398465c7-3787-40df-856a-434a438d9f05/20240110T120000/
+16:55:04 <agendabot> clear agenda
+16:55:04 <agendabot> agenda+ Announcements and Introductions
+16:55:04 <agendabot> agenda+ YAML-LD
+16:55:04 <agendabot> agenda+ CBOR-LD
+16:55:04 <agendabot> agenda+ JSON-LD Issue Discussion
+16:55:06 <agendabot> agenda+ Open Discussion
+16:55:09 <agendabot> agenda+ Next call
+16:55:15 <gkellogg> meeting: JSON-LD CG
+16:55:25 <gkellogg> chair: gkellogg
+16:55:27 <gkellogg> present+
+16:55:29 <gkellogg> scribe+
+16:56:52 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:59:17 <pchampin> present+
+17:00:42 <TallTed> present+
+17:00:47 <kherndon> kherndon has joined #json-ld
+17:00:57 <TallTed> RRSAgent, draft minutes
+17:00:58 <RRSAgent> I have made the request to generate https://www.w3.org/2024/01/10-json-ld-minutes.html TallTed
+17:01:05 <pchampin> present+ kherndon
+17:01:11 <bigbluehat> present+
+17:01:13 <niklasl> niklasl has joined #json-ld
+17:01:16 <TallTed> RRSAgent, make logs public
+17:01:47 <niklasl> present+
+17:01:47 <anatoly-scherbakov> present+
+17:02:00 <gkellogg> zakim, next agendum
+17:02:00 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:02:54 <gkellogg> kherndon: I had an email conversation with gkellogg a couple of years ago about how to get more involved.
+17:03:23 <gkellogg> ... May be too technical for me, but I wanted to find out.
+17:04:21 <gkellogg> ... I come from accounting/finance, but as a hobby, I'm a musician. I put together a website for my music, but started incorporating JSON-LD/schema.org into my website.
+17:04:38 <gkellogg> ... I've left my job, and am looking for something new to get into.
+17:04:55 <dlehn> present+
+17:06:23 <pchampin> q+
+17:06:29 <gkellogg> ack pchampin
+17:06:57 <gkellogg> pchampin: On Mastadon I anounced that I leased version 0.8 of Sophia with full support for JSON-LD.
+17:07:11 <gkellogg> ... Sophia is a Rust library for RDF.
+17:07:36 <pchampin> https://crates.io/crates/sophia
+17:07:40 <gkellogg> zakim, next agendum
+17:09:01 <anatoly-scherbakov> й+
+17:09:02 <niklasl> q+
+17:09:04 <anatoly-scherbakov> q+
+17:09:06 <gkellogg> pchampin: There should be an IE invitation in progress for adding anatoly-scherbakov
+17:09:08 <gkellogg> q?
+17:09:19 <gkellogg> ack anatoly-scherbakov
+17:09:33 <gkellogg> anatoly-scherbakov: I am already an invited expert.
+17:09:44 <pchampin> q+
+17:09:55 <gkellogg> ... I hope to bring the YAML-LD spec to Rec.
+17:10:03 <gkellogg> q?
+17:10:10 <gkellogg> ack niklasl
+17:10:50 <gkellogg> niklasl: To be clear, I'm not a member of the WG, because of the DCMI exit, and the National Library of Sweden hasn't done the paperwork for me. This should happen ASAP.
+17:11:33 <gkellogg> q?
+17:11:38 <gkellogg> ack pchampin
+17:12:26 <gkellogg> pchampin: I wanted to point out about niklasl and kherndon that it's still possible for chairs to invite non-members on a case-by-case basis.
+17:12:39 <gkellogg> ... Particularly if there is some temporary issue.
+17:13:04 <gkellogg> ... Regarding our charter, it talks about YAML and CBOR as non-normative work.
+17:13:20 <TallTed> q+ to note that "special invitations" don't solve patent policy issues for substantive contributions from such invitees
+17:13:41 <gkellogg> q?
+17:13:47 <gkellogg> ack TallTed
+17:13:47 <Zakim> TallTed, you wanted to note that "special invitations" don't solve patent policy issues for substantive contributions from such invitees
+17:14:27 <gkellogg> TallTed: The chair can invite anyone, but substantive contributions aren't covered by this. It's helpful to keep up on discussion, but not to make contributions.
+17:14:43 <gkellogg> niklasl: That's good to know.
+17:15:00 <gkellogg> q?
+17:07:40 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+17:16:11 <anatoly-scherbakov> q+
+17:16:29 <gkellogg> gkellogg: generally, avoid contributing new PRs to work in progress.
+17:16:31 <gkellogg> q?
+17:16:36 <gkellogg> ack anatoly-scherbakov
+17:17:03 <gkellogg> anatoly-scherbakov: I found an issue that the spec doesn't mention, about how we handle YAML-LD embedded in HTML.
+17:17:37 <gkellogg> ... the extractAllScripts tag would likely extract not just the scripts but also all the documents from a stream.
+17:18:01 <gkellogg> ... If I for the repo and do some PRs, will it be merged into the current version of YAML-LD.
+17:19:35 <gkellogg> zakim, next agendum
+17:19:35 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+17:19:47 <dlehn> q+
+17:20:10 <gkellogg> ack dlehn
+17:20:37 <gkellogg> dlehn: I was supposed to move the spec from the DB repo to the json-ld org. It's hard to keep things working.
+17:21:44 <gkellogg> gkellogg: there is some dance to do on this.
+17:22:04 <gkellogg> dlehn: I'll work on this, but we're working on other related things too.
+17:23:38 <gkellogg> gkellogg: we should continue to develop the CBOR-LD spec in the CG.
+17:24:43 <gkellogg> ... I think the CG patent policy allows us to work in the CG.
+17:24:46 <gkellogg> q?
+17:26:32 <gkellogg> dlehn: Writing down the issues? We have a CBOR-LD spec and if we're going to try to mix work.
+17:29:28 <gkellogg> gkellogg: there are parts from YAML-LD, pchampin's JSON-LD in CBOR and DB's CBOR-LD spec to me mixed together.
+17:29:44 <gkellogg> q?
+17:29:54 <gkellogg> zakim, next agendum
+17:29:54 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:30:34 <niklasl> q+
+17:30:46 <gkellogg> ack niklasl
+17:30:55 <niklasl> https://github.com/w3c/json-ld-api/issues/581
+17:30:56 <gb> https://github.com/w3c/json-ld-api/issues/581 -> Issue 581 If processing mode is json-ld-1.0, IRI-like terms should still be allowed to differ from their expanded forms (by niklasl)
+17:31:16 <gkellogg> niklasl: A couple of sessions ago we had a discussion on some detail, that I'll need to find.
+17:31:58 <gkellogg> ... I was trying to find out why my test suite failed on something and thought I had missed something in the algorithm, but I found that the algorithm should behave differently if the algorithm is 1.0.
+17:32:16 <gkellogg> ... It works fine in 1.1, but we don't describe the 1.0 behavior.
+17:32:42 <gkellogg> ... To be correct, the algorithm should have a check that makes it behave differently in 1.0 processing mode.
+17:33:02 <gkellogg> ... It should not through an IRI processing error unless processing mode is 1.0.
+17:36:32 <gkellogg> gkellogg: could be considered an editorial change, as it doesn't affect 1.1 behavior.
+17:38:51 <gkellogg> pchampin: There may be some privilege loss that happens automatically.
+17:39:23 <gkellogg> niklasl: It's a "formal" issue, but doesn't affect any behavior in the wild I'm aware of.
+17:39:27 <gkellogg> q?
+17:39:36 <dlehn> q+
+17:40:47 <dlehn> https://github.com/w3c/json-ld-api/pull/582
+17:40:50 <gkellogg> dlehn: In the API there are a couple of things that have been added.
+17:40:57 <dlehn> https://github.com/w3c/json-ld-api/pull/585
+17:41:05 <gkellogg> w3c/json-ld-api#582
+17:41:06 <gb> https://github.com/w3c/json-ld-api/issues/582 -> Pull Request 582 Add protected graph container null context test. (by davidlehn) [test:missing-coverage]
+17:41:16 <gkellogg> w3c/json-ld-api#585
+17:41:16 <gb> https://github.com/w3c/json-ld-api/issues/585 -> Pull Request 585 Add graph container array tests. (by davidlehn) [test:missing-coverage]
+17:41:50 <gkellogg> dlehn: 582 is a case of missing test coverage.
+17:42:19 <gkellogg> ... 585 deals with missing coverge.
+17:44:10 <gkellogg> dlehn: In some cases, there is some spec work needed.
+17:46:48 <gkellogg> dlehn: In some cases, we need to determine what output should be.
+17:58:04 <gkellogg> zakim, next agendum
+17:58:04 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+17:47:29 <gkellogg> dlehn: Regarding the website, I've talked with bigbluehat about using a different infrastructure to manage the site.
+17:48:00 <gkellogg> ... Previous change requests were for the bootstrap version, but it broke stuff. I think the right way to go is to update the static-site generation softward.
+17:48:20 <TallTed> RRSAgent, draft minutes
+17:48:22 <RRSAgent> I have made the request to generate https://www.w3.org/2024/01/10-json-ld-minutes.html TallTed
+17:48:30 <niklasl_> niklasl_ has joined #json-ld
+17:48:42 <gkellogg> ... The PHP proxy doesn't work right, and should be hosted elsewhere. It's hard to mix both static and dynamiting things together.
+17:49:23 <gkellogg> ... Minutes take too much space, and we need to figure out how to manage.
+17:49:41 <gkellogg> ... Also, the playground needs work and needs to be done differently to be able to maintain it.
+17:49:43 <bigbluehat> q+
+17:49:45 <niklasl__> niklasl__ has joined #json-ld
+17:49:50 <gkellogg> ack dlehn
+17:50:22 <niklasl__> q+
+17:50:49 <gkellogg> ack bigbluehat
+17:51:09 <gkellogg> bigbluehat: When I worked on this over 7 years ago, we got partly converted to Jekyl, but got hung up.
+17:51:34 <gkellogg> ... I wanted to see if we can go through 11P on a case-by-case basis.
+17:52:04 <gkellogg> ... The biggest piece to take care of is the playground.
+17:52:52 <gkellogg> ... DB needs to spend time focusing on this.
+17:53:08 <gkellogg> ... It would be helpful for people to be able to review PRs.
+17:53:26 <gkellogg> q?
+17:53:31 <gkellogg> ack niklasl__
+17:54:04 <gkellogg> niklasl__: I can also give encouragement; I haves a bit more time to work on JavaScript related things and may be able to help with some of the work.
+17:54:16 <gkellogg> ... We have a lot of experience with related technologies.
+17:54:35 <bigbluehat> q+
+17:54:40 <gkellogg> ack bigbluehat
+17:54:52 <dlehn> q+
+17:55:09 <gkellogg> bigbluehat: Rewriting the playground would be hard, and we should try to iterate it, maybe with a package manager.
+17:55:29 <gkellogg> ... The playground could also go on a sub-domain, which could make it easier to host.
+17:55:44 <gkellogg> ... The only bit that's not static is a proxy for CORS.
+17:56:27 <gkellogg> ... The minutes could be moved somewhere as well.
+17:57:09 <gkellogg> ... We can't screw up things too much either.
+17:57:20 <gkellogg> q?
+17:57:26 <gkellogg> ack dlehn
+17:57:44 <gkellogg> dlehn: If people want to start on new Playground things we need to coordinate.
+17:59:08 <gkellogg> gkellogg next meeting on February 7th.
+18:00:10 <gkellogg> zakim, end meeting
+18:00:10 <Zakim> As of this point the attendees have been gkellogg, pchampin, TallTed, kherndon, bigbluehat, niklasl, anatoly-scherbakov, dlehn
+18:00:12 <Zakim> RRSAgent, please draft minutes
