@@ -1,0 +1,127 @@
+17:00:51 <RRSAgent> RRSAgent has joined #json-ld
+17:00:55 <RRSAgent> logging to https://www.w3.org/2024/02/07-json-ld-irc
+17:00:55 <Zakim> RRSAgent, make logs Public
+17:00:56 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+17:00:59 <gkellogg> meeting: JSON-LD CG
+17:01:02 <dlehn> present+
+17:01:22 <gkellogg> agenda: https://www.w3.org/events/meetings/398465c7-3787-40df-856a-434a438d9f05/20240207T120000/
+17:01:23 <agendabot> clear agenda
+17:01:23 <agendabot> agenda+ Announcements and Introductions
+17:01:23 <agendabot> agenda+ YAML-LD
+17:01:23 <agendabot> agenda+ CBOR-LD
+17:01:23 <agendabot> agenda+ JSON-LD Issue Discussion
+17:01:25 <agendabot> agenda+ Open Discussion
+17:01:28 <agendabot> agenda+ Next call
+17:01:35 <gkellogg> zakim, next agendum
+17:01:35 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:02:01 <bigbluehat> bigbluehat has joined #json-ld
+17:02:08 <gkellogg> chair: gkellogg
+17:02:11 <gkellogg> scribe+
+17:02:16 <gkellogg> present+
+17:02:40 <bigbluehat> present+
+17:02:41 <gkellogg> zakim, close item 1
+17:02:41 <Zakim> agendum 1, Announcements and Introductions, closed
+17:02:43 <Zakim> I see 5 items remaining on the agenda; the next one is
+17:02:43 <Zakim> 2. YAML-LD [from agendabot]
+17:02:45 <gkellogg> zakim, next item
+17:02:45 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+17:02:54 <anatoly-scherbakov> q+
+17:03:01 <gkellogg> ack anatoly-scherbakov
+17:03:18 <gkellogg> anatoly-scherbakov: --shares screen--
+17:03:33 <niklasl> niklasl has joined #json-ld
+17:03:38 <niklasl> present+
+17:04:14 <gkellogg> anatoly-scherbakov: I created issue json-ld/yaml-ld#131 for script tags in HTML.
+17:04:15 <gb> https://github.com/json-ld/yaml-ld/issues/131 -> Issue 131 YAML under `<script>` HTML tag unsupported in the spec (by anatoly-scherbakov) [bug]
+17:04:42 <gkellogg> ... I also created json-ld/yaml-ld#132, although PR Preview is having problems.
+17:04:43 <gb> https://github.com/json-ld/yaml-ld/pull/132 -> Pull Request 132 (closes #131) Embed YAML-LD into HTML `<script>` tag (by anatoly-scherbakov) [blocked-by-recharter]
+17:05:26 <gkellogg> anatoly-scherbakov: changes involve spec changes and some tests.
+17:05:42 <gkellogg> ... We need to un-indent the code block to process a YAML stream.
+17:06:22 <gkellogg> ... I have a Python implementation, that also runs JSON-LD tests, as it's a superset of JSON.
+17:07:56 <gkellogg> ... This PR can't be merged due to the status of work in the WG. There is a charter issue that needs to be resolved.
+17:09:01 <gkellogg> subtopic: updated WG charter
+17:09:21 <gkellogg> bigbluehat: We haven't done any work on a charter.
+17:10:32 <gkellogg> gkellogg: current charter only allows work on notes, not rec-track.
+17:10:53 <bigbluehat> plan is a re-charter of https://www.w3.org/2023/01/json-ld-wg-charter.html
+17:11:25 <gkellogg> bigbluehat: Needs to be voted on by membership.
+17:11:53 <TallTed> q+
+17:12:20 <gkellogg> ... I think we can continue to work on the document, but there are different patent policy considerations
+17:12:22 <gkellogg> ack TallTed
+17:12:41 <gkellogg> TallTed: We can vote that the document is a final report (which we have done).
+17:13:00 <gkellogg> ... Theoretically, it should stay static. When the WG picks it up, we should stop work.
+17:13:46 <anatoly-scherbakov> q+
+17:14:40 <gkellogg> bigbluehat: I think the work fell through the cracks with the WG.
+17:16:03 <gkellogg> bigbluehat: We'll do a WG meeting in four weeks on March 6th.
+17:16:39 <gkellogg> bigbluehat: I was trying to find out where the charter lives.
+17:18:30 <gkellogg> https://github.com/json-ld/charter
+17:19:27 <bigbluehat> q+
+17:19:29 <gkellogg> anatoly-scherbakov: What is the WG process if re-chartered? Does the WG copy a snapshot?
+17:20:42 <bigbluehat> q-
+17:20:45 <gkellogg> gkellogg: typically it is just merged over.
+17:21:26 <gkellogg> anatoly-scherbakov: Se, we can make PRs and merge later.
+17:21:34 <gkellogg> zakim, next item
+17:21:34 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+17:21:38 <gkellogg> q?
+17:21:40 <anatoly-scherbakov> q-
+17:21:41 <bigbluehat> s/Se/So
+17:21:42 <gkellogg> ack anatoly-scherbakov
+17:21:46 <gkellogg> zakim, next item
+17:21:46 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+17:22:17 <bigbluehat> q+
+17:22:19 <gkellogg> dlehn: I haven't done any work on the spec.
+17:22:32 <bigbluehat> https://github.com/w3c/json-ld-cbor/
+17:23:09 <gkellogg> gkellogg: we probably need to publish a final report.
+17:23:12 <bigbluehat> https://github.com/json-ld/cbor-ld-spec
+17:23:21 <bigbluehat> q+
+17:23:44 <niklasl> The https://github.com/json-ld/charter repo is inactive, and this is the current charter (mentions YAML and CBOR)? https://www.w3.org/2023/01/json-ld-wg-charter.html
+17:25:38 <gkellogg> gkellogg: maybe could be published as a draft report
+17:25:54 <gkellogg> ack bigbluehat
+17:26:05 <gkellogg> bigbluehat: How many links do we want to publish?
+17:26:19 <gkellogg> ... Do we want to issue both as notes?
+17:26:48 <gkellogg> gkellogg: I'd say list both as draft reports.
+17:27:05 <gkellogg> bigbluehat: Maybe should move PA's version to the json-ld org, so it's not confusing.
+17:27:29 <gkellogg> action: pchampin to move JSON-LD in CBOR draft to json-ld org.
+17:27:36 <gb> Sorry, I don't know what repository to use.
+17:28:05 <bigbluehat> repo to pchampin's spec https://github.com/w3c/json-ld-cbor/
+17:28:47 <gkellogg> gkellogg: CG final report for YAML-LD: https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/
+17:29:38 <gkellogg> bigbluehat: Question is do they need to be finalized for the WG to take them up?
+17:31:23 <bigbluehat> implementation https://github.com/digitalbazaar/cborld
+17:31:58 <gkellogg> gkellogg: it would be good to have issues added to CBOR-LD to indicate needed changes to match implementations.
+17:32:28 <gkellogg> bigbluehat: It takes some time to make those updates, and time is short. I referenced a link to the implementation.
+17:35:14 <dlehn> q+
+17:35:20 <gkellogg> gkellogg: I'd like to see something with a bit more of a summary for how implementation diverges from spec.
+17:35:36 <gkellogg> ack dlehn
+17:36:23 <gkellogg> dlehn: For the current stuff, before we tag it, I want to double-check to make sure URLs are up to date.
+17:38:31 <gkellogg> ... Not sure if people are familiar with how the spec works.
+17:40:48 <gkellogg> gkellogg: editorial changes, including editors notes, should be fine. normative changes may need more agreement.
+17:41:02 <gkellogg> zakim, next agendum
+17:41:02 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:41:15 <gkellogg> https://github.com/orgs/w3c/projects/4
+17:42:36 <gkellogg> dlehn: Do we need a process for merging tests.
+17:44:18 <gkellogg> For example w3c/json-ld-api#591
+17:44:19 <gb> https://github.com/w3c/json-ld-api/pull/591 -> Pull Request 591 Add test for `@context` redefinition. (by davidlehn) [test:missing-coverage]
+17:44:36 <gkellogg> dlehn: Looked into this, and it looked like an error.
+17:45:22 <gkellogg> ... It was a bug in JSON-LD where it was too generous.
+17:45:41 <gkellogg> ... I think our implementation would have ultimately failed.
+17:48:25 <niklasl> https://w3c.github.io/json-ld-api/#algorithm-0 (step 4 and 5)
+17:49:28 <gkellogg> dlehn: When we don't have tests it can be hard to tell.
+17:50:51 <gkellogg> gkellogg: I think its an issue that we don't specifically linked from normative statements to tests.
+17:50:54 <niklasl> +1 for test coverage for each normative statement
+17:51:30 <niklasl> and +1 for predictable naming of those ...
+17:51:57 <gkellogg> q?
+17:52:13 <gkellogg> gkellogg: not too difficult, but time consuming.
+17:52:38 <gkellogg> dlehn: On the same topic, if all implementations did coverage reports, that would be useful.
+17:54:24 <gkellogg> gkellogg: I would say that test changes that have developer approval can be merged, as long as they don't require a normative change to the spec.
+17:57:00 <gkellogg> action: dlehn to tag reviewers on tests to be considered for merging.
+17:57:01 <gb> Sorry, I don't know what repository to use.
+17:58:17 <gkellogg> gkellogg: also work should go forward on the charter where people can contribute.
+17:58:38 <gkellogg> zakim, next agendum
+17:58:38 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+17:58:57 <gkellogg> gkellogg: meet again on February 21.
+18:05:45 <gkellogg> zakim, end meeting
+18:05:45 <Zakim> As of this point the attendees have been dlehn, gkellogg, bigbluehat, niklasl
+18:05:47 <Zakim> RRSAgent, please draft minutes
+18:05:48 <RRSAgent> I have made the request to generate https://www.w3.org/2024/02/07-json-ld-minutes.html Zakim
+18:05:55 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+18:05:55 <Zakim> Zakim has left #json-ld
+18:06:24 <gkellogg> rrsagent, pointer
+18:06:24 <RRSAgent> See https://www.w3.org/2024/02/07-json-ld-irc#T18-06-24
