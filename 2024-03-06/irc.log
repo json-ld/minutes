@@ -1,0 +1,197 @@
+17:00:43 <RRSAgent> RRSAgent has joined #json-ld
+17:00:47 <RRSAgent> logging to https://www.w3.org/2024/03/06-json-ld-irc
+17:00:47 <Zakim> RRSAgent, make logs Public
+17:00:48 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+17:00:54 <gkellogg> meeting: JSON-LD CG
+17:01:11 <bigbluehat> present+
+17:01:12 <gkellogg> agenda: https://www.w3.org/events/meetings/398465c7-3787-40df-856a-434a438d9f05/20240306T120000/
+17:01:12 <agendabot> clear agenda
+17:01:12 <agendabot> agenda+ Announcements and Introductions
+17:01:12 <agendabot> agenda+ YAML-LD
+17:01:12 <agendabot> agenda+ CBOR-LD
+17:01:12 <agendabot> agenda+ JSON-LD Issue Discussion
+17:01:15 <agendabot> agenda+ Open Discussion
+17:01:17 <agendabot> agenda+ Next call
+17:01:21 <gkellogg> chair: gkellogg
+17:01:30 <gkellogg> scribe+
+17:01:30 <gkellogg> present+
+17:01:38 <gkellogg> zakim, next agendum
+17:01:38 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:01:51 <pchampin> present+
+17:01:58 <dlehn1> present+
+17:02:09 <niklasl> present+
+17:02:10 <gkellogg> rrsagent, make logs public
+17:02:22 <bigbluehat> scribe+
+17:02:40 <gkellogg> zakim, close item 1
+17:02:40 <Zakim> agendum 1, Announcements and Introductions, closed
+17:02:41 <Zakim> I see 5 items remaining on the agenda; the next one is
+17:02:41 <Zakim> 2. YAML-LD [from agendabot]
+17:03:37 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+17:02:46 <bigbluehat> gkellogg: any announcements?
+17:03:19 <bigbluehat> gkellogg: YAML-LD
+17:03:21 <gkellogg> gkellogg: YAML Media Type is now RFC 9512 https://www.rfc-editor.org/rfc/rfc9512.html
+17:03:37 <gkellogg> zakim, next item
+17:03:40 <bigbluehat> ... anything to add?
+17:03:46 <gkellogg> zakim, close item 2
+17:03:46 <Zakim> agendum 2, YAML-LD, closed
+17:03:47 <Zakim> I see 4 items remaining on the agenda; the next one is
+17:03:47 <Zakim> 3. CBOR-LD [from agendabot]
+17:09:01 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+17:04:39 <pchampin> q+
+17:04:40 <bigbluehat> gkellogg: anything to discuss about CBOR-LD?
+17:04:45 <bigbluehat> dlehn: nothing to add here
+17:04:51 <gkellogg> dlehn: Haven't spent much time on CBOR lately.
+17:04:57 <bigbluehat> ... we're doing some stuff, but nothing formal to discuss
+17:05:18 <bigbluehat> gkellogg: we did move CBOR-LD v1.0 to the CG, and we need issues added to it
+17:05:22 <gkellogg> gkellogg: It's been moved to the json-ld org, and needs issues added.
+17:05:28 <bigbluehat> dlehn: that's on my list, to help get things started
+17:05:33 <gkellogg> q?
+17:05:36 <gkellogg> ack pchampin
+17:05:43 <pchampin> https://json-ld.github.io/cbor-ld-spec/
+17:06:06 <gkellogg> pchampin: CBOR-LD was moved to the json-ld repo, and it identifies itself as an W3C editor's draft.
+17:06:17 <dlehn> q+
+17:06:30 <bigbluehat> gkellogg: we talked about advertising it as a draft
+17:06:39 <bigbluehat> pchampin: there are two types of CG reports
+17:06:41 <gkellogg> ... We should update the document status as to a CG-DRAFT.
+17:06:45 <bigbluehat> ... it should be a draft CG report
+17:07:06 <bigbluehat> ... it currently smells like rec-track
+17:07:18 <gkellogg> ... Currently, Editor's Draft implies rec-track ED, which is premature.
+17:07:19 <bigbluehat> gkellogg: agreed. it's premature
+17:07:45 <gkellogg> ... Currently, this would imply W3C endorsement.
+17:08:01 <gkellogg> dlehn: We need to clean that up, and there are some DB things in it as well.
+17:08:14 <gkellogg> pchampin: I can make a quick PR.
+17:08:51 <gkellogg> gkellogg: Also, pchampin should add some issues to reconcile the two drafts.
+17:09:01 <gkellogg> zakim, next item
+17:09:15 <gkellogg> zakim, close item 3
+17:09:15 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+17:09:19 <gkellogg> q?
+17:09:26 <gkellogg> ack dlehn
+17:09:30 <gkellogg> zakim, close item 3
+17:09:31 <Zakim> agendum 3, CBOR-LD, closed
+17:09:32 <Zakim> I see 3 items remaining on the agenda; the next one is
+17:09:32 <Zakim> 4. JSON-LD Issue Discussion [from agendabot]
+17:09:43 <gkellogg> zakim, next item
+17:09:43 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:10:11 <gkellogg> https://github.com/orgs/w3c/projects/4
+17:10:38 <gkellogg> subtopic: open PRs
+17:11:21 <gkellogg> PR json-ld-api#593
+17:11:21 <gb> /issues/593 -> #593
+17:11:37 <gkellogg> PR w3c/json-ld-api#593
+17:11:37 <gb> https://github.com/w3c/json-ld-api/pull/593 -> Pull Request 593 Test protected flag retained during redefinition. (by davidlehn) [test:missing-coverage]
+17:11:48 <dlehn> q+
+17:11:57 <gkellogg> ack dlehn
+17:12:16 <gkellogg> dlehn: I don't know the status of implementations, and Ruby fails it.
+17:13:16 <gkellogg> gkellogg: suggest merging.
+17:13:40 <gkellogg> PR w3c/json-ld-api#591
+17:13:40 <gb> https://github.com/w3c/json-ld-api/pull/591 -> Pull Request 591 Add test for `@context` redefinition. (by davidlehn) [test:missing-coverage]
+17:14:34 <gkellogg> niklasl: Looks good, we can merge.
+17:15:34 <gkellogg> PR w3c/json-ld-api#158
+17:15:35 <gb> https://github.com/w3c/json-ld-api/pull/158 -> MERGED Pull Request 158 Add tests to check for keyword redefinition allowing `@protected`. (by gkellogg)
+17:15:59 <bigbluehat> q+
+17:16:15 <gkellogg> PR w3c/json-ld-framing#158
+17:16:15 <gb> https://github.com/w3c/json-ld-framing/pull/158 -> Pull Request 158 Add test with empty frame and empty context. (by davidlehn) [test:missing-coverage]
+17:17:14 <gkellogg> niklasl: For the record, PR 593 looks good.
+17:17:31 <gkellogg> PR w3c/json-ld-api#585
+17:17:32 <gb> https://github.com/w3c/json-ld-api/pull/585 -> Pull Request 585 Add graph container array tests. (by davidlehn) [test:missing-coverage]
+17:20:06 <gkellogg> dlehn: Do we have other tests that have a property expanding to an empty array.
+17:21:47 <gkellogg> ... It doesn't change the N-Quads output, but there may be some ambiguity on the expected results.
+17:22:24 <gkellogg> gkellogg: it might be a warning condition if the result contains a property with no values.
+17:23:50 <gkellogg> subtopic Discuss-Call
+17:24:11 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:24:55 <gkellogg> Issue w3c/json-ld-api#586
+17:24:56 <gb> https://github.com/w3c/json-ld-api/issues/586 -> Issue 586 Meaning of "ordered by" in Node Map Generation step 6.12 (by danpape) [spec:substantive] [needs discussion] [ErratumRaised]
+17:25:07 <anatoly-scherbakov> present+
+17:26:45 <TallTed> present+
+17:26:48 <TallTed> Zakim, who's here?
+17:26:48 <Zakim> Present: bigbluehat, gkellogg, pchampin, dlehn, niklasl, anatoly-scherbakov, TallTed
+17:26:50 <Zakim> On IRC I see anatoly-scherbakov, RRSAgent, niklasl, Zakim, gkellogg, bigbluehat, TallTed, dlehn, Teukka, Tpt, pchampin, csarven, gb, sknebel, EfeEnajero, imlostlmao, boneslady,
+17:26:50 <Zakim> ... JordonHughes, Github, SintayewGashaw, Timothe, jmueller, DanielHernndez, sfloradon, n0nakamura, matrix638, joraboi445, gonzu_15, cel[h], dlongley, puck, hadleybeeman, raboof_,
+17:26:50 <Zakim> ... agendabot
+17:27:08 <gkellogg> dlehn: Do we have tests for this?
+17:27:38 <pchampin> q+
+17:27:48 <gkellogg> ack pchampin
+17:28:29 <gkellogg> pchampin: Codepoint order is the same as lexicographical order in UTF-8.
+17:28:38 <gkellogg> ... I wanted to be sure Rust was doing the same thing.
+17:29:02 <gkellogg> ... There may be an issue in UTF-16.
+17:29:17 <gkellogg> ... Internally, Javascript uses UTF-16.
+17:30:00 <gkellogg> dlehn: I think there was a test for this.
+17:30:48 <gkellogg> gkellogg: I think saying that "ordered by" is in Codeppoint order is consistent with the rest of the spec, and consistent with current test results.
+17:31:28 <gkellogg> ... That would make the change editorial, not substantive.
+17:31:56 <gkellogg> Issue w3c/json-ld-syntax#425
+17:31:56 <gb> https://github.com/w3c/json-ld-syntax/issues/425 -> Issue 425 how to "retype" rdf:JSON to geo:geoJSONLiteral? (by VladimirAlexiev)
+17:32:46 <niklasl> q+
+17:33:02 <bigbluehat> q-
+17:33:08 <gkellogg> ack niklasl
+17:34:00 <gkellogg> niklasl: No strong feelings about this, but my reaction is that I've considered something like this and could be important to do, but not in JSON-LD.
+17:34:28 <gkellogg> ... Whatever we might come up with could have some repercussions on how to deal with literals in RDF.
+17:36:00 <gkellogg> gkellogg: I think this is narrowly defined on specifying the datatype of a JSON literal.
+17:36:26 <gkellogg> niklasl: If properties are intrinsic in the data-space of the datatype, you could think of what it entails.
+17:36:37 <dlehn> q+
+17:36:44 <gkellogg> ... It reminds me of the direction thing for language literals.
+17:37:04 <gkellogg> ... My hope would be that it could serve a general purpose for RDF usage.
+17:37:07 <gkellogg> ack dlehn
+17:37:23 <pchampin> q+
+17:37:32 <gkellogg> dlehn: When I looked at this, I saw it in the RDF domain. Could it be done at the application level?
+17:37:40 <gkellogg> ... Is it a general solution?
+17:39:14 <bigbluehat> q+
+17:39:23 <gkellogg> ack pchampin
+17:39:59 <gkellogg> pchampin: What you said about the asymmetry is interesting. There are corner cases where JSON-LD fails to do proper coercion.
+17:40:09 <pchampin> "p": 3.14
+17:40:09 <gkellogg> ... For example JSON numbers.
+17:40:23 <pchampin> "314e-2"^^xsd:decimal
+17:40:42 <gkellogg> ... Things are not as smooth as you describe.
+17:41:01 <dlehn> q+
+17:41:06 <gkellogg> ... The only robust way to get a literal of any time is to use strings. You get into trouble using numbers, and you could using JSON values, as well.
+17:41:19 <gkellogg> ... Not sure it's a bug; I'd lean towards application level.
+17:41:26 <gkellogg> q?
+17:41:30 <gkellogg> ack bigbluehat
+17:41:39 <TallTed> s/any time/any type/
+17:41:58 <niklasl> q+
+17:42:05 <gkellogg> bigbluehat: I think this is severe scope creep; if we add geoJSONliteral, it gets nuts.
+17:42:57 <gkellogg> ... We could get data peppered with all sorts of different kinds of literals. Ultimately, if it's a string, you can parse it into JSON.
+17:43:35 <gkellogg> ... Better stated using properties within the resulting graph, than by expecting that the content of the literal has some additional meaning.
+17:44:13 <gkellogg> gkellogg: TAG things polyglot formats are an anti-pattern.
+17:44:53 <gkellogg> bigbluehat: This could lead to a proliferation of datatypes that require special knowledge to understand.
+17:45:16 <TallTed> s/things polyglot/thinks polyglot/
+17:45:22 <gkellogg> gkellogg: propose closing.
+17:45:23 <gkellogg> q?
+17:45:45 <pchampin> q+
+17:45:48 <gkellogg> dlehn: This may beyond the scope of the group, but it feels like structured suffixes of media-types.
+17:46:07 <gkellogg> ... Not sure how to represent that in RDF.
+17:46:24 <pchampin> geo:geoJSONLiteral rdfs:subClassOf rdf:JSON
+17:46:24 <gkellogg> TallTed: It would be a sub-property.
+17:48:22 <TallTed> "blah"^^https://www.w3.org/ns/iana/media-types/application/geo+json
+17:48:40 <bigbluehat> q+
+17:48:41 <gkellogg> gkellogg: You would need to parse a string value and parse to JSON to work with it in the application layer.
+17:48:45 <bigbluehat> ack dlehn
+17:48:46 <pchampin> q-
+17:48:46 <gkellogg> q
+17:48:52 <gkellogg> ack niklasl
+17:49:35 <gkellogg> niklasl: I agree with the use cases and pragmatic within the JSON-LD context, but it opens up several strange things.
+17:49:48 <gkellogg> ... The real solution is to use RDF to describe things with properties.
+17:50:01 <TallTed> or probably better ... "blah"^^https://www.iana.org/assignments/media-types/application/geo+json
+17:50:13 <gkellogg> ... In practice we use structured values. Theory and practice often collide.
+17:50:40 <gkellogg> ... Not convinced to close it, but can see why we might want to defer to the application layer.
+17:50:49 <gkellogg> q?
+17:50:53 <gkellogg> ack bigbluehat
+17:51:14 <gkellogg> bigbluehat: It's a heavy topic that we should continue to discuss. I agree it should be in the application layer.
+17:51:47 <gkellogg> ... The reason we did this is because of query considerations, and a query engine might be expected to introspect these values.
+17:52:16 <gkellogg> ... From GeoSPARQL, you want to be able to find GeoJSON literals.
+17:52:36 <gkellogg> ... This requires that the application do more work of the database.
+17:53:08 <gkellogg> ... This requires vocabularies to describe the relationship between GeoJSON and RDF.
+17:53:44 <gkellogg> ... What's being asked for is a way of doing magic-string labeling, which is what media-types are.
+17:54:08 <gkellogg> ... A better solution would be to figure out how to bring in media-types and then we could leverage this.
+17:54:36 <gkellogg> ... But, I don't just want to add new terms to do a surface solution that doesn't really solve the problem.
+17:55:29 <gkellogg> zakim, next item
+17:55:29 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+17:55:44 <gkellogg> gkellogg: perhaps next meeting is for the WG to discuss the charter.
+17:55:44 <pchampin> https://github.com/json-ld/json-ld-wg-charter/pull/1
+17:55:44 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/1 -> Pull Request 1 add REC-track deliverables CBOR-LD and YAML-LD (by pchampin)
+17:56:07 <gkellogg> pchampin: The PR against the current charter is for things we want to add.
+17:57:05 <gkellogg> Skip next CG meeting, and April 3 will be a WG meeting.
+17:57:48 <gkellogg> zakim, end meeting
+17:57:48 <Zakim> As of this point the attendees have been bigbluehat, gkellogg, pchampin, dlehn, niklasl, anatoly-scherbakov, TallTed
+17:57:50 <Zakim> RRSAgent, please draft minutes
+17:57:51 <RRSAgent> I have made the request to generate https://www.w3.org/2024/03/06-json-ld-minutes.html Zakim
+17:57:58 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:57:58 <Zakim> Zakim has left #json-ld
