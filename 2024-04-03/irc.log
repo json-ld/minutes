@@ -1,0 +1,138 @@
+17:00:43 <gkellogg> meeting: JSON-LD WG
+17:00:43 <pchampin> present+
+17:00:43 <gkellogg> present+
+17:00:43 <pchampin> scribe+
+17:00:43 <manu> scribe+
+17:00:43 <bigbluehat> present+
+17:00:43 <niklasl> present+
+17:00:43 <TallTed> present+
+17:00:43 <manu> present+
+17:00:43 <dlehn> present+
+17:00:43 <dlongley> present+
+17:00:43 <gkellogg> agenda: https://www.w3.org/events/meetings/398465c7-3787-40df-856a-434a438d9f05/20240403T120000/
+17:00:43 <gkellogg> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: Most focus is on rechartering.
+17:00:43 <gkellogg> manu: There is a discussion around suffixes and media types (for 5 years), which got kicked off with the JSON-LD media type.
+17:00:43 <gkellogg> Summary of Media Types discussion and Structured Suffixes: https://github.com/w3c/vc-data-model/issues/1462#issuecomment-2016609877
+17:00:43 <gkellogg> https://github.com/w3c/vc-data-model/issues/1462 -> Issue 1462 Revisit Verifiable Credential media types (by brentzundel) [normative] [CR1]
+17:00:43 <gkellogg> manu: Suggestion was to use application/ld+json. It was picked up by other groups, which could lead to applcation/did+ld+json, but ran into problems when registering.
+17:00:43 <gkellogg> ... At the last IEEF WG, it was suggested that suffixes were a bad idea, pointing to JSON-LD as bad example.
+17:00:43 <manu> Thoughts on suffixes, single and multiple: https://mailarchive.ietf.org/arch/msg/media-types/iWc8TLcWOyO0jyqeiuF9VCZClIs/
+17:00:43 <gkellogg> ... This is pulled in some emails by TAG members, but that's not an official possition.
+17:00:43 <gkellogg> ... It suggests getting rid of all suffixes. There's also a move to support a single '+' but no more.
+17:00:43 <gkellogg> ... This group doesn't need to decide that, but we may not want to go forward with structured suffixes.
+17:00:43 <gkellogg> ... There are other groups, e.g. image/xxx+gzip
+17:00:43 <gkellogg> ... This could go on for a long time still, has been going on for 5+ years.
+17:00:43 <gkellogg> ... Please engage in the discussion at IETF.
+17:00:43 <dlongley> https://github.com/ietf-wg-mediaman/suffixes/issues <-- github issue tracker for this
+17:00:43 <gkellogg> ... For W3C, the polyglot issue is not being engaged properly.
+17:00:43 <gkellogg> ... TAG needs input from outside groups.
+17:00:43 <gkellogg> pchampin: You say JSON-LD is cited as what to avoid, is that the ld+json, or the fact that that is used as a suffix.
+17:00:43 <dlongley> it seems "polyglot" is a new term for labeling things people don't like with a vague definition, and should perhaps just be avoided.
+17:00:43 <gkellogg> manu: It's all of it, basically unilaterally claiming JSON-LD is bad.
+17:00:43 <gkellogg> ... I disagree with that, as there are plenty of examples of polyglot (HTML + JS).
+17:00:43 <gkellogg> ... That plays into the structured-suffix discussion, which are effectively polyglot. There are about 400 such media types.
+17:00:43 <dlongley> it seems this would need to be the advice: don't create a new media type for any particular expression of data in JSON or XML -- or else you'll also have to create and maintain your own editors to author it... just use "application/json" or "application/xml" instead.
+17:00:43 <gkellogg> ... THere's arguments against JSON-LD, other media types, and the use of multiple + signs in JSON-LD related formats.
+17:00:43 <gkellogg> pchampin: I checked with Yves who is at the TAG meeting next week.
+17:00:43 <gkellogg> bigbluehat: There were a few concrete things in polyglot and some of the suffix issues.
+17:00:43 <gkellogg> ... One thing is ignoring polyglot, what are the iterative combinatorial values of multiple suffixes.
+17:00:43 <pchampin> +1 the term "polyglot" is itself ambiguous and therefore misleading
+17:00:43 <gkellogg> ... With JSON-LD, application/json is rather meaningless. ld+json and schema+json point to there being an additional datamodel that comes with that particular instantiation of JSON.
+17:00:43 <gkellogg> ... THe argument is that it should be stated inside the body, rather than in the media type.
+17:00:43 <gkellogg> ... We should be pointing out why this is a good thing.
+17:00:43 <gkellogg> ... There was pushback about the context URL being forgotten about. Some WGs have said that `@context` must be in the package to be JSON-LD.
+17:00:43 <gkellogg> ... The big open question is the third tier with multiple suffixes, what value does that have?
+17:00:43 <gkellogg> ... We need to make clear thoughts about the third layer.
+17:00:43 <gkellogg> pchampin: +1 to what you said about "polyglot" being confusing.
+17:00:43 <gkellogg> ... The difference is that formats are interpreted differently in different environments.
+17:00:43 <gkellogg> ... JSON-LD inverts this so that the formats are processed the same everywhere.
+17:00:43 <gkellogg> manu: As a result of the discussion being portrayed as a TAG decision, the VCWG is at a point that it's not clear when it will be resolved, and we can't wait. We may use application/vc and be done with it.
+17:00:43 <gkellogg> ... In the future, we could say either that or application/vc+ld+json.
+17:00:43 <gkellogg> ... Then we can do the less technically valid solution first. I would expect a new JSON-LD WG to not try to register a structured suffix.
+17:00:43 <gkellogg> ... We may want to consider application/json-ld with the structured suffix +json-ld.
+17:00:43 <gkellogg> ... That throughs more options into the mix.
+17:00:43 <Zakim> agendum 2 -- Rechartering Process -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: Everything on the agenda are possible items to put in the charter.
+17:00:43 <bigbluehat> https://github.com/json-ld/charter
+17:00:43 <gkellogg> pchampin: Not much to report on updating the charter repo. I have a PR for updating it for CBOR and YAML.
+17:00:43 <pchampin> https://github.com/json-ld/json-ld-wg-charter
+17:00:43 <gkellogg> pchampin: We're supposed to put a new charter in the charter drafts repo. I don't like having the discussion in that repo, but working on a fork makes it easier to integrate.
+17:00:43 <bigbluehat> pchampin's PR https://github.com/json-ld/json-ld-wg-charter/pull/1
+17:00:43 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/1 -> Pull Request 1 add REC-track deliverables CBOR-LD and YAML-LD (by pchampin)
+17:00:43 <gkellogg> ... I created the repo as a fork from charter-drafts to pick up all the boilerplate.
+17:00:43 <gkellogg> ... Once we're done, we can do a PR into w3c/charter-drafts repo.
+17:00:43 <bigbluehat> https://json-ld.github.io/json-ld-wg-charter/
+17:00:43 <gkellogg> ... I tweaked GH Pages to only show our charter on our fork.
+17:00:43 <gkellogg> ... Please review the PR and make suggestions.
+17:00:43 <Zakim> agendum 3 -- Specs to include in the new WG -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: We've discussed YAML-LD and varioud CBOR-LD specs
+17:00:43 <Zakim> agendum 4 -- a. YAML-LD -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: We have a nearly ready CG report on YAML-LD, which would go into the WG as an initial version of the spec.
+17:00:43 <gkellogg> gkellogg: what to do about ongoing work on YAML-LD?
+17:00:43 <manu> pchampin: The WG hasn't taken it up yet, so CG can continue, can't it?
+17:00:43 <manu> gkellogg: Maybe WG takes up the CG drafts, whatever the state of those happen to be at the time?
+17:00:43 <manu> pchampin: Working Group adopts final CG report or latest Editor's Draft the CG might have?
+17:00:43 <gkellogg> pchampin: I think we might tweak the text to allow the group to adopt the final report or something newer. Then, we could continue CG work on YAML-LD.
+17:00:43 <gkellogg> bigbluehat: We can continue to work on this in the CG.
+17:00:43 <gkellogg> manu: I know the charter includes work on best practices. There are a number of things that have come up in VCWG about static context files. In the VC case, there are security concerns where we provide hashes of the contents.
+17:00:43 <gkellogg> ... Should we provide update to the BP doc in the charter?
+17:00:43 <manu> gkellogg: The WG has a number of non-REC-track documents. Group should be chartered to advance those documents.
+17:00:43 <manu> gkellogg: There is a vocabulary repo, we don't want to be in a position where we can't do those because we didn't call them out explicitly.
+17:00:43 <gkellogg> bigbluehat: Not a concern that we can't do it, but by listing it it can get WG focus.
+17:00:43 <Zakim> agendum 5 -- b. CBOR-LD -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: There are a couple of specs in flight that aim towards a new WG publication.
+17:00:43 <gkellogg> ... The CG doesn't have final reports for CBOR-LD.
+17:00:43 <gkellogg> ... We can point to the two different notes for prior art.
+17:00:43 <manu> +1 to what bigbluehat said
+17:00:43 <gkellogg> gkellogg: both CBOR-LD and YAML-LD have polyglot considerations.
+17:00:43 <gkellogg> manu: the CBOR-LD spec is in bad shape. Should we also include implementations?
+17:00:43 <dlongley> it seems to me that anyone who tries to use JSON or XML for anything other than drawing curly braces or angled brackets has a "polyglot" problem...
+17:00:43 <gkellogg> ... Do charters require an explainer? We could put links to implementations in the explainer. Otherwise, the spec might not look mature enough
+17:00:43 <gkellogg> ... The experience on the deployed implementations is relevant.
+17:00:43 <gkellogg> bigbluehat: This is technically a re-charter, so an explainer might not be necessary.
+17:00:43 <gkellogg> ... as a Maintenance Group we're not chartered to do new work, but a new charter can allow that.
+17:00:43 <gkellogg> ... There was a discussion in a previous group about renaming to something broader, but we should probably avoid that.
+17:00:43 <gkellogg> ... JSON-LD has good brand value.
+17:00:43 <gkellogg> pchampin: I agree that we don't need to explain what JSON-LD is, however, we know the concept of YAML-LD raises some questions, so it wouldn't hurt to have some form of explainer.
+17:00:43 <gkellogg> ... This is not strictly-speaking JSON-LD, so we might need to explain why this is useful.
+17:00:43 <gkellogg> bigbluehat: Agreed. We need to explain why it is still the JSON-LD working group even while we're taking on new formats.
+17:00:43 <gkellogg> ... This is not the "Linked Data" WG, there are other efforts which are quite a bit different.
+17:00:43 <pchampin> gkellogg: interestingly, this is another subhierarchy of polyglots
+17:00:43 <pchampin> ... in a way, JSON, YAML, CBOR share a common meta-model
+17:00:43 <pchampin> ... We want to share these commonalities and explore these design patterns.
+17:00:43 <pchampin> gkellogg: the RDF-star WG is doing general updates to the RDF data models,
+17:00:43 <pchampin> ... and extending it to ease the support of property graphs use cases.
+17:00:43 <pchampin> ... Based on syntactic sugar (not unlike lists) which generate a bunch of statements.
+17:00:43 <pchampin> ... pchampin, and I, and to some extend niklasl, have done some work on extending JSON-LD to support triple-terms.
+17:00:43 <pchampin> ... This document should be adopted for being integrating in a future JSON-LD 1.2.
+17:00:43 <gkellogg> bigbluehat: Is JSON-LD-star a discrete work-item, or is it just JSON-LD 1.2
+17:00:43 <pchampin> gkellogg: we need to liaise with the RDF-star WG, and do something based on RDF 1.2.
+17:00:43 <Zakim> agendum 7 -- c. JSON-LD 1.2 -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: We have errata, open issues and PRs, and synchronization with RDF-core when it is updated.
+17:00:43 <gkellogg> ... There are other issues which were previously deferred?
+17:00:43 <gkellogg> gkellogg: also issues from json-ld.org repo.
+17:00:43 <Zakim> agendum 8 -- Open Discussion -- taken up [from agendabot]
+17:00:43 <gkellogg> dlehn: Can we add items later?
+17:00:43 <gkellogg> bigbluehat: This is not a final repo, but the charter repo would be a good place to list items.
+17:00:43 <bigbluehat> Add "to consider" items to https://github.com/json-ld/json-ld-wg-charter/issues
+17:00:43 <gkellogg> dlehn: There are other ideas that have come up over time that we may want to consider.
+17:00:43 <gkellogg> gkellogg: Maybe the recent issue on a simplified JSON-LD profile.
+17:00:43 <gkellogg> bigbluehat: We'll be labeling existing issues where we find them, and may need a new project to track them.
+17:00:43 <niklasl> +1 for a possible note on a "turtle-like" profile
+17:00:43 <gkellogg> bigbluehat: If you have an expanded JSON-LD already, you might not need the support for compaction.
+17:00:43 <Zakim> agendum 9 -- Next call -- taken up [from agendabot]
+17:00:43 <gkellogg> bigbluehat: Next call in two weeks is a CG call.
+17:00:43 <gkellogg> ... For the foreseeable future, we'll target both CG and WG work at rechartering.
+17:00:43 <gkellogg> pchampin: I have an example context for the GitHub API to interpret the API output as JSON-LD.
+17:00:43 <bigbluehat> wants `application/github+ld+json` ;)
+17:00:43 <niklasl> also have one, done for DCMI; would love to compare!
+17:00:43 <gkellogg> bigbluehat: Related to this, in the absence of multiple suffixes, the WebAnnotaton WG used application/ld ...
+17:00:43 <bigbluehat> Web Annotation used `application/ld+json;profile={context_url}`
+17:00:43 <dlongley> i would not be surprised to see media type "profiles" to suffer the same fate as suffixes
+17:00:43 <manu> they're polyglots as well! :)
+17:00:43 <niklasl> always looking for ways to "un-API" data on the web...
+17:00:43 <gkellogg> ... We wanted a suffix to register '.anno', which you can't do with profile media types.
+17:00:43 <dlongley> first they came for my suffixes and i said nothing ... then they came for my profiles ...
+17:00:43 <gkellogg> ... Thanks to manu for championing this.
+17:00:43 <dlongley> it turns out everything is polyglots :) ... application/json should just be application/octet-stream after all :)
