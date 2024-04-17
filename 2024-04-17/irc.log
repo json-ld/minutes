@@ -1,0 +1,154 @@
+16:01:48 <RRSAgent> RRSAgent has joined #json-ld
+16:01:52 <RRSAgent> logging to https://www.w3.org/2024/04/17-json-ld-irc
+16:01:52 <Zakim> RRSAgent, make logs Public
+16:01:53 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:01:55 <gkellogg> meeting: JSON-LD CG
+16:02:08 <gkellogg> agenda: https://www.w3.org/events/meetings/398465c7-3787-40df-856a-434a438d9f05/20240417T120000/
+16:02:09 <agendabot> clear agenda
+16:02:09 <agendabot> agenda+ Announcements and Introductions
+16:02:09 <agendabot> agenda+ YAML-LD
+16:02:09 <agendabot> agenda+ CBOR-LD
+16:02:09 <agendabot> agenda+ JSON-LD Issue Discussion
+16:02:09 <pchampin> present+
+16:02:11 <agendabot> agenda+ Open Discussion
+16:02:14 <agendabot> agenda+ Next call
+16:02:16 <gkellogg> chair: gkellogg
+16:02:16 <gkellogg> scribe+
+16:02:19 <gkellogg> present+
+16:02:28 <gkellogg> zakim, next agendum
+16:02:28 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:29 <bigbluehat> present+
+16:02:38 <niklasl> niklasl has joined #json-ld
+16:02:48 <niklasl> present+
+16:03:34 <TallTed> present+
+16:03:57 <gkellogg> kamal_singh: I've joined to discuss CBOR-LD; we're implementing CBOR-LD in C.
+16:04:22 <gkellogg> ... Mostly work by grad students; good enough for prototyping now.
+16:04:58 <Kamal> Kamal has joined #json-ld
+16:05:02 <gkellogg> zakim, next agendum
+16:05:02 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:05:30 <gkellogg> zakim, close item 2
+16:05:30 <Zakim> agendum 2, YAML-LD, closed
+16:05:31 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:05:31 <Zakim> 3. CBOR-LD [from agendabot]
+16:05:36 <gkellogg> zakim, open item 3
+16:05:36 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+16:07:26 <gkellogg> kamal_singh: I was trying to use CBOR-LD, but I was wondering if there were plans to compress the output further?
+16:07:28 <dlehn> present+
+16:07:39 <bigbluehat> q+ to make sure I'm not missing something ;)
+16:07:43 <gkellogg> ... The problem we had is that the size available is so small.
+16:07:48 <gkellogg> ack bigbluehat
+16:07:48 <Zakim> bigbluehat, you wanted to make sure I'm not missing something ;)
+16:08:09 <gkellogg> bigbluehat: The spec is available in the json-ld org.
+16:08:42 <gkellogg> kamal_singh: I've wondered why not to use bits for encoding, vs bytes. I think the spec is a bit old compared with the implementation.
+16:09:02 <gkellogg> bigbluehat: Please file issues on the repo. The spec is old, and DB has a plan to update it.
+16:09:03 <bigbluehat> https://github.com/digitalbazaar/cborld
+16:09:24 <gkellogg> ... Is there more that needs to be updated besides the specs?
+16:09:42 <gkellogg> kamal_singh: I'll create some issues based on my observations.
+16:10:50 <gkellogg> gkellogg: issues would be useful.
+16:11:29 <gkellogg> kamal_singh: what's the timeframe for finalizing the spec?
+16:13:30 <gkellogg> q?
+16:13:38 <gkellogg> zakim, next agendum
+16:13:38 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:14:22 <gkellogg> https://github.com/orgs/w3c/projects/4
+16:15:01 <gkellogg> gkellogg: it would be nice if we could update the GitHub project to be more automated.
+16:15:20 <gkellogg> pchampin: I'll see about adding the actions we use for RDF-star to work on JSON-LD repos.
+16:16:03 <gkellogg> subtopic: w3c/json-ld-syntax#425
+16:16:03 <gb> https://github.com/w3c/json-ld-syntax/issues/425 -> Issue 425 how to "retype" rdf:JSON to geo:geoJSONLiteral? (by VladimirAlexiev)
+16:17:25 <gkellogg> gkellogg: perhaps support using regular strings with datatypes.
+16:18:32 <gkellogg> q?
+16:19:04 <gkellogg> pchampin: Looking at the, issues I had one on w3c/json-ld-syntax#420
+16:19:05 <gb> https://github.com/w3c/json-ld-syntax/issues/420 -> Issue 420 feature request: support `$schema` as an alias for `@context` (by pchampin)
+16:19:17 <bigbluehat> +1
+16:19:22 <gkellogg> pchampin: I think we can close this issue marking it as "don't fix".
+16:19:51 <niklasl> agreed
+16:19:58 <gkellogg> gkellogg: we've tried to unify with JSON schema for a while.
+16:20:43 <gkellogg> niklasl: Other open issues are defined adequately to create PRs.
+16:21:15 <gkellogg> bigbluehat: It would be great to have JSON-LD and JSON Schema as a WG topic.
+16:21:31 <pchampin> q+
+16:21:54 <gkellogg> gkellogg: might be difficult to work with normatively if it's not a standard.
+16:22:26 <gkellogg> pchampin: WoT WG found a way to reference it normatively, but they have a more structured way of publishing snapshots, which makes it appropriate to cite normatively.
+16:22:46 <gkellogg> gkellogg: It's going to take someone to champion the effort.
+16:22:55 <gkellogg> pchampin: I'll do some research.
+16:23:02 <gkellogg> q?
+16:23:06 <gkellogg> ack pchampin
+16:23:10 <gkellogg> zakim, next item
+16:23:10 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+16:23:20 <pchampin> q+
+16:23:28 <gkellogg> ack pchampin
+16:24:02 <gkellogg> pchampin: I found some time to start working on changes to the charter PR. The schedule is out of date.
+16:24:14 <gkellogg> ... It would have started in 2022 :)
+16:24:46 <gkellogg> ... The charter currently says Q12025 for both specs, but I'll need to update that.
+16:25:12 <gkellogg> ... I need to create an issue on the strategy group to formally start the process of re-chartering.
+16:25:17 <gkellogg> q?
+16:26:14 <niklasl> q+
+16:26:19 <gkellogg> gkellogg: dependencies may be RDF-star + 1 year.
+16:26:35 <gkellogg> pchampin: For the moment, we're not mentioning JSON-LD 1.2. We just mention maintanence.
+16:27:05 <gkellogg> ... I think it's best to keep in maintenance for JSON-LD specs until the situation is clarified.
+16:27:30 <gkellogg> ... It's going to be dodgy anyway, and there is an RDF-star recharter being worked on.
+16:27:48 <bigbluehat> q+
+16:27:50 <gkellogg> ... JSON-LD charter should focus on YAML-LD and CBOR-LD until the situation is clarified.
+16:27:51 <gkellogg> q?
+16:27:55 <gkellogg> ack niklasl
+16:28:12 <gkellogg> niklasl: I would wish that wasn't the case, but can see why it is.
+16:28:30 <pchampin> q+
+16:28:34 <gkellogg> ... One thing is the "living standard" situation, which might allow a way to do such work.
+16:29:28 <gkellogg> ... We're going to have to jerry-rig things. I think we can live without having a standard rec, but that's a risk.
+16:29:33 <gkellogg> q?
+16:29:36 <gkellogg> ack bigbluehat
+16:29:53 <gkellogg> bigbluehat: Wondering about timing overlap.
+16:30:15 <gkellogg> ... I'm in favor of pchampin's view. I'd hate to get to the end of our chartering process.
+16:30:17 <gkellogg> q?
+16:30:21 <gkellogg> ack pchampin
+16:30:56 <gkellogg> pchampin: The initial RDF-star charter ends in August, but we won't be done by then. We're planning on asking for another year for the RDF/SPARQL specs.
+16:31:16 <gkellogg> ... I'm due to produce a new charter for RDF-star. It's more than an extension, as it's more than 6 months.
+16:31:54 <gkellogg> ... A possible way forward is to charter the group to produce JSON-LD 1.2 and open it to new features.
+16:32:09 <gkellogg> ... We could then integrate the RDF 1.2 features when they are published.
+16:32:14 <bigbluehat> +1 to staying flexible--however we do that ;)
+16:32:22 <gkellogg> ... We could start working on the new rec-track documents.
+16:32:50 <gkellogg> ... Does that make sense? Or could we do it as maintenance of JSON-LD 1.1? Not sure that buys us anything.
+16:33:24 <gkellogg> ... The living standard seemed good, but I don't think we need to do anything beyond that until RDF-star is clarified.
+16:34:01 <gkellogg> ... Maybe trying to move faster than RDF isn't a great idea.
+16:34:06 <gkellogg> q+
+16:35:16 <gkellogg> gkellogg: Maybe point out in our charter about tracking RDF-star changes.
+16:35:21 <gkellogg> q?
+16:35:25 <gkellogg> ack gkellogg
+16:36:35 <gkellogg> https://github.com/json-ld/json-ld-star/issues/49
+16:36:35 <gb> https://github.com/json-ld/json-ld-star/issues/49 -> Issue 49 Adapting to Triple Terms and Reifiers (by gkellogg)
+16:36:35 <dlehn> q+ to talk about website
+16:37:18 <gkellogg> gkellogg: think if that issue as a place to brainstorm.
+16:37:37 <gkellogg> niklasl: The triple keyword came up before as well, I'll find a link.
+16:37:54 <gkellogg> q?
+16:37:56 <gkellogg> ack dlehn
+16:37:56 <Zakim> dlehn, you wanted to talk about website
+16:38:21 <gkellogg> dlehn: Are these keywords useful enough?
+16:41:00 <pchampin> q+
+16:41:43 <gkellogg> dlehn: Given the problems of convincing people to use regular RDF, it might put people off.
+16:42:00 <gkellogg> niklasl: "Concretize" could be a possibility.
+16:42:32 <gkellogg> ... Annotation is the primary thing our data needs. Depending on what happens, we might need to put suggestions in the data.
+16:42:50 <pchampin> q-
+16:43:16 <gkellogg> ... The many-to-many use cases are interesting, although may not continue.
+16:43:38 <gkellogg> ... Because we overload at-type, it might be overloaded further.
+16:46:09 <gkellogg> gkellogg: muses about YARS-PG.
+16:46:19 <gkellogg> topic: website
+16:46:51 <gkellogg> dlehn: I think we can link to the GitHub pages site for some of what we're doing.
+16:47:11 <gkellogg> ... Minutes could just redirect to the GitHub repo.
+16:47:26 <gkellogg> ... I'm worried that we're going to hit GH limits.
+16:47:30 <bigbluehat> +1 to separating minutes out...somehow
+16:48:09 <gkellogg> ... It's too hard to check out the site and edit it.
+16:48:13 <bigbluehat> q+
+16:48:21 <gkellogg> ack bigbluehat
+16:48:44 <gkellogg> bigbluehat: I've wondered if we can get large file support in GitHub, which is now supported. But, at an additional charge.
+16:49:01 <bigbluehat> https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage
+16:49:13 <gkellogg> dlehn: It didn't seem like quite the same thing.
+16:49:30 <gkellogg> ... They're offering similar capabilities to other systems, for a price.
+16:51:39 <gkellogg> gkellogg: maybe we can just move the old audio files and redirect?
+16:52:02 <gkellogg> dlehn: Do we want to move the minutes and scripts into the main repo?
+16:52:40 <gkellogg> ... The other problem is the playground proxy thing. We've been using another product which is working well.
+16:53:11 <gkellogg> ... Once that's written, we could publish the site as is to point to CloudFlare.
+16:54:09 <gkellogg> topic: next meeting
+16:54:36 <gkellogg> gkellogg: next meeting on May 1
+16:54:40 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:55:00 <gkellogg> zakim, end meeting
+16:55:00 <Zakim> As of this point the attendees have been pchampin, gkellogg, bigbluehat, niklasl, TallTed, dlehn
+16:55:02 <Zakim> RRSAgent, please draft minutes
+16:55:03 <RRSAgent> I have made the request to generate https://www.w3.org/2024/04/17-json-ld-minutes.html Zakim
