@@ -1,0 +1,194 @@
+15:53:11 <RRSAgent> RRSAgent has joined #json-ld
+15:53:15 <RRSAgent> logging to https://www.w3.org/2024/05/15-json-ld-irc
+15:53:15 <Zakim> RRSAgent, make logs Public
+15:53:16 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:53:19 <gkellogg> meeting: JSON-LD CG
+15:53:35 <gkellogg> agenda: https://www.w3.org/events/meetings/398465c7-3787-40df-856a-434a438d9f05/20240515T120000/
+15:53:35 <agendabot> clear agenda
+15:53:35 <agendabot> agenda+ Announcements and Introductions
+15:53:35 <agendabot> agenda+ YAML-LD
+15:53:35 <agendabot> agenda+ CBOR-LD
+15:53:35 <agendabot> agenda+ JSON-LD Issue Discussion
+15:53:37 <agendabot> agenda+ Open Discussion
+15:53:40 <agendabot> agenda+ Next call
+15:53:51 <gkellogg> chair: gkellogg
+15:53:54 <gkellogg> present+
+15:53:59 <gkellogg> scribe+
+15:56:10 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+15:59:31 <gkellogg> zakim, next agendum
+15:59:32 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:00:02 <TallTed> present+
+16:00:04 <anatoly-scherbakov> present+
+16:00:40 <pchampin> present+
+16:01:00 <gkellogg> zakim, pointer
+16:01:00 <Zakim> I don't understand 'pointer', gkellogg
+16:01:06 <gkellogg> rrsagent, pointer
+16:01:06 <RRSAgent> See https://www.w3.org/2024/05/15-json-ld-irc#T16-01-06
+16:01:35 <pchampin> q+
+16:01:39 <gkellogg> ack pchampin
+16:02:03 <gkellogg> pchampin: Not sure if we've made a decision for TPAC, but we need to do so.
+16:02:09 <bigbluehat> present+
+16:02:21 <dlehn> present+
+16:02:23 <gkellogg> ... I'd also like to report on the new GH Project.
+16:02:47 <bigbluehat> q+
+16:02:53 <gkellogg> ack bigbluehat
+16:03:01 <niklasl> niklasl has joined #json-ld
+16:03:43 <niklasl> present+
+16:07:05 <gkellogg> subtopic: TPAC
+16:03:44 <gkellogg> bigbluehat: Can we take a call of people expecting to be at TPAC?
+16:03:49 <gkellogg> ... I'll be there in person.
+16:03:58 <gkellogg> gkellogg: I'll be at TPAC
+16:04:06 <gkellogg> pchampin: me too.
+16:04:11 <pchampin> https://www.w3.org/events/tpac/2024/
+16:04:20 <TallTed> online, most probably
+16:04:42 <bigbluehat> q+
+16:04:51 <gkellogg> gkellogg: how much time do we need?
+16:04:56 <niklasl> niklasl has joined #json-ld
+16:05:04 <niklasl> Unsure if I can be there in person, hope to be able to attend online.
+16:05:04 <gkellogg> bigbluehat: Time will be relative to groups with other commitments.
+16:05:15 <pchampin> 23-27 September 2024, Anaheim, CA, USA
+16:05:45 <gkellogg> bigbluehat: Can't conflict with VC.
+16:06:22 <gkellogg> gkellogg: not RDF-star and convenient for WoT.
+16:06:39 <bigbluehat> +1 to hafl-day meeting
+16:06:42 <gkellogg> ... suggest 1/2 day slot consistent with the other groups.
+16:06:51 <gkellogg> zakim, next item.
+16:06:51 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:06:54 <gkellogg> q?
+16:06:59 <gkellogg> ack bigbluehat
+16:07:01 <bigbluehat> q-
+16:07:37 <pchampin> https://www.w3.org/2002/09/wbs/1/TPAC2024
+16:07:39 <gkellogg> pchampin: bigbluehat will you respond to the link?
+16:08:03 <gkellogg> bigbluehat: Yes, I'll respond.
+16:08:28 <bigbluehat> q+
+16:08:34 <gkellogg> pchampin: VC asked for Thursday and Friday all day. RDF-star for Tuesday and Thursday mornings.
+16:08:40 <gkellogg> ack bigbluehat
+16:09:16 <gkellogg> s/Thursday and Friday all day/Thursday and Friday morning/
+16:09:52 <gkellogg> gkellogg: we should ask for Thursday afternoon.
+16:10:11 <TallTed> I'm in RDF-star and VC, so already double booked Thursday morning
+16:11:02 <gkellogg> bigbluehat: It's broken into two-hour chunks. We can ask for 2-6.
+16:11:34 <gkellogg> pchampin: There are other questions related to mask policies.
+16:12:07 <bigbluehat> q+
+16:12:07 <gkellogg> ... Do people feel strongly about masks?
+16:12:12 <gkellogg> ack bigbluehat
+16:12:29 <gkellogg> bigbluehat: It's really a survey question about making policy.
+16:12:35 <gkellogg> q?
+16:07:05 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:13:13 <gkellogg> anatoly-scherbakov: It's been a while since I've had a YAML-LD update.
+16:13:33 <gkellogg> ... We've removed the "extendedYAML" flag and now use "processingMode".
+16:13:41 <gkellogg> ... Also, JSON-LD 1.0 is not supported.
+16:14:14 <gkellogg> ... We've improved handling of script tags including "extractAllScripts", which also handles individual YAML documents within a YAML stream.
+16:14:38 <gkellogg> ... I've created testing issues for YAML-LD features such as flatten, and so forth.
+16:14:54 <gkellogg> ... I think most tests are for expansion and conversion to RDF.
+16:14:57 <gkellogg> q+
+16:15:13 <gkellogg> ... My implementation is a work in progress.
+16:15:39 <gkellogg> ... There is a question about the return-type for YAML-LD functions; what should expand return.
+16:16:22 <gkellogg> ... It seems it should return a string serialization, but we have an agreement that this is not very practical. Returning a Dict is more practical.
+16:16:56 <gkellogg> ... We might file an issue against JSON-LD API to explicitly allow this.
+16:17:09 <gkellogg> ack gkellogg
+16:19:15 <anatoly-scherbakov> gkellogg: Covering JSON-LD algorithms with tests specifically for YAML-LD might be repetitive, as JSON-LD already tests those.
+16:19:16 <anatoly-scherbakov> q+
+16:19:20 <niklasl> +1
+16:19:22 <dlehn> q+
+16:19:24 <gkellogg> ack anatoly-scherbakov
+16:19:37 <gkellogg> anatoly-scherbakov: Agreed that we shouldn't duplicate all JSON-LD tests.
+16:19:58 <gkellogg> ... My implementation runs both, as YAML is a superset of JSON so I can run all the JSON tests, too.
+16:20:33 <gkellogg> ... But, there are some corner-cases which which aren't properly tested.
+16:20:41 <gkellogg> ... We should test such cases.
+16:22:00 <gkellogg> anatoly-scherbakov: Can we use a flag for returning internal representations vs strings to the API?
+16:22:04 <dlehn> output format related issue: https://github.com/json-ld/yaml-ld/issues/143
+16:22:05 <gb> https://github.com/json-ld/yaml-ld/issues/143 -> Issue 143 Should output type of `expand()` be `dict` or `str`? (by anatoly-scherbakov)
+16:22:46 <anatoly-scherbakov> gkellogg: output values of JSON-LD, YAML-LD, CBOR-LD would then be identical.
+16:22:50 <gkellogg> q?
+16:22:57 <gkellogg> ack dlehn
+16:23:23 <gkellogg> dlehn: This would be the same for different formats, when there are differences in how you serialize.
+16:24:01 <gkellogg> ... In some cases, it's obvious, but if there are special YAML or CBOR serializations used, I'm not sure how that would be described.
+16:26:10 <anatoly-scherbakov> q+
+16:26:31 <gkellogg> dlehn: Do any of the API methods describe serialization?
+16:26:55 <pchampin> q+
+16:27:09 <gkellogg> ack anatoly-scherbakov
+16:27:39 <gkellogg> anatoly-scherbakov: I think having the behavior controlled by a flag would be confusing.
+16:27:50 <gkellogg> ... It's difficult to describe in a type system.
+16:28:28 <gkellogg> ... We might want separate functions for native vs serialized representations.
+16:28:35 <gkellogg> ack pchampin
+16:28:52 <pchampin> https://www.w3.org/TR/json-ld11-api/#webidl-33206037
+16:29:42 <gkellogg> pchampin: I find this confusing, as when I look at the WebIDL, it describes that the result is serialized.
+16:32:11 <dlehn> q+
+16:32:13 <gkellogg> gkellogg: I think serialization is the ultimate step, which may be skipped.
+16:32:16 <gkellogg> ack dlehn
+16:32:41 <gkellogg> dlehn: Do we need to be explicit about that?
+16:32:44 <pchampin> static Promise<JsonLdRecord> compact( ... )
+16:33:17 <pchampin> typedef record<USVString, any> JsonLdRecord;
+16:33:25 <pchampin> does not look like a serialized string to me!
+16:34:04 <anatoly-scherbakov> What we add a new function to JSON-LD API? static UVString serialize(input: JsonLDRecord, format: UVString)
+16:34:16 <gkellogg> ... In our JS code, we have explicit format flags.
+16:34:20 <anatoly-scherbakov> q+
+16:34:43 <pchampin> q+
+16:35:08 <anatoly-scherbakov> ...on par with JSonLdRecord parse(serialized_input: UVString, format: UVString)
+16:35:46 <gkellogg> q?
+16:35:49 <gkellogg> ack anatoly-scherbakov
+16:36:22 <gkellogg> anatoly-scherbakov: I agree with using format names when describing how to serialize, but I suggest two different functions, parse and serialize.
+16:36:44 <gkellogg> ... Thus, you expand a document and explicitly serialize.
+16:37:04 <gkellogg> ... This makes the API clear.
+16:39:55 <anatoly-scherbakov> q+
+16:39:55 <gkellogg> q?
+16:39:58 <gkellogg> ack pchampin
+16:40:49 <gkellogg> pchampin: I think there's some inconsistency in the JSON-LD API spec. The result is a Promise of a JsonLdRecord which is a map, not a string.
+16:41:21 <gkellogg> ... If anything, it should say to turn the internal representation into a JsonLdRecord.
+16:41:32 <niklasl> +1 something is inconsistent (but the API IDL is informative...)
+16:41:45 <niklasl> (non-normative)
+16:41:50 <gkellogg> ... Currently, the IR is mapped on JSON, so the serialization is standard JSON.
+16:42:34 <gkellogg> ... I'd be happy if the API says to return the IR.
+16:43:02 <gkellogg> ... The expectation is that if it's an HTTP interface, the result needs to be serialized.
+16:43:34 <gkellogg> ... We should try not to over-specify this. Its up to implementers to decide best encoding.
+16:44:25 <gkellogg> gkellogg: PR and/or issue against JSON-LD API welcome.
+16:44:27 <gkellogg> q?
+16:44:31 <gkellogg> ack anatoly-scherbakov
+16:45:16 <gkellogg> anatoly-scherbakov: I agree that specifying the details of serialization is out of scope, but I would propose that we describe serialization and deserialization functions.
+16:45:47 <gkellogg> ... I don't think we need to specify this in detail, just that they exist.
+16:46:36 <gkellogg> ... We're focusing on the YAML-LD basic profile, but we do have non-normative sections describing extended forms.
+16:46:53 <gkellogg> ... If we have a serialize function, we might add a note there.
+16:47:29 <anatoly-scherbakov> I will look into preparing a PR for the spec, and see what everyone thinks.
+16:47:34 <gkellogg> zakim, open item 4
+16:47:34 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:48:16 <pchampin> https://github.com/orgs/w3c/projects/4
+16:48:23 <gkellogg> pchampin: I had an action for creating a new project that is automatically updated.
+16:48:46 <gkellogg> ... The original project is "old style", and the actions only work with "new style" projects.
+16:48:52 <pchampin> https://github.com/orgs/w3c/projects/84
+16:49:22 <gkellogg> ... I suggest we close the old one and continue with the new one.
+16:49:54 <gkellogg> PROPOSAL: close the old project in favor of the new.
+16:49:58 <TallTed> +1
+16:49:58 <anatoly-scherbakov> +1
+16:49:58 <gkellogg> +1
+16:49:58 <bigbluehat> +1
+16:49:59 <pchampin> +1
+16:49:59 <niklasl> +1
+16:50:06 <dlehn> +1
+16:50:08 <gkellogg> RESOLVED: close the old project in favor of the new.
+16:51:36 <gkellogg> pchampin: Do we want to merge CG and WG issues together?
+16:51:36 <bigbluehat> q+
+16:51:42 <gkellogg> ack bigbluehat
+16:52:11 <gkellogg> pchampin: It should work with the json-ld organization
+16:53:00 <gkellogg> gkellogg: maybe we can apply some labels to the CG repositories.
+16:53:16 <bigbluehat> q-
+16:53:20 <gkellogg> subtopic: website
+16:53:38 <gkellogg> dlehn: I haven't quite had time to finish, but the new site mostly works.
+16:54:13 <gkellogg> ... Depends on where we want to host it, and we have a lot of .htaccess files floating around.
+16:54:29 <anatoly-scherbakov> q+
+16:54:31 <gkellogg> ... We'll have to write some custom workers for things like content negotiation.
+16:56:14 <gkellogg> gkellogg: playground should used cached version of the schema.org context.
+16:56:26 <gkellogg> dlehn: Next steps are to include such features.
+16:56:51 <gkellogg> ... Not sure how to best update the playground, may be an NPM package.
+16:57:01 <gkellogg> q?
+16:57:29 <gkellogg> ack anatoly-scherbakov
+16:57:43 <gkellogg> anatoly-scherbakov Pointer to the repo?
+16:58:15 <gkellogg> https://github.com/json-ld/json-ld.org/pull/836
+16:58:16 <gb> https://github.com/json-ld/json-ld.org/pull/836 -> Pull Request 836 Convert to Eleventy. (by davidlehn) [website]
+16:59:03 <gkellogg> gkellogg: next meeting in two weeks.
+16:59:08 <gkellogg> zakim, end meeting
+16:59:08 <Zakim> As of this point the attendees have been gkellogg, TallTed, anatoly-scherbakov, pchampin, bigbluehat, dlehn, niklasl
+16:59:10 <Zakim> RRSAgent, please draft minutes
+16:59:11 <RRSAgent> I have made the request to generate https://www.w3.org/2024/05/15-json-ld-minutes.html Zakim
+16:59:18 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:59:18 <Zakim> Zakim has left #json-ld
+16:59:27 <gkellogg> rrsagent, pointer
+16:59:27 <RRSAgent> See https://www.w3.org/2024/05/15-json-ld-irc#T16-59-27
