@@ -1,0 +1,206 @@
+00:04:27 <gkellogg> gkellogg has joined #json-ld
+00:14:23 <gkellogg> gkellogg has joined #json-ld
+00:33:34 <gkellogg> gkellogg has joined #json-ld
+00:51:15 <gkellogg> gkellogg has joined #json-ld
+01:01:12 <gkellogg> gkellogg has joined #json-ld
+01:21:35 <gkellogg> gkellogg has joined #json-ld
+01:39:45 <gkellogg> gkellogg has joined #json-ld
+02:00:38 <gkellogg> gkellogg has joined #json-ld
+02:16:13 <gkellogg> gkellogg has joined #json-ld
+02:39:23 <gkellogg> gkellogg has joined #json-ld
+03:00:44 <gkellogg> gkellogg has joined #json-ld
+03:33:19 <gkellogg> gkellogg has joined #json-ld
+03:58:19 <gkellogg> gkellogg has joined #json-ld
+04:16:26 <gkellogg> gkellogg has joined #json-ld
+04:44:51 <gkellogg> gkellogg has joined #json-ld
+05:00:33 <gkellogg> gkellogg has joined #json-ld
+05:32:51 <gkellogg> gkellogg has joined #json-ld
+06:00:13 <gkellogg> gkellogg has joined #json-ld
+06:18:33 <gkellogg> gkellogg has joined #json-ld
+06:35:50 <gkellogg> gkellogg has joined #json-ld
+07:09:39 <gkellogg> gkellogg has joined #json-ld
+07:26:39 <gkellogg> gkellogg has joined #json-ld
+07:58:33 <gkellogg> gkellogg has joined #json-ld
+08:13:11 <NikeSF> NikeSF has joined #json-ld
+08:17:56 <gkellogg> gkellogg has joined #json-ld
+08:34:12 <gkellogg> gkellogg has joined #json-ld
+08:54:31 <gkellogg> gkellogg has joined #json-ld
+09:12:03 <gkellogg> gkellogg has joined #json-ld
+09:28:39 <gkellogg> gkellogg has joined #json-ld
+10:17:22 <gkellogg> gkellogg has joined #json-ld
+10:33:41 <gkellogg> gkellogg has joined #json-ld
+11:51:27 <gkellogg> gkellogg has joined #json-ld
+12:11:42 <gkellogg> gkellogg has joined #json-ld
+12:29:21 <gkellogg> gkellogg has joined #json-ld
+12:46:24 <gkellogg> gkellogg has joined #json-ld
+13:02:12 <gkellogg> gkellogg has joined #json-ld
+13:24:49 <gkellogg> gkellogg has joined #json-ld
+14:00:09 <gkellogg> gkellogg has joined #json-ld
+14:22:00 <TallTed> TallTed has joined #json-ld
+14:23:14 <gkellogg> gkellogg has joined #json-ld
+14:43:27 <gkellogg> gkellogg has joined #json-ld
+15:01:13 <gkellogg> gkellogg has joined #json-ld
+15:05:22 <bigbluehat> bigbluehat has joined #json-ld
+15:19:33 <gkellogg> gkellogg has joined #json-ld
+15:54:56 <Zakim> Zakim has joined #json-ld
+15:55:12 <gkellogg> zakim, start meeting
+15:55:12 <Zakim> RRSAgent, make logs Public
+15:55:14 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:55:23 <gkellogg> meeting: JSON-LD CG
+15:55:36 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240529T120000/
+15:55:37 <agendabot> clear agenda
+15:55:37 <agendabot> agenda+ Announcements and Introductions
+15:55:37 <agendabot> agenda+ YAML-LD
+15:55:37 <agendabot> agenda+ CBOR-LD
+15:55:37 <agendabot> agenda+ JSON-LD Issue Discussion
+15:55:39 <agendabot> agenda+ Open Discussion
+15:55:42 <agendabot> agenda+ Next call
+15:55:44 <gkellogg> chair: gkellogg
+15:55:47 <gkellogg> scribe+
+15:55:49 <gkellogg> present+
+15:56:00 <gkellogg> zakim, next item
+15:56:00 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+15:57:34 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+15:59:23 <TallTed> present+
+16:00:02 <anatoly-scherbakov> present+
+16:01:01 <TallTed> RRSAgent, draft minutes
+16:01:03 <RRSAgent> I have made the request to generate https://www.w3.org/2024/05/29-json-ld-minutes.html TallTed
+16:02:33 <TallTed> next meeting: https://www.w3.org/2024/06/12-json-ld-minutes.html
+16:02:33 <TallTed> previous meeting: https://www.w3.org/2024/05/15-json-ld-minutes.html
+16:02:59 <niklasl> niklasl has joined #json-ld
+16:05:19 <bigbluehat> present+
+16:05:20 <niklasl> present+
+16:06:02 <gkellogg> gkellogg: TPAC meetings mostly on Thursday 11:00-16:00
+16:06:51 <gkellogg> bigbluehat: I'll send out TPAC scheduling information to the list.
+16:07:29 <gkellogg> bigbluehat: I posted something to the charter repo.
+16:07:41 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/issues
+16:07:50 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/issues/3
+16:07:51 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/3 -> Issue 3 New normative document proposal: Supporting Multiple Languages in JSON (by BigBlueHat)
+16:07:56 <gkellogg> ... There are some issues on the new charter, but I proposed some new normative documents.
+16:07:57 <dlehn> present+
+16:08:36 <gkellogg> zakim, next item
+16:08:36 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:09:21 <gkellogg> anatoly: working on test cases for processing YAML-LD docs with YAML-LD contexts.
+16:09:39 <gkellogg> ... We talked about the JSON-LD API and how wit relates. I'll have something in a couple of days.
+16:09:47 <gkellogg> zakim, next item
+16:09:47 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+16:10:19 <gkellogg> dlehn: I haven't had time to push CBOR-LD issues forward.
+16:10:23 <bigbluehat> q+
+16:10:27 <gkellogg> ack bigbluehat
+16:10:59 <gkellogg> bigbluehat: If there are others here that have time to dig into issues, it would be helpful for people to ask questions.
+16:11:11 <gkellogg> ... Questions help move the discussion forward.
+16:11:25 <gkellogg> pchampin: Interested, but short on time.
+16:11:34 <gkellogg> q?
+16:11:37 <gkellogg> zakim, next item
+16:11:37 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:11:58 <gkellogg> https://github.com/orgs/w3c/projects/84/views/1
+16:12:44 <gkellogg> subtopic: w3c/json-ld-syntax#425
+16:12:44 <gb> https://github.com/w3c/json-ld-syntax/issues/425 -> Issue 425 how to "retype" rdf:JSON to geo:geoJSONLiteral? (by VladimirAlexiev)
+16:13:46 <dlehn> q+
+16:14:10 <gkellogg> ack dlehn
+16:14:24 <gkellogg> dlehn: Are we supposed to figure out how to fit this into our current spec?
+16:15:24 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:15:51 <gkellogg> ... If we're not going to add it to the spec, we should create a best practice for how to deal with it.
+16:16:10 <pchampin> q+
+16:16:25 <gkellogg> ack pchampin
+16:16:50 <gkellogg> pchampin: It looks like a niche problem; I wonder if there may be other such datatypes which expect JSON formatted strings.
+16:17:14 <gkellogg> ... Clearly geoJSON literal is such a case, but are there others that would indicate the need for a general solution.
+16:17:23 <gkellogg> ... A string works, but may be not as clean.
+16:18:28 <gkellogg> gkellogg: similar to using custom XML as a subtype of XMLLiteral.
+16:19:40 <bigbluehat> q+
+16:19:41 <gb> https://github.com/w3c/json-ld-syntax/issues/425 -> Issue 425 how to "retype" rdf:JSON to geo:geoJSONLiteral? (by VladimirAlexiev)
+16:19:51 <gkellogg> ... My inclination is to not do something at this time.
+16:20:04 <niklasl> niklasl has joined #json-ld
+16:20:42 <gkellogg> dlehn: it would be nice to be more user friendly.
+16:20:54 <bigbluehat> q?
+16:21:11 <gkellogg> ... There should be some best practices for how to solve this, either as is or with hypothetical changes.
+16:21:32 <gkellogg> ack bigbluehat
+16:22:16 <gkellogg> bigbluehat: We may have mixed things when we modeled this. We wanted to treat a JSON object as an RDF literal, and maybe should have used something other than at-type
+16:22:32 <bigbluehat> `@type: rdf:JSON` and `@datatype: json`
+16:23:03 <gkellogg> ... People can mint new datatypes, and if we don't have a place for people to dump this, we're limited.
+16:23:41 <pchampin> "parsing mode" vs "RDF datatype"
+16:23:50 <gkellogg> ... There are other things that are JSON objects that could have a different RDF type.
+16:24:19 <gkellogg> ... We've sort of painted ourselves into a corner.
+16:25:38 <niklasl> q+
+16:25:54 <gkellogg> ack niklasl
+16:26:06 <gkellogg> niklasl: Yes, it can be done, but when have we done too much?
+16:26:31 <gkellogg> ... From a theoretical point of view it looks sensible, but from a pragmatic point of view, we need to see some other usages of it.
+16:27:02 <gkellogg> ... If you have a property defined as geoJSON, you have a value which is an rdf:JSON datatype. When would that not be enough?
+16:27:14 <gkellogg> ... Are there other similar datatypes?
+16:28:19 <gkellogg> gkellogg: inferring a sub-datatype might be reasonable.
+16:29:49 <gkellogg> subtopic: w3c/json-ld-api#513
+16:29:49 <gb> https://github.com/w3c/json-ld-api/issues/513 -> Issue 513 Test compact#t0080 is wrong (by pchampin) [spec:bug] [ErratumRaised]
+16:30:06 <gkellogg> pchampin: It's been a while, so I'm not prepared to talk about this right now.
+16:30:35 <gkellogg> zakim, next item
+16:30:35 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+16:30:48 <gkellogg> subtopic: Re-chartering
+16:31:16 <bigbluehat> q+ to propose my proposed proposal
+16:31:26 <gkellogg> pchampin: I merged the PR I had created.
+16:31:52 <gkellogg> ... When I had created, the intent was to re-charter the current group; not changing the dates, but the content. This was over-optimistic.
+16:32:12 <gkellogg> ... We should revise the timeline and ask for a longer charter. That was not part of the previous changes.
+16:32:40 <gkellogg> ... It occurred to me that we need to go through a new round of horizontal review.
+16:33:01 <gkellogg> ... I'm not particularly worried about doing such a review.
+16:33:03 <gkellogg> q?
+16:33:28 <gkellogg> ... We should take this into account for the requested timeline of the charter.
+16:33:44 <gkellogg> ... It will take more than a couple of weeks to re-charter.
+16:33:50 <gkellogg> ack bigbluehat
+16:33:50 <Zakim> bigbluehat, you wanted to propose my proposed proposal
+16:34:00 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/issues/3
+16:34:00 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/3 -> Issue 3 New normative document proposal: Supporting Multiple Languages in JSON (by BigBlueHat)
+16:34:08 <gkellogg> bigbluehat: I was going to share the proposal for a new document.
+16:34:34 <gkellogg> ... There's constant call for multi-lingual JSON; it's currently done poorly.
+16:34:58 <gkellogg> ... JSON-LD is the one format that takes into account I18N considerations such as text direction.
+16:35:06 <pchampin> if we go there, all the more reason to go through horizontal reviews, the i18n group will want to have a say about this :)
+16:35:34 <gkellogg> ... We should create a document that focuses on the value object and makes it into a first-class citizen that doesn't necessarily require other knowledge of JSON-LD.
+16:36:08 <gkellogg> ... If you're implementing the spec in other areas you could reuse the pattern.
+16:36:29 <gkellogg> ... I might want to filter for just english values, for example.
+16:36:38 <pchampin> q+
+16:36:45 <gkellogg> q+
+16:37:07 <gkellogg> ... It allows the use of this without bringing in the perceived overhead of JSON-LD.
+16:37:29 <gkellogg> ack pchampin
+16:37:48 <bigbluehat> q+
+16:38:07 <gkellogg> pchampin: I like the idea. I think it's a shame to exclude language maps; they work nicely for this kind of thing.
+16:38:23 <gkellogg> ... Perhaps adding the two options could be attractive to people.
+16:38:37 <gkellogg> ... Should this be W3C vs IETF? Should it be in the JSON-LD WG?
+16:39:12 <gkellogg> ... If this is published by the JSON-LD WG, don't we risk the counter-productive effect of people thinking they need the entire stack?
+16:39:33 <gkellogg> ... Separating those things from JSON-LD is reasonable, but are we the right messenger?
+16:40:35 <gkellogg> niklasl: We talked about introducing other keywords for general use. We could consider a JSON-LD Lite.
+16:41:03 <gkellogg> ... I would consider it a gateway to JSON-LD.
+16:41:07 <gkellogg> ack gkellogg
+16:41:46 <bigbluehat> q+
+16:41:48 <gkellogg> gkellogg: RDFa Lite did help, IMO.
+16:43:26 <gkellogg> ... There's a danger of fragmenting our message.
+16:43:30 <gkellogg> ack bigbluehat
+16:44:03 <gkellogg> bigbluehat: I ended up using RDFa in contact data for an update to our webesite, and it tripped me up.
+16:44:17 <gkellogg> ... I made it work, but it was non-obvious.
+16:44:41 <gkellogg> ... The validators are the real tools people use to understand things.
+16:45:00 <gkellogg> ... People usually don't want to model their data, but they want to do something anyway.
+16:45:23 <gkellogg> ... Why do addresses need their own objects? Data modeling is hard.
+16:45:35 <pchampin> q+
+16:45:45 <gkellogg> ... JSON-LD Lite could drift into encouraging the Cargo Cult school of markup.
+16:46:27 <gkellogg> ... I'd rather see a JSON-LD 2.0 that lightens things than split the language.
+16:47:13 <gkellogg> ... Language Maps require using some kind of header (context). The value object can exist without preprocessing.
+16:47:39 <gkellogg> ... The JSON API spec could claim to support multi-languages by adopting this pattern.
+16:48:36 <gkellogg> ... I didn't want people to be encouraged to use something else entirely, but want to move people towards better modeling.
+16:48:58 <gkellogg> ... Language is a good story for JSON-LD. Language is a way to get people into JSON-LD.
+16:49:22 <gkellogg> ... We should talk about language maps as a plug for full JSON-LD.
+16:49:26 <gkellogg> q?
+16:49:45 <niklasl> +1 makes sense (I could see other POVs, but it does)
+16:49:50 <gkellogg> ... Webapp manifest does do language, but for the entire document.
+16:49:59 <gkellogg> q?
+16:50:20 <gkellogg> pchampin: I agree with what bigbluehat said. I was thinking of encouraging design patterns.
+16:50:41 <gkellogg> ... Anywhere these are used you have a multi-lingual string.
+16:51:08 <gkellogg> ... I wouldn't add this to the charter without incubation.
+16:51:29 <gkellogg> ... JSON-LD lite would be way to early to add to a charter.
+16:51:58 <pchampin> note or REC, then?
+16:52:01 <gkellogg> q?
+16:52:05 <gkellogg> ack pchampin
+16:52:59 <gkellogg> q?
+16:53:02 <pchampin> q+
+16:53:06 <gkellogg> ack pchampin
+16:53:27 <gkellogg> pchampin: If we go forward with the value object deliverable, would be a note or a Rec?
+16:53:36 <bigbluehat> q+
+16:53:56 <bigbluehat> q-
+16:55:11 <gkellogg> zakim, end meeting
+16:55:11 <Zakim> As of this point the attendees have been gkellogg, TallTed, anatoly-scherbakov, bigbluehat, niklasl, dlehn
+16:55:13 <Zakim> RRSAgent, please draft minutes
