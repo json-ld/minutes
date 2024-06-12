@@ -1,0 +1,124 @@
+15:55:07 <RRSAgent> RRSAgent has joined #json-ld
+15:55:11 <RRSAgent> logging to https://www.w3.org/2024/06/12-json-ld-irc
+15:55:11 <Zakim> RRSAgent, make logs Public
+15:55:12 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:55:16 <gkellogg> meeting: JSON-LD CG
+15:55:31 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240612T120000/
+15:55:31 <agendabot> clear agenda
+15:55:31 <agendabot> agenda+ Announcements and Introductions
+15:55:31 <agendabot> agenda+ YAML-LD
+15:55:31 <agendabot> agenda+ CBOR-LD
+15:55:31 <agendabot> agenda+ JSON-LD Issue Discussion
+15:55:33 <agendabot> agenda+ Open Discussion
+15:55:36 <agendabot> agenda+ Next call
+15:55:42 <gkellogg> chair: gkellogg
+15:55:44 <gkellogg> present+
+15:55:46 <gkellogg> scribe+
+15:55:58 <gkellogg> zakim, next item
+15:55:58 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+15:58:42 <niklasl> niklasl has joined #json-ld
+15:59:28 <TallTed> present+
+16:00:15 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:01:32 <anatoly-scherbakov> present+
+16:01:37 <niklasl> present+
+16:01:38 <bigbluehat> present+
+16:02:02 <gkellogg> gkellogg: tentative TPAC schedule at https://www.w3.org/2024/05/tpac2024-schedule-20240523.html#g49174
+16:02:19 <bigbluehat> q+
+16:02:35 <gkellogg> ack bigbluehat
+16:03:55 <gkellogg> bigbluehat: There is a requested schedule shift, as many participants are in Japan and late friday would be early saturday, but that creates a conflict with the CG time on Thursday.
+16:05:06 <gkellogg> ... WoT would like the 14:30 slot on Thursday, which is a joint meeting with JSON-LD WG/CG.
+16:05:47 <gkellogg> ... WoT is a major user of JSON-LD, so it will be important for us to sync up with them.
+16:06:58 <gkellogg> gkellogg: I'm in favor of consolodating with the Thursday afternoon slot.
+16:07:13 <gkellogg> zakim, next item
+16:07:13 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:07:47 <gkellogg> anatoly-scherbakov: I have some PRs with tests that have been merged. I have some more test issues to work through.
+16:08:12 <gkellogg> ... I may need some changes to PyLd to address some issues in my implementatino.
+16:08:25 <gkellogg> s/implementatino/implementation/
+16:09:03 <gkellogg> zakim, next item
+16:09:03 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+16:09:25 <dlehn> present+
+16:09:25 <gkellogg> zakim, close item 3
+16:09:25 <Zakim> agendum 3, CBOR-LD, closed
+16:09:26 <Zakim> I see 3 items remaining on the agenda; the next one is
+16:09:26 <Zakim> 4. JSON-LD Issue Discussion [from agendabot]
+16:09:29 <gkellogg> zakim, next item
+16:09:29 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:09:44 <gkellogg> https://github.com/orgs/w3c/projects/84
+16:10:07 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/425
+16:10:08 <gb> https://github.com/w3c/json-ld-syntax/issues/425 -> Issue 425 how to "retype" rdf:JSON to geo:geoJSONLiteral? (by VladimirAlexiev)
+16:12:14 <gkellogg> gkellogg: using `@container` might work.
+16:13:58 <gkellogg> dlehn: Is this round-trippable?
+16:14:35 <gkellogg> gkellogg: I believe so, but that needs to be figured out.
+16:15:01 <gkellogg> dlehn: The JSON Literal already has problems with arrays.
+16:15:46 <niklasl> "stuff": [{"@json": [1, 2, 3], "@type": "cdt:List"}] -- might work
+16:16:27 <gkellogg> dlehn: Consider w3c/json-ld-api#599
+16:16:28 <gb> https://github.com/w3c/json-ld-api/issues/599 -> CLOSED Issue 599 Test new GH action (by pchampin)
+16:16:55 <gkellogg> dlehn: Consider w3c/json-ld-api#559
+16:16:55 <niklasl> (IIRC "@container": ["@language", "@set"] is a thing already; so e.g. "@container": ["@set", "@json"] would work too I guess.)
+16:16:55 <gb> https://github.com/w3c/json-ld-api/pull/559 -> Pull Request 559 Add JSON literal tests. (by davidlehn)
+16:17:07 <gkellogg> dlehn: and w3c/json-ld-api#560
+16:17:07 <gb> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (by davidlehn) [test:missing-coverage] [ErratumRaised]
+16:17:42 <gkellogg> dlehn: This is where I was trying to figure out these issues for `@json`.
+16:18:56 <gkellogg> ... It may be that the solutions can be treated similarly.
+16:19:28 <gkellogg> gkellogg: I think we can handle this through scope allowed through the re-charter.
+16:19:58 <gkellogg> niklasl: I need to look more at the details.
+16:21:27 <gkellogg> zakim, next item
+16:21:27 <Zakim> agendum 5 -- Open Discussion -- taken up [from agendabot]
+16:22:34 <dlehn> q+
+16:22:39 <gkellogg> subtopic: JSON-LD-star
+16:22:54 <gkellogg> gkellogg: I think we can start working on JSON-LD-star issues again.
+16:22:56 <niklasl> +1
+16:22:57 <gkellogg> ack dlehn
+16:23:15 <gkellogg> dlehn: Do you see the specs merging?
+16:24:46 <niklasl> Yes. Some form of RDF-star is intended to be part of RDF 1.2, and then JSON-LD 1.2 would follow.
+16:24:53 <gkellogg> gkellogg: It's part of RDF 1.2, so should be part of JSON-LD 1.2 as well.
+16:24:58 <gkellogg> q?
+16:25:24 <pchampin> present+
+16:26:42 <gkellogg> gkellogg: I'd like to see some updates to RDC that consider RDF-star.
+16:26:56 <gkellogg> dlehn: Does this flow into SHEX and SHACL and so forth?
+16:27:15 <gkellogg> TallTed: Those projects are independent, but the expectation is that they will evolve.
+16:27:30 <gkellogg> ... The new SPARQL group could pick up ShEx.
+16:28:21 <gkellogg> ... Rather, the SHACL group could adopt ShEx.
+16:29:43 <gkellogg> dlehn: The lack of support for datasets is an issue.
+16:30:10 <gkellogg> ... I'd rather work with SHACL than JSON Schema.
+16:30:37 <gkellogg> TallTed: If you're working with JSON, then JSON Schema is a good way to go.
+16:31:38 <gkellogg> TallTed: Note that SHACL isn't about semantics, it's a syntactical verifier. It's not like RDB referential integrity.
+16:32:32 <gkellogg> q?
+16:32:54 <gkellogg> subtopic: charter renewal
+16:33:11 <gkellogg> pchampin: No recent progress.
+16:34:01 <gkellogg> ... We should be able to submit our request soon.
+16:34:26 <gkellogg> ... There were some comments by bigbluehat about scope and adding a new document.
+16:35:17 <gkellogg> subtopic: Website
+16:35:40 <gkellogg> dlehn: We're looking to host on Cloudflare; I wasn't sure how to deal with .htaccess.
+16:35:57 <gkellogg> ... How much do we need to continue to support?
+16:37:06 <gkellogg> gkellogg: CORS headers?
+16:37:22 <gkellogg> dlehn: I'm not sure what we have in there is live or not.
+16:38:48 <gkellogg> ... There is a temporary website; it's just .htaccess stuff that is a problem.
+16:39:24 <dlehn> https://json-ld-org.pages.dev/
+16:40:08 <gkellogg> gkellogg: maybe look at server logs to see what features are used.
+16:42:52 <bigbluehat> q+
+16:43:04 <gkellogg> gkellogg: I would say move it over, and we'll deal with issues that come up.
+16:43:09 <dlehn> https://github.com/json-ld/json-ld.org/issues/778
+16:43:10 <gb> https://github.com/json-ld/json-ld.org/issues/778 -> Issue 778 RFCs (by davidlehn)
+16:43:10 <bigbluehat> q+ to ask TPAC questions toward the end
+16:43:56 <gkellogg> dlehn: I need to write up some stuff about RFC; there are things DB is doing that should be standardized.
+16:45:04 <gkellogg> ... For example, safe mode.
+16:47:59 <gkellogg> q?
+16:48:09 <gkellogg> ack bigbluehat
+16:48:09 <Zakim> bigbluehat, you wanted to ask TPAC questions toward the end
+16:48:44 <gkellogg> bigbluehat: I think filing issues against an existing spec is ideal, but may not be clear what this should be.
+16:49:14 <gkellogg> ... Is the json-ld.org issues repo the right place, or one of the specs.
+16:49:27 <gkellogg> dlehn: I have an idea for this, but need to write up a proposal.
+16:50:27 <gkellogg>  gkellogg: perhaps discuss next time?
+16:50:32 <gkellogg> zakim, next item
+16:50:32 <Zakim> agendum 6 -- Next call -- taken up [from agendabot]
+16:50:48 <gkellogg> Next call June 26.
+16:51:25 <gkellogg> bigbluehat: We have conflicts with VCWG; our joint meeting with RDF-star conflicts with VCWG.
+16:51:46 <gkellogg> ... If we try to move things around we may run into problems.
+16:53:16 <gkellogg> ... We may need to work with RDF-star to move that particular meeting time.
+16:53:49 <gkellogg> pchampin: RDF-star meets on Tuesday and Thursday mornings. If we move to Tuesday morning, we'd conflict with DID, but that might not be a problem.
+16:54:46 <gkellogg> ... Tuesday is not critical; I can ask Alex to make the change. I don't think the RDF-star chairs have a preference.
+16:55:05 <gkellogg> bigbluehat: There's also the federated identity WG which has conflicts.
+16:56:27 <gkellogg> zakim, end meeting
+16:56:27 <Zakim> As of this point the attendees have been gkellogg, TallTed, anatoly-scherbakov, niklasl, bigbluehat, dlehn, pchampin
+16:56:29 <Zakim> RRSAgent, please draft minutes
