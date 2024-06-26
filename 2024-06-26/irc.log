@@ -1,0 +1,186 @@
+16:00:04 <RRSAgent> RRSAgent has joined #json-ld
+16:00:09 <RRSAgent> logging to https://www.w3.org/2024/06/26-json-ld-irc
+16:00:09 <Zakim> RRSAgent, make logs Public
+16:00:10 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:00:13 <gkellogg> meeting: JSON-LD WG
+16:00:26 <TallTed> present+
+16:00:28 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240626T120000/
+16:00:28 <agendabot> clear agenda
+16:00:28 <agendabot> agenda+ Announcements and Introductions
+16:00:28 <agendabot> agenda+ rdf:JSON
+16:00:28 <agendabot> agenda+ TPAC
+16:00:28 <agendabot> agenda+ YAML-LD
+16:00:30 <agendabot> agenda+ JSON-LD
+16:00:32 <agendabot> agenda+ Open Discussion
+16:00:35 <agendabot> agenda+ Next call
+16:00:47 <gkellogg> present+
+16:01:00 <bigbluehat> present+
+16:01:52 <niklasl> niklasl has joined #json-ld
+16:04:28 <dlehn> present+
+16:05:00 <gkellogg> zakim, next item
+16:05:00 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:05:15 <gkellogg> scribe+
+16:05:20 <gkellogg> chair: bigbluehat
+16:05:58 <niklasl> present+
+16:06:01 <gkellogg> bigbluehat: TPAC coming up in 3 months
+16:06:14 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:06:19 <anatoly-scherbakov> present+
+16:06:31 <gkellogg> zakim, next item
+16:06:31 <Zakim> agendum 2 -- rdf:JSON -- taken up [from agendabot]
+16:06:31 <bigbluehat> zakin, next item
+16:07:00 <bigbluehat> scribe+
+16:07:20 <gkellogg> bigbluehat: RDF 1.2 defining the rdf:JSON datatype https://github.com/w3c/rdf-concepts/pull/66
+16:07:21 <gb> https://github.com/w3c/rdf-concepts/pull/66 -> Pull Request 66 Updates rdf:JSON value space. (by gkellogg) [spec:substantive]
+16:08:00 <bigbluehat> gkellogg: there's a link to RDF concepts for defining the rdf:JSON datatype which was originally defined in JSON-LD 1.1
+16:08:11 <bigbluehat> ... this PR brings it formally into RDF
+16:08:55 <bigbluehat> ... the earlier JSON-LD 1.1 edition brought it into being, this PR improves upon the definition by clarifying various aspects
+16:09:15 <bigbluehat> ... one of the things being done is to change the value space to be based on INFRA datatypes
+16:09:38 <bigbluehat> ... as well as clarifying the number datatype as xsd:double
+16:10:06 <bigbluehat> ... the discussion has been going on for sometime, but there's now a formal request for the JSON-LD WG to weigh in
+16:10:29 <bigbluehat> ... and to point to this newer definition in JSON-LD 1.2 (when that comes into being)
+16:10:38 <bigbluehat> ... canonicalization is not usually part of a datatype
+16:10:47 <bigbluehat> ... but there is a push for using JCS
+16:11:05 <bigbluehat> ... however, there's a mismatch in number datatypes
+16:11:49 <bigbluehat> ... because xsd:double could hold values which are not representable in a JCS canonicalized JSON document (such as positive and negative zero).
+16:12:14 <bigbluehat> ... but my hope is that this will still be what we reference in JSON-LD 1.2
+16:12:28 <TallTed> +1 gkellogg
+16:12:36 <bigbluehat> niklasl: nothing to add. I think this hardens things. So +1.
+16:13:21 <gkellogg> PROPOSAL: the JSON-LD will adopt the rdf:JSON datatype as defined in https://github.com/w3c/rdf-concepts/pull/66 as the basis for work on JSON-LD 1.2.
+16:13:31 <niklasl> +1
+16:13:32 <anatoly-scherbakov> +1
+16:13:34 <bigbluehat> +1
+16:13:34 <gkellogg> +1
+16:13:35 <TallTed> +1
+16:13:44 <dlehn> +1
+16:14:20 <bigbluehat> dlehn: does this break anything?
+16:14:31 <TallTed> RESOLVED: the JSON-LD will adopt the rdf:JSON datatype as defined in https://github.com/w3c/rdf-concepts/pull/66 as the basis for work on JSON-LD 1.2.
+16:14:32 <bigbluehat> gkellogg: JSON-LD 1.1 is already pretty much I-JSON...just not formally
+16:14:32 <gb> https://github.com/w3c/rdf-concepts/pull/66 -> Pull Request 66 Updates rdf:JSON value space. (by gkellogg) [spec:substantive]
+16:14:48 <bigbluehat> ... essentially nothing outside of I-JSON can meaningfully be referenced in JSON and round tripped
+16:14:57 <bigbluehat> ... so really this is about clarifying things
+16:14:58 <bigbluehat> q+
+16:15:14 <bigbluehat> gkellogg: one thing that isn't defined is sort order for SPARQL results
+16:15:33 <bigbluehat> ... in 1.1 sort order was easier because we had a canonicalized string
+16:15:41 <bigbluehat> ... when we switch to INFRA that gets harder
+16:15:50 <bigbluehat> ... using JCS would simplify that
+16:15:56 <bigbluehat> ... or use a recursive ordering
+16:16:23 <bigbluehat> ... but that could create an incompatibility...but not in JSON-LD because we never specified anything about sort order.
+16:16:26 <bigbluehat> ack bigbluehat
+16:16:30 <gkellogg> ack bigbluehat
+16:16:56 <gkellogg> bigbluehat: Is the definition in 1.1 close enough to IJSON that we could say that IJSON is an erratum?
+16:17:21 <bigbluehat> I-JSON https://www.rfc-editor.org/rfc/rfc7493.html
+16:17:43 <gkellogg> gkellogg: don't think it's an erratum.
+16:17:49 <bigbluehat> gkellogg: not something we'd change in 1.1. We'd focus on  1.2
+16:18:48 <gkellogg> TallTed: It may be useful to point people trying to make regorous definitions in RDF to bring those concerns to the documents we're based on (e.g. I-JSON)
+16:19:24 <gkellogg> ... It's unclear to me where these issues should be raised.
+16:20:03 <gkellogg> gkellogg: getting an erratum to I-JSON shouldn't be difficult.
+16:20:05 <TallTed> also see I-JSON Errata - https://www.rfc-editor.org/errata/rfc7493
+16:21:12 <bigbluehat> > I-JSON messages SHOULD NOT include numbers that express greater magnitude or precision than an IEEE 754 double precision number provides, for example, 1E400 or 3.141592653589793238462643383279.
+16:21:43 <gkellogg> gkellogg: we would need to raise an error when canonicalizing values with infinites.
+16:22:14 <bigbluehat> JCS https://www.rfc-editor.org/rfc/rfc8785
+16:22:55 <bigbluehat> gkellogg: JSON canonicalization does not effect RDF dataset canonicalization
+16:23:30 <bigbluehat> ... if we are canonicalizing, the question is if we canonicalize values
+16:23:40 <bigbluehat> ... XSD defines these, but RDF does not
+16:24:24 <bigbluehat> ... so for JSON literals, the JSON may be written differently and result in identical values
+16:24:39 <bigbluehat> bigbluehat: so this is mostly in our API, correct?
+16:24:42 <gb> https://github.com/w3c/rdf-concepts/pull/66 -> Pull Request 66 Updates rdf:JSON value space. (by gkellogg) [spec:substantive]
+16:24:54 <bigbluehat> gkellogg: yes, with some syntax doc leftovers
+16:24:59 <gkellogg> zakim, next item
+16:24:59 <Zakim> agendum 3 -- TPAC -- taken up [from agendabot]
+16:25:21 <gkellogg> bigbluehat: Who's coming?
+16:25:35 <gkellogg> TallTed: I probably won't be there in person, but will be remotely.
+16:25:46 <gkellogg> gkellogg: I'll be there in person.
+16:25:52 <gkellogg> dlehn: Probably not in person, but remote
+16:26:08 <gkellogg> niklasl: I'll attend remotely.
+16:26:27 <gkellogg> anatoly-scherbakov: I'll try to connect remotely.
+16:27:03 <gkellogg> bigbluehat: Shares TPAC schedule.
+16:27:49 <gkellogg> ... We have a joint meeting Monday afternoon with the Spacial Data on the Web WG.
+16:28:05 <gkellogg> ... Other meetings are Thursday and Friday, which have some conflicts.
+16:28:37 <gkellogg> ... Not sure its feasible to move afternoon meetings to the morning.
+16:29:28 <gkellogg> ... The times are not great for east coast and europe.
+16:31:53 <gkellogg> ... gkellogg & I can work with chairs of other groups to come up with agendas
+16:32:19 <gkellogg> ... The WoT group doesn't usually have any big issues.
+16:33:14 <gkellogg> ... We can start to work up agenda items for our meetings and see if that helps in figuring out scheduling.
+16:34:49 <gkellogg> ... Might see of WoT could go Friday morning instead of Thursday afternoon.
+16:35:19 <gkellogg> zakim, next item
+16:35:19 <Zakim> agendum 4 -- YAML-LD -- taken up [from agendabot]
+16:35:56 <gkellogg> anatoly-scherbakov: Noting particular to discuss. I'm working on some tests.
+16:36:11 <gkellogg> ... I approved a PR that fixes some tests.
+16:36:54 <gkellogg> ... I think there may be an API contradiction, though. It says that expand() should export a JSON serialization, but practically, this is typically not done.
+16:37:24 <gkellogg> ... There's a JSON-LD Record type which indicates that it is values.
+16:39:36 <gkellogg> gkellogg: need an erratum on serializing JSON-LD API to actually serialize
+16:40:06 <anatoly-scherbakov> q+
+16:40:28 <gkellogg> ... Serialization often happens later based on the Content-Type.
+16:41:24 <bigbluehat> gkellogg: I'm not sure. In so much as those use JSON-LD, you want the data structure
+16:41:46 <bigbluehat> ... yet when using those API endpoints, you expect back JSON...or maybe you don't?...
+16:41:54 <bigbluehat> ... maybe that's not strictly part of the API
+16:42:12 <anatoly-scherbakov> q+
+16:42:19 <bigbluehat> ... which would push things into JSON and then JSON-LD
+16:42:21 <gkellogg> anatoly-scherbakov: Does the API then need to return JSON?
+16:42:40 <gkellogg> ... In some contexts it's useful to post-process the results before serializing.
+16:43:10 <gkellogg> ... This applies even more to YAML-LD, as you have more choices in how to serialize lists, for example.
+16:44:21 <gkellogg> gkellogg: we need an issue to track and discuss
+16:44:59 <gkellogg> https://github.com/w3c/json-ld-api/issues/603
+16:44:59 <gb> https://github.com/w3c/json-ld-api/issues/603 -> Issue 603 toRdf() and flatten() API require extractAllScripts to default to true (by gkellogg) [spec:enhancement] [needs discussion] [ErratumRaised]
+16:45:19 <bigbluehat> gkellogg: I noticed when running some YAML-LD tests, that I was getting unexpected results
+16:45:55 <bigbluehat> ... there is text in the syntax document that when using `extractAllScripts()` should use `true` when running `toRDF()`
+16:46:13 <bigbluehat> ... there's a mismatch with YAML-LD's parsing
+16:46:52 <bigbluehat> ... and it's unclear about wrapping things into an `@graph` container
+16:47:18 <bigbluehat> ... we should consider the output of `flatten()` to use `extractAllScripts()` to use `false`...which would break all the implementations
+16:47:25 <bigbluehat> q?
+16:47:35 <bigbluehat> ack anatoly-scherbakov
+16:48:17 <bigbluehat> gkellogg: basically, we're inconsistent with our use of `extractAllScripts()`
+16:48:38 <bigbluehat> ... the expectation is that all the scripts would be combined and then handled
+16:49:05 <bigbluehat> ... but how things merge (or don't) into a top-level `@graph` causes the confusion
+16:49:18 <bigbluehat> ... we should instead move to `@included` which avoids the confusion
+16:49:32 <anatoly-scherbakov> q+
+16:49:54 <bigbluehat> ack anatoly-scherbakov
+16:50:03 <gkellogg> gkellogg: Can we break tests to fix behavior?
+16:50:18 <gkellogg> anatoly-scherbakov: Can we do this? Or, only in JSON-LD 1.2?
+16:50:38 <bigbluehat> gkellogg: I think we need to determine if it's OK to make normative changes that break tests
+16:50:43 <bigbluehat> bigbluehat: in 1.2?
+16:50:43 <niklasl> q+
+16:50:55 <bigbluehat> gkellogg: yes...can we cause incompatibility
+16:51:21 <gkellogg> anatoly-scherbakov: I was going to suggest changing to use default false in all cases.
+16:51:29 <bigbluehat> anatoly-scherbakov: I was going to suggest we augment the YAML-LD spec to handle it on it's own and state that we expect JSON-LD v1.2 to handle it better in the future
+16:51:52 <bigbluehat> gkellogg: currently, 1.1 `extractAllScripts()` is true, but the test results go the other way
+16:52:15 <bigbluehat> ... to preserve compatibility, we'd have flatten and toRDF switch to true
+16:52:28 <bigbluehat> TallTed: let's not fret about test results
+16:52:47 <bigbluehat> ... if we're causing BC breaks, though...then we're going to need a 2.0...
+16:52:58 <bigbluehat> ... the default has to remain the same
+16:52:58 <anatoly-scherbakov> q+
+16:53:01 <gkellogg> TallTed: We shouldn't focus on test results. If we make a change normative language that would break existing implementations, that needs to be 2.0.
+16:53:38 <gkellogg> ... We can say that it produces the wrong results; that won't break backwards compatibility.
+16:54:26 <bigbluehat> ack niklasl
+16:54:27 <niklasl> q-
+16:54:41 <bigbluehat> ack anatoly-scherbakov
+16:55:14 <gkellogg> anatoly-scherbakov: The extractAllScripts options bugs me because the interface is not sound in terms of the type system.
+16:55:55 <gkellogg> ... What if we split expand into two functions: expandOne and expandAll?
+16:56:29 <gkellogg> bigbluehat: We'll need to confront choices of the past eventually.
+16:56:38 <bigbluehat> zakin, next item
+16:56:45 <bigbluehat> zakim, next item
+16:56:45 <Zakim> agendum 5 -- JSON-LD -- taken up [from agendabot]
+16:56:49 <bigbluehat> zakim, next item
+16:56:49 <Zakim> agendum 5 was just opened, bigbluehat
+16:56:53 <bigbluehat> zakim, next item
+16:56:53 <Zakim> agendum 5 was just opened, bigbluehat
+16:57:03 <gkellogg> zakim, close item 5
+16:57:03 <Zakim> agendum 5, JSON-LD, closed
+16:57:04 <Zakim> I see 2 items remaining on the agenda; the next one is
+16:57:04 <Zakim> 6. Open Discussion [from agendabot]
+16:57:10 <gkellogg> zakim, next item
+16:57:10 <Zakim> agendum 6 -- Open Discussion -- taken up [from agendabot]
+16:57:45 <gkellogg> bigbluehat: There's a minor thing: classic GitHub Projects are going away.
+16:57:55 <gkellogg> https://github.com/orgs/w3c/projects/84/views/1
+16:58:14 <bigbluehat> https://github.com/json-ld/json-ld.org/projects/2
+16:59:13 <gkellogg> gkellogg: we should switch to the new one.
+17:00:14 <gkellogg> bigbluehat: I think we should have another WG call in July and August, and CG calls as well.
+17:00:42 <gkellogg> ... Next call will be a CG call on July 10th.
+17:00:54 <gkellogg> zakim, end meeting
+17:00:54 <Zakim> As of this point the attendees have been TallTed, gkellogg, bigbluehat, dlehn, niklasl, anatoly-scherbakov
+17:00:56 <Zakim> RRSAgent, please draft minutes
+17:00:58 <RRSAgent> I have made the request to generate https://www.w3.org/2024/06/26-json-ld-minutes.html Zakim
+17:01:05 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:01:05 <gkellogg> rrsagent, pointer
+17:01:05 <RRSAgent> See https://www.w3.org/2024/06/26-json-ld-irc#T17-01-05-1
+17:01:05 <Zakim> Zakim has left #json-ld
