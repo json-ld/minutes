@@ -1,0 +1,208 @@
+15:58:36 <RRSAgent> RRSAgent has joined #json-ld
+15:58:40 <RRSAgent> logging to https://www.w3.org/2024/07/24-json-ld-irc
+15:58:40 <Zakim> RRSAgent, make logs Public
+15:58:41 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:58:44 <gkellogg> meeting: JSON-LD CG
+15:58:52 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240724T120000/
+15:58:54 <agendabot> clear agenda
+15:58:54 <agendabot> agenda+ Announcements and Introductions
+15:58:54 <agendabot> agenda+ YAML-LD
+15:58:54 <agendabot> agenda+ CBOR-LD
+15:58:54 <agendabot> agenda+ JSON-LD Issue Discussion
+15:58:56 <agendabot> agenda+ Open Discussion
+15:58:59 <agendabot> agenda+ Next call
+15:59:04 <gkellogg> chair: gkellogg
+15:59:08 <gkellogg> scribe+
+15:59:10 <gkellogg> present+
+15:59:16 <gkellogg> zakim, next item
+15:59:16 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:00:48 <bigbluehat> bigbluehat has joined #json-ld
+16:01:01 <TallTed> present+
+16:01:22 <bigbluehat> present+
+16:02:57 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:03:19 <anatoly-scherbakov> present+
+16:03:38 <bigbluehat> scribe+
+16:03:45 <bigbluehat> topic: Who's coming to TPAC?
+16:03:52 <bigbluehat> gkellogg: I'll be there
+16:03:55 <bigbluehat> bigbluehat: likewise
+16:03:59 <bigbluehat> TallTed: I'll be remote
+16:04:04 <bigbluehat> anatoly-scherbakov: I'll also be remote
+16:04:12 <bigbluehat> gkellogg: PA should be there in person
+16:04:51 <bigbluehat> https://www.w3.org/calendar/tpac2024/
+16:05:11 <bigbluehat> https://www.w3.org/2024/09/TPAC/schedule.html
+16:06:19 <bigbluehat> gkellogg: Monday we meet with the Spatial Data on the Web.
+16:06:27 <bigbluehat> ... Tuesday with RDF-star
+16:06:51 <bigbluehat> ... Thursday we may give up our 9 am slot to not conflict with RDF-star
+16:06:57 <niklasl> niklasl has joined #json-ld
+16:07:10 <bigbluehat> ... then we have our standalone JSON-LD spot at 2 pm
+16:07:22 <bigbluehat> ... then a joint meeting with Web of Things
+16:07:47 <bigbluehat> gkellogg: one of the topics that will come up with Web of Things is CBOR
+16:08:04 <bigbluehat> ... it has some compression advantages over the Digital Bazaar approach
+16:08:09 <niklasl> present+
+16:08:13 <gkellogg> zakim, next item
+16:08:13 <Zakim> agendum 2 -- YAML-LD -- taken up [from agendabot]
+16:08:45 <bigbluehat> anatoly-scherbakov: not much to report.
+16:09:05 <bigbluehat> ... except I have made a release of my library which is a wrapper around PyLD
+16:09:12 <anatoly-scherbakov> Just today, pushed a PR against JSON-LD API about the JSON Representation. Published https://python-yaml-ld.iolanta.tech — Python implementation with JSON-LD functions working with YAML-LD documents, plus a command line interface to expand/compact/flatten/etc such documents from the Web & local filesystem.
+16:09:14 <bigbluehat> ... it also includes a command line interface
+16:09:58 <bigbluehat> anatoly-scherbakov: I'm not sure what else is needed for YAML-LD
+16:10:56 <bigbluehat> gkellogg: YAML-LD is an official report
+16:11:02 <gkellogg> bigbluehat: We should start working on charter issues.
+16:11:05 <bigbluehat> bigbluehat: so we wait on the updated JSON-LD WG?
+16:11:10 <bigbluehat> gkellogg: correct. that seems best
+16:11:19 <gkellogg> zakim, next item
+16:11:19 <Zakim> agendum 3 -- CBOR-LD -- taken up [from agendabot]
+16:11:46 <anatoly-scherbakov> q+
+16:12:05 <gkellogg> bigbluehat: DB has a growing need to get moving on the CBOR-LD spec. We have several more implementors working on OpenCred as well as verifiable bar codes.
+16:14:19 <bigbluehat> bigbluehat: is the Web of Things approach covered in the CBL paper? https://arxiv.org/abs/2407.04398
+16:14:22 <bigbluehat> gkellogg: yes
+16:14:23 <gkellogg> gkellogg: CBOR doesn't need to be tree based.
+16:14:29 <bigbluehat> ... we should sync with them about the details
+16:14:31 <gkellogg> zakim, next item
+16:14:31 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, gkellogg
+16:14:34 <gkellogg> q?
+16:14:38 <anatoly-scherbakov> Is DigitalBazaar planning to implement CBOR-LD within `pyld` library at any capacity?
+16:14:38 <gkellogg> ack anatoly-scherbakov
+16:14:52 <gkellogg> anatoly-scherbakov: Is DB planning on implementing CBOR-LD within PyLd?
+16:15:10 <gkellogg> bigbluehat: We don't currently have a need to do that.
+16:15:49 <gkellogg> q?
+16:15:53 <gkellogg> zakim, next item
+16:15:53 <Zakim> agendum 4 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:16:06 <gkellogg> https://github.com/orgs/w3c/projects/84/views/1
+16:16:36 <gkellogg> subtopic: w3c/json-ld-api#606
+16:16:37 <gb> https://github.com/w3c/json-ld-api/pull/606 -> Pull Request 606 The default for extractAllScripts in toRdf() should be true. (by gkellogg) [spec:enhancement]
+16:17:03 <bigbluehat> gkellogg: we've discussed this. it seems ready to go. it needs one more editor approval.
+16:17:09 <bigbluehat> ... we should poke PA
+16:17:15 <gkellogg> gkellogg: need's pchampin's approval.
+16:17:45 <gkellogg> subtopic: w3c/json-ld-api#608
+16:17:45 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 JSON Serialization → Object Representation (by anatoly-scherbakov) [spec:substantive] [ErratumRaised]
+16:18:34 <gkellogg> anatoly-scherbakov: I just made a couple of more comments on this.
+16:19:25 <gb> https://github.com/w3c/json-ld-api/issues/605 -> Issue 605 It is not clear enough what "JSON Serialization" is (by anatoly-scherbakov) [spec:editorial] [ErratumRaised]
+16:19:58 <gkellogg> gkellogg: needs something to describe serizliing to JSON based on the Accept header.
+16:20:38 <gkellogg> anatoly-scherbakov: If we call expand against a vocabulary and use Accept. It could provide problems with interacting services.
+16:21:00 <gkellogg> ... The input type and output type may be different.
+16:23:21 <bigbluehat> gkellogg: potentially, one could send up RDF/XML and have that transformed on the server and then returns the result as compacted JSON-LD
+16:23:32 <bigbluehat> anatoly-scherbakov: I may not be following
+16:23:48 <bigbluehat> ... the interface of the JSON-LD Processor API refers to how we call it's functions
+16:23:53 <dlehn1> present+
+16:24:11 <bigbluehat> ... if we pass `Accept` header to those functions would be what they will ask of a remote server
+16:24:30 <bigbluehat> ... but in the JSON-LD API, I don't see a way to respond with a native representation vs. a string
+16:25:03 <bigbluehat> ... the point of my PR was to return whatever it is natively in the language/implementation vs. always returning a JSON string
+16:25:15 <bigbluehat> gkellogg: so that's the point of the Accept header
+16:25:34 <bigbluehat> q+
+16:25:50 <bigbluehat> ... we do describe those headers in the syntax document
+16:26:12 <bigbluehat> ... that sort of thing wraps those API methods
+16:26:46 <bigbluehat> ... my Distiller implementation receives a string representation, turns it into an RDF Dataset, and then sends it back in the requested format
+16:27:13 <bigbluehat> ... so maybe the only thing needed is a note about adding back in a description of how the internal format is turned into JSON
+16:27:26 <bigbluehat> anatoly-scherbakov: I will think about adding such a note
+16:27:41 <bigbluehat> ... it is subjective, but the term "internal representation" is confusing
+16:28:09 <bigbluehat> ... it sounds like JSON-LD implementations use, but that never leave the software...and developers will never see
+16:28:48 <bigbluehat> ... but it's actually just the JSON-LD document has when represented within the programming language
+16:29:11 <bigbluehat> gkellogg: I think we've established the "internal representation" in other specs years ago...we can't really change that
+16:29:18 <bigbluehat> ... and it's essentially what you're describing
+16:29:30 <bigbluehat> ... so that was an abstraction for working with multiple formats
+16:29:49 <bigbluehat> ... what's missing is a description of how to turn the "internal representation" into a string
+16:29:59 <bigbluehat> ... similarly we need something for the output as well
+16:30:20 <bigbluehat> ... to say it's an "object representation" is not quite correct, since objects tend to refer to maps
+16:30:28 <bigbluehat> ... the API can also return arrays of objects
+16:30:39 <bigbluehat> ... we don't return smaller representations
+16:30:54 <bigbluehat> ... we should update the API to make sure that text is accurate
+16:30:56 <bigbluehat> q-
+16:31:06 <niklasl> q+
+16:31:08 <niklasl> Isn't the issue that the API IDL is at odds with the algorithm text? The IDL specifies the return types of compact and flatten to be a Promise of JsonLdRecord, and a sequence thereof for expand and fromRrdf (JsonLdRecord "is the definition of a map used to contain arbitrary map entries which are the result of parsing a JSON Object").
+16:31:19 <gkellogg> ack niklasl
+16:32:00 <bigbluehat> niklasl: I've only glanced at this, but it seems to point to a problem that the API definitions seem to be at odds with the actual function definitions
+16:32:11 <bigbluehat> ... it's a bit weird that it says "resolve" as well
+16:32:18 <bigbluehat> gkellogg: right. that's what's being addressed here
+16:32:35 <bigbluehat> niklasl: k. we should not say JSON serialization, but maybe "JSON-LD record"
+16:32:47 <bigbluehat> gkellogg: the promise is resolved with the record
+16:32:53 <niklasl> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
+16:32:56 <bigbluehat> ... but maybe we need to revisit that wording
+16:33:47 <anatoly-scherbakov> q+
+16:33:48 <bigbluehat> ... what's needed is the bridge that says, for this middleware layer to actually serialize that, it needs to know what it's changing it into
+16:33:53 <gkellogg> ack anatoly-scherbakov
+16:34:16 <bigbluehat> anatoly-scherbakov: there is a section about resolving...if a string is provided that it is a URL that it's trying to resolve
+16:34:34 <bigbluehat> ... I may add a note there about converting it to a form specific to the implementation
+16:34:42 <bigbluehat> ... and not to the API specification
+16:35:01 <bigbluehat> ... I do have another question: it says `.expand()` will return a Promise that will have to be responded
+16:35:09 <bigbluehat> ... that's very specific to JavaScript
+16:35:27 <bigbluehat> ... in Python, `.expand()` returns an expanded document itself
+16:35:48 <bigbluehat> ... so, the question, if an implementation doesn't return a Promise, is that implementation non-compliant?
+16:36:12 <bigbluehat> gkellogg: Promises are defined in WebIDL which is what we're using to define the API
+16:36:19 <bigbluehat> ... which is meant to be cross-language
+16:36:36 <bigbluehat> ... do they have to use Promises? no. My Ruby implementation doesn't
+16:36:54 <bigbluehat> ... how that's interpreted--given the results are self reported--it's up to the implementer
+16:37:10 <bigbluehat> ... we don't make implementations pass a WebIDL test suite, for instance
+16:37:25 <bigbluehat> ... we mostly use that for describing the interface--regardless of language
+16:37:53 <bigbluehat> ... we have faced a lot of pushback since browser vendor folks want to narrow it to just their software
+16:38:03 <bigbluehat> ... the W3M said it was fine for us to use it
+16:38:38 <bigbluehat> ... but really, how the implementation does the implementation is informed by the WebIDL, but will be implemented as makes sense in that language
+16:38:41 <anatoly-scherbakov> Can an implementation change the function signature? `expand(input_, options: JsonLDOptions)` vs `expand(input_, expand_all_scripts: bool, expand_context: JsonLDContext | None, …)`
+16:38:54 <bigbluehat> anatoly-scherbakov: thank you. I didn't know Promises were a WebIDL thing
+16:39:01 <bigbluehat> ... one more question.
+16:39:30 <bigbluehat> ... expand takes a second parameter `options`
+16:39:44 <bigbluehat> ... but in Python, it would be more idiomatic to use named arguments
+16:40:12 <bigbluehat> ... this would be more customary for Python devs which would make it closer to their experience
+16:40:21 <bigbluehat> ... I haven't because I thought I would not be compliant
+16:40:32 <bigbluehat> gkellogg: no. there's no police here
+16:40:47 <bigbluehat> ... ES6 does have support for keyword arguments, as does Ruby
+16:41:00 <bigbluehat> ... my own implementation uses a combination of these things
+16:41:33 <bigbluehat> ... as long as the calling sequences are consistent, then I think you're fine
+16:41:46 <bigbluehat> ... if you're building on PyLD, I'd continue that pattern
+16:41:51 <bigbluehat> anatoly-scherbakov: that's what I've done
+16:42:02 <niklasl> q+
+16:42:03 <bigbluehat> gkellogg: the WebIDL is meant to remove ambiguity
+16:42:17 <gkellogg> ack niklasl
+16:42:25 <bigbluehat> niklasl: I'd like to comment that it would be nice about what you just said gkellogg
+16:42:32 <bigbluehat> ... in case this comes up again
+16:42:51 <bigbluehat> ... if I recall correctly, the interface was originally non-normative?
+16:42:56 <bigbluehat> gkellogg: it's normative
+16:43:23 <bigbluehat> niklasl: maybe a note about idiomatic implementations still being complaint even if they deviate from some WebIDL specifics would be helpful?
+16:43:25 <gkellogg> action: gkellogg to propose text on describing "flexible" use of the API by implementors.
+16:43:33 <gb> Sorry, I don't know what repository to use.
+16:44:39 <gkellogg> niklas: I recall that the API was intentionally non-normative in 1.0.
+16:44:48 <bigbluehat> niklasl: I do recall a conversation around this before Python had async/await, etc.
+16:45:32 <gkellogg> subtopic: w3c/json-ld-api#607
+16:45:33 <gb> https://github.com/w3c/json-ld-api/pull/607 -> Pull Request 607 Fix test output for html/f004 for default extractAllScripts to false. (by gkellogg) [test:missing-coverage]
+16:45:57 <bigbluehat> gkellogg: this goes along with the previous one about `extractAllScripts` is meant to work
+16:46:00 <gkellogg> gkellogg: this PR needs approvals.
+16:46:53 <bigbluehat> ... this is about fixing wording about `extractAllScripts`
+16:47:05 <bigbluehat> ... the tests assumed one thing, the text said another
+16:47:14 <bigbluehat> ... so this is about making the tests match the text
+16:48:58 <bigbluehat> TallTed: maybe we can change the PR title to make it clearer?
+16:49:59 <gkellogg> subtopic: w3c/json-ld-api#559
+16:50:00 <gb> https://github.com/w3c/json-ld-api/pull/559 -> Pull Request 559 Add JSON literal tests. (by davidlehn) [test:missing-coverage]
+16:50:18 <gkellogg> dlehn: Still an issue, but We're going to have to start our brains thinking about it again.
+16:50:43 <gkellogg> subtopic: w3c/json-ld-api#585
+16:50:43 <gb> https://github.com/w3c/json-ld-api/pull/585 -> Pull Request 585 Add graph container array tests. (by davidlehn) [test:missing-coverage]
+16:51:32 <bigbluehat> dlehn: did I need to do this?
+16:51:33 <gkellogg> gkellogg: I can pick this up and move it forward.
+16:52:00 <gkellogg> subtopic: w3c/json-ld-api#418
+16:52:01 <gb> https://github.com/w3c/json-ld-api/pull/418 -> MERGED Pull Request 418 Add term scoping test for toRdf (by rubensworks)
+16:52:20 <bigbluehat> gkellogg: this updates things to RDFv1.2
+16:52:46 <bigbluehat> ... did we have a WG statement about this?
+16:53:01 <bigbluehat> ... we're not in a good position about this if we're blocked by this work
+16:53:11 <bigbluehat> ... maybe let's talk about it on the next WG meeting
+16:53:17 <bigbluehat> ... we just more eyes on it again
+16:53:22 <gkellogg> gkellogg: needs pchampin's eyes on this.
+16:53:29 <niklasl> +1 there's always a risk, but I think it's better to bet JSON-LD 1.2 being based on RDF 1.2...
+16:53:49 <TallTed> for (near) future AOB/AMA -- How can compaction API be used to transform a JSON-LD document with unrecognized `@profile` value(s) to use recognized `@profile` value(s) (arose in Data Integrity)? Perhaps best to add this to JSON-LD docs?
+16:55:20 <gkellogg> TallTed: It says you can use the API to transform a document and drop unrecognized values.
+16:56:47 <bigbluehat> gkellogg: if `@prefix` was used, then we'd be falling into the prefix algorithm
+16:57:03 <bigbluehat> TallTed: this is not for `@foo` this is about `foo`
+16:57:20 <bigbluehat> ... when you encounter `foo` and go looking for the map for that term
+16:57:34 <bigbluehat> ... I think this is an expansion + compaction
+16:57:44 <bigbluehat> ... but I couldn't find how to do that
+16:58:01 <bigbluehat> gkellogg: in the case you're describing: a term during expansion
+16:58:09 <bigbluehat> ... there should be some wording about that
+16:59:17 <bigbluehat> ... the RDF content remains constant. It's OK to loose that profile string
+16:59:29 <bigbluehat> ... and then the transformed document only retains profile strings
+16:59:37 <bigbluehat> gkellogg: sorry...could you raise an issue on this?
+16:59:43 <bigbluehat> TallTed: yeah. I can do that.
+16:59:55 <bigbluehat> gkellogg: k. we're out of time, so we'll take a look more next time
+17:00:02 <gkellogg> zakim, end meeting
+17:00:02 <Zakim> As of this point the attendees have been gkellogg, TallTed, bigbluehat, anatoly-scherbakov, niklasl, dlehn
+17:00:04 <Zakim> RRSAgent, please draft minutes
+17:00:05 <RRSAgent> I have made the request to generate https://www.w3.org/2024/07/24-json-ld-minutes.html Zakim
+17:00:13 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:00:13 <Zakim> Zakim has left #json-ld
