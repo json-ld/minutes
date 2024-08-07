@@ -1,0 +1,158 @@
+16:01:56 <RRSAgent> RRSAgent has joined #json-ld
+16:02:00 <RRSAgent> logging to https://www.w3.org/2024/08/07-json-ld-irc
+16:02:22 <bigbluehat> Zakim, start meeting
+16:02:22 <Zakim> RRSAgent, make logs Public
+16:02:24 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:02:31 <TallTed> RRSAgent, draft minutes
+16:02:32 <RRSAgent> I have made the request to generate https://www.w3.org/2024/08/07-json-ld-minutes.html TallTed
+16:02:39 <bigbluehat> meeting: JSON-LD WG
+16:02:39 <TallTed> RRSAgent, make logs public
+16:02:40 <gkellogg> chair: bigbluehat
+16:02:40 <bigbluehat> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240807T120000/
+16:02:41 <agendabot> clear agenda
+16:02:41 <agendabot> agenda+ Announcements and Introductions
+16:02:41 <agendabot> agenda+ TPAC planning.
+16:02:41 <agendabot> agenda+ YAML-LD
+16:02:41 <agendabot> agenda+ CBOR-LD
+16:02:42 <gkellogg> present+
+16:02:43 <agendabot> agenda+ JSON-LD Issue Discussion
+16:02:46 <agendabot> agenda+ Open Discussion
+16:02:48 <agendabot> agenda+ Next call
+16:02:49 <gkellogg> scribe+
+16:02:54 <bigbluehat> chair: bigbluehat
+16:02:56 <bigbluehat> present+
+16:03:02 <gkellogg> zakim, next item
+16:03:02 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:03:04 <TallTed> present+
+16:03:10 <niklasl> present+
+16:04:01 <gkellogg> wesley: I'm an engineer at Digital Bazaar.
+16:04:36 <gkellogg> zakim, next item
+16:04:36 <Zakim> agendum 2 -- TPAC planning. -- taken up [from agendabot]
+16:04:56 <gkellogg> bigbluehat: I hope everyone can come or dial in.
+16:04:58 <wes-smith> wes-smith has joined #json-ld
+16:05:10 <bigbluehat> https://www.w3.org/2024/09/TPAC/schedule.html
+16:05:13 <gkellogg> s/wesley/wes-smith/
+16:05:38 <gkellogg> bigbluehat: Group meetings are Monday, Tuesday, and Thursday.
+16:05:57 <gkellogg> ... Anyone planning to present anything during breakout?
+16:06:05 <dlehn> present+
+16:06:10 <gkellogg> ... wes-smith and I are planing to present on CBOR-LD
+16:06:22 <gkellogg> anatoly-scherbakov: How about presenting YAML-LD?
+16:07:01 <gkellogg> ... I won't be in person, but could present remotely.
+16:07:25 <gkellogg> bigbluehat: I'd go through the submission process, which should reveal if the technology is in  place for remote presentation.
+16:07:43 <bigbluehat> https://www.w3.org/2024/09/TPAC/breakouts.html#intro
+16:08:25 <gkellogg> ... Deadline is Sept 16th.
+16:09:00 <bigbluehat> Spatial Data on the Web WG, JSON-LD WG, JSON for Linking Data CG Joint Meeting, Room TBD,	14:00​–​16:00
+16:09:04 <gkellogg> ... We have some joint meetings, and dedicated group time.
+16:09:23 <bigbluehat> Monday: Spatial Data on the Web WG, JSON-LD WG, JSON for Linking Data CG Joint Meeting, Room TBD,	14:00​–​16:00
+16:09:36 <bigbluehat> Tuesday: JSON-LD WG, RDF-star WG, JSON for Linking Data CG Joint Meeting, Room TBD,	11:00​–​12:30
+16:09:49 <gkellogg> ... Times are likely EDT.
+16:09:57 <bigbluehat> Thursday...
+16:09:57 <bigbluehat> JSON-LD WG, JSON for Linking Data CG Joint Meeting, Room TBD,	09:00​–​10:30
+16:09:57 <bigbluehat> JSON-LD WG, JSON for Linking Data CG Joint Meeting, Room TBD,	14:00​–​16:00
+16:09:57 <bigbluehat> JSON-LD WG, Web of Things WG Joint Meeting, Room TBD,	16:30​–​18:00
+16:10:09 <bigbluehat> nothing on Friday
+16:10:51 <gkellogg> ... Most of our time will be on Charter, YAML-LD, and joint meetings.
+16:11:14 <gkellogg> s/likely EDT/likely/PDT/
+16:11:16 <bigbluehat> Times are in America/Los_Angeles
+16:11:52 <gkellogg> bigbluehat: Without objection, we'll eliminate the Thursday 9:00 PDT session.
+16:12:04 <bigbluehat> zakim, next item
+16:12:04 <Zakim> agendum 3 -- YAML-LD -- taken up [from agendabot]
+16:12:35 <gkellogg> anatoly-scherbakov: Nothing new on YAML-LD; I've been focused on JSON-LD API issues.
+16:13:00 <gkellogg> bigbluehat: Next big thing is to get YAML-LD in the charter as a REC-track item.
+16:13:02 <TallTed> It might be worth investigating CG rename, from `JSON for Linking Data CG` to `JSON-LD CG` or `JSON for Linked Data CG`
+16:14:09 <gkellogg> bigbluehat: We need pierre-antoine to figure out how to rename.
+16:14:31 <bigbluehat> zakim, next item
+16:14:31 <Zakim> agendum 4 -- CBOR-LD -- taken up [from agendabot]
+16:15:06 <gkellogg> bigbluehat: wes-smith recently did a presentation to Verifiable Barcodes talk to the VCWG, which included a lot of CBOR-LD.
+16:15:24 <gkellogg> wes-smith: It's
+16:15:38 <gkellogg> ... "Verifiable Credentials Barcodes".
+16:16:43 <gkellogg> ... The work is about adding crypto security to documents by augmenting existing barcodes which exist on documents already.
+16:17:09 <gkellogg> ... The VCWG initiative augments these.
+16:17:25 <gkellogg> ... This includes drivers license and other official documents.
+16:17:50 <gkellogg> ... CBOR-LD is important because of space constraints.
+16:18:23 <gkellogg> ... This allows the compression we need to fit size constraints.
+16:19:23 <gkellogg> [slide presentation ensues]
+16:20:34 <gkellogg> ... The use case is to prevent credential fraud.
+16:21:33 <gkellogg> ... It's small. The crypto standard allows data in the doc and what is referenced to be signed.
+16:22:46 <gkellogg> ... Compressing with CBOR-LD creates a substantially smaller document than the equivalent JSON-LD.
+16:23:19 <gkellogg> ... This constructs an "invertable map" from JSON-LD terms to CBOR-LD terms.
+16:23:49 <gkellogg> ... URLs can be compressed by adding them into the context itself.
+16:24:16 <gkellogg> ... Issuer-specific contexts allow this to be expressed minimally.
+16:24:38 <gkellogg> ... Contexts are processed in a specific way so that it can be verified.
+16:25:13 <gkellogg> ... Verifier reconstructs without using the original map.
+16:26:38 <gkellogg> ... Example 23 shows a map created by processing the contexts into integers.
+16:27:12 <gkellogg> ... Much of the core JSON-LD terms are hardcoded into CBOR-LD (e.g., '@context').
+16:27:46 <gkellogg> ... A Type Table is used to namespace tables to get a range of integers to which it compresses.
+16:28:23 <gkellogg> ... Based on identifying a specific type, I can use that custom mapping for that type.
+16:28:49 <gkellogg> ... You process context documents and compress based on that.
+16:30:25 <gkellogg> ... Specific context IRIs map to well-known integers.
+16:30:42 <gkellogg> ... The mapping must be reconstructable when verifying.
+16:31:14 <gkellogg> ... But, this creates an issue to invert those numbers to find the associated context documents.
+16:31:49 <gkellogg> ... CBOR has tags, which allow semantic information to be associated with CBOR objects.
+16:32:02 <gkellogg> ... We're reserving a tag range for CBOR-LD tags.
+16:32:29 <gkellogg> ... When I see such a value, I can look it up from a spec.
+16:33:48 <gkellogg> ... We use CBOR tag value to find the value for a tag from a registry.
+16:34:18 <gkellogg> bigbluehat: Are CBOR-LD processors expected to keep a copy of the registry?
+16:34:38 <gkellogg> wes-smith: Yes, they idea is to keep these as stable as possible.
+16:35:02 <gkellogg> ... The key point is to invert the context string expression.
+16:35:46 <gkellogg> ... I have to invert part of the encoding to find more things to be deoded.
+16:37:16 <gkellogg> bigbluehat: The mapping is not looked up, but constructed based on the data. It only includes common mappings, and those that are needed for the specific document.
+16:38:50 <gkellogg> wes-smith: Not everything in the contexts are added to the map.
+16:39:44 <gkellogg> gkellogg: can arbitrary contexts be used/
+16:40:01 <gkellogg> wes-smith: yes, there's a way to do that.
+16:41:29 <gkellogg> ... There could be a registry entry that allows the issuer to create something, but then needs to hand the custom type-table to the verifier.
+16:41:53 <dlehn> q+
+16:42:25 <bigbluehat> ack dlehn
+16:42:27 <bigbluehat> q+
+16:42:33 <gkellogg> ... If you understand what to expect, then the arguments are obvious. But, in some cases, you'll need custom mappings.
+16:42:47 <gkellogg> dlehn: Why are large numbers used for the contexts?
+16:43:10 <gkellogg> wes-smith: therse is some historical reason for using larger numbers.
+16:43:40 <gkellogg> dlehn: Should there be a mode which is self-contained?
+16:44:03 <gkellogg> ... So that a processor doesn't need to know too much about external tables?
+16:44:28 <gkellogg> ... There should be some inline mode.
+16:44:58 <gkellogg> wes-smith: there is a default mode without a provided type table. In that case, contexts should up as strings.
+16:45:51 <gkellogg> dlehn: Any change to a context can mess this up, so contexts should be immutable.
+16:46:04 <bigbluehat> ack bigbluehat
+16:46:19 <gkellogg> ... Maybe needs digests or something else to ensure they're consistent.
+16:46:42 <gkellogg> wes-smith: VC Barcodes is an entry, but there can be other entries for other use cases.
+16:47:01 <bigbluehat> Zakim, agenda?
+16:47:01 <Zakim> I see 4 items remaining on the agenda:
+16:47:02 <Zakim> 4. CBOR-LD [from agendabot]
+16:47:02 <Zakim> 5. JSON-LD Issue Discussion [from agendabot]
+16:47:02 <Zakim> 6. Open Discussion [from agendabot]
+16:47:02 <Zakim> 7. Next call [from agendabot]
+16:47:42 <gkellogg> zakim, next item
+16:47:42 <Zakim> agendum 5 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:48:06 <gkellogg> https://github.com/orgs/w3c/projects/84/views/1
+16:50:10 <bigbluehat> topic: https://github.com/w3c/json-ld-api/pull/608
+16:50:11 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 Resolve the questions about "JSON Serialization" term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised]
+16:50:21 <gkellogg> PR w3c/json-ld-api#608
+16:50:53 <bigbluehat> topic: https://github.com/w3c/json-ld-api/pull/607
+16:50:54 <gb> https://github.com/w3c/json-ld-api/pull/607 -> Pull Request 607 Fix test output for html/f004 and add html/f005 (by gkellogg) [test:missing-coverage]
+16:51:20 <gkellogg> s/topic/subtopic/
+16:51:59 <wes-mith> wes-mith has joined #json-ld
+16:52:13 <bigbluehat> scribe+
+16:52:17 <gkellogg> gkellogg: my points were to make it clear what to serialize to/from.
+16:52:31 <gkellogg> subtopic: https://github.com/w3c/json-ld-api/pull/607
+16:53:14 <bigbluehat> gkellogg: this was output based on https://github.com/w3c/json-ld-api/pull/606 which has been merged
+16:53:15 <gb> https://github.com/w3c/json-ld-api/pull/606 -> MERGED Pull Request 606 The default for extractAllScripts in toRdf() should be true. (by gkellogg) [spec:enhancement]
+16:53:27 <bigbluehat> ... this cleans up some things following that merge
+16:53:54 <bigbluehat> ... dlehn any thoughts?
+16:54:12 <bigbluehat> dlehn: yeah. this isn't yet handled in jsonld.js
+16:57:49 <gkellogg> action: dlehn to create issue for discussing spec changes related to https://github.com/w3c/json-ld-api/pull/559
+16:59:37 <gkellogg> bigbluehat: We've got about three more calls before TPAC.
+17:00:11 <gkellogg> ... Not scheduled next week, so the next meeting would be Aug 23rd.
+17:01:03 <gkellogg> ... Meeting for Aug 21 moved to Aug 14.
+17:01:18 <gkellogg> zakim, end meeting.
+17:01:18 <Zakim> As of this point the attendees have been bigbluehat, gkellogg, anatoly-scherbakov, TallTed, niklasl, dlehn
+17:01:20 <Zakim> RRSAgent, please draft minutes
+17:01:21 <RRSAgent> I have made the request to generate https://www.w3.org/2024/08/07-json-ld-minutes.html Zakim
+17:01:27 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:01:27 <Zakim> Zakim has left #json-ld
+17:01:35 <gkellogg> rrsagent, pointer
+17:01:35 <RRSAgent> See https://www.w3.org/2024/08/07-json-ld-irc#T17-01-35
+17:01:46 <gkellogg> rrsagent, bye
+17:01:46 <RRSAgent> I see 1 open action item saved in https://www.w3.org/2024/08/07-json-ld-actions.rdf :
+17:01:46 <RRSAgent> ACTION: dlehn to create issue for discussing spec changes related to https://github.com/w3c/json-ld-api/pull/559 [1]
+17:01:46 <RRSAgent>   recorded in https://www.w3.org/2024/08/07-json-ld-irc#T16-57-49
+17:01:48 <gb> Sorry, I don't know what repository to use.
