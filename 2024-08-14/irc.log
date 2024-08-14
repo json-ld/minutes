@@ -1,0 +1,183 @@
+16:01:27 <RRSAgent> RRSAgent has joined #json-ld
+16:01:31 <RRSAgent> logging to https://www.w3.org/2024/08/14-json-ld-irc
+16:01:31 <Zakim> Zakim has joined #json-ld
+16:01:52 <gkellogg> zakim, start meeting
+16:01:52 <Zakim> RRSAgent, make logs Public
+16:01:55 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:02:11 <gkellogg> meeting: JSON-LD WG
+16:02:23 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240821T120000/
+16:02:27 <agendabot> clear agenda
+16:02:27 <agendabot> agenda+ Announcements and Introductions
+16:02:27 <agendabot> agenda+ TPAC 2024 Reminders/Planning
+16:02:27 <agendabot> agenda+ JSON-LD Issue Discussion
+16:02:27 <agendabot> agenda+ Open Discussion
+16:02:28 <agendabot> agenda+ Next call
+16:02:37 <gkellogg> zakim, next item
+16:02:37 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:43 <gkellogg> chair: bigbluehat
+16:02:47 <gkellogg> scribe+
+16:02:49 <gkellogg> present+
+16:02:49 <niklasl> present+
+16:02:49 <bigbluehat> present+
+16:02:49 <TallTed> present+
+16:03:13 <anatoly-scherbakov> present+
+16:03:50 <gkellogg> zakim, close item
+16:03:50 <Zakim> I don't understand 'close item', gkellogg
+16:03:57 <gkellogg> zakim, close item 1
+16:03:57 <Zakim> agendum 1, Announcements and Introductions, closed
+16:03:57 <bigbluehat> zakim, next item
+16:03:59 <Zakim> I see 4 items remaining on the agenda; the next one is
+16:03:59 <Zakim> 2. TPAC 2024 Reminders/Planning [from agendabot]
+16:03:59 <Zakim> agendum 2 -- TPAC 2024 Reminders/Planning -- taken up [from agendabot]
+16:04:02 <gkellogg> zakim, next item
+16:04:02 <Zakim> agendum 2 was just opened, gkellogg
+16:04:38 <gkellogg> bigbluehat: Schedule has not changed. We've cleared Friday, so meetings Monday-Thursday with main meetings on Thursday.
+16:04:49 <gkellogg> ... We have joint meetings with WoT and RDF-star.
+16:05:22 <gkellogg> ... Most of the meeting times are mornings in PDT, so should be relatively easy for people in other timezones
+16:05:46 <gkellogg> ... I'll give a re-chartering update on Thursday. The hope is to get more interest in the group.
+16:06:05 <gkellogg> ... CBOR-LD and YAML-LD will be key topics, and perhaps the multi-language discussion.
+16:06:40 <gkellogg> ... If the breakout sessions are remote-able, I'll work to make that possible.
+16:06:51 <gkellogg> zakim, next item
+16:06:51 <Zakim> agendum 3 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:07:01 <bigbluehat> scribe+
+16:07:21 <bigbluehat> gkellogg: there are 4 items on the Discuss-Call list
+16:07:30 <gkellogg> subtopic: https://github.com/orgs/w3c/projects/84/views/1?pane=issue&itemId=68598311
+16:07:45 <bigbluehat> > URI in Profile triggers CORS Unsafe Request Header Byte rule
+16:08:05 <gkellogg> anyone look at this?
+16:08:23 <bigbluehat> gkellogg: anyone look at this?
+16:08:31 <bigbluehat> ... not sure how to move this along
+16:08:41 <bigbluehat> ... so if folks can look at it, that would be great
+16:08:52 <bigbluehat> ... or we can reach out to the TAG if that's what's necessary
+16:08:55 <gkellogg> subtopic: https://github.com/orgs/w3c/projects/84/views/1?pane=issue&itemId=63002420
+16:09:09 <bigbluehat> > Framing on nested graphs
+16:09:19 <bigbluehat> gkellogg: mostly questions on framing
+16:09:30 <bigbluehat> ... not much work on it since this was submitted
+16:09:41 <bigbluehat> ... so, again, please take a look at this and other open issues
+16:09:56 <bigbluehat> ... it can be helpful preamble to a call, or we can remove it from the discuss on call list
+16:10:01 <gkellogg> subtopic: https://github.com/orgs/w3c/projects/84/views/1?pane=issue&itemId=73902562
+16:10:18 <bigbluehat> > Changes to the algorithms that will need their own PRs
+16:10:36 <gkellogg> bigbluehat: This was put together during a previous call based on things found in other issues.
+16:11:21 <bigbluehat> gkellogg: this is based on issues dlehn1 raised around JSON literals
+16:11:43 <bigbluehat> ... which may require more work around sets when JSON literals are arrays
+16:12:01 <bigbluehat> ... the discussion needed could be around possible incompatiblity
+16:12:06 <bigbluehat> ... as a previous warning would change
+16:12:14 <bigbluehat> ... however that previous approach was broken
+16:12:45 <bigbluehat> ... so how do we feel about cleaning up some things around JSON Literals? even if it's technically a backwards compatibility break?
+16:13:06 <bigbluehat> ... though, this may not actually effect tests which don't seem to cover this case
+16:13:24 <bigbluehat> gkellogg: TallTed any thoughts on backwards compatibility breaks here?
+16:13:36 <bigbluehat> TallTed: not sure. what's the immediate question?
+16:13:47 <bigbluehat> gkellogg: JSON literals that are only arrays
+16:14:14 <bigbluehat> ... dlehn1's shown that an array form JSON literal would be treated differently if it were in a list or set
+16:14:31 <bigbluehat> ... either it can be treated as multiple JSON literals in an array
+16:14:43 <bigbluehat> ... or the thing itself is a JSON literal
+16:14:51 <bigbluehat> ... it does represent a change
+16:14:58 <bigbluehat> ... but arguably...
+16:15:05 <bigbluehat> TallTed: lack of language means it's undefined
+16:15:22 <bigbluehat> ... adding a definition could mean that existing implementations are noncompliant
+16:15:34 <bigbluehat> ... if there's a way to avoid making them noncompliant, that'd be great
+16:15:51 <bigbluehat> gkellogg: if we make this change, then some of these original tests may fail
+16:16:03 <bigbluehat> TallTed: right. is it conform to the spec? or to the test suite?
+16:16:17 <bigbluehat> gkellogg: typically, we've said it's passing the tests
+16:16:27 <bigbluehat> ... but that got us into trouble with extractAllScripts
+16:16:33 <bigbluehat> ... we only have pass/fail on tests
+16:17:02 <bigbluehat> ... my feeling is that tightening the language up is consistent with doing a minor version update
+16:17:33 <bigbluehat> ... but we're sort of in a hole because we've previously said passing the tests means being conformant
+16:17:54 <bigbluehat> TallTed: we could right a test where you could do either
+16:18:10 <bigbluehat> gkellogg: the RDFa test suite used SPARQL which could have handled this scenario
+16:18:31 <bigbluehat> ... unless we come up with some new way of handling test suites with a variety of different results
+16:18:49 <bigbluehat> ... what I'm after is if we change the behavior, is that too big of a change in a 1.2 version?
+16:19:02 <bigbluehat> ... it's just a matter of judgement
+16:19:06 <bigbluehat> q+
+16:19:22 <bigbluehat> ... does anyone else thing it's worth a 2.0 release?
+16:19:24 <gkellogg> q?
+16:19:34 <bigbluehat> TallTed: I don't think this is a breaking change in that sense
+16:19:43 <bigbluehat> ... it makes for more complicated tests
+16:19:59 <bigbluehat> ... if the result is you have to pass one to three of these tests
+16:20:10 <bigbluehat> ... it's more complicated test authoring, but better for implementers
+16:20:15 <bigbluehat> gkellogg: I don't think that feels right
+16:20:34 <bigbluehat> ... maybe there's a way to label the tests for v1.1 and v1.2 so we can compare
+16:20:39 <bigbluehat> TallTed: the point is interop
+16:21:01 <bigbluehat> ... if someone has implemented v1.1, will that implementation work with others?
+16:21:12 <bigbluehat> ... since it wasn't defined, then we don't have interop currently
+16:21:20 <bigbluehat> ... what we're aiming at is interop
+16:21:44 <bigbluehat> ... if the new tests clarify what one should expect, then at least the implementations would know how they should handle each others output going forward
+16:21:53 <bigbluehat> ... there's no simple way to word this...
+16:22:03 <bigbluehat> ... but interop as a goal should guide what we do
+16:22:15 <bigbluehat> ... something underspecified means interop is up in the air already
+16:22:30 <bigbluehat> ... defining it should improve interop
+16:22:37 <bigbluehat> ... which then seems fine for a v1.2
+16:22:54 <bigbluehat> gkellogg: yeah, so most of this seems to be about updating the spec
+16:23:07 <bigbluehat> s/updating the spec/updating the tests
+16:23:21 <bigbluehat> ... the rest will be about tightening down the spec--which seems undebated
+16:23:39 <bigbluehat> TallTed: if it's completely undefined, then tightening it down would be a breaking change
+16:23:48 <bigbluehat> ... and that would require a v2.0
+16:23:50 <bigbluehat> q?
+16:24:00 <bigbluehat> ack bigbluehat
+16:24:30 <gkellogg> bigbluehat: Do we know how other implementations handle this now?
+16:24:58 <gkellogg> TallTed: I think this needs to be broken down into multiple issues (one per bullit).
+16:25:45 <bigbluehat> gkellogg: if we put these on a branch, then we could see how they keep (or don't) compatibility with the new suite
+16:26:11 <bigbluehat> ... if there's no impact, then adding these tests should not be considered to break backwards compatibility
+16:26:29 <bigbluehat> ... if it does show that, then we need to revisit this and possibly differ
+16:26:49 <bigbluehat> TallTed: the challenge is that implementation is not permissioned...anyone can implement this at anytime anywhere
+16:27:20 <bigbluehat> ... which makes me wonder about the A, B, and C could all be passed...even if mutually incompatible
+16:27:43 <niklasl> I just tested one specific (compact/js07) quickly against TRLD (which _should_ follow the spec), and it would fail on this updated test. (But the change does make sense IIUC.)
+16:27:48 <bigbluehat> gkellogg: if we say do it this way in 1.2, but it's ok if you don't feels inconsistent with normative text in the first place
+16:28:21 <bigbluehat> ... v1.1 doesn't define a behavior
+16:28:24 <dlehn> present+
+16:28:26 <bigbluehat> ... so one could do anything
+16:28:47 <bigbluehat> ... if we then define it in v1.2, then it's a new minor feature
+16:28:52 <bigbluehat> TallTed: I think it's a 2.0
+16:29:23 <bigbluehat> gkellogg: any thing we add could cause that sort of distinction...which would then mean we always require a v2...which I don't think that's what's intended
+16:29:39 <bigbluehat> ... v2 should be more about truly breaking something we said in the past
+16:29:48 <gkellogg> q?
+16:29:58 <bigbluehat> ... if v1.2 adds but does not change, then v1.2 seems fine
+16:30:21 <bigbluehat> TallTed: I'm not seeing how such a change would not break a v1.1 implementation
+16:30:43 <bigbluehat> gkellogg: JSON-LD v1.1 uses language strings using a data type or a compound literal
+16:31:03 <bigbluehat> ... we should in v1.2 actually specify the behavior with language tagged strings
+16:31:13 <bigbluehat> ... that would break v1.1 implementations
+16:31:25 <bigbluehat> ... I'm not sure how to reconcile those types of tests
+16:32:03 <gkellogg> bigbluehat: We signal 1.1 documents through the API and context setting. Do 1.1 documents remain vague if processed by a new processor?
+16:32:36 <gkellogg> ... Do 1.1 documents become 1.2 documents when all processors upgrade without having to update behavior?
+16:33:13 <gkellogg> TallTed: There was a lot of effort put into 1.1 to avoid the need to declare the version.
+16:35:21 <bigbluehat> gkellogg: now I wonder if any change to any spec means a major upgrade
+16:35:32 <bigbluehat> ... in turtle, the version string can signal new behavior
+16:35:53 <bigbluehat> ... sparql has left things open for type errors (or not) in certain scenarios
+16:36:04 <bigbluehat> ... it's intentionally done that way as an expansion mechanism
+16:36:43 <bigbluehat> ... so in JSON-LD, new behavior that reinterprets something that does not cause a syntax error, would require a major update
+16:37:02 <bigbluehat> ... the big question is do we need to ask for a major version publication option
+16:37:33 <bigbluehat> bigbluehat: yeah...this will effect the charter
+16:37:39 <gkellogg> bigbluehat: This has chartering implications.
+16:37:48 <bigbluehat> TallTed: these issues could be tagged as "for v2"
+16:37:55 <niklasl> SPARQL 1.1 queries can't be parsed by 1.0 parsers... Isn't a major bump "reserved" for _changing_ what something means? (Not that adding syntax should ever be taken lightly.)
+16:39:03 <bigbluehat> gkellogg: JSON-LD is set apart from other RDF grammars because it's goal is to support as much JSON as possible
+16:39:24 <bigbluehat> ... which means supporting more of JSON could mean more often breaking changes in JSON-LD
+16:40:14 <bigbluehat> ... so, maybe we make a list of what we think will be incompatible, and then make the case for why we need a major update
+16:40:28 <bigbluehat> ... if we keep that fairly tight, then it may not be as wide open
+16:40:48 <gkellogg> bigbluehat: I wonder about version identification in the JSON documents.
+16:40:59 <bigbluehat> gkellogg and we could clean up some cruft from past versions
+16:41:11 <bigbluehat> s/gkellogg and/ gkellogg: and
+16:42:05 <gkellogg> bigbluehat: In regards to VCWG, a "strict" mode is the required normal.
+16:42:11 <bigbluehat> gkellogg: any major version change still leans on the fact that we're permissive in how we parse JSON-LD
+16:42:36 <gkellogg> ... It's not very permissive and restricts the shape strictly.
+16:43:19 <gkellogg> ... When we salt the input with version numbers, we're in danger of confusing people.
+16:43:52 <gkellogg> ... Unless a JSON-LD processor in the future can process everything from the past, it's not a version of JSON-LD.
+16:44:07 <gkellogg> ... Future processors need to be able to process all existing data.
+16:44:09 <anatoly-scherbakov> I agree with Benjamin. Backwards incompatibility breakage ⇒ death of JSON-LD.
+16:45:03 <bigbluehat> gkellogg: directional literals are a case of this
+16:45:35 <bigbluehat> ... if you wanted directionally language tagged literals, we're parsing the same document, but generating a more refined result
+16:46:04 <gkellogg> bigbluehat: The key thing to keep stable is the document world.
+16:46:34 <gkellogg> ... The processors may be have innate behavior due to underspecification.
+16:47:00 <gkellogg> ... JSON-LD with or without a version number, we need to create things that remain stable.
+16:47:20 <gkellogg> ... The important thing to me is that the expressed JSON remains interoperable.
+16:48:09 <gkellogg> ... We need to guard against producing results that don't choak on that result.
+16:49:50 <gkellogg> ... Knowing the affect of any changes on actual usage of JSON-LD is important before we go outside. If we have questions, we should come with evidence.
+16:50:20 <gb> https://github.com/w3c/json-ld-api/issues/613 -> Issue 613 Changes to the algorithms that will need their own PRs (by BigBlueHat)
+16:51:38 <gkellogg> bigbluehat: What would it mean to do a JSON-LD 2.0? Would documents need to announce this somehow?
+16:52:20 <gkellogg> dlehn: We can document things that we do know. The JSON Literal changes likely don't affect any existing usage, or we would have heard about it.
+16:55:52 <gkellogg> bigbluehat: If you break any JSON document into an RDMS, it's up to you to make sure that that data can come back out.
+16:56:44 <gkellogg> ... If I ingest some JSON-LD into a processor that includes dirLangString and it doesn't come back out, that is a problem with the RDMS, not JSON-LD.
+16:58:23 <gkellogg> bigbluehat: Next WG meeting on September 4th.
+16:59:23 <gkellogg> ... We'll focus on JSON-LD discussions that relate to the charter.
+16:59:47 <gkellogg> zakim, end meeting
+16:59:47 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, dlehn
+16:59:49 <Zakim> RRSAgent, please draft minutes
