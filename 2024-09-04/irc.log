@@ -1,0 +1,211 @@
+16:00:43 <RRSAgent> RRSAgent has joined #json-ld
+16:00:47 <RRSAgent> logging to https://www.w3.org/2024/09/04-json-ld-irc
+16:00:47 <bigbluehat> bigbluehat has changed the topic to: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240904T120000/
+16:00:47 <Zakim> RRSAgent, make logs Public
+16:00:48 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:00:48 <Zakim> please title this meeting ("meeting: ..."), pchampin
+16:00:50 <anatoly-scherbakov> present+
+16:00:50 <gkellogg> zakim, start meeting
+16:00:50 <Zakim> RRSAgent, make logs Public
+16:00:52 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:00:58 <gkellogg> meeting: JSON-LD WG
+16:00:59 <TallTed> present+
+16:01:00 <bigbluehat> present+
+16:01:03 <bigbluehat> scribe+
+16:01:05 <pchampin> present+
+16:01:14 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240904T120000/
+16:01:15 <agendabot> clear agenda
+16:01:15 <agendabot> agenda+ Announcements and Introductions
+16:01:15 <agendabot> agenda+ JSON-LD Issue Discussion
+16:01:15 <agendabot> agenda+ Open Discussion
+16:01:15 <agendabot> agenda+ Next call
+16:01:20 <gkellogg> chair: bigbluehat
+16:01:25 <gkellogg> present+
+16:01:35 <gkellogg> zakim, next agendum
+16:01:35 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:01:49 <niklasl> present+
+16:02:37 <gkellogg> topic: TPAC
+16:03:27 <dlehn2> present+
+16:05:42 <bigbluehat> gkellogg: TPAC discussion
+16:06:07 <bigbluehat> ... we're meeting with Spatial, RDF-star, and Web of Things
+16:06:20 <bigbluehat> ... where are we at on our JSON-LD support for RDF-star
+16:06:47 <bigbluehat> niklasl: yes. happy to look more into that
+16:07:07 <bigbluehat> gkellogg: we should also be prepared to discuss things around `@json` and the `RDF:json` data type
+16:07:19 <bigbluehat> ... I think our dedicated time is Thursday
+16:07:33 <bigbluehat> https://www.w3.org/events/meetings/63046968-03e3-4e6d-aaf3-6ffe396a2ca1/
+16:08:32 <bigbluehat> https://www.w3.org/groups/wg/json-ld/calendar/
+16:09:31 <bigbluehat> group scowls at calendar
+16:09:45 <bigbluehat> gkellogg: our times are missing from the TPAC week
+16:09:54 <bigbluehat> ... and we're also not listed on the RDF-star joint meeting
+16:10:13 <bigbluehat> bigbluehat: pchampin could you find out where those went?
+16:10:53 <bigbluehat> pchampin: yes. I'll take a look
+16:12:42 <bigbluehat> gkellogg: so, what thinks should we talk about at TPAC?
+16:13:02 <bigbluehat> ... let's do a quick roll call
+16:13:05 <bigbluehat> pchampin: I'll be there
+16:13:09 <bigbluehat> bigbluehat: I'll be there
+16:13:20 <bigbluehat> gkellogg: so...three of us...and Zoom
+16:13:52 <bigbluehat> ... we do have PRs still pending and several things that still need classification
+16:14:19 <bigbluehat> gkellogg: one big topic is our charter
+16:14:24 <anatoly-scherbakov> q+
+16:14:30 <bigbluehat> ... and relatedly our breakout session
+16:14:31 <bigbluehat> q+
+16:14:43 <gkellogg> ack bigbluehat
+16:14:50 <bigbluehat> ... what are the next steps charter
+16:14:58 <gkellogg> bigbluehat: Not sure what next steps for the charter are; a couple of PRs have been merged.
+16:14:58 <pchampin> q+
+16:15:12 <gkellogg> ... We need to decide when it's ready and then send in for feedback.
+16:15:31 <gkellogg> ... The question is, have we covered the topics of interest in the proposed charter?
+16:15:52 <gkellogg> ... YAML-LD, CBOR-LD, and multiple-language values.
+16:16:05 <gkellogg> ... We haven't said we're going to do a new version of JSON-LD.
+16:16:52 <bigbluehat> gkellogg: timing for a 2.0 is probably dependent on RDF-star
+16:17:09 <bigbluehat> ... but we should probably include updating the specs based on erratum
+16:17:16 <bigbluehat> ... and the implications of RDF-star
+16:17:27 <gkellogg> gkellogg: I think the RDF-star related things need to be in the charter.
+16:17:38 <gkellogg> bigbluehat: There are classes of changes we can't change.
+16:18:00 <gkellogg> scribe+
+16:18:20 <gkellogg> pchampin: The JSON-LD specs don't allow new feature in maintanence mode. Class 3 changes at most.
+16:18:33 <gkellogg> ... This is fixing errors in normative text but not adding new features.
+16:18:41 <gkellogg> ... Triple terms would be new features.
+16:18:49 <bigbluehat> q+
+16:18:59 <gkellogg> ... In maintenance mode, we can't make the discussed changes.
+16:19:10 <gkellogg> ... We could update the charter in that spirit.
+16:19:22 <gkellogg> ... Of course, there are uncertainties in the RDF-star work, itself.
+16:19:40 <pchampin> https://github.com/json-ld/json-ld-wg-charter/pull/5
+16:19:41 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/5 -> Pull Request 5 update end-date and timeline (by pchampin)
+16:19:51 <gkellogg> ... We do have a pending PR with updated deadlines.
+16:20:05 <gkellogg> ... The timeline in the current proposal isn't realistic.
+16:20:42 <gkellogg> ... I think we could send it to horizontal review, but if we want to make changes to allow us to update the spec.
+16:21:01 <bigbluehat> gkellogg: it's a question of scale of the changes
+16:21:12 <bigbluehat> ... and whether it invalidates any previous JSON-LD
+16:21:21 <bigbluehat> ... I don't think the community would support that
+16:21:32 <bigbluehat> ... so we do need to focus on backwards compatiblity
+16:21:46 <bigbluehat> q?
+16:21:48 <gkellogg> gkellogg: I think we might be able to do in a 1.2 vs a 2.0 version of the specs.
+16:22:04 <bigbluehat> anatoly-scherbakov: what do you think of making the charter open ended
+16:22:10 <gkellogg> anatoly-scherbakov: What do you think of making the charter open-ended.
+16:22:38 <gkellogg> q?
+16:22:41 <bigbluehat> ack anatoly-scherbakov
+16:22:41 <gkellogg> ack anatoly-scherbakov
+16:22:45 <bigbluehat> ack pchampin
+16:22:50 <gkellogg> ack bigbluehat
+16:23:02 <gkellogg> bigbluehat: I wanted to discuss what we can change about JSON-LD.
+16:23:08 <anatoly-scherbakov> I thought the charter could allow inclusion of more *-LD languages, but I agree with the point about the defined scope.
+16:23:28 <gkellogg> ... Within the rechartering, we are changing from a Maintance Group to a Working Group that can allow us to make changes.
+16:23:35 <bigbluehat> https://pr-preview.s3.amazonaws.com/json-ld/json-ld-wg-charter/5/c3a51d4...d682923.html
+16:24:01 <gkellogg> ... Do we need something in the charter to talk about changing the core specs.
+16:24:37 <gkellogg> ... We've talked about doing normative changes.
+16:25:13 <gkellogg> ... We've at least addressed errata and RDF-star changes, but that is outside the scope of a Maintenance group.
+16:25:37 <gkellogg> ... A version 2.0 is probably beyond what we can do.
+16:25:46 <pchampin> I realize some piece of text has been accidentally removed in the description of our liaison with RDF-star.
+16:26:00 <pchampin> q+
+16:26:08 <gkellogg> ack pchampin
+16:26:47 <gkellogg> pchampin: The process says nothing about "Maintanence Group", we could say that it is a WG without new deliverables. It's chartered to maintain and update documents according to what the process allows.
+16:27:10 <bigbluehat> q+
+16:27:30 <gkellogg> ...That's why this group is a hybrid, as it's currently considered, with maintenance for the existing specs and work on new specs.
+16:27:34 <bigbluehat> ack bigbluehat
+16:27:59 <gkellogg> bigbluehat: It might be too early to know how many new features we would have.
+16:28:21 <gkellogg> ... I suggest we look to use TPAC to determine what we want.
+16:28:27 <gkellogg> q+
+16:28:29 <pchampin> +1 to use TPAC to gauge the needs of other communities
+16:29:19 <bigbluehat> bigbluehat: k. then let's wait to change the charter in that way until after TPAC
+16:29:36 <bigbluehat> gkellogg: so I think it does come down to what things may come from RDF 1.2, etc.
+16:29:51 <bigbluehat> ... but we do also have open "future-work" issues we could consider
+16:30:15 <bigbluehat> ... so maybe we triage that list and come up with a guess at what we may do
+16:30:26 <bigbluehat> ... we don't have to know that list nor put it in the charter
+16:30:41 <bigbluehat> ... but that could help us know what's hoped for
+16:31:44 <bigbluehat> gkellogg: we've been talking about new changes for years
+16:31:58 <bigbluehat> ... so to not look at these open issues would be strange
+16:32:11 <pchampin> q+
+16:32:19 <bigbluehat> ack gkellogg
+16:32:24 <gkellogg> bigbluehat: For the last four months, the charter has said we're just maintaining the specs.
+16:32:45 <bigbluehat> ack pchampin
+16:32:54 <gkellogg> ... We probably need to change the charter to allow for revising the specs.
+16:33:32 <gkellogg> pchampin: I think the new charter has been around for a while; there was a strategy for YAML-LD and CBOR-LD, but to keep things the same otherwise.
+16:33:43 <gkellogg> ... The goal was to be quick, which we haven't been.
+16:33:47 <bigbluehat> q+
+16:34:15 <gkellogg> ... The urgency for changes has receded, so we can probably work on larger changes to the charter.
+16:34:27 <gkellogg> ack bigbluehat
+16:35:03 <gkellogg> gkellogg: I'll work on a PR to the chater.
+16:35:15 <gkellogg> bigbluehat: Let's get the current PR in first.
+16:35:34 <gkellogg> pchampin: I think we can merge that now. Timeline will change if we add more work.
+16:36:09 <gkellogg> agenda?
+16:36:55 <gkellogg> subtopic: TPAC breakout sessions.
+16:37:21 <gkellogg> bigbluehat: The general topic at TPAC is rechartering, and presenting YAML-LD and CBOR-LD.
+16:37:44 <gkellogg> ... pchampin, bigbluehat, and gkellogg can co-present on other discussions.
+16:37:53 <anatoly-scherbakov> q+
+16:38:01 <gkellogg> ack anatoly-scherbakov
+16:38:44 <gkellogg> q?
+16:38:47 <anatoly-scherbakov> Is the time of the breakout session already defined or I have missed it?
+16:39:09 <anatoly-scherbakov> I assume I need to prepare a presentation about YAML-LD. Is that right?
+16:39:13 <gkellogg> gkellogg: I don't think we've seen a breakout schedule yet.
+16:39:16 <anatoly-scherbakov> How much time do I have for that presentation?
+16:39:18 <niklasl> niklasl has joined #json-ld
+16:39:22 <bigbluehat> bigbluehat: no, and I don't know that it's up to us
+16:39:33 <gkellogg> pchampin: Their starting to work on the schedule now.
+16:40:31 <anatoly-scherbakov> Acknowledged. Is it right that anyone can join uor session so this should be for general audience? Not just a recap for us
+16:40:37 <bigbluehat> https://github.com/w3c/tpac2024-breakouts/issues/35
+16:40:38 <gb> https://github.com/w3c/tpac2024-breakouts/issues/35 -> Issue 35 CBOR-LD, YAML-LD & the JSON-LD Recharter (by mandyvenables) [session]
+16:40:41 <gkellogg> gkellogg: If the session is an hour, we probably budget 15 minutes each for YAML-LD and CBOR-LD.
+16:41:03 <anatoly-scherbakov> Acknowledged
+16:41:24 <gkellogg> bigbluehat: The goal of the breakout is to stir interest in the work.
+16:41:30 <anatoly-scherbakov> so, this will be unbounded boasting of how cool our group is
+16:41:30 <gkellogg> ... (Mostly marketing).
+16:41:59 <anatoly-scherbakov> you want to be a cool kid on your block? Come join us and use YAML-LD to list your groceries!
+16:42:01 <gkellogg> ... I'll get something on the calendar to go over the slides early next week.
+16:42:14 <niklasl> niklasl has joined #json-ld
+16:42:38 <anatoly-scherbakov> Great, will try to get slides draft done before that time
+16:42:48 <gkellogg> bigbluehat: We'll make it a CG call just to discuss meeting materials and presentations.
+16:42:53 <gkellogg> topic: Other topics
+16:43:12 <niklasl> q+
+16:43:24 <bigbluehat> ack niklasl
+16:43:48 <niklasl> https://github.com/w3c/json-ld-api/issues/558
+16:43:49 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised]
+16:43:49 <dlehn> q+
+16:44:15 <niklasl> niklasl has joined #json-ld
+16:44:52 <gkellogg> niklasl: I was planning on making a PR for this; I have a fix in my impleentation.
+16:45:58 <gkellogg> ack dlehn
+16:46:24 <anatoly-scherbakov> Thanks for your recent comment there gkellogg, I need to address it. I haven't done that yet. I think if I manage to do it this PR will be ready for re-review & maybe merge
+16:46:25 <gkellogg> dlehn: More of a general question on versioning. Is TPAC a good place to ask what people want of JSON-LD?
+16:47:01 <anatoly-scherbakov> …or of YAML-LD
+16:48:06 <gkellogg> gkellogg: we can put an agenda item on our dedicated meeting time.
+16:48:50 <gkellogg> dlehn: I've noticed that people have problems writing contexts right; there may be the possibility of compiling things into the context.
+16:49:14 <gkellogg> ... I don't see much deep use of contexts.
+16:49:39 <gkellogg> gkellogg: Perhaps its a tooling issue.
+16:49:52 <anatoly-scherbakov> I've been thinking of compiling a context from an ontology. But didn't do about that
+16:50:16 <bigbluehat> q+
+16:50:25 <gkellogg> ... Maybe to visualize contexts and make changes by description.
+16:50:33 <gkellogg> ack bigbluehat
+16:50:41 <anatoly-scherbakov> do we have any contacts with FAIR practitioners? They are expected to write JSON-LD. Maybe to offer them YAML-LD?
+16:50:50 <gkellogg> bigbluehat: Did you want another breakout, or to include it in the session.
+16:51:07 <gkellogg> ... I'd love to spend a bunch of time on this kind of thing.
+16:51:57 <anatoly-scherbakov> I did get ChatGPT write JSON-LD & RDF for me
+16:52:00 <bigbluehat> gkellogg: getting folks to come to the breakout session and the group meeting would be a good start
+16:52:33 <gkellogg> bigbluehat: If there are examples out there, the AI tools can do pretty well.
+16:53:26 <gkellogg> ... There's also a proposal is to say "make this JSON JSON-LD using known vocabularies".
+16:53:31 <anatoly-scherbakov> You can also explain it what to do and it will do that. I gave it YAML-LD spec and it did write YAML-LD documents with dollar-context
+16:53:57 <gkellogg> dlehn: Do robots understand JSON-LD yet? How it works?
+16:54:16 <gkellogg> bigbluehat: I think for the most part, it's just going to add a context and not do things more nuanced.
+16:54:38 <gkellogg> dlehn: I asked it to describe something once, and it got it totally wrong.
+16:55:18 <gkellogg> bigbluehat: Writing vocabularies is hard, and people don't understand the difference between a context and a vocabulary.
+16:55:24 <anatoly-scherbakov> ChatGPT makes mistakes all the time. Iterative approach can help a lot.
+16:56:25 <gkellogg> ... Is anyone maintaining LOV (Linked Open Vocabularies).
+16:56:44 <gkellogg> pchampin: I knew something working on the project and has done some ongoing maintanence.
+16:57:00 <gkellogg> ... It's hosted at university of Madrid, although it seems to be down right now.
+16:57:11 <anatoly-scherbakov> https://lov.linkeddata.es/dataset/lov/about → Service Unavailable
+16:57:22 <anatoly-scherbakov> prefix.cc is cool, I often use it
+16:58:05 <gkellogg> bigbluehat: Maybe we should just invite people to demo their JSON-LD.
+16:58:13 <anatoly-scherbakov> I'm making visualization for ontologies and I'd like to make a demo of my stuff at some point
+16:58:17 <niklasl> +1 I'll think of demoing
+16:58:45 <anatoly-scherbakov> please throw such an invite at me! thanks!
+16:59:15 <gkellogg> ... I just sent out an invite for a CG call to discuss TPAC and we'll probably have another WG meeting (or not) before TPAC
+16:59:17 <anatoly-scherbakov> Thanks all, sorry for my audio
+16:59:24 <gkellogg> zakim, end meeting
+16:59:24 <Zakim> As of this point the attendees have been anatoly-scherbakov, TallTed, bigbluehat, pchampin, gkellogg, niklasl, dlehn, observers
+16:59:26 <Zakim> RRSAgent, please draft minutes
+16:59:28 <RRSAgent> I have made the request to generate https://www.w3.org/2024/09/04-json-ld-minutes.html Zakim
+16:59:35 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:59:35 <gkellogg> rrsagent, pointer
+16:59:35 <RRSAgent> See https://www.w3.org/2024/09/04-json-ld-irc#T16-59-35-1
+16:59:35 <Zakim> Zakim has left #json-ld
+17:00:13 <gkellogg> rrsagent, bye
+17:00:13 <RRSAgent> I see no action items
