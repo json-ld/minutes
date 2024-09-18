@@ -1,0 +1,136 @@
+16:00:50 <gkellogg> meeting: JSON-LD CG
+16:00:50 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20240918T120000/
+16:00:50 <gkellogg> chair+
+16:00:50 <gkellogg> present+
+16:00:50 <gkellogg> scribe+
+16:00:50 <gkellogg> zakim, next item
+16:00:50 <Zakim> agendum 1 -- TPAC Preparation -- taken up [from agendabot]
+16:00:50 <pchampin> will be a little late, sorry
+16:00:50 <anatoly-scherbakov> present+
+16:00:50 <gkellogg> bigbluehat: I think we have the slides we need for the BOF.
+16:00:50 <gkellogg> ... [shows slide deck]
+6:00:50 <bigbluehat> https://json-ld.github.io/w3c-tpac-2024-presentations/json-ld-recharter/
+6:00:50 <bigbluehat> present+
+16:00:50 <gkellogg> ... This presentation focuses on CBOR-LD and YAML-LD along with language patterns.
+16:00:50 <gkellogg> ... Has bar codes based on JSON-LD and CBOR-LD to show the dramatic size difference.
+6:00:50 <anatoly-scherbakov> q+
+16:00:50 <Zakim> sees anatoly-scherbakov on the speaker queue
+16:00:50 <gkellogg> ... Needs YAML-LD content from anatoly-scherbakov
+16:00:50 <gkellogg> ack anatoly-scherbakov
+16:00:50 <Zakim> sees no one on the speaker queue
+16:00:50 <gkellogg> anatoly-scherbakov: I haven't had a chance to look at the slide repository. I'll get them soon.
+16:00:50 <gkellogg> bigbluehat: Our presentation time is 14:00 PDT.
+16:00:50 <gkellogg> ... On Wednesday the 25th.
+16:00:50 <gkellogg> ... We have joint sessions Monday, Tuesday, and Thursday as well as a dedicated session on Thursday.
+16:00:50 <gkellogg> ... Not sure what the agenda for the Spacial Web meeting is.
+16:00:50 <gkellogg> ... You can present YAML-LD on Thursday, but I was hoping to have them for the Wednesday meeting.
+6:00:50 <bigbluehat> https://www.w3.org/2024/09/TPAC/breakouts.html#grid
+6:00:50 <bigbluehat> https://www.w3.org/events/meetings/ff83b490-7df3-4faf-89b4-6069da41c976/
+16:00:50 <gkellogg> ... Subscribe to the event, and it will add it to your calendar.
+16:00:50 <gkellogg> ... TPAC registration deals with regular WG meetings, the breakout needs to be added separately.
+16:00:50 <gkellogg> anatoly-scherbakov: That time will be 03:00 my time, but I want to join the meeting.
+16:00:50 <gkellogg> bigbluehat: My expectation is that the audience either knows or are interested in JSON-LD.
+16:00:50 <gkellogg> ... We'll discuss CBOR in both the breakout and group session.
+16:00:50 <gkellogg> anatoly-scherbakov: So, you're preparing two presentations: one for the breakout and the other for the group meeting.
+16:00:50 <gkellogg> bigbluehat: Focus of group meeting will be on re-chartering.
+16:00:50 <gkellogg> ... what we need to do to transition, and finalize for a vote.
+16:00:50 <gkellogg> ... With remaining time, we can look into remaining issues.
+16:00:50 <gkellogg> ... Left over joint meeting time may be hard to redirect to focused group issues.
+16:00:50 <pchampin> present+
+16:00:50 <gkellogg> anatoly-scherbakov: I'll get a PR for the slides done in the next couple of days.
+16:00:50 <gkellogg> bigbluehat: Feel free to just email them into me.
+16:00:50 <gkellogg> ... Breakout should have just an example of YAML-LD.
+16:00:50 <gkellogg> anatoly-scherbakov: Do we expect that OWL might be discussed at TPAC?
+16:00:50 <pchampin> OWLs are not what they seem
+16:00:50 <gkellogg> gkellogg: Possibly some discussion of OWL in RDF-star meetings.
+16:00:50 <gkellogg> zakim, next item
+16:00:50 <Zakim> agendum 2 -- JSON-LD-star presentation https://json-ld.github.io/w3c-tpac-2024-presentations/json-ld-star/ -- taken up [from agendabot]
+16:00:50 <gkellogg> gkellogg: discusses JSON-LD-star
+6:00:50 <anatoly-scherbakov> q+
+16:00:50 <Zakim> sees anatoly-scherbakov on the speaker queue
+16:00:50 <gkellogg> ack anatoly-scherbakov
+16:00:50 <Zakim> sees no one on the speaker queue
+16:00:50 <gkellogg> anatoly-scherbakov: What is the difference between JSON-LD reified reified station and normal RDF.
+6:00:50 <bigbluehat> scribe+
+6:00:50 <bigbluehat> gkellogg: reifiers let you talk about triples without them having to be part of the data model
+6:00:50 <bigbluehat> ... they can also be used with named graphs
+6:00:50 <bigbluehat> ... the form looks similar, but the semantics are differen
+6:00:50 <bigbluehat> anatoly-scherbakov: I think I have read that reifiers are a problem because you can't reason on them
+6:00:50 <bigbluehat> ... so what's the point of defining them?
+6:00:50 <bigbluehat> gkellogg: reified statements in RDF 1.1 are different than in RDF 1.2
+6:00:50 <bigbluehat> ... in RDF 1.1 they were really only for RDF/XML
+6:00:50 <bigbluehat> ... in RDF 1.2 they are more atomic and they are resources in themselves
+6:00:50 <bigbluehat> ... they are useful
+6:00:50 <bigbluehat> TallTed: in the classical sense, where reification is done by declaring subject, predicate, object on an identified Thing
+6:00:50 <bigbluehat> ... it's overly verbose and painful to do
+6:00:50 <bigbluehat> ... RDF 1.2 (fka RDF-star) you can write the triple
+6:00:50 <bigbluehat> ... and simultaneously have it be in the graph and annotate it, or have it alongside the graph and annotate it.
+6:00:50 <bigbluehat> q+
+16:00:50 <Zakim> sees bigbluehat on the speaker queue
+6:00:50 <bigbluehat> q-
+16:00:50 <Zakim> sees no one on the speaker queue
+6:00:50 <bigbluehat> anatoly-scherbakov: yeah, I've wondered how easy this will be to explain
+6:00:50 <bigbluehat> ... even if you have named graphs it might happen that you have them because they came from different sources
+6:00:50 <bigbluehat> ... and it's easy to get into problems when you use an OWL reasoner
+16:00:50 <pchampin> q+
+16:00:50 <Zakim> sees pchampin on the speaker queue
+6:00:50 <bigbluehat> ... because they all come from different sources and may conflict
+6:00:50 <bigbluehat> ... do you think that will be solved in RDF 1.2?
+6:00:50 <bigbluehat> TallTed: it may be solved over time.
+6:00:50 <bigbluehat> ... right now it comes down to your processor and SPARQL store
+6:00:50 <bigbluehat> ... and how you scope your query
+6:00:50 <bigbluehat> ... it's definitely a problem that comes up
+6:00:50 <bigbluehat> ... depending on how you populate your store
+6:00:50 <bigbluehat> ... We have a thing called the Spounger
+6:00:50 <bigbluehat> ... it populates a graph named for the source (and possibly the time stamp when you consumed them)
+6:00:50 <bigbluehat> ... things change over time, so that's important also
+6:00:50 <bigbluehat> ack pchampin
+16:00:50 <Zakim> sees no one on the speaker queue
+16:00:50 <gkellogg> ack pchampin
+16:00:50 <Zakim> sees no one on the speaker queue
+6:00:50 <bigbluehat> pchampin: to compliment...what's an OWL reasoner to do?
+6:00:50 <bigbluehat> ... it doesn't say anything about datasets
+6:00:50 <bigbluehat> ... when datasets were added to RDF 1.1 they had been around in SPARQL for awhile
+6:00:50 <bigbluehat> ... they'd been used for all kinds of things
+6:00:50 <bigbluehat> ... so standardizing it then would have broken other use cases
+6:00:50 <bigbluehat> ... the name may be used for different things
+6:00:50 <bigbluehat> ... quoted triples (aka triple terms) we can now define proper semantics for that
+6:00:50 <bigbluehat> ... SPARQL and OWL would be updated via different WGs which don't exist yet
+6:00:50 <bigbluehat> anatoly-scherbakov: thanks. I'd love to see what's happening there and maybe take part
+6:00:50 <bigbluehat> ... but I have minimal understanding of descriptions logic on which OWL is based
+6:00:50 <bigbluehat> ... but I'd love to help as I like RDFS and OWL
+6:00:50 <bigbluehat> gkellogg: there is a hope SPARQL, OWL, etc. will be updated, but we will need a WG
+6:00:50 <bigbluehat> ... also tools like SHACL may get a new WG
+6:00:50 <bigbluehat> ... and it would use triple terms
+6:00:50 <bigbluehat> ... there is a charter circling for that
+6:00:50 <bigbluehat> anatoly-scherbakov: but SHACL is validating a shape
+6:00:50 <bigbluehat> ... OWL doesn't care, it'll infer anything it can
+6:00:50 <bigbluehat> TallTed: right. different, but they connect
+16:00:50 <pchampin> q+
+16:00:50 <Zakim> sees pchampin on the speaker queue
+6:00:50 <bigbluehat> gkellogg: OWL can be used for cardinality restrictions
+16:00:50 <gkellogg> ack pchampin
+16:00:50 <Zakim> sees no one on the speaker queue
+6:00:50 <bigbluehat> pchampin: I will have to disagree, gkellogg
+6:00:50 <bigbluehat> ... cardinality constraints aren't helpful with the shape of the graph
+6:00:50 <bigbluehat> ... if you say one must only have 2 parents, and then use OWL to say they can only have 1
+6:00:50 <bigbluehat> ... doesn't do what you ant
+6:00:50 <bigbluehat> s/ant/want
+6:00:50 <bigbluehat> ... it can be used for validity constraints...a bit
+6:00:50 <bigbluehat> ... SHACL actually can be used as an alternative to OWL for reasoning
+6:00:50 <bigbluehat> ... one work item in the proposed SHACL WG is SHACL Rules
+6:00:50 <bigbluehat> ... so it's starting to grow beyond shape validation
+6:00:50 <bigbluehat> ... the shape can be used at the head of the rule
+6:00:50 <bigbluehat> gkellogg: is that a SPIN derivative?
+6:00:50 <bigbluehat> pchampin: I don't know
+6:00:50 <bigbluehat> ... there have been some experiments, though, so it's going into the WG recharter.
+6:00:50 <bigbluehat> gkellogg: yeah. OWL is basically too obscure now
+6:00:50 <bigbluehat> ... and SHACL is kind of taking over
+6:00:50 <bigbluehat> anatoly-scherbakov: yes, OWL is hard to debug...and needs tools
+6:00:50 <bigbluehat> ... at the modern level of modern IDEs
+6:00:50 <bigbluehat> ... and it's had it's own controversies
+6:00:50 <bigbluehat> ... like how much of the graph one imports when reasoning.
+16:00:50 <gkellogg> zakim, end meeting
+16:00:50 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, bigbluehat, pchampin
+16:00:50 <Zakim> RRSAgent, please draft minutes
+16:00:50 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
