@@ -1,0 +1,160 @@
+21:06:27 <RRSAgent> RRSAgent has joined #json-ld
+21:06:32 <RRSAgent> logging to https://www.w3.org/2024/09/23-json-ld-irc
+21:06:32 <Zakim> RRSAgent, make logs Public
+21:06:33 <Zakim> please title this meeting ("meeting: ..."), pchampin
+21:06:35 <gkellogg> zakim, start meeting
+21:06:35 <Zakim> RRSAgent, make logs Public
+21:06:37 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+21:06:52 <sebastian> sebastian has joined #json-ld
+21:06:55 <gkellogg> meeting: JSON-LD and Spacial Data on the Web Joint Meeting
+21:06:59 <pchampin> meeting: Spatial Data on the Web WG / JSON-LD WG  joint meeting
+21:07:06 <gkellogg> chair: bigbluehat
+21:07:11 <pchampin> s|meeting: Spatial Data on the Web WG / JSON-LD WG  joint meeting|
+21:07:12 <gkellogg> scribe+
+21:07:26 <pchampin> present+
+21:07:30 <pchampin> present+ gkellogg
+21:07:43 <anatoly-scherbakov> present+
+21:07:43 <pchampin> RRSAgent, make minutes
+21:07:44 <RRSAgent> I have made the request to generate https://www.w3.org/2024/09/23-json-ld-minutes.html pchampin
+21:08:19 <gkellogg> rwarren: General discussion about requirements of sensors.
+21:08:24 <betehess> betehess has joined #json-ld
+21:08:30 <pchampin> present+ bigbluehat
+21:08:39 <betehess> present+ betehess
+21:08:43 <pchampin> present+ betehess
+21:08:52 <rwarren2> rwarren2 has joined #json-ld
+21:09:00 <sebastian> present+ Sebastian_Kaebisch
+21:09:07 <gkellogg> bigbluehat: Curious if issues are more ontological.
+21:09:33 <gkellogg> rwarren: Some are, but often we create standards but don's say how to use them (SOSA)
+21:09:45 <gkellogg> s/don's/don't/
+21:11:11 <gkellogg> sebastian: I was involved in the XI working group (XML Exchange). They did create a primmer on how to use the model.
+21:11:45 <sebastian> s/XI/EXI
+21:11:59 <sebastian> -> https://www.w3.org/TR/exi/
+21:12:03 <gkellogg> bigbluehat: Sometimes, standards are created, but the contributing companies otherwise don't cooperate.
+21:12:35 <gkellogg> bigbluehat: We have a breakout on Wednesday to go over the JSON-LD recharter.
+21:12:55 <gkellogg> ... Thursday, we have a focused WG meeting.
+21:13:20 <gkellogg> ... Also with Web of Things.
+21:13:35 <gkellogg> ... Tuesday joint meeting with RDF-star
+21:13:55 <gkellogg> rwarren: I've argued that we should ignore JSON-LD and go to content negotiation.
+21:14:15 <gkellogg> ... The context is difficult to manage.
+21:14:45 <gkellogg> ... I have people that try to put too much into the context.
+21:15:24 <gkellogg> ... SPARQL Load is a problem as the context can get ignored.
+21:16:21 <bigbluehat> scribe+
+21:16:32 <bigbluehat> gkellogg: yeah, dereferencing in some fashion has to happen
+21:16:47 <gkellogg> ... Other formats is easy to get triples from, but JSON-LD requires extra steps.
+21:16:58 <anatoly-scherbakov> q+
+21:17:02 <gkellogg> ... That external dependency creates problems.
+21:17:15 <bigbluehat> ack anatoly-scherbakov
+21:17:37 <gkellogg> anatoly-scherbakov: Interesting discussion; this is not the only case where you need to find somethning elsewhere.
+21:17:39 <bigbluehat> q+
+21:17:47 <gkellogg> ... For example owl:imports.
+21:18:09 <rwaren> rwaren has joined #json-ld
+21:18:15 <gkellogg> ... I think this is an inherent part of the technology, as it is "Linked Data'.
+21:18:41 <gkellogg> ... I agree that there are implementation problems.
+21:18:53 <gkellogg> rwarren: The jump your making is that you're going from RDF to OWL.
+21:19:07 <gkellogg> ... I can get triples without going to OWL.
+21:19:25 <gkellogg> ... But, with JSON-LD, I can't do anything without the context.
+21:20:14 <gkellogg> bigbluehat: The concerns about JSON-LD contexts are well known.
+21:20:19 <anatoly-scherbakov> ack anatoly-scherbakov
+21:20:27 <gkellogg> ack bigbluehat
+21:20:50 <gkellogg> ... If you're consuming someone's JSON-LD, you don't have that option.
+21:22:02 <gkellogg> ... Freezing contexts is a good idea, as you are not exposed to unexpected data.
+21:22:53 <gkellogg> ... If you're building an integration, having the knowledge of what at context says is no different than referencing a specification.
+21:23:19 <pchampin> scribe+
+21:24:28 <pchampin> gkellogg: note that Google is not processing the schema.org context when they parse JSON-LD, they.
+21:24:55 <pchampin> ... If you use conneg to specify the format you are expecting, getting an unknown context might be seen as an error condition
+21:24:59 <pchampin> scribe-
+21:25:10 <gkellogg> rwarren: I deal with knowledge graphs, where you don't know the data you're going to see in advance.
+21:25:49 <gkellogg> ... The more work you expect a person to do to read the data, the more it's going to be hard to people to bother with.
+21:26:05 <gkellogg> sebastian: Not really a JSON-LD issue, but that of the author.
+21:26:28 <gkellogg> ... It may be that you really can't trust the content in any case.
+21:27:43 <gkellogg> bigbluehat: "JSON-LD is not JSON, because JSON can't be interpreted without prior knowledge, and JSON-LD doesn't allow that".
+21:28:01 <TallTed> regrets+
+21:28:41 <gkellogg> ... JSON is easier, if you make rash assumptions and don't data model.
+21:29:12 <pchampin> scribe+
+21:30:58 <gkellogg> rwarren: I'd prefer that in the documentation we clarify that JSON-LD doesn't necessarily let you do what plain JSON can do.
+21:31:03 <pchampin> scribe-
+21:31:42 <gkellogg> bigbluehat: You may be dealing with bad contexts. Other groups don't want the RDF model, they just want the JSON.
+21:32:15 <gkellogg> ... For some people, JSON-LD is just JSON. They may not want to deal with graphs.
+21:33:09 <gkellogg> ... Google doesn't deal with contexts, the presume that the data uses their vocabulary and interprets it that way.
+21:34:01 <gkellogg> ... You can just look at the JSON-LD context references and use them as tokens for things you already know, rather than actually interpret it at runtime.
+21:34:54 <gkellogg> sebastian: It is similar to the history of the Thing Description.
+21:35:13 <gkellogg> ... We want to increase interoperability and semantics helps with this.
+21:35:37 <gkellogg> ... But some people can't be bothered with that. JSON-LD allows us to satisfy both concerns.
+21:36:30 <gkellogg> ... It comes down to the authors, and if they are using the tools properly.
+21:37:35 <pchampin> scribe+
+21:37:49 <pchampin> gkellogg: you are coming from different perspective.
+21:38:05 <pchampin> ... sebastian starts with a JSON format, which JSON-LD allows to semanticize.
+21:38:26 <pchampin> ... rwaren is faced with bad data.
+21:38:54 <gkellogg> bigbluehat: Sometimes Turtle is the best tool for the job.
+21:39:57 <gkellogg> ... There are government agencies using "antique" RDF vocabularies. They still support antiquated formats. They may support JSON-LD, but it is often broken.
+21:40:36 <gkellogg> rwarren: the problem with saying it is tooling ...
+21:40:56 <gkellogg> ... Serialization is JSON, but data structure is RDF.
+21:41:12 <gkellogg> ... Libraries permit people to be lazy.
+21:41:54 <gkellogg> rwarren: Certainly, WoT wants short documents, but I don't care about that. Better to have it done right.
+21:42:37 <gkellogg> bigbluehat: JSON-LD does try to bridge worlds, but you need to know what side of the bridge your on. You talk about it differently to different audiences.
+21:42:44 <pchampin> q+
+21:43:20 <gkellogg> bigbluehat: People like cookbooks for thinks like Open Badges.
+21:43:34 <gkellogg> ... Those people don't care about graphs, but may later on.
+21:44:52 <gkellogg> pchampin: Reminds me of some discussions where JSON-LD was discussed as a good language for JSON or RDF, but not both at the same time.
+21:45:58 <gkellogg> bigbluehat: If you use the schema.org vocabulary, you can make a bad data model, if you just use Name, and City without Postal address.
+21:46:43 <gkellogg> ... Complexity is not the problem, Complications are the problem.
+21:47:14 <pchampin> gkellogg: some best practices on publishing JSON-LD in general services might mitigate some issues.
+21:47:25 <pchampin> ... For example "don't use external context, use inline contexts".
+21:48:41 <pchampin> ... Do we consider context IRIs as URLs or as identifiers of "blocks" of context.
+21:49:15 <pchampin> ... Dereferencing context also raises security issues.
+21:53:55 <gkellogg> bigbluehat: There are some actionably things the JSON-LD community can do. E.g., the context authoring bit can be made more explicit.
+21:54:27 <gkellogg> ... There is an interest in vocabularies, but they're not contexts.
+21:54:52 <gkellogg> ... They need a context tool where they can pick terms defined in other contexts.
+21:55:34 <gkellogg> ... There are tooling pieces that are missing; if you don't read the documentation, but not necessarily how to use them.
+21:56:22 <anatoly-scherbakov> q+
+21:56:27 <gkellogg> ... More tooling might help to bridge the gap between finding a context and using it to create some data.
+21:56:35 <bigbluehat> ack pchampin
+21:56:36 <gkellogg> ack pchampin
+21:56:41 <bigbluehat> ack anatoly-scherbakov
+21:56:42 <gkellogg> ack anatoly-scherbakov
+21:57:08 <gkellogg> anatoly-scherbakov: About generating contexts, how about generating contexts from ontologies.
+21:57:48 <gkellogg> ... If an rdfs:range of some property is a Person, we know that the value should be an ID and not a literal.
+21:57:49 <anatoly-scherbakov> ack anatoly-scherbakov
+21:57:52 <gkellogg> q+
+21:58:16 <gkellogg> bigbluehat: We went further at Weily, but used it for our own purposes.
+21:59:03 <gkellogg> ... The idea was to stuff as much as could be done into the context.
+21:59:36 <gkellogg> ... the RDFS part was hard to maintain.
+22:01:53 <gkellogg> pchampin: There is a JSON-LD for Prov that hasn't been published yet.
+22:02:22 <gkellogg> ... I asked for some wording changes, as the context talks about ranges, but that's not what it does.
+22:02:48 <gkellogg> ... You can craft JSON-LD where values don't correspond to the context expectations.
+22:03:02 <gkellogg> bigbluehat: Most people want JSON-LD to be something it's not.
+22:03:14 <gkellogg> ... They want it to be JSON Schema, or something else.
+22:03:27 <rwarren2> rwarren2 has joined #json-ld
+22:03:29 <gkellogg> ... We need to address these community expectations.
+22:03:41 <gkellogg> present+ rwarren2
+22:04:21 <gkellogg> ... We need some JSON-LD adjacent tooling to help visualize the results and verify that it meets your expectations.
+22:04:48 <gkellogg> ... We're trying to make context creation easier at Digital Bazaar.
+22:04:55 <anatoly-scherbakov> q+
+22:09:34 <gkellogg> rwarren2: I deal with people all over the complexity tree, and it's hard to talk to people that don't want to understand the specs, are find them too confusing.
+22:10:56 <pchampin> gkellogg: something similar came up in the RDF-star WG: things go wrong when your data does not match the shape that you are assuming.
+22:11:14 <gkellogg> bigbluehat: One of the biggest things that's helped in JSON-LD is "safe mode". It allows you to find things that are not matching expectations.
+22:11:21 <pchampin> q?
+22:11:25 <gkellogg> ... You must define terms to use them.
+22:11:28 <gkellogg> ack me
+22:11:54 <bigbluehat> ack anatoly-scherbakov
+22:11:55 <gkellogg> ack anatoly-scherbakov
+22:12:25 <betehess> betehess has joined #json-ld
+22:12:37 <gkellogg> anatoly-scherbakov: I market YAML-LD as I think this makes things generally easier. For instance, you can have comments.
+22:13:12 <bigbluehat> q+
+22:13:17 <gkellogg> ... I just learned about Link-ML, which looks like a competitor to YAML-LD.
+22:13:34 <gkellogg> bigbluehat: Not a competitor, other than using YAML.
+22:13:46 <gkellogg> ... Link-ML is more about data modeling.
+22:13:53 <gkellogg> ... It's between a vocabulary and a context file.
+22:14:48 <gkellogg> ... Is there some thought about signing contexts? For instance by adding a hash.
+22:15:06 <gkellogg> bigbluehat: There's a breakout session on this on Wednesday.
+22:15:44 <gkellogg> ,,, Passing a hash fragment could be used by a document loader to retrieved a cached context.
+22:18:10 <gkellogg> ... SSL only gets you so far. Document Loaders allow for better control by creating a white-list, for example.
+22:19:14 <gkellogg> ... At one time, the value of @context could have been a value containing a hash.
+22:19:32 <gkellogg> ... There was also the Hashlink proposal, which didn't go anywhere.
+22:21:40 <gkellogg> pchampin: A lot of things broke when W3C went from HTTP to HTTPS.
+22:24:11 <betehess> q+
+22:25:03 <gkellogg> rwarren2: I publish HTTP ontologies, but some people want HTTPS in front of everything. I have hacks to try to reconcile them.
+22:26:31 <gkellogg> alexandre: We require people using namespaces to have them within w3.org/ns, as you can just use the name without worrying if it is http://w3.org or https://w3.org.
+22:27:57 <pchampin> s/alexandre: We/betehess: We
+22:29:08 <bigbluehat> https://www.w3.org/DesignIssues/Security-NotTheS.html
+22:30:59 <pchampin> RRSAgent, make minutes
