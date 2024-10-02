@@ -1,0 +1,145 @@
+15:58:07 <RRSAgent> RRSAgent has joined #json-ld
+15:58:12 <RRSAgent> logging to https://www.w3.org/2024/10/02-json-ld-irc
+15:58:12 <Zakim> RRSAgent, make logs Public
+15:58:13 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:58:14 <gkellogg> meeting: JSON-LD CG
+15:58:40 <gkellogg> agenda: https://www.w3.org/events/meetings/08563546-30fd-497a-ac16-77f96e96e8c0/20241002T120000/
+15:58:40 <agendabot> clear agenda
+15:58:40 <agendabot> agenda+ Announcements and Introductions
+15:58:40 <agendabot> agenda+ Working Group Charter
+15:58:40 <agendabot> agenda+ Open Discussion
+15:58:52 <gkellogg> chair: gkellogg
+15:58:55 <gkellogg> present+
+15:59:00 <gkellogg> zakim, next agendum
+15:59:00 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+15:59:43 <anatoly-scherbakov> thanks!
+16:00:39 <dlehn> present+
+16:00:53 <bigbluehat> present+
+16:01:00 <anatoly-scherbakov> present+
+16:01:34 <anatoly-scherbakov> scribe+
+16:02:52 <pchampin> present+
+16:03:12 <ivan> present+
+16:03:23 <TallTed> present+
+16:03:38 <anatoly-scherbakov> gkellogg: Announcements. Any impressions from TPAC?
+16:04:43 <anatoly-scherbakov> pchampin: Enjoyed it. Might start research about formally proving no lack of information among JSON-LD and RDF.
+16:05:04 <anatoly-scherbakov> pchampin: This might be a great addition to the spec and give people more confidence using JSON-LD.
+16:05:26 <anatoly-scherbakov> pchampin: a lot of great discussions. We improved our arguments and came up with ideas.
+16:05:57 <ivan> q+
+16:06:03 <gkellogg> ack ivan
+16:06:05 <anatoly-scherbakov> gkellogg: This is probably about the 12th TPAC I attended. Breakouts were the most interesting, then focus time in groups and seeing people in person were special.
+16:07:07 <anatoly-scherbakov> ivan: I am a returning group member. On TPAC, there were discussions about schema.org which may be a major issue. Question is whether schema.org will be maintained by Google.
+16:07:50 <gkellogg> s/Question is whether schema.org will be maintained by Google.//
+16:09:30 <anatoly-scherbakov> gkellogg: High load on schema.org remains an issue despite recommendations to cache contexts.
+16:09:35 <gkellogg> zakim, next item
+16:09:35 <Zakim> agendum 2 -- Working Group Charter -- taken up [from agendabot]
+16:09:49 <gkellogg> https://json-ld.github.io/json-ld-wg-charter/
+16:10:19 <ivan> q+
+16:10:33 <anatoly-scherbakov> gkellogg: I've merged my PR against the charter. The most important thing to do is going to be to finalize the charter.
+16:10:48 <niklasl> niklasl has joined #json-ld
+16:10:48 <anatoly-scherbakov> gkellogg: Benjamin asked if I'd co-chair with him and I said I would.
+16:11:06 <anatoly-scherbakov> gkellogg: there's a conflict between the roles of an editor and a chair and I'll be mindful of that.
+16:11:21 <anatoly-scherbakov> gkellogg: Pierre-Antoine, tentatively, will be the team contact.
+16:11:23 <niklasl> present+
+16:11:43 <anatoly-scherbakov> gkellogg: scope now includes 1.2 versions of core JSON-LD specs, plus CBOR-LD and YAML-LD specs.
+16:12:10 <anatoly-scherbakov> gkellogg: Core JSON-LD work is going to be RDF-Star compatibility
+16:12:30 <anatoly-scherbakov> pchampin: RDF-star WG has two more years for which it is chartered.
+16:12:57 <anatoly-scherbakov> pchampin: There's one more year to finish the recommendation and the other for maintenance. Recommendation should be published in a year.
+16:13:13 <anatoly-scherbakov> gkellogg: JSON-LD 1.2 should be a recommendation within 3 monhts from RDF 1.2.
+16:13:23 <anatoly-scherbakov> gkellogg: (barring unforeseen circumstances.)
+16:14:03 <anatoly-scherbakov> gkellogg: PR I merged  updated the discussion of what's in scope. It is linking to the management page on GitHub but that might be insufficient.
+16:14:16 <anatoly-scherbakov> gkellogg: I enumerated most of open issues and PRs.
+16:14:36 <anatoly-scherbakov> gkellogg: all of those not necessarily are what we need to do. We need to go over them one by one and discuss.
+16:14:50 <anatoly-scherbakov> gkellogg: maybe we do not want to take on some of those. Or there are not listed things we need to do.
+16:15:00 <anatoly-scherbakov> gkellogg: for instance, context loading and interaction with external websites.
+16:15:08 <gkellogg> ack ivan
+16:16:14 <pchampin> q+
+16:16:19 <anatoly-scherbakov> ivan: Latest version of the charter template published 2 weeks ago. It can be hard to compare that with the charter that's written already but it might be worth looking at.
+16:18:13 <anatoly-scherbakov> ivan: can't judge all of the issues in scope. First three change classes can although be applied directly to the recommendation without a new version.
+16:18:26 <anatoly-scherbakov> ivan: we could do easy changes first, and republish the spec under current charter ASAP.
+16:18:44 <anatoly-scherbakov> ivan: so only the major changes will be left for the new version.
+16:19:57 <anatoly-scherbakov> gkellogg: there's a fair amount of work to tackle those issues. Say, 15 different PRs. That can take a long time.
+16:20:02 <anatoly-scherbakov> ivan: rechartering takes time as well.
+16:20:12 <anatoly-scherbakov> ivan: that might take 3-4 months.
+16:20:48 <anatoly-scherbakov> gkellogg: we've been slow in doing updates. It would be difficult to get this done quickly. There's some momentum coming with a new charter though.
+16:21:11 <anatoly-scherbakov> gkellogg: active 1.1 editors were Pierre-Antoine and I and we're fairly committed already.
+16:22:00 <anatoly-scherbakov> ivan: in the recharter scope, we might concentrate on the major changes, say adaptation to RDF 1.2, also solving JSON vs JSON-LD and contexts
+16:22:31 <anatoly-scherbakov> ivan: the relatively detailed things should probably be left out of the charter.
+16:22:56 <anatoly-scherbakov> gkellogg: maybe create tags for Class 1-4 changes? and tag the issues. As a maintenance group we can handle 1-3 class changes.
+16:23:07 <anatoly-scherbakov> ivan: Is a maintenance group allowed to do class 4 changes?
+16:23:10 <anatoly-scherbakov> gkellogg: not sure
+16:23:18 <anatoly-scherbakov> pchampin: we did not opt in for class 4 changes.
+16:23:27 <bigbluehat> current charter https://www.w3.org/2023/01/json-ld-wg-charter.html
+16:23:48 <anatoly-scherbakov> gkellogg: maybe more of these issues can be considered Errata, which are class 1 or 2.
+16:24:16 <anatoly-scherbakov> ivan: not sure, but it is a good idea to label each issue. 1-3 should be omitted from the charter.
+16:25:00 <anatoly-scherbakov> gkellogg: we'd be optimistic to think we can do all these updates before that date
+16:25:21 <anatoly-scherbakov> ivan: I need to find my writeup for another WG on this subject
+16:25:33 <pchampin> q?
+16:25:42 <anatoly-scherbakov> gkellogg: that will be a challenge to get everything done by that deadline. Maybe we could consider an extension for current WG for 6 months.
+16:26:01 <anatoly-scherbakov> gkellogg: and thereafter we might be a in a better place to set up the new charter.
+16:26:03 <ivan> -> Publication steps in a maintenance wg https://github.com/w3c/pm-wg/wiki/Publication-steps
+16:26:16 <ivan> q+
+16:26:31 <gkellogg> ack pchampin
+16:26:51 <anatoly-scherbakov> pchampin: are 1-3 changes prerequisite for recharter or we can start not waiting for the new charter?
+16:26:54 <anatoly-scherbakov> ivan: no need to wait
+16:27:37 <anatoly-scherbakov> ivan: no way by the end of January the new charter will be accepted, therefore extension is unavoidable.
+16:27:57 <anatoly-scherbakov> ivan: as soon as we announce we're working on a new charter - extension becomes almost automatic
+16:28:23 <anatoly-scherbakov> ivan: in theory, we should have already made such an announcement
+16:28:30 <gkellogg> ack ivan
+16:29:05 <anatoly-scherbakov> gkellogg: we need to keep the charter template up to date, and to tag the issues and work on them.
+16:29:16 <pchampin> FTR I did an "upgrade to latest template" 2 months ago, so we should not be too far from the latest latest one
+16:29:24 <anatoly-scherbakov> gkellogg: we will focus on WG meetings and identify one or two some of those issues to focus on
+16:29:35 <anatoly-scherbakov> gkellogg: then we'll do an Updated Recommendation.
+16:29:40 <pchampin> q+
+16:29:41 <gkellogg> q?
+16:29:46 <anatoly-scherbakov> q+
+16:29:58 <pchampin> q-
+16:30:09 <anatoly-scherbakov> gkellogg: any other deliverables regarding the charter?
+16:30:32 <anatoly-scherbakov> gkellogg: Linking test cases to normative discussions in 1.1 was quite a lot of work
+16:30:46 <anatoly-scherbakov> gkellogg: implementations are targeted at the test suite
+16:31:05 <anatoly-scherbakov> gkellogg: now we have tests overlapping each other and we are not sure which of them touches which features
+16:31:41 <anatoly-scherbakov> gkellogg: there's respec markup to reference tests and Ivan wrote a tool correlating that with test manifest so that test refer to the spec
+16:31:54 <anatoly-scherbakov> gkellogg: test ca point to the spec in the test manifest
+16:32:18 <anatoly-scherbakov> ivan: let me find an example where this worked
+16:32:34 <ivan> https://w3c.github.io/epub-specs/epub33/core/#sec-core-media-types
+16:33:10 <anatoly-scherbakov> ivan: this is a reference to an Editor's Draft of a spec, where <detail> element refers to the test
+16:33:20 <anatoly-scherbakov> ivan: this is partially ReSpec
+16:33:45 <anatoly-scherbakov> ivan: <detail> is generated by ReSpec but ReSpec is bound to Web Testing framework
+16:34:03 <anatoly-scherbakov> ivan: this is not useful for JSON-LD though
+16:34:25 <anatoly-scherbakov> ivan: I had to do some additional scripting in ReSpec to get it working without Web Testing framework
+16:35:05 <anatoly-scherbakov> gkellogg: I think YAML-LD spec references tests
+16:35:24 <anatoly-scherbakov> ivan: this is a very handy thing to prove that we test each statement in the document
+16:35:37 <gkellogg> https://json-ld.github.io/yaml-ld/spec/#anchors-aliases
+16:36:03 <anatoly-scherbakov> gkellogg: the link above shows that there are 3 tests for this section and references the HTML test manifest
+16:36:25 <anatoly-scherbakov> gkellogg: Similarly, test manifest has a References section refers back to the spec
+16:36:35 <anatoly-scherbakov> gkellogg: it is a variation of your mechanism, Ivan
+16:37:04 <anatoly-scherbakov> gkellogg: worth spending time to do this for JSON-LD as well. We will sure do this for CBOR as well
+16:37:22 <anatoly-scherbakov> gkellogg: not sure each test has to be referenced but normative statements should have tests associated with them. And we'll find test gaps.
+16:37:59 <anatoly-scherbakov> ivan: luckily we started this setup in the beginning. we created a test for each MUST, this made it easier
+16:38:56 <anatoly-scherbakov> gkellogg: interpreting a section and looking for tests covering it might be tedious
+16:39:29 <anatoly-scherbakov> gkellogg: once a few are done then others are easier. duplicate tests also probably exist
+16:40:23 <anatoly-scherbakov> gkellogg: not sure what we can do today
+16:40:38 <anatoly-scherbakov> gkellogg: Pierre-Antoine had you had a script to automatically label issues?
+16:40:51 <anatoly-scherbakov> pchampin: not sure, my script duplicated available labels from one repo to another
+16:41:03 <anatoly-scherbakov> pchampin: to unify labels among repos of RDF-Star WG
+16:41:27 <anatoly-scherbakov> pchampin: will look at it
+16:54:28 <anatoly-scherbakov> pchampin: a formal proof of equivalence among JSON-LD and RDF despite difference in formats would improve certainty in the format.
+16:54:57 <anatoly-scherbakov> pchampin: we believe this is the case but theoretical proof is not there yet.
+16:55:12 <anatoly-scherbakov> pchampin: this research will help identify caveats when designing contexts.
+16:55:31 <anatoly-scherbakov> gkellogg: next meeting will be a WG meeting and we'll be looking at specific issues.
+16:55:40 <anatoly-scherbakov> ivan: what's the difference among CG and WG meetings?
+16:55:57 <anatoly-scherbakov> gkellogg: WG can decide on things effecting specs and CG can only talk about these
+16:56:04 <anatoly-scherbakov> ivan: how to distinguish between the two?
+16:56:08 <anatoly-scherbakov> gkellogg: the title says that
+16:56:22 <anatoly-scherbakov> ivan: I signed up for the WG
+16:56:31 <anatoly-scherbakov> gkellogg: we'll probably operate under the WG for the future
+16:56:45 <anatoly-scherbakov> gkellogg: we're adjourned until next time
+16:56:48 <pchampin> RRSAgent, make minutes
+16:56:49 <RRSAgent> I have made the request to generate https://www.w3.org/2024/10/02-json-ld-minutes.html pchampin
+16:57:05 <gkellogg> zakim, end meeting
+16:57:05 <Zakim> As of this point the attendees have been gkellogg, dlehn, bigbluehat, anatoly-scherbakov, pchampin, ivan, TallTed, niklasl
+16:57:07 <Zakim> RRSAgent, please draft minutes
+16:57:08 <RRSAgent> I have made the request to generate https://www.w3.org/2024/10/02-json-ld-minutes.html Zakim
+16:57:13 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:57:13 <gkellogg> rrsagent, pointer
+16:57:13 <RRSAgent> See https://www.w3.org/2024/10/02-json-ld-irc#T16-57-13-1
+16:57:14 <Zakim> Zakim has left #json-ld
