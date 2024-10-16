@@ -1,0 +1,143 @@
+16:00:37 <RRSAgent> RRSAgent has joined #json-ld
+16:00:41 <RRSAgent> logging to https://www.w3.org/2024/10/16-json-ld-irc
+16:00:41 <Zakim> RRSAgent, make logs Public
+16:00:42 <gkellogg> gkellogg has joined #json-ld
+16:00:42 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:00:45 <bigbluehat> meeting: JSON-LD WG
+16:01:10 <bigbluehat> agenda: https://www.w3.org/events/meetings/67486b62-8fda-478f-a379-9f8a297266fb/20241016T120000/
+16:01:11 <agendabot> clear agenda
+16:01:11 <agendabot> agenda+ Announcements and Introductions
+16:01:11 <agendabot> agenda+ Issue Discussion
+16:01:11 <agendabot> agenda+ Open Discussion
+16:01:11 <agendabot> agenda+ Next call
+16:01:19 <bigbluehat> chair: bigbluehat
+16:01:22 <bigbluehat> present+
+16:01:37 <niklasl> niklasl has joined #json-ld
+16:01:39 <TallTed> present+
+16:01:41 <gkellogg> present+
+16:01:52 <anatoly-scherbakov> present+
+16:01:52 <niklasl> present+
+16:01:59 <pchampin> present+
+16:03:15 <ivan> present+
+16:03:58 <gkellogg> zakim, next item
+16:03:58 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:04:11 <gkellogg> scribe+
+16:04:40 <dlehn> present+
+16:05:14 <bigbluehat> https://www.w3.org/news-events/w3c-tpac/#upcoming-tpac-2025
+16:05:22 <bigbluehat> "Will be held in November 2025 in Kobe Japan & online."
+16:05:34 <gkellogg> bigbluehat: Next TPAC will be in Kobe Japan, in November 2025.
+16:06:06 <gkellogg> zakim, next item
+16:06:06 <Zakim> agendum 2 -- Issue Discussion -- taken up [from agendabot]
+16:06:37 <bigbluehat> https://github.com/orgs/w3c/projects/84
+16:06:42 <gkellogg> bigbluehat: Primary objective is towards rechartering, so we need to label the issues accordingly.
+16:07:02 <pchampin> q+
+16:07:13 <gkellogg> ... We may need new tags to surface issues related to the charter.
+16:07:16 <bigbluehat> ack pchampin
+16:07:38 <gkellogg> pchampin: I had an action to create lables in the repos for class 1-4 changes, which I just did.
+16:07:50 <gkellogg> q+
+16:08:25 <gkellogg> pchampin: Instead of having an exhausive list of changes in the charter, we'd like to have a link to a stable list.
+16:08:26 <bigbluehat> ack gkellogg
+16:08:30 <bigbluehat> scribe+
+16:08:48 <bigbluehat> gkellogg: class 1 & 2 changes are considered errata
+16:08:48 <pchampin> q+
+16:08:59 <bigbluehat> ... and we have a tag for that already, so maybe we can avoid retagging
+16:09:08 <bigbluehat> ... Class 3 are slightly different
+16:09:22 <gkellogg> pchampin: Some Errata are non-editorial, so they are class 3 changes.
+16:09:39 <gkellogg> ... For me, the errata tags are used for things that were raised as such according to the process.
+16:09:51 <gkellogg> ... There is some redundancy.
+16:10:11 <gkellogg> bigbluehat: This is a great one to look at when considering issues.
+16:10:28 <gkellogg> ... There are cases where ErratumRaised is also used with spec:editorial.
+16:11:14 <gkellogg> ... The "Future Work" section is something to discuss, particularly w3c/json-ld-api#604.
+16:11:14 <gb> https://github.com/w3c/json-ld-api/issues/604 -> Issue 604 Using flatten() on HTML input having a single script element with an object with `@graph` results in named graph (by gkellogg) [spec:enhancement] [ErratumRaised]
+16:11:46 <gkellogg> ... I'd suggest we go through the "Future Work" list and classify what we can.
+16:12:15 <gkellogg> ... We may make a category for things we don't intend to address.
+16:12:41 <gkellogg> ... The Errata column would update the errata document.
+16:12:55 <gkellogg> ... We also have some open PRs. If merged, they would go into the next addition.
+16:13:16 <bigbluehat> gkellogg: let's talk tests for a minute
+16:13:49 <bigbluehat> ... if we're making changes to an edited spec and there are corresponding tests, then those will need to change together before the next release
+16:14:14 <gkellogg> bigbluehat: Do we want to block PRs until there are corresponding tests?
+16:14:49 <bigbluehat> gkellogg: there are cases where we have tests, but no spec text to go with
+16:14:58 <bigbluehat> ... dlehn ? did you do some of these?
+16:15:39 <gkellogg> dlehn: There are some changes related to rdf:JSON.
+16:16:10 <gkellogg> ... For example, w3c/json-ld-api#559.
+16:16:11 <gb> https://github.com/w3c/json-ld-api/pull/559 -> Pull Request 559 Add JSON literal tests. (by davidlehn) [spec:substantive] [test:missing-coverage]
+16:16:31 <gkellogg> ... I wanted feedback on the tests before getting into spec updates.
+16:16:56 <gkellogg> ... There are a number of discussion points still open on that PR.
+16:17:08 <gkellogg> bigbluehat: Do we have a way to say that it is still pending spec changes.
+16:17:46 <gkellogg> ... This one references w3c/json-ld-api#560.
+16:17:46 <gb> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (by davidlehn) [test:missing-coverage] [ErratumRaised]
+16:18:27 <gkellogg> bigbluehat: I think we need a new issue to add corresponding spec changes.
+16:19:04 <ivan> q+
+16:19:24 <gkellogg> ack ivan
+16:19:24 <bigbluehat> ack pchampin
+16:19:34 <gkellogg> q+ ivan
+16:19:35 <ivan> q+
+16:19:41 <gkellogg> ack ivan
+16:20:11 <gkellogg> ivan: I'm a bit worried that if we consider just merging things.
+16:20:31 <gkellogg> ... I'm not sure what the plans are for what are class 3 changes. The naming is up to the process doc editors.
+16:20:49 <gkellogg> ... In my mind, class 1-2 changes are the same; we can make the changes and re-publish.
+16:21:12 <gkellogg> ... Class 3 is separate; do we plan to go through the changes in our existing charter, or should they be postponed to the new charter?
+16:21:13 <gkellogg> q+
+16:21:27 <gkellogg> ... If we want to do something in this charter we need to be careful.
+16:21:27 <bigbluehat> ack gkellogg
+16:21:59 <bigbluehat> gkellogg: I did look through the changes we've made so far, and they seem suitable, but we should likely have the group reconsider them in light of the charter
+16:22:17 <bigbluehat> ivan: I have the pleasure of doing this classification with another group
+16:22:30 <gkellogg> ivan: The class 3 changes need ins/del; if we re-publish we need to publish them as candidate changes.
+16:22:47 <gkellogg> ... We need a horizontal review for those changes, leading to an AC vote.
+16:23:30 <gkellogg> ... Class 1 & 2 changes can be made and re-published without horizontal review, as they're considered minor editorial changes.
+16:23:43 <gkellogg> bigbluehat: Do we know of any class 3 changes?
+16:24:09 <bigbluehat> gkellogg: we could look at it now, but I looked at closed PRs after we reached recommendation
+16:24:27 <bigbluehat> ... and we probably need to do that again to make sure we didn't put in any class 3 changes
+16:24:44 <bigbluehat> ... and if we did, then we'd need to mark them per the process
+16:25:08 <gkellogg> bigbluehat: It seems we need to sort out that before making further spec changes.
+16:25:30 <pchampin> q+
+16:26:57 <gkellogg> ivan: Test issues are not interesting for this purpose.
+16:29:12 <bigbluehat> gkellogg: we noticed during YAML-LD development that `extractAllScripts()` had a different default
+16:29:16 <bigbluehat> ... https://github.com/w3c/json-ld-api/pull/606
+16:29:17 <gb> https://github.com/w3c/json-ld-api/pull/606 -> MERGED Pull Request 606 The default for extractAllScripts in toRdf() should be true. (by gkellogg) [spec:enhancement]
+16:29:23 <bigbluehat> ... probably that's a class 3 change.
+16:29:32 <gkellogg> ivan: So, w3c/json-ld-api#606 is a class three change.
+16:30:26 <gkellogg> ... EPub has gone through this effort.
+16:30:39 <bigbluehat> ack pchampin
+16:30:41 <gkellogg> bigbluehat: Is this one a class-3 change? (probably)
+16:31:10 <gkellogg> pchampin: More generally, we're discussing how to make class-3 changes to 1.1. Would it be simpler to just put these into 1.2?
+16:31:36 <bigbluehat> q+
+16:31:55 <gkellogg> ivan: It's hard to judge, but don't forget that if we go through the traditional route, it will take a long time before it becomes a rec.
+16:32:17 <gkellogg> ... If there's some urgency, we should consider doing now.
+16:32:33 <gkellogg> ... It's a judgement call for each.
+16:33:01 <gkellogg> bigbluehat: We also have to consider that we might not get a re-charter. In any case, we're looking at multiple years. We need to take them case-by-case.
+16:34:28 <gkellogg> ... Is there more to do?
+16:34:47 <gkellogg> gkellogg: I think we need issues to remediate any already merged class-3 changes.
+16:39:28 <gkellogg> bigbluehat: So, testing PRs don't necessarily need new spec work.
+16:40:45 <gkellogg> bigbluehat: Look at w3c/json-ld-api#578.
+16:40:45 <gb> https://github.com/w3c/json-ld-api/pull/578 -> MERGED Pull Request 578 remove surious paragraph in the description of frameExpansion (by pchampin) [spec:editorial]
+16:41:55 <gkellogg> ... That is class-2.
+16:43:07 <gkellogg> bigbluehat: w3c/json-ld-api#574 is also class-2.
+16:43:08 <gb> https://github.com/w3c/json-ld-api/pull/574 -> MERGED Pull Request 574 Clarify that lexicographical order uses code point ordering. (by gkellogg) [spec:editorial]
+16:44:20 <gkellogg> bigbluehat: w3c/json-ld-api#575 is also class-2.
+16:44:20 <gb> https://github.com/w3c/json-ld-api/pull/575 -> MERGED Pull Request 575 Add"lint-ignore" class to some unused definitions to silence warnings. (by gkellogg) [spec:editorial] [class-1]
+16:44:31 <gkellogg> s/class-2/class-2/
+16:45:24 <gkellogg> bigbluehat: w3c/json-ld-api#566 seems more consequential. This would be a class-3 change.
+16:45:25 <gb> https://github.com/w3c/json-ld-api/pull/566 -> MERGED Pull Request 566 Fix context processing for reverse terms (by niklasl)
+16:47:34 <gkellogg> bigbluehat: w3c/json-ld-api#569 is marked as editorial. So, class-2.
+16:47:34 <gb> https://github.com/w3c/json-ld-api/pull/569 -> MERGED Pull Request 569 Minor editorial rephrasing to clarify (by TallTed) [spec:editorial] [class-2]
+16:48:25 <gkellogg> bigbluehat: w3c/json-ld-api#528 is substantive, so class-3.
+16:48:25 <gb> https://github.com/w3c/json-ld-api/pull/528 -> MERGED Pull Request 528 Fix compacting property-based indexes. (by gkellogg)
+16:49:54 <gkellogg> bigbluehat: w3c/json-ld-api#520 is class-2.
+16:49:55 <gb> https://github.com/w3c/json-ld-api/pull/520 -> MERGED Pull Request 520 address issue #519 (by pchampin)
+16:51:45 <gkellogg> bigbluehat: w3c/json-ld-api#388 is class-3.
+16:51:46 <gb> https://github.com/w3c/json-ld-api/pull/388 -> MERGED Pull Request 388 Add tests and spec text for scoped-contexts on `@nest` alias. (by gkellogg) [defer-future-version]
+16:52:56 <gkellogg> ivan: The Errata label should be removed once the related change has been published.
+16:54:00 <gkellogg> bigbluehat: Looks like those are all the API changes.
+16:54:30 <gkellogg> ivan: Meaning that no API changes have been made since 2021?
+16:54:32 <gkellogg> bigbluehat: Yes.
+16:55:08 <gkellogg> TallTed: It may be worth checking the commit history for direct merges.
+16:55:42 <bigbluehat> next, aggendum
+16:55:51 <bigbluehat> next, agenda item
+16:56:06 <gkellogg> bigbluehat: Don't have time for further discussion. Continue with other docs next time.
+16:56:35 <gkellogg> bigbluehat: Next several meetings will follow this format, until we've curated.
+16:56:51 <Teukka> Teukka has joined #json-ld
+16:57:01 <gkellogg> ... Then we can start clarifying pending issues.
+16:57:19 <gkellogg> zakim, end meeting
+16:57:19 <Zakim> As of this point the attendees have been bigbluehat, TallTed, gkellogg, anatoly-scherbakov, niklasl, pchampin, ivan, dlehn
+16:57:21 <Zakim> RRSAgent, please draft minutes
