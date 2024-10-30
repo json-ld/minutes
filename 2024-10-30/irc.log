@@ -1,0 +1,343 @@
+15:54:30 <RRSAgent> RRSAgent has joined #json-ld
+15:54:34 <RRSAgent> logging to https://www.w3.org/2024/10/30-json-ld-irc
+15:54:34 <Zakim> RRSAgent, make logs Public
+15:54:35 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:54:39 <gkellogg> meeting: JSON-LD WG
+15:54:57 <gkellogg> agenda: https://www.w3.org/events/meetings/67486b62-8fda-478f-a379-9f8a297266fb/
+15:54:58 <agendabot> clear agenda
+15:54:58 <agendabot> agenda+ Announcements and Introductions
+15:54:58 <agendabot> agenda+ Issue Discussion
+15:54:58 <agendabot> agenda+ Open Discussion
+15:54:58 <agendabot> agenda+ Next call
+15:54:58 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+15:55:12 <gkellogg> present+
+15:55:55 <gkellogg> zakim, next item
+15:55:55 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+15:58:56 <ivan> present+
+15:59:36 <bigbluehat> bigbluehat has joined #json-ld
+16:00:07 <gkellogg> chair+
+16:00:14 <anatoly-scherbakov> present+
+16:00:32 <bigbluehat> present+
+16:00:34 <bigbluehat> scribe+
+16:01:11 <TallTed> TallTed has joined #json-ld
+16:01:38 <gkellogg> zakim, close item 1
+16:01:38 <Zakim> agendum 1, Announcements and Introductions, closed
+16:01:39 <Zakim> I see 3 items remaining on the agenda; the next one is
+16:01:39 <Zakim> 2. Issue Discussion [from agendabot]
+16:01:42 <bigbluehat> gkellogg: announcements?
+16:01:43 <gkellogg> zakim, next item
+16:01:43 <Zakim> agendum 2 -- Issue Discussion -- taken up [from agendabot]
+16:01:50 <bigbluehat> ... hearing none, we'll keep going
+16:02:01 <gkellogg> https://github.com/orgs/w3c/projects/84
+16:02:09 <bigbluehat> gkellogg: issues. we'll use the project view
+16:02:15 <bigbluehat> ...let's focus on PRs
+16:02:19 <bigbluehat> ... first up
+16:02:21 <gkellogg> https://github.com/w3c/json-ld-api/pull/608
+16:02:21 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 Resolve the questions about "JSON Serialization" term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised] [class-3]
+16:02:34 <bigbluehat> ... this was started by anatoly-scherbakov some time ago
+16:02:50 <bigbluehat> ... I made a few updates and classified it since it's substantive
+16:02:53 <niklasl> niklasl has joined #json-ld
+16:03:01 <bigbluehat> ... ivan you had some concerns about the way the changes are presented?
+16:03:14 <bigbluehat> ivan: yeah. they're minor editorial comments
+16:03:32 <niklasl> present+
+16:03:33 <bigbluehat> ... but when I put myself in the shoes of anyone doing a review
+16:03:43 <bigbluehat> ... the boxes make things very hard to understand what's changed
+16:03:53 <TallTed> present+
+16:03:54 <bigbluehat> ... and the colors are low contrast which make it hard to read
+16:04:07 <bigbluehat> ... maybe a slightly more careful placement of those boxes
+16:04:26 <bigbluehat> gkellogg: yeah, we're somewhat restricted with the boxes since they're often in lists
+16:04:28 <bigbluehat> ivan: I realize
+16:04:36 <bigbluehat> gkellogg: we'll see what we can do
+16:04:44 <bigbluehat> ... otherwise the text here seems very close
+16:04:53 <bigbluehat> ... though the green color used here is hard
+16:05:01 <bigbluehat> ivan: yes. mostly the contrast
+16:05:20 <bigbluehat> ... when I used a browser that has a dark mode it became very obvious
+16:05:32 <bigbluehat> ... but I understand it's complicated
+16:05:45 <bigbluehat> ... but don't worry too much about it
+16:06:03 <bigbluehat> gkellogg: I was uncertain if there were best practices for this sort of thing
+16:06:13 <bigbluehat> ivan: no. it's all new.
+16:06:21 <bigbluehat> ... so we should learn as we go
+16:06:31 <bigbluehat> gkellogg: k. we'll just stay ready to address things as we go
+16:06:51 <bigbluehat> ivan: we were hoping to have some tools built into respec or somewhere
+16:06:57 <bigbluehat> ... but those have not materialzed
+16:07:11 <bigbluehat> gkellogg: so, back to this specific change. I did add PA as the other editor
+16:07:26 <bigbluehat> ... especially since Dave isn't really active any more
+16:07:34 <bigbluehat> ... there's also the technical content in this PR
+16:07:38 <bigbluehat> ... it's mostly informative
+16:08:02 <bigbluehat> ... but there was some text added into the processor interface about normative language about serializing into JSON
+16:08:09 <bigbluehat> ... that could use some more critical review
+16:08:19 <bigbluehat> ... there may be better ways to state that
+16:08:27 <bigbluehat> ... anything else to say about this PR?
+16:08:35 <gkellogg> https://github.com/w3c/json-ld-api/pull/617
+16:08:36 <gb> https://github.com/w3c/json-ld-api/pull/617 -> Pull Request 617 Update ci.yml for Echidna rules (by gkellogg)
+16:08:58 <bigbluehat> gkellogg: k. PR 617 is next and should be fairly non-controversial
+16:09:13 <bigbluehat> ... I think we previously would have had a decision for auto-publishing
+16:09:23 <bigbluehat> ... but we may need a new one for handling these amendments
+16:09:28 <bigbluehat> ivan: not sure what you mean
+16:09:48 <bigbluehat> gkellogg: ecidna has a "decision URL" but I'm not sure we're ready to provide that
+16:09:59 <bigbluehat> ivan: for new working drafts? I have no idea to be honest
+16:10:23 <bigbluehat> ... This is true for new WD's.
+16:10:38 <bigbluehat> gkellogg: so. really we just need a decision to push new working drafts to TR space
+16:10:44 <bigbluehat> ivan: wait. of what?
+16:11:01 <bigbluehat> gkellogg: JSON-LD API 1.1
+16:11:13 <bigbluehat> ... ecidna would allow us to push those into TR space
+16:11:25 <bigbluehat> ivan: we should check the charter
+16:11:40 <bigbluehat> ... typically in maintenance group, you can make minor changes directly
+16:11:48 <TallTed> s/ecidna/echidna/g
+16:11:50 <bigbluehat> ... and for larger types of changes, there's a process for that
+16:12:11 <bigbluehat> ... you can republish the spec if larger changes come in
+16:12:27 <bigbluehat> ... but if you do a working draft it means you are moving toward a new version of the spec
+16:12:34 <bigbluehat> ... but I don't think we are chartered to do that
+16:12:45 <bigbluehat> ... we can ask PA when he's back
+16:12:59 <bigbluehat> gkellogg: I believe we're chartered to maintain these specs
+16:13:03 <bigbluehat> q+
+16:13:24 <bigbluehat> ivan: right. the lower changes do not require a working draft
+16:13:49 <bigbluehat> ... but these other changes have a process which go through an approval process and also avoids a working draft
+16:13:59 <bigbluehat> ... working drafts really mean you're starting a new version
+16:14:05 <gkellogg> ack bigbluehat
+16:14:13 <gkellogg> scribe+
+16:14:30 <gkellogg> bigbluehat: I agree that a new WD seems to point to a new version.
+16:14:39 <dlehn> present+
+16:15:14 <ivan> q+
+16:15:16 <gkellogg> ... We need to better understand the approval process and have the group decide the changes we want in 1.1 vs those that go in 1.2
+16:15:23 <gkellogg> ack ivan
+16:15:31 <bigbluehat> ivan: so my understanding at TPAC was...
+16:15:46 <bigbluehat> ... there's a plan to make a new charter for this group to make a 1.2 version of JSON-LD
+16:15:48 <gkellogg> ivan: My understanding is that there is a plan to create a new charter in direction of 1.2 (most likely). There is no such charter yet.
+16:15:51 <bigbluehat> ... the charter is not yet ready
+16:16:08 <gkellogg> ... I would expect that new working drafts are part of 1.2 and should be part of that charter.
+16:16:08 <bigbluehat> ... and I'd expect any working draft things to be headed to v1.2 and be done under the new charter
+16:16:45 <gkellogg> ... In the current charter, we should remove anything that can be handled by directly re-publishing the changes or though the route for class-3 changes.
+16:16:48 <bigbluehat> ... under the current charter, anything else like errata should be handled as maintenance tasks (class 1 or  2 changes) or through the approval process for class 3 changes
+16:17:16 <bigbluehat> gkellogg: class 4 changes would have to wait until we have a working draft
+16:17:47 <bigbluehat> q+
+16:17:51 <ivan> q+
+16:18:01 <bigbluehat> ... proposed corrections would be the next step
+16:18:25 <gkellogg> ack ivan
+16:18:26 <bigbluehat> ... it feels like many of the upcoming changes will be in limbo
+16:18:28 <gkellogg> ack bigbluehat
+16:18:33 <gkellogg> q+  ivan
+16:18:38 <gkellogg> ack ivan
+16:18:41 <gkellogg> q+ bigbluehat
+16:18:48 <bigbluehat> ivan: so, I will try to say what I understand is the situation
+16:19:08 <bigbluehat> ... with the changes you have for the document, we publish those changes to the recommendation directly
+16:19:25 <bigbluehat> ... so we'd be republishing the recommendation + those colorful changes you produced
+16:19:44 <bigbluehat> ... this is published by asking the webmaster to publish it
+16:20:09 <bigbluehat> ... we may need an approval by management and go through a review process including horizontal review
+16:20:24 <bigbluehat> ... that version becomes the formal JSON-LD  v1.1 for 30-40 days
+16:20:44 <bigbluehat> ... after that we move those changes to a new status and republish again
+16:21:04 <bigbluehat> ... a little bit like CR, we have to prove these new changes are implementable
+16:21:12 <bigbluehat> ... and have horizontal and AC review
+16:21:24 <bigbluehat> ... frankly, I've no idea how the AC review gets done
+16:21:33 <bigbluehat> ... we're about to do it in the EPUB group
+16:21:57 <bigbluehat> ... the importance difference is the latest version is the one you have just published with those candidate changes
+16:22:12 <bigbluehat> ... you main remembers all of this goes back to the "evergreen" discussion
+16:22:23 <bigbluehat> ... so the standard is more a live
+16:22:30 <bigbluehat> ... sorry that may be as clear as mud
+16:22:59 <bigbluehat> gkellogg: it sounds like since we have a lot of time left to review these changes toward a v1.1 release
+16:23:17 <bigbluehat> ... and keep that work on `main` until we feel like we've finished those types of changes
+16:23:42 <bigbluehat> ivan: there's an unwritten rule that maintenance groups should not publish more often then twice a year
+16:23:45 <bigbluehat> gkellogg: alright
+16:23:48 <bigbluehat> q?
+16:24:04 <bigbluehat> ... none of that gets in the way of this particular PR
+16:24:12 <bigbluehat> ... so I will take care of that at a later time
+16:24:18 <bigbluehat> q-
+16:24:24 <gkellogg> https://github.com/w3c/json-ld-api/pull/585
+16:24:25 <gb> https://github.com/w3c/json-ld-api/pull/585 -> Pull Request 585 Add graph container array tests. (by davidlehn) [test:missing-coverage]
+16:24:32 <bigbluehat> gkellogg: this is the graph container array tests next
+16:24:36 <bigbluehat> ... it needs more reviews
+16:24:44 <bigbluehat> ... dlehn can you talk about this one?
+16:24:50 <bigbluehat> ... I have some outstanding changes
+16:25:03 <bigbluehat> ... dlehn you opened this PR sometime ago, any thoughts?
+16:25:10 <bigbluehat> dlehn: I don't remember what the status of it s
+16:25:12 <bigbluehat> s/s/is
+16:25:23 <bigbluehat> gkellogg: really we just need more implementers to chime in
+16:25:32 <bigbluehat> dlehn: does it need spec changes?
+16:25:36 <bigbluehat> gkellogg: it's just tests
+16:25:45 <bigbluehat> dlehn: maybe it needs clarification in the spec, though?
+16:25:53 <bigbluehat> gkellogg: I'd like to move it along if possible
+16:25:58 <bigbluehat> ... dlehn can you push this forward?
+16:26:09 <gkellogg> q?
+16:26:15 <bigbluehat> dlehn: maybe. I think I guessed how to handle this, but others should weigh in
+16:26:25 <bigbluehat> ... ugh. I need to swap this back into my head
+16:26:36 <bigbluehat> gkellogg: yeah. we mainly just need to get this out of our backlog
+16:26:46 <bigbluehat> ... either by closing it or by finishing it and merging it
+16:26:56 <bigbluehat> dlehn: do any other implementers have comments
+16:27:04 <bigbluehat> gkellogg: niklasl ?
+16:27:11 <bigbluehat> niklasl: no substantive comments
+16:27:21 <bigbluehat> ... I threw it into my implementation and things went OK
+16:27:25 <bigbluehat> ... but I should dig into it
+16:27:39 <bigbluehat> gkellogg: k. we'll keep it in the stack and come back to it again
+16:27:57 <gkellogg> https://github.com/w3c/json-ld-syntax/pull/439
+16:27:57 <gb> https://github.com/w3c/json-ld-syntax/pull/439 -> Pull Request 439 Fix @direction not listed under context definition's definition (by Kibubu) [spec:editorial] [class-2]
+16:28:16 <bigbluehat> gkellogg: syntax PR439 looks mergeable now
+16:28:35 <bigbluehat> ...k. what else do we need to talk about?
+16:28:45 <gkellogg> https://github.com/w3c/json-ld-api/issues/560
+16:28:46 <gb> https://github.com/w3c/json-ld-api/issues/560 -> Issue 560 Various `@json` processing issues. (by davidlehn) [test:missing-coverage] [ErratumRaised]
+16:28:56 <bigbluehat> ... this `@json` processing issues one for example
+16:29:02 <bigbluehat> ... dlehn this is another one of yours
+16:29:13 <bigbluehat> dlehn: yeah...this is over a year old
+16:29:47 <bigbluehat> gkellogg: I think this is a case where no specific spec text needs to change
+16:29:56 <bigbluehat> dlehn: like the other, we need more implementer input
+16:30:10 <bigbluehat> gkellogg: is this a class 4 change? is it a new thing? or are we fixing something?
+16:30:17 <bigbluehat> dlehn: I think it has potential to break things
+16:30:26 <bigbluehat> ... it's like a bug fix where the spec lacked clarity
+16:30:51 <bigbluehat> ... but the suggestions in here to add other sets and things to force other modes...I've no idea what current implementations would do
+16:30:57 <bigbluehat> ... I really don't know what to do with this
+16:31:14 <bigbluehat> gkellogg: the safest thing seems to be to classify it as a class 4 change
+16:31:19 <bigbluehat> ... and defer it
+16:32:19 <bigbluehat> gkellogg: k. any other issues to discuss?
+16:32:20 <niklasl> q+
+16:32:53 <bigbluehat> ... we do need people spending time on these things...or we'll never get out of this mode
+16:33:03 <gkellogg> ack niklasl
+16:33:18 <niklasl> https://github.com/w3c/json-ld-api/issues/558
+16:33:19 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised] [class-3]
+16:33:24 <bigbluehat> niklasl: I'm not prepared to talk about API issue 558
+16:33:33 <bigbluehat> ... it's labeled as class 3 which I agree with
+16:33:39 <bigbluehat> ... it's something I have a real need for
+16:34:04 <bigbluehat> ... I could make a PR
+16:34:17 <bigbluehat> ... as I did a change in my implementation
+16:34:33 <bigbluehat> ... but if someone looks at it and sees something alarming, it'd be great to get feedback
+16:34:38 <gkellogg> q?
+16:34:43 <bigbluehat> gkellogg: k. I put it at the top of our list for next time.
+16:34:43 <gkellogg> zakim, next item
+16:34:43 <Zakim> agendum 3 -- Open Discussion -- taken up [from agendabot]
+16:35:52 <gkellogg> bigbluehat: Class-4 changes are going to have to stay in discussion land until we're finished with class 1-3.
+16:36:13 <bigbluehat> https://www.w3.org/2023/01/json-ld-wg-charter.html
+16:36:20 <gkellogg> ... We have a date deadline of Jan 31 for the end of the current maintanance-mode charter.
+16:36:38 <ivan> q+
+16:36:40 <gkellogg> ... We either need to ask for a 6-month extension, or hurry up on the re-charter.
+16:36:41 <gkellogg> q+
+16:36:49 <gkellogg> ack ivan
+16:37:03 <gkellogg> ivan: I don't think it's realistic to have the charter done by January.
+16:37:31 <gkellogg> ... Re-chartering has to go through several groups, and with holidays in between it won't get attention.
+16:37:51 <niklasl> q+ to ask about streaming json-ld "vs." newline-delimited json-ld
+16:37:58 <gkellogg> ... The group should ask for a 6-month extension. We should clarify we're working on a new charter.
+16:38:00 <gkellogg> ack me
+16:38:09 <bigbluehat> gkellogg: yeah. +1
+16:38:28 <bigbluehat> ... we should be keeping our new charter up-to-date and devote time to planning that new group
+16:38:41 <bigbluehat> ... but I think we have enough authority to handle most of these pending changes
+16:38:54 <bigbluehat> ... so just extending that charter should allow us to continue that work
+16:39:08 <bigbluehat> ... my main concern is who can be here to work on the specs
+16:39:15 <bigbluehat> ... I'd very much like to see another editor
+16:39:37 <gkellogg> q?
+16:39:39 <bigbluehat> ... we can't keep depending on the same few people
+16:39:46 <anatoly-scherbakov> q+
+16:39:52 <gkellogg> ack niklasl
+16:39:52 <Zakim> niklasl, you wanted to ask about streaming json-ld "vs." newline-delimited json-ld
+16:39:53 <bigbluehat> ... we need greater participation
+16:40:01 <bigbluehat> niklasl: I think this is related to the charter
+16:40:05 <niklasl> https://github.com/json-ld/ndjson-ld
+16:40:16 <bigbluehat> ... it's about a languishing document from the community group
+16:40:40 <bigbluehat> ... it's for new line delimited JSON-LD
+16:40:54 <bigbluehat> ... we're using it now from our library systems data dumps
+16:41:02 <bigbluehat> ... I may be able to put time onto this as part of my job
+16:41:08 <bigbluehat> ... and possibly help with the editing
+16:41:11 <ivan> q+
+16:41:23 <bigbluehat> ... not sure, but it is a topic I can put work effort into it
+16:41:34 <gkellogg> ack anatoly-scherbakov
+16:41:38 <gkellogg> q+
+16:41:39 <bigbluehat> q+ to suggest we get it into the new charter as a rec document
+16:41:53 <bigbluehat> anatoly-scherbakov: not sure that I can notable contribute to the JSON-LD specs
+16:42:01 <gkellogg> anatoly-scherbakov: Not sure were I can contribute due to available time, but I'll try to foster through some issues.
+16:42:09 <bigbluehat> ... but I can look at an issue in the API repo by next meeting and help there before the next meeting
+16:42:30 <bigbluehat> ... is the serialization/deserialization ready to merge? sorry that's a late request.
+16:42:39 <bigbluehat> gkellogg: I'd like to see more reviews on it
+16:42:41 <gkellogg> ... Can we merge https://github.com/orgs/w3c/projects/84/views/1?
+16:42:47 <bigbluehat> ... is that PR608?
+16:42:57 <bigbluehat> ... I'd like to get PA's approval for one
+16:42:58 <anatoly-scherbakov> q-
+16:43:01 <bigbluehat> ... but I think it's close
+16:43:07 <gkellogg> ack ivan
+16:43:10 <bigbluehat> ... maybe we can merge it after the next meeting?
+16:43:25 <bigbluehat> ivan: I'd like to understand what this ndjson-ld does
+16:43:31 <bigbluehat> ... but first a formal thing
+16:43:54 <bigbluehat> ... if we plan to put this on the rec track, then we should not publish it as a note on this round
+16:44:07 <gkellogg> q?
+16:44:12 <bigbluehat> ... in the old days taking a note into a rec track spec was fine
+16:44:31 <bigbluehat> ... but there are IPR concerns
+16:44:38 <niklasl> q+
+16:44:43 <bigbluehat> ... but I'm more excited about what this actually is!
+16:44:44 <gkellogg> ack me
+16:44:57 <bigbluehat> gkellogg: just to ask if this could be rec track or note track
+16:45:05 <bigbluehat> ... not sure there's enough there to make a recommendation
+16:45:10 <bigbluehat> ... so maybe it stays as a note
+16:45:22 <gkellogg> ack bigbluehat
+16:45:22 <Zakim> bigbluehat, you wanted to suggest we get it into the new charter as a rec document
+16:45:57 <gkellogg> bigbluehat: I'm seeing in the next period that JSON-LD is the center-piece for other formats, such as YAML-LD and CBOR-LD.
+16:46:23 <gkellogg> ... In that way, it would be good to extend those and clarify JSON-LD API things needed to handle the sub-types.
+16:46:45 <gkellogg> ... My guess is that the world of streaming-parsing is where the liability is.
+16:46:51 <gkellogg> q?
+16:46:58 <gkellogg> ack niklasl
+16:47:10 <bigbluehat> niklasl: first some context
+16:47:18 <bigbluehat> ... we have library centric use cases
+16:47:42 <niklasl> https://emm-spec.org/1.0/
+16:47:43 <bigbluehat> ... our own library uses linked data and are communication with the open source folio project which is gradually supporting more linked data
+16:47:55 <bigbluehat> ... there's also this EMM spec that came up recently
+16:48:01 <bigbluehat> ... it's based on Activity Streams
+16:48:13 <bigbluehat> ... there are many more library centric use cases
+16:48:30 <bigbluehat> gkellogg: could you give a thumbnail sketch of ndjson-ld specifically?
+16:48:50 <bigbluehat> niklasl: yes. Library of Congress dumps gigabytes of JSON-LD all wrapped up in a single array
+16:49:02 <bigbluehat> ... the only thing you can do with that is use a streaming parser
+16:49:18 <bigbluehat> ... there are loads of things to discuss about how to efficiently use that
+16:49:36 <bigbluehat> ... the other option is to store them in a single file, but split on new line delimiters
+16:49:50 <bigbluehat> ... and I do think there's a media type for that, but I'll need to check
+16:50:15 <bigbluehat> ... many libraries already work with named graphs, so typically they're prepared for this approach
+16:50:29 <bigbluehat> ... however, there are questions about using the first line for the context declaration on it's own
+16:50:49 <bigbluehat> ... and then all other objects in the ndjson-ld would use that context
+16:51:03 <bigbluehat> ... or there may be other options for standards
+16:51:15 <bigbluehat> s/standards/standardization
+16:51:26 <bigbluehat> gkellogg: yeah. we looked at some other options back in the day
+16:51:34 <bigbluehat> ... but ndjson-ld did seem the simplest at the time
+16:51:39 <bigbluehat> q+
+16:51:45 <gkellogg> ack bigbluehat
+16:51:46 <bigbluehat> ... it seems like a worthy note
+16:52:24 <gkellogg> bigbluehat: I think it can continue as a note for the time being; if it looks like it needs to be a standard (maybe if it registers a media-type?) we should consider REC-track.
+16:52:57 <gkellogg> ... Using a single context and applying to other records would be a new format. Having a spec could be needed.
+16:53:03 <gkellogg> q+
+16:53:18 <gkellogg> ... The activity-streams world is where we might find some interest.
+16:53:21 <niklasl> +1
+16:53:27 <gkellogg> ack me
+16:53:28 <TallTed> q+
+16:53:43 <bigbluehat> gkellogg: I think Ivan cautioned as notes and moving to recs
+16:53:51 <TallTed> ND-JSON doesn't appear well enough spec'ed to do much of anything -- https://json-ld.github.io/ndjson-ld/
+16:53:59 <bigbluehat> ... it might be easier to start something on the rec track and then move it back to a note
+16:54:10 <bigbluehat> ivan: actually...you'd leave it open as a working draft
+16:54:21 <bigbluehat> gkellogg: so it may be better to do it as a rec track document sooner than later
+16:54:39 <TallTed> or rather, https://www.google.com/search?q=ndjson+specification
+16:54:54 <gkellogg> q?
+16:54:59 <bigbluehat> ack TallTed
+16:55:05 <gkellogg> ack TallTed
+16:55:28 <niklasl> q+
+16:55:29 <gkellogg> TallTed: to make an ndjson-ld there needs to be an ndjson, which doesn't seem to be adequately defined right now.
+16:55:43 <bigbluehat> TallTed: doesn't seem to be enough specification nor registration yet with ndjson
+16:55:49 <gkellogg> ack niklasl
+16:56:02 <bigbluehat> ... it uses an `x-` prefix for example
+16:56:13 <TallTed> https://github.com/ndjson/ndjson-spec
+16:56:17 <gkellogg> niklasl: We need to base on something which is formally specified; if there is none, it could be an argument for REC-track.
+16:56:38 <bigbluehat> gkellogg: we could do this as part of YAML-LD actually
+16:56:45 <bigbluehat> ... they already support the document separation
+16:56:46 <niklasl> q+
+16:56:54 <anatoly-scherbakov> q+
+16:57:04 <bigbluehat> ... it might be that we express it as a subset of YAML-LD and use the JSON form
+16:57:14 <gkellogg> q?
+16:57:16 <gkellogg> ack niklasl
+16:57:29 <bigbluehat> niklasl: just wanted to say that it might not be the best way to do it
+16:57:38 <gkellogg> niklasl: It might not be the best way to use YAML, and it might be considered to be too heavy-weight.
+16:57:41 <gkellogg> ack anatoly-scherbakov
+16:57:43 <bigbluehat> ... and I know the ActivityStreams community believes less is more
+16:58:04 <bigbluehat> anatoly-scherbakov: I wanted to mention YAML-LD can handle lots of documents
+16:58:14 <bigbluehat> ... the separator is `---`
+16:58:16 <gkellogg> anatoly-scherbakov: YAML-LD does support multiple documents in a stream, but it uses "---\n" as a record separator.
+16:58:24 <bigbluehat> ... so a bit different than ndjson's approach
+16:58:37 <bigbluehat> ... and YAML-LD doesn't currently say anything about streaming
+16:58:37 <gkellogg> ... Also, YAML-LD does not explicitly say anything about streaming, although implementations may choose to do so.
+16:58:42 <gkellogg> q?
+16:59:09 <bigbluehat> gkellogg: I was suggesting that format might be useful but maybe as a subset designed for streaming
+16:59:29 <niklasl> A possibly relevant thread: https://github.com/wardi/jsonlines/issues/19
+16:59:30 <gb> https://github.com/wardi/jsonlines/issues/19 -> Issue 19 Standard MIME content-type (by pavelnikolov)
+16:59:44 <gkellogg> q?
+17:00:00 <bigbluehat> gkellogg: please pick a favorite issue for next time!
+17:00:04 <gkellogg> zakim, end meeting
+17:00:04 <Zakim> As of this point the attendees have been gkellogg, ivan, anatoly-scherbakov, bigbluehat, niklasl, TallTed, dlehn
+17:00:06 <Zakim> RRSAgent, please draft minutes
