@@ -1,0 +1,178 @@
+17:00:04 <RRSAgent> RRSAgent has joined #json-ld
+17:00:08 <RRSAgent> logging to https://www.w3.org/2024/11/13-json-ld-irc
+17:00:08 <Zakim> RRSAgent, make logs Public
+17:00:09 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+17:00:14 <gkellogg> meeting: JSON-LD WG
+17:00:33 <gkellogg> agenda: https://www.w3.org/events/meetings/3509d178-04b3-43ae-9bb2-79fb946a91c1/20241113T120000/
+17:00:34 <agendabot> clear agenda
+17:00:34 <agendabot> agenda+ Announcements and Introductions
+17:00:34 <agendabot> agenda+ Issue Discussion
+17:00:34 <agendabot> agenda+ Charter Discussion
+17:00:34 <agendabot> agenda+ Next call
+17:00:55 <TallTed> present+
+17:00:58 <bigbluehat> chair+
+17:01:06 <gkellogg> present+
+17:01:13 <gkellogg> scribe+
+17:01:19 <pchampin> present+
+17:01:29 <gkellogg> zakim, next agendum
+17:01:29 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:01:39 <niklasl> present+
+17:02:10 <gkellogg> zakim, close item 1
+17:02:10 <Zakim> agendum 1, Announcements and Introductions, closed
+17:02:12 <Zakim> I see 3 items remaining on the agenda; the next one is
+17:02:12 <Zakim> 2. Issue Discussion [from agendabot]
+17:02:14 <gkellogg> zakim, next agendum
+17:02:14 <Zakim> agendum 2 -- Issue Discussion -- taken up [from agendabot]
+17:02:33 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:02:37 <gkellogg> bigbluehat: We're working through the project list.
+17:03:12 <anatoly-scherbakov> present+
+17:03:48 <gkellogg> gkellogg: added issues that are class 1-3.
+17:03:59 <gkellogg> subtopic w3c/json-ld-syntax#436
+17:04:00 <gb> https://github.com/w3c/json-ld-syntax/issues/436 -> Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution]
+17:04:59 <gkellogg> gkellogg: might just create "tokens" for profile paraemters.
+17:05:54 <gkellogg> gkellogg: tokens not being namespaced is mitigated by the fact that the media-type is the namespace.
+17:06:14 <gkellogg> bigbluehat: So, it treats the media-type as the namespace.
+17:07:07 <gkellogg> ... Profile parameters not having a colon is wide-reaching
+17:07:41 <niklasl> q+
+17:08:03 <pchampin> q+
+17:08:04 <gkellogg> gkellogg: not sure how we update guidance for using profile parameters.
+17:08:29 <niklasl> niklasl has joined #json-ld
+17:08:35 <niklasl> present+
+17:08:38 <gkellogg> bigbluehat: This would be a breaking change for web annotations.
+17:08:42 <gkellogg> q?
+17:09:00 <gkellogg> ... That would mean web annotations needs their own media type.
+17:09:03 <bigbluehat> ack niklasl
+17:09:27 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:09:31 <anatoly-scherbakov> present+
+17:09:48 <gkellogg> niklasl: dlehn's reply may mean this isn't as horrible as it seems.
+17:10:02 <gkellogg> ... I think the datasets working group has done something with this.
+17:10:13 <bigbluehat> ack pchampin
+17:10:44 <dlehn> present+
+17:10:54 <gkellogg> pchampin: This doesn't seem to be a problem where things can't work, but making them work is tricky, due to pre-flight requests.
+17:11:19 <gkellogg> ... If we expect a server to support profile-based content-negotiation, it doesn't come automatically.
+17:11:33 <gkellogg> ... If you want to support this, you'll also need to support pre-flight requests.
+17:11:47 <bigbluehat> q|
+17:11:50 <bigbluehat> q?
+17:11:52 <gkellogg> ... This is difficult to configure and easily forgotten.
+17:12:04 <gb> https://github.com/w3c/json-ld-syntax/issues/436 -> Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution]
+17:12:44 <gkellogg> bigbluehat: There were some suggestions for defining enumerated values (tokens).
+17:13:09 <pchampin> I think it wouldn't hurt to define "short names" for the profiles in addition to the currently defined IRIs
+17:13:51 <gkellogg> ... The key is to not make it a breaking change.
+17:14:17 <niklasl> q+
+17:14:20 <gkellogg> ... This would affect the media-type registration.
+17:14:29 <bigbluehat> ack niklasl
+17:14:59 <gkellogg> niklasl: Aren't link headers defined similarly, where there are pre-defined tokens and IRIs may also be used.
+17:15:36 <gkellogg> bigbluehat: Browsers have made decisions which are affecting what we can do.
+17:16:17 <bigbluehat> > When processing the "profile" media type parameter, it is important to note that its value contains one or more URIs and not IRIs. In some cases it might therefore be necessary to convert between IRIs and URIs as specified in section 3 Relationship between IRIs and URIs of [RFC3987].
+17:16:25 <gkellogg> https://www.w3.org/TR/json-ld11/#iana-considerations
+17:17:22 <niklasl> q+
+17:18:21 <bigbluehat> ack niklasl
+17:18:50 <niklasl> application/ld+json;profile="http://iiif.io/api/presentation/3/context.json
+17:18:53 <gkellogg> niklasl: I think it would be good to add tokens. Rob's specific problem are more about the other uses of profiles.
+17:19:08 <bigbluehat> q+
+17:19:22 <TallTed> s/context.json/context.json"/
+17:19:52 <gkellogg> ... I wonder if our solution would be considered a solution for the issue; maybe parts of the issue can't be solved in the JSON-LD spec. Might recommend IIIF to use profile negotiation.
+17:20:10 <gkellogg> ... But, using pre-flight does work, so that would be on their end.
+17:20:25 <bigbluehat> ack bigbluehat
+17:20:26 <gkellogg> ... It's more that we put forward the design pattern and it has become more tricky.
+17:21:07 <gkellogg> bigbluehat: The ramifications of this are not just expand/compact/... Rob's point is for other specifications that used the same pattern.
+17:21:18 <gkellogg> ... No we know to avoid it.
+17:21:51 <niklasl> See also: https://www.w3.org/TR/dx-prof-conneg/ (and https://profilenegotiation.github.io/I-D-Profile-Negotiation/I-D-Profile-Negotiation.html )
+17:22:02 <gkellogg> ... There's reason to document this in the best-practices document. How this affects other specs would mean that they cannot treat profile as being extensible, and will need a new media type.
+17:23:05 <bigbluehat> q+
+17:23:38 <pchampin> q+
+17:23:38 <gkellogg> gkellogg: we might create a registry to allow other specifications to add their profile parameters without needing a new media-type.
+17:23:47 <bigbluehat> ack bigbluehat
+17:23:58 <gkellogg> bigbluehat: niklasl shared a document on using the profile parameter for content negotiation.
+17:24:05 <bigbluehat> ack pchampin
+17:24:32 <gkellogg> pchampin: Reaching out the that TAG would be a good idea, as other specs rely on this, and they would be impacted.
+17:24:57 <gkellogg> ... I'd like to see their thoughts and how much we should make the effort to try to change this.
+17:25:17 <niklasl> q+
+17:25:48 <gkellogg> ... Regarding the spec, note that this is a working draft which has been inactive for a while. This might not be the strongest argument to take before the TAG. (The dataset exchange WG)
+17:25:50 <bigbluehat> ack niklasl
+17:26:25 <gkellogg> ... Part of the reason that spec is stalled is that there are contentious discussions with IETF on where it belongs.
+17:26:38 <niklasl> From the dx-prof-conneg draft: During 2018, DXWG members had a longer discussion with the JSON-LD WG at the annual forum TPAC in Lyon, France and it was concluded that the "profile” parameter in the Accept and Content-Type headers should be seen to convey profiles that are specific to the Media Type [such as JSON-LD's expanded  .... ]
+17:26:40 <gkellogg> ... But, is there enough interest in IETF to continue the work?
+17:27:19 <gkellogg> niklasl: There are aspects of the draft that goes into the profile parameter of the media type is the right way to go.
+17:28:07 <gkellogg> ... The design of IIIF and Activity Streams I appreciate more when not looking at it from an RDF perspective.
+17:28:38 <gkellogg> ... These are more useful at the intersection of JSON and RDF, which makes it easier to create specifications in a distributed way.
+17:28:40 <pchampin> q+
+17:29:17 <gkellogg> ... If I believed (from RDF perspective) that format is irrelevant, general content negotiation works well.
+17:29:50 <gkellogg> ... I can see how the TAG might argue from one of these perspectives. Maybe we shouldn't invent media-types on the fly.
+17:30:12 <bigbluehat> ack pchampin
+17:30:37 <pchampin> https://www.w3.org/TR/vc-data-model-2.0/#media-type-precision
+17:30:46 <gkellogg> pchampin: Regarding the value of using JSON-LD media-type with parameter vs a new media-type, VC has had to rely on this for a while.
+17:31:16 <gkellogg> ... The current solution is to have a dedicated media-type with additional language to explain the relationship between the two media types.
+17:31:22 <bigbluehat> q+
+17:31:33 <gkellogg> ... We might point other specs to that solution.
+17:31:40 <niklasl> +1 to mentioning that "third" point of view (very pertinent IMHO)
+17:31:50 <gkellogg> bigbluehat: I think we need to move on and come back to this issue.
+17:32:16 <gkellogg> ... It would be great to write some of these things up on the issue so that we have something coherent to bring to the TAG.
+17:32:43 <gkellogg> ... IETF has shifted their approach, and we're stuck in the middle. In the mean time, if we can collect thoughts in the issue.
+17:32:59 <gkellogg> ... I don't think we know enough to lay out the preferred solution.
+17:33:19 <gkellogg> ... If we go the short-name route, we run the risk of turning into a registry.
+17:33:49 <bigbluehat> https://github.com/w3c/json-ld-syntax/issues/443
+17:33:50 <gb> https://github.com/w3c/json-ld-syntax/issues/443 -> Issue 443 `@protected` creates unresolvable conflicts when the same term is defined in two contexts top-level (by trwnh) [spec:editorial] [wr:commenter-agreed-partial] [class-2]
+17:33:53 <gkellogg> subtopic: w3c/json-ld-syntax#443
+17:35:41 <gkellogg> bigbluehat: This dove-tails with the profile-parameter conversation for other communities
+17:36:05 <gkellogg> ... If a media type expects a context to exist, they would inject one if not provided.
+17:36:14 <niklasl> q+
+17:36:19 <bigbluehat> ack bigbluehat
+17:36:20 <dlehn> q+
+17:36:23 <gkellogg> ... We could make other discussion issues from comments in this issue.
+17:36:23 <bigbluehat> ack niklasl
+17:36:45 <pchampin> q+
+17:37:13 <gkellogg> niklasl: IIRC, Activity Streams says you should put their context last because of this issue.
+17:37:28 <gkellogg> ... If you use short names that have meaning, you must lock them down.
+17:37:43 <bigbluehat> ack dlehn
+17:38:03 <gkellogg> dlehn: I need to re-review the issue.
+17:38:40 <gkellogg> ... In the case of the controller, it would be to change the activity streams URL, but that's kind of strange. People expect terms to be gathered in one place.
+17:39:30 <bigbluehat> q+
+17:39:32 <niklasl> Maybe what is asked for is how to use this design pattern to have partial extensibility, extensions which are always subordinate to the "hardcoded" context (that may evolve)?
+17:39:33 <bigbluehat> ack pchampin
+17:39:40 <gkellogg> ... This would conflict with other things where JWT is also used.
+17:40:06 <gkellogg> pchampin: The comment at the end is interesting as it resonates with TPAC discussions.
+17:40:37 <gkellogg> ... There are two types of JSON-LD, one which is more about the RDF semantics, the other is about general representation of knowledge.
+17:41:00 <gkellogg> ... I sympathize that we should make this more clear, but don't think it's a bug in the spec.
+17:41:43 <gkellogg> bigbluehat: There's a tension between generic JSON-LD which is endlessly pluggable, which confuses people.
+17:42:28 <gkellogg> ... In this view, JSON-LD isn't the end product, but adding in @protected you constrain it into a use case, as you are using very specific terminology and limiting the extension points.
+17:43:07 <gkellogg> ... At TPAC there was a discussion about other things, such as schema.org, or are we going to specific content formats with self-defined semantics.
+17:44:00 <gkellogg> ... Maybe this is not a syntax change, but a best practices note. If you're in ld+json land you can do what you want, but if you're in something that provides more constraints, you may need different solutions.
+17:44:00 <niklasl> +1 for best practice
+17:44:05 <anatoly-scherbakov> +1
+17:44:07 <gkellogg> +1
+17:44:15 <dlehn> q+
+17:44:24 <bigbluehat> ack bigbluehat
+17:45:01 <bigbluehat> ack dlehn
+17:45:26 <gkellogg> dlehn: It seems to be a bit more than best-practices as you need to tell people how to get around the rules.
+17:47:04 <gkellogg> dlehn: It's nice when things live together.
+17:48:44 <gkellogg> bigbluehat: In the future, maybe there would be a way to link from the spec to BP.
+17:48:52 <bigbluehat> PROPOSAL: Address the concerns around when to use `@protected` (which were raised in https://github.com/w3c/json-ld-syntax/issues/443) through new content in the JSON-LD Best Practices document.
+17:48:53 <gb> https://github.com/w3c/json-ld-syntax/issues/443 -> Issue 443 `@protected` creates unresolvable conflicts when the same term is defined in two contexts top-level (by trwnh) [spec:editorial] [wr:commenter-agreed-partial] [class-2]
+17:49:01 <bigbluehat> +1
+17:49:02 <niklasl> +1
+17:49:03 <pchampin> +1
+17:49:03 <gkellogg> +1
+17:49:04 <anatoly-scherbakov> +1
+17:49:10 <TallTed> +1
+17:49:18 <dlehn> +1
+17:49:42 <gkellogg> dlehn: Is it more "when" or "how" to use @protected?
+17:49:49 <gkellogg> RESOLVED: Address the concerns around when to use `@protected` (which were raised in https://github.com/w3c/json-ld-syntax/issues/443) through new content in the JSON-LD Best Practices document.
+17:50:16 <gkellogg> bigbluehat: We can make it as "best practice" and notify the commenter.
+17:50:17 <niklasl> ... and *why* to...
+17:50:33 <gkellogg> ... @protected needs more content.
+17:50:48 <dlehn> "... when, how, and why to use ..."
+17:51:05 <anatoly-scherbakov> That's the one: https://github.com/json-ld/yaml-ld/pull/157
+17:51:05 <gb> https://github.com/json-ld/yaml-ld/pull/157 -> Pull Request 157 Fix: #156. Update media type registration information. (by ioggstream)
+17:51:14 <gkellogg> subtopic: w3c/json-ld-api#608
+17:51:14 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 Resolve the questions about "JSON Serialization" term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised] [class-3]
+17:51:54 <gkellogg> gkellogg: once we have approvals, we can merge.
+17:52:38 <gkellogg> bigbluehat: There are more issues to discuss, but we'll continue to just move through the list. Cleaning house before worrying about the charter makes sense.
+17:53:10 <anatoly-scherbakov> q+
+17:53:16 <bigbluehat> ack anatoly-scherbakov
+17:53:39 <bigbluehat> https://github.com/orgs/w3c/projects/84
+17:54:42 <gkellogg> bigbluehat: The project manager should include YAML-LD, CBOR-LD, JSON-LD-star and other things the WG is working on.
+17:56:29 <anatoly-scherbakov> ack anatoly-scherbakov
+17:57:49 <gkellogg> zakim, end meeting
+17:57:49 <Zakim> As of this point the attendees have been TallTed, gkellogg, pchampin, niklasl, anatoly-scherbakov, dlehn
+17:57:51 <Zakim> RRSAgent, please draft minutes
