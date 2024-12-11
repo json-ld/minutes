@@ -1,0 +1,281 @@
+16:56:55 <RRSAgent> RRSAgent has joined #json-ld
+16:56:59 <RRSAgent> logging to https://www.w3.org/2024/12/11-json-ld-irc
+16:56:59 <Zakim> RRSAgent, make logs Public
+16:57:00 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:57:02 <gkellogg> meeting: JSON-LD CG
+16:57:17 <gkellogg> agenda: https://www.w3.org/events/meetings/3509d178-04b3-43ae-9bb2-79fb946a91c1/20241211T120000/
+16:57:17 <agendabot> clear agenda
+16:57:17 <agendabot> agenda+ Announcements and Introductions
+16:57:17 <agendabot> agenda+ Profile Negotiation
+16:57:17 <agendabot> agenda+ Issue Discussion
+16:57:17 <agendabot> agenda+ Charter Discussion
+16:57:18 <agendabot> agenda+ Next call
+16:57:30 <gkellogg> chair: gkellogg
+16:57:34 <gkellogg> present+
+16:57:41 <gkellogg> zakim, next agendum
+16:57:42 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:00:06 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:00:48 <Bob> Bob has joined #json-ld
+17:00:55 <niklasl> present+
+17:01:12 <Bob> present
+17:01:14 <anatoly-scherbakov> present+
+17:02:02 <Herbert> Herbert has joined #json-ld
+17:02:11 <bigbluehat> present+
+17:02:16 <pchampin> present+
+17:02:17 <bigbluehat> scribe+
+17:02:23 <bigbluehat> gkellogg: welcome back everyone
+17:02:29 <bigbluehat> ... this is our last meeting of the year
+17:02:32 <TallTed> present+ TallTed, Bob
+17:02:37 <bigbluehat> ... our next meeting will be Jan 8
+17:02:51 <bigbluehat> ... no other announcements...anyone have anything else
+17:03:03 <ivan> present+
+17:03:11 <bigbluehat> ... should we do some intros?
+17:03:20 <bigbluehat> ... Herbert?
+17:03:31 <bigbluehat> Herbert: I'm a research fellow from Austria
+17:03:41 <bigbluehat> ... I've done standards for 20+ years
+17:03:54 <bigbluehat> ... and profile negotiation is probably the worst [laughs]
+17:04:06 <bigbluehat> Bob: I work with Dutch Heritage Network
+17:04:14 <bigbluehat> ... with Rob Sanderson and others
+17:04:21 <bigbluehat> ... and profile negotiation comes up often
+17:04:26 <bigbluehat> gkellogg: we did make this a CG meeting
+17:04:34 <bigbluehat> ... to make it easier for guests to participate
+17:04:42 <bigbluehat> ... if we have time later we may look at some issues
+17:04:42 <gkellogg> zakim, next agendum
+17:04:43 <Zakim> agendum 2 -- Profile Negotiation -- taken up [from agendabot]
+17:04:56 <bigbluehat> gkellogg: we did have an open issue on this
+17:05:02 <bigbluehat> ... and now we have a good bit of feedback
+17:05:14 <bigbluehat> ... Herbert, Bob would you like to kick off the discussion?
+17:05:24 <bigbluehat> Herbert: I did send a link to provide an overview
+17:05:33 <gkellogg> https://docs.google.com/document/d/1WUGML4cfthRBKzMW729thjlCZjPWku__IjEjdNWq9pU/edit?tab=t.0#heading=h.9caf3yhgody2
+17:05:43 <bigbluehat> ... this discussion has been going on forever and has yet to have a resolution
+17:05:54 <bigbluehat> ... my hope is to sort out how to proceed
+17:06:07 <bigbluehat> ... we have a W3C route, and IETF route, etc.
+17:06:20 <bigbluehat> ... is there interest in pursuing this work? and if so where? and whom?
+17:06:49 <bigbluehat> ... as a sample of how hard this is, my two co-authors have both been radio silent in response to this recent interest
+17:06:59 <bigbluehat> ... it needs solving at the process level as much as technical
+17:07:03 <gkellogg> q?
+17:07:32 <bigbluehat> gkellogg: my concern is what issues exist for JSON-LD and what can we do about them
+17:07:50 <bigbluehat> ... one issue is the emergent problem of using URIs as profile values
+17:07:59 <bigbluehat> ... that is now recently undermined by other groups
+17:08:24 <bigbluehat> ... so an alternative to that may be using a `Link` header
+17:08:33 <niklasl> q+
+17:08:36 <bigbluehat> ... so our general question is how can we apply best practices here?
+17:08:50 <pchampin> q+
+17:09:01 <bigbluehat> Herbert: the two existing drafts overlap a good bit
+17:09:13 <bigbluehat> ... and the IETF work got copied into the W3C work
+17:09:45 <gkellogg> q?
+17:09:50 <gkellogg> ack niklasl
+17:10:12 <bigbluehat> niklasl: I think we should say what we mean by "profile" here
+17:10:28 <bigbluehat> ... one is something like data shapes--which is not what I mean
+17:10:50 <bigbluehat> ... and the data shapes WG is talking about those in a sense more like application profiles from Dublin Core
+17:11:00 <bigbluehat> ... those are a preferred selection of terms from vocabularies
+17:11:14 <bigbluehat> ... I wouldn't say that's an emerging concern
+17:11:32 <bigbluehat> ... we are hoping that profile negotiation gets attention to help with this need
+17:11:49 <bigbluehat> ... but I'm not clear on what we mean by `profile` in the JSON-LD specs
+17:12:07 <bigbluehat> Herbert: if you look at the I-D, both of the things you've described are covered
+17:12:13 <bigbluehat> ... one is representation related
+17:12:41 <gkellogg> q?
+17:12:44 <bigbluehat> ... and the other is application/vocabulary related which is independent...though interdependent of the representation
+17:12:45 <gkellogg> ack pchampin
+17:12:55 <bigbluehat> q+ to mention media type registration shifts
+17:13:24 <bigbluehat> pchampin: I'm the team contact for JSON-LD and other groups
+17:13:31 <bigbluehat> ... like Data Set Exchange
+17:13:39 <bigbluehat> ... I'd like to see this work progress
+17:13:46 <bigbluehat> ... despite the growing list of issues
+17:14:06 <bigbluehat> ... what we talk about as profile negotiation in JSON-LD seems to differ a bit
+17:14:16 <bigbluehat> ... it doesn't really require content negotiation
+17:14:19 <gkellogg> q+
+17:14:53 <bigbluehat> ...  if someone sends me a document with `profile` that uses an IRI in the value, fetch will fail due to CORS
+17:15:08 <bigbluehat> ... I think it's great that this issue triggered a larger discussion
+17:15:29 <bigbluehat> ... there has also been some activity around the profile recommendation...which sadly stopped about 6 months ago
+17:15:40 <niklasl> For reference, at the Nat. library of Sweden, we experiment with prof-neg to allow consumers to select one of some (currently predefined) sets of "selection of vocabularies": https://github.com/libris/librisxl/blob/develop/rest/API.md#profile-negotiation *orthogonal to serialization format (all within the bounds of RDF)
+17:15:43 <bigbluehat> ... part of the reason it stalled is the ambiguity between the current drafts
+17:16:03 <bigbluehat> ... are there plans to take either of these further?
+17:16:20 <bigbluehat> Herbert: There was an attempt to talk to IETF dispatch about this work
+17:16:31 <bigbluehat> ... they decide where it fits within the IETF
+17:16:36 <bigbluehat> ... and pointed us to the HTTP API
+17:16:44 <bigbluehat> ... I've worked there and did the Link Set spec
+17:17:01 <bigbluehat> ... but that group came back and said "the industry" wasn't interested
+17:17:33 <bigbluehat> ... however, one is not required to go that route, but could publish a personal informational spec--which is what I did for Memento
+17:17:42 <bigbluehat> ... and Memento has been used by Web Archives
+17:17:51 <bigbluehat> ... a W3C route would be another route forward
+17:17:57 <bigbluehat> ... any of these have scoping concerns
+17:18:12 <bigbluehat> ... the I-D would be singularly about the negotiation
+17:18:42 <bigbluehat> pchampin: maybe we can dig into some of this offline
+17:18:53 <bigbluehat> ... and try to focus a bit on what JSON-LD is dealing with specifically
+17:19:05 <gkellogg> w3c/json-ld-syntax#436
+17:19:06 <gb> https://github.com/w3c/json-ld-syntax/issues/436 -> Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution]
+17:19:13 <bigbluehat> Herbert: that issue you mention with CORS and content-type is purely HTTP related
+17:19:37 <gkellogg> ack bigbluehat
+17:19:37 <Zakim> bigbluehat, you wanted to mention media type registration shifts
+17:19:42 <bigbluehat> ... there was some solution that Rob was happy with--preflight
+17:19:42 <gkellogg> scribe+
+17:20:19 <gkellogg> bigbluehat: In JSON-LD, the profile is used as a parameter on a media-type; it's been surfaced in sub-groups, such as web annotation.
+17:20:33 <gkellogg> ... We went that way to avoid registration issues, but CORS is creating problems
+17:20:49 <gkellogg> ... Since then, the IETF has encouraged more top-level media types.
+17:21:15 <gkellogg> ... The verifiable credentials group is using a new top-level media-type.
+17:21:43 <gkellogg> ... We thought that using a parameter to express a preference would be the right way to go.
+17:21:55 <dlehn> present+
+17:22:02 <gkellogg> ... Now, we need advice on other ways to handle this.
+17:22:20 <gkellogg> q?
+17:22:33 <bigbluehat> Herbert: thanks for those details, bigbluehat
+17:22:41 <bigbluehat> ... one of our issues talk about that specifically
+17:23:03 <bigbluehat> ... I did not know that using a `profile` parameter didn't work
+17:23:09 <bigbluehat> bigbluehat: neither did we
+17:23:14 <bigbluehat> Herbert: I think it's actually good news
+17:23:43 <bigbluehat> ... one could use the `Accept-Profile` approach instead...since normal content negotiation no longer works
+17:23:59 <bigbluehat> ... so, we could instead use the `Profile` header instead
+17:24:19 <bigbluehat> ... what if a client expresses a `profile` attribute and an `Accept-Profile` header
+17:24:28 <pchampin> q+
+17:24:35 <bigbluehat> ... but now if `profile` no longer works, then that ambiguity is cleared up
+17:24:40 <gkellogg> ack me
+17:24:43 <bigbluehat> gkellogg: the `Link` header is the other option
+17:24:53 <bigbluehat> Herbert: there's a problem with that also?
+17:25:14 <bigbluehat> gkellogg: the `Link` header can be used for both request and response, correct?
+17:25:38 <bigbluehat> Herbert: the `Accept-Profile` is for requests, `Profile` is for responses
+17:25:59 <bigbluehat> ... the `Link` header could be used. I've never seen a problem with it
+17:26:13 <bigbluehat> ... but I do see an issue with using it alongside `Accept`
+17:26:28 <bigbluehat> ... you could also use URIs there...even multiples
+17:26:49 <bigbluehat> gkellogg: and JSON-LD's existing use of `profile` show use of multiple URIs
+17:27:03 <bigbluehat> ... we even showed how to use `profile` to specify the frame to use
+17:27:25 <bigbluehat> ... probably some security concerns with that one...but perhaps some allow listing for those could help
+17:27:34 <bigbluehat> ... but those would likely be application specific
+17:27:43 <bigbluehat> ... probably where JSON-LD wants to go
+17:27:53 <bigbluehat> ... is to move away from `profile`
+17:28:15 <bigbluehat> ... and instead look to using the `Link` header or `Accept-Profile`/`Profile` to specify that
+17:28:32 <bigbluehat> ... not every application is hampered by CORS as the browsers are
+17:28:34 <niklasl> q+
+17:28:42 <bigbluehat> ... but we may want to deprecate that use
+17:28:42 <gkellogg> q?
+17:28:58 <bigbluehat> ... so for the purpose of this group, that's what we're hoping to focus on
+17:29:09 <bigbluehat> Herbert: so, you could continue to use `profile` as a parameter
+17:29:27 <bigbluehat> ... and you can use them in `Accept` and `Content-Type`
+17:29:55 <bigbluehat> ... but as soon as you start doing profile negotiation, you use `Accept-Profile` instead
+17:30:04 <TallTed> q+
+17:30:15 <gkellogg> ack pchampin
+17:31:07 <bigbluehat> pchampin: so, if we went the individual specification route at the IETF, can a W3C spec depend on it?
+17:31:08 <bigbluehat> ivan: no
+17:31:26 <bigbluehat> pchampin: if we go that route, we need to have a normative reference
+17:31:39 <bigbluehat> ... we would end up relying on that
+17:31:48 <bigbluehat> ... so we'd need them to be full specifications to move forward
+17:32:04 <bigbluehat> ... we have had these conversations with the IETF
+17:32:18 <bigbluehat> ... and they said it needed to be there...but then no one will let it be developed there
+17:32:23 <bigbluehat> ... so we are at an impasse
+17:32:39 <ivan> q+
+17:32:42 <bigbluehat> ... I will reach out again to see if there's a path forward there
+17:32:54 <bigbluehat> ... or to say we will do it in the Data Set Exchange WG to move it forward
+17:33:02 <bigbluehat> ... so this group can reference the work
+17:33:32 <bigbluehat> Herbert: iirc the conversations from 2021, that if the W3C would express "real interest" that the IETF Dispatch could be moved
+17:33:40 <bigbluehat> ... Darrell Miller would be someone to contact there
+17:33:55 <bigbluehat> ... even if someone goes non-standard track
+17:34:04 <bigbluehat> ... someone can officially register HTTP headers
+17:34:09 <bigbluehat> ... I did this with Memento
+17:34:22 <niklasl> q-
+17:34:25 <bigbluehat> ... so, non-standard track documents can register headers
+17:34:31 <gkellogg> ack TallTed
+17:34:50 <bigbluehat> TallTed: I'm a little concerned that these documents are only consumable via a web server
+17:35:15 <bigbluehat> ... if that profile is only expressed in the content type, how do I know what the profile is elsewhere
+17:35:20 <bigbluehat> q+ to answer TallTed
+17:35:38 <bigbluehat> gkellogg: there are other places where HTTP headers are used
+17:35:50 <bigbluehat> TallTed: this means that I cannot have a local copy of that document
+17:35:55 <pchampin> TallTed you could make the same remark about content-types....
+17:35:57 <bigbluehat> Herbert: you can download it
+17:36:04 <bigbluehat> TallTed: where's the profile info go?
+17:36:45 <gkellogg> bigbluehat: The profile is typically in the context; profile negotiation is to specify the format, which isn't needed to consume the document.
+17:37:15 <gkellogg> ... If the document is self-contained, you don't need the profile. It's used when requesting a particular form of a document with the same semantic information.
+17:37:42 <gkellogg> ... If you need a file extension, you MUST use a top-level media-type.
+17:38:16 <bigbluehat> Herbert: that does raise questions around self-contained-ness of the representation
+17:38:19 <gkellogg> q?
+17:38:22 <bigbluehat> ... that doesn't hold for all media types
+17:38:22 <gkellogg> ack ivan
+17:38:31 <bigbluehat> ivan: coming back to what can be done or not done
+17:38:39 <bigbluehat> ... I reacted to the individual submission
+17:38:46 <bigbluehat> ... but there are actually not rules against them per se
+17:38:54 <bigbluehat> ... but the question is really about stability
+17:39:07 <bigbluehat> ... if you get a specification that meets certain requirements
+17:39:23 <bigbluehat> ... then if it is stable enough than it can be referenced
+17:39:39 <gkellogg> present+ Bob, Herbert, Antoine_Isaac
+17:39:40 <bigbluehat> ... for example (though perhaps controversial), we have a green light to reference schema.org
+17:39:57 <bigbluehat> ... there is little probability that that will disappear in the coming years
+17:40:12 <bigbluehat> ... the other thing, if it's on the IETF turf, can we standardize it?
+17:40:20 <bigbluehat> ... there are examples. One recently.
+17:40:35 <bigbluehat> ... in the VC WG, there were issues with multikey and multibase
+17:40:46 <bigbluehat> ... the standing of the group had been that it should be done at the IETF
+17:40:57 <bigbluehat> ... it never happened there for reasons I do not know
+17:41:01 <bigbluehat> ... but we had to move on
+17:41:16 <gkellogg> q?
+17:41:17 <bigbluehat> ... so now we have parts of those specifications in our VC specifications to solve for lack of progress at the IETF
+17:41:20 <bigbluehat> q-
+17:41:48 <bigbluehat> Herbert: if you go the IETF route, even with a personal spec, you do get an RFC which is stable
+17:42:05 <bigbluehat> ivan: yes, and we can always go to the management to get permission
+17:42:13 <gkellogg> ack bigbluehat
+17:42:46 <gkellogg> bigbluehat: I think we've centered around where to specify things; can we circle back to what the JSON-LD community needs?
+17:43:21 <gkellogg> ... We have Accept-Profile and Profile headers to consider, as well as the Link header.
+17:43:36 <gkellogg> ... Does the JSON-LD group feel that there is a way forward using these?
+17:43:39 <gkellogg> q?
+17:44:12 <bigbluehat> Herbert: you could decide to step away from classic content negotiation
+17:44:22 <bigbluehat> ... and totally move to `Accept-Profile` and `Link`
+17:44:32 <bigbluehat> ... which would actually solve a problem with the I-D
+17:44:39 <bigbluehat> gkellogg: that seems like the way forward for us
+17:44:45 <aisaac> aisaac has joined #json-ld
+17:44:50 <bigbluehat> ... and I don't think we'd have a problem linking to those
+17:45:11 <bigbluehat> ... with some wording that indicates some non-normative description around the issues with CORS
+17:45:24 <niklasl> q+
+17:45:46 <bigbluehat> ... and how to handle conflicting info like `profile` in `Accept` or `Content-Type` as well as `Accept-Profile` and `Profile`
+17:45:55 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:45:59 <gkellogg> ack me
+17:46:04 <bigbluehat> Herbert: in case you get in touch with folks at the IETF, please copy me
+17:46:18 <bigbluehat> ... I am willing to put cycles to get this draft done
+17:46:26 <bigbluehat> ... and I'll find my co-authors...hopefully
+17:46:30 <gkellogg> q?
+17:46:37 <gkellogg> ack niklasl
+17:46:42 <bigbluehat> pchampin: I'm happy to help you move this forward
+17:46:59 <bigbluehat> niklasl: thank you for moving this forward!
+17:47:09 <aisaac> +1
+17:47:10 <bigbluehat> ... in the JSON-LD situation, we would probably need to consider...
+17:47:19 <bigbluehat> ... can you negotiate for two combinable profiles?
+17:47:56 <bigbluehat> ... we currently have asking for the frame and the specific vocab/context for that same JSON-LD
+17:48:31 <bigbluehat> Herbert: you can provide space delimited URIs in `Profile`
+17:48:38 <bigbluehat> ... I'd need to check on `Accept-Profile`
+17:48:57 <bigbluehat> ... if you would have the notion of combined profiles, you would have to give that combination another URI
+17:49:04 <bigbluehat> ... you'd need a "super URI"
+17:49:11 <bigbluehat> ... that points at the other three
+17:49:16 <bigbluehat> ... I think that's how it would work
+17:49:27 <bigbluehat> ... but it's been years...so I'd have to look again
+17:49:54 <bigbluehat> Herbert: there is a profile URI for framed now, correct?
+17:49:57 <bigbluehat> niklasl: yes
+17:50:10 <bigbluehat> Herbert: does it fit with this notion of profile? ... it feels a bit different
+17:50:18 <bigbluehat> gkellogg: it was a similar notion
+17:50:26 <bigbluehat> ... to define how you would like to get a document back
+17:50:52 <bigbluehat> ... we expected client to get JSON-LD with the context they wanted
+17:51:16 <bigbluehat> ... so we used these to be more explicit
+17:51:41 <bigbluehat> ... and you might still have a vocabulary profiling happen
+17:51:44 <aisaac> q+
+17:51:59 <bigbluehat> ... and maybe these are too many concepts into one vehicle
+17:52:02 <gkellogg> ack aisaac
+17:52:11 <bigbluehat> aisaac: reacting with some history
+17:52:30 <bigbluehat> ... we discussed making the framing profile and the more semantic profile
+17:52:33 <bigbluehat> ... in the end, we had concluded that how we did it was fine
+17:52:44 <bigbluehat> ... but that's just a memory from Lyon
+17:53:14 <gkellogg> zakim, next item
+17:53:14 <Zakim> agendum 3 -- Issue Discussion -- taken up [from agendabot]
+17:53:28 <bigbluehat> q+
+17:54:53 <gkellogg> subtopic: w3c/json-ld-api#608
+17:54:54 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 Resolve the questions about "JSON Serialization" term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised] [class-3]
+17:55:41 <bigbluehat> anatoly: no real progress yet
+17:56:19 <bigbluehat> ... thank you for the detailed reply gkellogg
+17:56:25 <bigbluehat> gkellogg: any other issuse?
+17:56:32 <bigbluehat> s/issuse/issues
+17:56:53 <gkellogg> Topic: Next Meeting
+17:56:53 <bigbluehat> gkellogg: next meeting is January 8th
+17:57:00 <bigbluehat> ... enjoy the end of your years
+17:57:04 <bigbluehat> ... and talk soon!
+17:57:14 <bigbluehat> anatoly: Merry Christmas and a great 2025 to all!
+17:57:15 <gkellogg> zakim, end meeting
+17:57:16 <Zakim> As of this point the attendees have been gkellogg, niklasl, anatoly-scherbakov, bigbluehat, pchampin, TallTed, Bob, ivan, dlehn, Herbert, Antoine_Isaac
+17:57:16 <Zakim> RRSAgent, please draft minutes
+17:57:17 <RRSAgent> I have made the request to generate https://www.w3.org/2024/12/11-json-ld-minutes.html Zakim
+17:57:24 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:57:25 <Zakim> Zakim has left #json-ld
+17:57:26 <gkellogg> rrsagent, pointer
+17:57:26 <RRSAgent> See https://www.w3.org/2024/12/11-json-ld-irc#T17-57-26

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2024-12-11</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="https://json-ld.org/">Pierre-Antoine Champin</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="https://www.linkedin.com/in/bobway">Bob Way</a>, <a href="http://www.w3.org/People/Ivan/">Ivan Herman</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="https://json-ld.org/">Herbert Van de Sompel</a>, <a href="https://json-ld.org/">antoine isaac</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Benjamin Young, Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/3509d178-04b3-43ae-9bb2-79fb946a91c1/20241211T120000/">https://www.w3.org/events/meetings/3509d178-04b3-43ae-9bb2-79fb946a91c1/20241211T120000/</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">Profile Negotiation</a><li><a href="#topic-3">Issue Discussion</a><li><a href="#topic-4">Next Meeting</a></ol></dd></dl>
+</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Bob Way</span>: Present <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div class="information">Benjamin Young is scribing.</div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Gregg Kellogg</span>:  Welcome back everyone <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div class="comment-continuation">... this is our last meeting of the year</div>
+<div class="comment-continuation">... our next meeting will be Jan 8</div>
+<div class="comment-continuation">... no other announcements...anyone have anything else</div>
+<div class="comment-continuation">... should we do some intros?</div>
+<div class="comment-continuation">... Herbert?</div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Herbert Van de Sompel</span>:  I&apos;m a research fellow from Austria <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div class="comment-continuation">... I&apos;ve done standards for 20+ years</div>
+<div class="comment-continuation">... and profile negotiation is probably the worst [laughs]</div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Bob Way</span>:  I work with Dutch Heritage Network <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div class="comment-continuation">... with Rob Sanderson and others</div>
+<div class="comment-continuation">... and profile negotiation comes up often</div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Gregg Kellogg</span>:  We did make this a CG meeting <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div class="comment-continuation">... to make it easier for guests to participate</div>
+<div class="comment-continuation">... if we have time later we may look at some issues</div>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: Profile Negotiation
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Gregg Kellogg</span>:  We did have an open issue on this <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div class="comment-continuation">... and now we have a good bit of feedback</div>
+<div class="comment-continuation">... Herbert, Bob would you like to kick off the discussion?</div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Herbert Van de Sompel</span>:  I did send a link to provide an overview <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://docs.google.com/document/d/1WUGML4cfthRBKzMW729thjlCZjPWku__IjEjdNWq9pU/edit?tab=t.0#heading=h.9caf3yhgody2">https://docs.google.com/document/d/1WUGML4cfthRBKzMW729thjlCZjPWku__IjEjdNWq9pU/edit?tab=t.0#heading=h.9caf3yhgody2</a> <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div class="comment-continuation">... this discussion has been going on forever and has yet to have a resolution</div>
+<div class="comment-continuation">... my hope is to sort out how to proceed</div>
+<div class="comment-continuation">... we have a W3C route, and IETF route, etc.</div>
+<div class="comment-continuation">... is there interest in pursuing this work? and if so where? and whom?</div>
+<div class="comment-continuation">... as a sample of how hard this is, my two co-authors have both been radio silent in response to this recent interest</div>
+<div class="comment-continuation">... it needs solving at the process level as much as technical</div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Gregg Kellogg</span>:  My concern is what issues exist for JSON-LD and what can we do about them <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div class="comment-continuation">... one issue is the emergent problem of using URIs as profile values</div>
+<div class="comment-continuation">... that is now recently undermined by other groups</div>
+<div class="comment-continuation">... so an alternative to that may be using a `Link` header</div>
+<div class="comment-continuation">... so our general question is how can we apply best practices here?</div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Herbert Van de Sompel</span>:  The two existing drafts overlap a good bit <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div class="comment-continuation">... and the IETF work got copied into the W3C work</div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I think we should say what we mean by &quot;profile&quot; here <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div class="comment-continuation">... one is something like data shapes--which is not what I mean</div>
+<div class="comment-continuation">... and the data shapes WG is talking about those in a sense more like application profiles from Dublin Core</div>
+<div class="comment-continuation">... those are a preferred selection of terms from vocabularies</div>
+<div class="comment-continuation">... I wouldn&apos;t say that&apos;s an emerging concern</div>
+<div class="comment-continuation">... we are hoping that profile negotiation gets attention to help with this need</div>
+<div class="comment-continuation">... but I&apos;m not clear on what we mean by `profile` in the JSON-LD specs</div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Herbert Van de Sompel</span>:  If you look at the I-D, both of the things you&apos;ve described are covered <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div class="comment-continuation">... one is representation related</div>
+<div class="comment-continuation">... and the other is application/vocabulary related which is independent...though interdependent of the representation</div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I&apos;m the team contact for JSON-LD and other groups <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div class="comment-continuation">... like Data Set Exchange</div>
+<div class="comment-continuation">... I&apos;d like to see this work progress</div>
+<div class="comment-continuation">... despite the growing list of issues</div>
+<div class="comment-continuation">... what we talk about as profile negotiation in JSON-LD seems to differ a bit</div>
+<div class="comment-continuation">... it doesn&apos;t really require content negotiation</div>
+<div class="comment-continuation">...  if someone sends me a document with `profile` that uses an IRI in the value, fetch will fail due to CORS</div>
+<div class="comment-continuation">... I think it&apos;s great that this issue triggered a larger discussion</div>
+<div class="comment-continuation">... there has also been some activity around the profile recommendation...which sadly stopped about 6 months ago</div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: For reference, at the Nat. library of Sweden, we experiment with prof-neg to allow consumers to select one of some (currently predefined) sets of &quot;selection of vocabularies&quot;: <a href="https://github.com/libris/librisxl/blob/develop/rest/API.md#profile-negotiation">https://github.com/libris/librisxl/blob/develop/rest/API.md#profile-negotiation</a> *orthogonal to serialization format (all within the bounds of RDF) <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div class="comment-continuation">... part of the reason it stalled is the ambiguity between the current drafts</div>
+<div class="comment-continuation">... are there plans to take either of these further?</div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Herbert Van de Sompel</span>:  There was an attempt to talk to IETF dispatch about this work <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div class="comment-continuation">... they decide where it fits within the IETF</div>
+<div class="comment-continuation">... and pointed us to the HTTP API</div>
+<div class="comment-continuation">... I&apos;ve worked there and did the Link Set spec</div>
+<div class="comment-continuation">... but that group came back and said &quot;the industry&quot; wasn&apos;t interested</div>
+<div class="comment-continuation">... however, one is not required to go that route, but could publish a personal informational spec--which is what I did for Memento</div>
+<div class="comment-continuation">... and Memento has been used by Web Archives</div>
+<div class="comment-continuation">... a W3C route would be another route forward</div>
+<div class="comment-continuation">... any of these have scoping concerns</div>
+<div class="comment-continuation">... the I-D would be singularly about the negotiation</div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Maybe we can dig into some of this offline <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div class="comment-continuation">... and try to focus a bit on what JSON-LD is dealing with specifically</div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Gregg Kellogg</span>: W3c/json-ld-syntax#436 <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="information"><a href="https://github.com/w3c/json-ld-syntax/issues/436">https://github.com/w3c/json-ld-syntax/issues/436</a> -&gt; Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution] <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Herbert Van de Sompel</span>:  That issue you mention with CORS and content-type is purely HTTP related <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... there was some solution that Rob was happy with--preflight</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Benjamin Young</span>:  In JSON-LD, the profile is used as a parameter on a media-type; it&apos;s been surfaced in sub-groups, such as web annotation. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div class="comment-continuation">... We went that way to avoid registration issues, but CORS is creating problems</div>
+<div class="comment-continuation">... Since then, the IETF has encouraged more top-level media types.</div>
+<div class="comment-continuation">... The verifiable credentials group is using a new top-level media-type.</div>
+<div class="comment-continuation">... We thought that using a parameter to express a preference would be the right way to go.</div>
+<div class="comment-continuation">... Now, we need advice on other ways to handle this.</div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Herbert Van de Sompel</span>:  Thanks for those details, bigbluehat <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div class="comment-continuation">... one of our issues talk about that specifically</div>
+<div class="comment-continuation">... I did not know that using a `profile` parameter didn&apos;t work</div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Benjamin Young</span>:  Neither did we <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Herbert Van de Sompel</span>:  I think it&apos;s actually good news <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div class="comment-continuation">... one could use the `Accept-Profile` approach instead...since normal content negotiation no longer works</div>
+<div class="comment-continuation">... so, we could instead use the `Profile` header instead</div>
+<div class="comment-continuation">... what if a client expresses a `profile` attribute and an `Accept-Profile` header</div>
+<div class="comment-continuation">... but now if `profile` no longer works, then that ambiguity is cleared up</div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Gregg Kellogg</span>:  The `Link` header is the other option <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Herbert Van de Sompel</span>:  There&apos;s a problem with that also? <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Gregg Kellogg</span>:  The `Link` header can be used for both request and response, correct? <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Herbert Van de Sompel</span>:  The `Accept-Profile` is for requests, `Profile` is for responses <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div class="comment-continuation">... the `Link` header could be used. I&apos;ve never seen a problem with it</div>
+<div class="comment-continuation">... but I do see an issue with using it alongside `Accept`</div>
+<div class="comment-continuation">... you could also use URIs there...even multiples</div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Gregg Kellogg</span>:  And JSON-LD&apos;s existing use of `profile` show use of multiple URIs <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div class="comment-continuation">... we even showed how to use `profile` to specify the frame to use</div>
+<div class="comment-continuation">... probably some security concerns with that one...but perhaps some allow listing for those could help</div>
+<div class="comment-continuation">... but those would likely be application specific</div>
+<div class="comment-continuation">... probably where JSON-LD wants to go</div>
+<div class="comment-continuation">... is to move away from `profile`</div>
+<div class="comment-continuation">... and instead look to using the `Link` header or `Accept-Profile`/`Profile` to specify that</div>
+<div class="comment-continuation">... not every application is hampered by CORS as the browsers are</div>
+<div class="comment-continuation">... but we may want to deprecate that use</div>
+<div class="comment-continuation">... so for the purpose of this group, that&apos;s what we&apos;re hoping to focus on</div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Herbert Van de Sompel</span>:  So, you could continue to use `profile` as a parameter <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div class="comment-continuation">... and you can use them in `Accept` and `Content-Type`</div>
+<div class="comment-continuation">... but as soon as you start doing profile negotiation, you use `Accept-Profile` instead</div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Pierre-Antoine Champin</span>:  So, if we went the individual specification route at the IETF, can a W3C spec depend on it? <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Ivan Herman</span>:  No <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Pierre-Antoine Champin</span>:  If we go that route, we need to have a normative reference <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div class="comment-continuation">... we would end up relying on that</div>
+<div class="comment-continuation">... so we&apos;d need them to be full specifications to move forward</div>
+<div class="comment-continuation">... we have had these conversations with the IETF</div>
+<div class="comment-continuation">... and they said it needed to be there...but then no one will let it be developed there</div>
+<div class="comment-continuation">... so we are at an impasse</div>
+<div class="comment-continuation">... I will reach out again to see if there&apos;s a path forward there</div>
+<div class="comment-continuation">... or to say we will do it in the Data Set Exchange WG to move it forward</div>
+<div class="comment-continuation">... so this group can reference the work</div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Herbert Van de Sompel</span>:  Iirc the conversations from 2021, that if the W3C would express &quot;real interest&quot; that the IETF Dispatch could be moved <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div class="comment-continuation">... Darrell Miller would be someone to contact there</div>
+<div class="comment-continuation">... even if someone goes non-standard track</div>
+<div class="comment-continuation">... someone can officially register HTTP headers</div>
+<div class="comment-continuation">... I did this with Memento</div>
+<div class="comment-continuation">... so, non-standard track documents can register headers</div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I&apos;m a little concerned that these documents are only consumable via a web server <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div class="comment-continuation">... if that profile is only expressed in the content type, how do I know what the profile is elsewhere</div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Gregg Kellogg</span>:  There are other places where HTTP headers are used <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  This means that I cannot have a local copy of that document <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Pierre-Antoine Champin</span>: TallTed you could make the same remark about content-types.... <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Herbert Van de Sompel</span>:  You can download it <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Where&apos;s the profile info go? <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Benjamin Young</span>:  The profile is typically in the context; profile negotiation is to specify the format, which isn&apos;t needed to consume the document. <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div class="comment-continuation">... If the document is self-contained, you don&apos;t need the profile. It&apos;s used when requesting a particular form of a document with the same semantic information.</div>
+<div class="comment-continuation">... If you need a file extension, you MUST use a top-level media-type.</div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Herbert Van de Sompel</span>:  That does raise questions around self-contained-ness of the representation <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div class="comment-continuation">... that doesn&apos;t hold for all media types</div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Ivan Herman</span>:  Coming back to what can be done or not done <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div class="comment-continuation">... I reacted to the individual submission</div>
+<div class="comment-continuation">... but there are actually not rules against them per se</div>
+<div class="comment-continuation">... but the question is really about stability</div>
+<div class="comment-continuation">... if you get a specification that meets certain requirements</div>
+<div class="comment-continuation">... then if it is stable enough than it can be referenced</div>
+<div class="comment-continuation">... for example (though perhaps controversial), we have a green light to reference schema.org</div>
+<div class="comment-continuation">... there is little probability that that will disappear in the coming years</div>
+<div class="comment-continuation">... the other thing, if it&apos;s on the IETF turf, can we standardize it?</div>
+<div class="comment-continuation">... there are examples. One recently.</div>
+<div class="comment-continuation">... in the VC WG, there were issues with multikey and multibase</div>
+<div class="comment-continuation">... the standing of the group had been that it should be done at the IETF</div>
+<div class="comment-continuation">... it never happened there for reasons I do not know</div>
+<div class="comment-continuation">... but we had to move on</div>
+<div class="comment-continuation">... so now we have parts of those specifications in our VC specifications to solve for lack of progress at the IETF</div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Herbert Van de Sompel</span>:  If you go the IETF route, even with a personal spec, you do get an RFC which is stable <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Ivan Herman</span>:  Yes, and we can always go to the management to get permission <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="comment"><span class="name">Benjamin Young</span>:  I think we&apos;ve centered around where to specify things; can we circle back to what the JSON-LD community needs? <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div class="comment-continuation">... We have Accept-Profile and Profile headers to consider, as well as the Link header.</div>
+<div class="comment-continuation">... Does the JSON-LD group feel that there is a way forward using these?</div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Herbert Van de Sompel</span>:  You could decide to step away from classic content negotiation <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div class="comment-continuation">... and totally move to `Accept-Profile` and `Link`</div>
+<div class="comment-continuation">... which would actually solve a problem with the I-D</div>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="comment"><span class="name">Gregg Kellogg</span>:  That seems like the way forward for us <a id="link-47" style="display:none;" href="#47">✪</a></div>
+<div class="comment-continuation">... and I don&apos;t think we&apos;d have a problem linking to those</div>
+<div class="comment-continuation">... with some wording that indicates some non-normative description around the issues with CORS</div>
+<div class="comment-continuation">... and how to handle conflicting info like `profile` in `Accept` or `Content-Type` as well as `Accept-Profile` and `Profile`</div>
+<div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="comment"><span class="name">Herbert Van de Sompel</span>:  In case you get in touch with folks at the IETF, please copy me <a id="link-48" style="display:none;" href="#48">✪</a></div>
+<div class="comment-continuation">... I am willing to put cycles to get this draft done</div>
+<div class="comment-continuation">... and I&apos;ll find my co-authors...hopefully</div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I&apos;m happy to help you move this forward <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Thank you for moving this forward! <a id="link-50" style="display:none;" href="#50">✪</a></div>
+<div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="comment"><span class="name">Antoine Isaac</span>: +1 <a id="link-51" style="display:none;" href="#51">✪</a></div>
+<div class="comment-continuation">... in the JSON-LD situation, we would probably need to consider...</div>
+<div class="comment-continuation">... can you negotiate for two combinable profiles?</div>
+<div class="comment-continuation">... we currently have asking for the frame and the specific vocab/context for that same JSON-LD</div>
+<div onmouseout="$('#link-52').hide()" onmouseover="$('#link-52').show()" id="52" class="comment"><span class="name">Herbert Van de Sompel</span>:  You can provide space delimited URIs in `Profile` <a id="link-52" style="display:none;" href="#52">✪</a></div>
+<div class="comment-continuation">... I&apos;d need to check on `Accept-Profile`</div>
+<div class="comment-continuation">... if you would have the notion of combined profiles, you would have to give that combination another URI</div>
+<div class="comment-continuation">... you&apos;d need a &quot;super URI&quot;</div>
+<div class="comment-continuation">... that points at the other three</div>
+<div class="comment-continuation">... I think that&apos;s how it would work</div>
+<div class="comment-continuation">... but it&apos;s been years...so I&apos;d have to look again</div>
+<div onmouseout="$('#link-53').hide()" onmouseover="$('#link-53').show()" id="53" class="comment"><span class="name">Herbert Van de Sompel</span>:  There is a profile URI for framed now, correct? <a id="link-53" style="display:none;" href="#53">✪</a></div>
+<div onmouseout="$('#link-54').hide()" onmouseover="$('#link-54').show()" id="54" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Yes <a id="link-54" style="display:none;" href="#54">✪</a></div>
+<div onmouseout="$('#link-55').hide()" onmouseover="$('#link-55').show()" id="55" class="comment"><span class="name">Herbert Van de Sompel</span>:  Does it fit with this notion of profile? ... it feels a bit different <a id="link-55" style="display:none;" href="#55">✪</a></div>
+<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Gregg Kellogg</span>:  It was a similar notion <a id="link-56" style="display:none;" href="#56">✪</a></div>
+<div class="comment-continuation">... to define how you would like to get a document back</div>
+<div class="comment-continuation">... we expected client to get JSON-LD with the context they wanted</div>
+<div class="comment-continuation">... so we used these to be more explicit</div>
+<div class="comment-continuation">... and you might still have a vocabulary profiling happen</div>
+<div class="comment-continuation">... and maybe these are too many concepts into one vehicle</div>
+<div onmouseout="$('#link-57').hide()" onmouseover="$('#link-57').show()" id="57" class="comment"><span class="name">Antoine Isaac</span>:  Reacting with some history <a id="link-57" style="display:none;" href="#57">✪</a></div>
+<div class="comment-continuation">... we discussed making the framing profile and the more semantic profile</div>
+<div class="comment-continuation">... in the end, we had concluded that how we did it was fine</div>
+<div class="comment-continuation">... but that&apos;s just a memory from Lyon</div>
+<h1 onmouseout="$('#link-topic-3').hide()" onmouseover="$('#link-topic-3').show()" id="topic-3" class="topic">
+Topic: Issue Discussion
+<a id="link-topic-3" style="display:none;" href="#topic-3">✪</a></h1>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: w3c/json-ld-api#608
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-58').hide()" onmouseover="$('#link-58').show()" id="58" class="information"><a href="https://github.com/w3c/json-ld-api/pull/608">https://github.com/w3c/json-ld-api/pull/608</a> -&gt; Pull Request 608 Resolve the questions about &quot;JSON Serialization&quot; term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised] [class-3] <a id="link-58" style="display:none;" href="#58">✪</a></div>
+<div onmouseout="$('#link-59').hide()" onmouseover="$('#link-59').show()" id="59" class="comment"><span class="name">Anatoly Scherbakov</span>:  No real progress yet <a id="link-59" style="display:none;" href="#59">✪</a></div>
+<div class="comment-continuation">... thank you for the detailed reply gkellogg</div>
+<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">Gregg Kellogg</span>:  Any other issues? <a id="link-60" style="display:none;" href="#60">✪</a></div>
+<h1 onmouseout="$('#link-topic-4').hide()" onmouseover="$('#link-topic-4').show()" id="topic-4" class="topic">
+Topic: Next Meeting
+<a id="link-topic-4" style="display:none;" href="#topic-4">✪</a></h1>
+<div onmouseout="$('#link-61').hide()" onmouseover="$('#link-61').show()" id="61" class="comment"><span class="name">Gregg Kellogg</span>:  Next meeting is January 8th <a id="link-61" style="display:none;" href="#61">✪</a></div>
+<div class="comment-continuation">... enjoy the end of your years</div>
+<div class="comment-continuation">... and talk soon!</div>
+<div onmouseout="$('#link-62').hide()" onmouseover="$('#link-62').show()" id="62" class="comment"><span class="name">Anatoly Scherbakov</span>:  Merry Christmas and a great 2025 to all! <a id="link-62" style="display:none;" href="#62">✪</a></div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>
