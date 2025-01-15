@@ -1,0 +1,119 @@
+17:00:30 <RRSAgent> RRSAgent has joined #json-ld
+17:00:34 <RRSAgent> logging to https://www.w3.org/2025/01/15-json-ld-irc
+17:00:42 <Zakim> RRSAgent, make logs Public
+17:00:43 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+17:00:43 <gkellogg> meeting: JSON-LD WG
+17:00:43 <niklasl> niklasl has joined #json-ld
+17:00:59 <gkellogg> agenda: https://www.w3.org/events/meetings/2f25d945-0aed-4825-897d-d513b187e65d/
+17:00:59 <agendabot> gkellogg, sorry, I did not recognize any agenda in https://www.w3.org/events/meetings/2f25d945-0aed-4825-897d-d513b187e65d/
+17:01:12 <anatoly-scherbakov> present+
+17:01:21 <gkellogg> agenda: https://www.w3.org/events/meetings/2f25d945-0aed-4825-897d-d513b187e65d/20250115T120000/
+17:01:21 <agendabot> clear agenda
+17:01:21 <agendabot> agenda+ Announcements and Introductions
+17:01:21 <agendabot> agenda+ JSON-LD Issue Discussion
+17:01:21 <agendabot> agenda+ Open Discussion
+17:01:21 <agendabot> agenda+ Next call
+17:01:30 <pchampin> present+
+17:02:03 <gkellogg> present+
+17:02:21 <bigbluehat> chair+
+17:02:42 <pchampin> scribe+
+17:02:52 <pchampin> zakim, open agendum 1
+17:02:52 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:03:23 <pchampin> bigbluehat: any announcement?
+17:03:40 <pchampin> gkellogg: it's probably time to mention TPAC, next November. It will be in Japan.
+17:03:44 <bigbluehat> https://www.w3.org/events/tpac/2025/tpac-2025/
+17:04:01 <niklasl> present+
+17:04:26 <pchampin> bigbluehat: my plan is to be there, but to be confirmed.
+17:04:32 <dlehn1> present+
+17:04:33 <pchampin> ... Is anyone planning to be there in person?
+17:04:44 <pchampin> gkellogg: I expect to be there in person.
+17:05:29 <pchampin> bigbluehat: it will probably be our first F2F post-recharter.
+17:05:37 <pchampin> Zakim, open next item
+17:05:37 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:05:38 <bigbluehat> https://github.com/orgs/w3c/projects/84
+17:06:18 <pchampin> gkellogg: there was a lot of activity on CBOR-LD, but nobody here to talk about it.
+17:06:27 <pchampin> ... anatoly-scherbakov has a bunch of PRs.
+17:07:45 <pchampin> bigbluehat: let's start with anatoly-scherbakov; I can try to bring CBOR-LD people on a future call.
+17:08:20 <pchampin> gkellogg: the CBOR-LD work does not appear in the project, it should.
+17:08:22 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/608
+17:08:22 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 Resolve the questions about "JSON Serialization" term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised] [class-3]
+17:08:44 <pchampin> anatoly-scherbakov: unfortunately blocked by me
+17:08:57 <pchampin> ... I got feedback, but haven't processed it yet.
+17:09:13 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/619
+17:09:13 <gb> https://github.com/w3c/json-ld-api/pull/619 -> CLOSED Pull Request 619 RDF to Object conversion (closing #555) (by anatoly-scherbakov) [spec:editorial] [class-2]
+17:09:38 <pchampin> anatoly-scherbakov: this is an earlier version that was closed after discussion and started over.
+17:09:49 <pchampin> bigbluehat: Ok, I will take it out of the project
+17:10:21 <anatoly-scherbakov> https://github.com/w3c/json-ld-api/pull/625
+17:10:21 <gb> https://github.com/w3c/json-ld-api/pull/625 -> Pull Request 625 (closes #555) Fall back to default logic in `useNativeTypes` mode for RDF numbers which are not JSON numbers (by anatoly-scherbakov)
+17:10:31 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/625
+17:11:14 <pchampin> anatoly-scherbakov: this is the new version of https://github.com/w3c/json-ld-api/pull/619 ; thanks gkellogg and pchampin for your suggestions.
+17:11:28 <pchampin> gkellogg: it's a fairly small change.
+17:12:58 <pchampin> ... However, it is not purely editorial, so it should be turned into a candidate amendment, with <ins>s, <del>s...
+17:13:24 <pchampin> ... It has to be done manually, not much automation is available for that.
+17:13:56 <pchampin> anatoly-scherbakov: I can not wrap a whole block in <ins> or <del>, right?
+17:14:16 <pchampin> bigbluehat: correct, they are 'inline'. Is there a specific class to use?
+17:14:52 <pchampin> gkellogg: there are other things to put in place. Respec documentation for them is not great, but there are examples in the same doc.
+17:16:15 <pchampin> q+
+17:16:43 <pchampin> anatoly-scherbakov: what is the use-case for this marking?
+17:17:22 <pchampin> gkellogg: it is there for reviewers of the specification, because we are editing a published Recommendation.
+17:18:17 <pchampin> anatoly-scherbakov: an HTML diff will not be enough for the reviewers?
+17:18:37 <pchampin> gkellogg: no, they do not expect to look at HTML raw code.
+17:19:06 <pchampin> ... You can look at the W3C process documents that describes the requirements for these things.
+17:19:54 <gkellogg> https://www.w3.org/policies/process/#candidate-amendments
+17:20:50 <pchampin> bigbluehat: this is required until we recharter. The alternative is to keep a bunch of open PR and merge them only after we recharter.
+17:22:05 <pchampin> ... I don't know why TallTed's tick is not green.
+17:22:46 <pchampin> ... In the DID WG, we are using a list of code owners.
+17:23:38 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/623
+17:23:39 <gb> https://github.com/w3c/json-ld-api/pull/623 -> Pull Request 623 Fix issue 622 (by multimeric)
+17:24:28 <pchampin> bigbluehat: it looks like a simple reformat
+17:24:42 <pchampin> gkellogg: it should have a change class label.
+17:24:56 <pchampin> TallTed: it's more than just white space.
+17:25:01 <pchampin> s/simple/white space
+17:25:10 <niklasl> It says to fix https://github.com/w3c/json-ld-api/issues/622 which is labelled class-3
+17:25:11 <gb> https://github.com/w3c/json-ld-api/issues/622 -> Issue 622 Issue with Step 6 of `9.4.1 LoadDocumentCallback` (by multimeric) [spec:bug] [ErratumRaised] [class-3]
+17:25:36 <pchampin> q-
+17:25:54 <pchampin> bigbluehat: good point niklasl.
+17:27:01 <pchampin> gkellogg: this is class-2, it is not substantive.
+17:27:47 <pchampin> TallTed: I disagree. The previous one said "X hold. reject", now it says "IF X holds, then reject".
+17:28:05 <pchampin> gkellogg: ok, yes, it is class-3
+17:29:08 <bigbluehat> scribe+
+17:29:23 <bigbluehat> pchampin: I'm a bit concerned we say this is both non-substantive + normative
+17:29:32 <bigbluehat> ... we don not (yet) have an IPR commitment from this person
+17:29:40 <bigbluehat> ... but it seems we need it
+17:29:49 <bigbluehat> s/don /don't /
+17:32:06 <pchampin> gkellogg: we need to mark it back as substantive
+17:32:37 <pchampin> pchampin: I'll see what I can do.
+17:37:44 <pchampin> ... I found it, marked it back as substantive, and sent a message to the person for them to commit to the IPR policy.
+17:38:47 <pchampin> bigbluehat: ok, let's wait for their response.
+17:39:20 <pchampin> ... This change seems good, nobody seems to objet to it.
+17:39:37 <pchampin> gkellogg: we need some tests for this.
+17:39:59 <gkellogg> https://github.com/w3c/json-ld-api/issues/622
+17:40:00 <gb> https://github.com/w3c/json-ld-api/issues/622 -> Issue 622 Issue with Step 6 of `9.4.1 LoadDocumentCallback` (by multimeric) [spec:bug] [ErratumRaised] [class-3]
+17:40:17 <pchampin> bigbluehat: anyone willing to write tests?
+17:40:24 <pchampin> [crickets]
+17:40:42 <pchampin> bigbluehat: ok, I'm marking it as "needs-test".
+17:40:53 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/611
+17:40:54 <gb> https://github.com/w3c/json-ld-api/pull/611 -> Pull Request 611 Add compaction to @type map when the compacted item is not already a map. (by gkellogg) [test:missing-coverage]
+17:42:04 <pchampin> gkellogg: it is just an additional test.
+17:43:07 <pchampin> ... pchampin approved it
+17:44:25 <pchampin> dlehn: should we use http: or https: for schema.org?
+17:45:21 <pchampin> gkellogg: I think all our examples use http: for schema.org.
+17:45:42 <pchampin> bigbluehat: this should be an orthogonal discussion. This does not really matter to this test specifically.
+17:46:20 <pchampin> ... Any objection to merging this?
+17:46:28 <pchampin> ... Hearing none.
+17:47:59 <bigbluehat> merged that, btw
+17:48:02 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/608
+17:48:03 <gb> https://github.com/w3c/json-ld-api/pull/608 -> Pull Request 608 Resolve the questions about "JSON Serialization" term (by anatoly-scherbakov) [spec:substantive] [ErratumRaised] [class-3]
+17:48:49 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/585
+17:48:50 <gb> https://github.com/w3c/json-ld-api/pull/585 -> Pull Request 585 Add graph container array tests. (by davidlehn) [test:missing-coverage]
+17:49:27 <pchampin> gkellogg: I had got different results, and thought my results were consistent with the specs.
+17:49:38 <pchampin> ... but I don't think that dlehn accepted my proposed changes.
+17:49:50 <pchampin> dlehn: I don't know, I need to revisit this.
+17:51:25 <pchampin> gkellogg: and I can't see my proposed changes in github, strange...
+17:52:04 <pchampin> bigbluehat: I suggest we start with this one next time. In the meantime, people should check with their implementation what they produce.
+17:52:38 <pchampin> RRSAgent, make minutes
+17:52:40 <RRSAgent> I have made the request to generate https://www.w3.org/2025/01/15-json-ld-minutes.html pchampin
+17:52:48 <m2gbot> m2gbot has joined #json-ld
+17:53:28 <gkellogg> zakim, end meeting
+17:53:28 <Zakim> As of this point the attendees have been anatoly-scherbakov, pchampin, gkellogg, niklasl, dlehn
+17:53:30 <Zakim> RRSAgent, please draft minutes
