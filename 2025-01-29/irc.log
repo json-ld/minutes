@@ -1,0 +1,191 @@
+16:59:13 <RRSAgent> RRSAgent has joined #json-ld
+16:59:17 <RRSAgent> logging to https://www.w3.org/2025/01/29-json-ld-irc
+16:59:17 <Zakim> inviting RRSAgent
+16:59:17 <Zakim> RRSAgent, make logs Public
+16:59:18 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:59:23 <gkellogg> meeting: JSON-LD WG
+16:59:56 <gkellogg> agenda: https://www.w3.org/events/meetings/635aef15-a607-499c-b32a-926d3cb3a580/20250129T120000/
+16:59:57 <agendabot> clear agenda
+16:59:57 <agendabot> agenda+ Announcements and Introductions
+16:59:57 <agendabot> agenda+ JSON-LD Issue Discussion
+16:59:57 <agendabot> agenda+ Open Discussion
+16:59:57 <agendabot> agenda+ Next call
+17:00:12 <gkellogg> chair: gkellogg
+17:00:14 <gkellogg> present+
+17:00:19 <anatoly-scherbakov> present+
+17:00:21 <gkellogg> zakim, next item
+17:00:22 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:01:19 <niklasl> present+
+17:01:22 <TallTed> present+
+17:01:46 <ivan> present+
+17:01:48 <bigbluehat> present+
+17:02:15 <anatoly-scherbakov> scribe+
+17:02:53 <anatoly-scherbakov> gkellogg: TPAC will be in Japan. RDF-Star WG will be there, some of us will be there.
+17:02:58 <gkellogg> zakim, next item
+17:02:58 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:03:06 <gkellogg> https://github.com/orgs/w3c/projects/84
+17:03:40 <anatoly-scherbakov> bigbluehat: let's keep Charter issues on the radar
+17:03:56 <anatoly-scherbakov> bigbluehat: they're now in the project
+17:04:25 <anatoly-scherbakov> gkellogg: there are items without a status, some of them are closed PRs and can be removed
+17:04:48 <pchampin> present+
+17:04:56 <anatoly-scherbakov> gkellogg: let's look at #446 at json-ld-syntax repo
+17:04:56 <gb> Issue 446 not found
+17:04:57 <pchampin> [arrives]
+17:04:58 <gkellogg> subitem: w3c/json-ld-syntax#446
+17:04:58 <gb> https://github.com/w3c/json-ld-syntax/issues/446 -> Issue 446 Possible oversights in processing when `@type` is not an IRI? (by trwnh)
+17:05:30 <anatoly-scherbakov> gkellogg: Dave commented on it. Can we reclassify it Dave?
+17:06:18 <bigbluehat> q+
+17:06:44 <anatoly-scherbakov> dlehn: I do not remember exactly as it was back in November
+17:07:35 <gkellogg> ack bigbluehat
+17:08:11 <anatoly-scherbakov> bigbluehat: this is related to safe mode and we haven't got an issue about safe mode yet. Need to make an issue on json-ld-api about describing JSON-LD Safe Mode
+17:08:35 <anatoly-scherbakov> bigbluehat: VC and other implementations depend on that and we need to make an issue to add it to the charter at least
+17:09:18 <gkellogg> subitem: w3c/json-ld-api#625
+17:09:21 <gb> https://github.com/w3c/json-ld-api/pull/625 -> Pull Request 625 (closes #555) Fall back to default logic in `useNativeTypes` mode for RDF numbers which are not JSON numbers (by anatoly-scherbakov) [class-3]
+17:09:46 <anatoly-scherbakov> gkellogg: we can finish this soon but Pierre-Antoine came up with approval and change requests
+17:10:37 <anatoly-scherbakov> pchampin: spec text is ok but the test has an issue. It tests something against xsd:decimal which mismatches the text
+17:10:54 <anatoly-scherbakov> pchampin: exponential notation is not allowed in the lexical representation
+17:11:05 <anatoly-scherbakov> anatoly-scherbakov: will check these out
+17:11:15 <anatoly-scherbakov> gkellogg: once it is resolved we can go ahead and merge it
+17:11:57 <bigbluehat> https://github.com/w3c/json-ld-api/issues/536
+17:11:57 <gb> https://github.com/w3c/json-ld-api/issues/536 -> Issue 536 Graph-aliased keywords don't work as containers in JSON-LD 1.1 (by niklasl) [ms:future-work] [spec:enhancement]
+17:13:02 <anatoly-scherbakov> bigbluehat: that was the one I referred to earlier
+17:13:09 <anatoly-scherbakov> bigbluehat: safe mode has to be surfaced as an issue
+17:13:26 <anatoly-scherbakov> gkellogg: this should be a more explicit thing in the charter as it is a substantial change to the spec
+17:13:55 <anatoly-scherbakov> bigbluehat: I can post it as a charter issue but it is also a change to the API although it is likely just a new option
+17:13:57 <anatoly-scherbakov> q+
+17:14:04 <dlehn> q+
+17:14:25 <anatoly-scherbakov> gkellogg: we need a champion for this
+17:14:38 <bigbluehat> q+ to ask where to start/put the champion-ing :)
+17:14:46 <anatoly-scherbakov> gkellogg: this would be a Class 4 issue
+17:15:12 <anatoly-scherbakov> gkellogg: which means it will be addressed after smaller changes
+17:15:31 <gkellogg> ack bigbluehat
+17:15:31 <Zakim> bigbluehat, you wanted to ask where to start/put the champion-ing :)
+17:15:33 <anatoly-scherbakov> bigbluehat: our initial charter draft was too vague, the second was too specific, now we likely need some middle ground
+17:15:45 <anatoly-scherbakov> bigbluehat: we could classify issues into groups and then characterize them in the charter
+17:15:52 <gkellogg> q?
+17:15:56 <anatoly-scherbakov> anatoly-scherbakov: can this be a separate value for the Profile option?
+17:15:56 <gkellogg> ack anatoly-scherbakov
+17:16:02 <gkellogg> scribe+
+17:16:18 <gkellogg> anatoly-scherbakov: I wonder if "safe mode" can be addressed by a "profile"?
+17:16:40 <anatoly-scherbakov> bigbluehat: safe mode is a processing mode
+17:16:49 <bigbluehat> https://github.com/digitalbazaar/jsonld.js?tab=readme-ov-file#safe-mode
+17:17:21 <bigbluehat> `const expanded = await jsonld.expand(data, {safe: true});` as currently implemented.
+17:17:27 <anatoly-scherbakov> gkellogg: safe mode is an option applying to all API entry points, used in the algorithms to handle certain not-allowed behavior
+17:17:38 <gkellogg> ack dlehn
+17:17:55 <anatoly-scherbakov> dlehn: maybe safe mode is not directly related to other issues
+17:18:09 <anatoly-scherbakov> dlehn: safe mode means flagging certain errors which would cause problems in certain circumstances
+17:18:13 <gb> https://github.com/w3c/json-ld-api/issues/536 -> Issue 536 Graph-aliased keywords don't work as containers in JSON-LD 1.1 (by niklasl) [ms:future-work] [spec:enhancement]
+17:18:22 <bigbluehat> q?
+17:18:41 <anatoly-scherbakov> dlehn: that's what jsonld.js does and there are a bunch of tests for it
+17:18:42 <bigbluehat> q+ to ask where best to write that all up
+17:19:05 <anatoly-scherbakov> gkellogg: changes like this need people to sponsor and track them
+17:19:26 <anatoly-scherbakov> bigbluehat: we will do this but what is the process? PR to the API spec perhaps, or write it up in some giant issue?
+17:19:47 <anatoly-scherbakov> dlehn: maybe it doesn't need to be in the spec initially
+17:20:16 <anatoly-scherbakov> dlehn: but we can describe what this mode does and put it somewhere else to see whether that's what people want
+17:20:57 <anatoly-scherbakov> bigbluehat: maybe this could be a separate document or a separate issue
+17:21:20 <anatoly-scherbakov> dlehn: might be hard to write this as an issue. If we did a PR this would change the spec text. Maybe it would be easier to keep it as a separate document
+17:21:47 <anatoly-scherbakov> gkellogg: maybe a wiki article which can then be edited then
+17:22:15 <anatoly-scherbakov> gkellogg: champions in the group would drive this discussion, communication with VC and other groups, and ultimately PRs
+17:22:55 <anatoly-scherbakov> dlehn: I wrote the code, just need time to drive this
+17:23:35 <anatoly-scherbakov> bigbluehat: we do not have an issue to track this and keep it on the radar
+17:23:52 <anatoly-scherbakov> gkellogg: let's create a tracking issue in the syntax repo if it influences multiple specs
+17:24:08 <anatoly-scherbakov> gkellogg: but the ideas might be developed in a wiki entry rather than in issue comments
+17:24:53 <anatoly-scherbakov> bigbluehat: it works to reference wiki page from the issue
+17:25:34 <anatoly-scherbakov> dlehn: haven't seen projects using GitHub wiki functionality
+17:25:42 <anatoly-scherbakov> bigbluehat: it is git based, you can do PRs
+17:26:06 <anatoly-scherbakov> dlehn: was thinking about doing something as a document at json-ld.org
+17:26:33 <anatoly-scherbakov> bigbluehat: we can document this as if we were writing a spec and reference from the issue
+17:26:44 <anatoly-scherbakov> bigbluehat: I'll create an issue
+17:27:20 <anatoly-scherbakov> gkellogg: we just need to track the work and integrate it into the spec later
+17:27:49 <anatoly-scherbakov> dlehn: an alternative to Safe mode ls Well Formed mode where you do not check anything as you know  data is correct
+17:28:56 <anatoly-scherbakov> gkellogg: seems similar to compaction
+17:29:23 <anatoly-scherbakov> dlehn: this is mostly to skip checks, like check for URLs for example, to improve performance
+17:30:17 <anatoly-scherbakov> gkellogg: looking forward to issues to track
+17:30:27 <gkellogg> subitem: https://github.com/w3c/json-ld-api/issues/627
+17:30:28 <gb> https://github.com/w3c/json-ld-api/issues/627 -> Issue 627 Recommend a way for dependent specs to call into this one, that's not WebIDL (by jyasskin) [ms:future-work] [needs discussion]
+17:31:08 <anatoly-scherbakov> gkellogg: we specify interfaces with WebIDL. If you call spec to spec it is not very useful, it was designed to describe web browser interfaces
+17:31:20 <anatoly-scherbakov> gkellogg: we hijacked that in 1.1 to describe JSON-LD interfaces
+17:31:32 <dlehn> q+
+17:31:38 <anatoly-scherbakov> gkellogg: a champion for this issue?
+17:32:02 <bigbluehat> q-
+17:32:10 <gkellogg> ack dlehn
+17:32:15 <anatoly-scherbakov> gkellogg: if none then we can close it, or we need someone who really wants to drive this work forward
+17:32:33 <anatoly-scherbakov> dlehn: do others use this interface in implementations?
+17:32:35 <bigbluehat> q+
+17:32:44 <anatoly-scherbakov> dlehn: we have WebIDL tests in jsonld.js but not sure about their status
+17:32:57 <ivan> q+
+17:33:04 <gkellogg> q+
+17:33:07 <anatoly-scherbakov> q+
+17:33:07 <gkellogg> ack bigbluehat
+17:33:25 <anatoly-scherbakov> bigbluehat: TAC proposed WebIDL
+17:33:34 <anatoly-scherbakov> s/TAC/TAG/
+17:33:55 <anatoly-scherbakov> bigbluehat: there is a bit of confusion about usage of WebIDL
+17:34:28 <gkellogg> ack ivan
+17:34:33 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+17:36:45 <gkellogg> ack me
+17:37:20 <anatoly-scherbakov> ivan: we might look into using IDL instead of WebIDL because json-ld is not necessarily implemented in a browser
+17:38:09 <anatoly-scherbakov> gkellogg: WebIDL describes method signatures, how to create Promises, and ultimately returning the data structures
+17:38:22 <anatoly-scherbakov> gkellogg: if not WebIDL then we'd invent something that does what WebIDL does
+17:38:51 <anatoly-scherbakov> gkellogg: WebIDL does what we want but strict conformance to WebIDL is confusing especially because its tools are JS specific
+17:39:27 <anatoly-scherbakov> gkellogg: we might to add some text to JSON-LD Processor Interface that explains why we use WebIDL
+17:39:32 <pchampin> q+
+17:39:45 <anatoly-scherbakov> gkellogg: removal of WebIDL will mean a substantial change worth JSON-LD 2.0
+17:39:46 <gkellogg> ack anatoly-scherbakov
+17:40:28 <gkellogg> anatoly-scherbakov: I recall a conversation that not every implementation may strictly conform to WebIDL, for instance BISON>
+17:41:16 <gkellogg> ... Does that mean the implementation is not conformant? We might add something to the spec saying that WebIDL interface does not need to be followed to the letter, but if you conform to the norms of your language, you would be conformant.
+17:41:45 <gkellogg> ... Secondly, could a theoretical replacement be an RDF Ontology? That would be a big undertaking.
+17:41:55 <gkellogg> q?
+17:41:59 <gkellogg> ack pchampin
+17:42:40 <anatoly-scherbakov> pchampin: we could respond to the issue that we were required to use WebIDL in the past
+17:42:59 <anatoly-scherbakov> pchampin: removal of WebIDL would create a lot of work and break backwards compatibility
+17:43:35 <anatoly-scherbakov> pchampin: we could clarify that the use of WebIDL should be a requirement for browsers to implement it, it is just a language customary for use in W3C
+17:43:47 <anatoly-scherbakov> pchampin: will look into documenting that in our issues
+17:44:06 <anatoly-scherbakov> pchampin: if we acknowledge it has some issues we might not need to do huge work on this subject
+17:45:50 <gkellogg> subitem: https://github.com/w3c/json-ld-syntax/issues/436
+17:45:51 <gb> https://github.com/w3c/json-ld-syntax/issues/436 -> Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution]
+17:46:16 <anatoly-scherbakov> gkellogg: CPRS and media types keep coming up
+17:46:47 <anatoly-scherbakov> gkellogg: ld+json media type sends JSON-LD but we changed JSON-LD between 1.0 and 1.1 without changing the media type
+17:46:56 <anatoly-scherbakov> gkellogg: we introduced profiles and version announcement in the context
+17:47:18 <anatoly-scherbakov> gkellogg: in Turtle, we introduced things like triple terms and there's an argument we should use a new media type because of that
+17:47:29 <anatoly-scherbakov> gkellogg: I wonder whether it applies here as well
+17:47:34 <gkellogg> q?
+17:47:59 <anatoly-scherbakov> gkellogg: in 1.2, are we comfortable with application/ld+json?
+17:48:10 <anatoly-scherbakov> gkellogg: or maybe we should think further about it
+17:48:22 <anatoly-scherbakov> q+
+17:48:30 <gkellogg> ack anatoly-scherbakov
+17:49:25 <anatoly-scherbakov> anatoly-scherbakov: is there at all a practice to include versions in media types?
+17:49:49 <anatoly-scherbakov> TallTed: we can either include version into the type or into the document
+17:50:04 <anatoly-scherbakov> TallTed: all of this is pretty inconsistent
+17:50:12 <pchampin> text/html ?
+17:50:45 <anatoly-scherbakov> TallTed: within .doc documents, there were multiple versions but  at some point .docx was introduced
+17:51:10 <pchampin> also, the move from .doc to .docx was a move from a closed proprietary format to an open-ish format
+17:51:39 <anatoly-scherbakov> TallTed: there is original JPEG and JPEG2000 but applications can distinguish
+17:51:45 <anatoly-scherbakov> q+
+17:51:50 <gkellogg> ack anatoly-scherbakov
+17:51:52 <niklasl> Indeed. HTML, javascript, XML, CSS; the web is full of formats whose syntax evolves in sometimes non-backwards-compatible ways, yet keep the same media type? Some may be better designed than others to cater for it though.
+17:52:25 <gkellogg> anatoly-scherbakov: .doc and .docx are fundamentally different formats, one proprietary, the other open-ish.
+17:52:32 <bigbluehat> q+
+17:52:34 <pchampin> q+
+17:52:37 <gkellogg> ... I don't think the same can be said about JSON-LD.
+17:53:07 <niklasl> Also: https://w3ctag.github.io/the-web-is-not-versioned/
+17:53:23 <anatoly-scherbakov> TallTed: what happens when a tool for JSON-LD 1.1 encounters a document in 1.2? Does it choke, or a part of 1.2 document gets ignored or does it just work?
+17:54:13 <anatoly-scherbakov> TallTed: 1.2 changes are a bit deeper than what happened between 1.0 and 1.1
+17:54:27 <anatoly-scherbakov> TallTed: they might be important enough to go to 2.0 which might even warrant a new media type
+17:54:28 <gkellogg> q?
+17:54:31 <gkellogg> ack bigbluehat
+17:55:02 <anatoly-scherbakov> bigbluehat: there's a huge risk about changing the media type for JSON-LD, most of these are embedded in html pages
+17:55:19 <anatoly-scherbakov> bigbluehat: these tools are very unlikely to change and people are unlikely to opt into 2.0 unless there is a really good reason
+17:55:48 <anatoly-scherbakov> bigbluehat: with 1.1 we tried to gradually improve the standard
+17:56:05 <anatoly-scherbakov> bigbluehat: we might end up creating two things:  1.2 with backward compatibility and 2.0 that breaks it
+17:56:17 <gkellogg> ack pchampin
+17:56:24 <anatoly-scherbakov> gkellogg: in many instances media type hasn't changed because consequences would be too drastic
+17:56:50 <anatoly-scherbakov> pchampin: agree with everything that had been said|
+17:57:03 <anatoly-scherbakov> gkellogg: I will not be here on next meeting in two weeks
+17:57:47 <gkellogg> zakim, end meeting
+17:57:47 <Zakim> As of this point the attendees have been gkellogg, anatoly-scherbakov, niklasl, TallTed, ivan, bigbluehat, pchampin
+17:57:49 <Zakim> RRSAgent, please draft minutes
+17:57:50 <RRSAgent> I have made the request to generate https://www.w3.org/2025/01/29-json-ld-minutes.html Zakim
+17:57:57 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:57:57 <gkellogg> rrsagent, pointer
+17:57:57 <RRSAgent> See https://www.w3.org/2025/01/29-json-ld-irc#T17-57-57-1
+17:57:57 <Zakim> Zakim has left #json-ld
