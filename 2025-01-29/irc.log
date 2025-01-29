@@ -31,7 +31,7 @@
 17:04:56 <anatoly-scherbakov> gkellogg: let's look at #446 at json-ld-syntax repo
 17:04:56 <gb> Issue 446 not found
 17:04:57 <pchampin> [arrives]
-17:04:58 <gkellogg> subitem: w3c/json-ld-syntax#446
+17:04:58 <gkellogg> subtopic: w3c/json-ld-syntax#446
 17:04:58 <gb> https://github.com/w3c/json-ld-syntax/issues/446 -> Issue 446 Possible oversights in processing when `@type` is not an IRI? (by trwnh)
 17:05:30 <anatoly-scherbakov> gkellogg: Dave commented on it. Can we reclassify it Dave?
 17:06:18 <bigbluehat> q+
@@ -39,7 +39,7 @@
 17:07:35 <gkellogg> ack bigbluehat
 17:08:11 <anatoly-scherbakov> bigbluehat: this is related to safe mode and we haven't got an issue about safe mode yet. Need to make an issue on json-ld-api about describing JSON-LD Safe Mode
 17:08:35 <anatoly-scherbakov> bigbluehat: VC and other implementations depend on that and we need to make an issue to add it to the charter at least
-17:09:18 <gkellogg> subitem: w3c/json-ld-api#625
+17:09:18 <gkellogg> subtopic: w3c/json-ld-api#625
 17:09:21 <gb> https://github.com/w3c/json-ld-api/pull/625 -> Pull Request 625 (closes #555) Fall back to default logic in `useNativeTypes` mode for RDF numbers which are not JSON numbers (by anatoly-scherbakov) [class-3]
 17:09:46 <anatoly-scherbakov> gkellogg: we can finish this soon but Pierre-Antoine came up with approval and change requests
 17:10:37 <anatoly-scherbakov> pchampin: spec text is ok but the test has an issue. It tests something against xsd:decimal which mismatches the text
@@ -101,7 +101,7 @@
 17:28:56 <anatoly-scherbakov> gkellogg: seems similar to compaction
 17:29:23 <anatoly-scherbakov> dlehn: this is mostly to skip checks, like check for URLs for example, to improve performance
 17:30:17 <anatoly-scherbakov> gkellogg: looking forward to issues to track
-17:30:27 <gkellogg> subitem: https://github.com/w3c/json-ld-api/issues/627
+17:30:27 <gkellogg> subtopic: https://github.com/w3c/json-ld-api/issues/627
 17:30:28 <gb> https://github.com/w3c/json-ld-api/issues/627 -> Issue 627 Recommend a way for dependent specs to call into this one, that's not WebIDL (by jyasskin) [ms:future-work] [needs discussion]
 17:31:08 <anatoly-scherbakov> gkellogg: we specify interfaces with WebIDL. If you call spec to spec it is not very useful, it was designed to describe web browser interfaces
 17:31:20 <anatoly-scherbakov> gkellogg: we hijacked that in 1.1 to describe JSON-LD interfaces
@@ -141,7 +141,7 @@
 17:43:35 <anatoly-scherbakov> pchampin: we could clarify that the use of WebIDL should be a requirement for browsers to implement it, it is just a language customary for use in W3C
 17:43:47 <anatoly-scherbakov> pchampin: will look into documenting that in our issues
 17:44:06 <anatoly-scherbakov> pchampin: if we acknowledge it has some issues we might not need to do huge work on this subject
-17:45:50 <gkellogg> subitem: https://github.com/w3c/json-ld-syntax/issues/436
+17:45:50 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/436
 17:45:51 <gb> https://github.com/w3c/json-ld-syntax/issues/436 -> Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution]
 17:46:16 <anatoly-scherbakov> gkellogg: CPRS and media types keep coming up
 17:46:47 <anatoly-scherbakov> gkellogg: ld+json media type sends JSON-LD but we changed JSON-LD between 1.0 and 1.1 without changing the media type
