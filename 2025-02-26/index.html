@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD WG</h1>
+<h2>Minutes for 2025-02-26</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="https://json-ld.org/">Pierre-Antoine Champin</a>, <a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="https://json-ld.org/">Niklas Lindström</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250312T120000/">https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250312T120000/</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">JSON-LD Issue Discussion</a></ol></dd></dl>
+</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: JSON-LD Issue Discussion
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://github.com/orgs/w3c/projects/84/views/1">https://github.com/orgs/w3c/projects/84/views/1</a> <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="information"><a href="https://github.com/w3c/json-ld-syntax/pull/448">https://github.com/w3c/json-ld-syntax/pull/448</a> -&gt; Pull Request 448 fix typo in index.html (by TallTed) <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: <a href="https://github.com/w3c/json-ld-syntax/issues/446">https://github.com/w3c/json-ld-syntax/issues/446</a>
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Gregg Kellogg</span>: After discussion, this does not seem to be a bug, suggest closing. <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: w3c/json-ld-api#630
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="information"><a href="https://github.com/w3c/json-ld-api/issues/630">https://github.com/w3c/json-ld-api/issues/630</a> -&gt; Issue 630 Inverse context creation, 4.3.2.3): what are the keys and values in active context? (by ZLghkA) <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: w3c/json-ld-syntax#443
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="information"><a href="https://github.com/w3c/json-ld-syntax/issues/443">https://github.com/w3c/json-ld-syntax/issues/443</a> -&gt; Issue 443 `@protected` creates unresolvable conflicts when the same term is defined in two contexts top-level (by trwnh) [spec:editorial] [wr:commenter-agreed-partial] [class-2] <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Gregg Kellogg</span>: Pchampin to comment and close this issue. <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I&apos;ll comment, but I don&apos;t want to be too dismissive. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div class="comment-continuation">... There may be a solution to their problem; I&apos;ll investigate. I don&apos;t think there&apos;s a need for a spec change.</div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Sounds like it should go in Best Practices. <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div class="comment-continuation">... Generally, it might be clearer to explain that if you use someone else&apos;s context you should create your own.</div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">David I. Lehn</span>: A related issue with someone bumping into protected redefinitions: <a href="https://github.com/digitalbazaar/jsonld.js/issues/563">https://github.com/digitalbazaar/jsonld.js/issues/563</a> (and also confusion related to ordering based on type names) <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="information"><a href="https://github.com/digitalbazaar/jsonld.js/issues/563">https://github.com/digitalbazaar/jsonld.js/issues/563</a> -&gt; Issue 563 Lint complains of redefinition when re-using term with context (by absoludity) <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: <a href="https://github.com/json-ld/json-ld-wg-charter/issues/2">https://github.com/json-ld/json-ld-wg-charter/issues/2</a>
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="information"><a href="https://github.com/json-ld/json-ld-wg-charter/issues/2">https://github.com/json-ld/json-ld-wg-charter/issues/2</a> -&gt; Issue 2 Update &quot;Out of Scope&quot; section. (by BigBlueHat) <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Pierre-Antoine Champin</span>:  We could explicitly make out of scope any significant extension of JSON-LD (making it more complicated). <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div class="comment-continuation">... This is a fine line between extending to RDF 1.2 and adding requested features.</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: <a href="https://github.com/json-ld/json-ld-wg-charter/issues/3">https://github.com/json-ld/json-ld-wg-charter/issues/3</a>
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="information"><a href="https://github.com/json-ld/json-ld-wg-charter/issues/3">https://github.com/json-ld/json-ld-wg-charter/issues/3</a> -&gt; Issue 3 New normative document proposal: Supporting Multiple Languages in JSON (by BigBlueHat) <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I like the idea of this, but I&apos;m reluctant to add a normative deliverable. Is there incubation other than JSON-LD on this? <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div class="comment-continuation">... Its a bit new to add normatively to the stack. We could say we&apos;ll start work on it, but not necessarily commit to publishing as a REC.</div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Benjamin Young</span>:  Since proposing this, the idea was that it would be a bridge into JSON-LD, but creating something like this could potentially have a negative value on JSON-LD. <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div class="comment-continuation">... My greater hope is to get people to link into some section of the existing specs and provide code to parse it.</div>
+<div class="comment-continuation">... I&apos;d suggest we scrap this.</div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Gregg Kellogg</span>:  This could go in best practices. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: w3c/json-ld-api#627
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="information"><a href="https://github.com/w3c/json-ld-api/issues/627">https://github.com/w3c/json-ld-api/issues/627</a> -&gt; Issue 627 Recommend a way for dependent specs to call into this one, that&apos;s not WebIDL (by jyasskin) [ms:future-work] [needs discussion] <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Benjamin Young</span>:  It was non-normative in the RDF WG days, but we worked it harder into 1.1. <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div class="comment-continuation">... It comes down to who is going to take this on as an action. I don&apos;t think the TAG will continue to allow us to use WebIDL.</div>
+<div class="comment-continuation">... It&apos;s not clear what the alternative is.</div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Benjamin Young</span>:  I agree that it&apos;s not really worth doing something different. WebIDL is typically about browsers, but the TAG told us to use it for 1.1 and changes were made to isolate the context from browsers. <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... I&apos;m not sure how big the ask was to switch to using INFRA terms, and it&apos;s hard to know the net benefit.</div>
+<div class="comment-continuation">... I don&apos;t really see the benefit either. We already have places in the spec that use the WebIDL type system.</div>
+<div class="comment-continuation">... It&apos;s a historic artifact, and we will continue to provide context to the data structures.</div>
+<div class="comment-continuation">... He pointed to VC WG discussions about &quot;calling into the JSON-LD spec&quot;.</div>
+<div class="comment-continuation">... The concern is in the EDDSA spec (referenced in the issue).</div>
+<div class="comment-continuation">... The conversation has similar confusion. If EDDSA had linked to WebIDL it may cause issues with the TAG.</div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I delved into these discussions I think the commenter has conflated the JSON-LD API with some global configuration. <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Pierre-Antoine Champin</span>: <a href="https://github.com/w3c/json-ld-api/issues/580#issuecomment-2463356600">https://github.com/w3c/json-ld-api/issues/580#issuecomment-2463356600</a> <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="information"><a href="https://github.com/w3c/json-ld-api/issues/580">https://github.com/w3c/json-ld-api/issues/580</a> -&gt; Issue 580 LoadDocumentCallback isn&apos;t passed into the algorithms that use it (by jyasskin) [spec:editorial] [ErratumRaised] [Editorial] [class-2] <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div class="comment-continuation">... In the VC issue he was concerned about parameters about the documentLoader, defined via the API (WebIDL). But, you could abstract away the API and the fact that it is expressed in WebIDL.</div>
+<div class="comment-continuation">... WebIDL is there for historical reasons. We can clarify that using the API doesn&apos;t necessarily mean using WebIDL.</div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>

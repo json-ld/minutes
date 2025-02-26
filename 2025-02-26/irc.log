@@ -1,0 +1,106 @@
+16:58:36 <RRSAgent> RRSAgent has joined #json-ld
+16:58:40 <RRSAgent> logging to https://www.w3.org/2025/02/26-json-ld-irc
+16:58:40 <Zakim> RRSAgent, make logs Public
+16:58:41 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:58:47 <gkellogg> meeting: JSON-LD WG
+16:59:03 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250312T120000/
+16:59:03 <agendabot> clear agenda
+16:59:03 <agendabot> agenda+ Announcements and Introductions
+16:59:03 <agendabot> agenda+ JSON-LD Issue Discussion
+16:59:03 <agendabot> agenda+ Open Discussion
+16:59:03 <agendabot> agenda+ Next call
+16:59:06 <pchampin> present+
+16:59:16 <gkellogg> chair: gkellogg
+16:59:18 <gkellogg> present+
+16:59:19 <anatoly-scherbakov> present+
+16:59:37 <gkellogg> zakim, next item
+16:59:37 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:03:05 <TallTed> present+
+17:03:48 <dlehn> present+
+17:04:01 <gkellogg> zakim, close item
+17:04:01 <Zakim> I don't understand 'close item', gkellogg
+17:04:07 <gkellogg> zakim, close item 1
+17:04:07 <Zakim> agendum 1, Announcements and Introductions, closed
+17:04:08 <Zakim> I see 3 items remaining on the agenda; the next one is
+17:04:08 <Zakim> 2. JSON-LD Issue Discussion [from agendabot]
+17:04:13 <gkellogg> zakim, next item
+17:04:13 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:04:19 <bigbluehat> present+
+17:04:21 <gkellogg> https://github.com/orgs/w3c/projects/84/views/1
+17:05:07 <gb> https://github.com/w3c/json-ld-syntax/pull/448 -> Pull Request 448 fix typo in index.html (by TallTed)
+17:08:29 <niklasl> niklasl has joined #json-ld
+17:10:59 <gkellogg> subtopic: https://github.com/orgs/w3c/projects/84/views/1?pane=issue&itemId=87551853&issue=w3c%7Cjson-ld-syntax%7C446
+17:11:37 <gkellogg> s|https://github.com/orgs/w3c/projects/84/views/1?pane=issue&itemId=87551853&issue=w3c%7Cjson-ld-syntax%7C446|https://github.com/w3c/json-ld-syntax/issues/446|
+17:12:05 <niklasl> present+
+17:12:49 <gkellogg> After discussion, this does not seem to be a bug, suggest closing.
+17:13:57 <gkellogg> subtopic: w3c/json-ld-api#630
+17:13:58 <gb> https://github.com/w3c/json-ld-api/issues/630 -> Issue 630 Inverse context creation, 4.3.2.3): what are the keys and values in active context? (by ZLghkA)
+17:17:25 <niklasl> q+
+17:19:32 <gkellogg> ack niklasl
+17:19:47 <gkellogg> subtopic: w3c/json-ld-syntax#443
+17:19:48 <gb> https://github.com/w3c/json-ld-syntax/issues/443 -> Issue 443 `@protected` creates unresolvable conflicts when the same term is defined in two contexts top-level (by trwnh) [spec:editorial] [wr:commenter-agreed-partial] [class-2]
+17:22:19 <gkellogg> pchampin: to comment and close this issue.
+17:23:54 <niklasl> q+
+17:24:00 <gkellogg> s/pchampin:/pchampin/
+17:24:14 <gkellogg> scribe+
+17:24:25 <gkellogg> pchampin: I'll comment, but I don't want to be too dismissive.
+17:24:50 <gkellogg> ... There may be a solution to their problem; I'll investigate. I don't think there's a need for a spec change.
+17:25:07 <gkellogg> ack niklasl
+17:25:37 <gkellogg> niklasl: Sounds like it should go in Best Practices.
+17:26:18 <gkellogg> ... Generally, it might be clearer to explain that if you use someone else's context you should create your own.
+17:26:58 <dlehn> a related issue with someone bumping into protected redefinitions: https://github.com/digitalbazaar/jsonld.js/issues/563 (and also confusion related to ordering based on type names)
+17:26:59 <gb> https://github.com/digitalbazaar/jsonld.js/issues/563 -> Issue 563 Lint complains of redefinition when re-using term with context (by absoludity)
+17:27:57 <gkellogg> subtopic: https://github.com/json-ld/json-ld-wg-charter/issues/2
+17:27:58 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/2 -> Issue 2 Update "Out of Scope" section. (by BigBlueHat)
+17:30:13 <gkellogg> pchampin: We could explicitly make out of scope any significant extension of JSON-LD (making it more complicated).
+17:30:31 <gkellogg> ... This is a fine line between extending to RDF 1.2 and adding requested features.
+17:31:32 <pchampin> q+
+17:31:43 <gkellogg> subtopic: https://github.com/json-ld/json-ld-wg-charter/issues/3
+17:31:44 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/3 -> Issue 3 New normative document proposal: Supporting Multiple Languages in JSON (by BigBlueHat)
+17:31:50 <gkellogg> ack pchampin
+17:32:05 <bigbluehat> q+
+17:32:16 <gkellogg> pchampin: I like the idea of this, but I'm reluctant to add a normative deliverable. Is there incubation other than JSON-LD on this?
+17:33:02 <gkellogg> ... Its a bit new to add normatively to the stack. We could say we'll start work on it, but not necessarily commit to publishing as a REC.
+17:34:17 <gkellogg> bigbluehat: Since proposing this, the idea was that it would be a bridge into JSON-LD, but creating something like this could potentially have a negative value on JSON-LD.
+17:34:58 <gkellogg> ... My greater hope is to get people to link into some section of the existing specs and provide code to parse it.
+17:35:47 <gkellogg> ... My thinking has changed, but I have the same intent. People are too confused by JSON-LD and adding something else could result in just more confusion.
+17:36:08 <gkellogg> ... I'd suggest we scrap this.
+17:36:26 <gkellogg> gkellogg: This could go in best practices.
+17:37:30 <gkellogg> subtopic: w3c/json-ld-api#627
+17:37:30 <gb> https://github.com/w3c/json-ld-api/issues/627 -> Issue 627 Recommend a way for dependent specs to call into this one, that's not WebIDL (by jyasskin) [ms:future-work] [needs discussion]
+17:39:16 <gkellogg> q?
+17:39:20 <gkellogg> ack bigbluehat
+17:40:02 <bigbluehat> q+
+17:40:18 <gkellogg> ack bigbluehat
+17:40:42 <gkellogg> bigbluehat: It was non-normative in the RDF WG days, but we worked it harder into 1.1.
+17:41:21 <gkellogg> ... It comes down to who is going to take this on as an action. I don't think the TAG will continue to allow us to use WebIDL.
+17:41:43 <gkellogg> ... It's not clear what the alternative is.
+17:45:14 <bigbluehat> q+
+17:45:23 <gkellogg> ack bigbluehat
+17:46:09 <gkellogg> bigbluehat: I agree that it's not really worth doing something different. WebIDL is typically about browsers, but the TAG told us to use it for 1.1 and changes were made to isolate the context from browsers.
+17:46:53 <gkellogg> ... I'm not sure how big the ask was to switch to using INFRA terms, and it's hard to know the net benefit.
+17:47:28 <gkellogg> ... I don't really see the benefit either. We already have places in the spec that use the WebIDL type system.
+17:47:50 <gkellogg> ... It's a historic artifact, and we will continue to provide context to the data structures.
+17:50:07 <gkellogg> ... He pointed to VC WG discussions about "calling into the JSON-LD spec".
+17:53:12 <gkellogg> ... The concern is in the EDDSA spec (referenced in the issue).
+17:54:00 <gkellogg> ... The conversation has similar confusion. If EDDSA had linked to WebIDL it may cause issues with the TAG.
+17:54:35 <pchampin> q+
+17:54:54 <pchampin> q-
+17:55:31 <gkellogg> pchampin: I delved into these discussions I think the commenter has conflated the JSON-LD API with some global configuration.
+17:55:38 <pchampin> https://github.com/w3c/json-ld-api/issues/580#issuecomment-2463356600
+17:55:39 <gb> https://github.com/w3c/json-ld-api/issues/580 -> Issue 580 LoadDocumentCallback isn't passed into the algorithms that use it (by jyasskin) [spec:editorial] [ErratumRaised] [Editorial] [class-2]
+17:56:30 <gkellogg> ... In the VC issue he was concerned about parameters about the documentLoader, defined via the API (WebIDL). But, you could abstract away the API and the fact that it is expressed in WebIDL.
+17:57:07 <gkellogg> ... WebIDL is there for historical reasons. We can clarify that using the API doesn't necessarily mean using WebIDL.
+17:58:37 <gkellogg> q?
+17:58:56 <gkellogg> zakim, close meeting
+17:58:56 <Zakim> I don't understand 'close meeting', gkellogg
+17:58:57 <pchampin> RRSAgent, make minutes
+17:58:59 <RRSAgent> I have made the request to generate https://www.w3.org/2025/02/26-json-ld-minutes.html pchampin
+17:59:09 <gkellogg> zakim, end meeting
+17:59:09 <Zakim> As of this point the attendees have been pchampin, gkellogg, anatoly-scherbakov, TallTed, dlehn, bigbluehat, niklasl
+17:59:11 <Zakim> RRSAgent, please draft minutes
+17:59:13 <RRSAgent> I have made the request to generate https://www.w3.org/2025/02/26-json-ld-minutes.html Zakim
+17:59:19 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:59:19 <Zakim> Zakim has left #json-ld
+17:59:23 <gkellogg> rrsagent, pointer
+17:59:23 <RRSAgent> See https://www.w3.org/2025/02/26-json-ld-irc#T17-59-23

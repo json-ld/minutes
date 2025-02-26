@@ -1,0 +1,137 @@
+16:55:30 <RRSAgent> RRSAgent has joined #json-ld
+16:55:34 <RRSAgent> logging to https://www.w3.org/2025/02/12-json-ld-irc
+16:55:34 <Zakim> RRSAgent, make logs Public
+16:55:35 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:55:42 <bigbluehat> meeting: JSON-LD CG
+16:56:09 <bigbluehat> url: https://www.w3.org/events/meetings/635aef15-a607-499c-b32a-926d3cb3a580/20250212T120000/#agenda
+16:56:13 <bigbluehat> bigbluehat has changed the topic to: https://www.w3.org/events/meetings/635aef15-a607-499c-b32a-926d3cb3a580/20250212T120000/#agenda
+16:56:28 <bigbluehat> agenda: https://www.w3.org/events/meetings/635aef15-a607-499c-b32a-926d3cb3a580/20250212T120000/#agenda
+16:56:29 <agendabot> clear agenda
+16:56:29 <agendabot> agenda+ Announcements and Introductions
+16:56:29 <agendabot> agenda+ JSON-LD Issue Discussion
+16:56:29 <agendabot> agenda+ Open Discussion
+16:56:29 <agendabot> agenda+ Next call
+16:56:46 <bigbluehat> chair: bigbluehat
+16:57:27 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:59:46 <niklasl> niklasl has joined #json-ld
+16:59:51 <ivan> present+
+16:59:51 <pchampin> present+
+16:59:51 <pchampin> regrets+ gkellogg
+17:00:30 <anatoly-scherbakov> present+
+17:00:40 <niklasl> present+
+17:01:53 <bigbluehat> Zakim, next item
+17:01:53 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:02:33 <bigbluehat> pchampin: work on our charter has been made to the AC
+17:02:46 <bigbluehat> ... so others can have a chance to chime in
+17:02:50 <bigbluehat> scribe+
+17:02:54 <pchampin> scribe+
+17:03:13 <pchampin> s/been made/been announced
+17:03:51 <pchampin> https://github.com/json-ld/json-ld-wg-charter
+17:04:16 <pchampin> pchampin: the announcement pointed the members to the public repo (link above)
+17:04:48 <bigbluehat> Zakim, next item
+17:04:48 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+17:04:59 <TallTed> present+
+17:05:03 <bigbluehat> https://github.com/orgs/w3c/projects/84/views/1
+17:05:40 <pchampin> bigbluehat: I don't think the project has been re-sorted. Let's look at pending PRs.
+17:06:04 <bigbluehat> https://github.com/w3c/json-ld-api/pull/625
+17:06:05 <gb> https://github.com/w3c/json-ld-api/pull/625 -> Pull Request 625 (closes #555) Fall back to default logic in `useNativeTypes` mode for RDF numbers which are not JSON numbers (by anatoly-scherbakov) [class-3]
+17:06:32 <anatoly-scherbakov> q+
+17:06:34 <pchampin> s|https://github.com/w3c/json-ld-api/pull/625|subtopic: https://github.com/w3c/json-ld-api/pull/625
+17:06:42 <pchampin> bigbluehat: this one was heavily approved
+17:06:59 <pchampin> anatoly-scherbakov: I've recently applied suggestions from TallTed and pchampin
+17:07:31 <pchampin> bigbluehat: the people involved in the review are all here. Any objection to merge it now?
+17:07:35 <pchampin> pchampin: none from me
+17:08:08 <pchampin> bigbluehat: hearing none, let's merge this PR
+17:08:43 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/559
+17:08:43 <gb> https://github.com/w3c/json-ld-api/pull/559 -> Pull Request 559 Add JSON literal tests. (by davidlehn) [spec:substantive] [test:missing-coverage]
+17:09:29 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/pull/585
+17:09:29 <gb> https://github.com/w3c/json-ld-api/pull/585 -> Pull Request 585 Add graph container array tests. (by davidlehn) [test:missing-coverage]
+17:10:39 <pchampin> bigbluehat: for this one (and the previous one), we don't have the commenters here. Hard to discuss them here.
+17:10:49 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/issues/627
+17:10:49 <gb> https://github.com/w3c/json-ld-api/issues/627 -> Issue 627 Recommend a way for dependent specs to call into this one, that's not WebIDL (by jyasskin) [ms:future-work] [needs discussion]
+17:11:51 <pchampin> bigbluehat: we discussed this last call. I asked Jeffrey for more examples, which he provided.
+17:12:05 <pchampin> ... ivan, you pointed out that DID-Resolution uses INFRA instead of WebIDL.
+17:12:20 <pchampin> ... The main remaining issue is the amount of editorial work.
+17:12:22 <pchampin> q+
+17:12:31 <bigbluehat> ack anatoly-scherbakov
+17:12:34 <bigbluehat> ack pchampin
+17:13:24 <pchampin> pchampin: we could maybe automate the WebIDL to INFRA conversion?
+17:13:32 <pchampin> bigbluehat: or have an AI do that...
+17:14:05 <bigbluehat> subtopic: https://github.com/w3c/json-ld-api/issues/558
+17:14:06 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised] [class-3]
+17:14:45 <pchampin> bigbluehat: niklasl, this one is yours. No activity in the past 2 years (almost exactly).
+17:15:21 <niklasl> https://github.com/niklasl/trld/commit/1190a251514e7cb7bc8d596ba6b6bf4da3632bab
+17:15:29 <pchampin> niklasl: I have a proposal about what to do. I have refactored my implementation accordingly.
+17:15:35 <pchampin> ... (link above)
+17:16:37 <pchampin> ... AFAICT this fixes the issue.
+17:17:27 <pchampin> bigbluehat: niklasl, would you be willing to write a PR for that?
+17:17:33 <pchampin> niklasl: yes, I can try
+17:18:16 <pchampin> ... I also need to check whether there are any side effects.
+17:18:59 <pchampin> bigbluehat: this needs to be wrapped in <ind>/<del> tags, like the other PRs we have.
+17:19:05 <bigbluehat> subtopic: https://github.com/w3c/json-ld-syntax/issues/436
+17:19:06 <gb> https://github.com/w3c/json-ld-syntax/issues/436 -> Issue 436 URI in Profile triggers CORS Unsafe Request Header Byte rule (by azaroth42) [spec:w3c] [needs discussion] [tag-needs-resolution]
+17:19:58 <pchampin> q+
+17:20:09 <dlehn> present+
+17:20:15 <bigbluehat> ack pchampin
+17:23:09 <pchampin> pchampin: I discussed this with Yves Lafon, staff contact of the TAG.
+17:23:37 <niklasl> q+
+17:23:44 <pchampin> ... This restriction of fetch is considered as an important security feature, this is unlikely to go away.
+17:23:51 <bigbluehat> ack niklasl
+17:24:12 <pchampin> ... To mitigate this issue, should we (JSON-LD WG) set up a registry for short-names for profiles of application/ld+json ?
+17:24:28 <pchampin> niklasl: I don't think that a registry would solve the problem.
+17:24:54 <pchampin> ... We need to distinguish data shapes from the semantics of data.
+17:25:30 <pchampin> ... Activity Streams went for a specific media-type, others may have to do that.
+17:25:32 <pchampin> q+
+17:25:52 <pchampin> ... This issue seems specific to an RDF mindset.
+17:26:04 <pchampin> ... E.g. I want RDF, and I only understand SKOS.
+17:26:51 <bigbluehat> ack pchampin
+17:26:55 <pchampin> ... I have not seen the same kind of issue in other contexts, where structure and semantics are the same.
+17:28:01 <bigbluehat> q+
+17:28:05 <bigbluehat> ack bigbluehat
+17:28:09 <niklasl> ... does the web need "compound media type negotiation" ... 🤔
+17:28:19 <pchampin> pchampin: actually, video formats also suffer from the coarseness of media-types
+17:29:53 <pchampin> bigbluehat: CORS breaks a lot of things. I don't think Ruben's proposal will fly.
+17:29:54 <pchampin> q+
+17:30:27 <niklasl> (Or in the video format context, I guess "Accepts-Codex", ... And in the RDF context, maybe what I really want is "Accepts-Vocabulary" ... but try to realize that through "Accepts-Profile", for better or worse...)
+17:30:29 <bigbluehat> ack pchampin
+17:30:40 <pchampin> ... We have been discussing recently with the people working on profile-based conneg.
+17:31:24 <bigbluehat> q+
+17:32:44 <niklasl> q+
+17:33:21 <bigbluehat> ack bigbluehat
+17:33:49 <pchampin> pchampin: activity on the dx-connegp has been on and off for a while. We may want to provide some help.
+17:35:23 <bigbluehat> bigbluehat: JSON-LD mostly needs to help downstream specifications know what to choose among the media type vs. profile negotiation vs. something else
+17:35:39 <bigbluehat> ... we can and should point to the profile negotiation doc when it's available
+17:35:45 <pchampin> niklasl: we at the National Libarry of Sweden, would really like to see a form of profile-based conneg. I think I could spend some time on this.
+17:36:02 <pchampin> ... Part of it is orthogonal to JSON-LD.
+17:36:17 <pchampin> bigbluehat: agreed, it is not a core issue for us.
+17:37:33 <pchampin> ack niklasl
+17:39:01 <bigbluehat> subtopic: dlehn PRs
+17:41:27 <pchampin> dlehn: what should I do about those, until we have a solid decision about the desired behaviour.
+17:41:49 <pchampin> bigbluehat: if you would post a comment spelling out the decision that we need to make, this would be helpful.
+17:42:47 <pchampin> dlehn: this mostly came out from somebody reporting a bug.
+17:44:50 <pchampin> TallTed: a possible resolution is "this is an edge case, we won't solve it now"
+17:45:46 <bigbluehat> subtopic: https://github.com/json-ld/cbor-ld-spec/pull/22
+17:45:47 <gb> https://github.com/json-ld/cbor-ld-spec/pull/22 -> Pull Request 22 Add OpenBadges v3.0.0 context URL to registry. (by BigBlueHat)
+17:47:03 <pchampin> bigbluehat: this PR adds a context URL in the CBOR-LD registry
+17:47:04 <dlehn> q+
+17:47:13 <bigbluehat> ack dlehn
+17:47:22 <pchampin> ... Dmitri suggested to change from the version-less URL to the versionned one.
+17:47:42 <pchampin> dlehn: aren't we moving away from the registry, for CBOR-LD?
+17:47:52 <pchampin> ... People may continue to use the old stuff, though...
+17:48:44 <pchampin> ... We need to refine how it is supposed to work.
+17:49:25 <pchampin> bigbluehat: I'll ask Wes dans Dave Longley (who are most active on CBOR-LD these days) what they think of it.
+17:49:52 <pchampin> ... This should be a more general discussion.
+17:50:07 <pchampin> q+
+17:50:16 <bigbluehat> ack pchampin
+17:52:07 <pchampin> pchampin: I'm uncorfortable with CBOR numbers pointing to URL with changing content.
+17:52:17 <pchampin> ... But we need to discuss this with Wes and Dave Longley.
+17:53:05 <pchampin> RRSAgent, make minutes
+17:53:06 <RRSAgent> I have made the request to generate https://www.w3.org/2025/02/12-json-ld-minutes.html pchampin
+17:53:18 <TallTed> present+
+17:53:26 <RRSAgent> I have made the request to generate https://www.w3.org/2025/02/12-json-ld-minutes.html TallTed
+17:53:35 <bigbluehat> zakim, close this agendum
+17:53:35 <Zakim> agendum 2 closed
+17:53:35 <bigbluehat> zakim, end meeting
+17:53:35 <bigbluehat> rrsagent, bye
+17:53:35 <RRSAgent> I see no action items
+<pchampin> present+ bigbluehat
