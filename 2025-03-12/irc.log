@@ -1,0 +1,213 @@
+16:00:14 <RRSAgent> RRSAgent has joined #json-ld
+16:00:19 <RRSAgent> logging to https://www.w3.org/2025/03/12-json-ld-irc
+16:00:19 <Zakim> RRSAgent, make logs Public
+16:00:20 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:00:20 <TallTed> TallTed has joined #json-ld
+16:00:24 <gkellogg> meeting: JSON-LD WG
+16:01:10 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250326T120000/
+16:01:17 <agendabot> clear agenda
+16:01:17 <agendabot> agenda+ Announcements and Introductions
+16:01:17 <agendabot> agenda+ CBOR-LD
+16:01:17 <agendabot> agenda+ Next call
+16:01:18 <bigbluehat> bigbluehat has joined #json-ld
+16:01:38 <pchampin> s/agendabot: find agenda/
+16:01:58 <bigbluehat> chair+
+16:02:42 <gkellogg> agendabot, clear agenda
+16:02:42 <agendabot> gkellogg, sorry, I don't understand "clear agenda". Try "agendabot, help".
+16:02:58 <niklasl> niklasl has joined #json-ld
+16:02:58 <gkellogg> zakim, clear agenda
+16:02:59 <Zakim> agenda cleared
+16:03:20 <TallTed> agendabot, this is JSON-LD WG
+16:03:20 <agendabot> TallTed, sorry, I don't understand "this is JSON-LD WG". Try "agendabot, help".
+16:03:51 <bigbluehat> agendabot, help
+16:03:51 <agendabot> bigbluehat, I am an instance of AgendaBot 0.5. For detailed help, type "help COMMAND", where COMMAND is one of invite, agenda, find, suggest, accept, this is, forget, status or bye. Or go to https://w3c.github.io/AgendaBot/manual.html
+16:04:10 <bigbluehat> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250312T120000/#agenda
+16:04:11 <agendabot> clear agenda
+16:04:11 <agendabot> agenda+ Announcements and Introductions
+16:04:11 <agendabot> agenda+ Polyglot discussion at TAG
+16:04:11 <agendabot> agenda+ JSON-LD Issue Discussion
+16:04:11 <agendabot> agenda+ Open Discussion
+16:04:26 <gkellogg> zakim, open item 1
+16:04:26 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:04:44 <gkellogg> scribe+
+16:05:08 <gkellogg> bigbluehat: Next meeting we expect dlongley and Wes Smith to discuss CBOR-LD.
+16:05:27 <gkellogg> ... dlehn and I are also working to catch up on that work.
+16:05:55 <gkellogg> ... TPAC is in November, we will consider having a meeting there.
+16:06:02 <gkellogg> zakim, next item
+16:06:02 <Zakim> agendum 2 -- Polyglot discussion at TAG -- taken up [from agendabot]
+16:06:13 <bigbluehat> scribe+
+16:06:14 <TallTed> present+
+16:06:36 <pchampin> https://github.com/w3ctag/design-principles/pull/562
+16:06:36 <gb> https://github.com/w3ctag/design-principles/pull/562 -> Pull Request 562 Principle: Write only one algorithm to accomplish a task. (by jyasskin)
+16:06:59 <gkellogg> bigbluehat: conversation has moved forward. This would be a good time to chime in.
+16:07:20 <bigbluehat> > When specifying how to accomplish a task, write a single algorithm to do it, instead of letting implementers pick between multiple algorithms.
+16:07:46 <gkellogg> ... As far as I can tell, it's the opening statement about polyglot formats that drives most discussino.
+16:07:57 <gkellogg> s/discussino/discussion/
+16:08:26 <gkellogg> ... If you can apply this principle elsewhere, there may be a principle to follow
+16:08:33 <ivan> q+
+16:08:35 <pchampin> q+
+16:08:37 <bigbluehat> ack ivan
+16:09:11 <gkellogg> ivan: I admit that I couldn't go through this thoroughly. This is not new, it's been around for a long time.
+16:09:29 <gkellogg> ... Do we know why the document was created in the first place?
+16:10:02 <gkellogg> ... Does the TAG have a long-term goal of addressing concerns over JSON-LD?
+16:10:40 <gkellogg> bigbluehat: Jeffery is bringing up something on his own accord. Not sure it's a general TAG concern.
+16:10:47 <ivan> q+
+16:10:53 <bigbluehat> ack pchampin
+16:11:21 <gkellogg> pchampin: I wanted to mention that Sarven put this on my radar.
+16:11:24 <dlehn> present+
+16:11:33 <gkellogg> ... I'll talk with him this week.
+16:12:05 <bigbluehat> ack ivan
+16:12:08 <gkellogg> ... I didn't see that this was on the agenda, or I would have invited him.
+16:12:13 <gkellogg> q+
+16:12:41 <gkellogg> ivan: The VC PR transition request was approved, so a lot of things may be related to that.
+16:12:56 <bigbluehat> q+
+16:12:58 <gkellogg> ... Can we expect formal objections on VC publication based upon this?
+16:13:42 <gkellogg> ... It's interesting, as Jeffery was a regular contributor on VC matters.
+16:13:48 <bigbluehat> ack gkellogg
+16:14:56 <pchampin> q+
+16:15:06 <bigbluehat> ack bigbluehat
+16:16:06 <gkellogg> bigbluehat: Wondering if this could result in an FO on VC. The concerns seem to be on VC 1.1, but VC 2.0 may have solved this, although different things have been said.
+16:16:47 <gkellogg> ... VC has only one processing model. It may point to conversations that relate to the TAG note.
+16:17:09 <gkellogg> ... Some big companies seem to be antagonistic towards VCs.
+16:17:52 <bigbluehat> > When specifying how to accomplish a task, write a single algorithm to do it, instead of letting implementers pick between multiple algorithms.
+16:18:06 <gkellogg> ... I intend to try to focus on the point I posted earlier.
+16:18:29 <gkellogg> ... The concern is about multiple algorithms doing essentially the same use case.
+16:19:03 <gkellogg> ... At minimum, that could be refined irrespective of technologies. The TAG could be asked to find other examples.
+16:19:14 <gkellogg> ... XHTML/HTML might not be related.
+16:19:27 <bigbluehat> q?
+16:19:31 <bigbluehat> ack pchampin
+16:19:33 <gkellogg> ... My hope is to move the conversation away from JSON-LD.
+16:19:42 <gkellogg> ack pchampin
+16:20:29 <gkellogg> pchampin: If Polyglots are such a bad thing, then maybe JSON is not an appropriate basis for standards.
+16:20:41 <bigbluehat> q+
+16:20:56 <gkellogg> ... In Python, floats and integers are distinct types, while they're not in JavaScript
+16:21:14 <gkellogg> ... Strings have different lengths.
+16:21:35 <gkellogg> ... There are different ways that JSON is parsed into different languages, and clearly multiple algorithms are used to do this.
+16:21:58 <ivan> q+
+16:22:10 <gkellogg> ... I'd rather start by not focusing on polyglots.
+16:22:34 <gkellogg> ... Risks come up with different developers in different languages or different eco-systems.
+16:23:15 <gkellogg> bigbluehat: I'm weighing how much I really want to get into this, but I'm concerned about what this could mean for our collective future.
+16:23:48 <gkellogg> ... The aim may be to not encourage the use of JSON-LD by other standards.
+16:24:22 <gkellogg> ... Members of the VC group were also concerned about taking in the JSON-LD processing model, as there are ways to pick and select to parse what you need.
+16:25:03 <gkellogg> ... The argument is that if you don't need all the stuff JSON-LD processing does, it's to compute intensive.
+16:25:18 <gkellogg> q?
+16:25:21 <gkellogg> ack bigbluehat
+16:26:09 <gkellogg> ... Focusing on goal (was task) model, is not the case for all specs.
+16:26:45 <gkellogg> ... There are a number of ways you can parse a document; the spec should provide just a single way to do things.
+16:27:07 <gkellogg> ... Conflating this with "polyglot" only makes things more confusing.
+16:27:46 <gkellogg> ack ivan
+16:27:47 <bigbluehat> ack ivan
+16:28:13 <gkellogg> ivan: My answer to pchampin is to say that his points should be made.
+16:28:40 <gkellogg> ... Applications read JSON in different programming languages, and learn to deal with it.
+16:28:59 <gkellogg> ... The datatypes differ between RDF specifications.
+16:29:03 <TallTed> "I want to make a peanut butter and jelly sandwich. What's the One True Algorithm to achieve this goal?"
+16:29:57 <gkellogg> ... The history of VC is what happened. I try to be self-critical, but the criticism of JSON-LD is not so much processing, but the complexity of JSON-LD.
+16:30:28 <gkellogg> ... There is a feature-bloat problem in JSON-LD which makes it hard to understand for non-experts.
+16:30:58 <gkellogg> ... We used to say that the complexity is hidden in the context (like a DTD), but that is a weak argument.
+16:31:24 <pchampin> q+
+16:31:33 <gkellogg> ... I wonder is the new WG can look for was to simplify JSON-LD, or carve out a profile. We need to understand the critisism.
+16:31:48 <gkellogg> q+
+16:31:59 <bigbluehat> ack pchampin
+16:32:02 <gkellogg> ... That should be part of the new charter.
+16:32:35 <bigbluehat> q+
+16:32:44 <gkellogg> pchampin: +1 to ivan's statements. I was thinking of finding some academics to help understand such profiles.
+16:33:13 <gkellogg> ... It would be better if we could point to such a result to guarantee things about it.
+16:33:18 <bigbluehat> ack gkellogg
+16:34:46 <ivan> q+
+16:35:03 <pchampin> q+
+16:35:41 <bigbluehat> ack bigbluehat
+16:35:57 <gkellogg> gkellogg: Maybe focus on direct transformation to RDF.
+16:36:37 <gkellogg> bigbluehat: The TAG might say that developer use of different algorithms, is different than using them in a spec.
+16:36:55 <gkellogg> ... HTML processing and XHTML processing is an example, they should result in the same output, but don't.
+16:37:06 <gkellogg> ... Those arguments are used against JSON-LD.
+16:37:44 <gkellogg> ... Arguments are made that there are different ways to express data in JSON-LD. But in JSON, you can only do this as direct values of a key.
+16:38:16 <gkellogg> ... In JSON-LD, you can split these over different objects with the same at-id.
+16:38:33 <gkellogg> ... Different object models can exist over the same syntax.
+16:38:59 <gkellogg> ... I don't think we've claimed that JSON parsing and JSON-LD parsing necessarily result in the same model.
+16:39:44 <gkellogg> ... What we've seen since or last charter, are documents that go through other specifications.
+16:40:22 <gkellogg> ... Spec authors don't have the guidance they need from us. We don't really cater to the needs of spec authors.
+16:41:21 <gkellogg> ... If we aimed at spec authors, we'd try to push all JSON-LD features and work on how to write a context file which addresses specific needs,
+16:41:27 <gkellogg> s/needs,/needs./
+16:42:03 <pchampin> q-
+16:42:07 <gkellogg> ... Where Activity Streams has had problems is in not knowing how to deal with contexts to do what they need to do.
+16:42:22 <bigbluehat> ack ivan
+16:42:56 <pchampin> q+
+16:42:59 <gkellogg> ivan: I disagree with gkellogg about what people need from JSON-LD, only a small fraction convert to RDF.
+16:43:28 <gkellogg> ... I would say they look for is to solve the problem of de-centralized vocabulary definitions.
+16:43:53 <gkellogg> ... I was looking at the TPM spec, which is quite small, which is aimed at robot/AI text.
+16:44:02 <ivan> TDMRep
+16:44:09 <gkellogg> s/TPM/TDMRep/
+16:44:18 <gkellogg> ... (Data mining spec).
+16:44:36 <gkellogg> ... They use JSON-LD because they need terms that are defined in contexts, nothing else.
+16:45:04 <gkellogg> ... Or they want to bring in terms from other vocabularies, which JSON-LD provides.
+16:45:19 <TallTed> https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/
+16:45:30 <gkellogg> ... The single biggest thing JSON-LD provides for them is a way of brining in terms from different vocabularies.
+16:45:44 <gkellogg> ... They don't care about RDF.
+16:45:48 <TallTed> https://www.w3.org/ns/tdmrep/
+16:46:10 <TallTed> https://www.w3.org/community/tdmrep/
+16:46:10 <gkellogg> ... We have to keep in mind that we need to address these specific needs, and hide what they don't need.
+16:46:11 <gkellogg> q?
+16:46:17 <gkellogg> q+
+16:46:21 <bigbluehat> ack pchampin
+16:46:36 <gkellogg> pchampin: bigbluehat covered much of what I wanted to say.
+16:46:48 <gkellogg> ... Would it be fair to say that these specs are only interested in data?
+16:46:52 <gkellogg> ivan: yes.
+16:47:29 <gkellogg> pchampin: I think we might encourage the use of framing more.
+16:47:45 <gkellogg> ... A new media-type based on JSON-LD may be something we could encourage.
+16:48:04 <gkellogg> ... JSON-LD based formats have their own mediatype.
+16:48:17 <TallTed> "This is not the @context you're looking for."
+16:49:02 <gkellogg> ... A context is not enough; they should also have a schema, and a frame that would guarantee that you can turn data back into a format which matches the schema, and RDF isn't particularly useful.
+16:49:13 <bigbluehat> q?
+16:49:16 <bigbluehat> ack gkellogg
+16:49:20 <gkellogg> ... We need to guarantee that framing is part of the solution.
+16:49:31 <bigbluehat> scribe+
+16:49:49 <bigbluehat> gkellogg: my request for clarification from ivan would be, if they care about what is in vocabs and contexts
+16:49:56 <bigbluehat> ... what can we do to help them then?
+16:50:06 <ivan> q+
+16:50:12 <bigbluehat> ... the expanded form which turns the compact form into URLs
+16:50:19 <bigbluehat> s/URLs/IRIs
+16:50:32 <bigbluehat> ... maybe what they need is JSON transformation rather than RDF transformation
+16:50:35 <bigbluehat> q+
+16:51:02 <bigbluehat> ... because that may be sufficient for getting them the graph understanding of the data
+16:51:10 <bigbluehat> ... and would still give them access to framing
+16:51:25 <bigbluehat> ... which would let them re-express that graph into those various shapes
+16:51:59 <bigbluehat> ... the concern with complexity may be around the number of algorithms we have: contexts, expansion, flatten, etc.
+16:52:33 <bigbluehat> ... there are a lot of things to understand to get that transformation
+16:52:40 <bigbluehat> ... so maybe we need a simpler route to framing
+16:52:56 <bigbluehat> ... which could potentially use a simplified understanding of the document
+16:52:59 <bigbluehat> q?
+16:53:05 <bigbluehat> ack ivan
+16:54:16 <gkellogg> ivan: In many groups, where JSON-LD is not used. They don't really want IRIs, they just want to say that "name" is the same as the schema.org name.
+16:54:30 <gkellogg> ... IRI looses people right way.
+16:54:46 <bigbluehat> q?
+16:54:50 <gkellogg> q+
+16:55:34 <gkellogg> bigbluehat: Just recently I talked about IRIs with a developer, and they were unaware that such IRIs could be dereferenced.
+16:56:05 <gkellogg> ... It's always confusing that "http:" is in the name. It may or may not loose its value if dereferenced.
+16:56:35 <gkellogg> ... If it returns something, it should be appropriate, but it may not return anything at all.
+16:57:00 <bigbluehat> ack bigbluehat
+16:57:04 <gkellogg> ... Most research documents result in a 404.
+16:57:23 <bigbluehat> q+ I remeber
+16:57:29 <bigbluehat> q+
+16:57:35 <bigbluehat> ack gkellogg
+16:57:37 <bigbluehat> ack I
+16:57:43 <bigbluehat> ack remeber
+16:57:53 <bigbluehat> gkellogg: Linked Data because of RDF
+16:58:11 <bigbluehat> ... maybe it's time for updating the LD design principles
+16:58:25 <bigbluehat> ... it's a bigger problem than just JSON-LD
+16:58:36 <bigbluehat> ack bigbluehat
+16:59:30 <gkellogg> bigbluehat: I was going to echo what ivan said that a lot of people can benefit from the fact that a JSON-LD processor can process the format, without actually caring about the resulting RDF.
+16:59:47 <gkellogg> ... They just need to know that the model results in valid data.
+16:59:57 <gkellogg> zakim, end meeting
+16:59:57 <Zakim> As of this point the attendees have been TallTed, dlehn
+16:59:58 <Zakim> RRSAgent, please draft minutes
+16:59:59 <RRSAgent> I have made the request to generate https://www.w3.org/2025/03/12-json-ld-minutes.html Zakim
+17:00:06 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:00:07 <Zakim> Zakim has left #json-ld
+17:00:14 <gkellogg> rrsagent, pointer
+17:00:14 <RRSAgent> See https://www.w3.org/2025/03/12-json-ld-irc#T17-00-14
+17:00:41 <TallTed> present+ dlehn, bigbluehat, gkellogg, ivan
+17:00:49 <TallTed> present+ pchampin
+17:01:30 <TallTed> present+ niklasl
+17:01:36 <TallTed> RRSAgent, draft minutes
+17:01:37 <RRSAgent> I have made the request to generate https://www.w3.org/2025/03/12-json-ld-minutes.html TallTed
+17:02:43 <gkellogg> s/an FO/a FO/
