@@ -1,0 +1,193 @@
+16:00:22 <RRSAgent> RRSAgent has joined #json-ld
+16:00:26 <RRSAgent> logging to https://www.w3.org/2025/03/26-json-ld-irc
+16:00:26 <Zakim> RRSAgent, make logs Public
+16:00:27 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:00:32 <bigbluehat> meeting: JSON-LD CG & WG
+16:01:01 <bigbluehat> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250326T120000/
+16:01:01 <agendabot> clear agenda
+16:01:01 <agendabot> agenda+ Announcements and Introductions
+16:01:01 <agendabot> agenda+ CBOR-LD
+16:01:01 <agendabot> agenda+ Next call
+16:01:13 <bigbluehat> chair: bigbluehat
+16:01:16 <gkellogg> present+
+16:01:33 <dlongley> present+
+16:01:36 <TallTed> present+
+16:01:39 <dlehn> present+
+16:01:36 <piotr> present+
+16:01:36 <unit9a> present+
+16:01:45 <RRSAgent> I have made the request to generate https://www.w3.org/2025/03/26-json-ld-minutes.html TallTed
+16:02:00 <gkellogg> scribe+
+16:02:13 <niklasl> niklasl has joined #json-ld
+16:02:20 <bigbluehat> zakim, next agendum
+16:02:20 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:02:23 <ivan> present+
+16:03:08 <gkellogg> Piotr: from Neverlink in Poland. Work on CBOR-related issues.
+16:03:37 <wes-smith> wes-smith has joined #json-ld
+16:03:42 <wes-smith> present+
+16:04:05 <piotr> piotr has joined #json-ld
+16:04:10 <TallTed> https://jelly-rdf.github.io/ "Jelly is a high-performance binary serialization format and streaming protocol for RDF. It is based on Protocol Buffers and gRPC, and has a JVM implementation that works with Apache Jena and RDF4J."
+16:04:22 <piotr> yup, this one
+16:04:43 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:04:48 <anatoly-scherbakov> present+
+16:04:50 <piotr> Jelly focuses on high ser/des perf, not necessarily very small size, like CBOR-LD
+16:05:10 <bigbluehat> zakim, next agendum
+16:05:10 <Zakim> agendum 2 -- CBOR-LD -- taken up [from agendabot]
+16:05:55 <pchampin> present+
+16:05:57 <gkellogg> wes-smith: dlongley will do Q&A.
+16:06:10 <niklasl> present+
+16:06:12 <gkellogg> ... Here talking about CBOR-LD from Digital Bazaar.
+16:06:21 <gkellogg> ... Talked about this previously at TPAC.
+16:07:31 <gkellogg> ... Goal is to work with applications which are space constrained.
+16:08:50 <gkellogg> ... Also leverages existing JSON-LD Context mechanism for "semantic compression".
+16:09:06 <gkellogg> ... Make payloads self-describing.
+16:09:21 <gkellogg> ... Should integrate easily with JSON-LD.
+16:10:24 <gkellogg> ... Semantic Compression reuses existing data structures to create invariant data structures.
+16:10:59 <gkellogg> ... This results in very good compression.
+16:11:31 <gkellogg> ... You can go beyond semantic compression using a registry entry.
+16:11:42 <gkellogg> ... Or, you can use CBOR-LD without semantic compression.
+16:12:26 <gkellogg> ... Terms are assigned integer values used for compression.
+16:13:00 <gkellogg> ... Size of compressed terms is not a function of the size of the uncompressed term due to information content of data structures.
+16:14:18 <gkellogg> ... You may need to compress context values themselves.
+16:14:52 <gkellogg> ... This requires the CBOR-LD Registry, with a header which points to that data to allow decompression.
+16:15:12 <gkellogg> ... Also allows compression beyond semantic compression.
+16:15:55 <gkellogg> ... There is a range of CBOR tags which are associated with CBOR-LD, which allows a specific registry entry to be targeted.
+16:16:39 <gkellogg> ... The consumer looks up the registry using the tag.
+16:18:18 <gkellogg> ... (goes through example of a VC)
+16:25:09 <gkellogg> ... Next steps: details of CBOR-LD Registry.
+16:25:24 <gkellogg> ... Algorithm correctness.
+16:25:31 <gkellogg> ... Alternative compression techniques.
+16:25:46 <ivan> q+
+16:25:53 <gkellogg> ... There exist multiple independent implementations, but no comprehensive interop testing.
+16:25:58 <gkellogg> q?
+16:26:10 <bigbluehat> ack ivan
+16:26:35 <gkellogg> ivan: We don't have good experience with setting up and maintaining registries at W3C.
+16:27:06 <gkellogg> ... Setting it up and managing it over time could be a problem.
+16:27:21 <gkellogg> wes-smith: Look forward to getting into this.
+16:27:33 <gkellogg> ivan: Not just a group issue, it's a W3C organizational issue.
+16:27:44 <dlongley> q+
+16:27:46 <gkellogg> ... The group goes away and there is no one to maintain the registry.
+16:27:56 <anatoly-scherbakov> q+
+16:28:02 <bigbluehat> ack dlongley
+16:28:25 <gkellogg> dlongley: Agree with concerns. We've tried other models (e.g., DID).
+16:28:38 <gkellogg> ... There are people who have signed up to help maintain that registry.
+16:28:47 <bigbluehat> q?
+16:28:49 <bigbluehat> ack anatoly-scherbakov
+16:28:51 <gkellogg> ... The Credentials group could maybe be leveraged.
+16:29:21 <gkellogg> anatoly-scherbakov: There's also w3id.org, which has some support from different organizations.
+16:29:24 <dlongley> q+
+16:29:28 <dlongley> q-
+16:29:56 <dlongley> q+
+16:30:02 <gkellogg> dlehn: That's just a redirect service that needs little maintenance.
+16:30:21 <bigbluehat> q+ to ask more about the goals of the registry
+16:30:38 <bigbluehat> ack dlongley
+16:30:45 <gkellogg> dlongley: One of the strengths of w3id.org is that it's simple. First come first serve.
+16:31:15 <gkellogg> ... The CBOR-LD registry could be set up that way.
+16:31:28 <gkellogg> ... It could depend on GitHub.
+16:31:29 <gkellogg> q+
+16:31:32 <bigbluehat> ack bigbluehat
+16:31:32 <Zakim> bigbluehat, you wanted to ask more about the goals of the registry
+16:31:51 <dlongley> q+
+16:31:55 <gkellogg> bigbluehat: Primary need is to keep people from stepping on each other.
+16:32:02 <ivan> q+
+16:32:21 <gkellogg> dlongley: Key is to be sure that applications don't interfere with each other.
+16:32:26 <bigbluehat> ack gkellogg
+16:32:27 <pchampin> pchampin departs
+16:32:30 <dlongley> q-
+16:33:17 <dlongley> q+
+16:33:21 <unit9a> unit9a has joined #json-ld
+16:33:55 <bigbluehat> q+ to tease out "lookup"
+16:34:10 <bigbluehat> ack ivan
+16:34:23 <dlongley> q+ to answer is the space limited, does it use CBOR tags directly, ranges, governance, rules, valid entries
+16:34:58 <gkellogg> ivan: I'd like to get a feeling for a value of the registry. wes-smith showed an example, but he used both semantic compression and registry compression. What would be the result if only semantic compression happened?
+16:35:08 <bigbluehat> ack dlongley
+16:35:08 <Zakim> dlongley, you wanted to answer is the space limited, does it use CBOR tags directly, ranges, governance, rules, valid entries
+16:35:50 <gkellogg> dlongley: If you look at the registry entry, wherever there is a string also in the payload, you can replace those strings with the corresponding registry mapping.
+16:36:36 <gkellogg> ... You can get about 50% compression without a registry; the registry can get to 90%.
+16:37:05 <gkellogg> ... The registry is necessary to get something small enough that can be put into a barcode.
+16:37:49 <gkellogg> ... We designed CBOR-LD so that the spec/WG only needs to register with IETF to get a small range of CBOR tags; from that, we can get to a secondary set of tags.
+16:38:11 <unit9a> can application specific registries be used?
+16:38:15 <gkellogg> ... The core CBOR tags have some fixed meaning that is generally useful.
+16:38:51 <bigbluehat>  q?
+16:38:59 <gkellogg> ... The secondary map can be arbitrarily large, at the expense of going to larger numbers, which won't offer as much protection.
+16:39:18 <gkellogg> ... There are concerns about squatting, and we will need some additional governance considerations.
+16:39:35 <bigbluehat> ack bigbluehat
+16:39:35 <Zakim> bigbluehat, you wanted to tease out "lookup"
+16:39:39 <gkellogg> ... But, we won't need to involve the IETF for managing our own registrires.
+16:40:08 <dlongley> q+
+16:40:11 <gkellogg> bigbluehat: The "lookup" bit is more development-time, where you map strings to numbers and using that to encode the CBOR.
+16:40:25 <bigbluehat> ack dlongley
+16:40:30 <gkellogg> ... Or, do CBOR-LD need to build in the registries.
+16:41:07 <gkellogg> dlongley: The expectation is that you'll reuse existing registries and build that into the code. This allows local lookup.
+16:41:28 <gkellogg> ... The expectation is that you won't do this at runtime.
+16:41:29 <gkellogg> q+
+16:41:43 <bigbluehat> scribe+
+16:41:50 <gkellogg> ... You could build a generalized piece of software, but don't know the use case.
+16:41:53 <bigbluehat> ack gkellogg
+16:42:33 <bigbluehat> gkellogg: so, when I build something for this--as I plan to do--and if I use helper libraries to internalize the registry entries
+16:42:43 <dlongley> +1 very similar to "internalizing JSON-LD contexts"
+16:42:50 <bigbluehat> ... as I do with schema.org's context and many others--to avoid looking it up often
+16:42:57 <dlongley> +1 yes, same patterns used.
+16:43:00 <ivan> q+
+16:43:16 <bigbluehat> ... storing contexts locally and these registry entries locally, sound like very similar problems/uses
+16:43:28 <dlongley> +1 does not scale arbitrarily, is use case specific.
+16:43:43 <bigbluehat> ... but if I stop maintaining that library than it would still work with the older/earlier entries, but not the new ones
+16:43:54 <bigbluehat> ... and it may not have the ability to easily add new ones
+16:44:10 <piotr> q+
+16:44:14 <bigbluehat> ... we will need to face the runtime look up of external resources
+16:44:16 <bigbluehat> ack ivan
+16:44:44 <gkellogg> ivan: In the JSON-LD Context world, it was an important consideration that the content of a context does not change.
+16:44:55 <gkellogg> ... In the case of VC, we publish the hash of the context file.
+16:45:02 <dlongley> q+ to say having a hash *in the JSON-LD URL itself* would be helpful this.
+16:45:04 <bigbluehat> q+ to ask if the registry entries are immutable
+16:45:11 <dlongley> q+ to say that registry entry can be marked immutable
+16:45:20 <gkellogg> ... We need something similar with the registry items, or we're open to a attack.
+16:45:30 <bigbluehat> q?
+16:45:34 <bigbluehat> ack piotr
+16:46:06 <gkellogg> piotr: From a different area, there is precedent for baking in such registries into software.
+16:46:32 <dlongley> q+ to answer CBOR-LD web use case
+16:46:34 <bigbluehat> ack dlongley
+16:46:34 <Zakim> dlongley, you wanted to say having a hash *in the JSON-LD URL itself* would be helpful this. and to say that registry entry can be marked immutable and to answer CBOR-LD web use
+16:46:37 <Zakim> ... case
+16:46:38 <gkellogg> ... Web applications might parse data they find on the web. Is this a use-case?
+16:46:46 <bigbluehat> q+ unit9a
+16:46:50 <bigbluehat> q-
+16:47:33 <gkellogg> dlongley: You might not get the benefits of the registry by dynamic lookup, and they might use an uncompressed or semantic form.
+16:48:11 <gkellogg> ... One of the things that comes up is the need to express a hash of a context within the URL for that context.
+16:48:46 <gkellogg> ... A document-loader can then check the hash of the content with the hash in the URL.
+16:49:02 <gkellogg> ... Immutability can be expressed in the registry itself.
+16:49:13 <bigbluehat> q?
+16:49:16 <bigbluehat> ack unit9a
+16:49:40 <unit9a> daniel osakue
+16:50:09 <gkellogg> unit9a: I'm interested in this to adapt to a different use-case for JSON RPC messaging.
+16:50:29 <dlongley> q+
+16:50:41 <gkellogg> ... Is there any pre-existing exploration of building up a registry with constants for a specific application?
+16:50:58 <bigbluehat> ack dlongley
+16:51:25 <gkellogg> dlongley: I thought you were going to talk about the CBOR-LD registry and how it could be modified with timestamps.
+16:51:47 <gkellogg> ... Could there be a messaging protocol to do this with any number of different kinds of registries?
+16:52:08 <gkellogg> unit9a: I thought the CBOR example reflects general needs of other messaging applications.
+16:52:35 <gkellogg> ... I can see use in IoT contexts.
+16:52:58 <gkellogg> bigbluehat: The WoT group are big consumers of JSON-LD and could use this.
+16:53:02 <dlongley> +1 a great use case / space to explore
+16:53:26 <gkellogg> ... The JSON-LD CG mailing list is a good place to discuss.
+16:53:44 <piotr> q+ to quickly answer unit9a
+16:53:52 <gkellogg> ... I've been thinking about this, and this looks like a solution to a long-standing problem.
+16:53:53 <bigbluehat> q?
+16:53:58 <bigbluehat> ack piotr
+16:53:58 <Zakim> piotr, you wanted to quickly answer unit9a
+16:54:19 <gkellogg> piotr: I'm working on something that might be relevant.
+16:54:53 <gkellogg> bigbluehat: Also, a good place to discuss is the CG mailing list.
+16:54:53 <bigbluehat> Web of Things CG mailing list https://lists.w3.org/Archives/Public/public-web-of-things/
+16:55:19 <bigbluehat> JSON-LD CG mailing list https://lists.w3.org/Archives/Public/public-json-ld/
+16:56:31 <gkellogg> bigbluehat: Thanks to everyone!
+16:56:45 <bigbluehat> zakim, close this agendum
+16:56:45 <Zakim> agendum 2 closed
+16:56:45 <gkellogg> zakim, end meeting
+16:56:46 <Zakim> I see 1 item remaining on the agenda:
+16:56:46 <Zakim> 3. Next call [from agendabot]
+16:56:46 <Zakim> As of this point the attendees have been gkellogg, dlongley, TallTed, dlehn, ivan, wes-smith, anatoly-scherbakov, pchampin, niklasl
+16:56:46 <Zakim> RRSAgent, please draft minutes
+16:56:48 <RRSAgent> I have made the request to generate https://www.w3.org/2025/03/26-json-ld-minutes.html Zakim
+16:56:54 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:56:55 <Zakim> Zakim has left #json-ld
+16:57:02 <bigbluehat> rrsagent, bye
+16:57:02 <RRSAgent> I see no action items
