@@ -1,0 +1,193 @@
+15:57:27 <RRSAgent> RRSAgent has joined #json-ld
+15:57:31 <RRSAgent> logging to https://www.w3.org/2025/04/09-json-ld-irc
+15:57:31 <Zakim> RRSAgent, make logs Public
+15:57:32 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:57:41 <gkellogg> meeting: JSON-LD WG
+15:58:01 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250409T120000/
+15:58:02 <agendabot> clear agenda
+15:58:02 <agendabot> agenda+ Announcements and Introductions
+15:58:02 <agendabot> agenda+ JSON-LD Issue Discussion
+15:58:02 <agendabot> agenda+ Open Discussion
+15:58:02 <agendabot> agenda+ Next call
+15:58:22 <bigbluehat> scribe+
+15:58:31 <gkellogg> zakim, next item
+15:58:31 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:00:13 <anatoly-scherbakov> present+
+16:00:21 <gkellogg> presentT+
+16:00:25 <gkellogg> present+
+16:00:28 <gkellogg> chair: gkellogg
+16:03:59 <niklasl> niklasl has joined #json-ld
+16:04:22 <pchampin> present+
+16:04:56 <pchampin> https://champin.net/2023/sowasm/
+16:05:07 <bigbluehat> pchampin: I've created a playground
+16:05:20 <bigbluehat> ... I've added poor man's support for JSON-LD and YAML-LD
+16:05:32 <anatoly-scherbakov> q+
+16:05:53 <bigbluehat> ... it doesn't support the full capabilities...but it's better than nothing
+16:06:16 <bigbluehat> gkellogg: I think we eliminated a lot of the special processing in YAML-LD
+16:06:22 <bigbluehat> pchampin: I honestly didn't check the spec
+16:06:37 <bigbluehat> anatoly-scherbakov: we removed most...or maybe all of the YAML specific features and made it very bare bones
+16:06:44 <bigbluehat> ... pchampin is it correct that you build Sophia RS?
+16:06:49 <bigbluehat> pchampin: correct
+16:06:57 <niklasl> present+
+16:06:58 <bigbluehat> anatoly-scherbakov: and that's on crates.io?
+16:07:04 <bigbluehat> ... and supports JSON-LD?
+16:07:15 <bigbluehat> pchampin: the latest version does not support YAML-LD out of the box
+16:07:27 <bigbluehat> ... the SoWasm playground is a hack around YAML-LD
+16:07:41 <bigbluehat> ... it's a simple conversion to JSON and then uses the JSON-LD parser in Sophia
+16:08:09 <bigbluehat> ... ultimately, I'd like to create a full implementation that goes straight from YAML to the internal representation
+16:08:20 <bigbluehat> gkellogg: there is work around the document loader with logic for contexts and things
+16:08:33 <bigbluehat> ... but it should be an "onion skin" type of implementation, though.
+16:08:42 <anatoly-scherbakov> q-
+16:08:51 <gkellogg> subtopic: CBOR-LD
+16:09:02 <bigbluehat> bigbluehat: any thoughts on last time's call?
+16:09:10 <bigbluehat> gkellogg: I've stayed out of it for some time
+16:09:17 <bigbluehat> ... the binary format has kept me away
+16:09:33 <bigbluehat> ... I do like where they're going where every context does not need be well known
+16:09:41 <bigbluehat> ... some things are still fuzzy, though.
+16:09:43 <bigbluehat> bigbluehat: such as?
+16:09:48 <bigbluehat> gkellogg: things like the token space
+16:10:00 <bigbluehat> ... you don't just put a vanilla CBOR to JSON parser
+16:10:09 <bigbluehat> ... you have to understand the JSON-LD first
+16:10:33 <gkellogg> scribe+
+16:10:56 <gkellogg> bigbluehat: It's progressive layers of compression; you can layer on more context understanding to get better compression.
+16:11:36 <gkellogg> ... The biggest shock is that it isn't really Linked Data; it's about round-tripping to/from JSON-LD.
+16:11:49 <bigbluehat> gkellogg: I think we layed out some requirements we wanted there
+16:12:01 <bigbluehat> ... such as similar interfaces like we have with YAML-LD
+16:12:13 <bigbluehat> ... and the compression becomes an option for the generic JSON-LD API
+16:12:20 <bigbluehat> ... at least that's how I thought about it
+16:12:35 <bigbluehat> ... it at least needs to be closer to YAML-LD
+16:12:40 <pchampin> q+
+16:12:44 <bigbluehat> bigbluehat: agreed. At least if it keeps the `-LD` moniker
+16:12:50 <pchampin> q-
+16:13:02 <bigbluehat> gkellogg: agreed. For now it's not really a Linked Data format...per se
+16:13:14 <bigbluehat> ... anatoly-scherbakov any thoughts on CBOR-LD?
+16:13:28 <bigbluehat> anatoly-scherbakov: I've not tried it out. Just stuff we've discussed on the calls.
+16:13:55 <bigbluehat> ... my general thought would be that it would be probably logical to create Linked Data mappings for many other things
+16:13:58 <pchampin> q+
+16:14:04 <bigbluehat> ... Parquet, etc.
+16:14:26 <bigbluehat> ... so Linked Data could be used regardless of sub-straight format
+16:14:32 <gkellogg> ack pchampin
+16:14:39 <bigbluehat> pchampin: I agree with anatoly-scherbakov
+16:14:47 <bigbluehat> ... with one caveat maybe
+16:14:59 <bigbluehat> ... JSON-LD might be the most appropriate mapping language
+16:15:07 <bigbluehat> ... CSV on the Web might be closer
+16:15:12 <bigbluehat> ... but I do like that idea
+16:15:25 <bigbluehat> ... being able to map anything to Linked Data would be great
+16:15:53 <bigbluehat> ... I know there are CBOR competitors... Would it make sense to define the compression mechanism separately from the CBOR encoding?
+16:16:14 <bigbluehat> ... we could, for example, consider mapping that compression process onto BSON or other binary formats
+16:16:36 <bigbluehat> gkellogg: some of it is tied directly to the CBOR registry...but some things are not
+16:16:46 <bigbluehat> ... and those things are not necessarily tied to CBOR
+16:16:54 <bigbluehat> ... we could even consider a compact JSON form
+16:17:17 <bigbluehat> ... I guess you'd use a context to map the long names to highly compressed names, perhaps
+16:17:35 <bigbluehat> ... it's a little similar to the internal representation we did between 1.0 and 1.1
+16:17:55 <bigbluehat> ... My main concern is the work is happening outside of the CG or the WG...and it's just stuff being worked on
+16:18:07 <bigbluehat> ... and it's just something we're being expected to adopt
+16:18:16 <bigbluehat> ... and that's not how working groups are supposed to work
+16:18:23 <bigbluehat> ... That said, I'm not sure where we are as a working group
+16:18:35 <bigbluehat> ... we're under the maintenance charter
+16:18:42 <bigbluehat> pchampin: that expires at the end of July
+16:18:47 <bigbluehat> bigbluehat: oh heavens
+16:19:03 <gkellogg> q?
+16:19:14 <bigbluehat> gkellogg: yeah, that should likely be a priority
+16:19:16 <bigbluehat> q+
+16:19:21 <gkellogg> ack bigbluehat
+16:20:00 <gkellogg> bigbluehat: I agree about the concern on CBOR-LD being developed almost exclusively outside of the WG/CG and the expectation that it is on our work list.
+16:20:23 <gkellogg> ... Of course, the CG doesn't have a good track record of completing work (other than YAML-LD).
+16:21:06 <gkellogg> ... But, I agree that it can't be a WG spec until enough of the WG members are more directly involved in the work.
+16:21:33 <gkellogg> ... A WG consideration could be to abstract the work beyond CBOR, as the compression could be useful elsewhere.
+16:22:07 <gkellogg> ... there are other formats which are also interesting for -LD.
+16:22:11 <bigbluehat> https://jelly-rdf.github.io/dev/user-guide/
+16:22:52 <gkellogg> ... It's not LD per-se, but the compressibility is tied to how you compress the data.
+16:23:07 <TallTed> present+
+16:23:29 <gkellogg> ... Jelly is based on protocol buffers; it would be nice to get some of these communities involved in the group.
+16:23:53 <gkellogg> ... CBOR-LD is a way to do that that needs review and shaping.
+16:24:08 <dlehn> present+
+16:24:10 <gkellogg> ... If the algorithms are more generic, they could then be applied to CBOR or something else.
+16:24:28 <gkellogg> zakim, next item
+16:24:28 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:24:29 <bigbluehat> gkellogg: anything else for this intro topic?
+16:24:33 <TallTed> s/layed/laid/
+16:24:39 <gkellogg> https://github.com/orgs/w3c/projects/84
+16:25:02 <bigbluehat> ... are there any issues in the project system that anyone would like to discuss?
+16:25:12 <bigbluehat> ... anatoly-scherbakov I think there's a PR or two?
+16:25:17 <bigbluehat> anatoly-scherbakov: yes, a couple have been merged
+16:25:26 <bigbluehat> ... they add a few small things to the spec
+16:25:32 <bigbluehat> ... metadata and examples
+16:26:02 <bigbluehat> ... I'll repeat my question from earlier. Does anyone have ORCID or other public Linked Data data available that we could use as examples?
+16:26:15 <bigbluehat> TallTed: I don't have ORCID, but I do have other stuff out there
+16:26:23 <bigbluehat> gkellogg: we typically use FoaF
+16:26:29 <bigbluehat> ... dlehn do you have anything like that?
+16:26:38 <bigbluehat> dlehn: for myself...I don't think so
+16:26:40 <bigbluehat> q+
+16:26:50 <bigbluehat> gkellogg: constructing a basic profile isn't very hard
+16:26:57 <bigbluehat> ... there's nominally a URI
+16:27:04 <bigbluehat> ... but blank nodes happen
+16:27:30 <bigbluehat> anatoly-scherbakov: ok. It's just that as I visualize this information, I have human readable names for gkellogg, he, and pchampin
+16:27:57 <bigbluehat> ... but things like GitHub URLs don't resolve because they don't distribute linked data
+16:28:17 <gkellogg> ack bigbluehat
+16:28:26 <bigbluehat> gkellogg: yeah...if that information isn't publicly exposed, then we'll have to fabricate
+16:28:38 <gkellogg> bigbluehat: Is there a YAML-LD section you'd like contributions to?
+16:28:58 <gkellogg> ... I might be able to add something to my site which would help.
+16:29:17 <anatoly-scherbakov> https://github.com/json-ld/yaml-ld/blob/main/spec/data/spec.yamlld
+16:30:29 <gkellogg> bigbluehat: Is this data visualized in the spec?
+16:31:50 <bigbluehat> https://github.com/orgs/json-ld/discussions
+16:31:53 <gkellogg> ... There's also an underutilized discussions space.
+16:32:32 <bigbluehat> gkellogg: any issues we'd like to discuss?
+16:32:44 <bigbluehat> anatoly-scherbakov: there's an issue about use native flags
+16:33:00 <bigbluehat> ... but my earlier contribution was apparently incorrect...
+16:33:23 <gkellogg> subtopic: w3c/json-ld-api#648
+16:33:24 <gb> https://github.com/w3c/json-ld-api/issues/648 -> Issue 648 Error in fromRdf/0027-out.jsonld (by marcelotto)
+16:33:59 <bigbluehat> anatoly-scherbakov: when I was converting literals into JSON-LD
+16:34:11 <bigbluehat> ... when they used native types, I was converting them to Value Objects
+16:34:29 <bigbluehat> ... but that's not what the spec is going for
+16:34:38 <bigbluehat> ... the spec says to use native JSON types
+16:34:45 <bigbluehat> ... and I made a PR to address that
+16:34:56 <bigbluehat> https://github.com/w3c/json-ld-api/pull/650
+16:34:57 <gb> https://github.com/w3c/json-ld-api/pull/650 -> Pull Request 650 #648 `0027-out.jsonld`: `@graph` and value objects (by anatoly-scherbakov)
+16:35:04 <bigbluehat> gkellogg: the first sentence was about `@graph`
+16:35:09 <bigbluehat> ... it was always used in 1.0
+16:35:18 <bigbluehat> ... but generally eliminated in 1.1
+16:35:24 <bigbluehat> ... except for certain use cases
+16:35:38 <bigbluehat> ... if JSON-LD is a single object, then you would not expect to see an `@graph` containing it
+16:35:45 <bigbluehat> ... so I think there are two things in here
+16:36:04 <bigbluehat> ... the specifics of `@graph` and what types of JSON values are emitted vs. expanded values
+16:36:18 <bigbluehat> ... you basically want more review, correct?
+16:36:23 <bigbluehat> anatoly-scherbakov: yes. exactly
+16:36:31 <bigbluehat> ... some re-review would also be appreciated
+16:36:39 <bigbluehat> gkellogg: so the linked issue is 648
+16:37:02 <bigbluehat> anatoly-scherbakov: and the PR is 650
+16:37:14 <bigbluehat> gkellogg: thanks
+16:37:23 <bigbluehat> ... we do also have some things marked as propose close
+16:37:28 <gkellogg> subtopic: w3c/json-ld-syntax#443
+16:37:29 <gb> https://github.com/w3c/json-ld-syntax/issues/443 -> Issue 443 `@protected` creates unresolvable conflicts when the same term is defined in two contexts top-level (by trwnh) [spec:editorial] [propose closing] [wr:commenter-agreed-partial] [class-2]
+16:38:02 <bigbluehat> gkellogg: this came in through some confusion and discussion
+16:38:31 <bigbluehat> ... and any remaining concerns have been moved to another issue
+16:38:36 <bigbluehat> ... anyone object to closing this one?
+16:38:45 <gkellogg> We'll close the issue pending further input.
+16:39:17 <gkellogg> subtopic: w3c/json-ld-syntax#447
+16:39:18 <gb> https://github.com/w3c/json-ld-syntax/issues/447 -> Issue 447 Should `@id` of parent objects be used as a base IRI for relative IRI references? (by trwnh) [propose closing]
+16:39:47 <bigbluehat> gkellogg: it's pretty clear this is not how the system was intended to work
+16:40:04 <bigbluehat> ... I suggest we close this without further action
+16:40:05 <niklasl> +1 to close
+16:40:20 <gkellogg> We'll close without further action.
+16:40:20 <anatoly-scherbakov> +1
+16:41:41 <gkellogg> subtopic: w3c/json-ld-api#641
+16:41:42 <gb> https://github.com/w3c/json-ld-api/issues/641 -> Issue 641 Expansion Section 5.2.1, step 7: need clarification (by daenney) [propose closing]
+16:41:50 <bigbluehat> bigbluehat: mostly, I'm just happy with the engagement. But it does highlight "tree-based" thinking leaking into interpreting JSON-LD
+16:42:09 <bigbluehat> gkellogg: thoughts on this one?
+16:43:16 <gkellogg> bigbluehat: Related to the Jelly folk contributions, we should also try to get ActivityPub folks involed.
+16:43:45 <gkellogg> ... Many commenters have done their homework, which is great.
+16:44:04 <gkellogg> ... It's good to have an engaged audience.
+16:44:19 <anatoly-scherbakov> Discussion about visualizing stuff: https://github.com/orgs/json-ld/discussions/857
+16:44:19 <gb> Issue 857 not found
+16:45:23 <bigbluehat> gkellogg: any closing issues? or shall we close?
+16:45:32 <bigbluehat> ... k. we'll adjourn for the next couple weeks
+16:45:38 <bigbluehat> ... please send in topics!
+16:45:39 <gkellogg> Next meeting in two weeks.
+16:45:58 <bigbluehat> please engage on https://github.com/orgs/json-ld/discussions/857
+16:46:10 <niklasl> Just a mention, I'm closer to make a PR on https://github.com/w3c/json-ld-api/issues/558
+16:46:11 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised] [class-3]
+16:46:12 <bigbluehat> gkellogg: k. let's adjourn then
+16:46:16 <gkellogg> zakim, end meeting
+16:46:16 <Zakim> As of this point the attendees have been anatoly-scherbakov, gkellogg, pchampin, niklasl, TallTed, dlehn
+16:46:18 <Zakim> RRSAgent, please draft minutes
