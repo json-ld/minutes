@@ -1,0 +1,206 @@
+15:59:42 <RRSAgent> RRSAgent has joined #json-ld
+15:59:46 <RRSAgent> logging to https://www.w3.org/2025/04/23-json-ld-irc
+15:59:46 <Zakim> RRSAgent, make logs Public
+15:59:47 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:59:52 <gkellogg> meeting: JSON-LD CG
+16:00:06 <gsaumier-finch> gsaumier-finch has joined #json-ld
+16:00:10 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250423T120000/
+16:00:10 <agendabot> clear agenda
+16:00:10 <agendabot> agenda+ Announcements and Introductions
+16:00:10 <agendabot> agenda+ ActivityPub chat
+16:00:10 <agendabot> agenda+ Next call
+16:00:12 <pierre> pierre has joined #json-ld
+16:00:32 <gkellogg> present+
+16:00:37 <TallTed> present+
+16:00:38 <pierre> present+
+16:00:40 <pchampin> present+
+16:00:41 <gsaumier-finch> present+
+16:00:48 <bigbluehat> present+
+16:01:00 <gkellogg> zakim, next item
+16:01:00 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:01:33 <trwnh> present+
+16:01:33 <niklasl> niklasl has joined #json-ld
+16:01:36 <gkellogg> chair: bigbluehat
+16:01:41 <gkellogg> scribe+
+16:02:25 <bigbluehat> agenda+
+16:02:28 <gkellogg> bigbluehat: Wanted to see the needs of Activity Streams on JSON-LD.
+16:03:23 <gkellogg> bigbluehat: I'm Benjmin Young, co-chair of JSON-LD WG/CG. Been working on JSON-LD for 12+ years.
+16:03:26 <niklasl> present+
+16:04:25 <gkellogg> trwnh: I'm a spec developer been involved for a couple of years
+16:04:43 <trwnh> Abdullah Tarawneh on the w3c members list
+16:05:37 <gkellogg> dlehn: I've been with Digital Bazzar and working on JSON-LD since the beginning.
+16:05:47 <gkellogg> ... I maintain JS/Python implementations.
+16:06:04 <gkellogg> gsaumier-finch: I'm Gregory Saumier-Finch.
+16:06:10 <ivan> present+
+16:06:28 <gkellogg> ... Working with the Canadian government on data collection for some times.
+16:07:06 <gkellogg> ivan: Ivan Herman at W3C. I've been the JSON-LD staff contact and have been active in SemWeb for some time.
+16:07:20 <gkellogg> ... I'm staff contact for Verified Credentials.
+16:08:04 <gkellogg> pchampin: I'm a co-editor of the JSON-LD specs since 2018. I've since joined the W3C and am a staff contact for this group.
+16:09:14 <gkellogg> Pierre: "Pierre Marshall" I'm working on library considerations for a bit; working on a data model for archiving social media
+16:09:31 <gkellogg> niklasl: I've been involved with JSON-LD at the start and working on RDF for about 20 years.
+16:09:54 <gkellogg> TallTed: I've been with Open Link software representing them on working groups since 2000.
+16:10:12 <gkellogg> ... My primary programming language is English.
+16:10:37 <ivan> q+
+16:11:01 <gkellogg> ivan: We should talk about the VC working group, as it is one of the primary uses of JSON-LD in W3C.
+16:11:21 <gkellogg> ... I think we've had a record number of responses to recent votes, mostly positive.
+16:11:48 <gkellogg> ... We just had a meeting and will probably publish the Rec on 15 May.
+16:12:08 <bigbluehat> zakin, next item
+16:12:12 <bigbluehat> zakim, next item
+16:12:12 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, bigbluehat
+16:12:18 <gkellogg> q?
+16:12:20 <bigbluehat> ack ivan
+16:12:21 <bigbluehat> zakim, next item
+16:12:21 <Zakim> agendum 2 -- ActivityPub chat -- taken up [from agendabot]
+16:12:30 <pchampin> s/zakin, next item/
+16:12:53 <gkellogg> bigbluehat: the JSON-LD WG is in maintenance mode, but working on rechartering.
+16:13:00 <trwnh> q+ to give a "state of the union" on ActivityPub and how JSON-LD gets used in theory and in practice
+16:13:13 <gkellogg> ... We'd like a charter which is more than a maintenance-mode refresh.
+16:13:24 <gkellogg> ... We have YAML-LD and CBOR-LD.
+16:13:41 <gkellogg> ... The Activity Pub folks may have different priorities.
+16:13:41 <bigbluehat> ack trwnh
+16:13:41 <Zakim> trwnh, you wanted to give a "state of the union" on ActivityPub and how JSON-LD gets used in theory and in practice
+16:13:58 <trwnh> a lot of software devs in the fediverse don't properly use jsonld, "what's the point", they treat it as plain json without any sort of formalism (no namespacing, no schemas, no context)
+16:13:58 <gkellogg> trwnh: I prepared some notes, which I'll add to IRC.
+16:14:26 <gkellogg> ... Most developers don't really use JSON-LD properly, as they don't understand the value it brings for interoperability.
+16:14:44 <trwnh> desire for extensibility without any understanding of how to actually extend properly
+16:14:55 <gkellogg> ... Mostly, devs treat JSON-LD as JSON and don't pay enough attention to the semantics.
+16:15:19 <gkellogg> ... There's a desire for extensibility without really probing into what already exists.
+16:15:31 <trwnh> one idea is to adopt an "extension process" for the activitystreams context but this in effect turns the context into a central registry of blessed terms, doesn't really solve the extensibility concern for terms outside the context either
+16:15:35 <gkellogg> ... A lot of what Mastodon does just gets copied without undertanding.
+16:16:04 <gkellogg> ... One idea was to have an extension process for the AS context, and reduce the burden for developers.
+16:16:29 <gkellogg> ... This turns the context into a registry, of sorts, with blessed terms. This doesn't really solve the extensibility problem.
+16:16:41 <trwnh> existential questions about as2 as a media type -- the goal seems to be "jsonld that can be parsed as json without understanding jsonld" but there is divergence especially outside the as2-vocab but even sometimes within it.
+16:17:35 <gkellogg> ... The goal seems to be that people can use JSON-LD as JSON, because people wanted to be compatible, but ended up diverging due to lack of understanding.
+16:17:47 <gkellogg> ... Things outside of AS have suffered from this confusion.
+16:17:48 <trwnh> aspects of the data model that are perhaps not well thought out or perhaps not straightforward to represent in jsonld generic model. multiple possible range values, no clean separation between value vs id vs vocab.
+16:18:40 <gkellogg> ... The same property could be used for datatypes or objects and there isn't a clean way to restrict the range further.
+16:18:48 <trwnh> maybe one path is to move away from ld+json with a profile parameter, back to the activity+json media type? especially with recent development in vc/vp and did/cid spaces?
+16:19:32 <gkellogg> ... THere's a split in the community on how to use the different media types, but it's often treated as "magic".
+16:19:56 <gkellogg> ... More to signal compatibility than to objectively reveal the underlying data.
+16:20:14 <ivan> /me "some developments" is an understatement
+16:20:18 <gkellogg> ... There's an idea that some media types are more precise than others.
+16:20:38 <gkellogg> ... It can be application/json or application/ld+json or many others.
+16:20:41 <trwnh> dovetails with protected contexts. activitystreams context is protected in spirit but not in practice, and actual semantics can vary among implementations using as2 as a data format
+16:21:30 <gkellogg> ... There's no real path for having a protcted AS context, as there are understandings about how to treat the data.
+16:21:52 <gkellogg> ... What to do when there are multiple contexts and best practices for developers.
+16:21:59 <gkellogg> ... guidance would be appriciated.
+16:22:22 <gkellogg> bigbluehat: Similar perspectives from others?
+16:23:02 <gkellogg> gkellogg: has the existing protected context work been useful?
+16:23:28 <gkellogg> trwnh: It may be, and can be looked at in a 1.1 AS effort, if we can do it without breaking changes.
+16:23:50 <gkellogg> ... Changing the context exist in a limbo, as they're breaking changes for some, but not otheres.
+16:24:12 <gkellogg> ... Generally, the context is considered normative but secondary to spec language.
+16:24:34 <gkellogg> ... There are implementations that use the vocabulary without an understanding.
+16:24:49 <gkellogg> ... E.g., attachements are assumed to be ordered, but are defined as a set and not a list.
+16:25:05 <gkellogg> ... How do we handle assumptions about ordering without defining them that way?
+16:25:26 <gkellogg> ... We have unordered and ordered-items, but we don't make the distinction elsewhere.
+16:25:31 <pchampin> q?
+16:25:36 <pchampin> q+ Daenney
+16:26:00 <gkellogg> ... People may pick up on the inconsistencies through the data model, so I'd like to reconcile those consistencies and ...
+16:26:32 <gkellogg> ... There's an issue on how to handle protected contexts used for several things.
+16:26:55 <gkellogg> ... For example, an id may be replaced with an object, but not the context that is associated with it.
+16:27:09 <gkellogg> ... JSON-LD is too restrictive to describe what developers will actually do.
+16:28:05 <pchampin> q+
+16:28:07 <gkellogg> Daenney: For ActivityPub, it's defined as optional to use JSON-LD. When people treat it as plain JSON, they only work with a specific shape. But, in JSON-LD, it could have different shapes.
+16:28:29 <gkellogg> ... In practice, most users will use a restricted subset to avoid confusion.
+16:28:31 <bigbluehat> ack Daenney
+16:28:49 <gkellogg> ... It's hard to know what a non-LD processor will handle.
+16:29:04 <gkellogg> ... It would be nice if there were a way to have further restrictions on shapes.
+16:29:36 <gkellogg> ... Also, for expansion and compaction you need to implement a couple of things.
+16:29:55 <gsaumier-finch> Is SHACL being used in the Activity Stream/ActivityPub community?
+16:29:57 <gkellogg> ... There's a test suite for that, but I had bugs in everything I tried to do.
+16:30:11 <gkellogg> ... Fixing something in one place would cause a test to fail elsewhere.
+16:30:38 <gkellogg> ... It would be nice to have a progressive set of tests that aid developers in implementing the algorithm.s
+16:31:00 <gkellogg> bigbluehat: It's a long-standing issue, as not everyone needs to implement evereything.
+16:31:21 <gkellogg> Daenney: 1.0 was fairly easy, but things have become more challenging with 1.1.
+16:31:43 <gkellogg> ... If things are expanded to 1.1, it can be more difficult for people to implement the features.
+16:31:57 <bigbluehat> ack pchampin
+16:32:43 <gkellogg> pchampin: Thanks for the input. I wanted to react to trwnh's comments about understanding JSON-LD without implementing JSON-LD, this is a design goal.
+16:32:45 <bigbluehat> q+
+16:33:00 <gkellogg> ... I'd say that _some_ formats can be understood this way, but not all.
+16:33:42 <gkellogg> ... People are looking for a schema. It's to be expected that you can consume as plain JSON only works if the format is strictly defined, say with JSON schema.
+16:34:14 <gkellogg> ... JSON-LD should have a story about how far you can go by treating it as plain JSON.
+16:34:38 <trwnh> q+ to reply about propagation of protected terms
+16:34:41 <gkellogg> ... I think it makes sense to protect the terms of the base context, but still allow for extensibility.
+16:34:55 <gsaumier-finch> The use of JSON Schema with JSON-LD is an interesting subject and I feel is underdeveloped.
+16:35:13 <gkellogg> ... I think that we should have clearer guidance for how a format such as AS can do extensibility.
+16:35:33 <gkellogg> ... ActivityPub could benefit, but also VC.
+16:35:47 <gkellogg> q?
+16:36:06 <bigbluehat> ack Daenney
+16:36:08 <gkellogg> Daenny: I think JSON schema would be useful in the context of AP.
+16:36:24 <gkellogg> ... You don't need to care, but you have to make sure you emit correct output.
+16:36:45 <gkellogg> ... If people did it correctly, it would be fine, but people don't.
+16:37:12 <gkellogg> ... Having a JSON schema would be helpful for these kinds of projects.
+16:37:17 <bigbluehat> ack bigbluehat
+16:37:36 <gkellogg> bigbluehat: I think that extensibility is core to JSON-LD discussions.
+16:38:11 <gkellogg> ... JSON-LD is the only actual way to extend JSON, as everything else is just throwing in keys without semantics.
+16:38:23 <gkellogg> ... The context system allows us to introduce new terms.
+16:38:42 <pchampin> q+
+16:38:47 <gkellogg> ... But, in AP, the question is when and how quickly to constrain things. Then, what is the extensibility model?
+16:39:38 <gkellogg> ... A VC11 credential could interpret data differently if terms which were not previously in the context are later added, possibly with different meanings.
+16:40:39 <gkellogg> ... If you define a media type, it typically comes with some expressed constrained, and maybe a JSON schema. How might that impact extensibility?
+16:41:15 <gkellogg> ... You may have different ways to say the same thing in JSON-LD with different shapes, but this is a problem for those working with plain JSON.
+16:41:42 <gkellogg> ... The capabilities are there, and this has always been challenging.
+16:41:47 <gkellogg> q+
+16:41:53 <bigbluehat> ack trwnh
+16:41:53 <Zakim> trwnh, you wanted to reply about propagation of protected terms
+16:41:53 <pchampin> q-
+16:42:25 <gkellogg> trwnh: One of the things that has come up with regards to protected context/terms is that the boundaries are a big part of why extensibility is so difficult.
+16:42:51 <gkellogg> ... Generally, the contexts propagate, and the protection propagates with them.
+16:43:22 <gkellogg> ... There may be ways to deal with this. For example, property-scoped contexts.
+16:43:40 <gkellogg> ... This can be messy.
+16:43:58 <pchampin> q+
+16:44:19 <gkellogg> ... Other people have brought up some ideas about how people want contexts to work, which conflict with how they actually work.
+16:44:37 <gkellogg> ... Maybe attaching a context to a schema would help.
+16:45:37 <gkellogg> ... The other idea is to use IRIs as symbols; a context IRI could represent what you would get by dereferencing it. Mostly useful for pre-loaded contexts.
+16:46:10 <gkellogg> ... There's the idea that you must not fetch a context and assert a specific hash.
+16:46:31 <bigbluehat> q+
+16:46:51 <gkellogg> ... People typically don't want to retrieve arbitrary resources at run time.
+16:47:35 <gkellogg> ... This is almost a cleaner semantic model, as contexts form a shared understanding about what dereferencing the IRI means.
+16:48:04 <gkellogg> ... The idea is that a context is something agreed upon, not so much that you have the full context in hand.
+16:48:33 <gb> gb has joined #json-ld
+16:48:49 <gkellogg> ... The way that plain JSON applications work in the Fediverse is by just assuming that it's defined properly.
+16:49:12 <gkellogg> ... They don't necessarily know what terms expand to.
+16:49:34 <gkellogg> ... So, the assumptions are assumed to be shared, even if they're not actually shared.
+16:49:52 <gkellogg> ... This makes extensibility difficult.
+16:50:02 <bigbluehat> q-
+16:50:10 <gkellogg> ... Implicit vs Explicit context can be useful.
+16:50:46 <gkellogg> ... This can lead to divergence.
+16:50:58 <bigbluehat> ack gkellogg
+16:51:04 <bigbluehat> scribe+
+16:51:12 <bigbluehat> gkellogg: regarding expected shapes
+16:51:29 <bigbluehat> ... using various JSON expressions to state the same datae
+16:51:38 <bigbluehat> ... I wonder if anyone has considered JSON-LD Frames
+16:52:10 <bigbluehat> ... that is meant to help constrain the output from a JSON-LD processor, so that it makes consistent choices to match a certain output
+16:52:12 <pchampin> +1 to explore the relationship between frames and schemas
+16:52:14 <gsaumier-finch> Artsdata is using JSON-LD Frames
+16:52:24 <bigbluehat> ... I think the JSON-LD Playground has helped people understand what their JSON-LD actually means
+16:52:49 <bigbluehat> ... I wonder if something similar, but focused on the ActivityStreams community and tools might help explain things
+16:52:52 <bigbluehat> pchampin:
+16:52:55 <bigbluehat> ack pchampin
+16:53:15 <bigbluehat> ack Daenney
+16:53:43 <gkellogg> Deanney: In practice, people just embeds their content in the document, so we can't extend for things that aren't embedded.
+16:54:13 <gkellogg> ... It's a problem when a context can change out from under you.
+16:54:50 <gkellogg> ... I haven't looked at the framing idea, but it could be a problem, but could be useful.
+16:54:51 <bigbluehat> q?
+16:55:16 <trwnh> q+ brief comment about full iris
+16:56:25 <pchampin> q+ to ask a quick question
+16:56:40 <bigbluehat> ack trwnh
+16:57:13 <gkellogg> trwnh: A third alternative would be to give up on the context, and just use expanded JSON-LD. This is unambiguous, but scares off people.
+16:57:41 <gkellogg> ... The semantic concerns are one thing, but the protocol behavior is another.
+16:57:59 <gkellogg> ... ActivityPub has a tension between documents and JSON RPC.
+16:58:21 <gkellogg> ... AP deals more with side-effects, where AS deals with the semantics.
+16:58:51 <gkellogg> ... My focus has been on the semantic concerns, but it would be nice to have guidance on both sides.
+16:59:11 <bigbluehat> q?
+16:59:14 <gkellogg> ... Behavior can fall out of semantics.
+16:59:14 <bigbluehat> ack pchampin
+16:59:14 <Zakim> pchampin, you wanted to ask a quick question
+16:59:48 <gkellogg> pchampin: There's a Mastodon extension that people don't treat properly. Do they just look for the short hame? Or, if the context is there.
+17:00:23 <trwnh> the short name, yes
+17:00:24 <gkellogg> trwnh: They just look for the short name. They assume that because Mastodon uses it one way, it will mean the same thing everywhere else.
+17:01:07 <gkellogg> bigbluehat: We should re-visit these practical needs, as they keep coming up.
+17:01:24 <gkellogg> ... What the solutions are still need to be developed.
+17:01:52 <gkellogg> ... Please consider joining the Working Group!
+17:01:55 <pierre> thanks, really interesting!
+17:02:07 <gkellogg> zakim, end meeting
+17:02:07 <Zakim> As of this point the attendees have been gkellogg, TallTed, pierre, pchampin, gsaumier-finch, bigbluehat, trwnh, niklasl, ivan
+17:02:09 <Zakim> RRSAgent, please draft minutes
