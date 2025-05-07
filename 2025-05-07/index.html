@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD CG</h1>
+<h2>Minutes for 2025-05-07</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="https://json-ld.org/">Pierre-Antoine Champin</a>, <a href="http://www.w3.org/People/Ivan/">Ivan Herman</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="http://dil.lehn.org/">David I. Lehn</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a></dd>
+<dt>Chair(s)</dt><dd>Gregg Kellogg</dd>
+<dt>Scribe(s)</dt><dd>Benjamin Young, Gregg Kellogg</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250507T120000/">https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250507T120000/</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">JSON-LD Issue Discussion</a></ol></dd></dl>
+</div>
+<div class="information">Benjamin Young is scribing.</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Benjamin Young</span>:  Wes Smith is here to say a few words about CBOR-LD during the announcements section <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Pierre-Antoine Champin</span>:  There&apos;s a big hype currently around AI agents and protocols for them to communicate with each other <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Pierre-Antoine Champin</span>: <a href="https://agent-network-protocol.com/">https://agent-network-protocol.com/</a> <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div class="comment-continuation">... this one, ANP, is such an AI agent protocol</div>
+<div class="comment-continuation">... it uses DIDs and JSON-LD</div>
+<div class="comment-continuation">... so it might be interesting to reach out to those people and have a talk with them</div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Gregg Kellogg</span>:  Is this affiliated with some standards group? or is it open source? <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Pierre-Antoine Champin</span>:  It looks to be open source from China <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div class="comment-continuation">... I found out about it from a Chinese contact at the W3C</div>
+<div class="comment-continuation">... they are willing to get closer to the W3C and collaborate more</div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Gregg Kellogg</span>:  So, perhaps we can have them attend our next call and make that one a CG meeting <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I&apos;ll reach out! <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Gregg Kellogg</span>:  Wes-smith did you have something to share? <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Wesley Smith</span>:  I have a couple updates about CBOR tags related to CBOR-LD <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div class="comment-continuation">... we use CBOR tags to denote that the CBOR is actually CBOR-LD</div>
+<div class="comment-continuation">... the IETF folks felt that registering a range was not viable</div>
+<div class="comment-continuation">... so we moved to using a single entry instead</div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Wesley Smith</span>: <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml</a> <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<div class="comment-continuation">... which they accepted!</div>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Wesley Smith</span>: Tag: 51997 <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Wesley Smith</span>: (0Xcb1d) <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div class="comment-continuation">... so that means we can more easily move forward</div>
+<div class="comment-continuation">... we&apos;ve started making changes to the CBOR-LD spec to match this</div>
+<div class="comment-continuation">... and that means it&apos;s officially registered</div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Gregg Kellogg</span>:  That&apos;s great <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div class="comment-continuation">... I do think there&apos;s more we need to do to make CBOR-LD work a bit more like YAML-LD</div>
+<div class="comment-continuation">... so you can start with CBOR-LD rather than always going through JSON-LD</div>
+<div class="comment-continuation">... I do need to look at the state of the document</div>
+<div class="comment-continuation">... CBOR-LD seems to mostly be focused on compression</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Benjamin Young</span>:  I understand that CBOR-LD is not an LD format; it&apos;s just about compressing JSON-LD, you&apos;re supposed to round-trip through JSON-LD. <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div class="comment-continuation">... We&apos;ll need to put something into the spec in this regard.</div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Wesley Smith</span>:  We currently use processing modes <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div class="comment-continuation">... which is currently focused on compression</div>
+<div class="comment-continuation">... but if we wanted it to have more LD processing, those could be additional modes</div>
+<div class="comment-continuation">... so maybe we can talk about that more in the future</div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Gregg Kellogg</span>:  Speaking on my own here, but we do call it CBOR-LD which makes it sound like an LD format <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div class="comment-continuation">... and the LD family of specs include a shared modeling</div>
+<div class="comment-continuation">... and compression would in theory be laid on top of the JSON-LD compression algorithm</div>
+<div class="comment-continuation">... maybe that&apos;s not how it works</div>
+<div class="comment-continuation">... but I do wonder if it makes sense to be able to have CBOR-LD expanded forms and the like</div>
+<div class="comment-continuation">... it was pretty simple to do this for YAML-LD, so perhaps we can explore it CBOR-LD</div>
+<div class="comment-continuation">... so we can be sure we can really treat it and call it an LD</div>
+<div class="comment-continuation">... and if not, perhaps we consider a different name if LD sends the wrong message</div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Wesley Smith</span>:  I agree. It&apos;s likely an open question <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div class="comment-continuation">... so do we have CBOR for Linked Data or Linked Data in CBOR</div>
+<div class="comment-continuation">... I&apos;m not up to speed on the other processing modes, etc.</div>
+<div class="comment-continuation">... I do think it&apos;s an interesting question</div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Gregg Kellogg</span>:  Perhaps we can make an issue for that <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div class="comment-continuation">... the spec work is minimal, but the tests may be a pain</div>
+<div class="comment-continuation">... so, the hard work is probably in everything around the spec</div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Wesley Smith</span>:  Sounds good <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Gregg Kellogg</span>:  Anything else on this one? <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Anatoly Scherbakov</span>:  I don&apos;t think we actually duplicated tests for YAML-LD <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div class="comment-continuation">... since YAML is a superset of JSON, we didn&apos;t really have to convert anything</div>
+<div class="comment-continuation">... we did add a few YAML-LD specific tests</div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, I don&apos;t think we can have the same expectation here <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div class="comment-continuation">... but maybe the group decides it&apos;s not worth supporting all those processing modes</div>
+<div class="comment-continuation">... and perhaps just clarify the naming</div>
+<div class="comment-continuation">... k. moving on</div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Wesley Smith</span>:  Just a note on the naming <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div class="comment-continuation">... even in it&apos;s compressed form, it&apos;s not loosing it&apos;s LD meaning</div>
+<div class="comment-continuation">... CBOR-LD does maintain it&apos;s LD encoding even when compressed</div>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: JSON-LD Issue Discussion
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="information"><a href="https://github.com/orgs/w3c/projects/84">https://github.com/orgs/w3c/projects/84</a> <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Gregg Kellogg</span>:  Yeah, I think this is a meta discussion <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Benjamin Young</span>:  Json-ld.org went down a couple of weeks ago, and we couldn&apos;t figure out why. <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div class="comment-continuation">... Fortunately, we had a replacement waiting on approval. dlehn and I decided that this was the perfect time to launch that site.</div>
+<div class="comment-continuation">... The 11ty site is now up, faster, and much easier to maintain.</div>
+<div class="comment-continuation">... There&apos;s also a new playground in the works, with the objective to be able to include YAML-LD and CBOR-LD in the playground.</div>
+<div class="comment-continuation">... The version of codemirror we were using was ancient.</div>
+<div class="comment-continuation">... The old code was too hard to work with. We can then cascade the new design to other pages after that.</div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Gregg Kellogg</span>:  I&apos;ll put up a little plug in for or lobby a bit more for other RDF formats <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div class="comment-continuation">... I&apos;d like to see Turtle, NQuads, and the like to be able to be added to the Playground as input</div>
+<div class="comment-continuation">... so one could convert to JSON-LD, YAML-LD, etc.</div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Benjamin Young</span>:  We need to get back to feature parity then add other RDF formats. <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Benjamin Young</span>:  I&apos;ve been converting discussion issues into GH discussions. <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div class="comment-continuation">... Many are questions and answers, not really issues. There are some which are ideas for future development.</div>
+<div class="comment-continuation">... GH closes and locks the issue, but points to the discussion.</div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  I really don&apos;t like GitHub Discussions <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div class="comment-continuation">... they&apos;re all single threaded commentary</div>
+<div class="comment-continuation">... where there were threads of conversations, they now look very different</div>
+<div class="comment-continuation">... I&apos;m not going to fight you about it</div>
+<div class="comment-continuation">... but I find them less than useful</div>
+<div class="comment-continuation">... that&apos;s it</div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Gregg Kellogg</span>:  We do act as an information resource. <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div class="comment-continuation">... ideally, they&apos;ll continue to reach out to us on json-ld.org</div>
+<div class="comment-continuation">... and we need to do something with all that content</div>
+<div class="comment-continuation">... I expect that the conversion is likely lossy</div>
+<div class="comment-continuation">... but new conversations will better use that interface</div>
+<div class="comment-continuation">... and if we don&apos;t do this conversion, we&apos;ll continue to drown in issues</div>
+<div class="comment-continuation">... sadly we don&apos;t have a better feature to hang things on</div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: <a href="https://github.com/w3c/json-ld-api/issues/549">https://github.com/w3c/json-ld-api/issues/549</a> <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="information"><a href="https://github.com/w3c/json-ld-api/issues/549">https://github.com/w3c/json-ld-api/issues/549</a> -&gt; #549 <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I wanted to bring this issue from 2022 to our attention <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div class="comment-continuation">... this has the `erratum-raised` label</div>
+<div class="comment-continuation">... but I couldn&apos;t find it</div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Gregg Kellogg</span>:  It should be in the errata column <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I looked, but didn&apos;t find it <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Pierre-Antoine Champin</span>:  I think `erratum-raised` doesn&apos;t populate that list, only `errata` <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Gregg Kellogg</span>:  It thought they&apos;d be there...but maybe not. I don&apos;t see that on either <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div class="comment-continuation">... maybe we can remove it and add it back manually?</div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  Maybe we can look at it a bit regardless <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div class="comment-continuation">... I found this via another issue I filed 3 days ago or so</div>
+<div class="comment-continuation">... I thought it was a bug in my implementation</div>
+<div class="comment-continuation">... but I think maybe fixing these problems with node map generation may be enough</div>
+<div class="comment-continuation">... I do have another PR I need to make for another issue</div>
+<div class="comment-continuation">... and hopefully I can also make one for this</div>
+<div class="comment-continuation">... at which point that may be a better time to discuss it</div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Gregg Kellogg</span>:  Do keep in mind we&apos;re needing to use &lt;ins&gt; and &lt;del&gt; <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div class="comment-continuation">... it starts off annoying, but the more you do it the more satisfying it becomes</div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: <a href="https://github.com/w3c/json-ld-api/issues/558">https://github.com/w3c/json-ld-api/issues/558</a> <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="information"><a href="https://github.com/w3c/json-ld-api/issues/558">https://github.com/w3c/json-ld-api/issues/558</a> -&gt; Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised] [class-3] <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  K. I&apos;ll try to remember to do that <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div class="comment-continuation">... sadly, I don&apos;t think I can get ChatGPT to help me with the markup</div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Gregg Kellogg</span>:  So, now to climb out of the backlog... <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div class="comment-continuation">... we still have a number of discuss-call issues</div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="information">The first I see is 443 <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: <a href="https://github.com/w3c/json-ld-syntax/issues/443">https://github.com/w3c/json-ld-syntax/issues/443</a>
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="information"><a href="https://github.com/w3c/json-ld-syntax/issues/443">https://github.com/w3c/json-ld-syntax/issues/443</a> -&gt; Issue 443 `@protected` creates unresolvable conflicts when conforming to multiple normative contexts (by trwnh) [spec:editorial] [propose closing] [wr:commenter-agreed-partial] [class-2] <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="comment"><span class="name">Gregg Kellogg</span>:  I suggested we close this issue in February <a id="link-47" style="display:none;" href="#47">✪</a></div>
+<div class="comment-continuation">... there&apos;s a resolution from last November on it</div>
+<div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="information">We&apos;ll close the issue. <a id="link-48" style="display:none;" href="#48">✪</a></div>
+<div class="comment-continuation">... so, if there are no objections, I think we can close this one and move on</div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Benjamin Young</span>: +1 <a id="link-50" style="display:none;" href="#50">✪</a></div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: w3c/json-ld-api#558
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-51').hide()" onmouseover="$('#link-51').show()" id="51" class="information">Issue 558 not found <a id="link-51" style="display:none;" href="#51">✪</a></div>
+<div onmouseout="$('#link-52').hide()" onmouseover="$('#link-52').show()" id="52" class="comment"><span class="name">Gregg Kellogg</span>:  Anyone want to discuss this one? <a id="link-52" style="display:none;" href="#52">✪</a></div>
+<div onmouseout="$('#link-53').hide()" onmouseover="$('#link-53').show()" id="53" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I just need to make this PR <a id="link-53" style="display:none;" href="#53">✪</a></div>
+<div onmouseout="$('#link-54').hide()" onmouseover="$('#link-54').show()" id="54" class="information">We&apos;ll work on a PR for this. <a id="link-54" style="display:none;" href="#54">✪</a></div>
+<div class="comment-continuation">... if anyone has some time to look at it, that&apos;d be helpful</div>
+<div onmouseout="$('#link-55').hide()" onmouseover="$('#link-55').show()" id="55" class="comment"><span class="name">Gregg Kellogg</span>:  Is there an existing PR? <a id="link-55" style="display:none;" href="#55">✪</a></div>
+<div onmouseout="$('#link-56').hide()" onmouseover="$('#link-56').show()" id="56" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  No, I&apos;m transcribing back from Python into human language <a id="link-56" style="display:none;" href="#56">✪</a></div>
+<div onmouseout="$('#link-57').hide()" onmouseover="$('#link-57').show()" id="57" class="comment"><span class="name">Gregg Kellogg</span>:  So that one PR should close both issues? <a id="link-57" style="display:none;" href="#57">✪</a></div>
+<div onmouseout="$('#link-58').hide()" onmouseover="$('#link-58').show()" id="58" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  No, this will be another PR <a id="link-58" style="display:none;" href="#58">✪</a></div>
+<div onmouseout="$('#link-59').hide()" onmouseover="$('#link-59').show()" id="59" class="comment"><span class="name">Gregg Kellogg</span>:  Any one have specific issues they want to discuss? <a id="link-59" style="display:none;" href="#59">✪</a></div>
+<div class="comment-continuation">... looking for a way to prioritize these</div>
+<div class="comment-continuation">... I do wonder if we need a CBOR-LD column</div>
+<div class="comment-continuation">... pchampin what would it take to do that</div>
+<div onmouseout="$('#link-60').hide()" onmouseover="$('#link-60').show()" id="60" class="comment"><span class="name">Gregg Kellogg</span>:  We could setup some automation related to labels also <a id="link-60" style="display:none;" href="#60">✪</a></div>
+<div onmouseout="$('#link-61').hide()" onmouseover="$('#link-61').show()" id="61" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Yeah, I&apos;ll look into that <a id="link-61" style="display:none;" href="#61">✪</a></div>
+<div onmouseout="$('#link-62').hide()" onmouseover="$('#link-62').show()" id="62" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  <a id="link-62" style="display:none;" href="#62">✪</a></div>
+<div onmouseout="$('#link-63').hide()" onmouseover="$('#link-63').show()" id="63" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I have a similarly orthogonal issue <a id="link-63" style="display:none;" href="#63">✪</a></div>
+<div class="comment-continuation">... I&apos;ve been tinkering on what we will likely no longer call JSON-LD-star</div>
+<div class="comment-continuation">... I know pchampin and gkellogg have done a good bit of work in that other repo</div>
+<div class="comment-continuation">... but I do wonder about timing and the like</div>
+<div class="comment-continuation">... I do think we&apos;ve said that JSON-LD 1.2 will support RDF 1.2</div>
+<div onmouseout="$('#link-64').hide()" onmouseover="$('#link-64').show()" id="64" class="comment"><span class="name">Gregg Kellogg</span>:  Indeed. One of the goals of JSON-LD 1.2 is to track with RDF 1.2 <a id="link-64" style="display:none;" href="#64">✪</a></div>
+<div class="comment-continuation">... now the RDF and SPARQL 1.2 group...is that our name now?</div>
+<div onmouseout="$('#link-65').hide()" onmouseover="$('#link-65').show()" id="65" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Yes, almost, but no version number <a id="link-65" style="display:none;" href="#65">✪</a></div>
+<div onmouseout="$('#link-66').hide()" onmouseover="$('#link-66').show()" id="66" class="comment"><span class="name">Gregg Kellogg</span>:  Right. So the RDF and SPARQL WG is already working on v1.2 of both of those <a id="link-66" style="display:none;" href="#66">✪</a></div>
+<div class="comment-continuation">... that said, we do have a JSON-LD-star repo that is now way out of date</div>
+<div class="comment-continuation">... so I think my thought is that since this will all be new in 1.2</div>
+<div class="comment-continuation">... this is a big task we need to address</div>
+<div class="comment-continuation">... such as changing the algorithms, etc.</div>
+<div class="comment-continuation">... the hope is to make all this easier for when we can finally work on JSON-LD 1.2 proper</div>
+<div class="comment-continuation">... I do think there are issues in there around how to do most of those things</div>
+<div class="comment-continuation">... things such as triple terms, reification triples, and annotations</div>
+<div class="comment-continuation">... I believe it&apos;s all there, but we need implementations and spec text</div>
+<div onmouseout="$('#link-67').hide()" onmouseover="$('#link-67').show()" id="67" class="comment"><span class="name">Gregg Kellogg</span>:  ...Yes, and tests <a id="link-67" style="display:none;" href="#67">✪</a></div>
+<div class="comment-continuation">... we do tend to duplicate tests for every different processing moment</div>
+<div class="comment-continuation">... which makes it a combinatorial problem</div>
+<div class="comment-continuation">... and folks have asked for more linear testing</div>
+<div class="comment-continuation">... the algorithms should be clear</div>
+<div class="comment-continuation">... but we have taken some license with some of our internal terms that we&apos;re still trying to clean out</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: <a href="https://github.com/json-ld/yaml-ld/issues/158">https://github.com/json-ld/yaml-ld/issues/158</a>
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-68').hide()" onmouseover="$('#link-68').show()" id="68" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/158">https://github.com/json-ld/yaml-ld/issues/158</a> -&gt; Issue 158 YAML-LD tools (by VladimirAlexiev) <a id="link-68" style="display:none;" href="#68">✪</a></div>
+<div onmouseout="$('#link-69').hide()" onmouseover="$('#link-69').show()" id="69" class="comment"><span class="name">Gregg Kellogg</span>:  K. looking at YAML-LD 158 <a id="link-69" style="display:none;" href="#69">✪</a></div>
+<div onmouseout="$('#link-70').hide()" onmouseover="$('#link-70').show()" id="70" class="comment"><span class="name">Anatoly Scherbakov</span>:  Maybe this should actually be a discussion <a id="link-70" style="display:none;" href="#70">✪</a></div>
+<div onmouseout="$('#link-71').hide()" onmouseover="$('#link-71').show()" id="71" class="comment"><span class="name">Gregg Kellogg</span>:  If this is about highlighting tooling, then perhaps this goes on the json-ld.org site <a id="link-71" style="display:none;" href="#71">✪</a></div>
+<div class="comment-continuation">... with more LD formats, we likely need more sections for tools</div>
+<div class="comment-continuation">... and we can test out how easy the new site works</div>
+<div onmouseout="$('#link-72').hide()" onmouseover="$('#link-72').show()" id="72" class="comment"><span class="name">Anatoly Scherbakov</span>:  I don&apos;t know how the new 11ty site works, but I would like to help <a id="link-72" style="display:none;" href="#72">✪</a></div>
+<div class="comment-continuation">... I believe both pchampin and gkellogg have implementations</div>
+<div onmouseout="$('#link-73').hide()" onmouseover="$('#link-73').show()" id="73" class="comment"><span class="name">Benjamin Young</span>:  Now the developers link goes to a section on the homepage; we could create a developers page that does this. <a id="link-73" style="display:none;" href="#73">✪</a></div>
+<div class="comment-continuation">... The site is 11ty based, but is mostly just markdown.</div>
+<div class="comment-continuation">... The current index.yaml file encodes the implementations and is, itself, a YAML-LD file.</div>
+<div class="comment-continuation">... We can expand that to include YAML-LD implementations.</div>
+<h2 onmouseout="$('#link-topic-NaN').hide()" onmouseover="$('#link-topic-NaN').show()" id="topic-NaN" class="topic">
+Subtopic: <a href="https://github.com/w3c/json-ld-api/issues/651">https://github.com/w3c/json-ld-api/issues/651</a>
+<a id="link-topic-NaN" style="display:none;" href="#topic-NaN">✪</a></h2>
+<div onmouseout="$('#link-74').hide()" onmouseover="$('#link-74').show()" id="74" class="information"><a href="https://github.com/w3c/json-ld-api/issues/651">https://github.com/w3c/json-ld-api/issues/651</a> -&gt; Issue 651 scoped context does not work for aliases of `@type` (by pchampin) [class-3] <a id="link-74" style="display:none;" href="#74">✪</a></div>
+<div onmouseout="$('#link-75').hide()" onmouseover="$('#link-75').show()" id="75" class="comment"><span class="name">Gregg Kellogg</span>:  Pchampin you raised this one? <a id="link-75" style="display:none;" href="#75">✪</a></div>
+<div onmouseout="$('#link-76').hide()" onmouseover="$('#link-76').show()" id="76" class="comment"><span class="name">Pierre-Antoine Champin</span>:  Yeah...I found this counter intuitive, but having the intuitive change would require serious changes <a id="link-76" style="display:none;" href="#76">✪</a></div>
+<div onmouseout="$('#link-77').hide()" onmouseover="$('#link-77').show()" id="77" class="comment"><span class="name">Gregg Kellogg</span>:  K. I moved it to future work <a id="link-77" style="display:none;" href="#77">✪</a></div>
+<div class="comment-continuation">... looks like we&apos;re out of time this week</div>
+<div class="comment-continuation">... we&apos;ll work to get the WG and CG calls in sync again</div>
+<div class="comment-continuation">... and see if we can get the folks from <a href="https://agent-network-protocol.com/">https://agent-network-protocol.com/</a> to join us for a call</div>
+<div class="comment-continuation">... thanks all, good bye</div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>

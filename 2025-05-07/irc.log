@@ -1,0 +1,262 @@
+16:01:33 <RRSAgent> RRSAgent has joined #json-ld
+16:01:37 <RRSAgent> logging to https://www.w3.org/2025/05/07-json-ld-irc
+16:01:37 <Zakim> RRSAgent, make logs Public
+16:01:38 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:01:40 <bigbluehat> present+
+16:01:45 <pchampin> present+
+16:01:50 <gkellogg> meeting: JSON-LD CG
+16:01:54 <ivan> present+
+16:02:09 <niklasl> present+
+16:02:30 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250507T120000/
+16:02:30 <agendabot> clear agenda
+16:02:30 <agendabot> agenda+ Announcements and Introductions
+16:02:30 <agendabot> agenda+ JSON-LD Issue Discussion
+16:02:30 <agendabot> agenda+ Open Discussion
+16:02:30 <agendabot> agenda+ Next call
+16:02:42 <gkellogg> chair+
+16:02:46 <gkellogg> present+
+16:02:51 <bigbluehat> scribe+
+16:03:06 <gkellogg> zakim, next item
+16:03:06 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:03:12 <pchampin> q+
+16:03:35 <gkellogg> ack pchampin
+16:03:36 <bigbluehat> bigbluehat: Wes Smith is here to say a few words about CBOR-LD during the announcements section
+16:03:55 <bigbluehat> pchampin: there's a big hype currently around AI agents and protocols for them to communicate with each other
+16:03:56 <pchampin> https://agent-network-protocol.com/
+16:03:58 <dlehn> present+
+16:04:11 <bigbluehat> ... this one, ANP, is such an AI agent protocol
+16:04:11 <wes-smith> wes-smith has joined #json-ld
+16:04:20 <bigbluehat> ... it uses DIDs and JSON-LD
+16:04:31 <bigbluehat> ... so it might be interesting to reach out to those people and have a talk with them
+16:04:54 <bigbluehat> gkellogg: is this affiliated with some standards group? or is it open source?
+16:05:02 <bigbluehat> pchampin: it looks to be open source from China
+16:05:16 <bigbluehat> ... I found out about it from a Chinese contact at the W3C
+16:05:27 <bigbluehat> ... they are willing to get closer to the W3C and collaborate more
+16:05:47 <bigbluehat> gkellogg: so, perhaps we can have them attend our next call and make that one a CG meeting
+16:05:49 <gkellogg> q?
+16:05:52 <TallTed> TallTed has joined #json-ld
+16:05:59 <bigbluehat> pchampin: I'll reach out!
+16:06:35 <wes-smith> wes-smith has joined #json-ld
+16:06:37 <bigbluehat> gkellogg: wes-smith did you have something to share?
+16:06:37 <wes-smith> q+
+16:06:44 <gkellogg> ack wes-smith
+16:07:06 <bigbluehat> wes-smith: I have a couple updates about CBOR tags related to CBOR-LD
+16:07:11 <bigbluehat> ... we use CBOR tags to deno
+16:07:25 <bigbluehat> s/deno/denote that the CBOR is actually CBOR-LD
+16:07:35 <bigbluehat> ... the IETF folks felt that registering a range was not viable
+16:07:44 <bigbluehat> ... so we moved to using a single entry instead
+16:07:48 <wes-smith> https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
+16:07:50 <bigbluehat> ... which they accepted!
+16:07:55 <wes-smith> Tag: 51997
+16:07:59 <wes-smith> (0xcb1d)
+16:08:11 <bigbluehat> ... so that means we can more easily move forward
+16:08:22 <bigbluehat> ... we've started making changes to the CBOR-LD spec to match this
+16:08:29 <bigbluehat> ... and that means it's officially registered
+16:08:33 <bigbluehat> gkellogg: that's great
+16:08:55 <bigbluehat> ... I do think there's more we need to do to make CBOR-LD work a bit more like YAML-LD
+16:09:10 <bigbluehat> ... so you can start with CBOR-LD rather than always going through JSON-LD
+16:09:18 <bigbluehat> ... I do need to look at the state of the document
+16:09:20 <bigbluehat> q+
+16:09:33 <bigbluehat> ... CBOR-LD seems to mostly be focused on compression
+16:09:37 <gkellogg> ack bigbluehat
+16:09:40 <gkellogg> scribe+
+16:10:18 <gkellogg> bigbluehat: I understand that CBOR-LD is not an LD format; it's just about compressing JSON-LD, you're supposed to round-trip through JSON-LD.
+16:10:50 <wes-smith> q+
+16:10:57 <bigbluehat> ack wes-smith
+16:11:01 <gkellogg> ... We'll need to put something into the spec in this regard.
+16:11:21 <bigbluehat> wes-smith: we currently use processing modes
+16:11:29 <bigbluehat> ... which is currently focused on compression
+16:11:42 <bigbluehat> ... but if we wanted it to have more LD processing, those could be additional modes
+16:11:48 <bigbluehat> ... so maybe we can talk about that more in the future
+16:12:06 <bigbluehat> gkellogg: speaking on my own here, but we do call it CBOR-LD which makes it sound like an LD format
+16:12:21 <bigbluehat> ... and the LD family of specs include a shared modeling
+16:12:43 <bigbluehat> ... and compression would in theory be laid on top of the JSON-LD compression algorithm
+16:12:48 <bigbluehat> ... maybe that's not how it works
+16:13:03 <bigbluehat> ... but I do wonder if it makes sense to be able to have CBOR-LD expanded forms and the like
+16:13:30 <bigbluehat> ... it was pretty simple to do this for YAML-LD, so perhaps we can explore it CBOR-LD
+16:13:39 <bigbluehat> ... so we can be sure we can really treat it and call it an LD
+16:13:45 <gkellogg> q?
+16:13:48 <wes-smith> q+
+16:13:54 <gkellogg> ack wes-smith
+16:13:54 <bigbluehat> ... and if not, perhaps we consider a different name if LD sends the wrong message
+16:14:05 <bigbluehat> wes-smith: I agree. It's likely an open question
+16:14:22 <bigbluehat> ... so do we have CBOR for Linked Data or Linked Data in CBOR
+16:14:30 <bigbluehat> ... I'm not up to speed on the other processing modes, etc.
+16:14:36 <bigbluehat> ... I do think it's an interesting question
+16:14:48 <bigbluehat> gkellogg: perhaps we can make an issue for that
+16:14:55 <bigbluehat> ... the spec work is minimal, but the tests may be a pain
+16:15:10 <bigbluehat> ... so, the hard work is probably in everything around the spec
+16:15:28 <gkellogg> q?
+16:15:28 <bigbluehat> wes-smith: sounds good
+16:15:34 <bigbluehat> gkellogg: anything else on this one?
+16:15:40 <anatoly-scherbakov> q+
+16:15:45 <bigbluehat> anatoly-scherbakov: I don't think we actually duplicated tests for YAML-LD
+16:15:57 <bigbluehat> ... since YAML is a superset of JSON, we didn't really have to convert anything
+16:16:02 <anatoly-scherbakov> q-
+16:16:06 <bigbluehat> ... we did add a few YAML-LD specific tests
+16:16:14 <bigbluehat> q+
+16:16:25 <bigbluehat> q-
+16:16:38 <bigbluehat> gkellogg: yeah, I don't think we can have the same expectation here
+16:16:56 <bigbluehat> ... but maybe the group decides it's not worth supporting all those processing modes
+16:17:01 <bigbluehat> ... and perhaps just clarify the naming
+16:17:05 <bigbluehat> ... k. moving on
+16:17:29 <bigbluehat> wes-smith: just a note on the naming
+16:17:42 <bigbluehat> ... even in it's compressed form, it's not loosing it's LD meaning
+16:18:13 <ivan> q+
+16:18:14 <bigbluehat> ... CBOR-LD does maintain it's LD encoding even when compressed
+16:17:05 <gkellogg> zakim, next item
+16:17:05 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:18:19 <gkellogg> https://github.com/orgs/w3c/projects/84
+16:18:22 <bigbluehat> gkellogg: yeah, I think this is a meta discussion
+16:18:23 <ivan> q-
+16:18:35 <bigbluehat> q+
+16:18:44 <gkellogg> ack bigbluehat
+16:19:07 <gkellogg> bigbluehat: json-ld.org went down a couple of weeks ago, and we couldn't figure out why.
+16:19:52 <gkellogg> ... Fortunately, we had a replacement waiting on approval. dlehn and I decided that this was the perfect time to launch that site.
+16:20:10 <gkellogg> ... The 11ty site is now up, faster, and much easier to maintain.
+16:20:35 <gkellogg> ... There's also a new playground in the works, with the objective to be able to include YAML-LD and CBOR-LD in the playground.
+16:20:54 <gkellogg> ... The version of codemirror we were using was ancient.
+16:21:36 <gkellogg> ... The old code was too hard to work with. We can then cascade the new design to other pages after that.
+16:21:52 <gkellogg> q+
+16:21:58 <gkellogg> ack gk
+16:22:04 <gkellogg> ack me
+16:22:23 <bigbluehat> gkellogg: I'll put up a little plug in for or lobby a bit more for other RDF formats
+16:22:43 <bigbluehat> ... I'd like to see Turtle, NQuads, and the like to be able to be added to the Playground as input
+16:22:51 <bigbluehat> ... so one could convert to JSON-LD, YAML-LD, etc.
+16:23:16 <gkellogg> bigbluehat: We need to get back to feature parity then add other RDF formats.
+16:23:18 <gkellogg> q?
+16:23:51 <bigbluehat> q+
+16:23:54 <niklasl> q+
+16:23:56 <gkellogg> ack bigbluehat
+16:24:32 <gkellogg> bigbluehat: i've been converting discussion issues into GH discussions.
+16:25:08 <gkellogg> ... Many are questions and answers, not really issues. There are some which are ideas for future development.
+16:25:13 <TallTed> present+
+16:25:35 <TallTed> q+
+16:25:38 <gkellogg> ... GH closes and locks the issue, but points to the discussion.
+16:25:44 <gkellogg> ack niklasl
+16:25:58 <gkellogg> ack TallTed
+16:26:04 <niklasl> q+
+16:26:15 <bigbluehat> TallTed: I really don't like GitHub Discussions
+16:26:24 <bigbluehat> ... they're all single threaded commentary
+16:26:45 <bigbluehat> ... where there were threads of conversations, they now look very different
+16:26:51 <bigbluehat> ... I'm not going to fight you about it
+16:26:56 <bigbluehat> ... but I find them less than useful
+16:26:58 <bigbluehat> ... that's it
+16:27:22 <bigbluehat> gkellogg: we do act as an information resource.
+16:27:43 <bigbluehat> ... ideally, they'll continue to reach out to us on json-ld.org
+16:27:49 <bigbluehat> ... and we need to do something with all that content
+16:27:58 <bigbluehat> ... I expect that the conversion is likely lossy
+16:28:12 <bigbluehat> ... but new conversations will better use that interface
+16:28:23 <bigbluehat> ... and if we don't do this conversion, we'll continue to drown in issues
+16:28:26 <gkellogg> ack niklasl
+16:28:31 <bigbluehat> ... sadly we don't have a better feature to hang things on
+16:28:34 <niklasl> https://github.com/w3c/json-ld-api/issues/549
+16:28:34 <gb> https://github.com/w3c/json-ld-api/issues/549 -> #549
+16:28:45 <bigbluehat> niklasl: I wanted to bring this issue from 2022 to our attention
+16:28:58 <bigbluehat> ... this has the `erratum-raised` label
+16:29:07 <bigbluehat> ... but I couldn't find it
+16:29:16 <bigbluehat> gkellogg: it should be in the errata column
+16:29:21 <bigbluehat> niklasl: I looked, but didn't find it
+16:29:43 <bigbluehat> pchampin: I think `erratum-raised` doesn't populate that list, only `errata`
+16:30:00 <bigbluehat> gkellogg: it thought they'd be there...but maybe not. I don't see that on either
+16:30:11 <bigbluehat> ... maybe we can remove it and add it back manually?
+16:31:38 <bigbluehat> niklasl: maybe we can look at it a bit regardless
+16:31:49 <bigbluehat> ... I found this via another issue I filed 3 days ago or so
+16:32:01 <bigbluehat> ... I thought it was a bug in my implementation
+16:32:17 <bigbluehat> ... but I think maybe fixing these problems with node map generation may be enough
+16:32:24 <bigbluehat> ... I do have another PR I need to make for another issue
+16:32:30 <bigbluehat> ... and hopefully I can also make one for this
+16:32:44 <bigbluehat> ... at which point that may be a better time to discuss it
+16:32:59 <bigbluehat> gkellogg: do keep in mind we're needing to use <ins> and <del>
+16:33:16 <bigbluehat> ... it starts off annoying, but the more you do it the more satisfying it becomes
+16:33:18 <niklasl> https://github.com/w3c/json-ld-api/issues/558
+16:33:18 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised] [class-3]
+16:33:26 <bigbluehat> niklasl: k. I'll try to remember to do that
+16:33:56 <bigbluehat> ... sadly, I don't think I can get ChatGPT to help me with the markup
+16:34:44 <niklasl> q+
+16:34:50 <bigbluehat> gkellogg: so, now to climb out of the backlog...
+16:35:05 <bigbluehat> ... we still have a number of discuss-call issues
+16:35:09 <bigbluehat> the first I see is 443
+16:35:27 <gkellogg> subtopic: https://github.com/w3c/json-ld-syntax/issues/443
+16:35:27 <gb> https://github.com/w3c/json-ld-syntax/issues/443 -> Issue 443 `@protected` creates unresolvable conflicts when conforming to multiple normative contexts (by trwnh) [spec:editorial] [propose closing] [wr:commenter-agreed-partial] [class-2]
+16:35:40 <niklasl> q-
+16:35:57 <bigbluehat> gkellogg: I suggested we close this issue in February
+16:36:03 <bigbluehat> ... there's a resolution from last November on it
+16:36:52 <gkellogg> We'll close the issue.
+16:36:55 <bigbluehat> ... so, if there are no objections, I think we can close this one and move on
+16:36:56 <niklasl> +1
+16:36:58 <bigbluehat> +1
+16:37:38 <gkellogg> subtopic: w3c/json-ld-=api#558
+16:37:38 <gb> Issue 558 not found
+16:37:50 <bigbluehat> gkellogg: anyone want to discuss this one?
+16:38:01 <bigbluehat> niklasl: I just need to make this PR
+16:38:07 <gkellogg> we'll work on a PR for this.
+16:38:12 <bigbluehat> ... if anyone has some time to look at it, that'd be helpful
+16:38:15 <pchampin> s|w3c/json-ld-=api#558|w3c/json-ld-api#558|
+16:38:20 <bigbluehat> gkellogg: is there an existing PR?
+16:38:32 <bigbluehat> niklasl: no, I'm transcribing back from Python into human language
+16:38:40 <bigbluehat> gkellogg: so that one PR should close both issues?
+16:38:46 <bigbluehat> niklasl: no, this will be another PR
+16:39:16 <niklasl> q+
+16:39:20 <bigbluehat> gkellogg: any one have specific issues they want to discuss?
+16:39:27 <bigbluehat> ... looking for a way to prioritize these
+16:39:35 <bigbluehat> ... I do wonder if we need a CBOR-LD column
+16:39:47 <bigbluehat> ... pchampin what would it take to do that
+16:40:22 <gkellogg> q?
+16:41:10 <bigbluehat> gkellogg: we could setup some automation related to labels also
+16:41:15 <bigbluehat> pchampin: yeah, I'll look into that
+16:41:19 <bigbluehat> niklasl:
+16:41:23 <gkellogg> ack niklasl
+16:41:41 <bigbluehat> niklasl: I have a similarly orthogonal issue
+16:41:56 <bigbluehat> ... I've been tinkering on what we will likely no longer call JSON-LD-star
+16:42:10 <bigbluehat> ... I know pchampin and gkellogg have done a good bit of work in that other repo
+16:42:12 <gkellogg> q+
+16:42:16 <bigbluehat> ... but I do wonder about timing and the like
+16:42:26 <gkellogg> ack me
+16:42:31 <bigbluehat> ... I do think we've said that JSON-LD 1.2 will support RDF 1.2
+16:42:46 <bigbluehat> gkellogg: indeed. One of the goals of JSON-LD 1.2 is to track with RDF 1.2
+16:43:04 <bigbluehat> ... now the RDF and SPARQL 1.2 group...is that our name now?
+16:43:12 <bigbluehat> pchampin: yes, almost, but no version number
+16:43:29 <bigbluehat> gkellogg: right. So the RDF and SPARQL WG is already working on v1.2 of both of those
+16:43:44 <bigbluehat> ... that said, we do have a JSON-LD-star repo that is now way out of date
+16:44:01 <bigbluehat> ... so I think my thought is that since this will all be new in 1.2
+16:44:12 <bigbluehat> ... this is a big task we need to address
+16:44:19 <bigbluehat> ... such as changing the algorithms, etc.
+16:45:04 <bigbluehat> ... the hope is to make all this easier for when we can finally work on JSON-LD 1.2 proper
+16:45:15 <bigbluehat> ... I do think there are issues in there around how to do most of those things
+16:45:30 <bigbluehat> ... things such as triple terms, reification triples, and annotations
+16:45:41 <bigbluehat> ... I believe it's all there, but we need implementations and spec text
+16:45:45 <gkellogg> q?
+16:46:03 <bigbluehat> gkellogg: ...yes, and tests
+16:46:20 <bigbluehat> ... we do tend to duplicate tests for every different processing moment
+16:46:27 <bigbluehat> ... which makes it a combinatorial problem
+16:46:38 <bigbluehat> ... and folks have asked for more linear testing
+16:46:55 <bigbluehat> ... the algorithms should be clear
+16:47:08 <bigbluehat> ... but we have taken some license with some of our internal terms that we're still trying to clean out
+16:47:42 <gkellogg> subtopic: https://github.com/json-ld/yaml-ld/issues/158
+16:47:42 <gb> https://github.com/json-ld/yaml-ld/issues/158 -> Issue 158 YAML-LD tools (by VladimirAlexiev)
+16:47:55 <bigbluehat> gkellogg: k. looking at YAML-LD 158
+16:49:08 <bigbluehat> anatoly-scherbakov: maybe this should actually be a discussion
+16:49:21 <bigbluehat> gkellogg: if this is about highlighting tooling, then perhaps this goes on the json-ld.org site
+16:49:36 <bigbluehat> ... with more LD formats, we likely need more sections for tools
+16:50:05 <bigbluehat> ... and we can test out how easy the new site works
+16:50:20 <bigbluehat> anatoly-scherbakov: I don't know how the new 11ty site works, but I would like to help
+16:50:22 <bigbluehat> q+
+16:50:32 <bigbluehat> ... I believe both pchampin and gkellogg have implementations
+16:51:37 <gkellogg> ack bigbluehat
+16:52:08 <gkellogg> bigbluehat: Now the developers link goes to a section on the homepage; we could create a developers page that does this.
+16:52:25 <gkellogg> ... The site is 11ty based, but is mostly just markdown.
+16:52:46 <gkellogg> ... The current index.yaml file encodes the implementations and is, itself, a YAML-LD file.
+16:53:12 <gkellogg> ... We can expand that to include YAML-LD implementations.
+16:53:55 <gkellogg> subtopic: https://github.com/w3c/json-ld-api/issues/651
+16:53:56 <gb> https://github.com/w3c/json-ld-api/issues/651 -> Issue 651 scoped context does not work for aliases of `@type` (by pchampin) [class-3]
+16:54:21 <bigbluehat> gkellogg: pchampin you raised this one?
+16:55:13 <bigbluehat> pchampin: yeah...I found this counter intuitive, but having the intuitive change would require serious changes
+16:55:19 <bigbluehat> gkellogg: k. I moved it to future work
+16:55:27 <bigbluehat> ... looks like we're out of time this week
+16:55:40 <bigbluehat> ... we'll work to get the WG and CG calls in sync again
+16:55:56 <bigbluehat> ... and see if we can get the folks from https://agent-network-protocol.com/ to join us for a call
+16:56:03 <bigbluehat> ... thanks all, good bye
+16:56:10 <gkellogg> zakim, end meeting
+16:56:10 <Zakim> As of this point the attendees have been bigbluehat, pchampin, ivan, niklasl, gkellogg, dlehn, TallTed
+16:56:13 <Zakim> RRSAgent, please draft minutes
