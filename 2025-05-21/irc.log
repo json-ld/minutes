@@ -1,0 +1,266 @@
+16:01:47 <RRSAgent> RRSAgent has joined #json-ld
+16:01:51 <RRSAgent> logging to https://www.w3.org/2025/05/21-json-ld-irc
+16:01:51 <Zakim> RRSAgent, make logs Public
+16:01:52 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:01:54 <gkellogg> meeting: JSON-LD CG
+16:02:42 <ivan> present+
+16:02:42 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/
+16:02:43 <agendabot> gkellogg, sorry, I did not recognize any agenda in https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/
+16:02:44 <Roy_Ruoxi> Roy_Ruoxi has joined #json-ld
+16:02:59 <gkellogg> agenda: https://www.w3.org/events/meetings/c7ab3fcd-4dc4-4444-ae8a-c91ca2131113/20250521T120000/
+16:02:59 <agendabot> clear agenda
+16:02:59 <agendabot> agenda+ Announcements and Introductions
+16:02:59 <agendabot> agenda+ Agent Network Protocol
+16:02:59 <agendabot> agenda+ JSON-LD Issue Discussion (if time)
+16:02:59 <agendabot> agenda+ Open Discussion
+16:02:59 <gkellogg> present+
+16:02:59 <leonardr> present+
+16:02:59 <Victor_Lu> present+
+16:02:59 <Roy_Ruoxi> present+
+16:02:59 <Gaowei> present+
+16:02:59 <Dmitri> present+
+16:02:59 <Identitywoman> present+
+16:03:00 <niklasl> niklasl has joined #json-ld
+16:03:05 <leonardr> leonardr has joined #json-ld
+16:03:18 <anatoly-scherbakov> present+
+16:03:20 <gkellogg> chair: gkellogg
+16:03:26 <gkellogg> zakim, next agendum
+16:03:26 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:03:30 <bigbluehat> present+
+16:03:32 <bigbluehat> scribe+
+16:03:52 <bigbluehat> gkellogg: introductions?
+16:04:18 <bigbluehat> leonardr: Leonard Rosenthol, Adobe
+16:04:44 <bigbluehat> Victor_Lu: I'm participating in SPDX which is using JSON-LD, so I'm interested in hearing more
+16:04:53 <bigbluehat> gkellogg: please join IRC if you can
+16:05:20 <bigbluehat> Roy_Ruoxi: I'm staff contact for Accessibility for A11Y groups
+16:05:29 <bigbluehat> ... and I'm responsible for some AI things in China
+16:05:43 <bigbluehat> ... so I reached out to the ANP group
+16:06:01 <bigbluehat> ... they are having some trouble getting into Zoom
+16:06:12 <bigbluehat> ... but once they are on, it will be good to see what they are sharing
+16:06:42 <niklasl> niklasl has joined #json-ld
+16:06:49 <niklasl> present+
+16:07:30 <bigbluehat> Dmitri: I'm Dmitri Zagidulin. I do a lot with DIDs. Looking into Agentic AI. And am especially interested in their overlap.
+16:08:11 <bigbluehat> identitywoman: I'm Kaliya Young and I have been in the community for some time, but am very interested in AI and this presentation.
+16:08:40 <bigbluehat> gkellogg: besides folks with technical issues, anyone else like to say hi?
+16:08:46 <gkellogg> https://github.com/json-ld/json-ld-star/pull/61
+16:08:46 <gb> https://github.com/json-ld/json-ld-star/pull/61 -> Pull Request 61 Updated test results for JSON-LD-star (by gkellogg)
+16:08:49 <bigbluehat> ... k. moving on for the moment to other announcements
+16:09:04 <bigbluehat> ... I've done some updates to the JSON-LD-star test suite...though not the spec just yet
+16:09:12 <bigbluehat> ... there is a thumbnail sketch in the PR, though
+16:09:22 <bigbluehat> ... and I'd love feedback from niklasl and PA (who's not here)
+16:09:37 <bigbluehat> ... once that review happens, we can make those spec changes in advance of a future 1.2
+16:09:46 <bigbluehat> ... if you have comments on that, please add them to the PR
+16:09:52 <gkellogg> q/
+16:09:55 <bigbluehat> ... anything else for announcements?
+16:09:55 <gkellogg> q?
+16:10:01 <gkellogg> zakim, next item
+16:10:01 <Zakim> agendum 2 -- Agent Network Protocol -- taken up [from agendabot]
+16:10:37 <bigbluehat> Gaowei: I'm the creator of the ANP community
+16:11:09 <bigbluehat> gkellogg: would someone like to give an overview of the ANP work?
+16:11:18 <bigbluehat> ... and how the JSON-LD groups might help you?
+16:11:36 <bigbluehat> Roy_Ruoxi: Gaowei has slides
+16:11:51 <bigbluehat> Gaowei: ANP is the Agent Network Protocol
+16:11:59 <bigbluehat> ... this is our model
+16:12:06 <bigbluehat> ... it is an open protocol for agent communication
+16:12:11 <bigbluehat> ... we want to see an agent internet
+16:12:18 <bigbluehat> ... that supports discovery and collaboration
+16:12:29 <bigbluehat> ... so this includes identity, description, and discovery
+16:12:51 <bigbluehat> ... the identities are DIDs, the descriptions are structured data
+16:13:04 <bigbluehat> ... JSON-LD in ANP is used for the descriptions
+16:13:13 <bigbluehat> ... as well as the interfaces and goals of the agents
+16:13:20 <bigbluehat> ... we use terms from schema.org
+16:13:32 <bigbluehat> ... JSON-LD helps connect the public data of agents into our data network
+16:13:38 <bigbluehat> ... that makes it easy for AI to understand
+16:14:45 <bigbluehat> GitHub for ANP https://github.com/agent-network-protocol/AgentNetworkProtocol
+16:14:59 <bigbluehat> Website https://agent-network-protocol.com/
+16:15:28 <bigbluehat> Gaowei: many developers prefer "simple JSON" instead of taking the time to learn JSON-LD
+16:16:29 <bigbluehat> Roy_Ruoxi: Gaowei is there more to share about JSON-LD?
+16:16:35 <bigbluehat> ... or links to other material online?
+16:17:36 <gkellogg> q?
+16:17:41 <bigbluehat> gkellogg: does anyone have questions or comments?
+16:18:00 <bigbluehat> Victor_Lu: just to comment about JSON-LD. In SPDX, JSON-LD has been adopted
+16:18:09 <bigbluehat> ... we also hear the complaint from JSON developers
+16:18:11 <bigbluehat> q+
+16:18:18 <bigbluehat> ... is there anything to make it simpler?
+16:18:24 <gkellogg> scribe+
+16:18:27 <gkellogg> ack bigbluehat
+16:18:51 <gkellogg> bigbluehat: I'd like to hear more from the ANP community about the perceived pain of developers using JSON-LD.
+16:19:21 <gkellogg> ... We need to understand where that pain is felt. When there are communities such as schema.org and you stay within those bounds, it's just like typing other JSON.
+16:19:42 <gkellogg> ... Where it's been hard for developers is when they don't have an established base and want to extend one.
+16:19:56 <gkellogg> ... In these cases, we can create examples to show simplification.
+16:20:15 <gkellogg> ... Knowing the particular pain points can help in this.
+16:20:43 <bigbluehat> Victor_Lu: in the community I'm involved in, there's no need to promote JSON-LD because it's the only solution we think works well
+16:20:58 <bigbluehat> ... and we are defining new standards for software bill of materials
+16:21:13 <bigbluehat> ... so the comments often come from developers who are trying to build intermediate software files
+16:21:32 <bigbluehat> ... I'll also share a link to the SPDX Slack space
+16:21:37 <gkellogg> q?
+16:22:10 <ivan> -> SPDX page https://spdx.dev
+16:22:28 <bigbluehat> gkellogg: there are some great things on json-ld.org to help folks learn
+16:22:35 <bigbluehat> ... but there are a few things that often trip people up
+16:22:57 <bigbluehat> ... and often in an attempt to make things easier in some ways, we've made them harder in others
+16:23:05 <bigbluehat> ... like property maps which we added in 1.1
+16:23:17 <bigbluehat> ... they more naturally reflect the way people write JSON "in the wild"
+16:23:43 <bigbluehat> ... but the algorithms that it takes to parse them into JSON-LD may scare or confuse people
+16:23:56 <bigbluehat> ... so I'm wondering have you looked into creating best practices or templates?
+16:24:12 <bigbluehat> ... and are their things we could do such as adding examples to the playground?
+16:24:17 <gkellogg> q?
+16:24:21 <bigbluehat> ANP Specification: https://github.com/agent-network-protocol/AgentNetworkProtocol/blob/main/07-anp-agent-description-protocol-specification.md
+16:24:37 <bigbluehat> SPDX Slack https://join.slack.com/t/spdx/shared_invite/zt-2fa9pqty9-AcobGadsN_TN1K~sSkUG4w
+16:25:02 <bigbluehat> dmitri: like many of you, I've heard similar complaints for years
+16:25:09 <bigbluehat> ... the main "lift" seems to be around data modeling
+16:25:21 <bigbluehat> ... not really about using existing contexts or libraries
+16:25:29 <bigbluehat> ... those are fairly push-button or follow-the-tutorial
+16:25:41 <bigbluehat> ... it's when you have to actually model new data
+16:25:51 <bigbluehat> ... how to create a context, where/how to host it, etc.
+16:26:00 <bigbluehat> ... much of that is pointlessly difficult
+16:26:09 <leonardr> q+
+16:26:13 <bigbluehat> ... really, I want a graphical drag-and-drop context builder
+16:26:20 <bigbluehat> ... more time on that would bring many benefits
+16:26:23 <gkellogg> ack leonardr
+16:26:29 <bigbluehat> leonardr: I've heard this conversation before as well
+16:26:39 <bigbluehat> ... it comes down to communities and use cases
+16:26:52 <bigbluehat> ... I've brought it into various places such as XMP
+16:26:57 <bigbluehat> ... it's also in Content Credentials
+16:27:05 <bigbluehat> ... we use it internally at Adobe
+16:27:21 <bigbluehat> ... and in all that time I've never heard push back about JSON-LD complexity
+16:27:41 <bigbluehat> ... maybe if you don't understand JSON beyond JavaScript object serialization, then sure...it might be confusing
+16:27:56 <bigbluehat> ... but if you're used to data structure design, etc., then I don't see the lift
+16:27:58 <gkellogg> q?
+16:28:01 <bigbluehat> ... maybe that's the differentiator
+16:28:02 <bigbluehat> q+
+16:28:16 <bigbluehat> gkellogg: thank you. a good community to look at may be schema.org
+16:28:25 <bigbluehat> ... they have extensive examples that cross many domains
+16:28:44 <bigbluehat> ... and they have loads of tools to turn RDFS (or their variant of that) into contexts, etc.
+16:29:03 <bigbluehat> ... that may not always be adequate, but it could be a helpful start
+16:29:27 <bigbluehat> Dmitri: I'd love to hear more about JSON-LD and AI
+16:29:45 <bigbluehat> ... besides dealing with other developers perceived pain about JSON-LD
+16:29:55 <leonardr> q+
+16:29:56 <bigbluehat> ... do you have any specific asks of this group?
+16:29:59 <bigbluehat> q-
+16:30:01 <gkellogg> ack leonardr
+16:30:01 <bigbluehat> q+
+16:30:25 <gkellogg> bigbluehat: leonardr's comments about data modeling are right; it's about data modeling.
+16:30:46 <gkellogg> ... Most developers don't do data modeling, they just use ad-hoc JSON in their applications.
+16:31:13 <gkellogg> ... They typically aren't concerned with interoperability. Groups that have don't tend to have an issue with JSON-LD complexity.
+16:31:35 <gkellogg> ... If you don't understand data modeling, it is more difficult :)
+16:31:57 <bigbluehat> Slides from the ANP presentation: https://www.agent-network-protocol.com/blogs/posts/anp-w3c-webagents-presentation.html
+16:32:17 <bigbluehat> leonardr: we've had great success with JSON-LD and have not had any issues with using it with LLMs
+16:32:27 <anatoly-scherbakov> q+
+16:32:34 <bigbluehat> ... under the hood, I have no idea if the LLMs are treating it as raw JSON or Linked Data
+16:32:36 <bigbluehat> q-
+16:32:45 <bigbluehat> ... but I will not there's no remote context retrieval
+16:32:50 <bigbluehat> ... we pull them all down first
+16:33:08 <bigbluehat> ... so JSON-LD really serves it's purpose
+16:33:22 <bigbluehat> gkellogg: I do think we'll see more "cooked in" contexts
+16:33:47 <dlehn> present+
+16:33:48 <bigbluehat> ... by using the `@context` values as identifiers for context files that should always be pre-cached/stored and not retrieved
+16:34:02 <bigbluehat> ... but now I think we're drifting into specific use case modeling
+16:34:17 <leonardr> q+
+16:34:30 <bigbluehat> ... that may also be a need for ANP as well--to have their community store their contexts locally for use at runtime
+16:34:45 <bigbluehat> ... Dmitri, did you want to expand on what you said in Zoom chat?
+16:35:14 <bigbluehat> Dmitri: when I say it's difficult to create lightly
+16:35:32 <bigbluehat> ... whenever I sit down to convert exiting JSON or create new JSON-LD contexts
+16:35:39 <gkellogg> q?
+16:35:58 <bigbluehat> ... there's way more of the RDF ecosystem that I have to know about than I'd really care to
+16:36:12 <bigbluehat> gkellogg: it doesn't sound like something we can easily address in a spec
+16:36:28 <bigbluehat> ... but we do have notes and explanations around vocabularies vs. contexts, etc.
+16:36:45 <bigbluehat> Dmitri: absolutely. For me it's about more tutorials and wysiwyg tools
+16:37:02 <bigbluehat> ... the another point of confusion: JSON Schema vs. JSON-LD contexts
+16:37:13 <bigbluehat> ... we know they're different, but developers get confused
+16:38:18 <bigbluehat> ... there are a couple of projects such as LinkML that lets you define a vocabulary in a document and it generates JSON-LD contexts and vocabulary documentation and JSON Schemas
+16:38:34 <bigbluehat> ... there's another one that lets you roundtrip between JSON Schema and JSON-LD contexts
+16:38:52 <bigbluehat> ... maybe explaining the overlap and lack of overlap
+16:39:13 <bigbluehat> ... I'll share links
+16:39:33 <bigbluehat> gkellogg: we can and should put out some blog posts...we just need volunteers
+16:39:48 <bigbluehat> ... the best people to author these types of things are those that have felt the pain
+16:40:00 <gkellogg> q?
+16:40:04 <gkellogg> ack anatoly-scherbakov
+16:40:05 <bigbluehat> ... so Dmitri, you or others who've felt that pain are ideal for those contributions
+16:40:15 <bigbluehat> LinkML (YAML based, compiles to JSON-LD contexts, JSON Schemas, protobuf definitions, etc etc): https://linkml.io/
+16:40:31 <bigbluehat> anatoly-scherbakov: I do agree that JSON-LD is still not yet a part of the mainstream JSON developer community
+16:41:03 <Roy_Ruoxi> q+
+16:41:21 <bigbluehat> ... in general, the movement of the industry seems to be moving "toward the code"--such as Infrastructure as Code, etc.
+16:41:32 <bigbluehat> ... I do understand there are many other use cases
+16:41:42 <bigbluehat> ... but generally the industry moves toward more code vs. less code
+16:42:20 <bigbluehat> ... maybe if more of the URLs in JSON-LD resolved to human readable content, that would be helpful
+16:42:59 <bigbluehat> ... I think LLMs can certainly help us write JSON-LD
+16:43:24 <bigbluehat> ... when you have a piece of code an LLM helped you write, you can visualize it, then you talk to the LLM and it helps you evolve the JSON-LD
+16:43:30 <bigbluehat> ... so it can help us write Linked Data
+16:43:42 <bigbluehat> q+
+16:43:43 <anatoly-scherbakov> q-
+16:43:50 <bigbluehat> gkellogg: sounds like vibe coding
+16:43:51 <gkellogg> ack leonardr
+16:43:57 <bigbluehat> leonardr: jumping back to something earlier
+16:44:23 <bigbluehat> ... were you talking about CBOR-LDs predefined contexts? or something else?
+16:44:39 <bigbluehat> gkellogg: I think CBOR-LD has recently moved beyond the registry thing to something else
+16:44:45 <bigbluehat> ... but someone else will need to speak to that
+16:45:13 <bigbluehat> ... My point is mainly that specs are beginning to reference point-in-time contexts with their defined URLs
+16:45:34 <bigbluehat> ... vs. context URLs that may change at any point--as schema.org's primary context URL does
+16:45:54 <bigbluehat> ... we are already discussing defining a more advanced context loader specification change
+16:46:12 <bigbluehat> ... that would allow you to more narrowly define what context loading scenarios you're OK with
+16:46:17 <gkellogg> q?
+16:46:20 <bigbluehat> ... and it would help remove the ambiguity
+16:46:22 <gkellogg> ack Roy_Ruoxi
+16:46:23 <bigbluehat> leonardr: thanks.
+16:46:35 <bigbluehat> Roy_Ruoxi: I have something from Gaowei
+16:46:57 <bigbluehat> ... because the ANP community are a big fan of Tim Berners-Lee's Semantic Web
+16:47:11 <bigbluehat> ... they have tried to do ANP with all the Semantic Web and Linked Data capabilities
+16:47:22 <bigbluehat> ... and now they have many industry demos from the ANP community
+16:47:34 <bigbluehat> ... and many companies are starting to use ANP with JSON-LD in their products
+16:47:52 <ivan> q+
+16:47:57 <bigbluehat> ... but there are others who do think JSON-LD is complicated
+16:48:11 <Roy_Ruoxi> https://www.w3.org/community/agentprotocol/
+16:48:21 <bigbluehat> ... in the meanwhile, Gaowei and ANP folks setup a community group in the W3C
+16:48:41 <bigbluehat> ... we'd love to hear more from communities to see if we still want to use JSON-LD in the protocol or something else
+16:48:52 <bigbluehat> ... so I wanted to mention that here if others wanted to be involved.
+16:48:57 <gkellogg> ack bigbluehat
+16:49:37 <gkellogg> bigbluehat: Reflecting on document loading and pinning down the document loader.
+16:49:57 <gkellogg> ... That makes reading JSON-LD more like a spec. JSON-LD is always self-identifying and it needs to be clear about that.
+16:50:32 <gkellogg> ... For example, the schema.org context is very "webby", but they also publish versioned URLs for different releases.
+16:50:58 <gkellogg> ... They can be hard to find, but you can find it if you try.
+16:51:25 <gkellogg> ... We've heard from communities that want guidance around that. It's not a pivot of the web, but a different way of looking at it.
+16:51:49 <gkellogg> ... Provide more data to describe what you want, say using a hash. A document loader helps with that.
+16:51:51 <gkellogg> q?
+16:51:55 <gkellogg> ack ivan
+16:52:22 <bigbluehat> ivan: when I was young and foolish I was very involved in RDF
+16:52:29 <bigbluehat> ... so I was in that community when JSON-LD arrived
+16:52:44 <bigbluehat> ... when it was proposed, the claim was that it would simplify RDF to people who did not know RDF
+16:52:52 <bigbluehat> ... and we have gone through several iterations of things
+16:53:02 <bigbluehat> ... and JSON-LD is now very much the same as RDFa
+16:53:13 <bigbluehat> ... we tried to put a graph based model into something that is not graph-based
+16:53:18 <bigbluehat> ... it's true for RDF and JSON-LD
+16:53:34 <bigbluehat> ... so maybe that starting position was pushed to the edges...and we may want to revisit that
+16:53:51 <bigbluehat> ... but that presupposes that RDF is simple...but perhaps that's debatable
+16:54:20 <bigbluehat> ... when I look at a JSON-LD context file...I have to virtually run a parser in my head and think about the output in RDF
+16:54:32 <bigbluehat> ... there is a complexity here because we are trying to bridge two worlds
+16:54:36 <gkellogg> q?
+16:54:55 <bigbluehat> ... it is interesting to hear that the ANP folks started with RDF and then used JSON-LD because it was there
+16:55:12 <bigbluehat> ... so maybe we could consider how to make RDF easier to write in JSON
+16:55:28 <bigbluehat> ... that is pretty philosophical
+16:55:36 <bigbluehat> Victor_Lu: we started with RDF also
+16:55:48 <bigbluehat> ... so that path was similar for us
+16:56:02 <bigbluehat> ... even so, the problem is the people who use SPDX complain that it's not as easy as JSON
+16:56:04 <bigbluehat> q+
+16:56:13 <bigbluehat> gkellogg: it may be that we can't please everyone all the time
+16:56:26 <bigbluehat> ... I've written most of these specs...and I often get confused
+16:56:36 <bigbluehat> ... I think most folks in RDF land start with Turtle
+16:56:44 <bigbluehat> ... as that's the easiest
+16:56:53 <bigbluehat> ivan: absolutely
+16:57:04 <bigbluehat> gkellogg: I then write frames to turn it into the JSON I want
+16:57:18 <bigbluehat> ... so maybe we just need more explanation around how to work with all the layers
+16:57:31 <bigbluehat> ... and we see loads of people attempting to create "simpler" JSON-LD
+16:57:48 <bigbluehat> ... so we end up with many more half-baked alternatives
+16:57:55 <gkellogg> q?
+16:58:00 <bigbluehat> ivan: and we dare not use the RDF term outload
+16:58:00 <gkellogg> ack bigbluehat
+16:59:02 <gkellogg> bigbluehat: Victor, I'd be curious about what is tripping people up. I sometimes hear from developers confusion about making things objects vs literals?
+16:59:26 <gkellogg> ... It's either complex or properly modeled, depending on how you look at it.
+16:59:46 <bigbluehat> Another tool Dmitri mentioned https://github.com/transmute-industries/verifiable-data/tree/main/packages/jsonld-schema
+17:00:03 <bigbluehat> Victor_Lu: I'm not an expert, but even experts are struggling with JSON-LD at times
+17:00:25 <bigbluehat> Dmitri: specifically, check out the 'json-ld to json schema' section https://github.com/transmute-industries/verifiable-data/tree/main/packages/jsonld-schema#json-ld-to-json-schema  (and the reverse)
+17:00:36 <bigbluehat> gkellogg: we'd love to keep these conversations going!
+17:00:45 <bigbluehat> ... and please plan to join us in Japan at TPAC
+17:00:52 <bigbluehat> ... we'll be back here in 2 weeks
+17:01:08 <gkellogg> zakim, end meeting
+17:01:08 <Zakim> As of this point the attendees have been ivan, anatoly-scherbakov, bigbluehat, niklasl, dlehn
+17:01:10 <Zakim> RRSAgent, please draft minutes
