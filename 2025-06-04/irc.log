@@ -1,0 +1,222 @@
+15:59:24 <RRSAgent> RRSAgent has joined #json-ld
+15:59:28 <RRSAgent> logging to https://www.w3.org/2025/06/04-json-ld-irc
+15:59:28 <Zakim> RRSAgent, make logs Public
+15:59:29 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:59:30 <gkellogg> meeting: JSON-LD WG
+15:59:47 <gkellogg> agenda: https://www.w3.org/events/meetings/de8e5953-703c-45c4-b0ad-fc02d6804a4d/20250604T120000/
+15:59:47 <agendabot> clear agenda
+15:59:47 <agendabot> agenda+ Announcements and Introductions
+15:59:47 <agendabot> agenda+ JSON-LD Issue Discussion
+15:59:47 <agendabot> agenda+ Open Discussion
+16:00:12 <gkellogg> present+
+16:00:37 <bigbluehat> chair+
+16:00:37 <gkellogg> scribe+
+16:01:04 <niklasl> niklasl has joined #json-ld
+16:02:13 <pchampin> present+
+16:03:07 <anatoly-scherbakov> present+
+16:03:09 <niklasl> present+
+16:03:13 <gkellogg> zakim, next item
+16:03:13 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:03:48 <bigbluehat> https://json-ld.org/playground/next/
+16:03:57 <ivan> present+
+16:04:01 <gkellogg> bigbluehat: We've just merged the new playground onto the website.
+16:04:15 <gkellogg> ... I need to implement hash fragment/query string parsing.
+16:04:34 <gkellogg> ... After that, we can move out the old one and switch to this as the primary.
+16:04:54 <gkellogg> ... It's missing the visualization bits; wanted to see how important people thought it wa.
+16:05:00 <gkellogg> s/wa./was./
+16:05:17 <bigbluehat> scribe+
+16:05:26 <bigbluehat> gkellogg: it's great to see evolution
+16:05:29 <pchampin> +1 I have tested it a bit, and it is a very nice improvement
+16:05:43 <gkellogg> bigbluehat: This can be a foundation for the future.
+16:05:57 <gkellogg> ... Probably still some bugs.
+16:06:29 <gkellogg> ... I'll make issues for YAML-LD/CBOR-LD inputs.
+16:07:05 <bigbluehat> gkellogg: we likely will meet.
+16:07:09 <bigbluehat> ... we usually do
+16:07:23 <bigbluehat> ... might be a good way to get folks updated and pin down some of these issues
+16:07:37 <bigbluehat> ... likely it's related how we do on rechartering by then
+16:07:44 <gkellogg> zakim, next item
+16:07:44 <Zakim> agendum 2 -- JSON-LD Issue Discussion -- taken up [from agendabot]
+16:08:09 <gkellogg> subtopic: w3c/json-ld-api#650
+16:08:10 <gb> https://github.com/w3c/json-ld-api/pull/650 -> Pull Request 650 #648 `0027-out.jsonld`: `@graph` and value objects (by anatoly-scherbakov) [test:missing-coverage]
+16:08:34 <anatoly-scherbakov> q+
+16:09:19 <gkellogg> anatoly-scherbakov: Someone said that `@graph` is not required, but it is in the test.
+16:09:51 <gkellogg> ... Changes pchampin proposed have been taken care of.
+16:10:12 <gkellogg> pchampin: It doesn't seem that my suggestions were merged.
+16:10:29 <gkellogg> ... This touches two files, and the changes seem unrelated.
+16:10:53 <gkellogg> ... The HTML manifest has been changed.
+16:11:16 <gkellogg> ack anatoly-scherbakov
+16:12:11 <pchampin> q+
+16:12:19 <gkellogg> anatoly-scherbakov: I don't know why the manifest changes are here.
+16:12:36 <bigbluehat> gkellogg: the technology hasn't changed much, so this could be a bug in the manifest
+16:12:41 <gkellogg> ... I'm going to try removing the changes to the HTML manifest.
+16:12:53 <gkellogg> ack pchampin
+16:13:32 <gkellogg> pchampin: I was looking at the individual commits; I suspect that the change to the HTML manifest was not done by anatoly-scherbakov,
+16:13:41 <gkellogg> anatoly-scherbakov: Changes are done by the bot.
+16:14:45 <TallTed> TallTed has joined #json-ld
+16:15:11 <gkellogg> pchampin: The issue is that I don't see why there's a change.
+16:16:38 <gkellogg> subtopic: w3c/json-ld-api#655
+16:16:39 <gb> https://github.com/w3c/json-ld-api/pull/655 -> Pull Request 655 Tests t0112 and t0113 use 1.1-specific features (by gkellogg) [test:missing-coverage]
+16:16:43 <TallTed> present+
+16:17:07 <bigbluehat> gkellogg: this one was based upon an inbound issue
+16:17:12 <bigbluehat> https://github.com/w3c/json-ld-api/issues/655
+16:17:23 <bigbluehat> ... whether or not `@graph` is necessary at some point
+16:17:39 <bigbluehat> ... these are related to 1.1 features which are meant to be tested against 1.0 and 1.1 implementations
+16:17:41 <TallTed> present+
+16:17:43 <TallTed> RRSAgent, pointer?
+16:17:43 <RRSAgent> See https://www.w3.org/2025/06/04-json-ld-irc#T16-17-43
+16:17:51 <bigbluehat> ... this change prevents them running against 1.0 implementations
+16:18:19 <anatoly-scherbakov> q+
+16:18:30 <bigbluehat> bigbluehat: and look! there's that change again
+16:18:35 <anatoly-scherbakov> q-
+16:18:38 <bigbluehat> pchampin: yeah. that's it.
+16:18:53 <bigbluehat> gkellogg: it changed the `fromRDF-manifest.html`
+16:20:10 <bigbluehat> ... there must have been a change to the turtle manifest
+16:20:41 <bigbluehat> ... the issue is because the bot is not able to push commits to external repositories
+16:21:09 <bigbluehat> ... the purpose of the bot is to update all the things related to changes to the turtle manifest
+16:21:28 <bigbluehat> ... but if a change is made outside a branch, then the bot will not do it's work
+16:21:47 <bigbluehat> ... it should be a self correcting issue
+16:22:02 <bigbluehat> ... if we wanted to be clever, we could have a bot check all the manifests for consistency
+16:22:18 <bigbluehat> ... but the system will eventually stabalize
+16:22:46 <gkellogg> bigbluehat: If we merge 655 cold lead to a conflict
+16:22:48 <gb> https://github.com/w3c/json-ld-api/pull/655 -> Pull Request 655 Tests t0112 and t0113 use 1.1-specific features (by gkellogg) [test:missing-coverage]
+16:22:56 <gkellogg> gkellogg: Shouldn't.
+16:24:03 <gkellogg> ... Generally don't like to use merge commits.
+16:24:06 <dlehn> present+
+16:24:51 <gkellogg> ack dlehn
+16:25:12 <gkellogg> subtopic: json-ld/json-ld-star#61
+16:25:13 <gb> https://github.com/json-ld/json-ld-star/pull/61 -> Pull Request 61 Updated test results for JSON-LD-star (by gkellogg)
+16:25:29 <bigbluehat> gkellogg: this is another call for review of this one
+16:25:40 <bigbluehat> ... I do see some feedback from pchampin and he's done a partial review
+16:26:01 <bigbluehat> ... the goal is to update JSON-LD-star to catch-up with where RDF 1.2 is
+16:26:22 <bigbluehat> ... so, rather than updating the spec, I've updated the tests
+16:26:31 <bigbluehat> ... and put in an abbreviated summary of what the changes would be
+16:26:42 <bigbluehat> ... so once that's approved, we can work on spec text changes
+16:26:54 <niklasl> q+
+16:27:09 <bigbluehat> bigbluehat: these will need to be <ins>/<del> denoted changes?
+16:27:17 <bigbluehat> gkellogg: no, this is on json-ld-star which is a CG report
+16:27:24 <bigbluehat> ... so this doesn't disrupt that
+16:27:45 <bigbluehat> ... there will, however, be needed work to merge the json-ld-star stuff into the main json-ld-syntax
+16:27:53 <bigbluehat> dlehn: ...there are a lot of test files...
+16:27:59 <bigbluehat> gkellogg: yeah...we're heavy on files
+16:28:09 <bigbluehat> ... and maybe a rework would take a different approach
+16:28:26 <bigbluehat> ... but as monumental a task as that would be, we're likely better off sticking with what we have now
+16:28:42 <bigbluehat> ... I would, however, like to annotate our spec pointing back to the tests
+16:28:55 <bigbluehat> ... I've done it elsewhere, but it'd be great here
+16:29:00 <bigbluehat> ... YAML-LD does that
+16:29:18 <bigbluehat> ... thanks to a push by ivan who did that for publishing WG
+16:29:25 <TallTed> *cheers* for the gradual annotating / crosslinking
+16:29:49 <gkellogg> niklasl: I prefer to work like this than update the algorithms; it's easier for me.
+16:30:23 <gkellogg> ... It would be catagorize tests with those that are more useful.
+16:30:41 <gkellogg> dlehn: Ordering would be nice, but tagging might be appropriate.
+16:31:21 <ivan> q+
+16:31:44 <gkellogg> ack ivan
+16:31:45 <bigbluehat> gkellogg: ideally every normative statemen links back to their tests
+16:31:49 <bigbluehat> ... but it can be challenging
+16:31:58 <gkellogg> ivan: We did it for ePub and it turned out to be extremely useful.
+16:32:16 <gkellogg> ... When we had to report back on the PR, we could easily prove that we had a proper test suite.
+16:32:52 <gkellogg> ... It's a heavy setup; The WebAPI people did it well, but I had to add some scripts to address assumptions in ReSpec.
+16:33:06 <bigbluehat> gkellogg: I've been copying pasting from what you've been doing
+16:33:15 <bigbluehat> ... there's now a script that does much of the work for me
+16:33:27 <bigbluehat> ... it can identify the tests and make links back
+16:33:35 <bigbluehat> ... and it can be done asynchronously
+16:33:51 <bigbluehat> ... a test repo can iterate separately from the spec
+16:34:13 <bigbluehat> ... we have at least 3 specs here and each have their own test suiets
+16:34:19 <bigbluehat> s/suiets/suites
+16:34:24 <gkellogg> q?
+16:34:24 <bigbluehat> ... but maybe we could merge them
+16:34:29 <gkellogg> ack niklasl
+16:34:33 <gkellogg> subtopic: w3c/json-ld-api#558
+16:35:19 <gb> https://github.com/w3c/json-ld-api/issues/558 -> Issue 558 Compaction cannot round-trip terms using `@container: @list` and `@type: @vocab` (by niklasl) [spec:enhancement] [spec:substantive] [ErratumRaised] [class-3]
+16:36:06 <gkellogg> niklasl: I started a PR for this, but am not quite ready for it yet.
+16:36:38 <gkellogg> subtopic: w3c/json-ld-api#638
+16:36:38 <gb> https://github.com/w3c/json-ld-api/pull/638 -> Pull Request 638 address #630 (by pchampin) [needs discussion] [class-2]
+16:37:25 <gkellogg> pchampin: This is about inverse context creation.
+16:37:42 <gkellogg> ... I thought it was ambiguous in the definition of the active context.
+16:38:04 <gkellogg> ... I tried to improve it without restructuring the document, which meant changing something in the terminology section.
+16:38:22 <gkellogg> ... The end result is not 100% satisfying, as change to terminology is big.
+16:38:48 <gkellogg> ... It's also inherited in other documents, so we need to mark changes in other documents, even though it's only in JSON-LD API.
+16:39:19 <bigbluehat> bigbluehat: thoughts? especially on the size of the change?
+16:39:37 <gkellogg> bigbluehat: Looks like some validation errors.
+16:39:39 <bigbluehat> gkellogg: I think it's good to go
+16:39:50 <bigbluehat> ... and I plan to make similar ones in the other specs
+16:40:11 <bigbluehat> ... so once we get the validation error fixed, we can merge this and make the others
+16:40:24 <bigbluehat> bigbluehat: do we need to synchronize those changes across the specs?
+16:40:37 <bigbluehat> gkellogg: the json-ld-commons repository is where the term changes would happen
+16:40:48 <bigbluehat> ... and then that would be copied back out to the individual spec repos
+16:40:57 <bigbluehat> ... and if we don't, then the github action will complain
+16:41:09 <bigbluehat> ... pchampin can you look at the markup issues?
+16:41:12 <bigbluehat> pchampin: yep
+16:41:23 <gkellogg> subtopic: w3c/json-ld-api#648
+16:41:23 <gb> https://github.com/w3c/json-ld-api/issues/648 -> CLOSED Issue 648 Error in fromRdf/0027-out.jsonld (by marcelotto)
+16:41:48 <gkellogg> subtopic: w3c/json-ld-api#659
+16:41:49 <gb> https://github.com/w3c/json-ld-api/issues/659 -> Issue 659 Compacted form for the "Serialize RDF as JSON-LD Algorithm" (by multimeric)
+16:42:24 <bigbluehat> gkellogg: this was a request related to flattening and framing
+16:42:37 <bigbluehat> ... that implies that maybe we could add some options to flattening
+16:42:55 <bigbluehat> ... my response was that recent changes should make it easier to get the original representation
+16:43:13 <bigbluehat> ... so stringing these algorithms together is still possible, but can now be shortened
+16:43:18 <gkellogg> q?
+16:43:21 <bigbluehat> ... so I'd suggest we close this with no change
+16:44:04 <gkellogg> PROPOSAL: Close w3c/json-ld-api#659 with no change, as the ability to get the native form out of the API gets around the duplication.
+16:44:16 <pchampin> +1
+16:44:28 <bigbluehat> gkellogg: since this is really on the RDF side, my code handles it there
+16:44:36 <bigbluehat> ... it makes use of the JSON-LD algorithm
+16:44:48 <niklasl> +1
+16:44:54 <bigbluehat> ... for instance, I can pass in prefix mapping and use it later with contexts and frames
+16:45:07 <bigbluehat> ... I think trying to be a swiss army knife in the spec is not helpul
+16:45:12 <gkellogg> +1
+16:45:13 <ivan> +1
+16:45:18 <bigbluehat> ... and this should be left to implementations
+16:45:19 <bigbluehat> +1
+16:45:24 <anatoly-scherbakov> +1
+16:45:30 <gkellogg> RESOLVED: Close w3c/json-ld-api#659 with no change, as the ability to get the native form out of the API gets around the duplication.
+16:45:31 <gb> https://github.com/w3c/json-ld-api/issues/659 -> Issue 659 Compacted form for the "Serialize RDF as JSON-LD Algorithm" (by multimeric)
+16:45:59 <bigbluehat> gkellogg: shall we look at a few more?
+16:46:07 <bigbluehat> ... anything specific someone wants to discuss?
+16:46:07 <gkellogg> topic: Charter
+16:46:17 <pchampin> q+
+16:46:20 <bigbluehat> pchampin:
+16:46:24 <bigbluehat> ack pchampin
+16:46:34 <gkellogg> pchampin: It might be useful to discuss rechartering.
+16:46:50 <bigbluehat> q+ to say a bit about CBOR-LD
+16:46:54 <gkellogg> ... Talking with Ivan, CBOR-LD is going to become a dependency.
+16:47:07 <gkellogg> ivan: It's necessary for VCs.
+16:47:38 <gkellogg> pchampin: I haven't been too efficient on rechartering, I'll see what might be keeping us from moving forward.
+16:47:57 <bigbluehat> ack bigbluehat
+16:47:57 <Zakim> bigbluehat, you wanted to say a bit about CBOR-LD
+16:47:57 <pchampin> https://json-ld.github.io/json-ld-wg-charter/
+16:48:28 <gkellogg> bigbluehat: The CBOR-LD registry repo has been moved in the JSON-LD CG org. There's now an IANA registration.
+16:48:30 <pchampin> i/pchampin: It might be useful to discuss rechartering./Topic: rechartering
+16:48:57 <ivan> q+
+16:48:59 <gkellogg> ... manu explained the vision for it and someone will be coming on in an upcoming meeting to discuss.
+16:49:23 <gkellogg> ... I think the VC related (VPQR) is CBOR-LD turned into a QR code with some text.
+16:49:27 <bigbluehat> ack ivan
+16:50:10 <gkellogg> ivan: We need to discuss how we do that as a working group. I'm a bit worried if we have a working group that does JSON- YAML- and CBOR-LD which can be complex.
+16:50:22 <bigbluehat> q+
+16:50:32 <gkellogg> ... We'll also have a problem with cross registering.
+16:51:04 <gkellogg> ... An alternative would be to create separate working groups, and charter it tightly, then it won't become a bottleneck for other groups.
+16:51:05 <gkellogg> q+
+16:51:14 <bigbluehat> ack bigbluehat
+16:51:38 <gkellogg> bigbluehat: The cross-referencing concern is in between specs in the same WG.
+16:51:53 <gkellogg> ivan: We have a problem for this now.
+16:52:10 <gkellogg> ... If we get into some VC issues that depend on CBOR-LD, it could lead to a problem.
+16:52:41 <gkellogg> ... The counter argument is that if we have small WGs the community could be spread thin.
+16:53:19 <gkellogg> bigbluehat: I thought we were solving the cross-team problems by having them in one group.
+16:53:56 <gkellogg> ivan: I'm worried about dragging on.
+16:54:02 <bigbluehat> ack gkellogg
+16:54:33 <bigbluehat> gkellogg: I think specifically with CBOR-LD work has really been done by folks who are not working on JSON-LD or YAML-LD
+16:54:45 <bigbluehat> ... so in that sense, it has already been a separate group
+16:54:51 <bigbluehat> ... so we could formalize that
+16:55:04 <bigbluehat> ... but it would very much need liaison requirements
+16:55:05 <bigbluehat> q+
+16:55:19 <bigbluehat> ... and that we should focus on cross-compatibility and not just compression
+16:55:41 <gkellogg> ack bigbluehat
+16:55:44 <bigbluehat> ... I would be in support, then, for a CBOR-LD group with liaison
+16:56:10 <gkellogg> bigbluehat: I think you're right that CBOR-LD has already been separated from this group.
+16:56:53 <gkellogg> ... I think prior to that, we're going to need to have a conversation about what CBOR-LD is, is it an -LD format, or just a compression format?
+16:57:13 <gkellogg> ... If it's its own working group, we're going to need to justify that.
+16:57:28 <gkellogg> ... Generally, you need JSON-LD.
+16:57:48 <gkellogg> ... I've reached out to more active CBOR-LD contributors for discussion.
+16:58:25 <gkellogg> ... if it's its own charter, it may generate interest, but not result in good coordination.
+16:58:55 <gkellogg> zakim, end meeting
+16:58:55 <Zakim> As of this point the attendees have been gkellogg, pchampin, anatoly-scherbakov, niklasl, ivan, TallTed, dlehn
+16:58:57 <Zakim> RRSAgent, please draft minutes
