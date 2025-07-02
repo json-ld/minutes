@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/site.css" media="screen">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>JSON-LD Community Group</title>
+  <style type="text/css"> 
+body {
+   max-width: 50em;
+   margin: auto;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 20px;
+}
+
+label {
+   float: left;
+   text-align: right;
+   margin-right: 15px;
+   width: 100px;
+}
+
+ol {
+   padding-left: 1.2em;
+}
+
+dl > dd {
+  margin-left: 2em;
+}
+
+dl > dd > ol > li {
+  margin-left: 1em;
+}
+
+dt {
+  color:#444;
+  font-weight:700;
+}
+
+div.summary {
+  font-size: 1.25em;
+}
+
+span.name {
+   font-weight: bold;
+}
+ 
+div.information {
+  font-style: italic;
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+div.action {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+div.comment {
+  font-family: 'Droid Serif', serif;
+  margin-top: 0.5em;
+  //font-size: 1.25em;
+}
+
+div.comment-continuation {
+  font-family: 'Droid Serif', serif;
+  //font-size: 1.25em;
+  margin-left: 2em;
+}
+
+div.proposal {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #634688;
+  background-color: #DDD8F0;
+  border-color: #CEC6E9;
+}
+ 
+div.resolution {
+  padding: 15px;
+  margin: 20px 0px 20px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.error {
+   border: thin solid #f00;
+   padding: 0.5em;
+}
+  </style> 
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h1>The W3C JSON-LD Community Group</h1>
+      <h3><a href="../">Go Back</a></h3>
+
+      <hr>
+      <p><img src="https://www.w3.org/Icons/w3c_home" alt="W3C Logo" /></p><div><div><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><h1>JSON-LD WG</h1>
+<h2>Minutes for 2025-07-02</h2>
+<div class="summary">
+<dl>
+<dt>Present</dt><dd><a href="http://greggkellogg.net/home/about/">Gregg Kellogg</a>, <a href="https://json-ld.org/">Victor Lu</a>, <a href="https://json-ld.org/">Niklas Lindström</a>, <a href="http://www.linkedin.com/in/macted">Ted Thibodeau Jr.</a>, <a href="https://github.com/dlongley">Dave Longley</a>, <a href="https://www.linkedin.com/in/benjaminyoung/">Benjamin Young</a>, <a href="https://json-ld.org/">Anatoly Scherbakov</a></dd>
+<dt>Chair(s)</dt><dd>Benjamin Young</dd>
+<dt>Scribe(s)</dt><dd>Gregg Kellogg, Benjamin Young</dd>
+<dt>Agenda</dt><dd><a href="https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250702T120000/">https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250702T120000/</a></dd>
+<dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">Rechartering</a></ol></dd></dl>
+</div>
+<div class="information">Gregg Kellogg is scribing.</div>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
+<div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Benjamin Young</span>:  Call is mostly about chartering. <a id="link-1" style="display:none;" href="#1">✪</a></div>
+<div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="comment"><span class="name">Manu Sporny</span>:  VC 2.0 is now a standard, which uses JSON-LD. <a id="link-2" style="display:none;" href="#2">✪</a></div>
+<div class="comment-continuation">... We have some large production deployments going out.</div>
+<div class="comment-continuation">... Yesterday, there was a presentation in the VC CG around using the VC supply chain. The UN has UNIEC, and the idea is to publish JSON-LD as linked data.</div>
+<div class="comment-continuation">... This makes JSON-LD and RDF central underpinning technology for a fair amount of world trade.</div>
+<div class="comment-continuation">... The current feature set works well.</div>
+<div class="comment-continuation">... Secondly, the data integrity group using looking at quantum cryptography, and looking to use zero-knowledge in graphs.</div>
+<div class="comment-continuation">... We need to do that in a post-quantum world, as elliptic curve can be broken by quantum.</div>
+<div class="comment-continuation">... The use case would be to query RDF graphs to query for a proof of some fact, such as age or license.</div>
+<div class="comment-continuation">... You&apos;d run a sparql query on a graph you download and be able to prove locally.</div>
+<div class="comment-continuation">... There is other RDF/crypto work going on as well.</div>
+<div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Victor Lu</span>:  JSON-LD has become huge in our community. <a id="link-3" style="display:none;" href="#3">✪</a></div>
+<div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Manu Sporny</span>: SPDX <a id="link-4" style="display:none;" href="#4">✪</a></div>
+<div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Benjamin Young</span>:  SPDX using JSON-LD is great! <a id="link-5" style="display:none;" href="#5">✪</a></div>
+<div class="comment-continuation">... Is there a place for us to watch progress on some of the things manu mentioned?</div>
+<div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="comment"><span class="name">Manu Sporny</span>:  There is a summary every week in the data integrity CG. <a id="link-6" style="display:none;" href="#6">✪</a></div>
+<div class="comment-continuation">... RDF-star may help in some cases, but it&apos;s not clear exactly how.</div>
+<div class="comment-continuation">... Note that this is leading-edge research right now, and it could be a couple of years before something concrete emerges.</div>
+<div class="comment-continuation">... Using SPARQL and ZKP is just emerging.</div>
+<div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="comment"><span class="name">Benjamin Young</span>:  We can make data integrity a topic of a future CG call. <a id="link-7" style="display:none;" href="#7">✪</a></div>
+<div class="comment-continuation">... I believe victor_lu is in the CG, but not the WG right now.</div>
+<div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Ted Thibodeau Jr.</span>:  Chair&apos;s desecration for observers. <a id="link-8" style="display:none;" href="#8">✪</a></div>
+<div onmouseout="$('#link-9').hide()" onmouseover="$('#link-9').show()" id="9" class="comment"><span class="name">Victor Lu</span>:  Love to join the WG. <a id="link-9" style="display:none;" href="#9">✪</a></div>
+<div onmouseout="$('#link-10').hide()" onmouseover="$('#link-10').show()" id="10" class="comment"><span class="name">Benjamin Young</span>:  Decisions need to be made by WG members. <a id="link-10" style="display:none;" href="#10">✪</a></div>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: Rechartering
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
+<div onmouseout="$('#link-11').hide()" onmouseover="$('#link-11').show()" id="11" class="comment"><span class="name">Benjamin Young</span>: <a href="https://json-ld.github.io/json-ld-wg-charter">https://json-ld.github.io/json-ld-wg-charter</a> <a id="link-11" style="display:none;" href="#11">✪</a></div>
+<div onmouseout="$('#link-12').hide()" onmouseover="$('#link-12').show()" id="12" class="comment"><span class="name">Benjamin Young</span>:  Main thing to focus on today is the charter. This draft has been a work in progress, and we&apos;ve been working on the scope. <a id="link-12" style="display:none;" href="#12">✪</a></div>
+<div class="comment-continuation">... In discussions, we&apos;ve discussed where CBOR-LD and YAML-LD fit.</div>
+<div class="comment-continuation">... iherman raised the idea of their being multiple WGs.</div>
+<div class="comment-continuation">... If we&apos;re doing multiple formats, we want to rename to something like &quot;Linked Data Formats WG&quot;.</div>
+<div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Manu Sporny</span>:  Generally, we&apos;d rather not have multiple working groups. It&apos;s helpful for all the formats to feed off of each other. <a id="link-13" style="display:none;" href="#13">✪</a></div>
+<div class="comment-continuation">... There are lessons from YAML-LD that inform JSON-LD and CBOR-LD.</div>
+<div class="comment-continuation">... Smaller groups would split attention and create a bigger demand on time.</div>
+<div class="comment-continuation">... We&apos;re -1 on separate WGs, from an availability prespective.</div>
+<div class="comment-continuation">... +1 to broadening the scope of the group to consider related formats.</div>
+<div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Dave Longley</span>: +1 To what manu is saying ... we should preventing setting up barriers between the format designs/discussion and avoid duplicating overhead with multiple groups that likely have very similar members <a id="link-14" style="display:none;" href="#14">✪</a></div>
+<div class="comment-continuation">... It would also reduce staff effort. If it&apos;s getting out of hand, we look back to the charter.</div>
+<div class="comment-continuation">... Right now, the charter is arguably too narrow. It will be a lot of work, but the specs feel pretty mature.</div>
+<div class="comment-continuation">... YAML-LD is mature, and CBOR-LD is getting there.</div>
+<div class="comment-continuation">... There are LD-adjacent things to think about.</div>
+<div class="comment-continuation">... Maybe not data integrity, or canonicalization.</div>
+<div class="comment-continuation">... There are things that W3C needs to think about on how we&apos;re going to maintain these work items.</div>
+<div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Dave Longley</span>: +1 To Linked Data Formats WG approach <a id="link-15" style="display:none;" href="#15">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Benjamin Young</span>:  I&apos;m in favor of the LD formats approach, vs chopping the group down to multiple pieces. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div class="comment-continuation">... related to a LD formats WG, it would be worth considering what other specs might be worth considering.</div>
+<div class="comment-continuation">... A perenial request is a hash-based context.</div>
+<div class="information">Benjamin Young is scribing.</div>
+<div onmouseout="$('#link-17').hide()" onmouseover="$('#link-17').show()" id="17" class="comment"><span class="name">Dave Longley</span>: +1 To producing a solution to the hash-based context problem in this iteration <a id="link-17" style="display:none;" href="#17">✪</a></div>
+<div onmouseout="$('#link-18').hide()" onmouseover="$('#link-18').show()" id="18" class="comment"><span class="name">Gregg Kellogg</span>:  Some of ivan&apos;s thoughts seemed to be around CBOR-LD being mostly by Digital Bazaar with periodic check-ins <a id="link-18" style="display:none;" href="#18">✪</a></div>
+<div class="comment-continuation">... vs. work being done by the Community Group per se</div>
+<div class="comment-continuation">... so he was presenting that CBOR-LD already was a bit like a separate group alreayd</div>
+<div class="comment-continuation">... but it would be far simpler if it were just one group</div>
+<div class="comment-continuation">... especially around interrelated dependencies</div>
+<div onmouseout="$('#link-19').hide()" onmouseover="$('#link-19').show()" id="19" class="comment"><span class="name">Dave Longley</span>: +1 To avoid the dependency overhead (and there is other overhead) Gregg is warning against and +1 to task forces within the same WG <a id="link-19" style="display:none;" href="#19">✪</a></div>
+<div class="comment-continuation">... it may also be better to explore task forces instead</div>
+<div onmouseout="$('#link-20').hide()" onmouseover="$('#link-20').show()" id="20" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 For task forces <a id="link-20" style="display:none;" href="#20">✪</a></div>
+<div class="comment-continuation">... as long as those sub groups bring their work to the larger group</div>
+<div onmouseout="$('#link-21').hide()" onmouseover="$('#link-21').show()" id="21" class="comment"><span class="name">Benjamin Young</span>:  The task force works well in other groups, and could be pragmatic for us. <a id="link-21" style="display:none;" href="#21">✪</a></div>
+<div onmouseout="$('#link-22').hide()" onmouseover="$('#link-22').show()" id="22" class="comment"><span class="name">Manu Sporny</span>: +1 To Task Forces if necessary... the reason we want a WG is broader/wider review before moving forward. <a id="link-22" style="display:none;" href="#22">✪</a></div>
+<div onmouseout="$('#link-23').hide()" onmouseover="$('#link-23').show()" id="23" class="comment"><span class="name">Manu Sporny</span>:  I agree that we don&apos;t want the dependency overhead. We&apos;d really like more WG input on CBOR-LD. Breaking the group up would go against that. <a id="link-23" style="display:none;" href="#23">✪</a></div>
+<div class="comment-continuation">... We&apos;re seeking broader review, and don&apos;t want to be in a group that limits review.</div>
+<div onmouseout="$('#link-24').hide()" onmouseover="$('#link-24').show()" id="24" class="comment"><span class="name">Gregg Kellogg</span>:  We should also consider potential headwinds from the TAG or others <a id="link-24" style="display:none;" href="#24">✪</a></div>
+<div onmouseout="$('#link-25').hide()" onmouseover="$('#link-25').show()" id="25" class="comment"><span class="name">Manu Sporny</span>:  I haven&apos;t heard anything about concerns about our anticipated charter. <a id="link-25" style="display:none;" href="#25">✪</a></div>
+<div class="comment-continuation">... There are some people that have positions that are not fully on board, that that ship has sailed given the extremely broad use of JSON-LD.</div>
+<div class="comment-continuation">... Hard to imagine that any possible objections that could overcome that.</div>
+<div class="comment-continuation">... Until we hear something more concrete, we should proceed with our direction.</div>
+<div class="comment-continuation">... It&apos;s easier to make a strong argument for the work today, than it was 10 years ago.</div>
+<div class="comment-continuation">... It would be strange for the W3C to not participate in something that affects so large a part of the human population.</div>
+<div onmouseout="$('#link-26').hide()" onmouseover="$('#link-26').show()" id="26" class="comment"><span class="name">Niklas Lindstr&#246;m</span>:  I agree with the discussion so far. I was thinking what the data formats we work on have in common. <a id="link-26" style="display:none;" href="#26">✪</a></div>
+<div class="comment-continuation">... The first formulation was a bit ambitious. One of the selling points of JSON-LD, without gettin into semantics, is that it has a semantics-preserving property.</div>
+<div class="comment-continuation">... That is lacking in virtually any other data format.</div>
+<div class="comment-continuation">... The closest thing would be resolving links to the same IRI.</div>
+<div onmouseout="$('#link-27').hide()" onmouseover="$('#link-27').show()" id="27" class="comment"><span class="name">Manu Sporny</span>: +1 To what niklasl said... agree that is one of the things that&apos;s at the core of it. <a id="link-27" style="display:none;" href="#27">✪</a></div>
+<div onmouseout="$('#link-28').hide()" onmouseover="$('#link-28').show()" id="28" class="comment"><span class="name">Benjamin Young</span>:  The distinction between CBOR-LD and the others came up. <a id="link-28" style="display:none;" href="#28">✪</a></div>
+<div class="comment-continuation">... YAML-LD is very directly linked to JSON-LD.</div>
+<div onmouseout="$('#link-29').hide()" onmouseover="$('#link-29').show()" id="29" class="comment"><span class="name">Dave Longley</span>: (Side note: one of the key features of JSON-LD/Linked Data to me has been the capability to scale to parties you don&apos;t know (because it is self-describing) ... which is really important for use cases like the VC use cases with the &quot;three party model&quot;) <a id="link-29" style="display:none;" href="#29">✪</a></div>
+<div class="comment-continuation">... CBOR-LD is more of a compression format, so you don&apos;t have the &quot;LD&quot; portion of it.</div>
+<div class="comment-continuation">... We should focus on the specifics of what the WG will do.</div>
+<div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Manu Sporny</span>:  On the compression format thing, we should not explain it that way. It is an LD-format, it just happens to be quite compact. <a id="link-30" style="display:none;" href="#30">✪</a></div>
+<div class="comment-continuation">... You can take that format and expand to JSON-LD or YAML-LD directly, which says it&apos;s not purely about JSON-LD.</div>
+<div class="comment-continuation">... The algorithms, while normative, don&apos;t need to be implemented as described in the spec.</div>
+<div class="comment-continuation">... We&apos;re looking at a binary LD format, which happens to be compatible with JSON-LD and YAML-LD.</div>
+<div class="comment-continuation">... We might want to think about messaging.</div>
+<div class="comment-continuation">... Based on that, I wouldn&apos;t say that using a different WG is the right way to go.</div>
+<div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Benjamin Young</span>: +1 For this framing <a id="link-31" style="display:none;" href="#31">✪</a></div>
+<div class="comment-continuation">...heh</div>
+<div class="comment-continuation">... We&apos;re using the benefit of existing specs to reduce the amount of normative language we use.</div>
+<div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">Dave Longley</span>:  I don&apos;t know how much we need to defend this work. <a id="link-32" style="display:none;" href="#32">✪</a></div>
+<div class="comment-continuation">... WRT CBOR-LD, people think about the functional definition.</div>
+<div class="comment-continuation">... The purpose is to express in a compressed format, but you&apos;re preserving the semantic information.</div>
+<div class="comment-continuation">... A consequence of being self-describing, is that JSON-LD has the ability to scale to parties you don&apos;t know.</div>
+<div class="comment-continuation">... A credential can be issued and handed off with one not knowing anything about the other.</div>
+<div class="comment-continuation">... That kind of scale only happens because that information is preserved.</div>
+<div class="comment-continuation">... A 2-party model works well at a small scale, where you might communicate out of band.</div>
+<div class="comment-continuation">... To scale beyond, you can&apos;t do that in a decentralized way without the semantics-preserving property.</div>
+<div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>:  JSON-LD&apos;s core representation based largely on INFRA <a id="link-33" style="display:none;" href="#33">✪</a></div>
+<div class="comment-continuation">... is what separates us from &quot;just JSON&quot;</div>
+<div class="comment-continuation">... and it&apos;s allowed us to do what we&apos;re doing</div>
+<div class="comment-continuation">... and as long as we preserve that layer in CBOR-LD</div>
+<div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 <a id="link-34" style="display:none;" href="#34">✪</a></div>
+<div class="comment-continuation">... then the spec can largely focus on compression</div>
+<div onmouseout="$('#link-35').hide()" onmouseover="$('#link-35').show()" id="35" class="comment"><span class="name">Manu Sporny</span>:  We may want to consider other things in the charter. <a id="link-35" style="display:none;" href="#35">✪</a></div>
+<div onmouseout="$('#link-36').hide()" onmouseover="$('#link-36').show()" id="36" class="comment"><span class="name">Benjamin Young</span>: +1 On removing the big list....we&apos;ve already been headed that way fwiw <a id="link-36" style="display:none;" href="#36">✪</a></div>
+<div class="comment-continuation">... There&apos;s an in-scope section that lays out what we want to address, and I think we need to remove this.</div>
+<div onmouseout="$('#link-37').hide()" onmouseover="$('#link-37').show()" id="37" class="comment"><span class="name">Manu Sporny</span>:  I haven&apos;t seen that done in other WG charters, and the direction is to make them succinct. <a id="link-37" style="display:none;" href="#37">✪</a></div>
+<div class="comment-continuation">... The big list looks out of place to me.</div>
+<div class="comment-continuation">... secondly, it says &quot;Linked Data Signatures&quot;, it&apos;s now &quot;Data Integrity&quot;.</div>
+<div class="comment-continuation">... It&apos;s a different group, so we don&apos;t need to list it specifically.</div>
+<div class="comment-continuation">... There are two other specs in the new VC group around barcodes and wireless transmission, that are dependent on CBOR-LD.</div>
+<div class="comment-continuation">... Not getting CBOR-LD done in a timely manner could be a problem.</div>
+<div onmouseout="$('#link-38').hide()" onmouseover="$('#link-38').show()" id="38" class="comment"><span class="name">Gregg Kellogg</span>:  On that list of changes <a id="link-38" style="display:none;" href="#38">✪</a></div>
+<div class="comment-continuation">... certainly we can address that on a timeline</div>
+<div class="comment-continuation">... and it does show that the first things we might do is FPWD for YAML-LD and CBOR-LD</div>
+<div class="comment-continuation">... and that could happen shortly after the group&apos;s established</div>
+<div onmouseout="$('#link-39').hide()" onmouseover="$('#link-39').show()" id="39" class="comment"><span class="name">Benjamin Young</span>:  We should discuss rechartering timeline. We could come back in two weeks with staff contacts. <a id="link-39" style="display:none;" href="#39">✪</a></div>
+<div class="comment-continuation">... The chairs can work on this in the interim, and look to rename.</div>
+<div class="comment-continuation">... TPAC is on the horizon, and we need to know if we&apos;re going to try to re-charter first.</div>
+<div onmouseout="$('#link-40').hide()" onmouseover="$('#link-40').show()" id="40" class="comment"><span class="name">Manu Sporny</span>:  Please try to recharter before TPAC. <a id="link-40" style="display:none;" href="#40">✪</a></div>
+<div class="comment-continuation">... We also want to recharter other groups at the same time, but that could be a problem.</div>
+<div class="comment-continuation">... We have systems going into production before we&apos;re in a standards-track, which is not great.</div>
+<div class="comment-continuation">... Don&apos;t want the timeline to create roadblocks to adoption.</div>
+<div onmouseout="$('#link-41').hide()" onmouseover="$('#link-41').show()" id="41" class="comment"><span class="name">Benjamin Young</span>:  Agreed... <a id="link-41" style="display:none;" href="#41">✪</a></div>
+<div class="comment-continuation">... This is doable, and the charter shouldn&apos;t be too controversial.</div>
+<div onmouseout="$('#link-42').hide()" onmouseover="$('#link-42').show()" id="42" class="comment"><span class="name">Benjamin Young</span>:  We have four months, that&apos;s 8-10 calls at the rate we have meetings <a id="link-42" style="display:none;" href="#42">✪</a></div>
+<div class="comment-continuation">... The next call should have staff contacts so we can see how feasible that is.</div>
+<div class="comment-continuation">... bigbluehat, gkellogg, and pchampin should talk ahead of time to get things in shape.</div>
+<div class="comment-continuation">... We also need to discuss any other specs or notes.</div>
+<div onmouseout="$('#link-43').hide()" onmouseover="$('#link-43').show()" id="43" class="comment"><span class="name">Gregg Kellogg</span>:  Not sure how much more there is to do to this, actually <a id="link-43" style="display:none;" href="#43">✪</a></div>
+<div class="comment-continuation">... just bringing it up to date</div>
+<div class="comment-continuation">... so hopefully not much back and forth</div>
+<div class="comment-continuation">... and that should likely happen on GitHub</div>
+<div onmouseout="$('#link-44').hide()" onmouseover="$('#link-44').show()" id="44" class="comment"><span class="name">Manu Sporny</span>: +1 To what Gregg said, doesn&apos;t feel like there&apos;s a lot to do before charter is ready for a vote. <a id="link-44" style="display:none;" href="#44">✪</a></div>
+<div class="comment-continuation">... so, let&apos;s work to get a meeting in the next week or so with the staff contacts</div>
+<div class="comment-continuation">... and then see what&apos;s left to do</div>
+<div class="comment-continuation">... so the sooner we&apos;re able to move forward on this, the better</div>
+<div class="comment-continuation">... if we&apos;re not planning on active work until after September, then maybe that will help</div>
+<div class="comment-continuation">... and getting the charter done and out of the way shouldn&apos;t be a problem</div>
+<div onmouseout="$('#link-45').hide()" onmouseover="$('#link-45').show()" id="45" class="comment"><span class="name">Gregg Kellogg</span>:  The next meeting and future meetings will be WG meetings <a id="link-45" style="display:none;" href="#45">✪</a></div>
+<div class="comment-continuation">... as focus will be on the charter</div>
+<div onmouseout="$('#link-46').hide()" onmouseover="$('#link-46').show()" id="46" class="comment"><span class="name">Benjamin Young</span>:  Victor_lu, we&apos;ll check on your observer status for WG calls <a id="link-46" style="display:none;" href="#46">✪</a></div>
+<div onmouseout="$('#link-47').hide()" onmouseover="$('#link-47').show()" id="47" class="comment"><span class="name">Gregg Kellogg</span>:  We&apos;d love to have you as a member of the WG <a id="link-47" style="display:none;" href="#47">✪</a></div>
+<div class="comment-continuation">... so we should sort out what might prevent that</div>
+<div onmouseout="$('#link-48').hide()" onmouseover="$('#link-48').show()" id="48" class="comment"><span class="name">Victor Lu</span>:  I&apos;m independent <a id="link-48" style="display:none;" href="#48">✪</a></div>
+<div onmouseout="$('#link-49').hide()" onmouseover="$('#link-49').show()" id="49" class="comment"><span class="name">Gregg Kellogg</span>:  Great, so we should see about getting you on as an Invited Expert <a id="link-49" style="display:none;" href="#49">✪</a></div>
+<div onmouseout="$('#link-50').hide()" onmouseover="$('#link-50').show()" id="50" class="comment"><span class="name">Ted Thibodeau Jr.</span>: <a href="https://www.w3.org/invited-experts/">https://www.w3.org/invited-experts/</a> <a id="link-50" style="display:none;" href="#50">✪</a></div>
+</div></div></div></div></div>    </div>
+  </body>
+</html>

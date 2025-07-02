@@ -1,0 +1,174 @@
+16:31:58 <gkellogg> meeting: JSON-LD WG
+16:31:58 <gkellogg> agenda: https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250702T120000/
+16:31:58 <gkellogg> present+
+16:31:58 <gkellogg> present+ victor_lu
+16:31:58 <niklasl> present+
+16:31:58 <gkellogg> scribe+
+16:31:58 <gkellogg> chair: bigbluehat
+16:31:58 <TallTed> present+
+16:31:58 <dlongley> present+
+16:31:58 <bigbluehat> present+
+16:31:58 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:31:58 <gkellogg> bigbluehat: Call is mostly about chartering.
+16:31:58 <gkellogg> manu: VC 2.0 is now a standard, which uses JSON-LD.
+16:31:58 <gkellogg> ... We have some large production deployments going out.
+16:31:58 <anatoly-scherbakov> present+
+16:31:58 <gkellogg> ... Yesterday, there was a presentation in the VC CG around using the VC supply chain. The UN has UNIEC, and the idea is to publish JSON-LD as linked data.
+16:31:58 <gkellogg> ... This makes JSON-LD and RDF central underpinning technology for a fair amount of world trade.
+16:31:58 <gkellogg> ... The current feature set works well.
+16:31:58 <gkellogg> ... Secondly, the data integrity group using looking at quantum cryptography, and looking to use zero-knowledge in graphs.
+16:31:58 <gkellogg> ... We need to do that in a post-quantum world, as elliptic curve can be broken by quantum.
+16:31:58 <gkellogg> ... The use case would be to query RDF graphs to query for a proof of some fact, such as age or license.
+16:31:58 <gkellogg> ... You'd run a sparql query on a graph you download and be able to prove locally.
+16:31:58 <gkellogg> ... There is other RDF/crypto work going on as well.
+16:31:58 <gkellogg> victor_lu: JSON-LD has become huge in our community.
+16:31:58 <manu> SPDX
+16:31:58 <gkellogg> bigbluehat: SPDX using JSON-LD is great!
+16:31:58 <gkellogg> ... Is there a place for us to watch progress on some of the things manu mentioned?
+16:31:58 <gkellogg> manu: There is a summary every week in the data integrity CG.
+16:31:58 <gkellogg> ... RDF-star may help in some cases, but it's not clear exactly how.
+16:31:58 <gkellogg> ... Note that this is leading-edge research right now, and it could be a couple of years before something concrete emerges.
+16:31:58 <gkellogg> ... Using SPARQL and ZKP is just emerging.
+16:31:58 <gkellogg> bigbluehat: We can make data integrity a topic of a future CG call.
+16:31:58 <gkellogg> ... I believe victor_lu is in the CG, but not the WG right now.
+16:31:58 <gkellogg> TallTed: Chair's desecration for observers.
+16:31:58 <gkellogg> victor_lu: love to join the WG.
+16:31:58 <gkellogg> bigbluehat: Decisions need to be made by WG members.
+16:31:58 <Zakim> agendum 2 -- Rechartering -- taken up [from agendabot]
+16:31:58 <bigbluehat> https://json-ld.github.io/json-ld-wg-charter
+16:31:58 <gkellogg> bigbluehat: Main thing to focus on today is the charter. This draft has been a work in progress, and we've been working on the scope.
+16:31:58 <gkellogg> ... In discussions, we've discussed where CBOR-LD and YAML-LD fit.
+16:31:58 <gkellogg> ... iherman raised the idea of their being multiple WGs.
+16:31:58 <gkellogg> ... If we're doing multiple formats, we want to rename to something like "Linked Data Platforms WG".
+16:31:58 <manu> q+
+16:31:58 <gkellogg> s/Platforms/Formats/
+16:31:58 <gkellogg> manu: Generally, we'd rather not have multiple working groups. It's helpful for all the formats to feed off of each other.
+16:31:58 <gkellogg> ... There are lessons from YAML-LD that inform JSON-LD and CBOR-LD.
+16:31:58 <gkellogg> ... Smaller groups would split attention and create a bigger demand on time.
+16:31:58 <gkellogg> ... We're -1 on separate WGs, from an availability prespective.
+16:31:58 <gkellogg> ... +1 to broadening the scope of the group to consider related formats.
+16:31:58 <dlongley> +1 to what manu is saying ... we should preventing setting up barriers between the format designs/discussion and avoid duplicating overhead with multiple groups that likely have very similar members
+16:31:58 <gkellogg> ... It would also reduce staff effort. If it's getting out of hand, we look back to the charter.
+16:31:58 <gkellogg> ... Right now, the charter is arguably too narrow. It will be a lot of work, but the specs feel pretty mature.
+16:31:58 <gkellogg> ... YAML-LD is mature, and CBOR-LD is getting there.
+16:31:58 <gkellogg> ... There are LD-adjacent things to think about.
+16:31:58 <gkellogg> ... Maybe not data integrity, or canonicalization.
+16:31:58 <gkellogg> ... There are things that W3C needs to think about on how we're going to maintain these work items.
+16:31:58 <dlongley> +1 to Linked Data Formats WG approach
+16:31:58 <gkellogg> bigbluehat: I'm in favor of the LD formats approach, vs chopping the group down to multiple pieces.
+16:31:58 <gkellogg> ... related to a LD formats WG, it would be worth considering what other specs might be worth considering.
+16:31:58 <gkellogg> ... A perenial request is a hash-based context.
+16:31:58 <bigbluehat> scribe+
+16:31:58 <dlongley> +1 to producing a solution to the hash-based context problem in this iteration
+16:31:58 <bigbluehat> gkellogg: some of ivan's thoughts seemed to be around CBOR-LD being mostly by Digital Bazaar with periodic check-ins
+16:31:58 <bigbluehat> ... vs. work being done by the Community Group per se
+16:31:58 <bigbluehat> ... so he was presenting that CBOR-LD already was a bit like a separate group alreayd
+16:31:58 <bigbluehat> ... but it would be far simpler if it were just one group
+16:31:58 <bigbluehat> ... especially around interrelated dependencies
+16:31:58 <dlongley> +1 to avoid the dependency overhead (and there is other overhead) Gregg is warning against and +1 to task forces within the same WG
+16:31:58 <bigbluehat> ... it may also be better to explore task forces instead
+16:31:58 <niklasl> +1 for task forces
+16:31:58 <bigbluehat> ... as long as those sub groups bring their work to the larger group
+16:31:58 <gkellogg> bigbluehat: The task force works well in other groups, and could be pragmatic for us.
+16:31:58 <manu> +1 to Task Forces if necessary... the reason we want a WG is broader/wider review before moving forward.
+16:31:58 <gkellogg> manu: I agree that we don't want the dependency overhead. We'd really like more WG input on CBOR-LD. Breaking the group up would go against that.
+16:31:58 <gkellogg> ... We're seeking broader review, and don't want to be in a group that limits review.
+16:31:58 <manu> q+
+16:31:58 <bigbluehat> gkellogg: we should also consider potential headwinds from the TAG or others
+16:31:58 <gkellogg> manu: I haven't heard anything about concerns about our anticipated charter.
+16:31:58 <gkellogg> ... There are some people that have positions that are not fully on board, that that ship has sailed given the extremely broad use of JSON-LD.
+16:31:58 <gkellogg> ... Hard to imagine that any possible objections that could overcome that.
+16:31:58 <gkellogg> ... Until we hear something more concrete, we should proceed with our direction.
+16:31:58 <gkellogg> ... It's easier to make a strong argument for the work today, than it was 10 years ago.
+16:31:58 <gkellogg> ... It would be strange for the W3C to not participate in something that affects so large a part of the human population.
+16:31:58 <bigbluehat> niklasl: I agree with the discussion so far. I was thinking what the data formats we work on have in common.
+16:31:58 <gkellogg> ... The first formulation was a bit ambitious. One of the selling points of JSON-LD, without gettin into semantics, is that it has a semantics-preserving property.
+16:31:58 <gkellogg> ... That is lacking in virtually any other data format.
+16:31:58 <gkellogg> ... The closest thing would be resolving links to the same IRI.
+16:31:58 <manu> +1 to what niklasl said... agree that is one of the things that's at the core of it.
+16:31:58 <gkellogg> bigbluehat: The distinction between CBOR-LD and the others came up.
+16:31:58 <gkellogg> ... YAML-LD is very directly linked to JSON-LD.
+16:31:58 <dlongley> (side note: one of the key features of JSON-LD/Linked Data to me has been the capability to scale to parties you don't know (because it is self-describing) ... which is really important for use cases like the VC use cases with the "three party model")
+16:31:58 <gkellogg> ... CBOR-LD is more of a compression format, so you don't have the "LD" portion of it.
+16:31:58 <manu> q+ to wonder if "compression format" is the wrong way to explain it... might get us in trouble.
+16:31:58 <gkellogg> ... We should focus on the specifics of what the WG will do.
+16:31:58 <dlongley> q+
+16:31:58 <gkellogg> manu: On the compression format thing, we should not explain it that way. It is an LD-format, it just happens to be quite compact.
+16:31:58 <gkellogg> ... You can take that format and expand to JSON-LD or YAML-LD directly, which says it's not purely about JSON-LD.
+16:31:58 <gkellogg> ... The algorithms, while normative, don't need to be implemented as described in the spec.
+16:31:58 <gkellogg> ... We're looking at a binary LD format, which happens to be compatible with JSON-LD and YAML-LD.
+16:31:58 <gkellogg> ... We might want to think about messaging.
+16:31:58 <gkellogg> q+
+16:31:58 <gkellogg> ... Based on that, I wouldn't say that using a different WG is the right way to go.
+16:31:58 <bigbluehat>  +1 for this framing
+16:31:58 <bigbluehat>  ...heh
+16:31:58 <gkellogg> ... We're using the benefit of existing specs to reduce the amount of normative language we use.
+16:31:58 <gkellogg> dlongley: I don't know how much we need to defend this work.
+16:31:58 <manu> q+ to comment on the "In Scope" section of the Charter.
+16:31:58 <gkellogg> ... WRT CBOR-LD, people think about the functional definition.
+16:31:58 <gkellogg> ... The purpose is to express in a compressed format, but you're preserving the semantic information.
+16:31:58 <manu> q+ to change "Linked Data Signatures" to "Data Integrity" in Charter
+16:31:58 <gkellogg> ... A consequence of being self-describing, is that JSON-LD has the ability to scale to parties you don't know.
+16:31:58 <gkellogg> ... A credential can be issued and handed off with one not knowing anything about the other.
+16:31:58 <gkellogg> ... That kind of scale only happens because that information is preserved.
+16:31:58 <gkellogg> ... A 2-party model works well at a small scale, where you might communicate out of band.
+16:31:58 <gkellogg> ... To scale beyond, you can't do that in a decentralized way without the semantics-preserving property.
+16:31:58 <bigbluehat> gkellogg: JSON-LD's core representation based largely on INFRA
+16:31:58 <bigbluehat> ... is what separates us from "just JSON"
+16:31:58 <bigbluehat> ... and it's allowed us to do what we're doing
+16:31:58 <bigbluehat> ... and as long as we preserve that layer in CBOR-LD
+16:31:58 <niklasl> +1
+16:31:58 <manu> q+ to note dependent specifications vc-barcodes and vc-wireless
+16:31:58 <bigbluehat> ... then the spec can largely focus on compression
+16:31:58 <gkellogg> manu: We may want to consider other things in the charter.
+16:31:58 <bigbluehat>  +1 on removing the big list....we've already been headed that way fwiw
+16:31:58 <gkellogg> ... There's an in-scope section that lays out what we want to address, and I think we need to remove this.
+16:31:58 <gkellogg> manu: I haven't seen that done in other WG charters, and the direction is to make them succinct.
+16:31:58 <gkellogg> ... The big list looks out of place to me.
+16:31:58 <gkellogg> ... secondly, it says "Linked Data Signatures", it's now "Data Integrity".
+16:31:58 <gkellogg> ... It's a different group, so we don't need to list it specifically.
+16:31:58 <gkellogg> ... There are two other specs in the new VC group around barcodes and wireless transmission, that are dependent on CBOR-LD.
+16:31:58 <gkellogg> ... Not getting CBOR-LD done in a timely manner could be a problem.
+16:31:58 <bigbluehat> gkellogg: on that list of changes
+16:31:58 <bigbluehat> ... certainly we can address that on a timeline
+16:31:58 <bigbluehat> ... and it does show that the first things we might do is FPWD for YAML-LD and CBOR-LD
+16:31:58 <bigbluehat> ... and that could happen shortly after the group's established
+16:31:58 <gkellogg> bigbluehat: We should discuss rechartering timeline. We could come back in two weeks with staff contacts.
+manu won't be able to join in two weeks :) (but I think that's fine because I've said my piece).
+16:31:58 <gkellogg> ... The chairs can work on this in the interim, and look to rename.
+16:31:58 <manu> q+ yes, please recharter before TPAC
+16:31:58 <manu> q+ to say yes, please recharter before TPAC
+16:31:58 <gkellogg> ... TPAC is on the horizon, and we need to know if we're going to try to re-charter first.
+16:31:58 <gkellogg> manu: Please try to recharter before TPAC.
+16:31:58 <gkellogg> ... We also want to recharter other groups at the same time, but that could be a problem.
+anatoly-scherbakov has left IRC ()
+16:31:58 <gkellogg> ... We have systems going into production before we're in a standards-track, which is not great.
+16:31:58 <gkellogg> ... Don't want the timeline to create roadblocks to adoption.
+16:31:58 <bigbluehat>  bigbluehat: agreed...
+16:31:58 <bigbluehat> q+
+16:31:58 <gkellogg> ... This is doable, and the charter shouldn't be too controversial.
+16:31:58 <gkellogg> bigbluehat: We have four months, that's 8-10 calls at the rate we have meetings
+16:31:58 <gkellogg> ... The next call should have staff contacts so we can see how feasible that is.
+16:31:58 <gkellogg> ... bigbluehat, gkellogg, and pchampin should talk ahead of time to get things in shape.
+16:31:58 <gkellogg> ... We also need to discuss any other specs or notes.
+16:31:58 <gkellogg> q+
+16:31:58 <bigbluehat> gkellogg: not sure how much more there is to do to this, actually
+16:31:58 <bigbluehat> ... just bringing it up to date
+16:31:58 <bigbluehat> ... so hopefully not much back and forth
+16:31:58 <bigbluehat> ... and that should likely happen on GitHub
+16:31:58 <manu> +1 to what Gregg said, doesn't feel like there's a lot to do before charter is ready for a vote.
+16:31:58 <bigbluehat> ... so, let's work to get a meeting in the next week or so with the staff contacts
+16:31:58 <bigbluehat> ... and then see what's left to do
+16:31:58 <bigbluehat> ... so the sooner we're able to move forward on this, the better
+16:31:58 <bigbluehat> ... if we're not planning on active work until after September, then maybe that will help
+16:31:58 <bigbluehat> ... and getting the charter done and out of the way shouldn't be a problem
+16:31:58 <bigbluehat> gkellogg: the next meeting and future meetings will be WG meetings
+16:31:58 <bigbluehat> ... as focus will be on the charter
+16:31:58 <bigbluehat> bigbluehat: victor_lu, we'll check on your observer status for WG calls
+16:31:58 <bigbluehat> gkellogg: we'd love to have you as a member of the WG
+16:31:58 <bigbluehat> ... so we should sort out what might prevent that
+16:31:58 <bigbluehat> victor_lu: I'm independent
+16:31:58 <bigbluehat> gkellogg: great, so we should see about getting you on as an Invited Expert
+16:31:58 <TallTed> https://www.w3.org/invited-experts/
+16:31:58 <gkellogg> zakim, end meeting
+16:31:58 <Zakim> As of this point the attendees have been gkellogg, niklasl, TallTed, dlongley, bigbluehat, anatoly-scherbakov
