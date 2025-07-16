@@ -1,0 +1,322 @@
+16:03:38 <RRSAgent> RRSAgent has joined #json-ld
+16:03:42 <RRSAgent> logging to https://www.w3.org/2025/07/16-json-ld-irc
+16:03:42 <Zakim> RRSAgent, make logs Public
+16:03:43 <Zakim> please title this meeting ("meeting: ..."), pchampin
+16:04:14 <gkellogg> present+
+16:03:09 <gkellogg> present+ Victor_Lu
+16:04:30 <gkellogg> zakim, next item
+16:04:30 <Zakim> I see nothing on the agenda
+16:04:31 <pchampin> meeting: JSON-LD WG
+16:04:51 <gkellogg> agenda: https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250702T120000/
+16:04:52 <agendabot> clear agenda
+16:04:52 <agendabot> agenda+ Announcements and Introductions
+16:04:52 <agendabot> agenda+ Rechartering
+16:04:52 <agendabot> agenda+ Open Discussion
+16:04:56 <pchampin> chair: gkellogg
+16:05:02 <gkellogg> zakim, next item
+16:05:02 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:05:03 <pchampin> present+
+16:05:10 <bigbluehat> scribe+
+16:05:21 <bigbluehat> gkellogg: anything new to announce?
+16:06:20 <bigbluehat> ... this is a WG call
+16:06:34 <bigbluehat> bigbluehat: Victor's here as an observer
+16:06:37 <gkellogg> q?
+16:06:42 <bigbluehat> ... and may eventually be an Invited Expert
+16:06:43 <gkellogg> zakim, next item
+16:06:43 <Zakim> agendum 2 -- Rechartering -- taken up [from agendabot]
+16:06:54 <bigbluehat> gkellogg: sounds good, as long as we keep voting to members, that should be fine
+16:06:56 <gkellogg> https://json-ld.github.io/json-ld-wg-charter/
+16:07:13 <bigbluehat> gkellogg: k. Let's talk about the charter
+16:07:38 <bigbluehat> ... bigbluehat is your new PR in yet?
+16:07:44 <bigbluehat> bigbluehat: no, it's still in draft
+16:07:52 <pchampin> https://github.com/json-ld/json-ld-wg-charter/pull/10
+16:07:53 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/10 -> Pull Request 10 Rework as the Linked Data Formats WG (by BigBlueHat)
+16:08:43 <bigbluehat>  gkellogg: so, here's bigbluehat's PR
+16:08:51 <bigbluehat> ... a good bit of change in the motivation section
+16:09:06 <bigbluehat> ... pchampin the structure of this doc is different than other newer groups use
+16:09:09 <bigbluehat> ... does that matter?
+16:09:13 <bigbluehat> pchampin: yes. it matters
+16:09:18 <bigbluehat> ... the template is a living document...
+16:09:23 <bigbluehat> ... so we're likely not using the ltates
+16:09:28 <bigbluehat> s/ltates/latest
+16:09:36 <bigbluehat> ... and we should likely update
+16:09:45 <bigbluehat> ... especially if there are significant changes
+16:09:52 <bigbluehat> ... so, yes, I'll make a pass on it
+16:10:00 <bigbluehat> ... but usually we do that close to the end of the process
+16:10:23 <dlehn> present+
+16:10:27 <bigbluehat> gkellogg: basically, it looks like our current motivation and background section just becomes part of the intro/header section
+16:10:36 <gkellogg> q?
+16:10:40 <bigbluehat> ... but beyond that, I think bigbluehat's wording is a useful improvement
+16:10:43 <pchampin> q+
+16:10:44 <bigbluehat> ... any other thoughts on that?
+16:10:48 <gkellogg> ack pchampin
+16:10:48 <gkellogg> subtopic: Group Name
+16:11:05 <bigbluehat> pchampin: I do have some concerns from the name
+16:11:21 <bigbluehat> ... removing "JSON-LD" from the name breaks continuity
+16:11:36 <bigbluehat> ... and we also may not want to change short names of docs, IRC channels, etc.
+16:11:41 <bigbluehat> ... I know it's bike shedding
+16:11:50 <TallTed> present+
+16:11:55 <bigbluehat> ... and I agree we're broadening the scope of the group
+16:12:09 <bigbluehat> ... but if we can maintain continuity, that would be better
+16:12:17 <bigbluehat> gkellogg: maybe "JSON-LD Data Formats"?
+16:12:20 <pchampin> I like that
+16:12:52 <bigbluehat> gkellogg: we may have to respin JSON-LD as an INFRA-based tree structure for Linked Data
+16:12:53 <pchampin> "JSON similar object notation" :->
+16:13:07 <pchampin> s|"JSON similar object notation" :->|
+16:13:30 <bigbluehat> ... if folks were looking for YAML-LD, I'm not  sure they'd think to look at a "JSON-LD Data Formats" group...
+16:13:34 <bigbluehat> ... something to consider
+16:13:38 <bigbluehat> ... what else is in here...
+16:14:02 <bigbluehat> ... ivan has raised concerns that trying to tackle both YAML-LD and CBOR-LD may be too ambitions
+16:14:03 <bigbluehat> q+
+16:14:10 <gkellogg> ack bigbluehat
+16:14:38 <anatoly-scherbakov> q+
+16:15:55 <pchampin> q+
+16:16:01 <gkellogg> ack anatoly-scherbakov
+16:16:11 <bigbluehat> bigbluehat: I hear Ivan's concern, but I really don't see how more groups will solve that
+16:16:16 <bigbluehat> anatoly-scherbakov: I agree with bigbluehat
+16:16:32 <bigbluehat> ... that would add too much bureaucracy and overhead
+16:16:38 <bigbluehat> ... and without any real benefits
+16:16:50 <bigbluehat> ... big teams do sub-groups or other WGs because they're too big
+16:17:00 <bigbluehat> ... we don't have that problem
+16:17:21 <bigbluehat> ... perhaps in the future, if we decide there's too many things to accomplish, we could do more with other CGs
+16:17:27 <bigbluehat> ... maybe one per-format in that case
+16:17:37 <bigbluehat> ... but they could all exist under the umbrella of the JSON-LD WG
+16:17:40 <gkellogg> ack pchampin
+16:17:41 <gkellogg> q+
+16:18:03 <bigbluehat> pchampin: Ivan raised the possibility of other groups
+16:18:17 <bigbluehat> ... his idea to put CBOR-LD into it's own group was about scope and clarity
+16:18:28 <bigbluehat> ... we want to broaden the focus of the group
+16:18:38 <bigbluehat> ... but as a small group, the list of deliverables is quite big
+16:18:43 <bigbluehat> ... so I have mixed feelings about this
+16:18:53 <bigbluehat> ... and as ready as YAML-LD seems to be
+16:19:03 <bigbluehat> ... other people may chime in
+16:19:11 <bigbluehat> ... and those discussions could slow down the whole process
+16:19:19 <bigbluehat> ... but, I also have the feeling that we are close enough
+16:19:30 <bigbluehat> ... things may be slower than how they look right now
+16:19:38 <gkellogg> ack me
+16:19:39 <bigbluehat> ... but maybe not so much that we should give up on a single group
+16:19:48 <bigbluehat> gkellogg: 2 things
+16:20:08 <bigbluehat> ... coming out of the RDF-star task force, we felt great and that we were done...3 years ago now
+16:20:20 <bigbluehat> ... of course RDF-star was introducing fundamental changes into the data model
+16:20:34 <bigbluehat> ... whereas YAML-LD was about better generalization
+16:20:41 <bigbluehat> ... and still feels like low-hanging fruit
+16:20:54 <bigbluehat> ... I also think task forces are a good option
+16:21:07 <bigbluehat> ... the RDF and SPARQL group had task forces for semantics
+16:21:16 <bigbluehat> ... which ran it's course and created value
+16:21:21 <bigbluehat> ... now there's a SPARQL one
+16:21:24 <bigbluehat> ... we could do the same
+16:21:34 <bigbluehat> ... have a core meeting and a CBOR-LD task force
+16:21:43 <TallTed> s/it's course/its course/
+16:21:44 <bigbluehat> ... and folks could focus where they need/want to
+16:21:59 <bigbluehat> ... we could even be entirely task force based
+16:22:10 <bigbluehat> ... until such time as coordination is needed
+16:22:40 <bigbluehat> ... if that's the way we want to go, then we'll need to explain all that in the charter
+16:22:43 <gkellogg> q?
+16:22:52 <bigbluehat> ... any thoughts on that?
+16:23:14 <bigbluehat> gkellogg: pchampin are you aware of any precedent for calling out task forces in a charter?
+16:23:16 <bigbluehat> q+
+16:23:25 <bigbluehat> pchampin: I don't think so
+16:23:34 <bigbluehat> ... I vaguely remember discussing the approach
+16:23:49 <bigbluehat> ... but I remember the team saying task forces are a chair/group decision
+16:23:56 <bigbluehat> ... so it doesn't make sense to put it in the charter
+16:24:05 <bigbluehat> ... but I don't think it would be forbidden
+16:24:21 <bigbluehat> ... it's unusual because task forces are usually needs based
+16:24:29 <bigbluehat> ... and we may find they aren't needed
+16:25:00 <bigbluehat> ... planning on this to tackle the problems
+16:25:03 <bigbluehat> ... that's one thing
+16:25:11 <bigbluehat> ... but it's probably premature to list the task forces
+16:25:16 <bigbluehat> q?
+16:25:31 <bigbluehat> gkellogg: task forces can have their own calendars, setup their own meetings, etc.
+16:25:43 <bigbluehat> ... so a qualification would also be to be a member of the WG
+16:25:53 <bigbluehat> ... and not everyone is a member of all task forces
+16:26:11 <gkellogg> ack bigbluehat
+16:26:14 <bigbluehat> .... they'd be open to any task force, but not immediately obliged to join
+16:26:15 <gkellogg> scribe+
+16:26:41 <gkellogg> bigbluehat: We need to remember that the charter is a sales document to motivate the need for the group.
+16:27:24 <gkellogg> ... If we highlight something, it raise interest, but it might look like we have too much to do.
+16:27:31 <pchampin> q+
+16:27:50 <gkellogg> ... We would have a lot of deliverables, and may not have enough contributors to manage it.
+16:28:15 <gkellogg> ... We can focus on the documents we need to deliver.
+16:28:38 <gkellogg> ... For example WG participation by CBOR-LD contributors.
+16:29:20 <gkellogg> ... I think we need to lead with what the group wants to do, and deal with feedback when it comes.
+16:29:48 <gkellogg> ... We should ask for what we want to have happen.
+16:30:23 <gkellogg> ... Best thing is to note that LD has evolved, and there is more going on than just patching holes in JSON-LD.
+16:30:45 <gkellogg> ... Not just a maintenance group, but we're going on to related formats.
+16:31:25 <gkellogg> ... There are a number of groups that depend on our work, which shows the need in moving the formats forward.
+16:31:47 <gkellogg> scribe-
+16:31:48 <gkellogg> q?
+16:31:54 <gkellogg> ack pchampin
+16:31:54 <gkellogg> subtopic: Scope
+16:32:00 <bigbluehat> pchampin: +1 to what bigbluehat said
+16:32:04 <bigbluehat> ... a few things in this line
+16:32:17 <bigbluehat> ... I agree, the main role of this charter is to broaden the scope
+16:32:27 <bigbluehat> ... to point out that we're moving out of maintenance mode
+16:32:32 <bigbluehat> ... that we have new things to work on
+16:32:43 <bigbluehat> ... we should probably be modest
+16:33:04 <bigbluehat> ... I don't know if there's a pattern for "we want to start on these, but know we may not deliver on them"
+16:33:08 <bigbluehat> ... not sure that's been done
+16:33:12 <bigbluehat> ... 2 year charters are short
+16:33:18 <bigbluehat> ... so maybe other groups have done this
+16:33:34 <gkellogg> q+
+16:33:36 <bigbluehat> ... we are allowed by the policy to add new documents if they are in scope
+16:33:45 <TallTed> main goals and stretch goals...
+16:33:48 <bigbluehat> ... and that may be why ivan suggested the removal of some deliverables
+16:34:04 <bigbluehat> ... so, we could work on TOML-LD or whatever
+16:34:12 <bigbluehat> ... if there were enough interest
+16:34:20 <gkellogg> ack me
+16:34:33 <bigbluehat> ... so, we need the correct wording that doesn't sound too ambitious, but does give us room to accomplish what we need
+16:35:00 <bigbluehat> gkellogg: I think ivan mentioned limiting the list to JSON-LD 1.2 and CBOR-LD and then adding YAML-LD "if time"
+16:35:08 <bigbluehat> ... but as you've said pchampin that may already be implied
+16:35:26 <bigbluehat> ... or, we could have a "Other Linked Data Formats" section where we add CBOR-LD and YAML-LD there
+16:35:40 <bigbluehat> ... the big thing we need to avoid is rat holing on the generic model
+16:35:53 <bigbluehat> ... but we do also need to address dealing with remote contexts
+16:36:02 <bigbluehat> ... that issue in particular needs to be highlighted
+16:36:18 <bigbluehat> ... our current list of "in scope" things is far too long and incomplete
+16:36:25 <bigbluehat> ... but we do have some specific things we want to do
+16:36:40 <bigbluehat> ... synchronizing with RDF 1.2
+16:36:54 <bigbluehat> ... we want to address these high interest issues like retrieving contexts
+16:37:15 <bigbluehat> ... which may be handled through some sort of hash delivery mechanism
+16:37:30 <bigbluehat> ... and the definition of how document loaders would do that
+16:37:47 <bigbluehat> ... and then I think we probably need to highlight our open issues
+16:37:58 <bigbluehat> ... in the case of the RDF and SPARQL group
+16:38:05 <bigbluehat> ... there's wording that says the group may add new features
+16:38:23 <bigbluehat> ... and this group's been pretty judicious about doing
+16:38:34 <bigbluehat> ... but that's where most of the new SPARQL features are happening
+16:38:54 <bigbluehat> ... with the expectation that work will continue based on interest from the group for more recommendations based on that work
+16:39:15 <bigbluehat> ... but with ins/del's show what's coming
+16:39:27 <gkellogg> q?
+16:39:32 <bigbluehat> ... that, afaik, is how we hope to continue work even after the core recommendations are done
+16:40:02 <bigbluehat> pchampin: I didn't quite follow
+16:40:18 <bigbluehat> gkellogg: so, there are some things the RDF & SPARQL group has already accomplished
+16:40:31 <bigbluehat> ... but then there are even more features from the SPARQL CG that need to go to Rec
+16:40:51 <bigbluehat> ... and the group seems to be intending to release a SPARQL 1.3 document later
+16:40:58 <bigbluehat> ... based on that CG work
+16:41:15 <bigbluehat> ... and there's verbiage in that charter to allow the group to continue to do that
+16:41:22 <bigbluehat> pchampin: correct
+16:41:34 <bigbluehat> gkellogg: we have already marked a few areas where we can do  that
+16:41:36 <bigbluehat> pchampin: correct
+16:42:12 <bigbluehat> gkellogg: a number of things we have on our list now fall into errata
+16:42:26 <bigbluehat> ... and we flagged many issues with "consider later"
+16:42:44 <bigbluehat> ... at some point we need to decide which things are not specifically errata, but that we do want to get to
+16:42:53 <bigbluehat> ... so the next part of scope is what's out of scope
+16:43:06 <bigbluehat> ... the 2 things there now aren't really needed there any more
+16:43:26 <bigbluehat> ... the canonicalization group is done
+16:43:28 <pchampin> q+
+16:43:36 <bigbluehat> ... and the signatures work is complete
+16:43:37 <gkellogg> ack pchampin
+16:43:43 <bigbluehat> ... so I'm not sure we even thing we need this section
+16:44:00 <bigbluehat> pchampin: if we expand the group, we may need to point out which Linked Data formats are not in scope
+16:44:02 <gkellogg> q+
+16:44:14 <bigbluehat> ... our focus would only be on things that depend on the JSON-LD processing algorithms
+16:44:21 <bigbluehat> ... so, not RDF/XML or Turtle, for example
+16:44:28 <bigbluehat> ... not just because those are in other groups
+16:44:37 <bigbluehat> ... but because they use a different processing model
+16:44:45 <bigbluehat> gkellogg: maybe we could say JSON-like formats?
+16:45:29 <bigbluehat> ... that said, there are features beyond what JSON can do such as number formats that could be added to the core processing model
+16:45:35 <bigbluehat> ... or the internal representation
+16:45:45 <bigbluehat> ... so, internally, we could support other native types
+16:45:58 <bigbluehat> ... earlier, I'd pondered making an RDF literal an atomic data type
+16:46:09 <bigbluehat> ... with mappings into it from JSON, YAML, and CBOR, for example
+16:46:14 <gkellogg> q?
+16:46:15 <bigbluehat> ... that seems in scope for us to do
+16:46:17 <bigbluehat> ack gkellogg
+16:46:18 <gkellogg> ack me
+16:46:18 <gkellogg> subtopic: Support for Streaming Parsers
+16:46:38 <bigbluehat> gkellogg: what else is here....other deliverables
+16:46:42 <bigbluehat> ... streaming parsers?
+16:46:46 <bigbluehat> ... we do have a note on that
+16:47:18 <gkellogg> scribe+
+16:47:28 <niklasl> q+
+16:47:37 <gkellogg> bigbluehat: The profile for streaming parsers has been around for a long tim
+16:47:53 <bigbluehat> ack niklasl
+16:47:54 <gkellogg> ... It can include big JSON files, or line-delimited JSON.
+16:48:00 <gkellogg> scribe-
+16:48:05 <bigbluehat> bigbluehat: that was Ruben Taelman's work
+16:48:26 <bigbluehat> niklasl: I don't think this was about JSONL or JSON-ND, but it would be good to work on that
+16:48:28 <gkellogg> q+
+16:48:37 <gkellogg> ack me
+16:48:41 <bigbluehat> ... the streaming one is about processing one JSON object as a stream
+16:48:57 <bigbluehat> gkellogg: anatoly-scherbakov YAML has support for multiple embedded documents, correct?
+16:49:08 <bigbluehat> ... I think we handle that in a similar way to HTML data blocks
+16:49:12 <bigbluehat> anatoly-scherbakov: yes, that's correct
+16:49:28 <bigbluehat> ... we use the same flag for those scenarios
+16:49:35 <bigbluehat> ... I don't recall the name of the flag, though
+16:49:45 <bigbluehat> ... it's either process first object only
+16:49:53 <bigbluehat> ... or process them all--which gets put into an array
+16:50:02 <bigbluehat> ... afaik they're each expanded separately
+16:50:31 <bigbluehat> gkellogg: so unless you feed a context in, each of these "sub documents" need to have their own context expressed in their data
+16:50:35 <bigbluehat> anatoly-scherbakov: yes, that's correct
+16:50:53 <bigbluehat> gkellogg: so, we do have this specification
+16:50:59 <bigbluehat> ... about streaming
+16:51:41 <bigbluehat> ... the approach differs from the multiple document approach
+16:51:53 <bigbluehat> ... maybe we can point to an issues outlining the situation
+16:50:53 <gkellogg> subtopic: Test Suite
+16:52:01 <bigbluehat> gkellogg: next, test suites an implementations reports
+16:52:17 <bigbluehat> ... our test suite is our biggest asset and biggest liability
+16:52:25 <bigbluehat> ... one might imagine we could simplify it
+16:52:35 <bigbluehat> ... so we don't repeat one thing over and over
+16:52:45 <bigbluehat> ... but the way we test differs by scenario
+16:52:59 <dlehn> q+
+16:53:04 <bigbluehat> ... similarly, some way to relate the tests connected to the specification information would be helpful
+16:53:22 <bigbluehat> ... it's sort of like pushing a bubble around--you fix one thing and it shows up somewhere else
+16:53:45 <gkellogg> q?
+16:53:49 <bigbluehat> ... simplifying it might provide an easier way in for more implementers
+16:53:50 <gkellogg> ack dlehn
+16:53:57 <bigbluehat> ... but the amount of work to do that is daunting
+16:54:03 <bigbluehat> dlehn: I was thinking about this recently
+16:54:14 <bigbluehat> ... one thing we could do is to reorder things in the suite
+16:54:21 <bigbluehat> ... even though the numbers would be off
+16:54:27 <bigbluehat> ... essentially make new manifests
+16:54:34 <bigbluehat> ... could even be a separate project
+16:54:46 <bigbluehat> ... that may be useful for people starting with a new implementation
+16:54:51 <gkellogg> q+
+16:54:53 <bigbluehat> ... vs. running everything all at once
+16:55:07 <bigbluehat> ... we could even split them into smaller manifests and then link between them
+16:55:07 <gkellogg> ack me
+16:55:15 <bigbluehat> ... any volunteers?
+16:55:29 <bigbluehat> gkellogg: do we have to maintain the 1.1 test suite as it exists?
+16:56:09 <bigbluehat> ... do we need to maintain things for older versions of the spec?
+16:56:24 <bigbluehat> ... we could completely reorganize it to focus only on 1.2
+16:56:43 <bigbluehat> ... and perhaps as demanded continue to include things that should be handled by all 1.x processors
+16:56:56 <gkellogg> q?
+16:56:58 <bigbluehat> ... the kicker, as ever, will be who signs up to reorganize it
+16:57:09 <bigbluehat> dlehn: do we know of anyone writing a new implementation?
+16:57:22 <bigbluehat> ... it's pretty hard to come in after the fact--once you have an implementation
+16:57:41 <bigbluehat> ... new comers probably have an easier time knowing what they want to run when
+16:57:54 <bigbluehat> gkellogg: we'll expect to see new implementations for YAML-LD and CBOR-LD
+16:58:07 <bigbluehat> ... YAML-LD already has a test suite iirc
+16:58:13 <bigbluehat> ... mostly copied from JSON-LD's
+16:58:19 <bigbluehat> ... and then there are cross-products
+16:58:27 <bigbluehat> ... like JSON-LD loading a YAML-LD context
+16:58:39 <bigbluehat> ... or CBOR-LD using a JSON-LD frame
+16:58:51 <bigbluehat> ... so, certainly just copying tests around just compounds the problem
+16:59:00 <anatoly-scherbakov> q+
+16:59:01 <bigbluehat> ... do we expect to have a single test suite for the WG?
+16:59:09 <bigbluehat> ... that would include all 3 formats?
+16:59:17 <bigbluehat> ... along with overlaps between them?
+16:59:24 <niklasl> q+
+16:59:25 <gkellogg> ack anatoly-scherbakov
+16:59:36 <bigbluehat> anatoly-scherbakov: I don't believe we copied any tests from JSON-LD
+16:59:48 <bigbluehat> ... I think we're actually running the test suite directly
+16:59:55 <bigbluehat> ... but running it on YAML-LD
+17:00:02 <bigbluehat> ... since YAML is a superset of JSON
+17:00:11 <bigbluehat> ... there should be verbiage about that
+17:00:28 <bigbluehat> gkellogg: there are specific YAML-LD tests also, though
+17:00:37 <bigbluehat> anatoly-scherbakov: correct.
+17:00:56 <bigbluehat> ... it's the JSON-LD tests + YAML-LD specific tests
+17:01:20 <bigbluehat> ... so anything valid for both is not copied over
+17:01:38 <bigbluehat> ... it's advised to use the JSON-LD test suite to check anything core
+17:02:06 <bigbluehat> bigbluehat: I'll continue on the PR for the charter
+17:02:06 <bigbluehat> gkellogg: sounds great
+17:02:10 <bigbluehat> niklasl: I did a recent basic implementation recently
+17:02:21 <bigbluehat> ... I could run the test suite and see how it goes
+17:02:23 <bigbluehat> gkellogg: that would be great
+17:02:28 <bigbluehat> ... talk again soon!
+17:02:30 <gkellogg> zakim, end meeting
+17:02:30 <Zakim> As of this point the attendees have been gkellogg, pchampin, dlehn, TallTed
+17:02:32 <Zakim> RRSAgent, please draft minutes
+17:02:33 <RRSAgent> I have made the request to generate https://www.w3.org/2025/07/16-json-ld-minutes.html Zakim
+17:02:40 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+17:02:40 <Zakim> Zakim has left #json-ld
+17:02:42 <gkellogg> rrsagent, pointer
+17:02:42 <RRSAgent> See https://www.w3.org/2025/07/16-json-ld-irc#T17-02-42
