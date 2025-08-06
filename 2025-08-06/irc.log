@@ -1,0 +1,217 @@
+15:59:48 <RRSAgent> RRSAgent has joined #json-ld
+15:59:52 <RRSAgent> logging to https://www.w3.org/2025/08/06-json-ld-irc
+15:59:52 <Zakim> RRSAgent, make logs Public
+15:59:53 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+15:59:58 <gkellogg> agenda: https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250730T120000/
+15:59:58 <agendabot> clear agenda
+15:59:58 <agendabot> agenda+ Announcements and Introductions
+15:59:58 <agendabot> agenda+ JSON-LD Issue Discussion
+15:59:58 <agendabot> agenda+ Open Discussion
+16:00:06 <gkellogg> present+
+16:01:01 <TallTed> present+
+16:01:01 <ostrzyciel> present+
+16:01:07 <ostrzyciel> ostrzyciel has joined #json-ld
+16:01:28 <niklasl> niklasl has joined #json-ld
+16:02:06 <bigbluehat> chair+
+16:02:26 <niklasl> present+
+16:04:22 <pchampin> present+
+16:05:15 <dlehn> present+
+16:05:35 <gkellogg> zakim, next item
+16:05:35 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:07:03 <gkellogg> scribe+
+16:07:24 <gkellogg> ostrzyciel: Hi, I'm Piotr Sowinski.
+16:07:45 <gkellogg> ... I represent a startup working on streaming knowledge graphs.
+16:08:00 <gkellogg> ... I'm a CG member at this time, and mostly observing.
+16:08:40 <gkellogg> topic: Charter
+16:08:41 <gkellogg> https://json-ld.github.io/json-ld-wg-charter/
+16:08:36 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/pull/10
+16:08:37 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/10 -> Pull Request 10 Rework as the Linked Data Formats WG (by BigBlueHat)
+16:09:11 <gkellogg> bigbluehat: We've been spinning on the group name, and an action list for cleanup.
+16:09:30 <gkellogg> ... Let's focus on the name, to start.
+16:10:23 <gkellogg> ... Earlier, the opinion was "Linked Data Formats", but this was reconsidered on the last call.
+16:10:38 <gkellogg> ... We wanted to be clear that this was about things more directly related to JSON-LD.
+16:10:49 <gkellogg> ... Perhaps "JSON-LD Linked Formats WG".
+16:11:29 <bigbluehat> scribe+
+16:11:54 <bigbluehat> gkellogg: what threw people off was that there are other Linked Data Formats which do not use the JSON-centric processing model--such as Turtle
+16:11:59 <niklasl> +1 to gkellogg re "not all kinds of formats; more like-json"
+16:12:04 <pchampin> +1
+16:12:10 <niklasl> q+
+16:12:17 <bigbluehat> ... so presenting that JSON heritage seems important
+16:12:23 <bigbluehat> ack niklasl
+16:12:24 <dlehn> do we need to come up with a name and fill in a backronym?
+16:12:32 <TallTed> `{JSON|CBOR|related} Linked Data Formats WG`
+16:12:49 <gkellogg> niklasl: I generally agree; I thought about talking about the "compact" feature, but haven't figured out how to frame that.
+16:13:03 <gkellogg> ... We should focus on the "JSON-ness" of it.
+16:13:16 <gkellogg> ... We should probably stay with JSON-LD.
+16:13:18 <gkellogg> q+
+16:13:29 <bigbluehat> ack gkellogg
+16:13:32 <gkellogg> bigbluehat: That's the intention of the geroup.
+16:13:59 <bigbluehat> gkellogg: it would not be helpful to take JSON-LD out of the name
+16:14:04 <pchampin> s/geroup/group
+16:14:06 <bigbluehat> ... but maybe adding to it would help
+16:14:18 <niklasl> "JSON-like" ...?
+16:14:38 <pchampin> q+
+16:14:39 <bigbluehat> ... somehow opening it up to other formats
+16:14:42 <bigbluehat> ack pchampin
+16:15:07 <gkellogg> pchampin: I suggested "JSON-similar object notation linked data formats".
+16:15:28 <gkellogg> ... If we find something less convoluted, it might be good.
+16:15:30 <niklasl> JSON = "JSON-subset of object notations" ;P
+16:15:40 <TallTed> `backronym WG`
+16:16:39 <gkellogg> bigbluehat: I think that the CG is techincally the "JSON for Linking Data CG".
+16:16:51 <gkellogg> ... We changed that for the WG.
+16:17:06 <gkellogg> TallTed: We were also trying to get some distance from RDF.
+16:19:07 <bigbluehat> gkellogg: Turtle is layered on top DBNF
+16:19:14 <gkellogg> s/DBNF/EBNF/
+16:19:54 <gkellogg> bigbluehat: The group could be anything as long as it includes JSON-LD.
+16:20:19 <gkellogg> ... We need a way to distinguish our formats from traditional RDF formats.
+16:20:30 <gkellogg> ... It's the "INFRA-based RDF formats".
+16:21:07 <bigbluehat> bigbluehat: Maybe: JSON-LD [and] Linked Data Formats Working Group
+16:21:20 <gkellogg> bigbluehat: thoughts on this.
+16:21:35 <niklasl> q+
+16:21:43 <bigbluehat> gkellogg: I think the `and` helps open it up other formats
+16:21:46 <gkellogg> ack niklasl
+16:22:09 <gkellogg> niklasl: I think that "and linked data formats" is problematic, because that might include Turtle.
+16:22:12 <gkellogg> q+
+16:22:17 <gkellogg> qck me
+16:22:27 <bigbluehat> gkellogg: how about JSON-LD Working Group?
+16:22:28 <pchampin> s/qck me/
+16:22:29 <bigbluehat> niklasl: I like that
+16:22:47 <bigbluehat> gkellogg: I think the work to be done is to cast JSON as not just a line format, but as a data model
+16:22:54 <bigbluehat> ... which I think is how people already think of it
+16:23:21 <bigbluehat> ... CBOR and YAML do provide additional capabilities--which I think we should be open to
+16:23:36 <bigbluehat> ... really, it's JavaScript, and the ability to represent these structures there
+16:23:37 <niklasl> "JSON[-serializable (in-memory?) structure]"
+16:23:50 <bigbluehat> ... obviously not just JavaScript
+16:24:25 <pchampin> q+
+16:24:27 <bigbluehat> gkellogg: JSON-LD needs to be in there
+16:24:30 <bigbluehat> ack gkellogg
+16:24:35 <TallTed> `JSON-LD++ WG`
+16:24:47 <bigbluehat> ... whether it's helpful or not to add more words, I don't know
+16:24:48 <gkellogg> ack pchampin
+16:25:04 <TallTed> (but are those really escaped spaces or plus signs?)
+16:25:05 <gkellogg> pchampin: I agree with what Gregg said, the short name is establishged.
+16:25:21 <gkellogg> ... I'd be fine with JSON-LD, and explain the related formats in the context.
+16:26:03 <gkellogg> ... I'm worried that "and Linked Data Formats" might include Turtle, but the fact we're starting with JSON-LD does set a direction.
+16:26:14 <niklasl> maybe "and related"... ? (ambiguous; indicates intent..)
+16:26:15 <gkellogg> bigbluehat: so, we're "JSON-LD WG".
+16:26:27 <TallTed> "and blessed"
+16:26:47 <gkellogg> pchampin: I'm a close -1 on keeping the same name. We want to signal that we're about other formats.
+16:26:54 <dlehn> since naming is hard, may be worth sitting on this for a bit longer if possible.  i know it takes me days/weeks for good name options to pop in my head.
+16:27:05 <gkellogg> ... A change of name might signal this to the rest of the world.
+16:27:26 <gkellogg> bigbluehat: We need to justify why CBOR-LD and YAML-LD are there.
+16:27:28 <gkellogg> q+
+16:27:33 <bigbluehat> ack gkellogg
+16:27:44 <bigbluehat> gkellogg: in 1.1 we did set the basis for related formats
+16:27:57 <bigbluehat> ... that's part of why we used the internal reperesentation
+16:28:09 <bigbluehat> ... and we call out that this is meant to extend to CBOR
+16:28:20 <bigbluehat> ... so this shouldn't be too surprising to those following along
+16:28:32 <bigbluehat> ... maybe we just need more research in IETF land
+16:28:53 <TallTed> `JSON-LD cousins WG`
+16:29:05 <bigbluehat> ... we can't be the first ones to try and attempt this naming
+16:29:11 <bigbluehat> bigbluehat: any other thoughts?
+16:29:13 <gkellogg> q?
+16:29:49 <gkellogg> bigbluehat: For the moment, I'll go back to "JSON-LD WG".
+16:30:03 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/pull/10#issuecomment-3070114842
+16:30:04 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/10 -> Pull Request 10 Rework as the Linked Data Formats WG (by BigBlueHat)
+16:30:25 <bigbluehat> gkellogg: we're adding me as co-chair
+16:30:30 <TallTed> `5 Crazy LD Formats WG -- and you'll love #3!`
+16:30:36 <bigbluehat> ... we've had different opinions about how detailed the scope should be
+16:30:53 <bigbluehat> ... ivan first suggested we be very specific, but we apparently overdid it
+16:31:13 <pchampin> q+
+16:31:27 <bigbluehat> ... this charter will also sort of split the work of the group
+16:31:37 <bigbluehat> ... JSON-LD and other formats
+16:31:47 <bigbluehat> ... and things we might do post-recommendation
+16:32:05 <bigbluehat> ... YAML-LD doesn't represent much work, but is there as a thing the group will need to focus on
+16:32:16 <bigbluehat> ... I'd suggest we just point to the project page from the charter
+16:32:21 <bigbluehat> ... even though it's dynamic
+16:32:39 <bigbluehat> ... and then write the rest of the charter in a vague enough way to focus on RDF1.2 alignment
+16:32:47 <bigbluehat> ... while still exploring these other formats
+16:32:51 <bigbluehat> q+
+16:32:57 <bigbluehat> ack pchampin
+16:33:32 <gkellogg> pchampin: I wanted to bring up two potential issues. Regarding Gregg's appointment as co-chair, this should be resolved in the next couple of days.
+16:34:00 <gkellogg> ... When i asked for the announcement, it came up that we usually avoid having a chair be an editor.
+16:34:29 <gkellogg> ... It's not forbidden be process, and we can argue that this is the situation we have, but maybe we want to find a third co-chair.
+16:34:35 <gkellogg> q+
+16:35:14 <gkellogg> ... Another thing regarding a living spec is that there was an email from Phillipe that some groups have experimented with it and have moved back to the old way.
+16:35:36 <gkellogg> ... There is a way that uses the old way with out the "new features allowed" feature, as the tooling isn't there.
+16:35:55 <gkellogg> ... Maybe we shouldn't commit to that.
+16:36:02 <gkellogg> q?
+16:36:35 <gkellogg> bigbluehat: Related, technically we're no longer a WG, as the group charter has expired.
+16:36:59 <gkellogg> ... Question is how quickly we want to move along to rechartering.
+16:37:35 <gkellogg> ... TPAC looms in November, so we have around 3 months.
+16:37:49 <gkellogg> ... I'd like to come back to timing.
+16:38:14 <gkellogg> ... There's keen interest in getting the charter going so that we could do something reasonable at TPAC.
+16:38:39 <gkellogg> ... Without some action, there can't be a JSON-LD WG call at TPAC without a charter.
+16:39:08 <gkellogg> pchampin: I asked for a charter extension. It's not yet reflected in the published charter, but it will be reflected in a couple of days.
+16:39:26 <gkellogg> ... Extending the charter doesn't need member approval, it's up to the team.
+16:39:54 <gkellogg> ... That said, we announced to the members that we were working on a new charter.
+16:40:14 <gkellogg> ... There is some urgency here; we should aim for TPAC to have the WG approved, or in the process.
+16:40:45 <gkellogg> ... Before we send the charter to the AC we need horizontal review.
+16:40:51 <gkellogg> ... We should hurry.
+16:40:55 <bigbluehat> q+
+16:40:59 <bigbluehat> ack bigbluehat
+16:41:00 <bigbluehat> q+
+16:41:02 <bigbluehat> ack gkellogg
+16:42:02 <bigbluehat> gkellogg: there is certainly tension between editor and chair roles
+16:42:14 <bigbluehat> ... so I would fully support stepping down as a chair if someone else will step up
+16:42:56 <bigbluehat> ... living specs do get in the way of errata handling
+16:43:04 <bigbluehat> ... we don't want needless forks, etc.
+16:43:17 <bigbluehat> ... I'd prefer to abandon all that and move to a JSON-LD 1.2 spec
+16:43:28 <bigbluehat> ... I don't think it taking longer to get a spec out is an issue
+16:43:47 <bigbluehat> ... if we do really need updates to JSON-LD to enable YAML-LD and CBOR-LD, then maybe there's a 1.2 release that's small
+16:43:52 <bigbluehat> ... small enough to just do those things
+16:44:00 <bigbluehat> ... and then move on to a 1.3 release
+16:44:01 <pchampin> q+
+16:44:08 <bigbluehat> ... as long as the charter doesn't restrict that
+16:44:42 <bigbluehat> ... I think we could get out of CR for the 3 documents in months given the work already done
+16:44:49 <bigbluehat> ... and then work on the bigger things like RDF 1.2
+16:44:57 <bigbluehat> ... other than it not being at CR yet...
+16:45:03 <bigbluehat> ... the work we need to do is already in hand
+16:45:10 <bigbluehat> ... I would like to see more JSON-LD-star work
+16:45:23 <bigbluehat> ... but the timing with the RDF group does make that problematic
+16:45:25 <bigbluehat> ack pchampin
+16:45:51 <gkellogg> pchampin: We can add new deliverables that include a new version of JSON-LD as long as it is in scope.
+16:46:17 <gkellogg> ... The burden imposed by the process is that every version is a new deliverable and needs a new call for patent exclusion.
+16:46:43 <bigbluehat> ack bigbluehat
+16:46:55 <gkellogg> ... The process described by Phillipe is about being able to work on multiple version.
+16:47:25 <gkellogg> bigbluehat: We discussed going to a weekly cadence through August to try to get this moved along more quickly.
+16:47:43 <pchampin> +1 to a weekly cadence
+16:47:43 <gkellogg> ... Any objections to going to weekly meetings until the end of August?
+16:48:05 <gkellogg> ... By the 27th we should be celebrating.
+16:48:53 <gkellogg> ... niklasl and TallTed are willing to serve as co-chairs. I'm also fine if gkellogg is also a chair.
+16:50:50 <gkellogg> bigbluehat: Perhaps TallTed, niklasl, pchampin and I should have a call to go through the responsibilities.
+16:51:25 <pchampin> https://www.w3.org/guide/chair/role.html
+16:51:42 <gkellogg> TallTed: I haven't chaired in a bit, I did for SHACL 1.0. I didn't get any training, just the documents on W3C, and relied on my co-chair to do much of the work.
+16:51:59 <gkellogg> bigbluehat: By and large, the group is small enough to have a tight issue list.
+16:52:08 <gkellogg> q+
+16:52:31 <gkellogg> bigbluehat: It's going to come down to who joins the group and how contentious it might be.
+16:52:44 <gkellogg> ack me
+16:52:45 <bigbluehat> ack gkellogg
+16:53:14 <bigbluehat> gkellogg: chairs, while opinionated, should ack more as a "Switzerland" when issues come up
+16:53:27 <bigbluehat> ... I don't think we can necessarily count on our group staying this size
+16:53:42 <bigbluehat> ... we may have other folks come back in
+16:54:03 <bigbluehat> ... it's always helpful to be slightly less personally invested in the spec text
+16:54:11 <bigbluehat> ... which is why also being an editor is problematic
+16:54:20 <bigbluehat> ... there's also external communication
+16:54:28 <bigbluehat> ... formal feedback, process to push forward, etc.
+16:54:37 <bigbluehat> ... editors don't normally contribute to
+16:55:24 <gkellogg> bigbluehat: I'd like some redundancy, but as we re-charter, if it gets contentious, or things need to be shepherded along, it becomes a project management problem.
+16:56:03 <bigbluehat> gkellogg: niklasl has done quite a lot of contributing to the specs over the years
+16:56:12 <bigbluehat> ... that's not out of bounds, but it is something to be considered
+16:56:24 <bigbluehat> ... both niklasl and TallTed have been involved since the beginning
+16:56:38 <bigbluehat> ... I'd be happy to be on any calls if you want to discuss it
+16:57:01 <gkellogg> TallTed: I'm less technically savy on JSON-LD than others, and will find important issues, but I'm not "fluent" in JSON-LD.
+16:57:41 <gkellogg> bigbluehat: You need to know enough to keep the conversation moving.
+16:58:07 <gkellogg> ... I'll schedule a weekly call through August, and get through Gregg's list and put the group name back to what it was.
+16:58:28 <gkellogg> ... In a week, I hope we can look at a more complete charter.
+16:58:57 <gkellogg> ... I think we'll look at a JSON-LD 1.2 that looks at CBOR and YAML needs and 1.3 for further changes.
+16:59:12 <gkellogg> zakim, end meeting
+16:59:12 <Zakim> As of this point the attendees have been gkellogg, TallTed, niklasl, pchampin, dlehn
+16:59:14 <Zakim> RRSAgent, please draft minutes
+16:59:15 <RRSAgent> I have made the request to generate https://www.w3.org/2025/08/06-json-ld-minutes.html Zakim
+16:59:22 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:59:22 <Zakim> Zakim has left #json-ld
+16:59:25 <gkellogg> rrsagent, pointer
+16:59:25 <RRSAgent> See https://www.w3.org/2025/08/06-json-ld-irc#T16-59-25
+16:59:35 <gkellogg> rrsagent, bye
+16:59:35 <RRSAgent> I see no action items
