@@ -1,0 +1,181 @@
+15:57:51 <RRSAgent> RRSAgent has joined #json-ld
+15:57:55 <RRSAgent> logging to https://www.w3.org/2025/08/13-json-ld-irc
+15:57:55 <Zakim> RRSAgent, make logs Public
+15:57:56 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+15:58:34 <bigbluehat> agenda: https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250813T120000/#agenda
+15:58:35 <agendabot> clear agenda
+15:58:35 <agendabot> agenda+ Announcements and Introductions
+15:58:35 <agendabot> agenda+ JSON-LD Rechartering
+15:58:35 <agendabot> agenda+ Open Discussion
+16:01:29 <pchampin> present+
+16:01:29 <Erika> present+
+16:03:20 <gkellogg> gkellogg has joined #json-ld
+16:04:03 <anatoly-scherbakov> anatoly-scherbakov has joined #json-ld
+16:04:51 <TallTed> present+
+16:04:57 <niklasl> present+
+16:05:19 <anatoly-scherbakov> present+
+16:05:39 <gkellogg> present+
+16:05:41 <gkellogg> scribe+
+16:05:50 <gkellogg> zakim, next item
+16:05:50 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:06:15 <gkellogg> bigbluehat: Mostly focusing on charter update.
+16:06:34 <gkellogg> zakim, next item
+16:06:34 <Zakim> agendum 1 was just opened, gkellogg
+16:06:39 <gkellogg> zakim, close item 1
+16:06:39 <Zakim> agendum 1, Announcements and Introductions, closed
+16:06:40 <Zakim> I see 2 items remaining on the agenda; the next one is
+16:06:40 <Zakim> 2. JSON-LD Rechartering [from agendabot]
+16:06:44 <gkellogg> zakim, next item
+16:06:44 <Zakim> agendum 2 -- JSON-LD Rechartering -- taken up [from agendabot]
+16:06:58 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/pull/10
+16:06:59 <gb> https://github.com/json-ld/json-ld-wg-charter/pull/10 -> Pull Request 10 Rework as the Linked Data Formats WG (by BigBlueHat)
+16:07:13 <gkellogg> bigbluehat: Many changes ready to push in the PR.
+16:07:30 <dlehn> present+
+16:07:45 <gkellogg> gkellogg: I suggest merging and using that as a basis for updates.
+16:08:25 <gkellogg> bigbluehat: Consensus seems to be for keeping the name JSON-LD WG.
+16:08:34 <TallTed> many changes in last 24 hours or so... please give me a few hours to review this before merging
+16:08:51 <gkellogg> ... Many changes done in the last couple of days are generally clerical in nature
+16:09:17 <gkellogg> ... RDF-star => RDF 1.2. Reducing the In Scope section to remove overly specific references.
+16:09:39 <gkellogg> ... Now point to project management page, and use language from RDF & SPARQL WG for allowing new features.
+16:09:51 <gkellogg> ... No changes to Out of Scope yet.
+16:10:01 <gkellogg> ... Added 1.0 versions to CBOR- and YAML-LD.
+16:10:23 <gkellogg> ... Dropped the bit about supporting multiple languages in JSON.
+16:10:30 <pchampin> q+
+16:10:34 <gkellogg> ... Changed the dates in the timeline.
+16:10:38 <gkellogg> ack pchampin
+16:11:04 <gkellogg> pchampin: I noticed that CBOR- and YAML-LD are scheduled before JSON-LD 1.2.
+16:11:15 <niklasl> I agree.
+16:11:25 <bigbluehat> scribe+
+16:11:55 <bigbluehat> gkellogg: we could fairly rapidly do additional versions or updating CBOR-LD and YAML-LD once JSON-LD 1.2 comes out
+16:12:03 <pchampin> q+
+16:12:07 <bigbluehat> ... maybe we need to reparse what we mean by JSON-LD 1.2
+16:12:24 <bigbluehat> ... some of that is already in via <ins>/<del>
+16:12:47 <bigbluehat> ... so maybe JSON-LD 1.3 is the version that does the synchronization with RDF1.2
+16:12:49 <bigbluehat> q+
+16:13:03 <gkellogg> ack pchampin
+16:13:05 <bigbluehat> ... I do think there's good reasons to push YAML-LD and CBOR-LD through first
+16:13:42 <gkellogg> pchampin: +1 to that. My initial reaction is that it would be a shame to be out of sync, but those two are closer to publication, but we don't want to overly delay things.
+16:13:50 <anatoly-scherbakov> q+
+16:13:59 <gkellogg> ... SPARQL 1.1 is an example, as it proceeded RDF 1.1
+16:14:15 <bigbluehat> ack bigbluehat
+16:14:19 <gkellogg> ... +1 to keep the timeline and figure out how to keep those specs future-proof.
+16:14:22 <pchampin> s/proceeded/preceeded
+16:14:39 <gkellogg> bigbluehat: It would be dangerous to log-jam behind JSON-LD.
+16:14:41 <bigbluehat> ack anatoly-scherbakov
+16:14:53 <gkellogg> anatoly-scherbakov: I agree with the above.
+16:14:59 <bigbluehat> q+
+16:15:12 <gkellogg> ... Where should I look if I want to get a better understanding of what JSON-LD 1.2 would be?
+16:15:31 <gkellogg> bigbluehat: Based on what Gregg said, a lot of it is already in shape with the ins/del changes.
+16:16:04 <bigbluehat> gkellogg: the <ins>/<del> stuff is not everything
+16:16:18 <bigbluehat> ... that doesn't take several RDF 1.2 things into account yet
+16:16:28 <bigbluehat> ... lexical ordering and unicode spaces are not covered
+16:16:38 <bigbluehat> ... along with initial text direction changes
+16:16:39 <gkellogg> ... The bigger changes exist in the JSON-LD-star.
+16:17:14 <bigbluehat> gkellogg: JSON-LD-star did add triple terms
+16:17:26 <bigbluehat> ... but RDF 1.2 is doing more than that
+16:18:37 <gkellogg> Erika: I'm in the research faculty at Case Western Reserve University.
+16:19:06 <gkellogg> ... We've transitioned to having all of our datasets in JSON-LD. My group works under Roger French.
+16:19:29 <gkellogg> ... He was not able to join today, but asked me to join.
+16:19:44 <gkellogg> ... If we have the chance we can show how we're using JSON-LD and RDF in general.
+16:20:37 <bigbluehat> q?
+16:20:41 <bigbluehat> ack bigbluehat
+16:21:10 <gkellogg> bigbluehat: Back to JSON-LD 1.2/1.3. Do we think we need to group changes in the charter?
+16:21:13 <bigbluehat> s/Erica/Erika
+16:21:24 <bigbluehat> gkellogg: I don't think we need to be quite that specific
+16:21:50 <bigbluehat> ... maybe we keep it vague but point to a quick release for 1.2 for bringing in staged changes
+16:22:00 <TallTed> "JSON LD 1.1 ++ bis (revised)"
+16:22:36 <bigbluehat> ... and then subsequently release another version that syncs up with RDF 1.2
+16:22:39 <bigbluehat> q+
+16:23:08 <pchampin> q+
+16:23:17 <bigbluehat> ack bigbluehat
+16:23:27 <gkellogg> bigbluehat: The timeline for 1.2 FPWD is Q4 2026, but a patched version could come out sooner.
+16:23:30 <dlehn> q+
+16:23:43 <bigbluehat> ack pchampin
+16:23:46 <gkellogg> ... If we just make 1.2 bigger or push things into 1.3 is open.
+16:24:19 <gkellogg> pchampin: My understanding of the process is that as long as we're working on things in the charter, such as aligning with RDF 1.2 and the errata, is up to us.
+16:24:35 <gkellogg> ... If we decide to publish a REC before having everything in, is up to us.
+16:25:15 <gkellogg> ... We need to keep the text vague enough to give us this leaway. We can have a lot in scope, and decide how to publish this later.
+16:25:19 <bigbluehat> ack dlehn
+16:25:42 <gkellogg> dlehn: I'm not sure where the timeline dates come from (guessing?).
+16:25:59 <gkellogg> bigbluehat: Dates should look reasonable, but commonly changed as the group continues.
+16:26:15 <gkellogg> dlehn: If we want to formalize the smaller changes, it could happen quicker.
+16:26:42 <gkellogg> bigbluehat: It's okay to set lower expectations and exceed them, rather than being overly ambitious in what we can do in a more limited amount of time.
+16:26:56 <gkellogg> ... If we can ship a 1.2 with patches next April, we should do that.
+16:27:12 <gkellogg> ... We need to be sensible in the charter.
+16:27:36 <gkellogg> dlehn: The deliverables section ... is that a standard way to format it?
+16:28:36 <gkellogg> ... It can be confusing.
+16:29:19 <gkellogg> pchampin: In the latest template, the version number is not required.
+16:29:44 <gkellogg> ... An option would be to use another field for the latest publication date, and refers to the latest draft and not the current version.
+16:32:59 <bigbluehat> gkellogg: we should publish what we can sooner
+16:33:00 <gkellogg> gkellogg: publish what we can, wait for what we can't.
+16:33:23 <anatoly-scherbakov> +1 to the above.
+16:34:14 <bigbluehat> gkellogg: I do think CBOR-LD needs some finalization, etc.
+16:34:29 <bigbluehat> ... YAML-LD has sections for many of the JSON-LD API processes
+16:34:50 <bigbluehat> ... those sections are pretty sparse in YAML-LD, but are completely absent currently for CBOR-LD
+16:35:07 <bigbluehat> ... I think we determined there is no CBOR-LD version of a context file
+16:35:34 <bigbluehat> ... but a CBOR-LD processor would presumably need to support YAML-LD and JSON-LD contexts
+16:36:01 <gkellogg> bigbluehat: CBOR-LD is a bit of a weird animal. In it's current form, it's really just a compression of JSON-LD.
+16:36:24 <gkellogg> ... As a processor, the approach leans heavily on a registry, not dereferencing them off the web.
+16:36:54 <bigbluehat> gkellogg: there are some things we want to do about context stability in JSON-LD also
+16:37:39 <gkellogg> bigbluehat: CBOR-LD does not do any JSON-LD processing, you only ever do it by working in the JSON-LD domain.
+16:38:30 <gkellogg> ... We need to get CBOR-LD to a final CG report.
+16:39:04 <bigbluehat> gkellogg: does the CBOR-LD final community group report make it an LD format? or is it only about compressing JSON-LD?
+16:39:24 <gkellogg> bigbluehat: If we try to make CBOR-LD and actual -LD format, it won't make the cut.
+16:40:01 <bigbluehat> gkellogg: I think we need to reconsider the CBOR-LD name if we do not make it a full LD
+16:40:04 <pchampin> +1
+16:40:26 <niklasl> +1
+16:40:38 <bigbluehat> gkellogg: we need to decide what is the thing called CBOR-LD
+16:40:44 <bigbluehat> ... is it just compression?
+16:41:01 <pchampin> q+
+16:41:05 <bigbluehat> ... we need to be quite clear about what it is trying to do
+16:41:13 <TallTed> q+
+16:41:26 <bigbluehat> ... and we could be held to higher standards than the group is ready to do
+16:41:28 <bigbluehat> ack pchampin
+16:41:51 <gkellogg> pchampin: It was my impression that CBOR-LD could serialize anything, and compress what it can.
+16:42:06 <gkellogg> ... +1 that we haven't had enough discussions on it.
+16:42:17 <bigbluehat> ack TallTed
+16:42:22 <gkellogg> bigbluehat: You're correct about compression, it's compatible even if it can not compress.
+16:42:51 <bigbluehat> q+
+16:42:59 <gkellogg> TallTed: I'm thinking that CBOR-LD is not what it is or should be called. It seems that it should probably be a section within the JSON-LD documents that describes using CBOR to compress JSON-LD documents.
+16:43:16 <gkellogg> ... JSON-LD is too big to put in a QR code.
+16:43:43 <gkellogg> ... All things considered, it may not be something that needs its own spec, as it's really just an application of CBOR.
+16:44:06 <gkellogg> ... It's primary focus indicates that it could just be a chapter.
+16:44:06 <bigbluehat> ack bigbluehat
+16:44:52 <gkellogg> bigbluehat: The spec itself is already quite massive; it has mappings, URL registration, and other ways to take known strings and compress them, where plain CBOR won't do that.
+16:45:22 <gkellogg> ... But, what people expect from a -LD parser, such as expansion and re-compaction, is not currently described.
+16:45:23 <gkellogg> q+
+16:45:53 <gkellogg> ... It's really CBOR plus the context plumbing from JSON-LD, as it layers on top of existing formats.
+16:46:14 <gkellogg> ... We list two input documents (PA's and DB's).
+16:46:41 <gkellogg> ... It is something unique and makes use of the context plumbing.
+16:47:00 <gkellogg> ... People will be confused if they think they can work just in CBOR.
+16:47:13 <bigbluehat> ack gkellogg
+16:47:40 <pchampin> JSON-LD processing is not done on JSON anyway, it is done on the internal representation
+16:47:58 <bigbluehat> gkellogg: Framing isn't part of the JSON-LD API document
+16:48:13 <bigbluehat> ... it would've made the API document so much bigger
+16:48:37 <bigbluehat> ... similarly trying to get CBOR compression into any of the JSON-LD documents would make them huge
+16:48:43 <bigbluehat> ... the brand is out there
+16:48:57 <bigbluehat> ... and I continue to be annoyed that the CBOR-LD editors remain absent here
+16:49:01 <bigbluehat> ... and no contribution here
+16:49:26 <bigbluehat> ... they need to show up and be part of the process
+16:49:30 <gkellogg> bigbluehat: I agree, they need to be more involved with this WG.
+16:49:30 <niklasl> +1
+16:50:02 <gkellogg> ... The new playground does have a CBOR-LD tab.
+16:50:17 <gkellogg> ... It does not yet take CBOR-LD as an input.
+16:50:42 <anatoly-scherbakov> +1 to that definition of YAML-LD :)
+16:51:29 <gkellogg> ... CBOR-LD is similar-ish, in that it will be to just parse CBOR, and feed that into expansion/compaction.
+16:52:36 <gkellogg> bigbluehat: The expectation is that most formats round-trip through JSON-LD. So, in that sense, they're not that different.
+16:53:07 <gkellogg> ... I expect that the YAML-LD spec tells me how to write compatible YAML, and CBOR-LD should do the same.
+16:53:40 <gkellogg> bigbluehat: We should come back to this next week, and try to drag in the CBOR-LD editors.
+16:53:58 <gkellogg> ... This is a prerequisite for finishing the charter.
+16:54:10 <gkellogg> ... It needs to get to a final CB report before we can use it.
+16:55:00 <gkellogg> ... The PR has approvals, so I plan to merge it.
+16:55:10 <anatoly-scherbakov> Good bye everyone, thanks!
+16:55:12 <gkellogg> ... We'll be back next week, keep the suggestions coming.
+16:55:23 <gkellogg> zakim, end meeting
+16:55:23 <Zakim> As of this point the attendees have been bigbluehat, pchampin, TallTed, niklasl, anatoly-scherbakov, gkellogg, dlehn
+16:55:25 <Zakim> RRSAgent, please draft minutes
+16:55:26 <RRSAgent> I have made the request to generate https://www.w3.org/2025/08/13-json-ld-minutes.html Zakim
+16:55:33 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:55:33 <gkellogg> rrsagent, pointer
+16:55:33 <RRSAgent> See https://www.w3.org/2025/08/13-json-ld-irc#T16-55-33-1
+16:55:33 <Zakim> Zakim has left #json-ld
