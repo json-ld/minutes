@@ -1,0 +1,160 @@
+00:20:47 <gkellogg> gkellogg has joined #json-ld
+00:40:54 <gkellogg> gkellogg has joined #json-ld
+00:58:11 <gkellogg> gkellogg has joined #json-ld
+02:14:10 <gkellogg> gkellogg has joined #json-ld
+02:31:12 <gkellogg> gkellogg has joined #json-ld
+03:56:27 <gkellogg> gkellogg has joined #json-ld
+04:13:52 <gkellogg> gkellogg has joined #json-ld
+04:48:20 <gkellogg> gkellogg has joined #json-ld
+05:00:33 <gkellogg> gkellogg has joined #json-ld
+05:16:50 <gkellogg> gkellogg has joined #json-ld
+05:33:09 <gkellogg> gkellogg has joined #json-ld
+05:51:09 <gkellogg> gkellogg has joined #json-ld
+16:01:44 <RRSAgent> RRSAgent has joined #json-ld
+16:01:44 <RRSAgent> logging to https://www.w3.org/2025/08/20-json-ld-irc
+16:01:46 <Zakim> RRSAgent, make logs Public
+16:01:48 <anatoly-scherbakov> present+
+16:01:48 <Zakim> please title this meeting ("meeting: ..."), gkellogg
+16:01:50 <gkellogg> meeting: JSON-LD CG
+16:01:53 <niklasl> present+
+16:01:59 <bigbluehat> present+
+16:02:00 <bigbluehat> chair+
+16:02:06 <gkellogg> agenda: https://www.w3.org/events/meetings/22c91c62-1c3f-4154-9a9f-da15c38f3b2f/
+16:02:06 <agendabot> clear agenda
+16:02:06 <agendabot> agenda+ Announcements and Introductions
+16:02:06 <agendabot> agenda+ CBOR-LD
+16:02:06 <agendabot> agenda+ JSON-LD Rechartering
+16:02:06 <agendabot> agenda+ Open Discussion
+16:02:13 <bigbluehat> chair: bigbluehat
+16:02:28 <gkellogg> present+
+16:02:29 <wes-smith> wes-smith has joined #json-ld
+16:02:34 <wes-smith> present+
+16:04:06 <gkellogg> scribe+
+16:04:10 <gkellogg> zakim, next item
+16:04:10 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:04:52 <wes-smith> scribe+
+16:05:16 <gkellogg> wes-smith: I
+16:05:44 <gkellogg> ... I'm here because of CBOR-LD, and the consensus reaction has been a bit disconnected.
+16:05:56 <TallTed> present+
+16:06:01 <gkellogg> ... I plan to attend WG/CG meetings more regularly.
+16:07:16 <wes-smith> gkellogg: I will be stepping back from responsibilities in this group for personal reasons
+16:10:34 <bigbluehat> agenda+
+16:10:45 <wes-smith> bigbluehat: CBOR-LD
+16:10:50 <bigbluehat> Zakim, next item
+16:10:50 <Zakim> agendum 2 -- CBOR-LD -- taken up [from agendabot]
+16:11:26 <wes-smith> ... there was concern shared that the group is unprepared for CBORLD to be a major deliverable in the charter
+16:11:36 <wes-smith> ... as it is underrepresented by its authors
+16:11:55 <wes-smith> ... I think it would be good for the group to level set on what we feel would be needed for us to have group weight behind the CBORLD specification
+16:12:10 <wes-smith> ... and how to move that forward practically as part of the charter, which we are hoping to ship to get reviewed by the end of this month
+16:12:24 <wes-smith> ... and whether CBOR-LD is in or out is an essential question
+16:13:14 <gkellogg> wes-smith: I'm happy to do any number of things; I can re-hash motivation and rationale if the group would like that
+16:13:28 <gkellogg> ... We can go more into depth if people would like.
+16:13:48 <gkellogg> ... I'm an editor/author and core developer on the work.
+16:13:50 <gkellogg> q+
+16:14:02 <gkellogg> ... Please give me suggestions.
+16:14:03 <bigbluehat> ack gkellogg
+16:14:50 <wes-smith> gkellogg: the work on CBORLD has been happening outside this group, and we don't have buy-in or ownership, the work hasn't been done as part of the normal process
+16:15:10 <wes-smith> ... would be worthwhile spending some time going through the design choices, but with the objective that when the spec comes out it's a product of the working group
+16:15:41 <gkellogg> wes-smith: That makes sense. I have done a lot of the work outside of the WG, mostly because of the need for rapid itteration.
+16:15:51 <bigbluehat> q+
+16:15:59 <gkellogg> ... Sounds like you'd like to move to more of a GitHub flow.
+16:16:13 <gkellogg> ... I can also give a brief state of the technology talk.
+16:16:37 <gkellogg> ... I can also migrate some of the work into a form the group can work with.
+16:16:39 <bigbluehat> ack bigbluehat
+16:17:12 <gkellogg> bigbluehat: I believe that's exactly what needs to happen. The spec should change on "main" and PRs shouldn't make their way without group discussion.
+16:17:34 <gkellogg> ... It has acted as a Member Submission, which is treated as differently than a community group.
+16:18:03 <gkellogg> ... We need to take this up with PA/Ivan.
+16:18:50 <wes-smith> gkellogg: Work in the CG is done more based upon the IP commitments that people make to be part of it, but in a member submission the IP is handed over as part of that submission
+16:19:04 <wes-smith> ... I don't know much about the member submission route, but the document is listed as a community group product
+16:19:17 <bigbluehat> +1
+16:19:39 <wes-smith> ... it needs to become a product of the community group, using some of the steps that wes-smith outlined - that doesn't need to be a rigid change to GitHub, we can use this meeting for those types of discussions too
+16:19:49 <wes-smith> ... but we do need to have control over what goes into the published version
+16:20:14 <wes-smith> q+
+16:20:21 <bigbluehat> ack wes-smith
+16:20:41 <bigbluehat> q+ to explain time...and maybe space
+16:20:51 <gkellogg> wes-smith: About timelines: I hear the next couple of weeks tossed around, probably due to the charter.
+16:21:12 <gkellogg> ... Let's not skip over things due to my lack of experience working in the process.
+16:21:15 <bigbluehat> ack bigbluehat
+16:21:15 <Zakim> bigbluehat, you wanted to explain time...and maybe space
+16:21:48 <gkellogg> bigbluehat: We're aiming to get the charter done by the end of the month, with the objective that it starts going through the W3C gears.
+16:21:49 <wes-smith> q+
+16:22:03 <gkellogg> ... This will set us up to introduce successfully at TPAC.
+16:22:35 <gkellogg> ... By TPAC, we should be focusing on getting the house in order and getting to work with new momentum.
+16:23:02 <gkellogg> ... I don't know what's needed right now about what this group can do over the next couple of weeks
+16:23:36 <gkellogg> ... This means using the PR process with adequate time for group review before merger.
+16:23:58 <gkellogg> ... It needs to move from being a DB piece of work to a W3C piece of work.
+16:24:03 <gkellogg> q+
+16:24:11 <bigbluehat> ack wes-smith
+16:24:46 <gkellogg> wes-smith: So, in the next couple of weeks, we need to get group consensus on the direction of the spec
+16:25:15 <gkellogg> ... Of course, the meetings need to address things other than CBOR-LD, so people should feel free to reach out to me directly.
+16:26:15 <wes-smith> gkellogg: If you go to the group page, you can see a list of participants, and you can get emails by looking at that
+16:26:33 <wes-smith> ... I do not think that we need to have a final report for CBORLD before the charter is finished
+16:26:52 <wes-smith> ... I think there is sufficient progress, and the group will continue make progress, so I wouldn't use that as a formal deadline
+16:27:11 <wes-smith> ... I don't think we should rush things, and I don't believe that the result of this review will be to change anything
+16:27:40 <wes-smith> ... although I have said that CBORLD needs to address algorithmic entry points similarly to how yaml-ld works, or constrain its use
+16:28:26 <bigbluehat> q+
+16:28:29 <bigbluehat> ack gkellogg
+16:28:59 <wes-smith> ... in JSONLD we created an abstract representation for information, and algorithms work over that representation
+16:29:07 <wes-smith> ... and then it is serialized into the appropriate base format
+16:29:13 <wes-smith> ... that works for YAML, JSON, it should work for CBOR
+16:29:22 <wes-smith> ... we should be explicit on where CBOR is not expected to be used
+16:29:44 <wes-smith> ... it is possible to create a context in YAML-LD, it probably is not appropriate to create a context in CBOR-LD
+16:30:03 <niklasl> I agree.
+16:30:23 <wes-smith> bigbluehat: that does sound like it would bring things in line with YAML-LD, which I think is the objective
+16:30:49 <bigbluehat> q+
+16:30:52 <wes-smith> gkellogg: we did discuss that maybe CBOR-LD is not a full linked data format, maybe it is a compression format wrapped in a CBOR encoding
+16:30:53 <wes-smith> q+
+16:31:22 <bigbluehat> ack bigbluehat
+16:31:29 <wes-smith> bigbluehat: what are the key things that YAML-LD has that CBOR-LD lacks?
+16:31:31 <bigbluehat> ack wes-smith
+16:32:41 <wes-smith> gkellogg: as a full spec CBOR-LD needs to relate to more JSON-LD algorithms
+16:33:10 <wes-smith> ... not difficult to add this to CBOR-LD
+16:33:37 <gkellogg> wes-smith: I agree that we should take lessons from YAML-LD.
+16:33:41 <bigbluehat> q+
+16:33:43 <bigbluehat> ack bigbluehat
+16:33:46 <gkellogg> ... Look forward to getting more into that.
+16:34:14 <wes-smith> bigbluehat: a lot of the framing for this new charter is to see JSON-LD as the progenitor of an ecosystem of LD languages
+16:34:19 <wes-smith> ... and YAML-LD is the forerunner of that
+16:34:34 <bigbluehat> Zakim, next item
+16:34:34 <Zakim> agendum 3 -- JSON-LD Rechartering -- taken up [from agendabot]
+16:35:25 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter
+16:35:31 <bigbluehat> https://json-ld.github.io/json-ld-wg-charter/
+16:35:57 <bigbluehat> https://github.com/json-ld/json-ld-wg-charter/issues/2
+16:35:58 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/2 -> Issue 2 Update "Out of Scope" section. (by BigBlueHat)
+16:36:25 <gkellogg> q+
+16:36:41 <bigbluehat> ack gkellogg
+16:38:45 <wes-smith> bigbluehat: we are going to put the current charter to a vote in the next week or so after some small changes
+16:38:52 <wes-smith> ... and then work to get CBORLD to a community report status
+16:39:02 <wes-smith> ... and work with staff contacts to get the charter into the bigger voting space
+16:39:08 <wes-smith> ... once this group has done the formal voting on our side
+16:39:38 <wes-smith> gkellogg: Perhaps people have seen that there is a new W3C process document that includes changes to some aspects of chartering
+16:39:50 <wes-smith> ... we should be looking at that to see if we need to adjust the charter as a result
+16:40:02 <wes-smith> bigbluehat: we should go over the charter, I agree
+16:40:05 <gkellogg> https://www.w3.org/policies/process/
+16:40:26 <gkellogg> https://www.w3.org/policies/process/#changes-2025
+16:40:43 <wes-smith> bigbluehat: I will take an action to review that to see at what level it might affect anything that is in the charter now
+16:40:54 <gkellogg> https://www.w3.org/policies/process/#changes-2025-charter
+16:41:06 <wes-smith> ... and we will get the charter as stable as we can by the call next week, then work with PA/Ivan on what are the remaining practical actions
+16:41:15 <wes-smith> ... we will try for an asynchronous vote on the charter
+16:41:25 <wes-smith> gkellogg: we can just use a PR for collecting votes
+16:41:53 <wes-smith> bigbluehat: there will be some behind the scenes actions, an asynchronous vote, and hopefully we will have this out in the next week and a half
+16:42:04 <wes-smith> ... the review by W3C membership will undoubtedly give us more to do
+16:42:14 <bigbluehat> Zakim, next item
+16:42:14 <Zakim> agendum 4 -- Open Discussion -- taken up [from agendabot]
+16:42:22 <wes-smith> ... anyone have any remaining thoughts
+16:42:38 <wes-smith> ... if not, thanks everyone for being here
+16:43:18 <gkellogg> https://minutes.json-ld.org
+16:43:55 <wes-smith> gkellogg: for minutes, minutes.json-ld.org is a fairly straightforward process, scripts run to generate the minutes and you push the updates up
+16:44:10 <wes-smith> ... that minuting is an item that someone will need to take over
+16:44:30 <wes-smith> ... I will do a PR so people can see what goes into the minutes
+16:44:44 <wes-smith> ... there is also a README in the repository that describes the process
+16:45:36 <gkellogg> zakim, end meeting
+16:45:36 <Zakim> As of this point the attendees have been niklasl, anatoly-scherbakov, bigbluehat, gkellogg, wes-smith, TallTed
+16:45:38 <Zakim> RRSAgent, please draft minutes
+16:45:39 <RRSAgent> I have made the request to generate https://www.w3.org/2025/08/20-json-ld-minutes.html Zakim
+16:45:46 <Zakim> I am happy to have been of service, gkellogg; please remember to excuse RRSAgent.  Goodbye
+16:45:46 <Zakim> Zakim has left #json-ld
+16:45:59 <gkellogg> rrsagent, pointer
+16:45:59 <RRSAgent> See https://www.w3.org/2025/08/20-json-ld-irc#T16-45-59
+16:46:23 <gkellogg> rrsagent, bye
+16:46:23 <RRSAgent> I see no action items

@@ -1,0 +1,170 @@
+15:55:13 <RRSAgent> RRSAgent has joined #json-ld
+15:55:17 <RRSAgent> logging to https://www.w3.org/2025/08/27-json-ld-irc
+15:55:17 <Zakim> RRSAgent, make logs Public
+15:55:18 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+15:55:37 <bigbluehat> meeting: JSON-LD WG
+15:55:37 <bigbluehat> 11:55 AM
+15:55:37 <bigbluehat> chair: bigbluehat
+15:55:37 <bigbluehat> 11:55 AM
+15:55:37 <bigbluehat> present+
+15:56:17 <bigbluehat> agenda: https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250827T120000/#agenda
+15:56:18 <agendabot> clear agenda
+15:56:18 <agendabot> agenda+ Announcements and Introductions
+15:56:18 <agendabot> agenda+ CBOR-LD
+15:56:18 <agendabot> agenda+ JSON-LD Rechartering
+15:56:18 <agendabot> agenda+ Open Discussion
+15:57:47 <bigbluehat> rrsagent, generate minutes
+15:57:48 <RRSAgent> I have made the request to generate https://www.w3.org/2025/08/27-json-ld-minutes.html bigbluehat
+15:58:22 <bigbluehat> regrets: gkellogg
+15:58:33 <niklasl> niklasl has joined #json-ld
+15:59:32 <TallTed> present+
+16:00:39 <ivan> present+
+16:00:46 <wes-smith> wes-smith has joined #json-ld
+16:02:14 <pchampin> present+
+16:03:34 <bigbluehat> Zakim, next agenda
+16:03:34 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:04:33 <pchampin> scribe+
+16:04:56 <pchampin> bigbluehat: re TPAC, we will probably not be enough on site to make it matter
+16:05:19 <bigbluehat> https://www.w3.org/2025/11/TPAC/schedule.html#tuesday
+16:05:19 <pchampin> ... so it is unlikely that Gregg or I will be there
+16:05:39 <pchampin> ... We are scheduled on Tuesday for 2h (link above), no joint sessions planned.
+16:08:55 <pchampin> ... we are planning on keeping this timeslot -- check how it works for your timezone.
+16:09:01 <bigbluehat> Zakim, next agenda
+16:09:01 <Zakim> agendum 2 -- CBOR-LD -- taken up [from agendabot]
+16:09:39 <ivan> q+
+16:09:46 <pchampin> bigbluehat: we discussed it last week; we need staff help to move the current report into a CG report.
+16:09:50 <bigbluehat> ack ivan
+16:10:22 <pchampin> ivan: I looked at it; we now have a CG draft report, this should be enough for the charter.
+16:10:47 <pchampin> ... It would be better with a final report, but that should not be blocking.
+16:12:06 <pchampin> ... That's what I put in my PR on the charter.
+16:12:51 <pchampin> bigbluehat: in your PR, you removed some text about CBOR-LD report
+16:13:03 <pchampin> ivan: I think we should stick to the minimal
+16:13:05 <bigbluehat> scribe+
+16:13:42 <bigbluehat> pchampin: for the JSON-LD deliverables, we should not put the exclusion drafts
+16:14:16 <bigbluehat> ... there is no exclusion draft on the JSON-LD 1.1 in CBOR
+16:14:22 <bigbluehat> ... as if it were a new document
+16:14:50 <bigbluehat> ivan: I think for the time being what we have now is fine
+16:14:55 <bigbluehat> ... it will go to the strategy team first
+16:15:02 <bigbluehat> ... and they can tell us what we need to change
+16:15:14 <bigbluehat> ... my reasoning was that the exclusion draft is about IPR issues from the membershi
+16:15:22 <bigbluehat> s/membershi/membership
+16:16:01 <bigbluehat> pchampin: fwiw, I've had this discussion when we were rechartering the RDF & SPARQL WG
+16:16:09 <bigbluehat> ... our charter looked like this one
+16:16:16 <bigbluehat> ... and we were asked to modify it
+16:16:33 <bigbluehat> ... and change the history to make the new version look like it's a brand new document
+16:16:51 <bigbluehat> ... I agree with you, ivan, let's await feedback from the strategy team
+16:18:42 <pchampin> ivan: the current text of the charter basicalyl says "VC needs CBOR-LD so we will make it".
+16:18:46 <pchampin> ... This is a call for problems.
+16:19:08 <pchampin> ... The proposed text gives more general arguments. Wes helped me put them together.
+16:19:14 <wes-smith> wes-smith has joined #json-ld
+16:20:03 <pchampin> ... Help from a native speaker is welcome.
+16:20:16 <pchampin> i|the current text|subtopic: https://github.com/json-ld/json-ld-wg-charter/pull/16
+16:20:25 <pchampin> TallTed: I will look at it
+16:20:36 <pchampin> bigbluehat: I'll take care of the merge conflict
+16:21:39 <pchampin> subtopic: https://github.com/json-ld/json-ld-wg-charter/issues/12
+16:21:39 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/12 -> #12
+16:21:53 <pchampin> ivan: the charter still says that we will meed on a per-need basis
+16:21:57 <pchampin> ... we should change this to "weekly"
+16:22:03 <pchampin> bigbluehat: I will take care of that
+16:22:15 <pchampin> subtopic: https://github.com/json-ld/json-ld-wg-charter/issues/14
+16:22:16 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/14 -> Issue 14 Liaisons to YAML and CBOR communities (by iherman)
+16:22:32 <pchampin> ivan: there are communities maintaining YAML and CBOR, we should liaise with them.
+16:22:44 <pchampin> ... But I don't know exactly who these communities are.
+16:22:55 <pchampin> ... I leave it to someone who knows, but they should be there.
+16:23:41 <pchampin> subtopic: https://github.com/json-ld/json-ld-wg-charter/issues/15
+16:23:41 <gb> https://github.com/json-ld/json-ld-wg-charter/issues/15 -> Issue 15 Similar formats (by iherman)
+16:24:12 <pchampin> ivan: I am not sure what "similar formats" are targetted, but I anticipate pushback
+16:24:47 <pchampin> bigbluehat: this was part of the discussion about renaming the WG. Different other potiential formats were mentioned.
+16:24:53 <pchampin> ... But we can now remove it.
+16:25:33 <pchampin> subtopic: charter facilitator
+16:25:53 <pchampin> ivan: the new process requires that new charters have a facilitator
+16:26:05 <pchampin> ... I volunteer to be this one.
+16:26:11 <pchampin> q+
+16:26:24 <dlehn> present+
+16:27:18 <pchampin> subtopic: out-of-scope section
+16:28:20 <pchampin> ivan: the "normalization" item in ou-of-scope makes no sense, the work has been done in another group
+16:28:32 <pchampin> ... we can keep "linked data signature", it is indeed out of scope
+16:29:12 <pchampin> s|subtopic: out-of-scope section|subtopic: https://github.com/json-ld/json-ld-wg-charter/issues/2
+16:29:58 <pchampin> ... I also remember some discussions with DanBri during TPAC about the integrity of context retrieved.
+16:30:05 <pchampin> ... We should mention that somewhere.
+16:31:02 <TallTed> for liaison pursuit -- YAML -- https://yaml.org/spec/1.2.2/ --> https://yaml.org/spec/1.2.2/ext/team/
+16:31:02 <TallTed> CBOR -- https://datatracker.ietf.org/doc/html/rfc8949 --> https://datatracker.ietf.org/wg/cbor/about/
+16:32:04 <pchampin> pchampin: I had similar discussion with people working on Security with Simone
+16:32:08 <pchampin> ... so +1 to mention it in the charter
+16:32:19 <pchampin> subtopic: safe mode
+16:32:38 <TallTed> q+
+16:32:43 <pchampin> q-
+16:32:50 <pchampin> bigbluehat: "safe mode" exists in several implementations, but was never formally defined
+16:33:14 <pchampin> ... some groups (e.g. VC) are relying on it
+16:33:21 <pchampin> ... this should be mentioned in the charter as well
+16:34:34 <pchampin> q+
+16:34:47 <bigbluehat> ack TallTed
+16:35:18 <pchampin> dlehn: I implemented the safe mode, I can contribute to spec text
+16:35:29 <pchampin> ... and tests
+16:35:41 <bigbluehat> ack pchampin
+16:35:56 <bigbluehat> pchampin: I just realized something from ivan's PR
+16:36:07 <bigbluehat> ... it says that the JSON-LD 1.2 specification will need to align with RDF 1.2
+16:36:18 <bigbluehat> ... gkellogg proposed a couple weeks ago that we should not set that goal
+16:36:47 <bigbluehat> ... because there are already things that need to be done for JSON-LD that are not as deep as aligning with RDF 1.2
+16:37:04 <bigbluehat> ... his thought was that maybe the alignment happened at a JSON-LD 1.3 or later
+16:37:21 <bigbluehat> ... to prevent us being inhibited from shipping by the larger alignment work
+16:37:23 <ivan> q+
+16:37:36 <bigbluehat> ... especially since RDF 1.2 is not shipped yet
+16:37:38 <bigbluehat> q+
+16:37:40 <bigbluehat> ack ivan
+16:38:27 <bigbluehat> ivan: I think we should not do that
+16:38:41 <bigbluehat> pchampin: I think the alignment would still happen, but later
+16:38:43 <bigbluehat> q?
+16:39:01 <bigbluehat> ivan: but won't that cause that compatibility to happen 4 years from now?
+16:39:11 <bigbluehat> ... because we're only chartered to ship JSON-LD 1.2
+16:39:27 <bigbluehat> pchampin: could we have RDF 1.2 compatibility in scope, but not have it in the first round of deliverables?
+16:39:39 <bigbluehat> ... my understanding is that we could ship a simpler 1.2 sooner
+16:39:48 <bigbluehat> ... and then ship a 1.3 within our upcoming 2 year charter
+16:39:57 <bigbluehat> ... the idea was to release early and often
+16:40:34 <bigbluehat> ivan: on issue #15 I copied a "Tentative Deliverable" section
+16:40:35 <gb> https://github.com/json-ld/yaml-ld/issues/15 -> CLOSED Issue 15 char encoding: UTF-8 only? (by VladimirAlexiev) [spec]
+16:40:38 <bigbluehat> ... this text is new to me
+16:40:56 <bigbluehat> ... that would, I think, let us work on it
+16:41:21 <bigbluehat> ... the problem I have is that the chartering process has become so legalistic in the past few years
+16:41:28 <bigbluehat> ... that I have no idea about the reactions...
+16:41:35 <TallTed> +1 tentative deliverable (does allow for a full REC to be completed)
+16:41:37 <bigbluehat> pchampin: I see your point
+16:42:08 <bigbluehat> ... there has also been discussion around everygreen processes not working
+16:42:20 <bigbluehat> ... but instead are shipping specs more often
+16:42:25 <TallTed> q+
+16:42:26 <bigbluehat> ... there are groups working like that
+16:42:30 <bigbluehat> q-
+16:42:42 <bigbluehat> ... I will check to see how we might do that
+16:42:51 <bigbluehat> ivan: I'm fine if we have a chat about how that might work
+16:43:05 <bigbluehat> ... this tentative deliverable looks like it will get us closest to that now
+16:43:08 <bigbluehat> ack TallTed
+16:43:29 <bigbluehat> TallTed: I just wanted to encourage ivan and pchampin to join the process CG...if you have time
+16:43:35 <bigbluehat> ivan: >_<
+16:43:52 <bigbluehat> TallTed: I understand, but it is a great place to get involved in the process improvements
+16:44:37 <bigbluehat> q+
+16:45:02 <bigbluehat> ivan: is it really such a hard thing to do it as described in the charter now?
+16:45:11 <bigbluehat> ... the other two deliverables don't seem too huge
+16:45:26 <bigbluehat> ... so is it so daunting to do it as is described?
+16:45:51 <pchampin> bigbluehat: our biggest daunting task is that Gregg will eventually step down as main editor
+16:47:03 <ivan> q+
+16:47:09 <bigbluehat> ack bigbluehat
+16:47:14 <pchampin> ... so keeping the list of things to add small enough would make it easier to get something delivered
+16:47:28 <bigbluehat> ack ivan
+16:47:29 <pchampin> ... also, we don't want to be blocked by the RDF & SPARQL WG's progress
+16:47:53 <pchampin> ivan: another technical question: we have some fair idea of what JSON-LD 1.2.
+16:48:10 <pchampin> ... I suspect everything can be transferred to YAML-LD without problem.
+16:48:48 <pchampin> ... wes-smith, do you think transferring them to CBOR-LD would be easy?
+16:49:08 <pchampin> wes-smith: I would not expect it to be too difficult, but I need to look into more details.
+16:49:45 <pchampin> ivan: bigbluehat, I agree with the point you make about Gregg.
+16:50:01 <pchampin> ... We should reorganize the charter, and put RDF 1.2 alignment in the "tentative deliverable" sections.
+16:50:25 <pchampin> bigbluehat: if RDF 1.2 ships soon enough, nobody will prevent us from including it in whichever version of JSON-LD we have at the moment.
+16:51:08 <pchampin> ivan: I can try to take a go at it once the other issues are addressed.
+16:54:07 <pchampin> ... I will reorder the points in the scope section, to make it clear that alignment with RDF 1.2 is in a second time.
+16:59:23 <bigbluehat> Zakim, end meeting
+16:59:23 <Zakim> As of this point the attendees have been bigbluehat, TallTed, ivan, pchampin, dlehn
+16:59:25 <Zakim> RRSAgent, please draft minutes
+16:59:27 <RRSAgent> I have made the request to generate https://www.w3.org/2025/08/27-json-ld-minutes.html Zakim
+16:59:34 <Zakim> I am happy to have been of service, bigbluehat; please remember to excuse RRSAgent.  Goodbye
+16:59:34 <Zakim> Zakim has left #json-ld
+17:00:39 <bigbluehat> rrsagent, bye
+17:00:39 <RRSAgent> I see no action items
