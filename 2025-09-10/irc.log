@@ -1,0 +1,122 @@
+15:59:57 <RRSAgent> RRSAgent has joined #json-ld
+16:00:02 <RRSAgent> logging to https://www.w3.org/2025/09/10-json-ld-irc
+16:00:02 <Zakim> RRSAgent, make logs Public
+16:00:03 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:00:10 <bigbluehat> meeting: JSON-LD WG
+16:00:10 <bigbluehat> chair: bigbluehat
+16:00:10 <bigbluehat> present+
+16:01:02 <bigbluehat> agenda: https://www.w3.org/events/meetings/04e937c0-e751-4c7e-9ba4-5782e0b3d272/20250910T120000/
+16:01:02 <agendabot> clear agenda
+16:01:02 <agendabot> agenda+ Announcements and Introductions
+16:01:02 <agendabot> agenda+ Recharger Next Steps
+16:01:02 <agendabot> agenda+ Open Discussion
+16:02:41 <pchampin> present+
+16:03:45 <dlehn> present+
+16:03:51 <niklasl> present+
+16:04:44 <ivan> present+
+16:05:12 <TallTed> s/Recharger/Recharter/
+16:05:16 <niklasl> scribe+
+16:05:40 <bigbluehat> Zakim, next item
+16:05:40 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+16:06:53 <ivan> q+
+16:07:00 <bigbluehat> ack ivan
+16:07:03 <niklasl> bigbluehat: Gregg Kellogg passed away this weekend.
+16:07:47 <ivan> https://www.w3.org/TR/epub-33/#ack
+16:09:05 <niklasl> ivan: The least we can do is to put a similar paragraph honoring Gregg.
+16:09:36 <niklasl> bigbluehat: The number of things Gregg contributed to is probably beyond the reach of AI...
+16:10:36 <niklasl> ivan: It's practical to put it in JSON-LD 1.2 but we may get an acknowledgement to put it in JSON-LD 1.1
+16:10:42 <niklasl> +100
+16:11:14 <niklasl> bigbluehat: I'd like to get something public now if possible.
+16:11:39 <niklasl> ivan: Me and pchampin can probably get OK for that
+16:11:50 <TallTed> q+
+16:11:51 <niklasl> bigbluehat: I can draft probably a PR
+16:11:57 <bigbluehat> ack TallTed
+16:12:11 <niklasl> TallTed: I would be in favour of putting it in both 1.0 and 1.1
+16:12:26 <niklasl> All in agreement.
+16:12:51 <bigbluehat> s/1.0 and 1.1/1.1 and 1.2
+16:14:36 <bigbluehat> Zakim, next item
+16:14:36 <Zakim> agendum 2 -- Recharger Next Steps -- taken up [from agendabot]
+16:14:52 <niklasl> Victor Lu: JSON-LD is very important in a lot of things so I very much appreciate honoring Gregg for this.
+16:15:19 <niklasl> bigbluehat: We all voted in agreement over email.
+16:15:57 <ivan> latest version: https://w3c.github.io/json-ld-charter-2025/
+16:16:00 <niklasl> ivan: One thing still to do - for bigbluehat to approve the latest version
+16:16:37 <niklasl> bigbluehat I approve
+16:17:22 <niklasl> pchampin: As next step I will request horizontal review
+16:17:36 <pchampin> https://github.com/w3c/strategy/issues/494
+16:17:38 <gb> https://github.com/w3c/strategy/issues/494 -> Issue 494 [wg/json-ld] JSON-LD Working Group Charter (by plehegar) [Advance Notice Sent] [charter]
+16:18:10 <TallTed> s/bigbluehat I approve/bigbluehat: I approve
+16:18:35 <RRSAgent> I have made the request to generate https://www.w3.org/2025/09/10-json-ld-minutes.html TallTed
+16:18:50 <niklasl> pchampin: Now the horizontal review gets the requests for this. It may take some weeks, and then we can go to AC review.
+16:19:15 <TallTed> q+ to ask practicality question about minutes generation for this WG/CG
+16:19:23 <niklasl> ... should it take too much time, we might still be able to go forward
+16:20:04 <niklasl> ivan: I presume there will be comments from the horizontal review and/or AC. We till handle them as issues (in the w3c repo).
+16:20:21 <niklasl> ... please keep an eye on these as they come in.
+16:20:49 <niklasl> bigbluehat: Thank you for getting that ready. We'll watch it closely.
+16:20:53 <bigbluehat> ack TallTed
+16:20:53 <Zakim> TallTed, you wanted to ask practicality question about minutes generation for this WG/CG
+16:21:34 <niklasl> TallTed: Gregg has preferred tools for generating logs/minutes. Is anyone acquainted with them (or other shared tools)?
+16:21:47 <pchampin> q+
+16:22:04 <niklasl> bigbluehat: I will look at the code in the repo (probably code that Manu wrote, and I worked on).
+16:22:07 <bigbluehat> ack pchampin
+16:22:41 <niklasl> pchampin: I did use those tools a few weeks ago. It went pretty smoothly, except for a timeout of a github action.
+16:22:48 <niklasl> ... More people looked on that.
+16:23:24 <niklasl> ... I'm in favour of keeping them running. The trickiest part is the size of the repo.
+16:23:52 <niklasl> bigbluehat: Moving to a static site hit upon that as well. The gh repo is very large.
+16:24:21 <niklasl> ... That timeout will probably increase, we may have to address that.
+16:25:03 <niklasl> bigbluehat: Do we have people able to pick up from Gregg?
+16:25:05 <niklasl> q+
+16:25:14 <bigbluehat> scribe+
+16:25:16 <bigbluehat> ack niklasl
+16:25:29 <bigbluehat> niklasl: I'd like to try
+16:25:43 <bigbluehat> ... in my current position is probably more on the JSON-LD Star aspect of this work
+16:25:49 <ivan> q+
+16:25:55 <bigbluehat> ... and that's a bit tricky with separate repos, etc.
+16:26:13 <bigbluehat> ... but I'm not yet sure we're in dire need of an editor
+16:26:22 <bigbluehat> ... so, we may be fine
+16:26:35 <bigbluehat> ack ivan
+16:26:41 <bigbluehat> ivan: we have to be careful here
+16:26:51 <niklasl> ivan: We have to be careful here.
+16:26:53 <bigbluehat> ... the reorganization of the charter means we're talking about v1.2
+16:27:00 <bigbluehat> ... which are all the technical changes on 1.1
+16:27:08 <bigbluehat> ... but not the new things from RDF 1.2
+16:27:21 <bigbluehat> ... we are planning to have a JSON-LD 1.3 to incubate during the WG
+16:27:28 <niklasl> ... We're talking about JSON-LD 1.2, with the editorial, errata, and so on. We will have a separate 1.3 which will be optional to start on.
+16:27:33 <bigbluehat> ... and toward the end move to a v1.3 publication toward the end of the group
+16:27:38 <niklasl> ... So at this point, 1.2 is not that.
+16:28:36 <niklasl> bigbluehat: I don't recall how many things are pending. We may need to analyze that in upcoming calls.
+16:28:37 <niklasl> q+
+16:28:45 <bigbluehat> ack niklasl
+16:28:58 <bigbluehat> niklasl: there is one thing that I am almost ready to make a PR of
+16:29:13 <bigbluehat> ... and it's not Star/RDF-1.2 related
+16:29:27 <bigbluehat> ... it's already approved, but likely still need some changes
+16:29:42 <bigbluehat> ... so my contributions are not 100% RDF-1.2 related
+16:30:30 <pchampin> q+
+16:30:34 <bigbluehat> ack pchampin
+16:30:36 <niklasl> bigbluehat: We need to discuss co-chair and editor workloads
+16:31:19 <niklasl> pchampin: A possibly crazy idea - we are struggling with the version numbers. Maybe adding nicknames as well (bear with me).
+16:31:33 <niklasl> ... What about calling the first one Gregg.
+16:32:11 <niklasl> ... Debian had names from Toy Story. What about using Kellogg mascots?
+16:32:13 <TallTed> `1.1.5`? `1.1bis`? and make eventual 1.2 sync with RDF 1.2?
+16:32:54 <niklasl> pchampin: Mostly internal nicknames..
+16:33:05 <TallTed> We could do worse than informally using Kellogg's mascots
+16:33:17 <niklasl> I like it too.
+16:35:26 <niklasl> ivan: We may consider something not associated too much with the name.
+16:35:45 <pchampin> https://en.wikipedia.org/wiki/List_of_integer_sequences
+16:40:07 <niklasl> bigbluehat: We can look for good names in that list and choose next meeting.
+16:40:36 <ivan> q+
+16:41:28 <niklasl> ivan: We should be careful about considering joint CG/WG meetings; especially for IPR reasons,
+16:41:39 <niklasl> s/reasons,/reasons/
+16:41:42 <bigbluehat> ack ivan
+16:42:30 <niklasl> bigbluehat: I am currently the only chair for both groups. We should discuss how to proceed with the CG as well.
+16:42:53 <niklasl> ... The VC group has also done a good job of promoting JSON-LD.
+16:43:20 <bigbluehat> Zakim, next item
+16:43:20 <Zakim> agendum 3 -- Open Discussion -- taken up [from agendabot]
+16:43:57 <bigbluehat> bigbluehat: bye all
+16:43:58 <bigbluehat> Zakim, end meeting
+16:43:58 <Zakim> As of this point the attendees have been bigbluehat, pchampin, dlehn, niklasl, ivan
+16:44:00 <Zakim> RRSAgent, please draft minutes
+16:44:02 <RRSAgent> I have made the request to generate https://www.w3.org/2025/09/10-json-ld-minutes.html Zakim
+16:44:09 <Zakim> I am happy to have been of service, bigbluehat; please remember to excuse RRSAgent.  Goodbye
+16:44:09 <Zakim> Zakim has left #json-ld
+16:44:10 <bigbluehat> rrsagent, bye
+16:44:10 <RRSAgent> I see no action items
