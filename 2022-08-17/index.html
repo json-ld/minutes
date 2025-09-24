@@ -128,15 +128,21 @@ div.resolution {
 <dt>Topics</dt><dd><ol><li><a href="#topic-1">Announcements and Introductions</a><li><a href="#topic-2">Approve Minutes</a><li><a href="#topic-3">YAML-LD</a><li><a href="#topic-4">TPAC</a><li><a href="#topic-5">Next call</a></ol></dd><dt>Resolutions</dt><dd><ol><li><a href="#resolution-1">adopt the work plan as laid out in the agenda</a></ol></dd></dl>
 </div>
 <div class="information">Niklas Lindstr&#246;m is scribing.</div>
-<h1 id="topic-1" class="topic">Topic: Announcements and Introductions</h1>
+<h1 onmouseout="$('#link-topic-1').hide()" onmouseover="$('#link-topic-1').show()" id="topic-1" class="topic">
+Topic: Announcements and Introductions
+<a id="link-topic-1" style="display:none;" href="#topic-1">✪</a></h1>
 <div onmouseout="$('#link-1').hide()" onmouseover="$('#link-1').show()" id="1" class="comment"><span class="name">Juuso Autiosalo</span>: FYI, just added new issue on adding &quot;How to read this document&quot; section: <a href="https://github.com/json-ld/yaml-ld/issues/73">https://github.com/json-ld/yaml-ld/issues/73</a> <a id="link-1" style="display:none;" href="#1">✪</a></div>
 <div onmouseout="$('#link-2').hide()" onmouseover="$('#link-2').show()" id="2" class="information">Announcements: Pierre-Antoine set up our official (w3c) repos to ensure that commits are properly checked. <a id="link-2" style="display:none;" href="#2">✪</a></div>
 <div onmouseout="$('#link-3').hide()" onmouseover="$('#link-3').show()" id="3" class="comment"><span class="name">Gregg Kellogg</span>:  You need to associated your account names with your github id; sent these to Pierre-Antoine. <a id="link-3" style="display:none;" href="#3">✪</a></div>
-<h1 id="topic-2" class="topic">Topic: Approve Minutes</h1>
+<h1 onmouseout="$('#link-topic-2').hide()" onmouseover="$('#link-topic-2').show()" id="topic-2" class="topic">
+Topic: Approve Minutes
+<a id="link-topic-2" style="display:none;" href="#topic-2">✪</a></h1>
 <div onmouseout="$('#link-4').hide()" onmouseover="$('#link-4').show()" id="4" class="comment"><span class="name">Gregg Kellogg</span>: <a href="https://json-ld.org/minutes/2022-08-03/">https://json-ld.org/minutes/2022-08-03/</a> <a id="link-4" style="display:none;" href="#4">✪</a></div>
 <div onmouseout="$('#link-5').hide()" onmouseover="$('#link-5').show()" id="5" class="comment"><span class="name">Juuso Autiosalo</span>:  Introduce yaml-ld#73 [scribe assist by Gregg Kellogg] <a id="link-5" style="display:none;" href="#5">✪</a></div>
 <div onmouseout="$('#link-6').hide()" onmouseover="$('#link-6').show()" id="6" class="information"><a href="https://github.com/json-ld/yaml-ld/issues/73">https://github.com/json-ld/yaml-ld/issues/73</a> -&gt; Issue 73 Add section: How to read this document (juusoautiosalo) <a id="link-6" style="display:none;" href="#6">✪</a></div>
-<h1 id="topic-3" class="topic">Topic: YAML-LD</h1>
+<h1 onmouseout="$('#link-topic-3').hide()" onmouseover="$('#link-topic-3').show()" id="topic-3" class="topic">
+Topic: YAML-LD
+<a id="link-topic-3" style="display:none;" href="#topic-3">✪</a></h1>
 <div onmouseout="$('#link-7').hide()" onmouseover="$('#link-7').show()" id="7" class="information">Juuso suggests to add issue 173 to agenda if there is time. <a id="link-7" style="display:none;" href="#7">✪</a></div>
 <div onmouseout="$('#link-8').hide()" onmouseover="$('#link-8').show()" id="8" class="comment"><span class="name">Gregg Kellogg</span>:  To complete work on the spec we need to go through certain steps: <a id="link-8" style="display:none;" href="#8">✪</a></div>
 <div class="comment-continuation">... Define limitations on use of YAML Alias Nodes, for profiles (basic? extended?).</div>
@@ -149,7 +155,7 @@ div.resolution {
 <div onmouseout="$('#link-13').hide()" onmouseover="$('#link-13').show()" id="13" class="comment"><span class="name">Gregg Kellogg</span>:  In my implementation a basic profile works well and ignore unknown tags. Aliases need to be specified by an option. <a id="link-13" style="display:none;" href="#13">✪</a></div>
 <div onmouseout="$('#link-14').hide()" onmouseover="$('#link-14').show()" id="14" class="comment"><span class="name">Anatoly Scherbakov</span>:  It is not entirely clear how to implement the distinction of a profile. In my view we were going from yaml to json, then process that as json-ld. If we go beyond that basic profile, do we need to go beyond regular processors because we need to support special tags and to handle anchors/references. <a id="link-14" style="display:none;" href="#14">✪</a></div>
 <div onmouseout="$('#link-15').hide()" onmouseover="$('#link-15').show()" id="15" class="comment"><span class="name">Pierre-Antoine Champin</span>:  My two cents: other profiles would not need dedicated yaml processors; specific yaml constructs would need to be intricately processed, e.g. a string with a specific tag would be translated into a specific value object with a specific datatype. <a id="link-15" style="display:none;" href="#15">✪</a></div>
-undefined<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Gregg Kellogg</span>:  In JSON-LD 1.1 we specifically created an internal representation in order to support e.g. a YAML processor. A YAML-LD processor would create this internal representation, not a JSON structure. <a id="link-16" style="display:none;" href="#16">✪</a></div>
+<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show()" id="16" class="comment"><span class="name">Gregg Kellogg</span>:  In JSON-LD 1.1 we specifically created an internal representation in order to support e.g. a YAML processor. A YAML-LD processor would create this internal representation, not a JSON structure. <a id="link-16" style="display:none;" href="#16">✪</a></div>
 <div class="comment-continuation">... A YAML processor could create, natively other datatyped values.</div>
 <div class="comment-continuation">... You would not need to quote those types of things. YAML tags allows to define other datatypes, and an extended profile would define how to interpret that as an internal JSON-LD representation.</div>
 <div class="comment-continuation">... Almost all non-RDF algorithms should work to create general RDF literals. That doesn&apos;t affect any of the algorithms until serialization time.</div>
@@ -179,7 +185,9 @@ undefined<div onmouseout="$('#link-16').hide()" onmouseover="$('#link-16').show(
 <div onmouseout="$('#link-30').hide()" onmouseover="$('#link-30').show()" id="30" class="comment"><span class="name">Niklas Lindstr&#246;m</span>: +1 <a id="link-30" style="display:none;" href="#30">✪</a></div>
 <div onmouseout="$('#link-31').hide()" onmouseover="$('#link-31').show()" id="31" class="comment"><span class="name">Benjamin Young</span>: +1 <a id="link-31" style="display:none;" href="#31">✪</a></div>
 <div onmouseout="$('#link-32').hide()" onmouseover="$('#link-32').show()" id="32" class="comment"><span class="name">David I. Lehn</span>: +1 <a id="link-32" style="display:none;" href="#32">✪</a></div>
-<div id="resolution-1" class="resolution"><strong>RESOLUTION:</strong> adopt the work plan as laid out in the agenda</div>
+<div onmouseout="$('#link-res-1').hide()" onmouseover="$('#link-res-1').show()" id="resolution-1" class="resolution">
+<strong>RESOLUTION:</strong> adopt the work plan as laid out in the agenda
+<a id="link-res-1" style="display:none;" href="#resolution-1">✪</a></div>
 <div onmouseout="$('#link-33').hide()" onmouseover="$('#link-33').show()" id="33" class="comment"><span class="name">Gregg Kellogg</span>:  We&apos;ll use this as a basis for our time at TPAC. <a id="link-33" style="display:none;" href="#33">✪</a></div>
 <div class="comment-continuation">... We have 4 hours. We could spend the first 2 hours for YAML-LD.</div>
 <div onmouseout="$('#link-34').hide()" onmouseover="$('#link-34').show()" id="34" class="comment"><span class="name">Anatoly Scherbakov</span>:  Regarding using Github issues and projects; I usually like small completable issues. <a id="link-34" style="display:none;" href="#34">✪</a></div>
