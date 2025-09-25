@@ -1,0 +1,27 @@
+---
+# required - or URLs are not produce-able
+minutes_base_url: https://json-ld.github.io/minutes/
+
+group: JSON-LD CG Telecon # default: Telecon
+people: scribe-tool/people.json # default: www/people.json
+partials: scribe-tool/ # default: www/_partials/
+
+# The `content` and `minutes_base_url` Mustache variables MUST are pre-escaped
+# so use {{{content}}} (3 curley braces) to properly unescape them for text.
+
+email: # required for -e
+  from: byoung@digitalbazaar.com # required!
+  to: JSON-LD CG <public-linked-json@w3.org> # required!
+  # Mustache template - vars: gDate
+  subject: "[MINUTES] W3C JSON-LD CG Call - {{gDate}} 12pm ET"
+  # Mustache template - vars: content, gDate, scribe, minutes_base_url
+  body: |-
+    Thanks to {{scribe}} for scribing this week! The minutes
+    for this week's JSON-LD CG telecon are now available:
+    {{{minutes_base_url}}}{{gDate}}/
+
+    Full text of the discussion follows for W3C archival purposes.
+    Audio from the meeting is available as well (link provided below).
+
+    ----------------------------------------------------------------
+    {{{content}}}

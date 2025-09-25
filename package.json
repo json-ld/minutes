@@ -1,5 +1,40 @@
 {
+  "name": "minutes",
+  "version": "0.0.0",
+  "description": "Scrawl.js based IRC log conversions of the JSON-LD CG/WG logs.",
+  "homepage": "https://github.com/json-ld/minutes#readme",
+  "bugs": {
+    "url": "https://github.com/json-ld/minutes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/json-ld/minutes.git"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Digital Bazaar, Inc.",
+  "contributors": [{
+    "name": "Benjamin Young",
+    "email": "byoung@bigbluehat.com",
+    "url": "https://bigbluehat.com"
+  },
+  {
+    "name": "Manu Sporny",
+    "email": "msporny@digitalbazaar.com",
+    "url": "https://digitalbazaar.com"
+  },
+  {
+    "name": "Gregg Kellogg",
+    "email": "gregg@greggkellogg.net",
+    "url": "https://greggkellogg.net"
+  }],
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "scrawl -c config.yaml -m -i -d",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
+    "scrawl": "github:json-ld/scrawl.js#v0.6.0",
     "showdown": "^2.1.0"
   }
 }
