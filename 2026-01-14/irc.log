@@ -1,0 +1,186 @@
+16:59:29 <RRSAgent> RRSAgent has joined #json-ld
+16:59:33 <RRSAgent> logging to https://www.w3.org/2026/01/14-json-ld-irc
+16:59:33 <Zakim> RRSAgent, make logs Public
+16:59:34 <Zakim> please title this meeting ("meeting: ..."), bigbluehat
+16:59:46 <bigbluehat> meeting: JSON-LD WG/CG
+16:59:46 <bigbluehat> chair: bigbluehat
+16:59:46 <bigbluehat> present+
+17:00:38 <bigbluehat> agenda: https://www.w3.org/events/meetings/39920eba-0c9e-431a-a61d-347c7398ac98/
+17:00:38 <agendabot> clear agenda
+17:00:38 <agendabot> agenda+ Introductions and Announcements
+17:00:38 <agendabot> agenda+ New Group Overview
+17:00:38 <agendabot> agenda+ Call Schedule
+17:00:38 <agendabot> agenda+ Anything Else?
+17:00:42 <wes-smith> wes-smith has joined #json-ld
+17:01:31 <ivan> present+
+17:01:34 <anatoly-scherbakov> present+
+17:02:15 <test> test has joined #json-ld
+17:03:08 <niklasl> niklasl has joined #json-ld
+17:03:18 <VictorLu> VictorLu has joined #json-ld
+17:03:27 <bigbluehat> chair+ VictorLu
+17:03:32 <niklasl> present+
+17:03:35 <wes-smith> present+
+17:04:01 <pchampin> scribe+
+17:04:03 <TallTed> present+
+17:04:23 <bigbluehat> Zakim, next item
+17:04:23 <Zakim> agendum 1 -- Introductions and Announcements -- taken up [from agendabot]
+17:04:41 <pchampin> bigbluehat: this is the JSON-LD Working Group and Community Group call
+17:05:33 <ivan> q+
+17:05:42 <pchampin> ... we will use the January calls to get people from various community to care about the Working Group and hopefully join
+17:05:46 <bigbluehat> ack ivan
+17:06:11 <pchampin> ivan: we have a new charter that requires everybody to rejoin the group (because of new deliverable)
+17:06:31 <pchampin> ... that's why we noticed a number of members leaving the group and re-joining
+17:07:18 <pchampin> ... please everybody be sure to re-join
+17:07:25 <pchampin> see https://www.w3.org/groups/wg/json-ld/participants/
+17:08:08 <pchampin> pchampin: please everyone check the page above and contact the AC rep if it says "need to re-join"
+17:08:55 <pchampin> bigbluehat: welcome VictorLu as a new co-chair
+17:09:10 <bigbluehat> Zakim, next item
+17:09:10 <Zakim> agendum 2 -- New Group Overview -- taken up [from agendabot]
+17:09:35 <pchampin> bigbluehat: let's go over the charter and what we are supposed to do
+17:09:50 <pchampin> ... we touched on the re-joining already; this is due to the new IPR agreement.
+17:10:13 <pchampin> ... We also need to vote on including the CG reports as FPWD.
+17:10:18 <wes-smith> wes-smith has joined #json-ld
+17:11:07 <bigbluehat> scribe+ bigbluehat
+17:11:19 <bigbluehat> pchampin: we need to move the specs into W3C space
+17:11:33 <bigbluehat> ... before we can do the FPWD vote
+17:11:52 <bigbluehat> ... but since the documents seem ready, that should be quick
+17:12:21 <pchampin> bigbluehat: you would take an action to move the document into w3c repos
+17:12:45 <bigbluehat> pchampin: the main thing we need are editors who are participants in the WG
+17:12:55 <bigbluehat> ... which may not be the case with all of them
+17:13:17 <bigbluehat> ... and it can be a chair appointed person to manage the WG deliverables
+17:13:26 <dlehn> present+
+17:14:04 <pchampin> bigbluehat: I believe that we have editors in the WG for YAML-LD (anatoly-scherbakov) and CBOR-LD (wes-smith)
+17:14:12 <pchampin> ... do you agree to be editors?
+17:14:27 <pchampin> wes-smith: I agree and consent, but note that I'm not (yet) listed as a participant
+17:15:05 <pchampin> bigbluehat: Ok, you need to click on join and an AC rep (me) will approve
+17:15:55 <bigbluehat> https://www.w3.org/groups/wg/json-ld/join/
+17:16:07 <pchampin> anatoly-scherbakov: I have alteady joined
+17:17:26 <pchampin> TallTed: note that some organizations need to rejoin
+17:17:35 <pchampin> bigbluehat: it is not urgent but it does need to happen
+17:19:11 <pchampin> TallTed: if I click on join, I see a link for my AC-rep to join, but they are not notified
+17:19:24 <pchampin> pchampin: I will signal this issue to our admins
+17:19:30 <wes-smith> q+
+17:20:19 <bigbluehat> ack wes-smith
+17:21:12 <pchampin> bigbluehat: we have editors for YAML-LD and CBOR-LD
+17:21:30 <pchampin> ... let's talk about the JSON-LD specs; those are the one we have the greatest need for
+17:21:47 <bigbluehat> Editors for  https://w3c.github.io/json-ld-syntax/
+17:21:58 <bigbluehat>     Gregg Kellogg (v1.0 and v1.1)
+17:21:58 <bigbluehat>     Pierre-Antoine Champin (LIRIS - Université de Lyon) (v1.1)
+17:21:58 <bigbluehat>     Dave Longley (Digital Bazaar) (v1.1)
+17:22:30 <pchampin> pchampin: they are the same for API and Framing
+17:23:05 <bigbluehat> pchampin: there's not rule and I am acting as co-editor in other groups
+17:23:10 <bigbluehat> ... but my time is lacking
+17:23:21 <pchampin> bigbluehat: Dave Longley is not here, I assume he may not be able to continue
+17:23:28 <pchampin> pchampin: I can continue, but I can't be lead editor
+17:23:37 <niklasl> q+
+17:23:48 <pchampin> bigbluehat: we will need to find lead editors for the 3 JSON-LD specs
+17:23:55 <bigbluehat> ack niklasl
+17:24:05 <pchampin> ... we can buy some time by starting to focus on YAML-LD and CBOR-LD
+17:24:26 <pchampin> niklasl: I'll talk to my boss and try get some time for working as editor on the JSON-LD specs
+17:25:04 <pchampin> bigbluehat: I'll try to get people interested
+17:25:33 <pchampin> ... is everyone else present interested in helping with one of these specs?
+17:26:55 <pchampin> anatoly-scherbakov: what is the scope of the work?
+17:27:37 <pchampin> bigbluehat: with Gregg gone, we need someone to shepherd the PRs and lead the work on the specs
+17:28:07 <pchampin> q+
+17:28:15 <bigbluehat> ack pchampin
+17:28:35 <bigbluehat> pchampin: Gregg was doing an incredible job as lead editor on these specs
+17:28:51 <bigbluehat> ... he was really leading the spec in ways the other editors didn't or couldn't
+17:29:01 <bigbluehat> ... we don't need someone that stellar or prominent
+17:29:17 <dlehn> q+
+17:29:23 <bigbluehat> ... having a lead is still helpful, but you don't have to be a full replacement for Gregg
+17:29:39 <pchampin> dlehn: like other people, I don't know how much time I can dedicate to this
+17:29:59 <pchampin> ... I can't remember the last time I read the spec in whole; I assume you need to have the whole spec in your head
+17:31:13 <pchampin> bigbluehat: it is more about PR curation than creation
+17:32:13 <pchampin> ... the chairs will work with the editor to pick what to discuss and when
+17:33:16 <pchampin> dlehn: the people on this call are those who join all the time, so I assume it will have to be someone present on the call
+17:33:33 <pchampin> bigbluehat: the few people I can imagine are people who have done JSON-LD implementations
+17:33:38 <pchampin> ... not all of them are on the call
+17:34:19 <pchampin> ... the thing that motivates anyone to work on a spec is when they need the spec to say something
+17:34:20 <niklasl> q+
+17:34:29 <bigbluehat> ack dlehn
+17:34:37 <bigbluehat> ack niklasl
+17:34:59 <pchampin> niklasl: yes, specifically, we need RDF 1.2 annotations in JSON-LD
+17:35:08 <pchampin> ... I had a look at Gregg's JSON-LD-star spec and test suite
+17:35:23 <pchampin> ... Similarly, there are some issues that will give us headaches if we can't fix them
+17:36:14 <pchampin> bigbluehat: there are also people interested in JSON-LD streaming
+17:36:25 <pchampin> ... while this is a separate topic, we could get some editorial help from them
+17:36:38 <bigbluehat> Zakim, next item
+17:36:38 <Zakim> agendum 3 -- Call Schedule -- taken up [from agendabot]
+17:37:12 <pchampin> bigbluehat: I have setup the recurring call for the next 2 years
+17:37:48 <pchampin> ... we will combine WG and CG calls in January, hopefully bringing more CG people in the next two meetings (LWS, VC, Activity Streams)
+17:38:10 <pchampin> ... maybe also the people behind JellyRDF (similarity to CBOR-LD)
+17:38:13 <ivan> q+
+17:38:29 <pchampin> ... hopefully picking their interest to participate
+17:38:41 <bigbluehat> ack ivan
+17:38:51 <pchampin> ... starting in Frebruary, we will have WG calls; this leaves the CG in limbo space
+17:39:16 <VictorLu> VictorLu has left #json-ld
+17:39:18 <pchampin> ivan: let's be careful with bringing CG's people wishlist; we have a lot on our plate already
+17:39:25 <anatoly-scherbakov> q+
+17:39:49 <VictorLu3> VictorLu3 has joined #json-ld
+17:39:49 <pchampin> bigbluehat: agreed, but my primary interest is to make sure people keep interested in the technology, because there are only 9 of us on this call
+17:39:58 <pchampin> ... we need folks to come
+17:40:08 <pchampin> ivan: yes, but we need them to come to do what's in the charter
+17:40:26 <pchampin> ... there are not that many things for JSON-LD 1.2, but they need to be done
+17:40:42 <pchampin> ... then JSON-LD 1.2 is supposed to align with RDF 1.2, that's already more than we can chew
+17:41:09 <pchampin> bigbluehat: I hear you, let's not create distraction but try to build bridges
+17:41:45 <pchampin> ivan: we can also reach out to people privately, be salespersons
+17:42:55 <pchampin> bigbluehat: some RDF databases have Property Graph features, they could benefit from JSON-LD being aligned with RDF 1.2
+17:43:08 <pchampin> ivan: yes, but there are other things we need to do first
+17:43:50 <pchampin> ... e.g. security problems around context files
+17:44:14 <anatoly-scherbakov> +1
+17:44:26 <pchampin> bigbluehat: is everyone ok with this call time for the near future?
+17:44:28 <pchampin> +1
+17:44:29 <niklasl> +1
+17:44:34 <ivan> +1
+17:45:11 <pchampin> bigbluehat: the CG (which I also chair) will not have calls beyond the upcoming January calls, unless the need is expressed
+17:45:23 <pchampin> ... and if it does, we will not have it conflict with this slot
+17:45:28 <bigbluehat> Zakim, next item
+17:45:28 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, bigbluehat
+17:45:33 <bigbluehat> q?
+17:45:36 <bigbluehat> ack anatoly-scherbakov
+17:46:14 <pchampin> anatoly-scherbakov: we have a number of issues, some PRs
+17:46:35 <pchampin> ... what should people having some free time to help with those so?
+17:46:47 <pchampin> ... pick a random issue? or do we have a concept of milestone?
+17:47:04 <pchampin> https://github.com/orgs/w3c/projects/84
+17:47:24 <pchampin> bigbluehat: Gregg and I set up a github project, not sure how up-to-date it is
+17:47:49 <pchampin> ... changes should be tagged based on what kind of states they are
+17:48:08 <pchampin> ... my preference would be to start by cleaning PRs waiting to be merged (confirm they have tests)
+17:48:37 <pchampin> ... then we can look at issues: we discuss it, somebody volunteers to write a PR
+17:49:01 <pchampin> ... I hope we can keep the 1.2 scope to a lot that's already in there or has pending PRs
+17:49:20 <ivan> +1 to bigbluehat about emptying the PR backlog
+17:49:34 <pchampin> +1
+17:49:42 <ivan> q+
+17:49:47 <niklasl> +1
+17:50:03 <bigbluehat> ack ivan
+17:50:05 <anatoly-scherbakov> +1
+17:50:58 <pchampin> ivan: I believe that JSON-LD 1.2 is still to be publsihed as FPWD
+17:50:59 <pchampin> q+
+17:51:15 <bigbluehat> +1 to getting "everything" to FPWD asap
+17:51:15 <pchampin> ... they are obviously in good enough shape for that
+17:51:27 <pchampin> ... this would help bring people on board
+17:51:32 <bigbluehat> ack pchampin
+17:51:44 <bigbluehat> pchampin: +1 to that with one caveat
+17:51:57 <bigbluehat> ... a lot of the changes are using "candidate amendment" policy
+17:52:11 <bigbluehat> ... because we were planning to make the change in place, but now we're not doing that
+17:52:17 <bigbluehat> ... so we need to remove that machinery
+17:52:29 <bigbluehat> ... it's some work...but maybe AI could help with that
+17:52:39 <bigbluehat> ivan: but it's rewarding work, because it removes the mess in there
+17:53:27 <pchampin> bigbluehat: that amounts to removing the <ins> and <del> tags right?
+17:53:36 <pchampin> pchampin: yes, as well as the notes describing the changes
+17:54:19 <pchampin> bigbluehat: AI would probably help with that; the PRs will affect a lot of lines
+17:54:29 <pchampin> ... but nothing controversial, the text is already there
+17:55:06 <pchampin> ... I would like to have our FPWDs published in February
+17:55:08 <pchampin> ... is anyone interested in take action to clean up some HTML?
+17:56:05 <bigbluehat> https://github.com/orgs/w3c/projects/84
+17:56:08 <anatoly-scherbakov> q+
+17:56:13 <pchampin> dlehn: where we managing actions on a github repository?
+17:57:05 <bigbluehat> ack anatoly-scherbakov
+17:57:11 <pchampin> bigbluehat: point taken
+17:57:32 <pchampin> ... I'll create an issue
+17:57:39 <pchampin> anatoly-scherbakov: I can try removing the <ins> and <del> markups; you can tag me there
+17:58:49 <bigbluehat> Zakim, next item
+17:58:49 <Zakim> agendum 4 -- Anything Else? -- taken up [from agendabot]
+17:59:27 <pchampin> bigbluehat: thanks everybody; we'll meet next week.
+17:59:40 <pchampin> ... please use the mailing list to let us know what you would like to see discussed
+17:59:54 <pchampin> RRSAgent, make minutes
+17:59:55 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/14-json-ld-minutes.html pchampin
