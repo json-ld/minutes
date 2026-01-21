@@ -1,0 +1,203 @@
+17:01:02 <RRSAgent> RRSAgent has joined #json-ld
+17:01:06 <RRSAgent> logging to https://www.w3.org/2026/01/21-json-ld-irc
+17:01:06 <Zakim> RRSAgent, make logs Public
+17:01:07 <Zakim> please title this meeting ("meeting: ..."), pchampin
+17:01:13 <pchampin> meeting: JSON-LD WG & CG meeting
+17:01:19 <pchampin> agenda: https://www.w3.org/events/meetings/1a0cb2ad-eb25-46af-9c3c-65783a7eb5d2/20260121T120000/#agenda
+17:01:19 <agendabot> clear agenda
+17:01:19 <agendabot> agenda+ Announcements and Introductions
+17:01:19 <agendabot> agenda+ Piotr Sowinski and the RDF Streaming WG work
+17:01:19 <agendabot> agenda+ Ruben Taelman and Comunica
+17:01:19 <agendabot> agenda+ Community Meet & Greet
+17:01:22 <agendabot> agenda+ Open Discussion
+17:01:47 <bigbluehat> bigbluehat has joined #json-ld
+17:02:01 <VictorLu> VictorLu has joined #json-ld
+17:02:02 <niklasl> present+
+17:02:06 <anatoly-scherbakov> present+
+17:02:13 <acoburn> present+
+17:02:14 <bigbluehat> present+
+17:02:21 <rubensworks> present+
+17:02:22 <wes-smith> present+
+17:02:23 <pchampin> chair: bigbluehat
+17:02:25 <pchampin> present+
+17:02:43 <wes-smith> scribe+
+17:02:52 <psowinski> psowinski has joined #json-ld
+17:03:23 <wes-smith> bigbluehat: thank you everyone for being here. We are doing a couple of soft kickoff calls over the next couple weeks
+17:03:26 <eprodrom> eprodrom has joined #json-ld
+17:03:38 <TallTed> present+
+17:03:40 <wes-smith> ... inviting folks to come talk about what they are doing with JSON-LD.
+17:03:45 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/21-json-ld-minutes.html TallTed
+17:03:52 <ivan> present+
+17:03:59 <wes-smith> ... As we look towards publishing YAML-LD, CBOR-LD, JSON-LD 1.2, we want to make sure everyone is aware this work is going on.
+17:04:48 <TallTed> previous meeting: https://www.w3.org/2026/01/14-json-ld-minutes.html
+17:04:48 <TallTed> next meeting: https://www.w3.org/2026/01/28-json-ld-minutes.html
+17:04:58 <wes-smith> ... in February the meetings will be stricter WG calls, but right now they are more open.
+17:05:47 <pchampin> zakim, open agendum 2
+17:05:47 <Zakim> agendum 2 -- Piotr Sowinski and the RDF Streaming WG work -- taken up [from agendabot]
+17:06:06 <ivan> present+
+17:06:10 <eprodrom> present+
+17:06:25 <ivan> present+ psowinski
+17:06:28 <wes-smith> psowinski: I am the CTO and cofounder of Neverblink, a startup working with RDF. I'd like to show what we are up to in the community group.
+17:06:36 <jason-desrosiers> jason-desrosiers has joined #json-ld
+17:07:03 <wes-smith> ... The reason we are doing this is because we have noticed that there are many things related to RDF that are "stream-y" in nature.
+17:07:31 <frenchrh_> frenchrh_ has joined #json-ld
+17:07:35 <wes-smith> ... The problem is that different vocabularies addressing this are not interoperable or compatible.
+17:08:12 <wes-smith> ... We define streams where we carry RDF messages from producers to consumers - we intentionally keep this abstract to be portable and extensible.
+17:08:31 <pchampin> RRSAgent, make minutes
+17:08:32 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/21-json-ld-minutes.html pchampin
+17:08:38 <wes-smith> ... Here is an example of how we would serialize this in the Turtle format. We are working on non-breaking extensions of W3C RDF formats.
+17:08:58 <wes-smith> ... As for JSON-LD, we want to have a format for JSON-LD streams.
+17:09:21 <wes-smith> ... the WG looked into this previously, our plan is to use that work as a starting point.
+17:09:44 <wes-smith> ... We want to produce a final draft of this specification and then hopefully form a working group where we could standardize this work.
+17:10:12 <wes-smith> ... If anyone could review the specification and give feedback it would be appreciated.
+17:10:25 <wes-smith> ... We have GitHub issue tracking you can use to provide constructive criticism.
+17:10:28 <pchampin> present+ jason-desrosiers
+17:10:32 <bigbluehat> q+
+17:10:52 <psowinski> Link to the RDF Messages spec draft: https://w3c-cg.github.io/rsp/spec/messages
+17:11:21 <wes-smith> bigbluehat: The work you propose couldn't be added to the current WG charter, but we are trying to decide if we want to have community group calls concurrently with the WG calls.
+17:11:41 <pchampin> present+ frenchrh_
+17:12:06 <wes-smith> ... practically, we could look at YAML-LD as a deliverable format for that. It was originally a streamable format.
+17:12:22 <wes-smith> ... Currently the YAML-LD spec doesn't explore this use case.
+17:12:31 <pchampin> present+ VictorLu
+17:12:42 <bigbluehat> ack bigbluehat
+17:13:11 <pchampin> RRSAgent, make minutes
+17:13:12 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/21-json-ld-minutes.html pchampin
+17:13:18 <wes-smith> ... CBOR-LD knows nothing of streams and is meant for smaller use cases.
+17:13:22 <anatoly-scherbakov> q+
+17:13:25 <bigbluehat> ack anatoly-scherbakov
+17:13:47 <niklasl> We (National Library of Sweden) use ndjson as a dump format (full dumps then kept in sync using https://emm-spec.org/1.0/ )
+17:14:28 <wes-smith> anatoly-scherbakov: how do RDF messages relate to JSON RPC?
+17:14:52 <bigbluehat> https://json-ld.github.io/yaml-ld/spec/#streams
+17:14:59 <wes-smith> psowinski: I haven't looked into this, I will open an issue so we can see if we can make this compatible.
+17:15:18 <rubensworks> q+
+17:15:21 <wes-smith> anatoly-scherbakov: JSON RPC is very minimalist and I always thought linked data could add value in making it more semantic.
+17:15:30 <bigbluehat> ack rubensworks
+17:15:43 <rubensworks> https://www.w3.org/TR/json-ld11-streaming/
+17:16:26 <wes-smith> rubensworks: I'm sure you have seen the json-ld 1.1 streaming work from the previous WG. It's essentially a profile of JSON-LD to make it easier to process in a streaming manner. The main difference I see is that this is not meant for messages, so your requirements for RDF messages don't match with the streaming JSON-LD note.
+17:16:32 <frenchrh_> We use JSON-LD for FAIRifying Scientific Data for acquistion, analysis, modeling
+17:16:32 <frenchrh_> And we have a Materials DAta Science Ontology (MDS-Onto, https://cwrusdle.bitbucket.io/ )
+17:16:57 <wes-smith> psowinski: I think we should add a note to clarify this, you can have statement level streaming, triple by triple, or you can go message by message. Jelly distinguishes between these. I think it's a good idea to make this explicit.
+17:17:04 <niklasl> See also ND-delimited JSON-LD in RDF4J: https://github.com/eclipse-rdf4j/rdf4j/issues/2840
+17:17:04 <gb> https://github.com/eclipse-rdf4j/rdf4j/issues/2840 -> https://github.com/eclipse-rdf4j/rdf4j/issues/2840
+17:17:06 <bigbluehat> q+
+17:17:09 <wes-smith> ... Your work is complementary to what we do.
+17:17:33 <wes-smith> bigbluehat: I would love to see some comparative stuff - they all say "streaming" or similar, and it would be helpful to know what the key distinctions are.
+17:17:33 <bigbluehat> ack bigbluehat
+17:18:02 <pchampin> zakim, open item 3
+17:18:02 <Zakim> agendum 3 -- Ruben Taelman and Comunica -- taken up [from agendabot]
+17:18:12 <psowinski> Thank you for all the pointers to implementations and your use cases! This is very useful for our CG.
+17:18:31 <wes-smith> rubensworks: Hello everyone - I am currently a postdoc at Ghent University where I lead a team of researchers to investigate algorithms over decentralized knowledge graphs.
+17:19:00 <pchampin> present+ Erika_Barcelos
+17:19:01 <wes-smith> ... our engine sits between developers and decentralized data on the Web.
+17:19:25 <wes-smith> ... We want to build query execution algorithms to abstract the complexities in decentralized data.
+17:19:38 <wes-smith> ... We implement our research in the Comunica framework.
+17:20:31 <wes-smith> ... You can run queries in the browser, and Comunica will figure out how to decompose the query into HTTP requests in the background.
+17:20:55 <wes-smith> ... I am also involved with SPARQL and RDF work as well as the creation of specification tests.
+17:21:21 <dlehn> present+
+17:21:28 <wes-smith> ... I was also involved in the JSON-LD 1.1 WG. I joined the group because I started working on a JSON-LD parser for TypeScript, because I needed one for Comunica.
+17:21:50 <wes-smith> ... Comunica aims to support all the RDF formats, and the main requirement we have is to support the parsing of all RDF formats in a streaming manner.
+17:22:13 <wes-smith> ... I initially implemented a streaming JSON-LD parser, but parsing JSON-LD in a streaming manner is a lot more complicated than Turtle or n-triples
+17:22:48 <wes-smith> ... I worked to provide some recommendations to producers of JSON-LD documents to order certain keys in a certain way so that it's easier for streaming parsers to parse such a document.
+17:23:46 <wes-smith> ... You can annotate a media type to improve parsing performance with key reordering.
+17:24:35 <wes-smith> ... Also relevant is that the Comunica query engine is highly modular, and in order to support this architecture we worked on a dependency injection framework that is driven by JSON-LD documents.
+17:24:56 <wes-smith> ... The Comunica framework allows you to define several different instantiations of Comunica
+17:25:09 <ErikaB> ErikaB has joined #json-ld
+17:26:00 <anatoly-scherbakov> q+
+17:26:09 <wes-smith> ... Happy to answer any questions.
+17:26:18 <bigbluehat> ack anatoly-scherbakov
+17:26:53 <wes-smith> anatoly-scherbakov: Thank you for the presentation. I looked briefly at Comunica. Do you always have to specify the exact datasets to query, or can Comunica guess based on the SPARQL query?
+17:27:11 <bigbluehat> q+ to ask about Components.js
+17:27:27 <frenchrh_> I can present for Erika and I
+17:27:27 <frenchrh_> But i don't know how to put something in the speaker queue
+17:27:31 <wes-smith> rubensworks: The default version of Comunica only implements federated SPARQL queries where you need to specify the datasets.
+17:28:07 <wes-smith> ... We have a different build of Comunica that includes more experimental components, but that is not included in default Comunica because it is unstable.
+17:28:16 <frenchrh_> q+
+17:28:38 <wes-smith> ... Here is an example query that does not require you to choose data sources - Comunica will try to figure out which URLs to start from based on the query.
+17:28:49 <wes-smith> ... It will then recurse in links found in documents.
+17:29:50 <wes-smith> ... Link traversal works reasonably well in environments that provide rigid structure on top of linked data, but over the open web it doesn't work that well.
+17:30:02 <wes-smith> q+
+17:30:16 <bigbluehat> q-
+17:30:47 <wes-smith> anatoly-scherbakov: as an efficiency upgrade, have you considered collaboratively built databases or descriptions of relations between databases.
+17:31:25 <wes-smith> rubensworks: Authentication layers make it difficult to create a public or shared index over some protected datasets. If the data is only open, such an index would help a lot.
+17:32:09 <wes-smith> anatoly-scherbakov: such an index would bring the vision of the semantic web a little bit closer, and would be interested in learning about research in this area.
+17:32:44 <bigbluehat> scribe+
+17:32:57 <bigbluehat> wes-smith: I have a question about link traversal techniques
+17:33:15 <bigbluehat> ... if you had infinite processing power, would it be just as performant as an informed query?
+17:33:35 <bigbluehat> rubensworks: there are performance issues at this point that mean we haven't dug into "correctness" much yet
+17:33:42 <pchampin> q+
+17:33:44 <bigbluehat> ... it could be 10's of thousands of links
+17:33:54 <bigbluehat> ... and figuring out how to prioritize them, etc.
+17:34:00 <bigbluehat> ... is mostly where we're focused
+17:34:09 <bigbluehat> ... we're also exploring trustworthiness
+17:34:11 <pchampin> q-
+17:34:17 <bigbluehat> ack wes-smith
+17:34:27 <anatoly-scherbakov> q+
+17:34:33 <bigbluehat> ... if you work under normal linked data principles, your trust is rather high
+17:34:54 <bigbluehat> ... and if you hit a malicious publisher, that may try to corrupt your data in some way
+17:35:16 <bigbluehat> ... there are techniques to discover which ones are trustworthy...or at least partially trustworthy
+17:35:26 <bigbluehat> wes-smith: you pointed out that correctness is hard to define here
+17:35:41 <bigbluehat> ... and that folks could pollute the data in some way
+17:36:08 <wes-smith> anatoly-scherbakov: the question of trust is very important, and perhaps people could express trust or distrust with the previously discussed index.
+17:36:26 <wes-smith> ... I think it is a wide and interesting area of research.
+17:36:38 <bigbluehat> ack anatoly-scherbakov
+17:37:17 <wes-smith> rubensworks: my main interest in this WG is to get JSON-LD ready for RDF 1.2.
+17:37:37 <wes-smith> bigbluehat: 1.2 is a point release, we are looking towards 1.3 for the future.
+17:37:55 <wes-smith> ... potentially 1.3 would be called 2.0. First we need to finish the maintenance mode housekeeping.
+17:38:24 <bigbluehat> ack frenchrh_
+17:38:48 <pchampin> topic: Roger French : Verifying and Analyzing Scientific Data
+17:38:53 <wes-smith> frenchrh_: We focus on verifying scientific data and analyzing models, down in the details of science but then connected back up to schema.org etc.
+17:39:59 <wes-smith> ... We are using JSON-LD to verify data. It lets us keep metadata inside JSON-LD and find it easily. Then we build knowledge graphs out of this linked data with JSON-LD backed up with Turtle.
+17:40:56 <wes-smith> ... We have a tool for converting between draw.io diagrams and Turtle formats.
+17:41:19 <wes-smith> ... We also have tools to drop facts from data analysis into JSON-LD.
+17:41:33 <wes-smith> ... This allows datasets to remain full without tying them to any particular database.
+17:41:49 <wes-smith> ... Good to connect to the CS side since we are from the material science side.
+17:42:05 <anatoly-scherbakov> q+
+17:42:26 <wes-smith> ... We have about 50 people in our research group and also do a lot of work with the DOE and national labs. There is a lot of interest there in linked data to make things agnostic to implementation details.
+17:42:42 <bigbluehat> ack anatoly-scherbakov
+17:43:15 <wes-smith> anatoly-scherbakov: Scientific applications of linked data is very exciting. How often do researchers/non specialists have to write or draw linked data?
+17:43:44 <wes-smith> rfrenchrh_: Our model is that this should become the normal routine way, and we focus on developing data science tools for people in our fields to do these things.
+17:44:09 <wes-smith> s/rfrenchrh_/frenchrh_
+17:44:26 <wes-smith> ... We have a lot of graduates that get hired into science labs because there is demand for this.
+17:45:18 <wes-smith> anatoly-scherbakov: YAML-LD is a lightweight way to write linked data that could be useful in your tooling, and can integrate with AI agents for writing linked data.
+17:45:28 <bigbluehat> https://json-ld.github.io/yaml-ld/spec/
+17:45:30 <wes-smith> ... I would love it if you had feedback on the candidate specification.
+17:45:34 <bigbluehat> q?
+17:46:24 <pchampin> topic: Evan Prodromou: @@
+17:46:38 <anatoly-scherbakov> I haven't been able to hide my motives from pchampin for too long :)
+17:46:48 <wes-smith> eprodrom: I am one of the editors of ActivityStreams and one of the authors of activitypub and would love to talk about them.
+17:47:03 <wes-smith> ... ActivityStreams is a JSON-LD vocabulary for representing activities and entities in social networks.
+17:47:27 <wes-smith> ... Both actors, like people and groups, that perform activities, and content-like objects, such as articles or images.
+17:47:45 <wes-smith> ... There are also events, places, and relationships in this vocabulary. It is a subject-verb-object structure.
+17:47:48 <pchampin> s/@@/Activity Streams & ActivityPub
+17:48:34 <wes-smith> ... ActivityStream's core is our main structure that defines how activities, actors, and objects work together.
+17:48:51 <wes-smith> ... We have another standard called Activity Vocabulary is where these types are defined out.
+17:50:14 <wes-smith> ... There are a few different applications of ActivityStreams - it is used in some other linked data systems, but the primary use in 2026 is Activity Pub, which is a standard for hosting activities and ActivityStream objects as well as delivering them across the network.
+17:50:36 <wes-smith> ... ActivityPub is a widely implemented standard for social network interactivity - Mastodon is the best known implementer.
+17:50:48 <wes-smith> ... There are about 100 independent implementations.
+17:51:59 <wes-smith> wes-smith has joined #json-ld
+17:52:03 <bigbluehat> eprodrom: we're able to convey information about the object, etc.
+17:52:09 <bigbluehat> ... and apply that info in various places
+17:52:16 <wes-smith> scribe+
+17:52:38 <wes-smith> eprodrom: We are at 6-7 task forces within that social CG.
+17:52:52 <wes-smith> ... The documents themselves have been in existence for 8-9 years and have not been revised in that time.
+17:53:11 <wes-smith> ... The implementation experience of those 100s of implementers has led to some understanding of clarity issues with ActivityPub/Streams.
+17:53:33 <wes-smith> ... In order to resolve these and make development of these applications easier, we are working on a revision of these documents in a new W3C WG.
+17:53:51 <wes-smith> ... The goal there is backwards compatible improvements of ActivityPub/Streams, especially w.r.t clarity and readability.
+17:54:28 <wes-smith> ... Currently, we are not looking at supporting other linked data representations such as YAML-LD or CBOR-LD, but experimentation in that area is possible.
+17:54:35 <bigbluehat> q+
+17:56:09 <wes-smith> bigbluehat: There are a lot of second to third passes on downstream specifications like these. So much of our own next chapter is helping groups understand extensibility and look towards stuff like property graphs that might be of help or simplify things. It's great that you will be here representing.
+00:00:00 <pchampin> topic: Community Meet & Greet
+17:56:30 <wes-smith> bigbluehat: Thank you everybody who has come today - we are looking for warm bodies to fill chairs and type in specifications.
+17:57:11 <wes-smith> ... We need people who are willing to contribute PRs. There are a handful of people who are visiting who didn't say anything, and I'm keen to give them time since Evan will be back.
+17:57:37 <wes-smith> json-desrosiers: I am here representing JSON Schema, but Victor invited me to talk about how these two spaces interact.
+17:57:56 <wes-smith> s/json-desrosiers/jason-desrosiers
+17:58:04 <pchampin> q+
+17:58:14 <pchampin> q-
+17:58:20 <bigbluehat> ack bigbluehat
+17:59:31 <pchampin> I would love to continue the discussions about JSON-Schema vs. SHACL for JSON-LD
+17:59:52 <jason-desrosiers> https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-08.html
+18:00:03 <jason-desrosiers> https://teamdigitale.github.io/dati-semantic-schema-editor/latest/
+18:00:41 <bigbluehat> aaron: we've mainly got questions around media types
+18:01:10 <pchampin> s/aaron:/acoburn:
+18:01:37 <pchampin> RRSAgent, make minutes
+18:01:38 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/21-json-ld-minutes.html pchampin
