@@ -1,0 +1,169 @@
+17:04:04 <RRSAgent> RRSAgent has joined #json-ld
+17:04:09 <RRSAgent> logging to https://www.w3.org/2026/01/28-json-ld-irc
+17:04:34 <TallTed> Zakim, bye
+17:04:34 <Zakim> leaving.  As of this point the attendees have been niklasl, anatoly-scherbakov, acoburn, bigbluehat, rubensworks, wes-smith, pchampin, TallTed, ivan, eprodrom, psowinski,
+17:04:34 <Zakim> Zakim has left #json-ld
+17:04:37 <Zakim> Zakim has joined #json-ld
+17:04:37 <bigbluehat> bigbluehat has joined #json-ld
+17:04:37 <Zakim> ... jason-desrosiers, frenchrh_, VictorLu, Erika_Barcelos, dlehn
+17:04:55 <TallTed> present+
+17:04:56 <anatoly-scherbakov> present+
+17:05:02 <bigbluehat> present+
+17:05:07 <azaroth> present+
+17:05:08 <bigbluehat> chair: bigbluehat
+17:05:15 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/28-json-ld-minutes.html TallTed
+17:05:17 <acoburn> present+
+17:05:23 <bigbluehat> agenda: https://www.w3.org/events/meetings/1a0cb2ad-eb25-46af-9c3c-65783a7eb5d2/20260128T120000/
+17:05:25 <agendabot> clear agenda
+17:05:25 <agendabot> agenda+ Announcements and Introductions
+17:05:25 <agendabot> agenda+ IIIF and Linked.Art
+17:05:25 <agendabot> agenda+ JSON-LD extension to JSON Schema
+17:05:25 <agendabot> agenda+ Profile URLs? or Media Types?
+17:05:25 <niklasl> present+
+17:05:28 <agendabot> agenda+ Additional Community Meet & Greet
+17:05:30 <agendabot> agenda+ Open Discussion
+17:05:32 <anatoly-scherbakov> scribe+ anatoly-scherbakov
+17:05:35 <frenchrh_> present+
+17:05:43 <TallTed> meeting: JSON-LD WG/CG Meeting
+17:05:50 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/28-json-ld-minutes.html TallTed
+17:06:16 <anatoly-scherbakov> bigbluehat: This is WG and CG call, welcome to new participants
+17:06:48 <TallTed> present: TallTed, anatoly-scherbakov, bigbluehat, azaroth, acoburn, niklasl, frenchrh_
+17:06:54 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/28-json-ld-minutes.html TallTed
+17:07:11 <ivan> present+
+17:07:40 <anatoly-scherbakov> bigbluehat: we're now focusing on YAML-LD, CBOR-LD, and then JSON-LD
+17:09:03 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/28-json-ld-minutes.html TallTed
+00:00:00 <bigbluehat> topic: IIIF and Linked.Art
+17:09:09 <anatoly-scherbakov> azaroth: I was involved with JSON-LD 1.1
+17:09:24 <anatoly-scherbakov> azaroth: Yale is not a member of W3C so I was unable to participate so much lately
+17:09:48 <anatoly-scherbakov> azaroth: would like to describe a few JSON-LD related projects
+17:09:52 <azaroth> IIIF: https://iiif.io/
+17:10:30 <anatoly-scherbakov> azaroth: IIIF was around since JSON-LD 1.0
+17:11:27 <anatoly-scherbakov> azaroth: we benefitted from Scoped Contexts in 1.1
+17:11:50 <anatoly-scherbakov> azaroth: IIIF is i18n-first, so all labels are internationalized
+17:12:08 <anatoly-scherbakov> azaroth: all labels have langString datatype
+17:12:27 <anatoly-scherbakov> azaroth: there are > 1000 institutions using IIIF, estimated 2 billion images managed
+17:12:29 <VictorLu> VictorLu has joined #JSON-LD
+17:12:35 <ivan> q+
+17:12:40 <anatoly-scherbakov> azaroth: it is a standard for libraries, museums, etc
+17:12:57 <azaroth> Linked Art: https://linked.art/
+17:13:33 <anatoly-scherbakov> ivan: ePub WG works on ePub annotations based on Web Annotations Framework
+17:13:53 <anatoly-scherbakov> ivan: labels being not properly internationalized is an issue
+17:14:17 <azaroth> https://iiif.io/api/presentation/3.0/#47-term-collisions-between-contexts
+17:14:23 <anatoly-scherbakov> ivan: latest release of RDF has a better support for i18n
+17:15:09 <Filip> Filip has joined #json-ld
+17:15:24 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/28-json-ld-minutes.html TallTed
+17:15:30 <anatoly-scherbakov> azaroth: library world has been using one standard for 50 years and we are stuck with it
+17:15:33 <anatoly-scherbakov> azaroth: museums do not have one standard
+17:16:12 <anatoly-scherbakov> azaroth: seen success in introduction of JSON-LD based APIs for museums to describe their collections in a standard way
+17:17:24 <anatoly-scherbakov> azaroth: ...as https://linked.art/api/1.0/ project
+17:18:12 <anatoly-scherbakov> azaroth: we also have a Search API where we define a straightforward Activity Streams based response format
+17:18:52 <dlehn2> present+
+17:19:29 <anatoly-scherbakov> azaroth: https://linked.art/api/rels/1/activitycarriedoutbyagent/ is an example of an API
+17:19:58 <anatoly-scherbakov> azaroth: we're trying to use best practices and JSON-LD 1.1 features
+17:20:27 <anatoly-scherbakov> azaroth: design principles: https://linked.art/api/1.0/principles/
+17:20:56 <azaroth> https://lux.collections.yale.edu/
+17:21:40 <bigbluehat> q?
+17:21:42 <bigbluehat> ack ivan
+17:21:49 <anatoly-scherbakov> azaroth: provides an interface to browse collections
+17:22:31 <anatoly-scherbakov> roberto-polli: is there an OpenAPI  definition of the API?
+17:22:51 <anatoly-scherbakov> azaroth: schema is very recursive and difficult to be expressed in OpenAPI or JSON Schema
+17:23:07 <anatoly-scherbakov> azaroth: definitions end up being quite complex
+17:23:19 <anatoly-scherbakov> azaroth: OpenAPI-generated classes tend to be very complicated
+17:23:30 <anatoly-scherbakov> azaroth: interested in use cases for it
+17:23:49 <anatoly-scherbakov> bigbluehat: next bit of our show will be about JSON Schema
+17:23:52 <bigbluehat> q?
+17:23:56 <azaroth> Our json schemas: https://linked.art/api/1.0/schema_docs/
+17:24:25 <anatoly-scherbakov> azaroth: we have an open call for Linked Art every 2 weeks
+17:24:35 <anatoly-scherbakov> azaroth: it is in Zoom, 11 AM US Eastern
+17:24:57 <anatoly-scherbakov> azaroth: IIIF is mostly in Slack, there are community calls every 3 months
+17:25:48 <azaroth> Linked Art github: https://github.com/linked-art/linked.art
+17:26:07 <azaroth> IIIF github: https://github.com/iiif/api
+17:26:47 <azaroth> Thank you anatoly-scherbakov for the scribing, apologies for speaking quickly and my New Zealand accent!
+17:27:17 <anatoly-scherbakov> anatoly-scherbakov: I apologize for the things I couldn't catch! I really hope I did capture the most important things!
+17:30:34 <azaroth> IIIF Community: https://iiif.io/get-involved/  and Linked Art community: https://linked.art/community/
+00:00:00 <bigbluehat> topic: JSON-LD extension to JSON Schema
+17:26:36 <anatoly-scherbakov> roberto-polli: we'd like to add semantic information to JSON Schema
+17:27:43 <anatoly-scherbakov> roberto-polli: we'd like to leverage JSON-LD to add semantic information to JSON Schema which describes the schema of an OpenAPI endpoint
+17:27:51 <anatoly-scherbakov> roberto-polli: we use OpenAPI 3.0
+17:29:01 <anatoly-scherbakov> roberto-polli: We could insert JSON-LD context with `x-jsonld-context` property
+17:29:19 <anatoly-scherbakov> roberto-polli: context is defined at design phase of the API
+17:29:38 <anatoly-scherbakov> roberto-polli: we do not want the API consumer to dereference anything
+17:29:50 <anatoly-scherbakov> roberto-polli: you should have all the data in the contract, no remote components
+17:30:16 <anatoly-scherbakov> roberto-polli: we provide the semantic information in the schema, not in the payload
+17:30:30 <anatoly-scherbakov> roberto-polli: we provide an open source Schema Editor tool
+17:31:04 <anatoly-scherbakov> roberto-polli: the tool interprets the schema using example data you can confirm that the RDF built from that data is what is expected
+17:31:26 <anatoly-scherbakov> roberto-polli: Presentation: https://docs.google.com/presentation/d/1qAWX1LRq9XKuPjnwSDvS0WJ2d3mlKre-0VwD_IXYKJ4/edit?slide=id.g3bfd86f75b3_0_28#slide=id.g3bfd86f75b3_0_28
+17:32:17 <bigbluehat> q?
+17:32:24 <anatoly-scherbakov> roberto-polli: You paste the schema and the example payload, and you can start your SPARQL endpoint; you can verify the adequacy of the RDF
+17:33:17 <anatoly-scherbakov> roberto-polli: example data is rendered as Turtle and as the queryable SPARQL endpoint
+17:34:18 <anatoly-scherbakov> roberto-polli: there are also suggestions about terms/ontologies to use
+17:35:27 <anatoly-scherbakov> roberto-polli: this helps you modeling data according to your ontology
+17:35:46 <anatoly-scherbakov> roberto-polli: you can also look at your ontologies in a graph visualization
+17:36:29 <anatoly-scherbakov> roberto-polli: we want syntax and semantics in one document and we do not want dereferencing
+17:36:51 <anatoly-scherbakov> roberto-polli: that's why we did not leverage JSON-LD paragraph 6.1 about interpretation of JSON as JSON-LD
+17:38:16 <anatoly-scherbakov> roberto-polli: the experience with the process has been positive
+17:38:47 <anatoly-scherbakov> roberto-polli: we also are experimenting with this approach for CSV
+17:39:58 <anatoly-scherbakov> roberto-polli: involved organizations are Istat - Italian Statistics Agency, and Italy's Digital Transformation Dept
+17:40:43 <anatoly-scherbakov> roberto-polli: Specification https://github.com/ioggstream/draft-polli-restapi-ld-keywords
+17:40:57 <anatoly-scherbakov> roberto-polli: schema editor https://github.com/teamdigitale/dati-semantic-schema-editor
+17:41:12 <anatoly-scherbakov> roberto-polli: https://teamdigitale.github.io/dati-semantic-schema-editor/latest/
+17:42:39 <anatoly-scherbakov> bigbluehat: great to see this coming together!
+00:00:00 <bigbluehat> topic: Profile URLs? or Media Types?
+17:43:59 <anatoly-scherbakov> acoburn: we're working on Containers for Linked Data Storage, similar to Linked Data Platform or Solid
+17:44:24 <anatoly-scherbakov> acoburn: what's the media type to use and how does it work with content negotiation?
+17:44:59 <anatoly-scherbakov> acoburn: Web Annotations use a media type application/ld+json with a Profile URL
+17:45:07 <anatoly-scherbakov> acoburn: this doesn't work very well in browsers due to CORS restrictions
+17:45:18 <anatoly-scherbakov> acoburn: we want anything we end up using to work in a browser
+17:45:40 <bigbluehat> Linked Web Storage WG https://www.w3.org/groups/wg/lws/
+17:45:44 <anatoly-scherbakov> acoburn: Activity Streams support the same Profile URL approach but they also support application/activity+json, or for us application/lws+json
+17:46:22 <anatoly-scherbakov> acoburn: another approach - VC and CID approach - would be application/lws
+17:46:45 <anatoly-scherbakov> acoburn: interested to hear opinions and feedback
+17:46:50 <azaroth> q+ to ask bout the CORS issue
+17:46:53 <anatoly-scherbakov> acoburn: we want a container object that'
+17:47:08 <anatoly-scherbakov> acoburn: ...is parseable by a JSON parser and a JSON-LD processor
+17:47:24 <anatoly-scherbakov> acoburn: that's what we're discussing in Linked Web Storage WG
+17:48:04 <anatoly-scherbakov> azaroth: we're using the Profile URI, what is happening with it?
+17:48:42 <anatoly-scherbakov> acoburn: it seems at least certain browsers will raise an error against a profile string that is a URL
+17:48:55 <anatoly-scherbakov> bigbluehat: this is a recent issue, maybe during last year
+17:49:18 <anatoly-scherbakov> bigbluehat: it's CORS which forbids URLs in media type parameters
+17:49:37 <anatoly-scherbakov> bigbluehat: this starts throwing errors
+17:49:38 <ioggstream> ioggstream has joined #json-ld
+17:49:39 <dlehn> related cors issue: https://github.com/w3c/json-ld-syntax/issues/436
+17:49:55 <ioggstream> bye
+17:50:08 <bigbluehat> q+
+17:50:17 <bigbluehat> ack azaroth
+17:50:17 <Zakim> azaroth, you wanted to ask bout the CORS issue
+17:50:20 <dlehn> part of that is the "simple" requests restrictions, and profiles cause an issue with that
+17:50:40 <anatoly-scherbakov> ioggstream: is it related to European Wallet?
+17:50:56 <anatoly-scherbakov> acoburn: it could be used for that
+17:51:13 <anatoly-scherbakov> acoburn: but LWS is not necessarily a requirement though
+17:51:45 <anatoly-scherbakov> bigbluehat: lately the last two options have been more popular
+17:52:09 <anatoly-scherbakov> bigbluehat: if you want to put a thing on disk and open it then you want a media type
+17:52:29 <anatoly-scherbakov> acoburn: this could be relevant to users who wish to download all content from a storage into files
+17:53:25 <anatoly-scherbakov> bigbluehat: JSON-LD notably has five profile URLs
+17:53:37 <anatoly-scherbakov> bigbluehat: they do not necessarily need five file extensions
+17:54:29 <anatoly-scherbakov> bigbluehat: there are also ideas to replace strings with enums to describe JSON-LD profiles
+17:54:54 <anatoly-scherbakov> bigbluehat: we should improve the Best Practices documentation which Gregg had started
+17:55:07 <anatoly-scherbakov> bigbluehat: it is in the list of deliverables
+17:55:16 <bigbluehat> Zakim, next item
+17:55:16 <Zakim> agendum 1 -- Announcements and Introductions -- taken up [from agendabot]
+17:55:17 <bigbluehat> Zakim, next item
+17:55:18 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, bigbluehat
+17:55:19 <bigbluehat> Zakim, next item
+17:55:19 <Zakim> I see a speaker queue remaining and respectfully decline to close this agendum, bigbluehat
+17:55:47 <anatoly-scherbakov> bigbluehat: great demos! we'd love everyone to participate in the WG
+17:56:03 <anatoly-scherbakov> bigbluehat: especially editorial help on JSON-LD specs
+17:56:17 <anatoly-scherbakov> bigbluehat: our focus in the nearest months will be YAML-LD and CBOR-LD
+17:56:25 <anatoly-scherbakov> bigbluehat: and then we'll be getting to JSON-LD 1.2
+17:56:41 <anatoly-scherbakov> bigbluehat: and then we can look into 1.3/2.0
+17:57:16 <anatoly-scherbakov> bigbluehat: reach out to me or in the IRC to discuss participation, or in the GitHub Discussions space
+17:59:36 <bigbluehat> Zakim, end meeting
+17:59:36 <Zakim> As of this point the attendees have been TallTed, anatoly-scherbakov, bigbluehat, azaroth, acoburn, niklasl, frenchrh_, ivan, dlehn
+17:59:36 <Zakim> RRSAgent, please draft minutes
+17:59:37 <RRSAgent> I have made the request to generate https://www.w3.org/2026/01/28-json-ld-minutes.html Zakim
+17:59:43 <Zakim> I am happy to have been of service, bigbluehat; please remember to excuse RRSAgent.  Goodbye
+17:59:44 <Zakim> Zakim has left #json-ld
+17:59:44 <bigbluehat> RRSAgent, bye
+17:59:44 <RRSAgent> I see no action items
+00:00:00 <bigbluehat> present+ ioggstream
+00:00:00 <bigbluehat> s/roberto-polli:/ioggstream:/g
